@@ -105,7 +105,7 @@ namespace com.sbs.gui.compositionorg
         /// <summary>
         /// Возвращаем все подразделения
         /// </summary>
-        /// <param name="pDbType"></param>
+        /// <param name="pDbType">тип взаимодействия с базой</param>
         /// <returns></returns>
         public DataTable getUnit(string pDbType)
         {
@@ -120,6 +120,38 @@ namespace com.sbs.gui.compositionorg
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT id, name, ref_status FROM unit";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        /// <summary>
+        /// Возвращаем все статусы
+        /// </summary>
+        /// <param name="pDbType">тип взаимодействия с базой</param>
+        /// <returns></returns>
+        public DataTable getStatus(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, textcolor, backcolor FROM ref_status";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
