@@ -38,7 +38,8 @@
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textcolor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backcolor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1.SuspendLayout();
@@ -113,7 +114,8 @@
             this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.name,
-            this.status,
+            this.status_name,
+            this.status_id,
             this.textcolor,
             this.backcolor});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -140,13 +142,20 @@
             this.name.Name = "name";
             this.name.ReadOnly = true;
             // 
-            // status
+            // status_name
             // 
-            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.status.HeaderText = "Статус";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Width = 66;
+            this.status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.status_name.HeaderText = "Статус";
+            this.status_name.Name = "status_name";
+            this.status_name.ReadOnly = true;
+            this.status_name.Width = 66;
+            // 
+            // status_id
+            // 
+            this.status_id.HeaderText = "status_id";
+            this.status_id.Name = "status_id";
+            this.status_id.ReadOnly = true;
+            this.status_id.Visible = false;
             // 
             // textcolor
             // 
@@ -194,7 +203,8 @@
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn textcolor;
         private System.Windows.Forms.DataGridViewTextBoxColumn backcolor;
     }

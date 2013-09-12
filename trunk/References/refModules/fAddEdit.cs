@@ -50,7 +50,7 @@ namespace com.sbs.gui.references.modules
         private void button_ok_Click(object sender, EventArgs e)
         {
             saveData();
-            DialogResult = DialogResult.OK;
+            if (changeData == true) DialogResult = DialogResult.OK;
         }
 
         private void button_apply_Click(object sender, EventArgs e)
@@ -114,7 +114,7 @@ namespace com.sbs.gui.references.modules
 
                 con.Close();
             }
-            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return; }
+            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); changeData = false; return; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             changeData = true;

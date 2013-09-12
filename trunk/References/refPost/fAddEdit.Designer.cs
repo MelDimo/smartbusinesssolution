@@ -36,6 +36,7 @@
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox_status = new System.Windows.Forms.ComboBox();
+            this.textBox_id = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +46,7 @@
             this.panel1.Controls.Add(this.button_apply);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 67);
+            this.panel1.Location = new System.Drawing.Point(0, 90);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(406, 35);
             this.panel1.TabIndex = 9;
@@ -86,7 +87,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(13, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 10;
@@ -96,7 +97,7 @@
             // 
             this.textBox_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_name.Location = new System.Drawing.Point(97, 10);
+            this.textBox_name.Location = new System.Drawing.Point(97, 38);
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(297, 20);
             this.textBox_name.TabIndex = 11;
@@ -104,7 +105,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 39);
+            this.label2.Location = new System.Drawing.Point(13, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 12;
@@ -114,22 +115,33 @@
             // 
             this.comboBox_status.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_status.FormattingEnabled = true;
-            this.comboBox_status.Location = new System.Drawing.Point(97, 36);
+            this.comboBox_status.Location = new System.Drawing.Point(97, 64);
             this.comboBox_status.Name = "comboBox_status";
             this.comboBox_status.Size = new System.Drawing.Size(297, 21);
             this.comboBox_status.TabIndex = 13;
+            // 
+            // textBox_id
+            // 
+            this.textBox_id.Location = new System.Drawing.Point(16, 12);
+            this.textBox_id.Name = "textBox_id";
+            this.textBox_id.ReadOnly = true;
+            this.textBox_id.Size = new System.Drawing.Size(100, 20);
+            this.textBox_id.TabIndex = 14;
             // 
             // fAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(406, 102);
+            this.ClientSize = new System.Drawing.Size(406, 125);
+            this.Controls.Add(this.textBox_id);
             this.Controls.Add(this.comboBox_status);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_name);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(422, 163);
             this.Name = "fAddEdit";
             this.Text = "fAddEdit";
             this.panel1.ResumeLayout(false);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.TextBox textBox_name;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox_status;
+        private System.Windows.Forms.TextBox textBox_id;
     }
 }
