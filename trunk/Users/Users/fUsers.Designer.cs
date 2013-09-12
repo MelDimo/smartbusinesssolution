@@ -1,4 +1,4 @@
-﻿namespace Users
+﻿namespace com.sbs.gui.users
 {
     partial class fUsers
     {
@@ -44,19 +44,22 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.tSComboBox_organization = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.tSComboBox_branch = new System.Windows.Forms.ToolStripComboBox();
+            this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
+            this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip_bottom
             // 
             this.statusStrip_bottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_recCount});
-            this.statusStrip_bottom.Location = new System.Drawing.Point(0, 401);
+            this.statusStrip_bottom.Location = new System.Drawing.Point(0, 380);
             this.statusStrip_bottom.Name = "statusStrip_bottom";
-            this.statusStrip_bottom.Size = new System.Drawing.Size(758, 22);
+            this.statusStrip_bottom.Size = new System.Drawing.Size(630, 22);
             this.statusStrip_bottom.TabIndex = 6;
             this.statusStrip_bottom.Text = "statusStrip_bottom";
             // 
@@ -78,7 +81,7 @@
             this.tSButton_doc});
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_top.Name = "toolStrip_top";
-            this.toolStrip_top.Size = new System.Drawing.Size(758, 25);
+            this.toolStrip_top.Size = new System.Drawing.Size(630, 25);
             this.toolStrip_top.TabIndex = 7;
             this.toolStrip_top.Text = "toolStrip_top";
             // 
@@ -143,17 +146,19 @@
             this.toolStripLabel2,
             this.tSComboBox_organization,
             this.toolStripLabel3,
-            this.toolStripComboBox1});
+            this.tSComboBox_branch,
+            this.tSButton_applyFilter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(758, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(630, 25);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
+            this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(69, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(73, 22);
             this.toolStripLabel1.Text = "Тип записи";
             // 
             // tSComboBox_RecType
@@ -167,8 +172,9 @@
             // 
             // toolStripLabel2
             // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(79, 22);
+            this.toolStripLabel2.Size = new System.Drawing.Size(84, 22);
             this.toolStripLabel2.Text = "Организация";
             // 
             // tSComboBox_organization
@@ -179,25 +185,55 @@
             // 
             // toolStripLabel3
             // 
+            this.toolStripLabel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(64, 22);
+            this.toolStripLabel3.Size = new System.Drawing.Size(70, 22);
             this.toolStripLabel3.Text = "Заведение";
             // 
-            // toolStripComboBox1
+            // tSComboBox_branch
             // 
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.tSComboBox_branch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tSComboBox_branch.Name = "tSComboBox_branch";
+            this.tSComboBox_branch.Size = new System.Drawing.Size(121, 25);
+            // 
+            // tSButton_applyFilter
+            // 
+            this.tSButton_applyFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_applyFilter.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_applyFilter.Image")));
+            this.tSButton_applyFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_applyFilter.Name = "tSButton_applyFilter";
+            this.tSButton_applyFilter.Size = new System.Drawing.Size(23, 22);
+            this.tSButton_applyFilter.Text = "apply_filter";
+            this.tSButton_applyFilter.ToolTipText = "Применить фильтр";
+            // 
+            // dataGridView_main
+            // 
+            this.dataGridView_main.AllowUserToAddRows = false;
+            this.dataGridView_main.AllowUserToDeleteRows = false;
+            this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_main.Location = new System.Drawing.Point(0, 50);
+            this.dataGridView_main.MultiSelect = false;
+            this.dataGridView_main.Name = "dataGridView_main";
+            this.dataGridView_main.ReadOnly = true;
+            this.dataGridView_main.RowHeadersVisible = false;
+            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_main.Size = new System.Drawing.Size(630, 330);
+            this.dataGridView_main.TabIndex = 9;
             // 
             // fUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 423);
+            this.ClientSize = new System.Drawing.Size(630, 402);
+            this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStrip_top);
             this.Controls.Add(this.statusStrip_bottom);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(646, 440);
             this.Name = "fUsers";
+            this.ShowInTaskbar = false;
             this.Text = "Сотрудники";
             this.statusStrip_bottom.ResumeLayout(false);
             this.statusStrip_bottom.PerformLayout();
@@ -205,6 +241,7 @@
             this.toolStrip_top.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,7 +264,9 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripComboBox tSComboBox_organization;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox tSComboBox_branch;
+        private System.Windows.Forms.ToolStripButton tSButton_applyFilter;
+        private System.Windows.Forms.DataGridView dataGridView_main;
 
     }
 }
