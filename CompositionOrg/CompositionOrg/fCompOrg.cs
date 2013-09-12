@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using com.sbs.dll.dto;
 
 namespace com.sbs.gui.compositionorg
 {
@@ -15,6 +16,7 @@ namespace com.sbs.gui.compositionorg
         private DataTable dtOrg = new DataTable();
         private DataTable dtBranch = new DataTable();
         private DataTable dtUnit = new DataTable();
+        private DataTable dtStatus = new DataTable();
 
         public fCompOrg()
         {
@@ -31,6 +33,7 @@ namespace com.sbs.gui.compositionorg
                 dtOrg = dbAccess.getOrganization("offline");
                 dtBranch = dbAccess.getBranch("offline");
                 dtUnit = dbAccess.getUnit("offline");
+                dtStatus = dbAccess.getStatus("offline");
             }
             catch (Exception exc) { uMessage.Show("Невозможно получить данные!", exc, SystemIcons.Error); Close(); }
 
@@ -49,7 +52,8 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_orgAdd_Click(object sender, EventArgs e)
         {
-
+            fAddEdit_org faddeditorg = new fAddEdit_org(new CompOrgDTO.OrganizationDTO(), dtStatus);
+            faddeditorg.ShowDialog();
         }
 
         private void tSButton_orgEdit_Click(object sender, EventArgs e)
