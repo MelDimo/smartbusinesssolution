@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users", "Users\Users.csproj", "{5111C2FF-BCF1-44B0-8ED0-D4AD9A807DC1}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
