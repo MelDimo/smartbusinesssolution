@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace CompositionOrg
+namespace com.sbs.gui.compositionorg
 {
     public partial class fCompOrg : Form
     {
