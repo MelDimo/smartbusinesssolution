@@ -77,8 +77,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fAddEdit_branch.resx">
+      <DependentUpon>fAddEdit_branch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fAddEdit_org.resx">
       <DependentUpon>fAddEdit_org.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddEdit_unit.resx">
+      <DependentUpon>fAddEdit_unit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fCompOrg.resx">
       <DependentUpon>fCompOrg.cs</DependentUpon>

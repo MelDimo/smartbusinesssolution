@@ -11,24 +11,22 @@ namespace com.sbs.gui.compositionorg
 {
     class DBaccess
     {
-        /// <summary>
-        /// Возвращаем все организации
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
+        #region Organization
+
         public DataTable getOrganization(string pDbType)
         {
             DataTable dtResult = new DataTable();
 
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
-            DataTable dt = new DataTable();
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name, ref_status FROM organization";
+                command.CommandText = "SELECT org.id, org.name, org.ref_status, refstat.name ref_status_name " +
+                                        " FROM organization org " +
+                                        " INNER JOIN ref_status refstat ON refstat.id = org.ref_status";
                 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -45,11 +43,8 @@ namespace com.sbs.gui.compositionorg
 
         public void addOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
         {
-            DataTable dtResult = new DataTable();
-
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
-            DataTable dt = new DataTable();
             try
             {
                 con.Open();
@@ -59,10 +54,7 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pOrgDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pOrgDTO.RefStatus;
 
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
+                command.ExecuteNonQuery();
 
                 con.Close();
             }
@@ -70,24 +62,67 @@ namespace com.sbs.gui.compositionorg
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        /// <summary>
-        /// Возвращаем все заведения
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
+        public void editOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE organization SET name = @name, ref_status = @ref_status WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pOrgDTO.Id;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pOrgDTO.Name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pOrgDTO.RefStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void delOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM organization WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pOrgDTO.Id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+        
+        #endregion
+
+        #region Branch
+
         public DataTable getBranch(string pDbType)
         {
             DataTable dtResult = new DataTable();
 
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
-            DataTable dt = new DataTable();
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name, ref_status FROM branch";
+                command.CommandText = "SELECT br.id, br.name, br.organization, br.ref_status, stat.name ref_status_name, br.ref_city, city.name ref_city_name" +
+                                        " FROM branch AS br " +
+                                        " INNER JOIN ref_status AS stat ON stat.id = br.ref_status " +
+                                        " LEFT JOIN ref_city AS city ON city.id = br.ref_city";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -102,24 +137,98 @@ namespace com.sbs.gui.compositionorg
             return dtResult;
         }
 
-        /// <summary>
-        /// Возвращаем все подразделения
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
+        public void addBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
+        {
+            object ref_city = DBNull.Value;
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO branch(name, organization, ref_city, ref_status) VALUES(@name, @organization, @ref_city, @ref_status)";
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pBranchDTO.Name;
+                command.Parameters.Add("organization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
+                if(pBranchDTO.RefCity != 0) ref_city = pBranchDTO.RefCity;
+                command.Parameters.Add("ref_city", SqlDbType.Int).Value = ref_city;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pBranchDTO.RefStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void editBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
+        {
+            object ref_city = DBNull.Value;
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE branch SET name = @name, organization = @organization, ref_city = @ref_city, ref_status = @ref_status"+
+                                        " WHERE id = @id";
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pBranchDTO.Name;
+                command.Parameters.Add("organization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
+                if (pBranchDTO.RefCity != 0) ref_city = pBranchDTO.RefCity;
+                command.Parameters.Add("ref_city", SqlDbType.Int).Value = ref_city;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pBranchDTO.RefStatus;
+                command.Parameters.Add("id", SqlDbType.Int).Value = pBranchDTO.Id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void delBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM branch WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pBranchDTO.Id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
+
+        #region Unit
+
         public DataTable getUnit(string pDbType)
         {
             DataTable dtResult = new DataTable();
 
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
-            DataTable dt = new DataTable();
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name, ref_status FROM unit";
+                command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name "+
+                                        " FROM unit un "+
+                                        " INNER JOIN ref_status stat ON stat.id = un.ref_status";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -134,24 +243,68 @@ namespace com.sbs.gui.compositionorg
             return dtResult;
         }
 
-        /// <summary>
-        /// Возвращаем все статусы
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
+        public void addUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO unit(name, branch, ref_status) VALUES(@name, @branch, @ref_status)";
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
+
         public DataTable getStatus(string pDbType)
         {
             DataTable dtResult = new DataTable();
 
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
-            DataTable dt = new DataTable();
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT id, name, textcolor, backcolor FROM ref_status";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCity(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, ref_status FROM ref_city";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
