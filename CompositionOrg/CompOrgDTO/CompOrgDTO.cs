@@ -38,6 +38,13 @@ namespace com.sbs.dll.dto
             private string _name;
             private int _refStatus;
             private int _refCity;
+            private int _refOrg;
+
+            public int RefOrg
+            {
+                get { return _refOrg; }
+                set { _refOrg = value; }
+            }
 
             public int RefCity
             {
@@ -69,6 +76,14 @@ namespace com.sbs.dll.dto
             private int _id;
             private string _name;
             private int _refStatus;
+            private int _branch;
+
+            public int Branch
+            {
+                get { return _branch; }
+                set { _branch = value; }
+            }
+            
 
             public int RefStatus
             {

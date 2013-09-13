@@ -138,6 +138,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Name = "fAddEdit_org";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fAddEdit_org";
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
