@@ -63,7 +63,10 @@ namespace com.sbs.gui.compositionorg
             dataGridView_unit.DataSource = dtUnit;
             dataGridView_unit.Columns["unit_id"].DataPropertyName = "id";
             dataGridView_unit.Columns["unit_name"].DataPropertyName = "name";
+            dataGridView_unit.Columns["unit_branch"].DataPropertyName = "branch";
+            dataGridView_unit.Columns["unit_ref_status_name"].DataPropertyName = "ref_status_name";
             dataGridView_unit.Columns["unit_ref_status"].DataPropertyName = "ref_status";
+
         }
 
         #region Organization
@@ -129,7 +132,12 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_branchAdd_Click(object sender, EventArgs e)
         {
-            fAddEdit_branch faddeditbranch = new fAddEdit_branch(new CompOrgDTO.BranchDTO(), dtOrg, dtStatus, dtCity);
+            DataGridViewRow dataRow = dataGridView_org.SelectedRows[0];
+            CompOrgDTO.BranchDTO oBranchDTO = new CompOrgDTO.BranchDTO();
+
+            oBranchDTO.RefOrg = (int)dataRow.Cells["org_id"].Value;
+
+            fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Новое заведение";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
         }
@@ -193,19 +201,92 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_unitAdd_Click(object sender, EventArgs e)
         {
-            fAddEdit_unit faddeditunit = new fAddEdit_unit(new CompOrgDTO.UnitDTO(), dtBranch, dtStatus);
+            DataGridViewRow dataRow = dataGridView_branch.SelectedRows[0];
+            CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
+
+            oUnitDTO.Branch = (int)dataRow.Cells["branch_id"].Value;
+
+            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus);
+            faddeditunit.Text = "Новое подразделение";
+            if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
+
         }
 
         private void tSButton_unitEdit_Click(object sender, EventArgs e)
         {
+            if (dataGridView_unit.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataGridViewRow dataRow = dataGridView_unit.SelectedRows[0];
+            CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
+
+            oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
+            oUnitDTO.Name = dataRow.Cells["unit_name"].Value.ToString();
+            oUnitDTO.RefStatus = (int)dataRow.Cells["unit_ref_status"].Value;
+            oUnitDTO.Branch = (int)dataRow.Cells["unit_branch"].Value;
+
+            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus);
+            faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
+            if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
 
         }
 
         private void tSButton_unitDel_Click(object sender, EventArgs e)
         {
+            if (dataGridView_unit.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для удаления.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
+            DataGridViewRow dataRow = dataGridView_unit.SelectedRows[0];
+
+            if (MessageBox.Show("Вы уверены что хотите удалить '"
+                + dataRow.Cells["unit_name"].Value.ToString() + "'?",
+                GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
+            try
+            {
+                dbAccess.delUnit("offline", oUnitDTO);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка удаления записи.", exc, SystemIcons.Error); }
+
+            initData();
         }
 
         #endregion
+
+        private void fCompOrg_Shown(object sender, EventArgs e)
+        {
+            dataGridView_org.SelectionChanged += new EventHandler(dataGridView_org_SelectionChanged);
+            dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
+            dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
+        }
+
+        void dataGridView_org_SelectionChanged(object sender, EventArgs e)
+        {
+            (dataGridView_branch.DataSource as DataTable).DefaultView.RowFilter =
+                string.Format("organization = '{0}'", dataGridView_org.SelectedRows[0].Cells["org_id"].Value);
+        }
+
+        void dataGridView_branch_SelectionChanged(object sender, EventArgs e)
+        {
+            (dataGridView_unit.DataSource as DataTable).DefaultView.RowFilter = 
+                string.Format("branch = '{0}'", dataGridView_branch.SelectedRows[0].Cells["branch_id"].Value);
+        }
+
+        void dataGridView_unit_SelectionChanged(object sender, EventArgs e)
+        {
+           
+        }
+
     }
 }

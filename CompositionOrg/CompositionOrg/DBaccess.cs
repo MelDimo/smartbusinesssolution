@@ -26,7 +26,8 @@ namespace com.sbs.gui.compositionorg
 
                 command.CommandText = "SELECT org.id, org.name, org.ref_status, refstat.name ref_status_name " +
                                         " FROM organization org " +
-                                        " INNER JOIN ref_status refstat ON refstat.id = org.ref_status";
+                                        " INNER JOIN ref_status refstat ON refstat.id = org.ref_status"+
+                                        " ORDER BY org.name";
                 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -122,7 +123,8 @@ namespace com.sbs.gui.compositionorg
                 command.CommandText = "SELECT br.id, br.name, br.organization, br.ref_status, stat.name ref_status_name, br.ref_city, city.name ref_city_name" +
                                         " FROM branch AS br " +
                                         " INNER JOIN ref_status AS stat ON stat.id = br.ref_status " +
-                                        " LEFT JOIN ref_city AS city ON city.id = br.ref_city";
+                                        " LEFT JOIN ref_city AS city ON city.id = br.ref_city"+
+                                        " ORDER BY br.name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -228,7 +230,8 @@ namespace com.sbs.gui.compositionorg
 
                 command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name "+
                                         " FROM unit un "+
-                                        " INNER JOIN ref_status stat ON stat.id = un.ref_status";
+                                        " INNER JOIN ref_status stat ON stat.id = un.ref_status"+
+                                        " ORDER BY un.name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -256,6 +259,49 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void editUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE unit SET name = @name, ref_status = @ref_status, branch = @branch WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pUnitDTO.Id;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void delUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
+        {
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM unit WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pUnitDTO.Id;
 
                 command.ExecuteNonQuery();
 

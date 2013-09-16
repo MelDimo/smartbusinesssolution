@@ -148,9 +148,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(9, 74);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 28;
-            this.label1.Text = "Организация";
+            this.label1.Text = "Заведение";
             // 
             // fAddEdit_unit
             // 
