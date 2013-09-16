@@ -77,5 +77,34 @@ namespace com.sbs.gui.users
 
             return dtResult;
         }
+
+
+        public DataTable getUnit(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name FROM unit" +
+                                        " WHERE ref_status = @ref_status";
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return dtResult; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 }
