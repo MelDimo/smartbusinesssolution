@@ -47,6 +47,8 @@
             this.tSComboBox_branch = new System.Windows.Forms.ToolStripComboBox();
             this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
+            this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -57,9 +59,9 @@
             // 
             this.statusStrip_bottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_recCount});
-            this.statusStrip_bottom.Location = new System.Drawing.Point(0, 380);
+            this.statusStrip_bottom.Location = new System.Drawing.Point(0, 472);
             this.statusStrip_bottom.Name = "statusStrip_bottom";
-            this.statusStrip_bottom.Size = new System.Drawing.Size(630, 22);
+            this.statusStrip_bottom.Size = new System.Drawing.Size(864, 22);
             this.statusStrip_bottom.TabIndex = 6;
             this.statusStrip_bottom.Text = "statusStrip_bottom";
             // 
@@ -81,7 +83,7 @@
             this.tSButton_doc});
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_top.Name = "toolStrip_top";
-            this.toolStrip_top.Size = new System.Drawing.Size(630, 25);
+            this.toolStrip_top.Size = new System.Drawing.Size(864, 25);
             this.toolStrip_top.TabIndex = 7;
             this.toolStrip_top.Text = "toolStrip_top";
             // 
@@ -93,6 +95,7 @@
             this.tSButton_add.Name = "tSButton_add";
             this.tSButton_add.Size = new System.Drawing.Size(23, 22);
             this.tSButton_add.Text = "Добавить";
+            this.tSButton_add.Click += new System.EventHandler(this.tSButton_add_Click);
             // 
             // tSButton_edit
             // 
@@ -102,6 +105,7 @@
             this.tSButton_edit.Name = "tSButton_edit";
             this.tSButton_edit.Size = new System.Drawing.Size(23, 22);
             this.tSButton_edit.Text = "Редактировать";
+            this.tSButton_edit.Click += new System.EventHandler(this.tSButton_edit_Click);
             // 
             // tSButton_del
             // 
@@ -111,6 +115,7 @@
             this.tSButton_del.Name = "tSButton_del";
             this.tSButton_del.Size = new System.Drawing.Size(23, 22);
             this.tSButton_del.Text = "Удалить";
+            this.tSButton_del.Click += new System.EventHandler(this.tSButton_del_Click);
             // 
             // toolStripSeparator1
             // 
@@ -147,10 +152,12 @@
             this.tSComboBox_organization,
             this.toolStripLabel3,
             this.tSComboBox_branch,
+            this.toolStripLabel4,
+            this.tSComboBox_unit,
             this.tSButton_applyFilter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(630, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(864, 25);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -218,14 +225,27 @@
             this.dataGridView_main.ReadOnly = true;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(630, 330);
+            this.dataGridView_main.Size = new System.Drawing.Size(864, 422);
             this.dataGridView_main.TabIndex = 9;
+            // 
+            // tSComboBox_unit
+            // 
+            this.tSComboBox_unit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tSComboBox_unit.Name = "tSComboBox_unit";
+            this.tSComboBox_unit.Size = new System.Drawing.Size(121, 25);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(99, 22);
+            this.toolStripLabel4.Text = "Подразделение";
             // 
             // fUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 402);
+            this.ClientSize = new System.Drawing.Size(864, 494);
             this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStrip_top);
@@ -267,6 +287,8 @@
         private System.Windows.Forms.ToolStripComboBox tSComboBox_branch;
         private System.Windows.Forms.ToolStripButton tSButton_applyFilter;
         private System.Windows.Forms.DataGridView dataGridView_main;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripComboBox tSComboBox_unit;
 
     }
 }
