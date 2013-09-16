@@ -12,11 +12,6 @@ namespace com.sbs.gui.users
 {
     class DBaccess
     {
-        /// <summary>
-        /// Возвращаем доступные организации
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
         public DataTable getOrganipation(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -29,8 +24,12 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name FROM organization" +
-                                        " WHERE ref_status = @ref_status";
+                command.CommandText = "SELECT 0 AS id, '< все >' AS name " +
+                                        " FROM organization " +
+                                        " UNION " +
+                                        " SELECT id, name FROM organization" +
+                                        " WHERE ref_status = @ref_status"+
+                                        " ORDER BY name";
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -45,11 +44,6 @@ namespace com.sbs.gui.users
             return dtResult;
         }
 
-        /// <summary>
-        /// Возвращаем доступные заведения
-        /// </summary>
-        /// <param name="pDbType">тип взаимодействия с базой</param>
-        /// <returns></returns>
         public DataTable getBranch(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -62,8 +56,12 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name FROM branch" +
-                                        " WHERE ref_status = @ref_status";
+                command.CommandText = "SELECT 0 AS id, '< все >' AS name, 0 AS organization" +
+                                        " FROM branch " +
+                                        " UNION " +
+                                        " SELECT id, name, organization FROM branch" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -77,7 +75,6 @@ namespace com.sbs.gui.users
 
             return dtResult;
         }
-
 
         public DataTable getUnit(string pDbType)
         {
@@ -91,8 +88,12 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name FROM unit" +
-                                        " WHERE ref_status = @ref_status";
+                command.CommandText = "SELECT 0 AS id, '< все >' AS name, 0 AS branch " +
+                                        " FROM unit " +
+                                        " UNION " +
+                                        " SELECT id, name, branch FROM unit" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -106,5 +107,7 @@ namespace com.sbs.gui.users
 
             return dtResult;
         }
+
+
     }
 }
