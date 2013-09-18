@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fUsers));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip_bottom = new System.Windows.Forms.StatusStrip();
             this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_top = new System.Windows.Forms.ToolStrip();
@@ -45,10 +48,11 @@
             this.tSComboBox_organization = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.tSComboBox_branch = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
             this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
-            this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.tSButton_group = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -79,6 +83,7 @@
             this.tSButton_edit,
             this.tSButton_del,
             this.toolStripSeparator1,
+            this.tSButton_group,
             this.tSButton_menu,
             this.tSButton_doc});
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
@@ -131,6 +136,7 @@
             this.tSButton_menu.Size = new System.Drawing.Size(23, 22);
             this.tSButton_menu.Text = "avaliable_mnu";
             this.tSButton_menu.ToolTipText = "Доступные пункты меню";
+            this.tSButton_menu.Click += new System.EventHandler(this.tSButton_menu_Click);
             // 
             // tSButton_doc
             // 
@@ -176,6 +182,7 @@
             "Группа"});
             this.tSComboBox_RecType.Name = "tSComboBox_RecType";
             this.tSComboBox_RecType.Size = new System.Drawing.Size(121, 25);
+            this.tSComboBox_RecType.SelectedIndexChanged += new System.EventHandler(this.tSComboBox_RecType_SelectedIndexChanged);
             // 
             // toolStripLabel2
             // 
@@ -203,6 +210,19 @@
             this.tSComboBox_branch.Name = "tSComboBox_branch";
             this.tSComboBox_branch.Size = new System.Drawing.Size(121, 25);
             // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(99, 22);
+            this.toolStripLabel4.Text = "Подразделение";
+            // 
+            // tSComboBox_unit
+            // 
+            this.tSComboBox_unit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tSComboBox_unit.Name = "tSComboBox_unit";
+            this.tSComboBox_unit.Size = new System.Drawing.Size(121, 25);
+            // 
             // tSButton_applyFilter
             // 
             this.tSButton_applyFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -212,34 +232,57 @@
             this.tSButton_applyFilter.Size = new System.Drawing.Size(23, 22);
             this.tSButton_applyFilter.Text = "apply_filter";
             this.tSButton_applyFilter.ToolTipText = "Применить фильтр";
+            this.tSButton_applyFilter.Click += new System.EventHandler(this.tSButton_applyFilter_Click);
             // 
             // dataGridView_main
             // 
             this.dataGridView_main.AllowUserToAddRows = false;
             this.dataGridView_main.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_main.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_main.DefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(0, 50);
             this.dataGridView_main.MultiSelect = false;
             this.dataGridView_main.Name = "dataGridView_main";
             this.dataGridView_main.ReadOnly = true;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_main.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_main.Size = new System.Drawing.Size(864, 422);
             this.dataGridView_main.TabIndex = 9;
             // 
-            // tSComboBox_unit
+            // tSButton_group
             // 
-            this.tSComboBox_unit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tSComboBox_unit.Name = "tSComboBox_unit";
-            this.tSComboBox_unit.Size = new System.Drawing.Size(121, 25);
-            // 
-            // toolStripLabel4
-            // 
-            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(99, 22);
-            this.toolStripLabel4.Text = "Подразделение";
+            this.tSButton_group.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_group.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_group.Image")));
+            this.tSButton_group.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_group.Name = "tSButton_group";
+            this.tSButton_group.Size = new System.Drawing.Size(23, 22);
+            this.tSButton_group.Text = "avalable_group";
+            this.tSButton_group.ToolTipText = "Состоит в группах";
+            this.tSButton_group.Click += new System.EventHandler(this.tSButton_group_Click);
             // 
             // fUsers
             // 
@@ -251,10 +294,11 @@
             this.Controls.Add(this.toolStrip_top);
             this.Controls.Add(this.statusStrip_bottom);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(646, 440);
+            this.MinimumSize = new System.Drawing.Size(880, 532);
             this.Name = "fUsers";
             this.ShowInTaskbar = false;
             this.Text = "Сотрудники";
+            this.Shown += new System.EventHandler(this.fUsers_Shown);
             this.statusStrip_bottom.ResumeLayout(false);
             this.statusStrip_bottom.PerformLayout();
             this.toolStrip_top.ResumeLayout(false);
@@ -289,6 +333,7 @@
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         private System.Windows.Forms.ToolStripComboBox tSComboBox_unit;
+        private System.Windows.Forms.ToolStripButton tSButton_group;
 
     }
 }
