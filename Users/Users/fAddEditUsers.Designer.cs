@@ -34,16 +34,14 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tabControl_main = new System.Windows.Forms.TabControl();
             this.tabPage_official = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox_sname = new System.Windows.Forms.TextBox();
-            this.textBox_fname = new System.Windows.Forms.TextBox();
-            this.textBox_lname = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage_private = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox_status = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dateTimePicker_bdate = new System.Windows.Forms.DateTimePicker();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox_tabn = new System.Windows.Forms.TextBox();
+            this.button_nextTabN = new System.Windows.Forms.Button();
+            this.pictureBox_users = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,24 +49,26 @@
             this.comboBox_branch = new System.Windows.Forms.ComboBox();
             this.comboBox_unit = new System.Windows.Forms.ComboBox();
             this.comboBox_post = new System.Windows.Forms.ComboBox();
-            this.pictureBox_users = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.dateTimePicker_bdate = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
             this.comboBox_org = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox_tabn = new System.Windows.Forms.TextBox();
-            this.button_nextTabN = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox_sname = new System.Windows.Forms.TextBox();
+            this.textBox_lname = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox_fname = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox_status = new System.Windows.Forms.ComboBox();
+            this.tabPage_private = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.tabControl_main.SuspendLayout();
             this.tabPage_official.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_users)).BeginInit();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_users)).BeginInit();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -134,117 +134,96 @@
             this.tabPage_official.TabIndex = 0;
             this.tabPage_official.Text = "Служебная информация";
             // 
-            // tableLayoutPanel1
+            // panel2
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.panel2.Controls.Add(this.tableLayoutPanel4);
+            this.panel2.Controls.Add(this.pictureBox_users);
+            this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Controls.Add(this.tableLayoutPanel1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(669, 193);
+            this.panel2.TabIndex = 9;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_sname, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_lname, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.textBox_fname, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox_status, 3, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(511, 54);
-            this.tableLayoutPanel1.TabIndex = 6;
+            this.tableLayoutPanel4.ColumnCount = 5;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.label10, 3, 0);
+            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker_bdate, 4, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBox_tabn, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button_nextTabN, 2, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 119);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(511, 25);
+            this.tableLayoutPanel4.TabIndex = 9;
             // 
-            // textBox_sname
+            // label10
             // 
-            this.textBox_sname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_sname.Location = new System.Drawing.Point(257, 30);
-            this.textBox_sname.Name = "textBox_sname";
-            this.textBox_sname.Size = new System.Drawing.Size(121, 20);
-            this.textBox_sname.TabIndex = 5;
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Location = new System.Drawing.Point(281, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(89, 25);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Дата рождения";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBox_fname
+            // dateTimePicker_bdate
             // 
-            this.textBox_fname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_fname.Location = new System.Drawing.Point(130, 30);
-            this.textBox_fname.Name = "textBox_fname";
-            this.textBox_fname.Size = new System.Drawing.Size(121, 20);
-            this.textBox_fname.TabIndex = 4;
+            this.dateTimePicker_bdate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker_bdate.Location = new System.Drawing.Point(376, 3);
+            this.dateTimePicker_bdate.Name = "dateTimePicker_bdate";
+            this.dateTimePicker_bdate.Size = new System.Drawing.Size(99, 20);
+            this.dateTimePicker_bdate.TabIndex = 1;
             // 
-            // textBox_lname
+            // label8
             // 
-            this.textBox_lname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_lname.Location = new System.Drawing.Point(3, 30);
-            this.textBox_lname.Name = "textBox_lname";
-            this.textBox_lname.Size = new System.Drawing.Size(121, 20);
-            this.textBox_lname.TabIndex = 3;
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(104, 25);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Табельный номер";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label3
+            // textBox_tabn
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(257, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 27);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Отчество";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBox_tabn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_tabn.Location = new System.Drawing.Point(113, 3);
+            this.textBox_tabn.Name = "textBox_tabn";
+            this.textBox_tabn.Size = new System.Drawing.Size(132, 20);
+            this.textBox_tabn.TabIndex = 3;
             // 
-            // label2
+            // button_nextTabN
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(130, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 27);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Имя";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_nextTabN.Location = new System.Drawing.Point(251, 3);
+            this.button_nextTabN.Name = "button_nextTabN";
+            this.button_nextTabN.Size = new System.Drawing.Size(24, 19);
+            this.button_nextTabN.TabIndex = 4;
+            this.button_nextTabN.Text = "->";
+            this.button_nextTabN.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // pictureBox_users
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(121, 27);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Фамилия";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tabPage_private
-            // 
-            this.tabPage_private.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_private.Name = "tabPage_private";
-            this.tabPage_private.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_private.Size = new System.Drawing.Size(675, 290);
-            this.tabPage_private.TabIndex = 1;
-            this.tabPage_private.Text = "Личная информация";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(384, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 27);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Статус";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // comboBox_status
-            // 
-            this.comboBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_status.FormattingEnabled = true;
-            this.comboBox_status.Location = new System.Drawing.Point(384, 30);
-            this.comboBox_status.Name = "comboBox_status";
-            this.comboBox_status.Size = new System.Drawing.Size(124, 21);
-            this.comboBox_status.TabIndex = 7;
+            this.pictureBox_users.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_users.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox_users.Location = new System.Drawing.Point(517, 0);
+            this.pictureBox_users.Name = "pictureBox_users";
+            this.pictureBox_users.Size = new System.Drawing.Size(152, 193);
+            this.pictureBox_users.TabIndex = 8;
+            this.pictureBox_users.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -334,69 +313,6 @@
             this.comboBox_post.Size = new System.Drawing.Size(124, 21);
             this.comboBox_post.TabIndex = 5;
             // 
-            // pictureBox_users
-            // 
-            this.pictureBox_users.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_users.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox_users.Location = new System.Drawing.Point(517, 0);
-            this.pictureBox_users.Name = "pictureBox_users";
-            this.pictureBox_users.Size = new System.Drawing.Size(152, 193);
-            this.pictureBox_users.TabIndex = 8;
-            this.pictureBox_users.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.tableLayoutPanel4);
-            this.panel2.Controls.Add(this.pictureBox_users);
-            this.panel2.Controls.Add(this.tableLayoutPanel2);
-            this.panel2.Controls.Add(this.tableLayoutPanel1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(669, 193);
-            this.panel2.TabIndex = 9;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 5;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.label10, 3, 0);
-            this.tableLayoutPanel4.Controls.Add(this.dateTimePicker_bdate, 4, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label8, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.textBox_tabn, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button_nextTabN, 2, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 119);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 1;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(511, 25);
-            this.tableLayoutPanel4.TabIndex = 9;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(281, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 25);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Дата рождения";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // dateTimePicker_bdate
-            // 
-            this.dateTimePicker_bdate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_bdate.Location = new System.Drawing.Point(376, 3);
-            this.dateTimePicker_bdate.Name = "dateTimePicker_bdate";
-            this.dateTimePicker_bdate.Size = new System.Drawing.Size(99, 20);
-            this.dateTimePicker_bdate.TabIndex = 1;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -418,33 +334,117 @@
             this.comboBox_org.Size = new System.Drawing.Size(121, 21);
             this.comboBox_org.TabIndex = 7;
             // 
-            // label8
+            // tableLayoutPanel1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(3, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 25);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "Табельный номер";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBox_sname, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox_lname, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.textBox_fname, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_status, 3, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(511, 54);
+            this.tableLayoutPanel1.TabIndex = 6;
             // 
-            // textBox_tabn
+            // label1
             // 
-            this.textBox_tabn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_tabn.Location = new System.Drawing.Point(113, 3);
-            this.textBox_tabn.Name = "textBox_tabn";
-            this.textBox_tabn.Size = new System.Drawing.Size(132, 20);
-            this.textBox_tabn.TabIndex = 3;
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(121, 27);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Фамилия";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // button_nextTabN
+            // textBox_sname
             // 
-            this.button_nextTabN.Location = new System.Drawing.Point(251, 3);
-            this.button_nextTabN.Name = "button_nextTabN";
-            this.button_nextTabN.Size = new System.Drawing.Size(24, 19);
-            this.button_nextTabN.TabIndex = 4;
-            this.button_nextTabN.Text = "->";
-            this.button_nextTabN.UseVisualStyleBackColor = true;
+            this.textBox_sname.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_sname.Location = new System.Drawing.Point(257, 30);
+            this.textBox_sname.Name = "textBox_sname";
+            this.textBox_sname.Size = new System.Drawing.Size(121, 20);
+            this.textBox_sname.TabIndex = 5;
+            // 
+            // textBox_lname
+            // 
+            this.textBox_lname.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_lname.Location = new System.Drawing.Point(3, 30);
+            this.textBox_lname.Name = "textBox_lname";
+            this.textBox_lname.Size = new System.Drawing.Size(121, 20);
+            this.textBox_lname.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(257, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 27);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Отчество";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox_fname
+            // 
+            this.textBox_fname.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_fname.Location = new System.Drawing.Point(130, 30);
+            this.textBox_fname.Name = "textBox_fname";
+            this.textBox_fname.Size = new System.Drawing.Size(121, 20);
+            this.textBox_fname.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(130, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(121, 27);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Имя";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(384, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(124, 27);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Статус";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_status
+            // 
+            this.comboBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_status.FormattingEnabled = true;
+            this.comboBox_status.Location = new System.Drawing.Point(384, 30);
+            this.comboBox_status.Name = "comboBox_status";
+            this.comboBox_status.Size = new System.Drawing.Size(124, 21);
+            this.comboBox_status.TabIndex = 7;
+            // 
+            // tabPage_private
+            // 
+            this.tabPage_private.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_private.Name = "tabPage_private";
+            this.tabPage_private.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_private.Size = new System.Drawing.Size(675, 290);
+            this.tabPage_private.TabIndex = 1;
+            this.tabPage_private.Text = "Личная информация";
             // 
             // fAddEditUsers
             // 
@@ -464,14 +464,14 @@
             this.panel1.ResumeLayout(false);
             this.tabControl_main.ResumeLayout(false);
             this.tabPage_official.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_users)).EndInit();
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_users)).EndInit();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

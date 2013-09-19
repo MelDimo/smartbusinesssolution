@@ -10,14 +10,19 @@ using System.Drawing;
 
 namespace com.sbs.gui.users
 {
+
     class DBaccess
     {
+        SqlConnection con = null;
+        SqlCommand command = null;
+        SqlTransaction tx = null;
+
         public DataTable getOrganipation(string pDbType)
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -47,8 +52,8 @@ namespace com.sbs.gui.users
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -78,8 +83,8 @@ namespace com.sbs.gui.users
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -113,8 +118,8 @@ namespace com.sbs.gui.users
 
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -152,8 +157,8 @@ namespace com.sbs.gui.users
             UsersDTO oUsers = new UsersDTO();
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -195,22 +200,22 @@ namespace com.sbs.gui.users
 
         public void addUser(string pDbType, UsersDTO pUsersDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO user(tabn,   fname,  sname,  lname,  bdate,  org,    branch,     unit,   ref_post,   ref_status)" +
-                                                "VALUES(@tabn,  @fname, @sname, @lname, @bdate, @org,   @branch,    @unit,  @ref_post,  @ref_status)";
+                command.CommandText = "INSERT INTO users (tabn,   fname,  sname,  lname,  bdate,  org,    branch,     unit,   ref_post,   ref_status)" +
+                                                " VALUES (@tabn,  @fname, @sname, @lname, @bdate, @org,   @branch,    @unit,  @ref_post,  @ref_status)";
                 command.Parameters.Add("tabn", SqlDbType.Int).Value = pUsersDTO.Tabn;
                 command.Parameters.Add("fname", SqlDbType.NVarChar).Value = pUsersDTO.fName;
                 command.Parameters.Add("sname", SqlDbType.NVarChar).Value = pUsersDTO.sName;
                 command.Parameters.Add("lname", SqlDbType.NVarChar).Value = pUsersDTO.lName;
-                command.Parameters.Add("bdate", SqlDbType.NVarChar).Value = pUsersDTO.BDate;
+                command.Parameters.Add("bdate", SqlDbType.DateTime).Value = pUsersDTO.BDate;
                 command.Parameters.Add("org", SqlDbType.Int).Value = pUsersDTO.Org;
-                command.Parameters.Add("branch", SqlDbType.Date).Value = pUsersDTO.Branch;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pUsersDTO.Branch;
                 command.Parameters.Add("unit", SqlDbType.Int).Value = pUsersDTO.Unit;
                 command.Parameters.Add("ref_post", SqlDbType.Int).Value = pUsersDTO.RefPost;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUsersDTO.RefStatus;
@@ -225,8 +230,8 @@ namespace com.sbs.gui.users
 
         public void editUser(string pDbType, UsersDTO pUsersDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -256,8 +261,8 @@ namespace com.sbs.gui.users
 
         public void delUser(string pDbType, int pIdUser)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -278,8 +283,8 @@ namespace com.sbs.gui.users
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -308,8 +313,8 @@ namespace com.sbs.gui.users
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -337,8 +342,8 @@ namespace com.sbs.gui.users
 
         public void addUserGroups(string pDbType, int pIdUser, int pIdGroup)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -359,8 +364,8 @@ namespace com.sbs.gui.users
 
         public void delUserGroups(string pDbType, int pIdUser, int pIdGroup)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -378,7 +383,6 @@ namespace com.sbs.gui.users
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-
         #endregion
 
         #region Groups
@@ -387,8 +391,8 @@ namespace com.sbs.gui.users
         {
             DataTable dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -413,8 +417,8 @@ namespace com.sbs.gui.users
 
         public void addGroup(string pDbType, GroupDTO pGroupDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -435,8 +439,8 @@ namespace com.sbs.gui.users
 
         public void editGroup(string pDbType, GroupDTO pGroupDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -458,8 +462,8 @@ namespace com.sbs.gui.users
 
         public void delGroup(string pDbType, int pIdGroup)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
             try
             {
                 con.Open();
@@ -475,6 +479,97 @@ namespace com.sbs.gui.users
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
+
+        #region Menu
+
+        public DataTable getMenu(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, id_parent, name, ref_menu_type, ref_modules, ref_status "+
+                                        " FROM menu WHERE ref_status = @ref_status ORDER BY id_parent";
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getMenuUser(string pDbType, int pUserId)
+        {
+            DataTable dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT users, menu " +
+                                        " FROM users_menu WHERE users = @users";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserId;
+                
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public void createMenuUser(string pDbType, int pUserId, List<int> pUserMenuId)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                tx = con.BeginTransaction();
+
+                command = con.CreateCommand();
+                command.Transaction = tx;
+
+                command.CommandText = "DELETE FROM users_menu WHERE users = @users";
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserId;
+                command.ExecuteNonQuery();
+
+                command.Parameters.Add("menu", SqlDbType.Int);
+                command.CommandText = "INSERT INTO users_menu(users, menu) VALUES(@users, @menu)";
+                foreach (int menu in pUserMenuId)
+                {
+                    command.Parameters["menu"].Value = menu;
+                    command.ExecuteNonQuery();
+                }
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
         }
 
         #endregion

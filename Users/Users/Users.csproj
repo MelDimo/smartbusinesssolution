@@ -75,6 +75,12 @@
     <Compile Include="fUserGroup_Add.Designer.cs">
       <DependentUpon>fUserGroup_Add.cs</DependentUpon>
     </Compile>
+    <Compile Include="fUserMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fUserMenu.Designer.cs">
+      <DependentUpon>fUserMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="fUsers.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fUserGroup_Add.resx">
       <DependentUpon>fUserGroup_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fUserMenu.resx">
+      <DependentUpon>fUserMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUsers.resx">
       <DependentUpon>fUsers.cs</DependentUpon>
