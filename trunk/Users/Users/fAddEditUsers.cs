@@ -50,17 +50,17 @@ namespace com.sbs.gui.users
 
             textBox_tabn.Text = oUsers.Tabn.ToString();
 
-            comboBox_org.DataSource = pDtOrg;
+            comboBox_org.DataSource = pDtOrg.Copy();
             comboBox_org.ValueMember = "id";
             comboBox_org.DisplayMember = "name";
             comboBox_org.SelectedValue = oUsers.Org;
 
-            comboBox_branch.DataSource = pDtBranch;
+            comboBox_branch.DataSource = pDtBranch.Copy();
             comboBox_branch.ValueMember = "id";
             comboBox_branch.DisplayMember = "name";
             comboBox_branch.SelectedValue = oUsers.Branch;
 
-            comboBox_unit.DataSource = pDtUnit;
+            comboBox_unit.DataSource = pDtUnit.Copy();
             comboBox_unit.ValueMember = "id";
             comboBox_unit.DisplayMember = "name";
             comboBox_unit.SelectedValue = oUsers.Unit;

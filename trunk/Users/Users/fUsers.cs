@@ -300,6 +300,10 @@ namespace com.sbs.gui.users
                     GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            
+            if(MessageBox.Show("Вы уверены что хотите удалить запись '"+dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString()+"'?",
+                    GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
+                return;
 
             switch (tSComboBox_RecType.ComboBox.Text)
             {
@@ -365,9 +369,44 @@ namespace com.sbs.gui.users
 
         private void tSButton_menu_Click(object sender, EventArgs e)
         {
+            int xUserId;
+            string xUserName;
 
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.",
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            switch (tSComboBox_RecType.ComboBox.Text)
+            {
+                case "Пользователь":
+                    xUserId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
+                    xUserName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
+                    DataTable dtMenu = new DataTable();
+                    DataTable dtMenuUser = new DataTable();
+                    try
+                    {
+                        dtMenu = DbAccess.getMenu("offline");
+                        dtMenuUser = DbAccess.getMenuUser("offline", xUserId);
+                    }
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information);
+                        return;
+                    }
+
+                    fUserMenu fusermenu = new fUserMenu(dtMenu, dtMenuUser);
+                    fusermenu.xUserName = xUserName;
+                    fusermenu.xUserId = xUserId;
+                    fusermenu.Text = "Редактирование меню пользователя";
+                    fusermenu.ShowDialog();
+                    break;
+
+                case "Группа":
+                    break;
+            }
         }
-
-        
     }
 }
