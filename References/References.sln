@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refMenuType", "refMenuType\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refPost", "refPost\refPost.csproj", "{8E069F57-0194-484A-9A35-D11E37DD0B0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refMeasure", "refMeasure\refMeasure.csproj", "{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refGoods", "refGoods\refGoods.csproj", "{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -35,6 +39,14 @@ Global
 		{8E069F57-0194-484A-9A35-D11E37DD0B0E}.Debug|x86.Build.0 = Debug|x86
 		{8E069F57-0194-484A-9A35-D11E37DD0B0E}.Release|x86.ActiveCfg = Release|x86
 		{8E069F57-0194-484A-9A35-D11E37DD0B0E}.Release|x86.Build.0 = Release|x86
+		{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}.Debug|x86.ActiveCfg = Debug|x86
+		{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}.Debug|x86.Build.0 = Debug|x86
+		{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}.Release|x86.ActiveCfg = Release|x86
+		{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}.Release|x86.Build.0 = Release|x86
+		{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}.Debug|x86.ActiveCfg = Debug|x86
+		{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}.Debug|x86.Build.0 = Debug|x86
+		{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}.Release|x86.ActiveCfg = Release|x86
+		{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
