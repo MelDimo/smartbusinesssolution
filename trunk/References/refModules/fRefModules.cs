@@ -65,6 +65,12 @@ namespace com.sbs.gui.references.modules
 
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                uMessage.Show("Укажите редактируемый элемент", SystemIcons.Information);
+                return;
+            }
+
             DataGridViewRow dataRow = dataGridView_main.SelectedRows[0];
 
             fAddEdit faddedit = new fAddEdit(dataRow.Cells["id"].Value.ToString(),
