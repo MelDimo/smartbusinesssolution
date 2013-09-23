@@ -56,6 +56,11 @@
     <Compile Include="fMessage_Exception.Designer.cs">
       <DependentUpon>fMessage_Exception.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utilites.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,6 +71,19 @@
     <EmbeddedResource Include="fMessage_Exception.resx">
       <DependentUpon>fMessage_Exception.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_26.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
