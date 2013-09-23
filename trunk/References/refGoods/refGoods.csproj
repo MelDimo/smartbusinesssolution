@@ -50,6 +50,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="fAddEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddEdit.Designer.cs">
+      <DependentUpon>fAddEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="fRefGoods.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fAddEdit.resx">
+      <DependentUpon>fAddEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRefGoods.resx">
+      <DependentUpon>fRefGoods.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
