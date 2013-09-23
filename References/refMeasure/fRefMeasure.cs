@@ -92,7 +92,39 @@ namespace com.sbs.gui.references.measure
 
         private void tSButton_del_Click(object sender, EventArgs e)
         {
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                uMessage.Show("Укажите удаляемый элемент", SystemIcons.Information);
+                return;
+            }
 
+            if (MessageBox.Show("Вы уверены что шотите удалить элемент '" +
+                dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString() + "'",
+                GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            int xId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+
+            SqlConnection con = new DBCon().getConnection("offline");
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "DELETE FROM ref_measure WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = xId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            updateData();
         }
     }
 

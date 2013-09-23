@@ -38,7 +38,7 @@
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rate_name_short = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ref_measure_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_measure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,6 +68,7 @@
             this.tSButton_add.Name = "tSButton_add";
             this.tSButton_add.Size = new System.Drawing.Size(23, 22);
             this.tSButton_add.Text = "Добавить";
+            this.tSButton_add.Click += new System.EventHandler(this.tSButton_add_Click);
             // 
             // tSButton_edit
             // 
@@ -77,6 +78,7 @@
             this.tSButton_edit.Name = "tSButton_edit";
             this.tSButton_edit.Size = new System.Drawing.Size(23, 22);
             this.tSButton_edit.Text = "Редактировать";
+            this.tSButton_edit.Click += new System.EventHandler(this.tSButton_edit_Click);
             // 
             // tSButton_del
             // 
@@ -86,6 +88,7 @@
             this.tSButton_del.Name = "tSButton_del";
             this.tSButton_del.Size = new System.Drawing.Size(23, 22);
             this.tSButton_del.Text = "Удалить";
+            this.tSButton_del.Click += new System.EventHandler(this.tSButton_del_Click);
             // 
             // statusStrip1
             // 
@@ -111,7 +114,7 @@
             this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.name,
-            this.rate_name_short,
+            this.ref_measure_name,
             this.ref_measure,
             this.ref_status_name,
             this.ref_status});
@@ -138,12 +141,12 @@
             this.name.Name = "name";
             this.name.ReadOnly = true;
             // 
-            // rate_name_short
+            // ref_measure_name
             // 
-            this.rate_name_short.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.rate_name_short.HeaderText = "Ед. Измерения";
-            this.rate_name_short.Name = "rate_name_short";
-            this.rate_name_short.ReadOnly = true;
+            this.ref_measure_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ref_measure_name.HeaderText = "Ед. Измерения";
+            this.ref_measure_name.Name = "ref_measure_name";
+            this.ref_measure_name.ReadOnly = true;
             // 
             // ref_measure
             // 
@@ -175,7 +178,10 @@
             this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
+            this.MinimizeBox = false;
             this.Name = "fRefGoods";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Справочник товаров";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -198,7 +204,7 @@
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rate_name_short;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ref_measure_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_measure;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status;
