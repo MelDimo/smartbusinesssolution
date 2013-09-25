@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Data;
 using System.Data.SqlClient;
+using com.sbs.dll.utilites.Properties;
 
 namespace com.sbs.dll.utilites
 {
@@ -76,10 +77,5 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
-    }
-
-    public class SBSResources
-    {
-        public void initResources() { ;}
     }
 }
