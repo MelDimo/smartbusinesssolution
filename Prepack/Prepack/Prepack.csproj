@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GValues">
-      <HintPath>..\..\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+      <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,11 +46,30 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBaccess.cs" />
+    <Compile Include="DTO.cs" />
+    <Compile Include="fAddGoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddGoods.Designer.cs">
+      <DependentUpon>fAddGoods.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fAddPrepack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddPrepack.Designer.cs">
+      <DependentUpon>fAddPrepack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fAddPrepack_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddPrepack_Main.Designer.cs">
+      <DependentUpon>fAddPrepack_Main.cs</DependentUpon>
+    </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,6 +78,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fAddGoods.resx">
+      <DependentUpon>fAddGoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddPrepack.resx">
+      <DependentUpon>fAddPrepack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddPrepack_Main.resx">
+      <DependentUpon>fAddPrepack_Main.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>
