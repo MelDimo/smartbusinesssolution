@@ -92,7 +92,7 @@ namespace com.sbs.gui.references.modules
                 return;
             }
 
-            if (MessageBox.Show("Вы уверены что шотите удалить элемент '" +
+            if (MessageBox.Show("Вы уверены что хотите удалить элемент '" +
                Path.GetFileName(dataGridView_main.SelectedRows[0].Cells["fpath"].Value.ToString()) + "'",
                GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
@@ -108,7 +108,7 @@ namespace com.sbs.gui.references.modules
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = "DELETE FROM ref_status WHERE id = @id";
+                command.CommandText = "DELETE FROM ref_modules WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = xId;
 
                 command.ExecuteNonQuery();
