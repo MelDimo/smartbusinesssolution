@@ -30,6 +30,7 @@ namespace com.sbs.gui.references.goods
             getReference();
 
             textBox_id.Text = oGoods.Id.ToString();
+            textBox_code.Text = oGoods.Code.ToString();
             textBox_name.Text = oGoods.Name;
             textBox_manufacturer.Text = oGoods.Manufacturer;
             textBox_note.Text = oGoods.Note;
@@ -174,6 +175,7 @@ namespace com.sbs.gui.references.goods
                 command = con.CreateCommand();
 
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = oGoods.Name;
+                command.Parameters.Add("code", SqlDbType.NVarChar).Value = oGoods.Code;
                 command.Parameters.Add("ref_measure", SqlDbType.Int).Value = oGoods.Measure;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = oGoods.Status;
                 command.Parameters.Add("manufacturer", SqlDbType.NVarChar).Value = oGoods.Manufacturer;
@@ -182,12 +184,12 @@ namespace com.sbs.gui.references.goods
                 switch (formMode)
                 {
                     case "ADD":
-                        command.CommandText = "INSERT INTO ref_goods(name, ref_measure, ref_status, manufacturer, note)" +
-                                                " VALUES (@name, @ref_measure, @ref_status, @manufacturer, @note)";
+                        command.CommandText = "INSERT INTO ref_goods(code, name, ref_measure, ref_status, manufacturer, note)" +
+                                                " VALUES (@code, @name, @ref_measure, @ref_status, @manufacturer, @note)";
                         break;
 
                     case "EDIT":
-                        command.CommandText = "UPDATE ref_goods SET name = @name, ref_measure = @ref_measure, ref_status = @ref_status, manufacturer = @manufacturer, note = @note" +
+                        command.CommandText = "UPDATE ref_goods SET code = @code, name = @name, ref_measure = @ref_measure, ref_status = @ref_status, manufacturer = @manufacturer, note = @note" +
                                                 " WHERE id = @id";
                         command.Parameters.Add("id", SqlDbType.Int).Value = oGoods.Id;
                         break;
@@ -200,7 +202,7 @@ namespace com.sbs.gui.references.goods
 
                 con.Close();
             }
-            catch (Exception exc) { throw new Exception("Ошибка обработки данных", exc); return false; }
+            catch (Exception exc) { throw new Exception("Ошибка обработки данных", exc); }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return true;

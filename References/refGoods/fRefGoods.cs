@@ -32,7 +32,7 @@ namespace com.sbs.gui.references.goods
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = "SELECT goods.id, goods.name, goods.ref_measure, measure.name_short AS ref_measure_name, goods.ref_status, stat.name AS ref_status_name  " +
+                command.CommandText = "SELECT goods.id, goods.code, goods.name, goods.ref_measure, measure.name_short AS ref_measure_name, goods.ref_status, stat.name AS ref_status_name  " +
                                         " FROM ref_goods goods" +
                                         " INNER JOIN ref_status stat ON stat.id = goods.ref_status"+
                                         " INNER JOIN ref_measure measure ON measure.id = goods.ref_measure";
@@ -48,6 +48,7 @@ namespace com.sbs.gui.references.goods
 
             dataGridView_main.DataSource = dt;
             dataGridView_main.Columns["id"].DataPropertyName = "id";
+            dataGridView_main.Columns["code"].DataPropertyName = "code";
             dataGridView_main.Columns["name"].DataPropertyName = "name";
             dataGridView_main.Columns["ref_measure"].DataPropertyName = "ref_measure";
             dataGridView_main.Columns["ref_measure_name"].DataPropertyName = "ref_measure_name";
@@ -79,6 +80,7 @@ namespace com.sbs.gui.references.goods
             DataGridViewRow dr = dataGridView_main.SelectedRows[0];
 
             oGoods.Id = (int)dr.Cells["id"].Value;
+            oGoods.Code = (int)dr.Cells["code"].Value;
             oGoods.Name = dr.Cells["name"].Value.ToString();
             oGoods.Measure = (int)dr.Cells["ref_measure"].Value;
             oGoods.Status = (int)dr.Cells["ref_status"].Value;
@@ -129,11 +131,18 @@ namespace com.sbs.gui.references.goods
     public class Goods
     {
         private int _id;
+        private int _code;
         private string _name;
         private int _measure;
         private int _status;
         private string _manufacturer;
         private string _note;
+
+        public int Code
+        {
+            get { return _code; }
+            set { _code = value; }
+        }
 
         public string Note
         {

@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GValues">
-      <HintPath>..\..\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+      <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,7 +46,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
