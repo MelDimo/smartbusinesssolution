@@ -37,6 +37,7 @@
             this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_measure_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_measure = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -113,6 +114,7 @@
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
+            this.code,
             this.name,
             this.ref_measure_name,
             this.ref_measure,
@@ -133,6 +135,14 @@
             this.id.Name = "id";
             this.id.ReadOnly = true;
             this.id.Visible = false;
+            // 
+            // code
+            // 
+            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.code.HeaderText = "Ключ";
+            this.code.Name = "code";
+            this.code.ReadOnly = true;
+            this.code.Width = 58;
             // 
             // name
             // 
@@ -203,6 +213,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tSSLabel_recCount;
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn code;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_measure_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_measure;

@@ -42,6 +42,8 @@
             this.textBox_manufacturer = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox_note = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox_code = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +61,7 @@
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 220);
+            this.panel1.Location = new System.Drawing.Point(0, 246);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(458, 35);
             this.panel1.TabIndex = 10;
@@ -89,7 +91,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(12, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 11;
@@ -99,7 +101,7 @@
             // 
             this.textBox_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_name.Location = new System.Drawing.Point(124, 38);
+            this.textBox_name.Location = new System.Drawing.Point(124, 75);
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(322, 20);
             this.textBox_name.TabIndex = 12;
@@ -107,7 +109,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 67);
+            this.label2.Location = new System.Drawing.Point(12, 104);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 13);
             this.label2.TabIndex = 13;
@@ -116,7 +118,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 94);
+            this.label3.Location = new System.Drawing.Point(12, 131);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 14;
@@ -128,7 +130,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_measure.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_measure.FormattingEnabled = true;
-            this.comboBox_measure.Location = new System.Drawing.Point(124, 64);
+            this.comboBox_measure.Location = new System.Drawing.Point(124, 101);
             this.comboBox_measure.Name = "comboBox_measure";
             this.comboBox_measure.Size = new System.Drawing.Size(322, 21);
             this.comboBox_measure.TabIndex = 15;
@@ -139,7 +141,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_status.FormattingEnabled = true;
-            this.comboBox_status.Location = new System.Drawing.Point(124, 91);
+            this.comboBox_status.Location = new System.Drawing.Point(124, 128);
             this.comboBox_status.Name = "comboBox_status";
             this.comboBox_status.Size = new System.Drawing.Size(322, 21);
             this.comboBox_status.TabIndex = 16;
@@ -147,7 +149,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 121);
+            this.label4.Location = new System.Drawing.Point(12, 158);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 17;
@@ -157,7 +159,7 @@
             // 
             this.textBox_manufacturer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_manufacturer.Location = new System.Drawing.Point(124, 118);
+            this.textBox_manufacturer.Location = new System.Drawing.Point(124, 155);
             this.textBox_manufacturer.Name = "textBox_manufacturer";
             this.textBox_manufacturer.Size = new System.Drawing.Size(322, 20);
             this.textBox_manufacturer.TabIndex = 18;
@@ -168,9 +170,9 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.textBox_note);
-            this.groupBox1.Location = new System.Drawing.Point(12, 144);
+            this.groupBox1.Location = new System.Drawing.Point(12, 181);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(434, 74);
+            this.groupBox1.Size = new System.Drawing.Size(434, 63);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Примечание";
@@ -181,14 +183,32 @@
             this.textBox_note.Location = new System.Drawing.Point(3, 16);
             this.textBox_note.Multiline = true;
             this.textBox_note.Name = "textBox_note";
-            this.textBox_note.Size = new System.Drawing.Size(428, 55);
+            this.textBox_note.Size = new System.Drawing.Size(428, 44);
             this.textBox_note.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 52);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(80, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Внешний ключ";
+            // 
+            // textBox_code
+            // 
+            this.textBox_code.Location = new System.Drawing.Point(124, 49);
+            this.textBox_code.Name = "textBox_code";
+            this.textBox_code.Size = new System.Drawing.Size(322, 20);
+            this.textBox_code.TabIndex = 21;
             // 
             // fAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 255);
+            this.ClientSize = new System.Drawing.Size(458, 281);
+            this.Controls.Add(this.textBox_code);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox_manufacturer);
             this.Controls.Add(this.label4);
@@ -229,5 +249,7 @@
         private System.Windows.Forms.TextBox textBox_manufacturer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox_note;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox_code;
     }
 }
