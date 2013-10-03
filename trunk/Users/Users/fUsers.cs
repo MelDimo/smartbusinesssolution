@@ -28,7 +28,22 @@ namespace com.sbs.gui.users
 
             dataGridView_main.AutoGenerateColumns = false;
 
+            tSSLabel_recCount.Text = "";
+
             initReferences();
+
+            loadIcons();
+        }
+
+        private void loadIcons()
+        {
+            tSButton_add.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_edit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_del.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+            tSButton_group.Image = com.sbs.dll.utilites.Properties.Resources.group_26;
+            tSButton_menu.Image = com.sbs.dll.utilites.Properties.Resources.menu_26;
+            tSButton_pwd.Image = com.sbs.dll.utilites.Properties.Resources.lock_26;
+            tSButton_doc.Image = com.sbs.dll.utilites.Properties.Resources.doc_26;
         }
 
         private void initReferences()
@@ -402,6 +417,47 @@ namespace com.sbs.gui.users
                     fusermenu.xUserId = xUserId;
                     fusermenu.Text = "Редактирование меню пользователя";
                     fusermenu.ShowDialog();
+                    break;
+
+                case "Группа":
+                    break;
+            }
+        }
+
+        private void tSButton_pwd_Click(object sender, EventArgs e)
+        {
+            int xUserId;
+            string xUserName;
+            DataTable dtPwdUsers = new DataTable();
+
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.",
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            switch (tSComboBox_RecType.ComboBox.Text)
+            {
+                case "Пользователь":
+                    xUserId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
+                    xUserName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
+                    DataTable dtMenu = new DataTable();
+                    DataTable dtMenuUser = new DataTable();
+                    try
+                    {
+                        dtPwdUsers = DbAccess.getPwdUser("offline", xUserId);
+                    }
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information);
+                        return;
+                    }
+
+                    fPwd fpwd = new fPwd(dtPwdUsers);
+                    fpwd.label_fio.Text = xUserName;
+                    fpwd.xUserId = xUserId;
+                    fpwd.ShowDialog();
                     break;
 
                 case "Группа":
