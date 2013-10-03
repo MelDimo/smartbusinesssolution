@@ -43,10 +43,11 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBaccess.cs" />
     <Compile Include="fLogIn.cs">
       <SubType>Form</SubType>
     </Compile>
