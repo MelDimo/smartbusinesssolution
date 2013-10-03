@@ -43,7 +43,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

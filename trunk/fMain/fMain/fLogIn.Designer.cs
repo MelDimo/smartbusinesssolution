@@ -43,6 +43,7 @@
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(143, 20);
             this.textBox_name.TabIndex = 0;
+            this.textBox_name.Text = "Dimon";
             // 
             // textBox_pwd
             // 
@@ -50,6 +51,7 @@
             this.textBox_pwd.Name = "textBox_pwd";
             this.textBox_pwd.Size = new System.Drawing.Size(143, 20);
             this.textBox_pwd.TabIndex = 1;
+            this.textBox_pwd.Text = "Q1234567";
             this.textBox_pwd.UseSystemPasswordChar = true;
             // 
             // button_enter
@@ -111,6 +113,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fLogIn";
             this.TopMost = true;
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fLogIn_KeyUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

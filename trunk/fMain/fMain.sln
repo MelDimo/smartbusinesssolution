@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GValues", "GValues\GValues.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15ABCFB5-D472-4D7B-AF11-599C72393146}"
 	ProjectSection(SolutionItems) = preProject
-		..\resource\settings.xml = ..\resource\settings.xml
+		..\..\resource\settings.xml = ..\..\resource\settings.xml
 	EndProjectSection
 EndProject
 Global

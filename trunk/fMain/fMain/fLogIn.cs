@@ -27,7 +27,7 @@ namespace com.sbs.gui.main
             string uPwd = textBox_pwd.Text.Trim();
 
             if (!checkLogin(uLogIn, uPwd)) { uMessage.Show("Неверное имя пользователя или пароль", SystemIcons.Information); }
-            else { DialogResult = DialogResult.OK; this.Close(); }
+            else { DialogResult = DialogResult.OK;}
         }
 
         private bool checkLogin(string pLogIn, string pPwd)
@@ -40,7 +40,7 @@ namespace com.sbs.gui.main
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = "SELECT id, fname, sname, lname FROM users WHERE login = @login AND pwd = @pwd";
+                command.CommandText = "SELECT id, tabn, fname, sname, lname, org, branch, unit, ref_post FROM users WHERE login = @login AND pwd = @pwd";
                 command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -55,9 +55,30 @@ namespace com.sbs.gui.main
                 return false;
             }
 
-            if(dt.Rows.Count > 0) 
+            if (dt.Rows.Count > 0)
+            {
+                UsersInfo.UserId = int.Parse(dt.Rows[0]["id"].ToString());
+                UsersInfo.UserTabn = int.Parse(dt.Rows[0]["tabn"].ToString());
+                UsersInfo.UserName = dt.Rows[0]["fname"].ToString() + " " + dt.Rows[0]["sname"].ToString() + " " + dt.Rows[0]["lname"].ToString();
+                UsersInfo.OrgId = int.Parse(dt.Rows[0]["org"].ToString());
+                UsersInfo.BranchId = int.Parse(dt.Rows[0]["branch"].ToString());
+                UsersInfo.UnitId = int.Parse(dt.Rows[0]["unit"].ToString());
+                UsersInfo.PostId = int.Parse(dt.Rows[0]["ref_post"].ToString());
+
                 return true;
+            }
+
             return false;
+        }
+
+        private void fLogIn_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Control ctl;
+                ctl = (Control)sender;
+                ctl.SelectNextControl(ActiveControl, true, true, true, true);
+            }
         }
     }
 }

@@ -6,6 +6,9 @@ using System.Xml;
 using com.sbs.dll;
 using System.Drawing;
 using com.sbs.dll.utilites;
+using System.Data;
+using System.Reflection;
+using System.IO;
 
 namespace com.sbs.gui.main
 {
@@ -17,6 +20,9 @@ namespace com.sbs.gui.main
         [STAThread]
         static void Main()
         {
+            object[] xResultSet;
+            DBaccess dbAccess = new DBaccess();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -29,7 +35,32 @@ namespace com.sbs.gui.main
             flogin.Text = GValues.prgNameFull;
             if (flogin.ShowDialog() != DialogResult.OK) return; //авторизация прошла не успешно - выходим из приложения
 
-            Application.Run(new fMain());
+            // Формируем меню пользователя
+            try
+            {
+                xResultSet = dbAccess.createMenuLoadModules("offline");
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка формирования меню", exc, SystemIcons.Error); return; }
+
+            // загрузка необходимых модулей
+            try
+            {
+                loadProgramModules((List<string>)xResultSet[1]);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); return; }
+
+            Application.Run(new fMain((DataTable)xResultSet[0]));
+        }
+
+        private static void loadProgramModules(List<string> pArrayModules)
+        {
+            foreach (string str in pArrayModules)
+            try
+            {
+                //Assembly.LoadFile(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "module" + Path.DirectorySeparatorChar + str);
+                Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
+            }
+            catch (Exception exc) { throw exc; }
         }
 
         //private static bool loadConfig()
