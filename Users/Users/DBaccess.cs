@@ -574,6 +574,71 @@ namespace com.sbs.gui.users
 
         #endregion
 
+        public DataTable getPwdUser(string pDbType, int pUserId)
+        {
+            DataTable dtResult = new DataTable();
 
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT users_pwd_type, pwd" + 
+                                        " FROM users_pwd up"+
+                                        " WHERE users = @users";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+
+
+        public void saveUsersPwd(string pDbType, object[] pOParam)
+        {
+            int xUsersId = (int)pOParam[0];
+            string xCardID = pOParam[1].ToString();
+            string xPwd = pOParam[2].ToString();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                tx = con.BeginTransaction();
+
+                command = con.CreateCommand();
+                command.Transaction = tx;
+
+                command.CommandText = "DELETE FROM users_pwd WHERE users = @users";
+                command.Parameters.Add("users", SqlDbType.Int).Value = xUsersId;
+                command.ExecuteNonQuery();
+
+                command.CommandText = "INSERT INTO users_pwd(users, users_pwd_type, pwd) VALUES(@users, @users_pwd_type, @pwd)";
+                command.Parameters.Add("users_pwd_type", SqlDbType.Int).Value = 1;
+                command.Parameters.Add("pwd",SqlDbType.NVarChar).Value = xPwd;
+                command.ExecuteNonQuery();
+                command.Parameters["users_pwd_type"].Value = 2;
+                command.Parameters["pwd"].Value = xCardID;
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+        }
     }
 }

@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5111C2FF-BCF1-44B0-8ED0-D4AD9A807DC1}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.users</RootNamespace>
     <AssemblyName>Users</AssemblyName>
@@ -32,9 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GValues">
-      <HintPath>..\..\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+      <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,7 +49,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +65,12 @@
     </Compile>
     <Compile Include="fAddEditUsers.Designer.cs">
       <DependentUpon>fAddEditUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fPwd.Designer.cs">
+      <DependentUpon>fPwd.cs</DependentUpon>
     </Compile>
     <Compile Include="fUserGroup.cs">
       <SubType>Form</SubType>
@@ -87,6 +96,7 @@
     <Compile Include="fUsers.Designer.cs">
       <DependentUpon>fUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModWinsCard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="usersDTO.cs" />
@@ -95,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fAddEditUsers.resx">
       <DependentUpon>fAddEditUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fPwd.resx">
+      <DependentUpon>fPwd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUserGroup.resx">
       <DependentUpon>fUserGroup.cs</DependentUpon>

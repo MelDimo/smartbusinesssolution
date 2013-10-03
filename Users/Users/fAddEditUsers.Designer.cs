@@ -143,7 +143,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(669, 193);
+            this.panel2.Size = new System.Drawing.Size(669, 170);
             this.panel2.TabIndex = 9;
             // 
             // tableLayoutPanel4
@@ -217,11 +217,11 @@
             // 
             // pictureBox_users
             // 
+            this.pictureBox_users.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox_users.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_users.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox_users.Location = new System.Drawing.Point(517, 0);
             this.pictureBox_users.Name = "pictureBox_users";
-            this.pictureBox_users.Size = new System.Drawing.Size(152, 193);
+            this.pictureBox_users.Size = new System.Drawing.Size(152, 161);
             this.pictureBox_users.TabIndex = 8;
             this.pictureBox_users.TabStop = false;
             // 
