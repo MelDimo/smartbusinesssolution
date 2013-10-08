@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.DashBoard
 {
@@ -15,11 +16,6 @@ namespace com.sbs.gui.DashBoard
         {
             InitializeComponent();
             this.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.ACR122_logoNFC;
-        }
-
-        private void fMIFare_KeyUp(object sender, KeyEventArgs e)
-        {
-
         }
 
         private void fMIFare_KeyDown(object sender, KeyEventArgs e)
@@ -34,6 +30,20 @@ namespace com.sbs.gui.DashBoard
                     DialogResult = DialogResult.OK;
                     break;
             }
+        }
+
+        private void fMIFare_Shown(object sender, EventArgs e)
+        {
+            string keyId;
+            try
+            {
+                Mifire oMifare = new Mifire();
+                keyId = oMifare.readMifire();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка взаимодействия с ридером", exc, SystemIcons.Information); return; }
+
+            if (keyId.Length > 0) MessageBox.Show(keyId);
+            else Close();
         }
     }
 }
