@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using com.sbs.dll;
+using System.Data;
+using com.sbs.dll.utilites;
+using System.Drawing;
 
-namespace DashBoard
+namespace com.sbs.gui.DashBoard
 {
     static class Program
     {
@@ -13,9 +17,15 @@ namespace DashBoard
         [STAThread]
         static void Main()
         {
+#if DEBUG
+            Config conf = new Config();
+            if (!conf.loadConfig()) return;
+            GValues.unitId = 2;
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fMain());
+
+            Application.Run(new fSplash());
         }
     }
 }
