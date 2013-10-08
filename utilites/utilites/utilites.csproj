@@ -92,6 +92,33 @@
   <ItemGroup>
     <None Include="Resources\copy_26.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\group_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\doc_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ACR122_logoNFC.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
