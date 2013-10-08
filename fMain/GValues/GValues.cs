@@ -19,11 +19,21 @@ namespace com.sbs.dll
         public static string DBMode = string.Empty;
         public static string mainDB = string.Empty;
 
+        public static int openSeasonId;
+        public static int openSeasonUserId;
+        public static string openSeasonDate;
+        public static string openSeasonUserName;
+
+        public static int unitId;
+
+        public static int authortype;
+
+
 #if DEBUG
 
         public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\SBS\resource\settings.xml";
         public static string fileBDLocalPath = @"D:\VisualStudio2010\Projects\SBS\localDB\localDB.sdf";
-        public static string mainDBConStr = @"Server=myServerAddress; Database=fileBDLocalPath; Password=74563;";
+        public static string mainDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
         public static string localDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
         //public static string localDBConStr = @"Data Source=NBHP\SQLEXPLOCALDB;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
         
@@ -45,6 +55,7 @@ namespace com.sbs.dll
             XmlNode node_ref_unit;
             XmlNode node_dbmode;
             XmlNode node_maindb;
+            XmlNode node_waiterConfig;
 
             try
             {
@@ -52,10 +63,12 @@ namespace com.sbs.dll
                 node_ref_unit = doc.GetElementsByTagName("ref_unit")[0];
                 node_dbmode = doc.GetElementsByTagName("dbmode")[0];
                 node_maindb = doc.GetElementsByTagName("maindb")[0];
+                node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
+                
 
                 if (!int.TryParse(node_ref_unit.InnerText, out xUnitId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
-                else UsersInfo.UnitId = xUnitId;
+                else GValues.unitId = xUnitId;
 
                 GValues.DBMode = node_dbmode.InnerText;
                 if (GValues.DBMode.Length == 0)
@@ -64,6 +77,11 @@ namespace com.sbs.dll
                 GValues.mainDB = node_maindb.InnerText;
                 if (GValues.mainDB.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить головную БД;";
+
+                if (!int.TryParse(node_waiterConfig.InnerText, out xUnitId))
+                    msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
+                else GValues.authortype = xUnitId;
+
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {
@@ -76,6 +94,7 @@ namespace com.sbs.dll
             return true;
         }
     }
+    
     // Класс реализует метод возвращающий дескриптор соединения.
     // При инициализации учитывается режим работы приложения
     public class DBCon
@@ -131,33 +150,19 @@ namespace com.sbs.dll
         private static int _userId;
         private static string _userName;
         private static int _userTabn;
-        private static int _orgId;
-        private static int _branchId;
-        private static int _unitId;
         private static int _postId;
+        private static List<int> _acl;
+
+        public static List<int> Acl
+        {
+            get { return _acl; }
+            set { _acl = value; }
+        }
 
         public static int PostId
         {
             get { return _postId; }
             set { _postId = value; }
-        }
-
-        public static int UnitId
-        {
-            get { return _unitId; }
-            set { _unitId = value; }
-        }
-
-        public static int BranchId
-        {
-            get { return _branchId; }
-            set { _branchId = value; }
-        }
-
-        public static int OrgId
-        {
-            get { return _orgId; }
-            set { _orgId = value; }
         }
 
         public static int UserTabn
