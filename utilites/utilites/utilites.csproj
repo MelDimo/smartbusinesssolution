@@ -57,6 +57,8 @@
     <Compile Include="fMessage_Exception.Designer.cs">
       <DependentUpon>fMessage_Exception.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mifire.cs" />
+    <Compile Include="ModWinsCard.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,6 +120,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ACR122_logoNFC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splash_1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

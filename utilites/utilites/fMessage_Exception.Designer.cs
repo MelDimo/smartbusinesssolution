@@ -126,6 +126,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "fMessage_Exception";
             this.Padding = new System.Windows.Forms.Padding(2);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fMessage_Exception";
             this.panel1.ResumeLayout(false);
             this.tabControl_main.ResumeLayout(false);
