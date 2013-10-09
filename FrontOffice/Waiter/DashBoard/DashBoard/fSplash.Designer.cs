@@ -41,7 +41,6 @@
             this.Name = "fSplash";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fSplash_KeyUp);
             this.ResumeLayout(false);

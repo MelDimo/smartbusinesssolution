@@ -44,7 +44,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.Shown += new System.EventHandler(this.fMIFare_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMIFare_KeyDown);
             this.ResumeLayout(false);
 
         }

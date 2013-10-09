@@ -14,8 +14,11 @@ namespace com.sbs.gui.DashBoard
     public partial class fMain : Form
     {
         private static DBaccess DbAccess = new DBaccess();
+        
+        private oBill bill = new oBill();
 
         internal DataSet dsDishes;
+        private DataTable dtBills;
 
         int xCurCarte, xCurDishesGroup, xDishes;    // id текущих выбранных позиций
 
@@ -28,6 +31,7 @@ namespace com.sbs.gui.DashBoard
             dataGridView_bill.AutoGenerateColumns = false;
             dataGridView_bill.MultiSelect = false;
             dataGridView_bill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView_bill.KeyDown += new KeyEventHandler(dataGridView_bill_KeyDown);
 
             dataGridView_dish.AutoGenerateColumns = false;
             dataGridView_dish.MultiSelect = false;
@@ -41,9 +45,34 @@ namespace com.sbs.gui.DashBoard
 
             tSStatusLabel_whoOpen.Text = "Смена открыта: " + GValues.openSeasonUserName;
             tSStatusLabel_whenOpen.Text = GValues.openSeasonDate;
+            tSStatusLabel_curWaiter.Text = UsersInfo.UserName;
 
-            //createCarte();
+            getBill();
+            createCarte();
+        }
 
+        private void getBill()
+        {
+            dtBills = DbAccess.getAvaliableBills("offline");
+
+            dataGridView_bill.DataSource = dtBills;
+            dataGridView_bill.Columns["id"].DataPropertyName = "id";
+            dataGridView_bill.Columns["bill_numb"].DataPropertyName = "id";
+            dataGridView_bill.Columns["ref_status_name"].DataPropertyName = "ref_status_name";
+
+        }
+
+        void dataGridView_bill_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    bill = new oBill();
+                    bill.BillId = (int)dataGridView_bill.SelectedRows[0].Cells["id"].Value;
+                    createCarte();
+                    tabControl_main.SelectedIndex = 1;
+                    break;
+            }
         }
 
         void dataGridView_dish_KeyDown(object sender, KeyEventArgs e)
@@ -97,21 +126,25 @@ namespace com.sbs.gui.DashBoard
                                           select myRow;
 
                             if (results.Count() > 0)
-                            {
                                 createDishes(xCurDishesGroup);
-                            }
                             else
                                 createDishesGroup(xCurCarte, xCurDishesGroup);
 
                             break;
 
                         case "dishes":
+                            MessageBox.Show("Заказ №" + bill.BillId.ToString());
                             break;
                     }
+                    e.SuppressKeyPress = true;
                     break;
 
                 case Keys.Back:
-                    if (toolStrip_top.Items.Count == 0) return;
+                    if (toolStrip_top.Items.Count == 0) 
+                    {
+                        tabControl_main.SelectedIndex = 0; 
+                        return; 
+                    }
                     filter = (oFilter)((ToolStripButton)toolStrip_top.Items[(toolStrip_top.Items.Count).ToString()]).Tag;
                     toolStrip_top.Items[(toolStrip_top.Items.Count).ToString()].Dispose();
                     switch (filter.TabName)
@@ -143,7 +176,6 @@ namespace com.sbs.gui.DashBoard
 
                 toolStrip_top.Items[i].Dispose();
             }
-
 
             switch (filter.TabName)
             {
@@ -261,6 +293,37 @@ namespace com.sbs.gui.DashBoard
             dataGridView_dish.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3 });
         }
 
+        private void fMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.Escape:
+                    UsersInfo.Clear();
+                    Close();
+                    break;
+
+                case Keys.F2:
+                    if (UsersInfo.Acl.Contains(3))
+                    {
+                        createBill();
+                    }
+                    else
+                        uMessage.Show("Нет доступа на создание заказа.", SystemIcons.Information);
+                    break;
+            }
+        }
+
+        private void createBill()
+        {
+            try
+            {
+                DbAccess.createBill("offline");
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); }
+
+            getBill();
+        }
+
     }
 
     class oFilter
@@ -293,5 +356,17 @@ namespace com.sbs.gui.DashBoard
 		    get { return _tabName;}
 		    set { _tabName = value;}
 	    }
+    }
+
+    class oBill
+    {
+        private int _billId;
+
+        public int BillId
+        {
+            get { return _billId; }
+            set { _billId = value; }
+        }
+        
     }
 }
