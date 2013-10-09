@@ -153,6 +153,15 @@ namespace com.sbs.dll
         private static int _postId;
         private static List<int> _acl;
 
+        public static void Clear()
+        {
+            _userId = 0;
+            _userName = "";
+            _userTabn = 0;
+            _postId = 0;
+            _acl = new List<int>();
+        }
+
         public static List<int> Acl
         {
             get { return _acl; }
