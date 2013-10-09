@@ -30,14 +30,22 @@
         {
             this.statusStrip_bottom = new System.Windows.Forms.StatusStrip();
             this.tSStatusLabel_whoOpen = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSStatusLabel_separate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSStatusLabel_whenOpen = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSStatusLabel_curWaiter = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl_main = new System.Windows.Forms.TabControl();
             this.tabPage_bill = new System.Windows.Forms.TabPage();
             this.dataGridView_bill = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bill_numb = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_dish = new System.Windows.Forms.TabPage();
             this.dataGridView_dish = new System.Windows.Forms.DataGridView();
             this.tabPage_refusing = new System.Windows.Forms.TabPage();
             this.dataGridView_refusing = new System.Windows.Forms.DataGridView();
+            this.toolStrip_top = new System.Windows.Forms.ToolStrip();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -54,12 +62,6 @@
             this.tabPage_selectBill = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBox_curItem = new System.Windows.Forms.TextBox();
-            this.tSStatusLabel_whenOpen = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tSStatusLabel_separate = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip_top = new System.Windows.Forms.ToolStrip();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bill_numb = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip_bottom.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,7 +92,9 @@
             this.statusStrip_bottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSStatusLabel_whoOpen,
             this.tSStatusLabel_separate,
-            this.tSStatusLabel_whenOpen});
+            this.tSStatusLabel_whenOpen,
+            this.toolStripStatusLabel1,
+            this.tSStatusLabel_curWaiter});
             this.statusStrip_bottom.Location = new System.Drawing.Point(0, 571);
             this.statusStrip_bottom.Name = "statusStrip_bottom";
             this.statusStrip_bottom.Size = new System.Drawing.Size(997, 22);
@@ -102,6 +106,30 @@
             this.tSStatusLabel_whoOpen.Name = "tSStatusLabel_whoOpen";
             this.tSStatusLabel_whoOpen.Size = new System.Drawing.Size(134, 17);
             this.tSStatusLabel_whoOpen.Text = "tSStatusLabel_whoOpen";
+            // 
+            // tSStatusLabel_separate
+            // 
+            this.tSStatusLabel_separate.Name = "tSStatusLabel_separate";
+            this.tSStatusLabel_separate.Size = new System.Drawing.Size(25, 17);
+            this.tSStatusLabel_separate.Text = "      ";
+            // 
+            // tSStatusLabel_whenOpen
+            // 
+            this.tSStatusLabel_whenOpen.Name = "tSStatusLabel_whenOpen";
+            this.tSStatusLabel_whenOpen.Size = new System.Drawing.Size(140, 17);
+            this.tSStatusLabel_whenOpen.Text = "tSStatusLabel_whenOpen";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(25, 17);
+            this.toolStripStatusLabel1.Text = "      ";
+            // 
+            // tSStatusLabel_curWaiter
+            // 
+            this.tSStatusLabel_curWaiter.Name = "tSStatusLabel_curWaiter";
+            this.tSStatusLabel_curWaiter.Size = new System.Drawing.Size(133, 17);
+            this.tSStatusLabel_curWaiter.Text = "tSStatusLabel_curWaiter";
             // 
             // splitContainer1
             // 
@@ -165,6 +193,28 @@
             this.dataGridView_bill.Size = new System.Drawing.Size(430, 485);
             this.dataGridView_bill.TabIndex = 0;
             // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // bill_numb
+            // 
+            this.bill_numb.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.bill_numb.HeaderText = "№";
+            this.bill_numb.Name = "bill_numb";
+            this.bill_numb.ReadOnly = true;
+            this.bill_numb.Width = 43;
+            // 
+            // ref_status_name
+            // 
+            this.ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ref_status_name.HeaderText = "Состояние";
+            this.ref_status_name.Name = "ref_status_name";
+            this.ref_status_name.ReadOnly = true;
+            // 
             // tabPage_dish
             // 
             this.tabPage_dish.Controls.Add(this.dataGridView_dish);
@@ -210,6 +260,15 @@
             this.dataGridView_refusing.ReadOnly = true;
             this.dataGridView_refusing.Size = new System.Drawing.Size(430, 485);
             this.dataGridView_refusing.TabIndex = 0;
+            // 
+            // toolStrip_top
+            // 
+            this.toolStrip_top.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip_top.Name = "toolStrip_top";
+            this.toolStrip_top.Size = new System.Drawing.Size(444, 25);
+            this.toolStrip_top.TabIndex = 0;
+            this.toolStrip_top.Text = "toolStrip1";
             // 
             // splitContainer2
             // 
@@ -431,49 +490,6 @@
             this.textBox_curItem.TabIndex = 0;
             this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tSStatusLabel_whenOpen
-            // 
-            this.tSStatusLabel_whenOpen.Name = "tSStatusLabel_whenOpen";
-            this.tSStatusLabel_whenOpen.Size = new System.Drawing.Size(140, 17);
-            this.tSStatusLabel_whenOpen.Text = "tSStatusLabel_whenOpen";
-            // 
-            // tSStatusLabel_separate
-            // 
-            this.tSStatusLabel_separate.Name = "tSStatusLabel_separate";
-            this.tSStatusLabel_separate.Size = new System.Drawing.Size(25, 17);
-            this.tSStatusLabel_separate.Text = "      ";
-            // 
-            // toolStrip_top
-            // 
-            this.toolStrip_top.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip_top.Name = "toolStrip_top";
-            this.toolStrip_top.Size = new System.Drawing.Size(444, 25);
-            this.toolStrip_top.TabIndex = 0;
-            this.toolStrip_top.Text = "toolStrip1";
-            // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // bill_numb
-            // 
-            this.bill_numb.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.bill_numb.HeaderText = "№";
-            this.bill_numb.Name = "bill_numb";
-            this.bill_numb.ReadOnly = true;
-            this.bill_numb.Width = 43;
-            // 
-            // ref_status_name
-            // 
-            this.ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ref_status_name.HeaderText = "Состояние";
-            this.ref_status_name.Name = "ref_status_name";
-            this.ref_status_name.ReadOnly = true;
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,6 +507,7 @@
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyUp);
             this.statusStrip_bottom.ResumeLayout(false);
             this.statusStrip_bottom.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -560,6 +577,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn bill_numb;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel_curWaiter;
     }
 }
 

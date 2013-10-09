@@ -10,12 +10,12 @@ namespace com.sbs.gui.DashBoard
 {
     class DBaccess
     {
-        DataTable dtResult = new DataTable();
+        private DataTable dtResult = new DataTable();
 
-        SqlConnection con;
-        SqlCommand command = null;
+        private SqlConnection con;
+        private SqlCommand command = null;
 
-        public DataTable getAvaliableSeason(string pDbType)
+        internal DataTable getAvaliableSeason(string pDbType)
         {
             dtResult = new DataTable();
 
@@ -47,7 +47,7 @@ namespace com.sbs.gui.DashBoard
             return dtResult;
         }
 
-        public void openNewSeason(string pDbType)
+        internal void openNewSeason(string pDbType)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -75,7 +75,7 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public DataTable getAvaliableBills(string pDbType)
+        internal DataTable getAvaliableBills(string pDbType)
         {
             dtResult = new DataTable();
 
@@ -89,10 +89,11 @@ namespace com.sbs.gui.DashBoard
                 command.CommandText = "SELECT b.id, stat.name AS ref_status_name" +
                                         " FROM bills b" +
                                         " INNER JOIN ref_status stat ON stat.id = b.ref_status" +
-                                        " WHERE b.unit = @unit AND b.season = @season";
+                                        " WHERE b.unit = @unit AND b.season = @season AND user_open = @user_open";
 
                 command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
                 command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("user_open", SqlDbType.Int).Value = UsersInfo.UserId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -107,7 +108,7 @@ namespace com.sbs.gui.DashBoard
             return dtResult;
         }
 
-        public DataTable getCarte(string pDbType)
+        internal DataTable getCarte(string pDbType)
         {
             dtResult = new DataTable("carte");
 
@@ -198,5 +199,114 @@ namespace com.sbs.gui.DashBoard
 
             return dtResult;
         }
+
+        internal bool checkMifareWaiter(string pDbType, string pKeyId)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn, u.ref_post" +
+                                        " FROM users_pwd upwd" +
+                                        " INNER JOIN users u ON u.id = upwd.users AND u.unit = @unit" +
+                                        " INNER JOIN ref_post post ON post.id = u.ref_post" +
+                                        " WHERE upwd.pwd = @pwd";
+
+                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            switch(dtResult.Rows.Count)
+            {
+                case 0:
+                    throw new Exception("Сотрудник не найден");
+
+                case 1:
+                    break;
+
+                default:
+                    throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
+            }
+
+            UsersInfo.Clear();
+            UsersInfo.UserId = (int)dtResult.Rows[0]["id"];
+            UsersInfo.UserName = dtResult.Rows[0]["fio"].ToString();
+            UsersInfo.UserTabn = (int)dtResult.Rows[0]["tabn"];
+
+            dtResult = new DataTable();
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT user_acl_type" +
+                                    "   FROM users_acl WHERE users = @users";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            if (dtResult.Rows.Count == 0) throw new Exception("Не указанны права для текущего пользователя");
+
+            foreach (DataRow dr in dtResult.Rows)
+            {
+                UsersInfo.Acl.Add((int)dr["user_acl_type"]);
+            }
+
+            return true;
+        }
+
+        internal void createBill(string pDbType)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO bills (unit, season, date_open, user_open, ref_status) " +
+                                        " VALUES(@unit, @season, @date_open, @user_open, @ref_status)";
+
+                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("date_open", SqlDbType.DateTime).Value = DateTime.Now;
+                command.Parameters.Add("user_open", SqlDbType.Int).Value = UsersInfo.UserId;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 16;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using System.Diagnostics;
 
 namespace com.sbs.gui.DashBoard
 {
@@ -32,6 +33,7 @@ namespace com.sbs.gui.DashBoard
                 case Keys.Enter:
                     if (GValues.openSeasonId == 0)
                     {
+                        UsersInfo.Clear();
                         fSeason fseason = new fSeason();
                         if (fseason.ShowDialog() != DialogResult.OK) return;
                     }
@@ -43,9 +45,7 @@ namespace com.sbs.gui.DashBoard
                             fMain fMain = new fMain(ds);
                             fMain.ShowDialog();
                             break;
-                    }
-
-                    
+                    }                    
                     break;
 
                 case Keys.Back:
@@ -56,10 +56,17 @@ namespace com.sbs.gui.DashBoard
         private bool mifareAccess()
         {
             fMIFare fMifare = new fMIFare();
-            if (fMifare.ShowDialog() == DialogResult.OK) 
-                return true;
+            if (fMifare.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Debug.Print(fMifare.keyId);
+                    DbAccess.checkMifareWaiter("offline", fMifare.keyId);
+                }
+                catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
+            }
 
-            return false;
+            return true;
         }
 
         private DataSet getReferences()
@@ -74,7 +81,7 @@ namespace com.sbs.gui.DashBoard
                 dtDishesGroup = DbAccess.getDishesGroup("offline");
                 dtDishes = DbAccess.getDishes("offline");
             }
-            catch (Exception exc) { uMessage.Show("Ошибка получения данных.", exc, SystemIcons.Information); }
+            catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); }
 
             DataSet dsDishes = new DataSet();
             dsDishes.Tables.Add(dtCarte);

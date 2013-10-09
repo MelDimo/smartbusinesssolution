@@ -83,13 +83,14 @@ namespace com.sbs.gui.DashBoard
                 DataRow dr = (DataRow)btn.Tag;
                 GValues.openSeasonDate= dr["date_open"].ToString();
                 GValues.openSeasonUserName = dr["fio"].ToString();
-                GValues.openSeasonUserId = (int)dr["id"];
+                GValues.openSeasonId = (int)dr["id"];
                 openExistSeason((int)dr["id"]);
             }
         }
 
         private void openExistSeason(int pSeasonId)
         {
+
             closeForm(pSeasonId);
         }
 
