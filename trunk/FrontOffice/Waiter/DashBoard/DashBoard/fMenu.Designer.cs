@@ -1,6 +1,6 @@
 ﻿namespace com.sbs.gui.DashBoard
 {
-    partial class fSplash
+    partial class fMenu
     {
         /// <summary>
         /// Required designer variable.
@@ -30,19 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // fSplash
+            // fMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1107, 597);
+            this.ClientSize = new System.Drawing.Size(226, 449);
             this.ControlBox = false;
-            this.KeyPreview = true;
-            this.Name = "fSplash";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fSplash_KeyDown);
+            this.Name = "fMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
 
         }

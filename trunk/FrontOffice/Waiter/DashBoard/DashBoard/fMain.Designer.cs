@@ -40,6 +40,7 @@
             this.dataGridView_bill = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bill_numb = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date_open = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage_dish = new System.Windows.Forms.TabPage();
             this.dataGridView_dish = new System.Windows.Forms.DataGridView();
@@ -49,19 +50,27 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_billNumber = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox_billDateOpen = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox_billTime = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox_billSum = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox_billTable = new System.Windows.Forms.TextBox();
             this.tabControl_bill = new System.Windows.Forms.TabControl();
             this.tabPage_selectBill = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_billInfo = new System.Windows.Forms.DataGridView();
             this.textBox_curItem = new System.Windows.Forms.TextBox();
+            this.dishes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xcount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.suma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip_bottom.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -84,7 +93,7 @@
             this.groupBox5.SuspendLayout();
             this.tabControl_bill.SuspendLayout();
             this.tabPage_selectBill.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_billInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip_bottom
@@ -148,6 +157,7 @@
             this.splitContainer1.Size = new System.Drawing.Size(997, 542);
             this.splitContainer1.SplitterDistance = 444;
             this.splitContainer1.TabIndex = 1;
+            this.splitContainer1.TabStop = false;
             // 
             // tabControl_main
             // 
@@ -160,6 +170,8 @@
             this.tabControl_main.SelectedIndex = 0;
             this.tabControl_main.Size = new System.Drawing.Size(444, 517);
             this.tabControl_main.TabIndex = 0;
+            this.tabControl_main.TabStop = false;
+            this.tabControl_main.SelectedIndexChanged += new System.EventHandler(this.tabControl_main_SelectedIndexChanged);
             // 
             // tabPage_bill
             // 
@@ -182,6 +194,7 @@
             this.dataGridView_bill.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.bill_numb,
+            this.date_open,
             this.ref_status_name});
             this.dataGridView_bill.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_bill.Location = new System.Drawing.Point(3, 3);
@@ -192,6 +205,8 @@
             this.dataGridView_bill.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_bill.Size = new System.Drawing.Size(430, 485);
             this.dataGridView_bill.TabIndex = 0;
+            this.dataGridView_bill.TabStop = false;
+            this.dataGridView_bill.Leave += new System.EventHandler(this.dataGridView_bill_Leave);
             // 
             // id
             // 
@@ -207,6 +222,13 @@
             this.bill_numb.Name = "bill_numb";
             this.bill_numb.ReadOnly = true;
             this.bill_numb.Width = 43;
+            // 
+            // date_open
+            // 
+            this.date_open.HeaderText = "date_open";
+            this.date_open.Name = "date_open";
+            this.date_open.ReadOnly = true;
+            this.date_open.Visible = false;
             // 
             // ref_status_name
             // 
@@ -237,6 +259,8 @@
             this.dataGridView_dish.ReadOnly = true;
             this.dataGridView_dish.Size = new System.Drawing.Size(430, 485);
             this.dataGridView_dish.TabIndex = 0;
+            this.dataGridView_dish.TabStop = false;
+            this.dataGridView_dish.Leave += new System.EventHandler(this.dataGridView_dish_Leave);
             // 
             // tabPage_refusing
             // 
@@ -260,6 +284,7 @@
             this.dataGridView_refusing.ReadOnly = true;
             this.dataGridView_refusing.Size = new System.Drawing.Size(430, 485);
             this.dataGridView_refusing.TabIndex = 0;
+            this.dataGridView_refusing.TabStop = false;
             // 
             // toolStrip_top
             // 
@@ -287,13 +312,14 @@
             this.splitContainer2.Size = new System.Drawing.Size(549, 542);
             this.splitContainer2.SplitterDistance = 128;
             this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 2, 0);
@@ -310,138 +336,142 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBox_billNumber);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(176, 52);
+            this.groupBox1.Size = new System.Drawing.Size(158, 52);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Заказ №";
             // 
-            // textBox1
+            // textBox_billNumber
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.ForeColor = System.Drawing.Color.Blue;
-            this.textBox1.Location = new System.Drawing.Point(3, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(170, 22);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "125";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_billNumber.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_billNumber.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_billNumber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_billNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_billNumber.ForeColor = System.Drawing.Color.Blue;
+            this.textBox_billNumber.Location = new System.Drawing.Point(3, 22);
+            this.textBox_billNumber.Name = "textBox_billNumber";
+            this.textBox_billNumber.ReadOnly = true;
+            this.textBox_billNumber.Size = new System.Drawing.Size(152, 22);
+            this.textBox_billNumber.TabIndex = 0;
+            this.textBox_billNumber.TabStop = false;
+            this.textBox_billNumber.Text = "125";
+            this.textBox_billNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.textBox_billDateOpen);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox2.Location = new System.Drawing.Point(185, 3);
+            this.groupBox2.Location = new System.Drawing.Point(167, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(177, 52);
+            this.groupBox2.Size = new System.Drawing.Size(186, 52);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Дата открытия";
             // 
-            // textBox2
+            // textBox_billDateOpen
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.ForeColor = System.Drawing.Color.Blue;
-            this.textBox2.Location = new System.Drawing.Point(3, 22);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(171, 22);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Text = "125";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_billDateOpen.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_billDateOpen.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_billDateOpen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_billDateOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_billDateOpen.ForeColor = System.Drawing.Color.Blue;
+            this.textBox_billDateOpen.Location = new System.Drawing.Point(3, 22);
+            this.textBox_billDateOpen.Name = "textBox_billDateOpen";
+            this.textBox_billDateOpen.ReadOnly = true;
+            this.textBox_billDateOpen.Size = new System.Drawing.Size(180, 22);
+            this.textBox_billDateOpen.TabIndex = 1;
+            this.textBox_billDateOpen.TabStop = false;
+            this.textBox_billDateOpen.Text = "125";
+            this.textBox_billDateOpen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.textBox_billTime);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(368, 3);
+            this.groupBox3.Location = new System.Drawing.Point(359, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(178, 52);
+            this.groupBox3.Size = new System.Drawing.Size(187, 52);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Прошло";
             // 
-            // textBox3
+            // textBox_billTime
             // 
-            this.textBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.ForeColor = System.Drawing.Color.Blue;
-            this.textBox3.Location = new System.Drawing.Point(3, 22);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(172, 22);
-            this.textBox3.TabIndex = 1;
-            this.textBox3.Text = "125";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_billTime.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_billTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_billTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_billTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_billTime.ForeColor = System.Drawing.Color.Blue;
+            this.textBox_billTime.Location = new System.Drawing.Point(3, 22);
+            this.textBox_billTime.Name = "textBox_billTime";
+            this.textBox_billTime.ReadOnly = true;
+            this.textBox_billTime.Size = new System.Drawing.Size(181, 22);
+            this.textBox_billTime.TabIndex = 1;
+            this.textBox_billTime.TabStop = false;
+            this.textBox_billTime.Text = "125";
+            this.textBox_billTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.textBox_billSum);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox4.Location = new System.Drawing.Point(3, 61);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(176, 64);
+            this.groupBox4.Size = new System.Drawing.Size(158, 64);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Сумма по счету";
             // 
-            // textBox4
+            // textBox_billSum
             // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.ForeColor = System.Drawing.Color.Blue;
-            this.textBox4.Location = new System.Drawing.Point(3, 22);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(170, 22);
-            this.textBox4.TabIndex = 1;
-            this.textBox4.Text = "125";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_billSum.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_billSum.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_billSum.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_billSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_billSum.ForeColor = System.Drawing.Color.Blue;
+            this.textBox_billSum.Location = new System.Drawing.Point(3, 22);
+            this.textBox_billSum.Name = "textBox_billSum";
+            this.textBox_billSum.ReadOnly = true;
+            this.textBox_billSum.Size = new System.Drawing.Size(152, 22);
+            this.textBox_billSum.TabIndex = 1;
+            this.textBox_billSum.TabStop = false;
+            this.textBox_billSum.Text = "125";
+            this.textBox_billSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBox5);
+            this.groupBox5.Controls.Add(this.textBox_billTable);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox5.Location = new System.Drawing.Point(185, 61);
+            this.groupBox5.Location = new System.Drawing.Point(167, 61);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(177, 64);
+            this.groupBox5.Size = new System.Drawing.Size(186, 64);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Стол №";
             // 
-            // textBox5
+            // textBox_billTable
             // 
-            this.textBox5.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox5.ForeColor = System.Drawing.Color.Blue;
-            this.textBox5.Location = new System.Drawing.Point(3, 22);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(171, 22);
-            this.textBox5.TabIndex = 1;
-            this.textBox5.Text = "125";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox_billTable.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_billTable.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_billTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_billTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_billTable.ForeColor = System.Drawing.Color.Blue;
+            this.textBox_billTable.Location = new System.Drawing.Point(3, 22);
+            this.textBox_billTable.Name = "textBox_billTable";
+            this.textBox_billTable.ReadOnly = true;
+            this.textBox_billTable.Size = new System.Drawing.Size(180, 22);
+            this.textBox_billTable.TabIndex = 1;
+            this.textBox_billTable.TabStop = false;
+            this.textBox_billTable.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tabControl_bill
             // 
@@ -452,10 +482,11 @@
             this.tabControl_bill.SelectedIndex = 0;
             this.tabControl_bill.Size = new System.Drawing.Size(549, 410);
             this.tabControl_bill.TabIndex = 0;
+            this.tabControl_bill.TabStop = false;
             // 
             // tabPage_selectBill
             // 
-            this.tabPage_selectBill.Controls.Add(this.dataGridView1);
+            this.tabPage_selectBill.Controls.Add(this.dataGridView_billInfo);
             this.tabPage_selectBill.Location = new System.Drawing.Point(4, 22);
             this.tabPage_selectBill.Name = "tabPage_selectBill";
             this.tabPage_selectBill.Padding = new System.Windows.Forms.Padding(3);
@@ -463,18 +494,33 @@
             this.tabPage_selectBill.TabIndex = 0;
             this.tabPage_selectBill.Text = "tabPage_selectBill";
             // 
-            // dataGridView1
+            // dataGridView_billInfo
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(535, 378);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView_billInfo.AllowUserToAddRows = false;
+            this.dataGridView_billInfo.AllowUserToDeleteRows = false;
+            this.dataGridView_billInfo.AllowUserToResizeColumns = false;
+            this.dataGridView_billInfo.AllowUserToResizeRows = false;
+            this.dataGridView_billInfo.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView_billInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_billInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dishes,
+            this.dishes_name,
+            this.dishes_price,
+            this.xcount,
+            this.suma,
+            this.ref_status,
+            this.status_name,
+            this.discount});
+            this.dataGridView_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_billInfo.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView_billInfo.MultiSelect = false;
+            this.dataGridView_billInfo.Name = "dataGridView_billInfo";
+            this.dataGridView_billInfo.ReadOnly = true;
+            this.dataGridView_billInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_billInfo.Size = new System.Drawing.Size(535, 378);
+            this.dataGridView_billInfo.TabIndex = 0;
+            this.dataGridView_billInfo.TabStop = false;
+            this.dataGridView_billInfo.Leave += new System.EventHandler(this.dataGridView_billInfo_Leave);
             // 
             // textBox_curItem
             // 
@@ -489,6 +535,66 @@
             this.textBox_curItem.Size = new System.Drawing.Size(997, 29);
             this.textBox_curItem.TabIndex = 0;
             this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // dishes
+            // 
+            this.dishes.HeaderText = "dishes";
+            this.dishes.Name = "dishes";
+            this.dishes.ReadOnly = true;
+            this.dishes.Visible = false;
+            // 
+            // dishes_name
+            // 
+            this.dishes_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dishes_name.HeaderText = "Наименование";
+            this.dishes_name.Name = "dishes_name";
+            this.dishes_name.ReadOnly = true;
+            // 
+            // dishes_price
+            // 
+            this.dishes_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dishes_price.HeaderText = "Цена";
+            this.dishes_price.Name = "dishes_price";
+            this.dishes_price.ReadOnly = true;
+            this.dishes_price.Width = 58;
+            // 
+            // xcount
+            // 
+            this.xcount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.xcount.HeaderText = "Кол-во";
+            this.xcount.Name = "xcount";
+            this.xcount.ReadOnly = true;
+            this.xcount.Width = 66;
+            // 
+            // suma
+            // 
+            this.suma.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.suma.HeaderText = "Сумма";
+            this.suma.Name = "suma";
+            this.suma.ReadOnly = true;
+            this.suma.Width = 66;
+            // 
+            // ref_status
+            // 
+            this.ref_status.HeaderText = "ref_status";
+            this.ref_status.Name = "ref_status";
+            this.ref_status.ReadOnly = true;
+            this.ref_status.Visible = false;
+            // 
+            // status_name
+            // 
+            this.status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.status_name.HeaderText = "Статус";
+            this.status_name.Name = "status_name";
+            this.status_name.ReadOnly = true;
+            this.status_name.Width = 66;
+            // 
+            // discount
+            // 
+            this.discount.HeaderText = "discount";
+            this.discount.Name = "discount";
+            this.discount.ReadOnly = true;
+            this.discount.Visible = false;
             // 
             // fMain
             // 
@@ -505,9 +611,9 @@
             this.Name = "fMain";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyUp);
+            this.Shown += new System.EventHandler(this.fMain_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.statusStrip_bottom.ResumeLayout(false);
             this.statusStrip_bottom.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -537,7 +643,7 @@
             this.groupBox5.PerformLayout();
             this.tabControl_bill.ResumeLayout(false);
             this.tabPage_selectBill.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_billInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -557,28 +663,37 @@
         private System.Windows.Forms.DataGridView dataGridView_refusing;
         private System.Windows.Forms.TabControl tabControl_bill;
         private System.Windows.Forms.TabPage tabPage_selectBill;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_billInfo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel_whoOpen;
         private System.Windows.Forms.TextBox textBox_curItem;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_billNumber;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox_billDateOpen;
+        private System.Windows.Forms.TextBox textBox_billTime;
+        private System.Windows.Forms.TextBox textBox_billSum;
+        private System.Windows.Forms.TextBox textBox_billTable;
         private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel_separate;
         private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel_whenOpen;
         private System.Windows.Forms.ToolStrip toolStrip_top;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn bill_numb;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel tSStatusLabel_curWaiter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bill_numb;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date_open;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xcount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn suma;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ref_status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn discount;
     }
 }
 

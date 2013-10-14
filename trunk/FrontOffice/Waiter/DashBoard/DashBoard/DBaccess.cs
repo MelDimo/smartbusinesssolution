@@ -14,6 +14,7 @@ namespace com.sbs.gui.DashBoard
 
         private SqlConnection con;
         private SqlCommand command = null;
+        private SqlTransaction tx = null;
 
         internal DataTable getAvaliableSeason(string pDbType)
         {
@@ -75,7 +76,7 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal DataTable getAvaliableBills(string pDbType)
+        internal DataTable getAvaliableBills(string pDbType, ref Dictionary<int, List<oBillInfo>> BillInfo)
         {
             dtResult = new DataTable();
 
@@ -86,7 +87,7 @@ namespace com.sbs.gui.DashBoard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT b.id, stat.name AS ref_status_name" +
+                command.CommandText = "SELECT b.id, date_open, stat.name AS ref_status_name" +
                                         " FROM bills b" +
                                         " INNER JOIN ref_status stat ON stat.id = b.ref_status" +
                                         " WHERE b.unit = @unit AND b.season = @season AND user_open = @user_open";
@@ -98,6 +99,38 @@ namespace com.sbs.gui.DashBoard
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dtResult.Load(dr);
+                }
+
+                command.Parameters.Clear();
+
+                command.CommandText = "SELECT bills, dishes, bi.dishes_name, bi.dishes_price, bi.xcount, bi.dishes_price * bi.xcount as suma, bi.ref_status, stat.name as ref_status_name, discount" +
+                                        " FROM bills_info bi" +
+                                        " INNER JOIN ref_status stat ON stat.id = bi.ref_status" +
+                                        " WHERE bills = @bills";
+                command.Parameters.Add("bills", SqlDbType.Int);
+                foreach (DataRow dr in dtResult.Rows)
+                {
+                    command.Parameters["bills"].Value = (int)dr["id"];
+                    using (SqlDataReader dreader = command.ExecuteReader())
+                    {
+                        List<oBillInfo> listBillInfo = new List<oBillInfo>();
+                        while (dreader.Read())
+                        {
+                            oBillInfo billInfo = new oBillInfo();
+                            billInfo.Bill = (int)dreader["bills"];
+                            billInfo.Dishes = (int)dreader["dishes"];
+                            billInfo.DishesName = dreader["dishes_name"].ToString();
+                            billInfo.DishesPrice = double.Parse(dreader["dishes_price"].ToString());
+                            billInfo.XCount = double.Parse(dreader["xcount"].ToString());
+                            billInfo.Suma = double.Parse(dreader["suma"].ToString());
+                            billInfo.RefStatus = (int)dreader["ref_status"];
+                            billInfo.RefStatusName = dreader["ref_status_name"].ToString();
+                            billInfo.Discount = double.Parse(dreader["discount"].ToString());
+                            listBillInfo.Add(billInfo);
+                        }
+
+                        BillInfo.Add((int)dr["id"], listBillInfo);
+                    }
                 }
 
                 con.Close();
@@ -171,6 +204,36 @@ namespace com.sbs.gui.DashBoard
         }
 
         internal DataTable getDishes(string pDbType)
+        {
+            dtResult = new DataTable("dishes");
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, dishes_group, name, price " +
+                                        " FROM dishes" +
+                                        " WHERE ref_status = @ref_status";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        internal DataTable getReports(string pDbType)
         {
             dtResult = new DataTable("dishes");
 
@@ -308,5 +371,210 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
+        internal void addDishToBill(string pDbType, oBill pBill, oDishes pDishes)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_Add";
+                command.CommandType = CommandType.StoredProcedure;
+
+                //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
+
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.BillId;
+                command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDishes.Id;
+                command.Parameters.Add("pCount", SqlDbType.Int).Value = pDishes.Count;
+                command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pDishes.Discount;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void editDishToBill(string pDbType, oBillInfo pBillInfo, double pCount)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_Edit";
+                command.CommandType = CommandType.StoredProcedure;
+
+                //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
+
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillInfo.Bill;
+                command.Parameters.Add("pDishId", SqlDbType.Int).Value = pBillInfo.Dishes;
+                command.Parameters.Add("pCount", SqlDbType.Int).Value = pCount;
+                command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBillInfo.Discount;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+    }
+
+    public class oBill
+    {
+        private int _billId;
+        private DateTime _dateOpen;
+        private int _table;
+        private int _summa;
+
+        public int Summa
+        {
+            get { return _summa; }
+            set { _summa = value; }
+        }
+        
+        public int Table
+        {
+            get { return _table; }
+            set { _table = value; }
+        }
+        
+        public DateTime DateOpen
+        {
+            get { return _dateOpen; }
+            set { _dateOpen = value; }
+        }
+        
+        public int BillId
+        {
+            get { return _billId; }
+            set { _billId = value; }
+        }
+    }
+
+    public class oDishes
+    {
+        private int _id;
+        private double _count;
+        private double _price;
+        private int _discount;
+        private string _name;
+
+        public double Price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        public int Discount
+        {
+            get { return _discount; }
+            set { _discount = value; }
+        }
+
+        public double Count
+        {
+            get { return _count; }
+            set { _count = value; }
+        }
+        
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+        
+    }
+
+    public class oBillInfo
+    {
+        private int _bill;
+        private int _dishes;
+        private string _dishesName;
+        private double _dishesPrice;
+        private double _xcount;
+        private double _suma;
+        private int _refStatus;
+        private string _refStatusName;
+        private double _discount;
+
+        public double Discount
+        {
+            get { return _discount; }
+            set { _discount = value; }
+        }
+        
+
+        public string RefStatusName
+        {
+            get { return _refStatusName; }
+            set { _refStatusName = value; }
+        }
+
+        public int RefStatus
+        {
+            get { return _refStatus; }
+            set { _refStatus = value; }
+        }
+
+        public double Suma
+        {
+            get { return _suma; }
+            set { _suma = value; }
+        }
+
+        public double XCount
+        {
+            get { return _xcount; }
+            set
+            {
+                _xcount = value;
+                _suma = _xcount * _dishesPrice;
+            }
+        }
+
+        public double DishesPrice
+        {
+            get { return _dishesPrice; }
+            set { _dishesPrice = value; }
+        }
+        
+        public string DishesName
+        {
+            get { return _dishesName; }
+            set { _dishesName = value; }
+        }
+
+        public int Dishes
+        {
+            get { return _dishes; }
+            set { _dishes = value; }
+        }
+
+        public int Bill
+        {
+            get { return _bill; }
+            set { _bill = value; }
+        }
+        
     }
 }
