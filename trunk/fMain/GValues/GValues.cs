@@ -25,6 +25,7 @@ namespace com.sbs.dll
         public static string openSeasonUserName;
 
         public static int unitId;
+        public static int branchId;
 
         public static int authortype;
 
@@ -50,9 +51,9 @@ namespace com.sbs.dll
         public bool loadConfig()
         {
             string msgError = "В ходе разбора файла конфигурации произошли следующие ошибки:";
-            int xUnitId;
+            int xBranchId;
             XmlDocument doc = new XmlDocument();
-            XmlNode node_ref_unit;
+            XmlNode node_ref_branch;
             XmlNode node_dbmode;
             XmlNode node_maindb;
             XmlNode node_waiterConfig;
@@ -60,15 +61,15 @@ namespace com.sbs.dll
             try
             {
                 doc.Load(GValues.fileSettingsPath);
-                node_ref_unit = doc.GetElementsByTagName("ref_unit")[0];
+                node_ref_branch = doc.GetElementsByTagName("ref_branch")[0];
                 node_dbmode = doc.GetElementsByTagName("dbmode")[0];
                 node_maindb = doc.GetElementsByTagName("maindb")[0];
                 node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
-                
 
-                if (!int.TryParse(node_ref_unit.InnerText, out xUnitId))
+
+                if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
-                else GValues.unitId = xUnitId;
+                else GValues.branchId = xBranchId;
 
                 GValues.DBMode = node_dbmode.InnerText;
                 if (GValues.DBMode.Length == 0)
@@ -78,9 +79,9 @@ namespace com.sbs.dll
                 if (GValues.mainDB.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить головную БД;";
 
-                if (!int.TryParse(node_waiterConfig.InnerText, out xUnitId))
+                if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
-                else GValues.authortype = xUnitId;
+                else GValues.authortype = xBranchId;
 
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
