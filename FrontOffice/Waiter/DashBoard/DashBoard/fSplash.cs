@@ -26,33 +26,6 @@ namespace com.sbs.gui.DashBoard
             ds = getReferences();
         }
 
-        private void fSplash_KeyUp(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            { 
-                case Keys.Enter:
-                    if (GValues.openSeasonId == 0)
-                    {
-                        UsersInfo.Clear();
-                        fSeason fseason = new fSeason();
-                        if (fseason.ShowDialog() != DialogResult.OK) return;
-                    }
-
-                    switch (GValues.authortype)
-                    { 
-                        case 1:
-                            if (!mifareAccess()) { return; }
-                            fMain fMain = new fMain(ds);
-                            fMain.ShowDialog();
-                            break;
-                    }                    
-                    break;
-
-                case Keys.Back:
-                    break;
-            }
-        }
-
         private bool mifareAccess()
         {
             fMIFare fMifare = new fMIFare();
@@ -74,12 +47,14 @@ namespace com.sbs.gui.DashBoard
             DataTable dtCarte = new DataTable();
             DataTable dtDishesGroup = new DataTable();
             DataTable dtDishes = new DataTable();
+            DataTable dtReports = new DataTable();
 
             try
             {
                 dtCarte = DbAccess.getCarte("offline");
                 dtDishesGroup = DbAccess.getDishesGroup("offline");
                 dtDishes = DbAccess.getDishes("offline");
+                dtReports = DbAccess.getReports("offline");
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); }
 
@@ -89,6 +64,37 @@ namespace com.sbs.gui.DashBoard
             dsDishes.Tables.Add(dtDishes);
 
             return dsDishes;
+        }
+
+        private void fSplash_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (GValues.openSeasonId == 0)
+                    {
+                        UsersInfo.Clear();
+                        fSeason fseason = new fSeason();
+                        if (fseason.ShowDialog() != DialogResult.OK) return;
+                    }
+
+                    switch (GValues.authortype)
+                    {
+                        case 1:
+                            if (!mifareAccess()) { return; }
+                            fMain fMain = new fMain(ds);
+                            fMain.ShowDialog();
+                            break;
+                    }
+                    break;
+
+                case Keys.Back:
+                    break;
+
+                case Keys.Escape:
+                    Close();
+                    break;
+            }
         }
     }
 }
