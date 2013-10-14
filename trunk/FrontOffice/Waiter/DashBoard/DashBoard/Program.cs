@@ -20,7 +20,8 @@ namespace com.sbs.gui.DashBoard
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
-            GValues.unitId = 2;
+            GValues.branchId = 2;
+            UsersInfo.UserId = 5;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

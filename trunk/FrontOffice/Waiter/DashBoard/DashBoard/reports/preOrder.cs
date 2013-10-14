@@ -16,14 +16,14 @@ namespace com.sbs.gui.DashBoard.reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class preOrder_1 : ReportClass {
+    public class preOrder : ReportClass {
         
-        public preOrder_1() {
+        public preOrder() {
         }
         
         public override string ResourceName {
             get {
-                return "preOrder_1.rpt";
+                return "preOrder.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace com.sbs.gui.DashBoard.reports {
         
         public override string FullResourceName {
             get {
-                return "com.sbs.gui.DashBoard.reports.preOrder_1.rpt";
+                return "com.sbs.gui.DashBoard.reports.preOrder.rpt";
             }
             set {
                 // Do nothing
@@ -87,12 +87,44 @@ namespace com.sbs.gui.DashBoard.reports {
                 return this.ReportDefinition.Sections[4];
             }
         }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_waiterName {
+            get {
+                return this.DataDefinition.ParameterFields[0];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_curDate {
+            get {
+                return this.DataDefinition.ParameterFields[1];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_billNumber {
+            get {
+                return this.DataDefinition.ParameterFields[2];
+            }
+        }
+        
+        [Browsable(false)]
+        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
+        public CrystalDecisions.Shared.IParameterField Parameter_printersType {
+            get {
+                return this.DataDefinition.ParameterFields[3];
+            }
+        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedpreOrder_1 : Component, ICachedReport {
+    public class CachedpreOrder : Component, ICachedReport {
         
-        public CachedpreOrder_1() {
+        public CachedpreOrder() {
         }
         
         [Browsable(false)]
@@ -129,7 +161,7 @@ namespace com.sbs.gui.DashBoard.reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            preOrder_1 rpt = new preOrder_1();
+            preOrder rpt = new preOrder();
             rpt.Site = this.Site;
             return rpt;
         }

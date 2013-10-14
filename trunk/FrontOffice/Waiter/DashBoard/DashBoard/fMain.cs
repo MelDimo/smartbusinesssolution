@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace com.sbs.gui.DashBoard
 {
@@ -144,9 +145,10 @@ namespace com.sbs.gui.DashBoard
                 getBillsInfo(bill.BillId);
             }
 
-            dataGridView_bill.Focus();
-
             dataGridView_billInfo.ClearSelection();
+
+            dataGridView_bill.Focus();
+            dataGridView_bill.Select();
         }
 
         private void getBill()
@@ -514,6 +516,8 @@ namespace com.sbs.gui.DashBoard
                     if (UsersInfo.Acl.Contains(3))
                     {
                         createBill();
+                        dataGridView_bill.Rows[dataGridView_bill.Rows.Count - 1].Selected = true;
+                        dataGridView_bill_KeyDown(null, new KeyEventArgs(Keys.Enter));
                     }
                     else
                         uMessage.Show("Нет доступа на создание заказа.", SystemIcons.Information);
@@ -532,7 +536,53 @@ namespace com.sbs.gui.DashBoard
 
         private void processBill()
         {
-            
+            DataTable dtResult = null;
+            ReportDocument repDoc;
+            DataSet ds = new DataSet();
+
+            try
+            {
+                dtResult = DbAccess.processBill("offline", bill);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); }
+
+            if (dtResult.Rows.Count == 0) return;
+
+            ds.Tables.Add(dtResult);
+
+            var results_1 = from myRow in dtResult.AsEnumerable()
+                          where myRow.Field<int>("ref_printers_type") == 1
+                          select myRow;
+
+            if (results_1.Count() > 0) // есть позиции на принтер Кухни
+            {
+                repDoc = new ReportDocument();
+                repDoc.Load("reports\\preOrder.rpt");
+                repDoc.SetDataSource(ds);
+                repDoc.SetParameterValue("waiterName", UsersInfo.UserName);
+                repDoc.SetParameterValue("curDate", DateTime.Now);
+                repDoc.SetParameterValue("billNumber", bill.BillId);
+                repDoc.SetParameterValue("printersType",1);
+                repDoc.PrintOptions.PrinterName = results_1.First().Field<string>("printerName");
+                repDoc.PrintToPrinter(1, false, 0, 0);
+            }
+
+            var results_2 = from myRow in dtResult.AsEnumerable()
+                          where myRow.Field<int>("ref_printers_type") == 2
+                          select myRow;
+
+            if (results_2.Count() > 0) // есть позиции на принтер Бара
+            {
+                repDoc = new ReportDocument();
+                repDoc.Load("reports\\preOrder.rpt");
+                repDoc.SetDataSource(ds);
+                repDoc.SetParameterValue("waiterName", UsersInfo.UserName);
+                repDoc.SetParameterValue("curDate", DateTime.Now);
+                repDoc.SetParameterValue("billNumber", bill.BillId);
+                repDoc.SetParameterValue("printersType", 2);
+                repDoc.PrintOptions.PrinterName = results_2.First().Field<string>("printerName");
+                repDoc.PrintToPrinter(1, false, 0, 0);
+            }
         }
 
         private void createBill()

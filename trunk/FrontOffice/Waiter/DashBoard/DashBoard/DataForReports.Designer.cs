@@ -24,7 +24,7 @@ namespace com.sbs.gui.DashBoard {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class DataForReports : global::System.Data.DataSet {
         
-        private preOrder_1DataTable tablepreOrder_1;
+        private preOrderDataTable tablepreOrder;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -54,8 +54,8 @@ namespace com.sbs.gui.DashBoard {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["preOrder_1"] != null)) {
-                    base.Tables.Add(new preOrder_1DataTable(ds.Tables["preOrder_1"]));
+                if ((ds.Tables["preOrder"] != null)) {
+                    base.Tables.Add(new preOrderDataTable(ds.Tables["preOrder"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -79,9 +79,9 @@ namespace com.sbs.gui.DashBoard {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public preOrder_1DataTable preOrder_1 {
+        public preOrderDataTable preOrder {
             get {
-                return this.tablepreOrder_1;
+                return this.tablepreOrder;
             }
         }
         
@@ -152,8 +152,8 @@ namespace com.sbs.gui.DashBoard {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["preOrder_1"] != null)) {
-                    base.Tables.Add(new preOrder_1DataTable(ds.Tables["preOrder_1"]));
+                if ((ds.Tables["preOrder"] != null)) {
+                    base.Tables.Add(new preOrderDataTable(ds.Tables["preOrder"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -188,10 +188,10 @@ namespace com.sbs.gui.DashBoard {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tablepreOrder_1 = ((preOrder_1DataTable)(base.Tables["preOrder_1"]));
+            this.tablepreOrder = ((preOrderDataTable)(base.Tables["preOrder"]));
             if ((initTable == true)) {
-                if ((this.tablepreOrder_1 != null)) {
-                    this.tablepreOrder_1.InitVars();
+                if ((this.tablepreOrder != null)) {
+                    this.tablepreOrder.InitVars();
                 }
             }
         }
@@ -204,13 +204,13 @@ namespace com.sbs.gui.DashBoard {
             this.Namespace = "http://tempuri.org/DataForReports.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tablepreOrder_1 = new preOrder_1DataTable();
-            base.Tables.Add(this.tablepreOrder_1);
+            this.tablepreOrder = new preOrderDataTable();
+            base.Tables.Add(this.tablepreOrder);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializepreOrder_1() {
+        private bool ShouldSerializepreOrder() {
             return false;
         }
         
@@ -270,23 +270,27 @@ namespace com.sbs.gui.DashBoard {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void preOrder_1RowChangeEventHandler(object sender, preOrder_1RowChangeEvent e);
+        public delegate void preOrderRowChangeEventHandler(object sender, preOrderRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class preOrder_1DataTable : global::System.Data.TypedTableBase<preOrder_1Row> {
+        public partial class preOrderDataTable : global::System.Data.TypedTableBase<preOrderRow> {
             
-            private global::System.Data.DataColumn columndishName;
+            private global::System.Data.DataColumn columnname;
             
-            private global::System.Data.DataColumn columndishCount;
+            private global::System.Data.DataColumn columnxcount;
+            
+            private global::System.Data.DataColumn columnref_printers_type;
+            
+            private global::System.Data.DataColumn columnprinterName;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1DataTable() {
-                this.TableName = "preOrder_1";
+            public preOrderDataTable() {
+                this.TableName = "preOrder";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -294,7 +298,7 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal preOrder_1DataTable(global::System.Data.DataTable table) {
+            internal preOrderDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -311,24 +315,40 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected preOrder_1DataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected preOrderDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn dishNameColumn {
+            public global::System.Data.DataColumn nameColumn {
                 get {
-                    return this.columndishName;
+                    return this.columnname;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn dishCountColumn {
+            public global::System.Data.DataColumn xcountColumn {
                 get {
-                    return this.columndishCount;
+                    return this.columnxcount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ref_printers_typeColumn {
+                get {
+                    return this.columnref_printers_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn printerNameColumn {
+                get {
+                    return this.columnprinterName;
                 }
             }
             
@@ -343,46 +363,48 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1Row this[int index] {
+            public preOrderRow this[int index] {
                 get {
-                    return ((preOrder_1Row)(this.Rows[index]));
+                    return ((preOrderRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event preOrder_1RowChangeEventHandler preOrder_1RowChanging;
+            public event preOrderRowChangeEventHandler preOrderRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event preOrder_1RowChangeEventHandler preOrder_1RowChanged;
+            public event preOrderRowChangeEventHandler preOrderRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event preOrder_1RowChangeEventHandler preOrder_1RowDeleting;
+            public event preOrderRowChangeEventHandler preOrderRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event preOrder_1RowChangeEventHandler preOrder_1RowDeleted;
+            public event preOrderRowChangeEventHandler preOrderRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddpreOrder_1Row(preOrder_1Row row) {
+            public void AddpreOrderRow(preOrderRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1Row AddpreOrder_1Row(string dishName, decimal dishCount) {
-                preOrder_1Row rowpreOrder_1Row = ((preOrder_1Row)(this.NewRow()));
+            public preOrderRow AddpreOrderRow(string name, decimal xcount, decimal ref_printers_type, string printerName) {
+                preOrderRow rowpreOrderRow = ((preOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        dishName,
-                        dishCount};
-                rowpreOrder_1Row.ItemArray = columnValuesArray;
-                this.Rows.Add(rowpreOrder_1Row);
-                return rowpreOrder_1Row;
+                        name,
+                        xcount,
+                        ref_printers_type,
+                        printerName};
+                rowpreOrderRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowpreOrderRow);
+                return rowpreOrderRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                preOrder_1DataTable cln = ((preOrder_1DataTable)(base.Clone()));
+                preOrderDataTable cln = ((preOrderDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -390,49 +412,55 @@ namespace com.sbs.gui.DashBoard {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new preOrder_1DataTable();
+                return new preOrderDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columndishName = base.Columns["dishName"];
-                this.columndishCount = base.Columns["dishCount"];
+                this.columnname = base.Columns["name"];
+                this.columnxcount = base.Columns["xcount"];
+                this.columnref_printers_type = base.Columns["ref_printers_type"];
+                this.columnprinterName = base.Columns["printerName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columndishName = new global::System.Data.DataColumn("dishName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndishName);
-                this.columndishCount = new global::System.Data.DataColumn("dishCount", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndishCount);
+                this.columnname = new global::System.Data.DataColumn("name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnname);
+                this.columnxcount = new global::System.Data.DataColumn("xcount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnxcount);
+                this.columnref_printers_type = new global::System.Data.DataColumn("ref_printers_type", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnref_printers_type);
+                this.columnprinterName = new global::System.Data.DataColumn("printerName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprinterName);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1Row NewpreOrder_1Row() {
-                return ((preOrder_1Row)(this.NewRow()));
+            public preOrderRow NewpreOrderRow() {
+                return ((preOrderRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new preOrder_1Row(builder);
+                return new preOrderRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(preOrder_1Row);
+                return typeof(preOrderRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.preOrder_1RowChanged != null)) {
-                    this.preOrder_1RowChanged(this, new preOrder_1RowChangeEvent(((preOrder_1Row)(e.Row)), e.Action));
+                if ((this.preOrderRowChanged != null)) {
+                    this.preOrderRowChanged(this, new preOrderRowChangeEvent(((preOrderRow)(e.Row)), e.Action));
                 }
             }
             
@@ -440,8 +468,8 @@ namespace com.sbs.gui.DashBoard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.preOrder_1RowChanging != null)) {
-                    this.preOrder_1RowChanging(this, new preOrder_1RowChangeEvent(((preOrder_1Row)(e.Row)), e.Action));
+                if ((this.preOrderRowChanging != null)) {
+                    this.preOrderRowChanging(this, new preOrderRowChangeEvent(((preOrderRow)(e.Row)), e.Action));
                 }
             }
             
@@ -449,8 +477,8 @@ namespace com.sbs.gui.DashBoard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.preOrder_1RowDeleted != null)) {
-                    this.preOrder_1RowDeleted(this, new preOrder_1RowChangeEvent(((preOrder_1Row)(e.Row)), e.Action));
+                if ((this.preOrderRowDeleted != null)) {
+                    this.preOrderRowDeleted(this, new preOrderRowChangeEvent(((preOrderRow)(e.Row)), e.Action));
                 }
             }
             
@@ -458,14 +486,14 @@ namespace com.sbs.gui.DashBoard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.preOrder_1RowDeleting != null)) {
-                    this.preOrder_1RowDeleting(this, new preOrder_1RowChangeEvent(((preOrder_1Row)(e.Row)), e.Action));
+                if ((this.preOrderRowDeleting != null)) {
+                    this.preOrderRowDeleting(this, new preOrderRowChangeEvent(((preOrderRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemovepreOrder_1Row(preOrder_1Row row) {
+            public void RemovepreOrderRow(preOrderRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -492,7 +520,7 @@ namespace com.sbs.gui.DashBoard {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "preOrder_1DataTable";
+                attribute2.FixedValue = "preOrderDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -536,71 +564,127 @@ namespace com.sbs.gui.DashBoard {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class preOrder_1Row : global::System.Data.DataRow {
+        public partial class preOrderRow : global::System.Data.DataRow {
             
-            private preOrder_1DataTable tablepreOrder_1;
+            private preOrderDataTable tablepreOrder;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal preOrder_1Row(global::System.Data.DataRowBuilder rb) : 
+            internal preOrderRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablepreOrder_1 = ((preOrder_1DataTable)(this.Table));
+                this.tablepreOrder = ((preOrderDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string dishName {
+            public string name {
                 get {
                     try {
-                        return ((string)(this[this.tablepreOrder_1.dishNameColumn]));
+                        return ((string)(this[this.tablepreOrder.nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'dishName\' in table \'preOrder_1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'name\' in table \'preOrder\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablepreOrder_1.dishNameColumn] = value;
+                    this[this.tablepreOrder.nameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public decimal dishCount {
+            public decimal xcount {
                 get {
                     try {
-                        return ((decimal)(this[this.tablepreOrder_1.dishCountColumn]));
+                        return ((decimal)(this[this.tablepreOrder.xcountColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'dishCount\' in table \'preOrder_1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'xcount\' in table \'preOrder\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablepreOrder_1.dishCountColumn] = value;
+                    this[this.tablepreOrder.xcountColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsdishNameNull() {
-                return this.IsNull(this.tablepreOrder_1.dishNameColumn);
+            public decimal ref_printers_type {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablepreOrder.ref_printers_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ref_printers_type\' in table \'preOrder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablepreOrder.ref_printers_typeColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetdishNameNull() {
-                this[this.tablepreOrder_1.dishNameColumn] = global::System.Convert.DBNull;
+            public string printerName {
+                get {
+                    try {
+                        return ((string)(this[this.tablepreOrder.printerNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'printerName\' in table \'preOrder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablepreOrder.printerNameColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsdishCountNull() {
-                return this.IsNull(this.tablepreOrder_1.dishCountColumn);
+            public bool IsnameNull() {
+                return this.IsNull(this.tablepreOrder.nameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetdishCountNull() {
-                this[this.tablepreOrder_1.dishCountColumn] = global::System.Convert.DBNull;
+            public void SetnameNull() {
+                this[this.tablepreOrder.nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsxcountNull() {
+                return this.IsNull(this.tablepreOrder.xcountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetxcountNull() {
+                this[this.tablepreOrder.xcountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isref_printers_typeNull() {
+                return this.IsNull(this.tablepreOrder.ref_printers_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setref_printers_typeNull() {
+                this[this.tablepreOrder.ref_printers_typeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsprinterNameNull() {
+                return this.IsNull(this.tablepreOrder.printerNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetprinterNameNull() {
+                this[this.tablepreOrder.printerNameColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -608,22 +692,22 @@ namespace com.sbs.gui.DashBoard {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class preOrder_1RowChangeEvent : global::System.EventArgs {
+        public class preOrderRowChangeEvent : global::System.EventArgs {
             
-            private preOrder_1Row eventRow;
+            private preOrderRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1RowChangeEvent(preOrder_1Row row, global::System.Data.DataRowAction action) {
+            public preOrderRowChangeEvent(preOrderRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrder_1Row Row {
+            public preOrderRow Row {
                 get {
                     return this.eventRow;
                 }

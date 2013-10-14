@@ -31,9 +31,9 @@ namespace com.sbs.gui.DashBoard
                                         " FROM season s " +
                                         " INNER JOIN users u ON u.id = s.user_open" +
                                         " INNER JOIN ref_status stat ON stat.id = s.ref_status" +
-                                        " WHERE s.unit = @unit";
+                                        " WHERE s.branch = @branch";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -57,10 +57,10 @@ namespace com.sbs.gui.DashBoard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO season (unit, date_open, user_open, ref_status) " +
-                                        " VALUES(@unit, @date_open, @user_open, @ref_status)";
+                command.CommandText = "INSERT INTO season (branch, date_open, user_open, ref_status) " +
+                                        " VALUES(@branch, @date_open, @user_open, @ref_status)";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("date_open", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("user_open", SqlDbType.Int).Value = UsersInfo.UserId;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 16;
@@ -85,14 +85,19 @@ namespace com.sbs.gui.DashBoard
             try
             {
                 con.Open();
+
+                tx = con.BeginTransaction();
+
                 command = con.CreateCommand();
+
+                command.Transaction = tx; ;
 
                 command.CommandText = "SELECT b.id, date_open, stat.name AS ref_status_name" +
                                         " FROM bills b" +
                                         " INNER JOIN ref_status stat ON stat.id = b.ref_status" +
-                                        " WHERE b.unit = @unit AND b.season = @season AND user_open = @user_open";
+                                        " WHERE b.branch = @branch AND b.season = @season AND user_open = @user_open";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("user_open", SqlDbType.Int).Value = UsersInfo.UserId;
 
@@ -108,6 +113,9 @@ namespace com.sbs.gui.DashBoard
                                         " INNER JOIN ref_status stat ON stat.id = bi.ref_status" +
                                         " WHERE bills = @bills";
                 command.Parameters.Add("bills", SqlDbType.Int);
+
+                BillInfo.Clear();
+
                 foreach (DataRow dr in dtResult.Rows)
                 {
                     command.Parameters["bills"].Value = (int)dr["id"];
@@ -133,10 +141,11 @@ namespace com.sbs.gui.DashBoard
                     }
                 }
 
+                tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
 
             return dtResult;
         }
@@ -154,9 +163,9 @@ namespace com.sbs.gui.DashBoard
 
                 command.CommandText = "SELECT id, name" +
                                         " FROM carte" +
-                                        " WHERE unit = @unit AND ref_status = @ref_status";
+                                        " WHERE branch = @branch AND ref_status = @ref_status";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -276,11 +285,11 @@ namespace com.sbs.gui.DashBoard
 
                 command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn, u.ref_post" +
                                         " FROM users_pwd upwd" +
-                                        " INNER JOIN users u ON u.id = upwd.users AND u.unit = @unit" +
+                                        " INNER JOIN users u ON u.id = upwd.users AND u.branch = @branch" +
                                         " INNER JOIN ref_post post ON post.id = u.ref_post" +
                                         " WHERE upwd.pwd = @pwd";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -351,10 +360,10 @@ namespace com.sbs.gui.DashBoard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO bills (unit, season, date_open, user_open, ref_status) " +
-                                        " VALUES(@unit, @season, @date_open, @user_open, @ref_status)";
+                command.CommandText = "INSERT INTO bills (branch, season, numb, date_open, user_open, ref_status) " +
+                                        " VALUES(@branch, @season, dbo.nextBill(@season), @date_open, @user_open, @ref_status)";
 
-                command.Parameters.Add("unit", SqlDbType.Int).Value = GValues.unitId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("date_open", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("user_open", SqlDbType.Int).Value = UsersInfo.UserId;
@@ -431,6 +440,41 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
+
+        internal DataTable processBill(string pDbType, oBill bill)
+        {
+            dtResult = new DataTable("preOrder");
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName" +
+                                        " FROM bills_info bi" +
+                                        " INNER JOIN dishes d ON d.id = bi.dishes" +
+                                        " INNER JOIN bills b ON b.id = bi.bills" +
+                                        " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
+                                        " WHERE bi.bills = @bills";
+
+                command.Parameters.Add("bills", SqlDbType.Int).Value = bill.BillId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 
     public class oBill

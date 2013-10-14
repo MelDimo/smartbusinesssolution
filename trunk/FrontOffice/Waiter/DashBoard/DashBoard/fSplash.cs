@@ -73,7 +73,6 @@ namespace com.sbs.gui.DashBoard
                 case Keys.Enter:
                     if (GValues.openSeasonId == 0)
                     {
-                        UsersInfo.Clear();
                         fSeason fseason = new fSeason();
                         if (fseason.ShowDialog() != DialogResult.OK) return;
                     }
