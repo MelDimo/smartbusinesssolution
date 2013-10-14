@@ -68,8 +68,6 @@ namespace com.sbs.gui.DashBoard
             btnSeason.Tag = null;
 
             panel_holder.Controls.Add(btnSeason);
-
-
         }
 
         void btnSeason_Click(object sender, EventArgs e)
@@ -107,6 +105,7 @@ namespace com.sbs.gui.DashBoard
             }
 
             uMessage.Show("Смена создана!", SystemIcons.Information);
+            closeForm(0);
         }
 
         private void closeForm(int pCloseParam)
@@ -128,10 +127,10 @@ namespace com.sbs.gui.DashBoard
             closeForm(0);
         }
 
-        private void fSeason_KeyUp(object sender, KeyEventArgs e)
+        private void fSeason_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
-            { 
+            {
                 case Keys.Escape:
                     closeForm(0);
                     break;

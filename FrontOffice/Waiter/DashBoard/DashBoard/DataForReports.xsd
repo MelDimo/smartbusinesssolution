@@ -12,11 +12,13 @@
   <xs:element name="DataForReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataForReports" msprop:Generator_UserDSName="DataForReports">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="preOrder_1" msprop:Generator_TableClassName="preOrder_1DataTable" msprop:Generator_TableVarName="tablepreOrder_1" msprop:Generator_TablePropName="preOrder_1" msprop:Generator_RowDeletingName="preOrder_1RowDeleting" msprop:Generator_UserTableName="preOrder_1" msprop:Generator_RowChangingName="preOrder_1RowChanging" msprop:Generator_RowEvHandlerName="preOrder_1RowChangeEventHandler" msprop:Generator_RowDeletedName="preOrder_1RowDeleted" msprop:Generator_RowEvArgName="preOrder_1RowChangeEvent" msprop:Generator_RowChangedName="preOrder_1RowChanged" msprop:Generator_RowClassName="preOrder_1Row">
+        <xs:element name="preOrder" msprop:Generator_TableClassName="preOrderDataTable" msprop:Generator_TableVarName="tablepreOrder" msprop:Generator_TablePropName="preOrder" msprop:Generator_RowDeletingName="preOrderRowDeleting" msprop:Generator_UserTableName="preOrder" msprop:Generator_RowChangingName="preOrderRowChanging" msprop:Generator_RowEvHandlerName="preOrderRowChangeEventHandler" msprop:Generator_RowDeletedName="preOrderRowDeleted" msprop:Generator_RowEvArgName="preOrderRowChangeEvent" msprop:Generator_RowChangedName="preOrderRowChanged" msprop:Generator_RowClassName="preOrderRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="dishName" msprop:Generator_ColumnVarNameInTable="columndishName" msprop:Generator_ColumnPropNameInRow="dishName" msprop:Generator_ColumnPropNameInTable="dishNameColumn" msprop:Generator_UserColumnName="dishName" type="xs:string" minOccurs="0" />
-              <xs:element name="dishCount" msprop:Generator_ColumnVarNameInTable="columndishCount" msprop:Generator_ColumnPropNameInRow="dishCount" msprop:Generator_ColumnPropNameInTable="dishCountColumn" msprop:Generator_UserColumnName="dishCount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="xcount" msprop:Generator_ColumnVarNameInTable="columnxcount" msprop:Generator_ColumnPropNameInRow="xcount" msprop:Generator_ColumnPropNameInTable="xcountColumn" msprop:Generator_UserColumnName="xcount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ref_printers_type" msprop:Generator_ColumnVarNameInTable="columnref_printers_type" msprop:Generator_ColumnPropNameInRow="ref_printers_type" msprop:Generator_ColumnPropNameInTable="ref_printers_typeColumn" msprop:Generator_UserColumnName="ref_printers_type" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printerName" msprop:Generator_ColumnVarNameInTable="columnprinterName" msprop:Generator_ColumnPropNameInRow="printerName" msprop:Generator_ColumnPropNameInTable="printerNameColumn" msprop:Generator_UserColumnName="printerName" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
