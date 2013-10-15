@@ -22,6 +22,15 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="order" msprop:Generator_TableClassName="orderDataTable" msprop:Generator_TableVarName="tableorder" msprop:Generator_TablePropName="order" msprop:Generator_RowDeletingName="orderRowDeleting" msprop:Generator_UserTableName="order" msprop:Generator_RowChangingName="orderRowChanging" msprop:Generator_RowEvHandlerName="orderRowChangeEventHandler" msprop:Generator_RowDeletedName="orderRowDeleted" msprop:Generator_RowEvArgName="orderRowChangeEvent" msprop:Generator_RowChangedName="orderRowChanged" msprop:Generator_RowClassName="orderRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="price" msprop:Generator_ColumnVarNameInTable="columnprice" msprop:Generator_ColumnPropNameInRow="price" msprop:Generator_ColumnPropNameInTable="priceColumn" msprop:Generator_UserColumnName="price" type="xs:decimal" minOccurs="0" />
+              <xs:element name="xcount" msprop:Generator_ColumnVarNameInTable="columnxcount" msprop:Generator_ColumnPropNameInRow="xcount" msprop:Generator_ColumnPropNameInTable="xcountColumn" msprop:Generator_UserColumnName="xcount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>
