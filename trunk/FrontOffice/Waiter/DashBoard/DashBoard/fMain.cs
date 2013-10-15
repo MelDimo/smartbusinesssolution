@@ -524,14 +524,56 @@ namespace com.sbs.gui.DashBoard
                     break;
 
                 case Keys.F3:   // Печать бегунка
-                    if (UsersInfo.Acl.Contains(3))
+                    if (UsersInfo.Acl.Contains(7))
                     {
                         processBill();
                     }
                     else
                         uMessage.Show("Нет доступа на формирования заказа.", SystemIcons.Information);
                     break;
+
+                case Keys.F5:   // Закрытие заказа, печать чека
+                    if (UsersInfo.Acl.Contains(8))
+                    {
+                        closeBill();
+                    }
+                    else
+                        uMessage.Show("Нет доступа на закрытие заказа.", SystemIcons.Information);
+                    break;
             }
+        }
+
+        private void closeBill()
+        {
+            bool NotProcessed = false;
+
+            #region Проверка блюд в счете
+
+            List<oBillInfo> list = BillInfo[bill.BillId];
+            foreach (oBillInfo oBInfo in list)
+            {
+                if (oBInfo.RefStatus == 23)
+                {
+                    NotProcessed = true;
+                    break;
+                }
+            }
+
+            if (NotProcessed)
+            {
+                MessageBox.Show("Есть позиции не отправленные на приготовление, закрытие заказа не возможно", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            #endregion
+
+            try
+            {
+                DbAccess.closeBill("offline", bill);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); }
+
+            getBill();
+
         }
 
         private void processBill()
@@ -539,6 +581,26 @@ namespace com.sbs.gui.DashBoard
             DataTable dtResult = null;
             ReportDocument repDoc;
             DataSet ds = new DataSet();
+            bool NotProcessed = false;
+
+            #region Проверка блюд в счете
+
+            List<oBillInfo> list = BillInfo[bill.BillId];
+            foreach (oBillInfo oBInfo in list)
+            {
+                if (oBInfo.RefStatus == 23)
+                {
+                    NotProcessed = true;
+                    break;
+                }
+            }
+
+            if (!NotProcessed)
+            {
+                MessageBox.Show("Нет позиций для изготовления.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            #endregion
 
             try
             {
@@ -583,6 +645,18 @@ namespace com.sbs.gui.DashBoard
                 repDoc.PrintOptions.PrinterName = results_2.First().Field<string>("printerName");
                 repDoc.PrintToPrinter(1, false, 0, 0);
             }
+
+            changeBillInfoStatus(24);
+            getBill();
+        }
+
+        private void changeBillInfoStatus(int pStatus)
+        {
+            try
+            {
+                DbAccess.changeBillInfoStatus("offline", bill, pStatus);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); }
         }
 
         private void createBill()
