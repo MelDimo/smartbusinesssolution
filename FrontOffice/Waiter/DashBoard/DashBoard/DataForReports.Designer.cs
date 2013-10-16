@@ -609,6 +609,10 @@ namespace com.sbs.gui.DashBoard {
             
             private global::System.Data.DataColumn columnxcount;
             
+            private global::System.Data.DataColumn columnprinterName;
+            
+            private global::System.Data.DataColumn columnreportPath;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public orderDataTable() {
@@ -668,6 +672,22 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn printerNameColumn {
+                get {
+                    return this.columnprinterName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn reportPathColumn {
+                get {
+                    return this.columnreportPath;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -703,12 +723,14 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public orderRow AddorderRow(string name, decimal price, decimal xcount) {
+            public orderRow AddorderRow(string name, decimal price, decimal xcount, string printerName, string reportPath) {
                 orderRow roworderRow = ((orderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         name,
                         price,
-                        xcount};
+                        xcount,
+                        printerName,
+                        reportPath};
                 roworderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(roworderRow);
                 return roworderRow;
@@ -734,6 +756,8 @@ namespace com.sbs.gui.DashBoard {
                 this.columnname = base.Columns["name"];
                 this.columnprice = base.Columns["price"];
                 this.columnxcount = base.Columns["xcount"];
+                this.columnprinterName = base.Columns["printerName"];
+                this.columnreportPath = base.Columns["reportPath"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -745,6 +769,10 @@ namespace com.sbs.gui.DashBoard {
                 base.Columns.Add(this.columnprice);
                 this.columnxcount = new global::System.Data.DataColumn("xcount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnxcount);
+                this.columnprinterName = new global::System.Data.DataColumn("printerName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprinterName);
+                this.columnreportPath = new global::System.Data.DataColumn("reportPath", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnreportPath);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1062,6 +1090,38 @@ namespace com.sbs.gui.DashBoard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string printerName {
+                get {
+                    try {
+                        return ((string)(this[this.tableorder.printerNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'printerName\' in table \'order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableorder.printerNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string reportPath {
+                get {
+                    try {
+                        return ((string)(this[this.tableorder.reportPathColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'reportPath\' in table \'order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableorder.reportPathColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsnameNull() {
                 return this.IsNull(this.tableorder.nameColumn);
             }
@@ -1094,6 +1154,30 @@ namespace com.sbs.gui.DashBoard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetxcountNull() {
                 this[this.tableorder.xcountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsprinterNameNull() {
+                return this.IsNull(this.tableorder.printerNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetprinterNameNull() {
+                this[this.tableorder.printerNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsreportPathNull() {
+                return this.IsNull(this.tableorder.reportPathColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetreportPathNull() {
+                this[this.tableorder.reportPathColumn] = global::System.Convert.DBNull;
             }
         }
         

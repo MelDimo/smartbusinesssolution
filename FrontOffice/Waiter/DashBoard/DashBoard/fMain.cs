@@ -545,6 +545,8 @@ namespace com.sbs.gui.DashBoard
 
         private void closeBill()
         {
+            DataTable dtResult = null;
+
             bool NotProcessed = false;
 
             #region Проверка блюд в счете
@@ -568,12 +570,18 @@ namespace com.sbs.gui.DashBoard
 
             try
             {
-                DbAccess.closeBill("offline", bill);
+                dtResult = DbAccess.closeBill("offline", bill);
             }
-            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); }
+            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
+
+            ReportDocument repDoc = new ReportDocument();
+            repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
+            repDoc.SetDataSource(dtResult);
+            repDoc.SetParameterValue("waiterName", UsersInfo.UserName);
+            repDoc.PrintOptions.PrinterName = dtResult.Rows[0]["printerName"].ToString();
+            repDoc.PrintToPrinter(1, false, 0, 0);
 
             getBill();
-
         }
 
         private void processBill()
@@ -619,7 +627,7 @@ namespace com.sbs.gui.DashBoard
             if (results_1.Count() > 0) // есть позиции на принтер Кухни
             {
                 repDoc = new ReportDocument();
-                repDoc.Load("reports\\preOrder.rpt");
+                repDoc.Load(results_1.First().Field<string>("reportPath"));
                 repDoc.SetDataSource(ds);
                 repDoc.SetParameterValue("waiterName", UsersInfo.UserName);
                 repDoc.SetParameterValue("curDate", DateTime.Now);
@@ -636,7 +644,7 @@ namespace com.sbs.gui.DashBoard
             if (results_2.Count() > 0) // есть позиции на принтер Бара
             {
                 repDoc = new ReportDocument();
-                repDoc.Load("reports\\preOrder.rpt");
+                repDoc.Load(results_2.First().Field<string>("reportPath"));
                 repDoc.SetDataSource(ds);
                 repDoc.SetParameterValue("waiterName", UsersInfo.UserName);
                 repDoc.SetParameterValue("curDate", DateTime.Now);

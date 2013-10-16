@@ -244,36 +244,6 @@ namespace com.sbs.gui.DashBoard
             return dtResult;
         }
 
-        internal DataTable getReports(string pDbType)
-        {
-            dtResult = new DataTable("dishes");
-
-            con = new DBCon().getConnection(pDbType);
-
-            try
-            {
-                con.Open();
-                command = con.CreateCommand();
-
-                command.CommandText = " SELECT id, dishes_group, name, price " +
-                                        " FROM dishes" +
-                                        " WHERE ref_status = @ref_status";
-
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
-
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
-
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-
-            return dtResult;
-        }
-
         internal bool checkMifareWaiter(string pDbType, string pKeyId)
         {
             dtResult = new DataTable();
@@ -442,7 +412,6 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-
         internal DataTable processBill(string pDbType, oBill bill)
         {
             dtResult = new DataTable("preOrder");
@@ -455,12 +424,13 @@ namespace com.sbs.gui.DashBoard
 
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName" +
+                command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN dishes d ON d.id = bi.dishes" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type" +
                                         " WHERE bi.bills = @bills";
 
                 command.Parameters.Add("bills", SqlDbType.Int).Value = bill.BillId;
@@ -513,8 +483,10 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
 
-        internal void closeBill(string pDbType, oBill pBill)
+        internal DataTable closeBill(string pDbType, oBill pBill)
         {
+            dtResult = new DataTable("order");
+
             con = new DBCon().getConnection(pDbType);
 
             try
@@ -538,13 +510,37 @@ namespace com.sbs.gui.DashBoard
 
                 command.ExecuteNonQuery();
 
-                tx.Commit();
+                command.CommandType = CommandType.Text;
+                command.Parameters.Clear();
 
+                command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, bi.xcount,  rp.name AS printerName, rr.xpath AS reportPath"+
+                                        " FROM bills_info bi"+
+                                        " INNER JOIN bills b ON b.id = bi.bills"+
+                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type"+
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers"+
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type"+
+                                        " WHERE bi.bills = @bills";
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
+                command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.BillId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                if (dtResult.Rows.Count == 0)
+                {
+                    throw new Exception("Не найдено данных для печати Счета. " + Environment.NewLine +"Операция закрытия Счета не выполнена.");
+                }
+
+                tx.Commit();
                 con.Close();
 
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+
+            return dtResult;
         }
     }
 
