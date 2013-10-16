@@ -47,14 +47,12 @@ namespace com.sbs.gui.DashBoard
             DataTable dtCarte = new DataTable();
             DataTable dtDishesGroup = new DataTable();
             DataTable dtDishes = new DataTable();
-            DataTable dtReports = new DataTable();
-
+            
             try
             {
                 dtCarte = DbAccess.getCarte("offline");
                 dtDishesGroup = DbAccess.getDishesGroup("offline");
                 dtDishes = DbAccess.getDishes("offline");
-                dtReports = DbAccess.getReports("offline");
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); }
 
@@ -87,7 +85,15 @@ namespace com.sbs.gui.DashBoard
                     }
                     break;
 
-                case Keys.Back:
+                case Keys.F12:
+                    if (e.Modifiers == Keys.Alt)    // Закрытие официантской смены
+                    {
+
+                    }
+                    else                            // Закрытие основной смены
+                    { 
+
+                    }
                     break;
 
                 case Keys.Escape:

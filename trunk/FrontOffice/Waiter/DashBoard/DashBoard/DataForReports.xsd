@@ -28,6 +28,8 @@
               <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
               <xs:element name="price" msprop:Generator_ColumnVarNameInTable="columnprice" msprop:Generator_ColumnPropNameInRow="price" msprop:Generator_ColumnPropNameInTable="priceColumn" msprop:Generator_UserColumnName="price" type="xs:decimal" minOccurs="0" />
               <xs:element name="xcount" msprop:Generator_ColumnVarNameInTable="columnxcount" msprop:Generator_ColumnPropNameInRow="xcount" msprop:Generator_ColumnPropNameInTable="xcountColumn" msprop:Generator_UserColumnName="xcount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="printerName" msprop:Generator_ColumnVarNameInTable="columnprinterName" msprop:Generator_ColumnPropNameInRow="printerName" msprop:Generator_ColumnPropNameInTable="printerNameColumn" msprop:Generator_UserColumnName="printerName" type="xs:string" minOccurs="0" />
+              <xs:element name="reportPath" msprop:Generator_ColumnVarNameInTable="columnreportPath" msprop:Generator_ColumnPropNameInRow="reportPath" msprop:Generator_ColumnPropNameInTable="reportPathColumn" msprop:Generator_UserColumnName="reportPath" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
