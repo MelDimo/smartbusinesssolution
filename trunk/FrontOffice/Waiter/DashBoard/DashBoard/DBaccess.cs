@@ -244,6 +244,12 @@ namespace com.sbs.gui.DashBoard
             return dtResult;
         }
 
+        /// <summary>
+        /// Находим сотрудника, заполняем UserInfo
+        /// </summary>
+        /// <param name="pDbType"></param>
+        /// <param name="pKeyId"></param>
+        /// <returns></returns>
         internal bool checkMifareWaiter(string pDbType, string pKeyId)
         {
             dtResult = new DataTable();
@@ -367,6 +373,7 @@ namespace com.sbs.gui.DashBoard
 
                 //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
 
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.BillId;
                 command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDishes.Id;
@@ -397,6 +404,7 @@ namespace com.sbs.gui.DashBoard
 
                 //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
 
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillInfo.Bill;
                 command.Parameters.Add("pDishId", SqlDbType.Int).Value = pBillInfo.Dishes;
@@ -466,7 +474,7 @@ namespace com.sbs.gui.DashBoard
                 command.CommandType = CommandType.StoredProcedure;
 
                 //DishToBill_changeStatus(@pSeason int, @pBillId int, @pUserId int, @pStatusId int)
-
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.BillId;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
@@ -504,6 +512,7 @@ namespace com.sbs.gui.DashBoard
 
                 //DishToBill_changeStatus(@pSeason int, @pBillId int, @pUserId int, @pStatusId int)
 
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.BillId;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
@@ -541,6 +550,145 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
 
             return dtResult;
+        }
+
+        internal void checkEmptyBill(string pDbType, oBill pBill)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                tx = con.BeginTransaction();
+
+                command = con.CreateCommand();
+
+                command.Transaction = tx; ;
+
+                command.CommandText = "checkEmptyBill";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.BillId;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+
+                con.Close();
+
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+        }
+
+        internal DataTable getWaiters(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT b.id AS billId, b.numb AS billNumber, u.id AS userId, u.lname +' '+ u.fname +' '+ u.sname AS fio," +
+                                        " sum(bi.dishes_price * xcount) AS suma," +
+                                        " b.date_open, b.date_close, stat.id AS statId, stat.name" +
+                                        " FROM bills b" +
+                                        " INNER JOIN users u ON u.id = b.user_open" +
+                                        " LEFT JOIN bills_info bi ON bi.bills = b.id" +
+                                        " INNER JOIN ref_status stat ON stat.id = b.ref_status" +
+                                        " WHERE b.season = @season AND stat.id not in(27)" +
+                                        " GROUP BY b.id, b.numb, b.date_open, b.date_close, stat.name, u.id," +
+                                        " u.lname, u.fname, u.sname, stat.id";
+
+                command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        internal DataTable getWaitersInfo(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT b.id, b.numb, sum(bi.dishes_price * xcount) AS suma, "+
+                                                " b.date_open, b.date_close, stat.name"+
+                                            " FROM bills b"+
+                                            " LEFT JOIN bills_info bi ON bi.bills = b.id"+
+                                            " INNER JOIN ref_status stat ON stat.id = b.ref_status"+
+                                        " WHERE b.season = @season AND b.user_open = @userOpen"+
+                                        " GROUP BY b.id, b.numb, b.date_open, b.date_close, stat.name";
+
+                command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("userOpen", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        internal void BillToAnotherWaiter(string pDbType, int pBillId, int pUserId_from, int pUserId_to)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                tx = con.BeginTransaction();
+
+                command = con.CreateCommand();
+
+                command.Transaction = tx; ;
+
+                command.CommandText = "BillToAnotherWaiter";
+                command.CommandType = CommandType.StoredProcedure;
+
+                //DishToBill_changeStatus(@pSeason int, @pBillId int, @pUserId int, @pStatusId int)
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillId;
+                command.Parameters.Add("pUserId_from", SqlDbType.Int).Value = pUserId_from;
+                command.Parameters.Add("pUserId_to", SqlDbType.Int).Value = pUserId_from;
+
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
     }
 
