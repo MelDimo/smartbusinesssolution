@@ -509,6 +509,7 @@ namespace com.sbs.gui.DashBoard
             {
                 case Keys.Escape:
                     UsersInfo.Clear();
+                    checkEmptyBill(); // проверяем пустой ли счет, если пустой - ставим статус удален
                     Close();
                     break;
 
@@ -541,6 +542,16 @@ namespace com.sbs.gui.DashBoard
                         uMessage.Show("Нет доступа на закрытие заказа.", SystemIcons.Information);
                     break;
             }
+        }
+
+        // проверяем пустой ли счет, если пустой - ставим статус удален
+        private void checkEmptyBill()
+        {
+            try
+            {
+                DbAccess.checkEmptyBill("offline", bill);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось закрыть пустой счет.", exc, SystemIcons.Information); return; }
         }
 
         private void closeBill()

@@ -33,7 +33,6 @@ namespace com.sbs.gui.DashBoard
             {
                 try
                 {
-                    Debug.Print(fMifare.keyId);
                     DbAccess.checkMifareWaiter("offline", fMifare.keyId);
                 }
                 catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
@@ -86,13 +85,46 @@ namespace com.sbs.gui.DashBoard
                     break;
 
                 case Keys.F12:
+                    if (GValues.openSeasonId == 0) // Рабочая место не авторизовалось в сменене либо нет открытой смены
+                    {
+                        MessageBox.Show("Нет открытых/авторизованных смен для текущего рабочего места.", GValues.prgNameFull, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    fMIFare fmifare = new fMIFare();
+                    if (fmifare.ShowDialog() != DialogResult.OK) return;
+
+                    try
+                    {
+                        DbAccess.checkMifareWaiter("offline", fmifare.keyId);
+                    }
+                    catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return; }
+
+
                     if (e.Modifiers == Keys.Alt)    // Закрытие официантской смены
                     {
+                        if (!UsersInfo.Acl.Contains(9)) // user_acl.id Закрытие смены официанта(Позволяет закрывать смену официанта)
+                        {
+                            MessageBox.Show(UsersInfo.UserName + ": Нет доступа к закрытию смены официанта.", GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
 
+                        fCloseSeason_Waiter fclosewaiter = new fCloseSeason_Waiter();
+                        fclosewaiter.ShowDialog();
                     }
                     else                            // Закрытие основной смены
-                    { 
+                    {
+                        if (!UsersInfo.Acl.Contains(2)) // user_acl.id Закрытие смены официанта(Позволяет закрывать смену официанта)
+                        {
+                            MessageBox.Show(UsersInfo.UserName + ": Нет доступа к закрытию смены заведения.", GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
 
+                        fCloseSeason fcloseseasone = new fCloseSeason();
+                        fcloseseasone.ShowDialog();
                     }
                     break;
 
