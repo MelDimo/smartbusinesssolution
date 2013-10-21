@@ -66,6 +66,12 @@
       <DependentUpon>DataForReports.xsd</DependentUpon>
     </Compile>
     <Compile Include="DBaccess.cs" />
+    <Compile Include="fAnotherWaiter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAnotherWaiter.Designer.cs">
+      <DependentUpon>fAnotherWaiter.cs</DependentUpon>
+    </Compile>
     <Compile Include="fCloseSeason.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +142,9 @@
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <EmbeddedResource Include="fAnotherWaiter.resx">
+      <DependentUpon>fAnotherWaiter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fCloseSeason.resx">
       <DependentUpon>fCloseSeason.cs</DependentUpon>
     </EmbeddedResource>
