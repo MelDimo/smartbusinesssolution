@@ -137,6 +137,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap left_26 {
+            get {
+                object obj = ResourceManager.GetObject("left_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap lock_26 {
             get {
                 object obj = ResourceManager.GetObject("lock_26", resourceCulture);
@@ -154,6 +161,13 @@ namespace com.sbs.dll.utilites.Properties {
         public static System.Drawing.Bitmap refresh_26 {
             get {
                 object obj = ResourceManager.GetObject("refresh_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap right_26 {
+            get {
+                object obj = ResourceManager.GetObject("right_26", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
