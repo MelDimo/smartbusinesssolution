@@ -19,25 +19,30 @@ namespace com.sbs.dll
         public static string DBMode = string.Empty;
         public static string mainDB = string.Empty;
 
-        public static int openSeasonId;
-        public static int openSeasonUserId;
-        public static string openSeasonDate;
-        public static string openSeasonUserName;
-
         public static int unitId;
         public static int branchId;
 
         public static int authortype;
 
+        public static int openSeasonId;
+        public static int openSeasonUserId;
+        public static string openSeasonDate;
+        public static string openSeasonUserName;
+        public static void seasonInfoClear()
+        {
+            openSeasonId = 0;
+            openSeasonUserId = 0;
+            openSeasonDate = string.Empty;
+            openSeasonUserName = string.Empty;
+        }
+
 
 #if DEBUG
 
         public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\SBS\resource\settings.xml";
-        public static string fileBDLocalPath = @"D:\VisualStudio2010\Projects\SBS\localDB\localDB.sdf";
         public static string mainDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
         public static string localDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
-        //public static string localDBConStr = @"Data Source=NBHP\SQLEXPLOCALDB;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
-        
+        //public static string localDBConStr = @"Data Source=NBHP\SQLEXPLOCALDB;Initial Catalog=sbsLocal;User ID=sa;Password=74563";  
 #else
         public static string fileSettingsPath = Environment.CurrentDirectory + @"\resource\settings.xml";
         public static string fileBDLocalPath = Environment.CurrentDirectory + @"\DataBase\localData.sdf";
