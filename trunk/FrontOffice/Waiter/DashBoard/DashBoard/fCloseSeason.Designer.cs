@@ -37,10 +37,13 @@
             this.panel_waiterInfo = new System.Windows.Forms.Panel();
             this.dataGridView_waiterInfo = new System.Windows.Forms.DataGridView();
             this.billId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xuserId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button_closeSeason = new System.Windows.Forms.Button();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_main.SuspendLayout();
@@ -102,16 +105,20 @@
             // 
             // flowLayoutPanel_waiter
             // 
-            this.flowLayoutPanel_waiter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_waiter.AutoScroll = true;
+            this.flowLayoutPanel_waiter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel_waiter.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel_waiter.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_waiter.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel_waiter.Name = "flowLayoutPanel_waiter";
-            this.flowLayoutPanel_waiter.Size = new System.Drawing.Size(546, 368);
+            this.flowLayoutPanel_waiter.Size = new System.Drawing.Size(546, 330);
             this.flowLayoutPanel_waiter.TabIndex = 0;
+            this.flowLayoutPanel_waiter.WrapContents = false;
             // 
             // panel_main
             // 
             this.panel_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_main.Controls.Add(this.button_closeSeason);
             this.panel_main.Controls.Add(this.flowLayoutPanel_waiter);
             this.panel_main.Location = new System.Drawing.Point(0, 64);
             this.panel_main.Name = "panel_main";
@@ -124,7 +131,7 @@
             this.panel_waiterInfo.Controls.Add(this.dataGridView_waiterInfo);
             this.panel_waiterInfo.Location = new System.Drawing.Point(0, 64);
             this.panel_waiterInfo.Name = "panel_waiterInfo";
-            this.panel_waiterInfo.Size = new System.Drawing.Size(548, 366);
+            this.panel_waiterInfo.Size = new System.Drawing.Size(548, 370);
             this.panel_waiterInfo.TabIndex = 0;
             // 
             // dataGridView_waiterInfo
@@ -134,9 +141,12 @@
             this.dataGridView_waiterInfo.AllowUserToResizeColumns = false;
             this.dataGridView_waiterInfo.AllowUserToResizeRows = false;
             this.dataGridView_waiterInfo.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView_waiterInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView_waiterInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_waiterInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.billId,
+            this.xuserId,
+            this.fio,
             this.idStatus,
             this.billNumber,
             this.billSum,
@@ -148,6 +158,7 @@
             this.dataGridView_waiterInfo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_waiterInfo.Size = new System.Drawing.Size(540, 358);
             this.dataGridView_waiterInfo.TabIndex = 0;
+            this.dataGridView_waiterInfo.TabStop = false;
             this.dataGridView_waiterInfo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_waiterInfo_CellClick);
             this.dataGridView_waiterInfo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_waiterInfo_KeyDown);
             // 
@@ -156,6 +167,18 @@
             this.billId.HeaderText = "billId";
             this.billId.Name = "billId";
             this.billId.Visible = false;
+            // 
+            // xuserId
+            // 
+            this.xuserId.HeaderText = "xuserId";
+            this.xuserId.Name = "xuserId";
+            this.xuserId.Visible = false;
+            // 
+            // fio
+            // 
+            this.fio.HeaderText = "fio";
+            this.fio.Name = "fio";
+            this.fio.Visible = false;
             // 
             // idStatus
             // 
@@ -180,6 +203,17 @@
             this.billStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.billStatus.HeaderText = "Состояние счета";
             this.billStatus.Name = "billStatus";
+            // 
+            // button_closeSeason
+            // 
+            this.button_closeSeason.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_closeSeason.Location = new System.Drawing.Point(11, 336);
+            this.button_closeSeason.Name = "button_closeSeason";
+            this.button_closeSeason.Size = new System.Drawing.Size(524, 29);
+            this.button_closeSeason.TabIndex = 1;
+            this.button_closeSeason.Text = "Закрыть смену";
+            this.button_closeSeason.UseVisualStyleBackColor = true;
+            this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
             // fCloseSeason
             // 
@@ -218,9 +252,12 @@
         private System.Windows.Forms.Panel panel_waiterInfo;
         private System.Windows.Forms.DataGridView dataGridView_waiterInfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn billId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xuserId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fio;
         private System.Windows.Forms.DataGridViewTextBoxColumn idStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn billNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn billSum;
         private System.Windows.Forms.DataGridViewTextBoxColumn billStatus;
+        private System.Windows.Forms.Button button_closeSeason;
     }
 }

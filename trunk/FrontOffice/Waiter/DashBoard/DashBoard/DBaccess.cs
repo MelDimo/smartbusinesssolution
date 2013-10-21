@@ -680,7 +680,39 @@ namespace com.sbs.gui.DashBoard
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillId;
                 command.Parameters.Add("pUserId_from", SqlDbType.Int).Value = pUserId_from;
-                command.Parameters.Add("pUserId_to", SqlDbType.Int).Value = pUserId_from;
+                command.Parameters.Add("pUserId_to", SqlDbType.Int).Value = pUserId_to;
+
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+        }
+
+        internal void seasonClose(string pDbType)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                tx = con.BeginTransaction();
+
+                command = con.CreateCommand();
+
+                command.Transaction = tx; ;
+
+                command.CommandText = "SeasonClose";
+                command.CommandType = CommandType.StoredProcedure;
+
+                //DishToBill_changeStatus(@pSeason int, @pBillId int, @pUserId int, @pStatusId int)
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
 
                 command.ExecuteNonQuery();
 

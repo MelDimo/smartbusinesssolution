@@ -16,6 +16,11 @@ namespace com.sbs.gui.DashBoard
 
         private DBaccess DbAccess = new DBaccess();
         int xCurPanel;
+        fAnotherWaiter fanothrEaiter = new fAnotherWaiter();
+        List<WaiterBills> lWaiterBill = new List<WaiterBills>();
+        Dictionary<int, WaiterBills> dWaiterBills;
+
+        Control panelMainFocus;
 
         public fCloseSeason()
         {
@@ -26,7 +31,8 @@ namespace com.sbs.gui.DashBoard
             //                            b.date_open, b.date_close, stat.id AS statId, stat.name
 
             dataGridView_waiterInfo.AutoGenerateColumns = false;
-            dataGridView_waiterInfo.Columns["billId"].DataPropertyName = "billId";
+            dataGridView_waiterInfo.Columns["fio"].DataPropertyName = "fio";
+            dataGridView_waiterInfo.Columns["xuserId"].DataPropertyName = "userId";
             dataGridView_waiterInfo.Columns["billNumber"].DataPropertyName = "billNumber";
             dataGridView_waiterInfo.Columns["billId"].DataPropertyName = "billId";
             dataGridView_waiterInfo.Columns["billSum"].DataPropertyName = "suma";
@@ -56,10 +62,11 @@ namespace com.sbs.gui.DashBoard
             }
         }
 
-
         private void fCloseSeason_Shown(object sender, EventArgs e)
         {
-            label_seasonNumber.Text += " " + GValues.openSeasonId;
+            flowLayoutPanel_waiter.Controls.Clear();
+
+            label_seasonNumber.Text = "Закрытие смены № " + GValues.openSeasonId;
             label_seasonName.Text = GValues.openSeasonUserName + " (" + GValues.openSeasonDate + ")";
 
             getWaiter();
@@ -71,9 +78,9 @@ namespace com.sbs.gui.DashBoard
         private void getWaiter()
         {
             int xCurUser;
-            int xCurStatusId;;
+            int xCurStatusId;
 
-            Dictionary<int, WaiterBills> dWaiterBills = new Dictionary<int, WaiterBills>();
+            dWaiterBills = new Dictionary<int, WaiterBills>();
 
             DataTable dtWaiter = new DataTable();
 
@@ -119,6 +126,7 @@ namespace com.sbs.gui.DashBoard
                 btn.Tag = wb;
                 btn.Click += new EventHandler(btn_Click);
 
+
                 flowLayoutPanel_waiter.Controls.Add(btn);
             }
         }
@@ -126,6 +134,7 @@ namespace com.sbs.gui.DashBoard
         void btn_Click(object sender, EventArgs e)
         {
             Button bt = sender as Button;
+            panelMainFocus = sender as Button;
             showWaiterInfo(bt.Tag as WaiterBills);
         }
 
@@ -154,6 +163,8 @@ namespace com.sbs.gui.DashBoard
 
         private void showMain()
         {
+            panelMainFocus.Focus();
+
             xCurPanel -= 1;
 
             panel_main.BringToFront();
@@ -178,9 +189,13 @@ namespace com.sbs.gui.DashBoard
 
         private void dataGridView_waiterInfo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (dataGridView_waiterInfo.SelectedRows.Count != 0) return;
-
-            actionOnBill(dataGridView_waiterInfo.SelectedRows[0].Index);
+            switch(e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (dataGridView_waiterInfo.SelectedRows.Count == 0) return;
+                    actionOnBill(dataGridView_waiterInfo.SelectedRows[0].Index);
+                    break;
+            }
         }
 
         private void actionOnBill(int pRowIndex)
@@ -193,20 +208,43 @@ namespace com.sbs.gui.DashBoard
             // проверяем есть ли разрешение закрывать счета официантов
             if (!UsersInfo.Acl.Contains(9)) return;
 
+            fanothrEaiter.Text = dr.Cells["fio"].Value.ToString();
+            lWaiterBill.Clear();
+            foreach (WaiterBills wb in dWaiterBills.Values)
+            {
+                if(dr.Cells["fio"].Value.ToString() != wb.userName)
+                    lWaiterBill.Add(wb);
+            }
 
+            fanothrEaiter.listBox_waiter.DataSource = new BindingSource(lWaiterBill, null);
+            fanothrEaiter.listBox_waiter.DisplayMember = "userName";
+            fanothrEaiter.listBox_waiter.ValueMember = "userId";
+            fanothrEaiter.userId_from = (int)dr.Cells["xuserId"].Value;
+            fanothrEaiter.billId = (int)dr.Cells["billId"].Value;
+            if (fanothrEaiter.ShowDialog() != DialogResult.OK) return;
 
-            //closeWaiterBill((int)dr.Cells["billId"].Value, pUserId_from, pUserId_to);
+            showMain();
+
+            fCloseSeason_Shown(null, null);
+
         }
 
-        private void closeWaiterBill(int pBillId, int pUserId_from, int pUserId_to)
+        private void button_closeSeason_Click(object sender, EventArgs e)
         {
             try
             {
-                DbAccess.BillToAnotherWaiter("offline", pBillId, pUserId_from, pUserId_to);
+                DbAccess.seasonClose("offline");
             }
-            catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return; }
+            catch (Exception exc) { uMessage.Show("Неудалось закрыть смену." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return; }
 
-            MessageBox.Show("Close bill");
+            GValues.seasonInfoClear();
+            UsersInfo.Clear();
+            
+            MessageBox.Show("Смена закрыта.");
+            Close();
+            
+
+            
         }
     }
 
