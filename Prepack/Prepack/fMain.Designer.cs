@@ -48,11 +48,22 @@
             this.tabControl_main = new System.Windows.Forms.TabControl();
             this.tabPage_goods = new System.Windows.Forms.TabPage();
             this.dataGridView_goods = new System.Windows.Forms.DataGridView();
+            this.goods_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goods_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goods_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goods_manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goods_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.goods_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip_goods = new System.Windows.Forms.ToolStrip();
             this.tSButton_addGoods = new System.Windows.Forms.ToolStripButton();
             this.tSButton_delGoods = new System.Windows.Forms.ToolStripButton();
             this.tabPage_prepack = new System.Windows.Forms.TabPage();
             this.dataGridView_prepack = new System.Windows.Forms.DataGridView();
+            this.prepack_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prepack_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prepack_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prepack_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prepack_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip_prepack = new System.Windows.Forms.ToolStrip();
             this.tSButton_addPrepack = new System.Windows.Forms.ToolStripButton();
             this.tSButton_delPrepack = new System.Windows.Forms.ToolStripButton();
@@ -65,17 +76,6 @@
             this.comboBox_org = new System.Windows.Forms.ComboBox();
             this.comboBox_branch = new System.Windows.Forms.ComboBox();
             this.comboBox_unit = new System.Windows.Forms.ComboBox();
-            this.prepack_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prepack_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prepack_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prepack_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prepack_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_manufacturer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.goods_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -312,6 +312,50 @@
             this.dataGridView_goods.Size = new System.Drawing.Size(381, 176);
             this.dataGridView_goods.TabIndex = 0;
             // 
+            // goods_id
+            // 
+            this.goods_id.HeaderText = "id";
+            this.goods_id.Name = "goods_id";
+            this.goods_id.ReadOnly = true;
+            this.goods_id.Visible = false;
+            // 
+            // goods_code
+            // 
+            this.goods_code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.goods_code.HeaderText = "Ключ";
+            this.goods_code.Name = "goods_code";
+            this.goods_code.ReadOnly = true;
+            this.goods_code.Width = 58;
+            // 
+            // goods_name
+            // 
+            this.goods_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.goods_name.HeaderText = "Наименование";
+            this.goods_name.Name = "goods_name";
+            this.goods_name.ReadOnly = true;
+            // 
+            // goods_manufacturer
+            // 
+            this.goods_manufacturer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.goods_manufacturer.HeaderText = "Производитель";
+            this.goods_manufacturer.Name = "goods_manufacturer";
+            this.goods_manufacturer.ReadOnly = true;
+            // 
+            // goods_status
+            // 
+            this.goods_status.HeaderText = "status";
+            this.goods_status.Name = "goods_status";
+            this.goods_status.ReadOnly = true;
+            this.goods_status.Visible = false;
+            // 
+            // goods_status_name
+            // 
+            this.goods_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.goods_status_name.HeaderText = "Статус";
+            this.goods_status_name.Name = "goods_status_name";
+            this.goods_status_name.ReadOnly = true;
+            this.goods_status_name.Width = 66;
+            // 
             // toolStrip_goods
             // 
             this.toolStrip_goods.Enabled = false;
@@ -380,6 +424,43 @@
             this.dataGridView_prepack.Size = new System.Drawing.Size(381, 176);
             this.dataGridView_prepack.TabIndex = 0;
             // 
+            // prepack_id
+            // 
+            this.prepack_id.HeaderText = "id";
+            this.prepack_id.Name = "prepack_id";
+            this.prepack_id.ReadOnly = true;
+            this.prepack_id.Visible = false;
+            // 
+            // prepack_code
+            // 
+            this.prepack_code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.prepack_code.HeaderText = "Ключ";
+            this.prepack_code.Name = "prepack_code";
+            this.prepack_code.ReadOnly = true;
+            this.prepack_code.Width = 58;
+            // 
+            // prepack_name
+            // 
+            this.prepack_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.prepack_name.HeaderText = "Наименование";
+            this.prepack_name.Name = "prepack_name";
+            this.prepack_name.ReadOnly = true;
+            // 
+            // prepack_status
+            // 
+            this.prepack_status.HeaderText = "status";
+            this.prepack_status.Name = "prepack_status";
+            this.prepack_status.ReadOnly = true;
+            this.prepack_status.Visible = false;
+            // 
+            // prepack_status_name
+            // 
+            this.prepack_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.prepack_status_name.HeaderText = "Статус";
+            this.prepack_status_name.Name = "prepack_status_name";
+            this.prepack_status_name.ReadOnly = true;
+            this.prepack_status_name.Width = 66;
+            // 
             // toolStrip_prepack
             // 
             this.toolStrip_prepack.Enabled = false;
@@ -434,7 +515,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.Controls.Add(this.button_filter, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
@@ -455,9 +536,9 @@
             // 
             this.button_filter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_filter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_filter.Location = new System.Drawing.Point(569, 23);
+            this.button_filter.Location = new System.Drawing.Point(567, 23);
             this.button_filter.Name = "button_filter";
-            this.button_filter.Size = new System.Drawing.Size(28, 25);
+            this.button_filter.Size = new System.Drawing.Size(30, 25);
             this.button_filter.TabIndex = 0;
             this.button_filter.UseVisualStyleBackColor = true;
             this.button_filter.Click += new System.EventHandler(this.button_filter_Click);
@@ -479,7 +560,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(191, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(183, 20);
+            this.label2.Size = new System.Drawing.Size(182, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Заведение";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -488,9 +569,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(380, 0);
+            this.label3.Location = new System.Drawing.Point(379, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(183, 20);
+            this.label3.Size = new System.Drawing.Size(182, 20);
             this.label3.TabIndex = 3;
             this.label3.Text = "Подразделение";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -512,7 +593,7 @@
             this.comboBox_branch.FormattingEnabled = true;
             this.comboBox_branch.Location = new System.Drawing.Point(191, 23);
             this.comboBox_branch.Name = "comboBox_branch";
-            this.comboBox_branch.Size = new System.Drawing.Size(183, 21);
+            this.comboBox_branch.Size = new System.Drawing.Size(182, 21);
             this.comboBox_branch.TabIndex = 5;
             // 
             // comboBox_unit
@@ -520,91 +601,10 @@
             this.comboBox_unit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_unit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_unit.FormattingEnabled = true;
-            this.comboBox_unit.Location = new System.Drawing.Point(380, 23);
+            this.comboBox_unit.Location = new System.Drawing.Point(379, 23);
             this.comboBox_unit.Name = "comboBox_unit";
-            this.comboBox_unit.Size = new System.Drawing.Size(183, 21);
+            this.comboBox_unit.Size = new System.Drawing.Size(182, 21);
             this.comboBox_unit.TabIndex = 6;
-            // 
-            // prepack_id
-            // 
-            this.prepack_id.HeaderText = "id";
-            this.prepack_id.Name = "prepack_id";
-            this.prepack_id.ReadOnly = true;
-            this.prepack_id.Visible = false;
-            // 
-            // prepack_code
-            // 
-            this.prepack_code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.prepack_code.HeaderText = "Ключ";
-            this.prepack_code.Name = "prepack_code";
-            this.prepack_code.ReadOnly = true;
-            this.prepack_code.Width = 58;
-            // 
-            // prepack_name
-            // 
-            this.prepack_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.prepack_name.HeaderText = "Наименование";
-            this.prepack_name.Name = "prepack_name";
-            this.prepack_name.ReadOnly = true;
-            // 
-            // prepack_status
-            // 
-            this.prepack_status.HeaderText = "status";
-            this.prepack_status.Name = "prepack_status";
-            this.prepack_status.ReadOnly = true;
-            this.prepack_status.Visible = false;
-            // 
-            // prepack_status_name
-            // 
-            this.prepack_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.prepack_status_name.HeaderText = "Статус";
-            this.prepack_status_name.Name = "prepack_status_name";
-            this.prepack_status_name.ReadOnly = true;
-            this.prepack_status_name.Width = 66;
-            // 
-            // goods_id
-            // 
-            this.goods_id.HeaderText = "id";
-            this.goods_id.Name = "goods_id";
-            this.goods_id.ReadOnly = true;
-            this.goods_id.Visible = false;
-            // 
-            // goods_code
-            // 
-            this.goods_code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.goods_code.HeaderText = "Ключ";
-            this.goods_code.Name = "goods_code";
-            this.goods_code.ReadOnly = true;
-            this.goods_code.Width = 58;
-            // 
-            // goods_name
-            // 
-            this.goods_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.goods_name.HeaderText = "Наименование";
-            this.goods_name.Name = "goods_name";
-            this.goods_name.ReadOnly = true;
-            // 
-            // goods_manufacturer
-            // 
-            this.goods_manufacturer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.goods_manufacturer.HeaderText = "Производитель";
-            this.goods_manufacturer.Name = "goods_manufacturer";
-            this.goods_manufacturer.ReadOnly = true;
-            // 
-            // goods_status
-            // 
-            this.goods_status.HeaderText = "status";
-            this.goods_status.Name = "goods_status";
-            this.goods_status.ReadOnly = true;
-            this.goods_status.Visible = false;
-            // 
-            // goods_status_name
-            // 
-            this.goods_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.goods_status_name.HeaderText = "Статус";
-            this.goods_status_name.Name = "goods_status_name";
-            this.goods_status_name.ReadOnly = true;
-            this.goods_status_name.Width = 66;
             // 
             // fMain
             // 
