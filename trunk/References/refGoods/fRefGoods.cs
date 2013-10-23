@@ -80,7 +80,7 @@ namespace com.sbs.gui.references.goods
             DataGridViewRow dr = dataGridView_main.SelectedRows[0];
 
             oGoods.Id = (int)dr.Cells["id"].Value;
-            oGoods.Code = (int)dr.Cells["code"].Value;
+            oGoods.Code = dr.Cells["code"].Value.ToString();
             oGoods.Name = dr.Cells["name"].Value.ToString();
             oGoods.Measure = (int)dr.Cells["ref_measure"].Value;
             oGoods.Status = (int)dr.Cells["ref_status"].Value;
@@ -131,19 +131,19 @@ namespace com.sbs.gui.references.goods
     public class Goods
     {
         private int _id;
-        private int _code;
+        private string _code;
         private string _name;
         private int _measure;
         private int _status;
         private string _manufacturer;
         private string _note;
 
-        public int Code
+        public string Code
         {
             get { return _code; }
             set { _code = value; }
         }
-
+        
         public string Note
         {
             get { return _note; }

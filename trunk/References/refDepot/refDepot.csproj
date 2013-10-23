@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8E069F57-0194-484A-9A35-D11E37DD0B0E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{E694906D-5F05-4D81-846E-B9026E941A31}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.sbs.gui.references.post</RootNamespace>
-    <AssemblyName>refPost</AssemblyName>
+    <RootNamespace>com.sbs.gui.references.refDepot</RootNamespace>
+    <AssemblyName>refDepot</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GValues">
@@ -59,19 +56,19 @@
     <Compile Include="fAddEdit.Designer.cs">
       <DependentUpon>fAddEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="fRefPost.cs">
+    <Compile Include="fDepot.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fRefPost.Designer.cs">
-      <DependentUpon>fRefPost.cs</DependentUpon>
+    <Compile Include="fDepot.Designer.cs">
+      <DependentUpon>fDepot.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fAddEdit.resx">
       <DependentUpon>fAddEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fRefPost.resx">
-      <DependentUpon>fRefPost.cs</DependentUpon>
+    <EmbeddedResource Include="fDepot.resx">
+      <DependentUpon>fDepot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

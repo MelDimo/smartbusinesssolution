@@ -30,7 +30,7 @@ namespace com.sbs.gui.references.goods
             getReference();
 
             textBox_id.Text = oGoods.Id.ToString();
-            textBox_code.Text = oGoods.Code.ToString();
+            textBox_code.Text = oGoods.Code;
             textBox_name.Text = oGoods.Name;
             textBox_manufacturer.Text = oGoods.Manufacturer;
             textBox_note.Text = oGoods.Note;
