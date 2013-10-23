@@ -55,6 +55,7 @@
             this.textBox_id.ReadOnly = true;
             this.textBox_id.Size = new System.Drawing.Size(100, 20);
             this.textBox_id.TabIndex = 5;
+            this.textBox_id.TabStop = false;
             // 
             // panel1
             // 
@@ -64,7 +65,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 246);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(458, 35);
-            this.panel1.TabIndex = 10;
+            this.panel1.TabIndex = 0;
             // 
             // button3
             // 
@@ -72,7 +73,7 @@
             this.button3.Location = new System.Drawing.Point(362, 6);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 2;
+            this.button3.TabIndex = 1;
             this.button3.Text = "Отмена";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -104,7 +105,7 @@
             this.textBox_name.Location = new System.Drawing.Point(124, 75);
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(322, 20);
-            this.textBox_name.TabIndex = 12;
+            this.textBox_name.TabIndex = 1;
             // 
             // label2
             // 
@@ -133,7 +134,7 @@
             this.comboBox_measure.Location = new System.Drawing.Point(124, 101);
             this.comboBox_measure.Name = "comboBox_measure";
             this.comboBox_measure.Size = new System.Drawing.Size(322, 21);
-            this.comboBox_measure.TabIndex = 15;
+            this.comboBox_measure.TabIndex = 2;
             // 
             // comboBox_status
             // 
@@ -144,7 +145,7 @@
             this.comboBox_status.Location = new System.Drawing.Point(124, 128);
             this.comboBox_status.Name = "comboBox_status";
             this.comboBox_status.Size = new System.Drawing.Size(322, 21);
-            this.comboBox_status.TabIndex = 16;
+            this.comboBox_status.TabIndex = 3;
             // 
             // label4
             // 
@@ -162,7 +163,7 @@
             this.textBox_manufacturer.Location = new System.Drawing.Point(124, 155);
             this.textBox_manufacturer.Name = "textBox_manufacturer";
             this.textBox_manufacturer.Size = new System.Drawing.Size(322, 20);
-            this.textBox_manufacturer.TabIndex = 18;
+            this.textBox_manufacturer.TabIndex = 4;
             // 
             // groupBox1
             // 
@@ -200,7 +201,7 @@
             this.textBox_code.Location = new System.Drawing.Point(124, 49);
             this.textBox_code.Name = "textBox_code";
             this.textBox_code.Size = new System.Drawing.Size(322, 20);
-            this.textBox_code.TabIndex = 21;
+            this.textBox_code.TabIndex = 0;
             // 
             // fAddEdit
             // 
