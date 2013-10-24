@@ -62,7 +62,6 @@
             this.tabControl_bill = new System.Windows.Forms.TabControl();
             this.tabPage_selectBill = new System.Windows.Forms.TabPage();
             this.dataGridView_billInfo = new System.Windows.Forms.DataGridView();
-            this.textBox_curItem = new System.Windows.Forms.TextBox();
             this.dishes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +70,7 @@
             this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox_curItem = new System.Windows.Forms.TextBox();
             this.statusStrip_bottom.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -359,7 +359,6 @@
             this.textBox_billNumber.Size = new System.Drawing.Size(152, 22);
             this.textBox_billNumber.TabIndex = 0;
             this.textBox_billNumber.TabStop = false;
-            this.textBox_billNumber.Text = "125";
             this.textBox_billNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox2
@@ -387,7 +386,6 @@
             this.textBox_billDateOpen.Size = new System.Drawing.Size(180, 22);
             this.textBox_billDateOpen.TabIndex = 1;
             this.textBox_billDateOpen.TabStop = false;
-            this.textBox_billDateOpen.Text = "125";
             this.textBox_billDateOpen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox3
@@ -415,7 +413,6 @@
             this.textBox_billTime.Size = new System.Drawing.Size(181, 22);
             this.textBox_billTime.TabIndex = 1;
             this.textBox_billTime.TabStop = false;
-            this.textBox_billTime.Text = "125";
             this.textBox_billTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox4
@@ -443,7 +440,6 @@
             this.textBox_billSum.Size = new System.Drawing.Size(152, 22);
             this.textBox_billSum.TabIndex = 1;
             this.textBox_billSum.TabStop = false;
-            this.textBox_billSum.Text = "125";
             this.textBox_billSum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox5
@@ -522,20 +518,6 @@
             this.dataGridView_billInfo.TabStop = false;
             this.dataGridView_billInfo.Leave += new System.EventHandler(this.dataGridView_billInfo_Leave);
             // 
-            // textBox_curItem
-            // 
-            this.textBox_curItem.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox_curItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_curItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox_curItem.Enabled = false;
-            this.textBox_curItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_curItem.Location = new System.Drawing.Point(0, 542);
-            this.textBox_curItem.Name = "textBox_curItem";
-            this.textBox_curItem.ReadOnly = true;
-            this.textBox_curItem.Size = new System.Drawing.Size(997, 29);
-            this.textBox_curItem.TabIndex = 0;
-            this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // dishes
             // 
             this.dishes.HeaderText = "dishes";
@@ -595,6 +577,20 @@
             this.discount.Name = "discount";
             this.discount.ReadOnly = true;
             this.discount.Visible = false;
+            // 
+            // textBox_curItem
+            // 
+            this.textBox_curItem.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_curItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_curItem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox_curItem.Enabled = false;
+            this.textBox_curItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_curItem.Location = new System.Drawing.Point(0, 542);
+            this.textBox_curItem.Name = "textBox_curItem";
+            this.textBox_curItem.ReadOnly = true;
+            this.textBox_curItem.Size = new System.Drawing.Size(997, 29);
+            this.textBox_curItem.TabIndex = 0;
+            this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // fMain
             // 
