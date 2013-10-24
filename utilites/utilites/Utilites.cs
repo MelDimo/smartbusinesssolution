@@ -37,7 +37,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name, textcolor, backcolor FROM ref_status";
+                command.CommandText = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -48,6 +48,90 @@ namespace com.sbs.dll.utilites
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            dtResult.TableName = "refStatus";
+
+            return dtResult;
+        }
+
+        public DataTable getOrganization(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, ref_status FROM organization";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            dtResult.TableName = "Organization";
+            return dtResult;
+        }
+
+        public DataTable getBranch(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, organization, name, ref_status FROM branch";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            dtResult.TableName = "Branch";
+
+            return dtResult;
+        }
+
+        public DataTable getUnit(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, branch, name, ref_status FROM unit";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            dtResult.TableName = "Unit";
 
             return dtResult;
         }
@@ -74,6 +158,8 @@ namespace com.sbs.dll.utilites
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            dtResult.TableName = "refPost";
 
             return dtResult;
         }
