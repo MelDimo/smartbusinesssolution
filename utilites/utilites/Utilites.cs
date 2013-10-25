@@ -26,8 +26,9 @@ namespace com.sbs.dll.utilites
 
     public class getReference
     {
-        public DataTable getStatus(string pDbType)
+        public DataTable getStatus(string pDbType, int pRefStatusInfo)
         {
+            string strSQL = string.Empty;
             DataTable dtResult = new DataTable();
 
             SqlConnection con = new DBCon().getConnection(pDbType);
@@ -37,7 +38,19 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status";
+                switch(pRefStatusInfo)
+                {
+                    case 0:
+                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status";
+                        break;
+
+                    default:
+                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status "+
+                                    " WHERE ref_status_info = " + pRefStatusInfo;
+                        break;
+                }
+
+                command.CommandText = strSQL;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -160,6 +173,35 @@ namespace com.sbs.dll.utilites
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             dtResult.TableName = "refPost";
+
+            return dtResult;
+        }
+
+        public DataTable getRefDocsParam(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+            
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, description" +
+                                        " FROM ref_docs_param"+
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+                
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return dtResult;
         }
