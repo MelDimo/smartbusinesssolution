@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <ref_branch>2</ref_branch><!-- id заведения -->
+  <dbmode>offline</dbmode><!-- offline; online; mixed -->
+  <maindb>localhost</maindb><!-- main DB -->
+  <waiter>
+    <authortype>1</authortype>
+  </waiter>
+  
+</settings>
