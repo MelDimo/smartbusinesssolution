@@ -8,6 +8,8 @@ using System.Data;
 using System.Xml;
 using com.sbs.dll.utilites;
 using System.Drawing;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace com.sbs.dll
 {
@@ -21,6 +23,8 @@ namespace com.sbs.dll
 
         public static int unitId;
         public static int branchId;
+
+        public static byte[] rgbIV = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
         public static int authortype;
 
@@ -38,11 +42,13 @@ namespace com.sbs.dll
 
 
 #if DEBUG
+        public static string logoPath = @"D:\VisualStudio2010\Projects\SBS\resource\logo.png";
+
+        public static string mdfPath = @"D:\VisualStudio2010\Projects\SBS\resource\db.mdf";
 
         public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\SBS\resource\settings.xml";
-        public static string mainDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
-        public static string localDBConStr = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
-        //public static string localDBConStr = @"Data Source=NBHP\SQLEXPLOCALDB;Initial Catalog=sbsLocal;User ID=sa;Password=74563";  
+        public static string mainDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
+        public static string localDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563"; 
 #else
         public static string fileSettingsPath = Environment.CurrentDirectory + @"\resource\settings.xml";
         public static string fileBDLocalPath = Environment.CurrentDirectory + @"\DataBase\localData.sdf";
@@ -53,6 +59,67 @@ namespace com.sbs.dll
 
     public class Config
     {
+        private byte[] readKey()
+        {
+            string strPwd = string.Empty;
+            byte[] bSourceFile = File.ReadAllBytes(GValues.logoPath);
+            /*
+                00 00 00 00 49 45 4e 44 ae 42 60 82
+                ........... I  E  N  D  ...........
+            */
+            int indexAE = Array.LastIndexOf(bSourceFile, (byte)174) + 4; // 174 - "ae"
+
+            for (long i = indexAE; i < bSourceFile.Length; i++)
+            {
+                strPwd += Encoding.ASCII.GetString(new byte[] { (byte)bSourceFile.GetValue(i) });
+            }
+
+            if (strPwd.Length == 0) throw new Exception("ошибка инициализации, длина ноль");
+
+            strPwd = strPwd.PadRight(32, '0');
+
+            return Encoding.ASCII.GetBytes(strPwd);
+
+        }
+
+        private void loadConString()
+        {
+            byte[] rgbKey;
+            string[] resultString;
+
+
+            try
+            {
+                rgbKey = readKey();
+
+                using (FileStream fStream = File.Open(GValues.mdfPath, FileMode.Open))
+                {
+                    Rijndael RijndaelAlg = Rijndael.Create();
+
+                    CryptoStream cStream = new CryptoStream(fStream,
+                                                            RijndaelAlg.CreateDecryptor(rgbKey, GValues.rgbIV),
+                                                            CryptoStreamMode.Read);
+                    StreamReader sReader = new StreamReader(cStream, Encoding.GetEncoding(1251));
+
+                    resultString = sReader.ReadToEnd().Split(new string[] { "\n" }, StringSplitOptions.None);
+
+                    GValues.localDBConStr = "Data Source=" + resultString[0] + ";Initial Catalog=" + resultString[1] + ";User ID=" + resultString[2] + ";Password=" + resultString[3];
+                    GValues.localDBConStr = "Data Source=" + resultString[4] + ";Initial Catalog=" + resultString[5] + ";User ID=" + resultString[6] + ";Password=" + resultString[7];
+
+                    sReader.Close();
+                    cStream.Close();
+                    fStream.Close();
+                }
+
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+        }
+
+
+
         public bool loadConfig()
         {
             string msgError = "В ходе разбора файла конфигурации произошли следующие ошибки:";
@@ -94,6 +161,8 @@ namespace com.sbs.dll
                     uMessage.Show(msgError + Environment.NewLine + Environment.NewLine + "Приложение будет закрыто.", SystemIcons.Error);
                     return false;
                 }
+
+                loadConString();
             }
             catch (Exception exc) { uMessage.Show("Неудалось прочесть файл конфигураций", exc, SystemIcons.Information); return false; }
 
