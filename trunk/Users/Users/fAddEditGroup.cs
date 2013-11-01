@@ -42,7 +42,7 @@ namespace com.sbs.gui.users
 
             try
             {
-                dtRefStatus = getRef.getStatus("offline");
+                dtRefStatus = getRef.getStatus("offline", 1);
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочника.", exc, SystemIcons.Information); }
 

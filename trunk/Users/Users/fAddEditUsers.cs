@@ -72,7 +72,7 @@ namespace com.sbs.gui.users
             getReference getRef = new getReference();
             try
             {
-                dtRefStatus = getRef.getStatus("offline");
+                dtRefStatus = getRef.getStatus("offline",1);
                 dtRefPost = getRef.getPost("offline");
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочника.", exc, SystemIcons.Information); }
