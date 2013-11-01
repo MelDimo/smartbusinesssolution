@@ -10,9 +10,9 @@ namespace com.sbs.comunicate.CommunicateService_Console
     class SeasonInfo
     {
         DBAccess dbAccess = new DBAccess();
-        DataTable dtSeason;
-        DataTable dtBills;
-        DataTable dtBillsInfo;
+        DataTable dtSeason = new DataTable();
+        DataTable dtBills = new DataTable();
+        DataTable dtBillsInfo = new DataTable();
 
         public void runWatcher()
         {

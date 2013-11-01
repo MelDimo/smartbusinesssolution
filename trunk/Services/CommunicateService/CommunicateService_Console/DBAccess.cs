@@ -29,10 +29,7 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT id, code, branch, date_open, date_close, user_open, user_close, ref_status" +
-                                        " FROM season" +
-                                        "WHERE ref_status != @ref_status";
-
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 16;
+                                        " FROM season";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -92,7 +89,7 @@ namespace com.sbs.comunicate.CommunicateService_Console
 
             foreach (DataRow dr in pAvalBills.Rows)
             {
-                avalBills += dr["bills"].ToString() + ",";
+                avalBills += dr["id"].ToString() + ",";
             }
 
             avalBills = avalBills.TrimEnd(',');
@@ -154,13 +151,13 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 foreach (DataRow dr in dtSeason.Rows)
                 {
                     seasonId += dr["id"].ToString() + ",";
-                    command.Parameters["branch"].Value = (int)dr["branch"];
-                    command.Parameters["season_id"].Value = (int)dr["id"];
-                    command.Parameters["date_open"].Value = (DateTime)dr["date_open"];
-                    command.Parameters["date_close"].Value = (DateTime)dr["date_close"];
-                    command.Parameters["user_open"].Value = (int)dr["user_open"];
-                    command.Parameters["user_close"].Value = (int)dr["user_close"];
-                    command.Parameters["ref_status"].Value = (int)dr["ref_status"];
+                    command.Parameters["branch"].Value = dr["branch"];
+                    command.Parameters["season_id"].Value = dr["id"];
+                    command.Parameters["date_open"].Value = dr["date_open"];
+                    command.Parameters["date_close"].Value = dr["date_close"]??DBNull.Value;
+                    command.Parameters["user_open"].Value = dr["user_open"];
+                    command.Parameters["user_close"].Value = dr["user_close"] ?? DBNull.Value;
+                    command.Parameters["ref_status"].Value = dr["ref_status"];
 
                     command.ExecuteNonQuery();
                 }
@@ -171,14 +168,14 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 command.Parameters.Clear();
 
                 command.CommandText = "INSERT INTO bills_all(branch, season,    bills_id,   numb,   date_open,  date_close,     user_open,  user_close,     ref_status)"+
-                                                    "VALUES(@branch, @season,   @bills_id,  @numb,  @date_open, @date_close,    @user_open, @user_close,    @ref_status)";
+                                                    " VALUES(@branch, @season,   @bills_id,  @numb,  @date_open, @date_close,    @user_open, @user_close,    @ref_status)";
 
                 command.Parameters.Add("branch", SqlDbType.Int);
                 command.Parameters.Add("season", SqlDbType.Int);
-                command.Parameters.Add("bills_id", SqlDbType.DateTime);
-                command.Parameters.Add("numb", SqlDbType.DateTime);
-                command.Parameters.Add("date_open", SqlDbType.Int);
-                command.Parameters.Add("date_close", SqlDbType.Int);
+                command.Parameters.Add("bills_id", SqlDbType.Int);
+                command.Parameters.Add("numb", SqlDbType.Int);
+                command.Parameters.Add("date_open", SqlDbType.DateTime);
+                command.Parameters.Add("date_close", SqlDbType.DateTime);
                 command.Parameters.Add("user_open", SqlDbType.Int);
                 command.Parameters.Add("user_close", SqlDbType.Int);
                 command.Parameters.Add("ref_status", SqlDbType.Int);
@@ -187,15 +184,15 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 {
                     billsId += dr["id"].ToString() + ",";
 
-                    command.Parameters["branch"].Value = (int)dr["branch"];
-                    command.Parameters["season"].Value = (int)dr["season"];
-                    command.Parameters["bills_id"].Value = (int)dr["id"];
-                    command.Parameters["numb"].Value = (int)dr["numb"];
-                    command.Parameters["date_open"].Value = (DateTime)dr["date_open"];
-                    command.Parameters["date_close"].Value = (DateTime)dr["date_close"];
-                    command.Parameters["user_open"].Value = (int)dr["user_open"];
-                    command.Parameters["user_close"].Value = (int)dr["user_close"];
-                    command.Parameters["ref_status"].Value = (int)dr["ref_status"];
+                    command.Parameters["branch"].Value = dr["branch"];
+                    command.Parameters["season"].Value = dr["season"];
+                    command.Parameters["bills_id"].Value = dr["id"];
+                    command.Parameters["numb"].Value = dr["numb"];
+                    command.Parameters["date_open"].Value = dr["date_open"];
+                    command.Parameters["date_close"].Value = dr["date_close"];
+                    command.Parameters["user_open"].Value = dr["user_open"];
+                    command.Parameters["user_close"].Value = dr["user_close"];
+                    command.Parameters["ref_status"].Value = dr["ref_status"];
 
                     command.ExecuteNonQuery();
                 }
@@ -206,7 +203,7 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 command.Parameters.Clear();
 
                 command.CommandText = "INSERT INTO bills_info_all(branch,   season,     bills,  dishes,     dishes_name,    dishes_price,   xcount,     discount,   user_add,   ref_status)" +
-                                                        "VALUES(@branch,    @season,    @bills, @dishes,    @dishes_name,   @dishes_price,  @xcount,    @discount,  @user_add,  @ref_status)";
+                                                        " VALUES(@branch,    @season,    @bills, @dishes,    @dishes_name,   @dishes_price,  @xcount,    @discount,  @user_add,  @ref_status)";
 
                 command.Parameters.Add("branch", SqlDbType.Int);
                 command.Parameters.Add("season", SqlDbType.Int);
@@ -221,16 +218,16 @@ namespace com.sbs.comunicate.CommunicateService_Console
 
                 foreach (DataRow dr in dtBillsInfo.Rows)
                 {
-                    command.Parameters["branch"].Value = (int)dr["branch"];
-                    command.Parameters["season"].Value = (int)dr["season"];
-                    command.Parameters["bills"].Value = (int)dr["bills"];
-                    command.Parameters["dishes"].Value = (int)dr["dishes"];
-                    command.Parameters["dishes_name"].Value = (DateTime)dr["dishes_name"];
-                    command.Parameters["dishes_price"].Value = (DateTime)dr["dishes_price"];
-                    command.Parameters["xcount"].Value = (int)dr["xcount"];
-                    command.Parameters["discount"].Value = (int)dr["discount"];
-                    command.Parameters["user_add"].Value = (int)dr["user_add"];
-                    command.Parameters["ref_status"].Value = (int)dr["ref_status"];
+                    command.Parameters["branch"].Value = dr["branch"];
+                    command.Parameters["season"].Value = dr["season"];
+                    command.Parameters["bills"].Value = dr["bills"];
+                    command.Parameters["dishes"].Value = dr["dishes"];
+                    command.Parameters["dishes_name"].Value = dr["dishes_name"];
+                    command.Parameters["dishes_price"].Value = dr["dishes_price"];
+                    command.Parameters["xcount"].Value = dr["xcount"];
+                    command.Parameters["discount"].Value = dr["discount"];
+                    command.Parameters["user_add"].Value = dr["user_add"];
+                    command.Parameters["ref_status"].Value = dr["ref_status"];
 
                     command.ExecuteNonQuery();
                 }
@@ -263,7 +260,7 @@ namespace com.sbs.comunicate.CommunicateService_Console
                 lCommand = con.CreateCommand();
                 lCommand.Transaction = lTx;
 
-                lCommand.CommandText = "DELETE FROM season WHERE id in (" + pSeasonId + ")";
+                lCommand.CommandText = "DELETE FROM season WHERE id in (" + pSeasonId + ") AND ref_status = 17";
                 lCommand.ExecuteNonQuery();
 
                 lCommand.CommandText = "DELETE FROM bills WHERE id in (" + pBillsId + ")";
