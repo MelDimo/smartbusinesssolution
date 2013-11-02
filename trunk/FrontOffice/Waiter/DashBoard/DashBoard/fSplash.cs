@@ -14,7 +14,7 @@ namespace com.sbs.gui.DashBoard
 {
     public partial class fSplash : Form
     {
-        private DBaccess DbAccess = new DBaccess();
+        private DBaccess DbAccess = new DBaccess(); 
         private DataSet ds;
 
         public fSplash()
@@ -129,7 +129,8 @@ namespace com.sbs.gui.DashBoard
                     break;
 
                 case Keys.Escape:
-                    Close();
+                    if(MessageBox.Show("Вы уверены что хотите выйти?",GValues.prgNameFull,MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.Yes)
+                        Close();
                     break;
             }
         }
