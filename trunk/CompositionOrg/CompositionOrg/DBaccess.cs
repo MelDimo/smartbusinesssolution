@@ -228,9 +228,10 @@ namespace com.sbs.gui.compositionorg
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name "+
-                                        " FROM unit un "+
-                                        " INNER JOIN ref_status stat ON stat.id = un.ref_status"+
+                command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name, " +
+                                            " ref_printers, ref_printers_type" +
+                                        " FROM unit un" +
+                                        " INNER JOIN ref_status stat ON stat.id = un.ref_status" +
                                         " ORDER BY un.name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -312,32 +313,6 @@ namespace com.sbs.gui.compositionorg
         }
 
         #endregion
-
-        public DataTable getStatus(string pDbType)
-        {
-            DataTable dtResult = new DataTable();
-
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
-            try
-            {
-                con.Open();
-                command = con.CreateCommand();
-
-                command.CommandText = "SELECT id, name, textcolor, backcolor FROM ref_status";
-
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
-
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-
-            return dtResult;
-        }
 
         public DataTable getCity(string pDbType)
         {

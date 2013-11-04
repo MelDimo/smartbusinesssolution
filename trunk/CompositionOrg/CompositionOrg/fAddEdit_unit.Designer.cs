@@ -39,6 +39,10 @@
             this.comboBox_refStatus = new System.Windows.Forms.ComboBox();
             this.comboBox_branch = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_refPrintersType = new System.Windows.Forms.ComboBox();
+            this.comboBox_refPrinters = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +52,7 @@
             this.panel1.Controls.Add(this.button_apply);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 129);
+            this.panel1.Location = new System.Drawing.Point(0, 193);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(466, 35);
             this.panel1.TabIndex = 24;
@@ -152,11 +156,55 @@
             this.label1.TabIndex = 28;
             this.label1.Text = "Заведение";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 158);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "Тип принтера";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 131);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "Принтер";
+            // 
+            // comboBox_refPrintersType
+            // 
+            this.comboBox_refPrintersType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_refPrintersType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_refPrintersType.FormattingEnabled = true;
+            this.comboBox_refPrintersType.Location = new System.Drawing.Point(117, 155);
+            this.comboBox_refPrintersType.Name = "comboBox_refPrintersType";
+            this.comboBox_refPrintersType.Size = new System.Drawing.Size(337, 21);
+            this.comboBox_refPrintersType.TabIndex = 35;
+            // 
+            // comboBox_refPrinters
+            // 
+            this.comboBox_refPrinters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_refPrinters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_refPrinters.FormattingEnabled = true;
+            this.comboBox_refPrinters.Location = new System.Drawing.Point(117, 128);
+            this.comboBox_refPrinters.Name = "comboBox_refPrinters";
+            this.comboBox_refPrinters.Size = new System.Drawing.Size(337, 21);
+            this.comboBox_refPrinters.TabIndex = 33;
+            // 
             // fAddEdit_unit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 164);
+            this.ClientSize = new System.Drawing.Size(466, 228);
+            this.Controls.Add(this.comboBox_refPrintersType);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.comboBox_refPrinters);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox_refStatus);
             this.Controls.Add(this.comboBox_branch);
@@ -188,5 +236,9 @@
         private System.Windows.Forms.ComboBox comboBox_refStatus;
         private System.Windows.Forms.ComboBox comboBox_branch;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox_refPrintersType;
+        private System.Windows.Forms.ComboBox comboBox_refPrinters;
     }
 }

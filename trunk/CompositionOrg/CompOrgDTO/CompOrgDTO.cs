@@ -77,6 +77,21 @@ namespace com.sbs.dll.dto
             private string _name;
             private int _refStatus;
             private int _branch;
+            private int _refPrinters;
+            private int _refPrintersType;
+
+            public int RefPrintersType
+            {
+                get { return _refPrintersType; }
+                set { _refPrintersType = value; }
+            }
+            
+            public int RefPrinters
+            {
+                get { return _refPrinters; }
+                set { _refPrinters = value; }
+            }
+            
 
             public int Branch
             {
