@@ -34,13 +34,13 @@
             this.button_ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.textBox_name = new System.Windows.Forms.TextBox();
-            this.comboBox_branch = new System.Windows.Forms.ComboBox();
-            this.comboBox_unit = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboBox_stat = new System.Windows.Forms.ComboBox();
+            this.comboBox_unit = new System.Windows.Forms.ComboBox();
+            this.comboBox_branch = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox_org = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
@@ -127,27 +127,13 @@
             this.label1.Text = "Наименование";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // textBox_name
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Заведение";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 75);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Подразделение";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.textBox_name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_name.Location = new System.Drawing.Point(103, 3);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(244, 20);
+            this.textBox_name.TabIndex = 1;
             // 
             // label4
             // 
@@ -160,23 +146,37 @@
             this.label4.Text = "Статус";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // textBox_name
+            // label3
             // 
-            this.textBox_name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_name.Location = new System.Drawing.Point(103, 3);
-            this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(244, 20);
-            this.textBox_name.TabIndex = 1;
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 75);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 25);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Подразделение";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // comboBox_branch
+            // label2
             // 
-            this.comboBox_branch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox_branch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_branch.FormattingEnabled = true;
-            this.comboBox_branch.Location = new System.Drawing.Point(103, 53);
-            this.comboBox_branch.Name = "comboBox_branch";
-            this.comboBox_branch.Size = new System.Drawing.Size(244, 21);
-            this.comboBox_branch.TabIndex = 3;
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Заведение";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_stat
+            // 
+            this.comboBox_stat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_stat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_stat.FormattingEnabled = true;
+            this.comboBox_stat.Location = new System.Drawing.Point(103, 103);
+            this.comboBox_stat.Name = "comboBox_stat";
+            this.comboBox_stat.Size = new System.Drawing.Size(244, 21);
+            this.comboBox_stat.TabIndex = 5;
             // 
             // comboBox_unit
             // 
@@ -188,15 +188,15 @@
             this.comboBox_unit.Size = new System.Drawing.Size(244, 21);
             this.comboBox_unit.TabIndex = 4;
             // 
-            // comboBox_stat
+            // comboBox_branch
             // 
-            this.comboBox_stat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox_stat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_stat.FormattingEnabled = true;
-            this.comboBox_stat.Location = new System.Drawing.Point(103, 103);
-            this.comboBox_stat.Name = "comboBox_stat";
-            this.comboBox_stat.Size = new System.Drawing.Size(244, 21);
-            this.comboBox_stat.TabIndex = 5;
+            this.comboBox_branch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_branch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_branch.FormattingEnabled = true;
+            this.comboBox_branch.Location = new System.Drawing.Point(103, 53);
+            this.comboBox_branch.Name = "comboBox_branch";
+            this.comboBox_branch.Size = new System.Drawing.Size(244, 21);
+            this.comboBox_branch.TabIndex = 3;
             // 
             // label5
             // 
