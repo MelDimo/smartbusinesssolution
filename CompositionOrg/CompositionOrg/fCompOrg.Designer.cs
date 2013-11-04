@@ -76,6 +76,8 @@
             this.unit_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unit_ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unit_branch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unit_ref_printers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unit_ref_printers_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer_org.Panel1.SuspendLayout();
             this.splitContainer_org.Panel2.SuspendLayout();
             this.splitContainer_org.SuspendLayout();
@@ -224,6 +226,7 @@
             // 
             this.tSButton_orgAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_orgAdd.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_orgAdd.Image")));
+            this.tSButton_orgAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_orgAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_orgAdd.Name = "tSButton_orgAdd";
             this.tSButton_orgAdd.Size = new System.Drawing.Size(23, 22);
@@ -234,6 +237,7 @@
             // 
             this.tSButton_orgEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_orgEdit.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_orgEdit.Image")));
+            this.tSButton_orgEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_orgEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_orgEdit.Name = "tSButton_orgEdit";
             this.tSButton_orgEdit.Size = new System.Drawing.Size(23, 22);
@@ -244,6 +248,7 @@
             // 
             this.tSButton_orgDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_orgDel.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_orgDel.Image")));
+            this.tSButton_orgDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_orgDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_orgDel.Name = "tSButton_orgDel";
             this.tSButton_orgDel.Size = new System.Drawing.Size(23, 22);
@@ -396,6 +401,7 @@
             // 
             this.tSButton_branchAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_branchAdd.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_branchAdd.Image")));
+            this.tSButton_branchAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_branchAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_branchAdd.Name = "tSButton_branchAdd";
             this.tSButton_branchAdd.Size = new System.Drawing.Size(23, 22);
@@ -406,6 +412,7 @@
             // 
             this.tSButton_branchEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_branchEdit.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_branchEdit.Image")));
+            this.tSButton_branchEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_branchEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_branchEdit.Name = "tSButton_branchEdit";
             this.tSButton_branchEdit.Size = new System.Drawing.Size(23, 22);
@@ -416,6 +423,7 @@
             // 
             this.tSButton_branchDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_branchDel.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_branchDel.Image")));
+            this.tSButton_branchDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_branchDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_branchDel.Name = "tSButton_branchDel";
             this.tSButton_branchDel.Size = new System.Drawing.Size(23, 22);
@@ -454,7 +462,9 @@
             this.unit_name,
             this.unit_ref_status_name,
             this.unit_ref_status,
-            this.unit_branch});
+            this.unit_branch,
+            this.unit_ref_printers,
+            this.unit_ref_printers_type});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -497,6 +507,7 @@
             // 
             this.tSButton_unitAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_unitAdd.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_unitAdd.Image")));
+            this.tSButton_unitAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_unitAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_unitAdd.Name = "tSButton_unitAdd";
             this.tSButton_unitAdd.Size = new System.Drawing.Size(23, 22);
@@ -507,6 +518,7 @@
             // 
             this.tSButton_unitEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_unitEdit.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_unitEdit.Image")));
+            this.tSButton_unitEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_unitEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_unitEdit.Name = "tSButton_unitEdit";
             this.tSButton_unitEdit.Size = new System.Drawing.Size(23, 22);
@@ -517,6 +529,7 @@
             // 
             this.tSButton_unitDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_unitDel.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_unitDel.Image")));
+            this.tSButton_unitDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_unitDel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_unitDel.Name = "tSButton_unitDel";
             this.tSButton_unitDel.Size = new System.Drawing.Size(23, 22);
@@ -567,6 +580,20 @@
             this.unit_branch.Name = "unit_branch";
             this.unit_branch.ReadOnly = true;
             this.unit_branch.Visible = false;
+            // 
+            // unit_ref_printers
+            // 
+            this.unit_ref_printers.HeaderText = "unit_ref_printers";
+            this.unit_ref_printers.Name = "unit_ref_printers";
+            this.unit_ref_printers.ReadOnly = true;
+            this.unit_ref_printers.Visible = false;
+            // 
+            // unit_ref_printers_type
+            // 
+            this.unit_ref_printers_type.HeaderText = "unit_ref_printers_type";
+            this.unit_ref_printers_type.Name = "unit_ref_printers_type";
+            this.unit_ref_printers_type.ReadOnly = true;
+            this.unit_ref_printers_type.Visible = false;
             // 
             // fCompOrg
             // 
@@ -643,6 +670,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_status_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_status;
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_branch;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_printers;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_printers_type;
     }
 }
 

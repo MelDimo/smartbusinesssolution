@@ -15,16 +15,33 @@ namespace com.sbs.gui.compositionorg
     public partial class fCompOrg : Form
     {
         DBaccess dbAccess = new DBaccess();
+        getReference oReference = new getReference();
 
         private DataTable dtOrg = new DataTable();
         private DataTable dtBranch = new DataTable();
         private DataTable dtUnit = new DataTable();
         private DataTable dtStatus = new DataTable();
         private DataTable dtCity = new DataTable();
+        private DataTable dtPrinters = new DataTable();
+        private DataTable dtPrintersType = new DataTable();
+
+        int branchIndex;
 
         public fCompOrg()
         {
             InitializeComponent();
+
+            tSButton_orgAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_orgEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_orgDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+
+            tSButton_branchAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_branchEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_branchDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+
+            tSButton_unitAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_unitEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_unitDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
 
             dataGridView_org.AutoGenerateColumns = false;
             dataGridView_branch.AutoGenerateColumns = false;
@@ -35,14 +52,19 @@ namespace com.sbs.gui.compositionorg
 
         private void initData()
         {
-            DBaccess dbAccess = new DBaccess();
+            dataGridView_org.SelectionChanged -= new EventHandler(dataGridView_org_SelectionChanged);
+            dataGridView_branch.SelectionChanged -= new EventHandler(dataGridView_branch_SelectionChanged);
+            dataGridView_unit.SelectionChanged -= new EventHandler(dataGridView_unit_SelectionChanged);
+
             try
             {
                 dtOrg = dbAccess.getOrganization("offline");
                 dtBranch = dbAccess.getBranch("offline");
                 dtUnit = dbAccess.getUnit("offline");
-                dtStatus = dbAccess.getStatus("offline");
+                dtStatus = oReference.getStatus("offline", 1);
                 dtCity = dbAccess.getCity("offline");
+                dtPrinters = oReference.getRefPrinters("offline");
+                dtPrintersType = oReference.getRefPrintersType("offline");
             }
             catch (Exception exc) { uMessage.Show("Невозможно получить данные!", exc, SystemIcons.Error); Close(); }
 
@@ -66,6 +88,14 @@ namespace com.sbs.gui.compositionorg
             dataGridView_unit.Columns["unit_branch"].DataPropertyName = "branch";
             dataGridView_unit.Columns["unit_ref_status_name"].DataPropertyName = "ref_status_name";
             dataGridView_unit.Columns["unit_ref_status"].DataPropertyName = "ref_status";
+            dataGridView_unit.Columns["unit_ref_printers"].DataPropertyName = "ref_printers";
+            dataGridView_unit.Columns["unit_ref_printers_type"].DataPropertyName = "ref_printers_type";
+
+            dataGridView_org.SelectionChanged += new EventHandler(dataGridView_org_SelectionChanged);
+            dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
+            dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
+
+            if (branchIndex > 0) dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
 
         }
 
@@ -140,6 +170,8 @@ namespace com.sbs.gui.compositionorg
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Новое заведение";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
+
+            dataGridView_branch.Rows[0].Cells[1].Selected = true;
         }
 
         private void tSButton_branchEdit_Click(object sender, EventArgs e)
@@ -165,6 +197,8 @@ namespace com.sbs.gui.compositionorg
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Редактирование + '" + oBranchDTO.Name + "'";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
+
+            dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
         }
 
         private void tSButton_branchDel_Click(object sender, EventArgs e)
@@ -185,12 +219,14 @@ namespace com.sbs.gui.compositionorg
                 return;
             }
 
-            oBranchDTO.Id = (int)dataRow.Cells["id"].Value;
+            oBranchDTO.Id = (int)dataRow.Cells["branch_id"].Value;
             try
             {
                 dbAccess.delBranch("offline", oBranchDTO);
             }
             catch (Exception exc) { uMessage.Show("Ошибка удаления записи.", exc, SystemIcons.Error); }
+            
+            branchIndex = 0;
 
             initData();
         }
@@ -206,7 +242,7 @@ namespace com.sbs.gui.compositionorg
 
             oUnitDTO.Branch = (int)dataRow.Cells["branch_id"].Value;
 
-            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus);
+            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
             faddeditunit.Text = "Новое подразделение";
             if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
 
@@ -222,13 +258,15 @@ namespace com.sbs.gui.compositionorg
 
             DataGridViewRow dataRow = dataGridView_unit.SelectedRows[0];
             CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
-
+            
             oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
             oUnitDTO.Name = dataRow.Cells["unit_name"].Value.ToString();
             oUnitDTO.RefStatus = (int)dataRow.Cells["unit_ref_status"].Value;
             oUnitDTO.Branch = (int)dataRow.Cells["unit_branch"].Value;
+            oUnitDTO.RefPrinters = (dataRow.Cells["unit_ref_printers"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers"].Value;
+            oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
 
-            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus);
+            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
             faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
             if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
 
@@ -266,19 +304,25 @@ namespace com.sbs.gui.compositionorg
 
         private void fCompOrg_Shown(object sender, EventArgs e)
         {
-            dataGridView_org.SelectionChanged += new EventHandler(dataGridView_org_SelectionChanged);
-            dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
-            dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
+            //dataGridView_org.SelectionChanged += new EventHandler(dataGridView_org_SelectionChanged);
+            //dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
+            //dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
         }
 
         void dataGridView_org_SelectionChanged(object sender, EventArgs e)
         {
+            if (dataGridView_org.SelectedRows.Count == 0) return;
+
             (dataGridView_branch.DataSource as DataTable).DefaultView.RowFilter =
                 string.Format("organization = '{0}'", dataGridView_org.SelectedRows[0].Cells["org_id"].Value);
         }
 
         void dataGridView_branch_SelectionChanged(object sender, EventArgs e)
         {
+            if (dataGridView_branch.SelectedRows.Count == 0) return;
+
+            branchIndex = dataGridView_branch.SelectedRows[0].Index;
+
             (dataGridView_unit.DataSource as DataTable).DefaultView.RowFilter = 
                 string.Format("branch = '{0}'", dataGridView_branch.SelectedRows[0].Cells["branch_id"].Value);
         }

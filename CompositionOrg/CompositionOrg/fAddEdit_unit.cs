@@ -19,7 +19,7 @@ namespace com.sbs.gui.compositionorg
         private DBaccess dbAccess = new DBaccess();
         private CompOrgDTO.UnitDTO oUnitDTO;
 
-        public fAddEdit_unit(CompOrgDTO.UnitDTO pUnitDTO, DataTable pDtBranch, DataTable pDtStatus)
+        public fAddEdit_unit(CompOrgDTO.UnitDTO pUnitDTO, DataTable pDtBranch, DataTable pDtStatus, DataTable pDtPrinters, DataTable pDtPrintersType)
         {
             InitializeComponent();
 
@@ -40,6 +40,17 @@ namespace com.sbs.gui.compositionorg
             comboBox_refStatus.ValueMember = "id";
             comboBox_refStatus.DisplayMember = "name";
             comboBox_refStatus.SelectedValue = oUnitDTO.RefStatus;
+
+            comboBox_refPrinters.DataSource = pDtPrinters;
+            comboBox_refPrinters.ValueMember = "id";
+            comboBox_refPrinters.DisplayMember = "name";
+            comboBox_refPrinters.SelectedValue = oUnitDTO.RefPrinters;
+
+            comboBox_refPrintersType.DataSource = pDtPrintersType;
+            comboBox_refPrintersType.ValueMember = "id";
+            comboBox_refPrintersType.DisplayMember = "name";
+            comboBox_refPrintersType.SelectedValue = oUnitDTO.RefPrintersType;
+
         }
 
         private void button_ok_Click(object sender, EventArgs e)
