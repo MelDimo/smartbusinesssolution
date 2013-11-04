@@ -40,7 +40,7 @@ namespace com.sbs.gui.references.refDepot
                 dsRef.Tables.Add(oReference.getOrganization("offline"));
                 dsRef.Tables.Add(oReference.getBranch("offline"));
                 dsRef.Tables.Add(oReference.getUnit("offline"));
-                dsRef.Tables.Add(oReference.getStatus("offline"));
+                dsRef.Tables.Add(oReference.getStatus("offline",1));
             }
             catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return; }
         }
@@ -124,7 +124,7 @@ namespace com.sbs.gui.references.refDepot
         {
             if (dataGridView_main.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Укажите элемент для редактирования", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Укажите элемент для удаления", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
