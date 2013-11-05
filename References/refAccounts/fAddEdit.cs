@@ -31,7 +31,10 @@ namespace com.sbs.gui.references.accounts
             textBox_II.DataBindings.Add("Text", oAcc, "group_II");
             textBox_name.DataBindings.Add("Text", oAcc, "name");
             textBox_id.DataBindings.Add("Text", oAcc, "id");
-
+            comboBox_xvid.DataBindings.Add("SelectedIndex", oAcc, "xvid");
+            checkBox_kolvo.DataBindings.Add("Checked", oAcc, "xcount");
+            checkBox_offbalance.DataBindings.Add("Checked", oAcc, "xoffbalance");
+            
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -82,16 +85,20 @@ namespace com.sbs.gui.references.accounts
                 command.Parameters.Add("group_I_I", SqlDbType.Int).Value = oAcc.group_I_I;
                 command.Parameters.Add("group_II", SqlDbType.Int).Value = oAcc.group_II;
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = oAcc.name;
+                command.Parameters.Add("xvid", SqlDbType.NVarChar).Value = oAcc.xvid;
+                command.Parameters.Add("xcount", SqlDbType.NVarChar).Value = oAcc.xcount;
+                command.Parameters.Add("xoffbalance", SqlDbType.NVarChar).Value = oAcc.xoffbalance;
 
                 switch (formMode)
                 {
                     case "ADD":
-                        command.CommandText = "INSERT INTO ref_accounts(group_I, group_I_I, group_II, name)" +
-                                                " VALUES (@group_I, @group_I_I, @group_II, @name)";
+                        command.CommandText = "INSERT INTO ref_accounts(group_I, group_I_I, group_II, name, xvid, xcount, xoffbalance)" +
+                                                " VALUES (@group_I, @group_I_I, @group_II, @name, @xvid, @xcount, @xoffbalance)";
                         break;
 
                     case "EDIT":
-                        command.CommandText = "UPDATE ref_accounts SET group_I = @group_I, group_I_I = @group_I_I, group_II = @group_II, name = @name" +
+                        command.CommandText = "UPDATE ref_accounts SET group_I = @group_I, group_I_I = @group_I_I, group_II = @group_II, name = @name," +
+                                                " xvid = @xvid, xcount = @xcount, xoffbalance = @xoffbalance" +
                                                 " WHERE id = @id";
                         command.Parameters.Add("id", SqlDbType.Int).Value = oAcc.id;
                         break;

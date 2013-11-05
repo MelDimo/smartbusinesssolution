@@ -34,13 +34,18 @@
             this.tSButton_edit = new System.Windows.Forms.ToolStripButton();
             this.tSButton_del = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSButton_copy = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_I = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_I_I = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.group_II = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.xvid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xcount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xoffbalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -52,7 +57,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSButton_add,
             this.tSButton_edit,
-            this.tSButton_del});
+            this.tSButton_del,
+            this.toolStripSeparator1,
+            this.tSButton_copy});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(535, 25);
@@ -102,7 +109,10 @@
             this.group_I,
             this.group_I_I,
             this.group_II,
-            this.name});
+            this.name,
+            this.xvid,
+            this.xcount,
+            this.xoffbalance});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(0, 25);
             this.dataGridView_main.Name = "dataGridView_main";
@@ -111,6 +121,39 @@
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_main.Size = new System.Drawing.Size(535, 238);
             this.dataGridView_main.TabIndex = 14;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSSLabel_recCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 263);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(535, 22);
+            this.statusStrip1.TabIndex = 15;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tSSLabel_recCount
+            // 
+            this.tSSLabel_recCount.Name = "tSSLabel_recCount";
+            this.tSSLabel_recCount.Size = new System.Drawing.Size(105, 17);
+            this.tSSLabel_recCount.Text = "tSSLabel_recCount";
+            // 
+            // tSButton_copy
+            // 
+            this.tSButton_copy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_copy.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_copy.Image")));
+            this.tSButton_copy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSButton_copy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_copy.Name = "tSButton_copy";
+            this.tSButton_copy.Size = new System.Drawing.Size(23, 22);
+            this.tSButton_copy.Text = "tSButton_copy";
+            this.tSButton_copy.ToolTipText = "Дублировать";
+            this.tSButton_copy.Click += new System.EventHandler(this.tSButton_copy_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // id
             // 
@@ -150,21 +193,26 @@
             this.name.Name = "name";
             this.name.ReadOnly = true;
             // 
-            // statusStrip1
+            // xvid
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSSLabel_recCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 263);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(535, 22);
-            this.statusStrip1.TabIndex = 15;
-            this.statusStrip1.Text = "statusStrip1";
+            this.xvid.HeaderText = "xvid";
+            this.xvid.Name = "xvid";
+            this.xvid.ReadOnly = true;
+            this.xvid.Visible = false;
             // 
-            // tSSLabel_recCount
+            // xcount
             // 
-            this.tSSLabel_recCount.Name = "tSSLabel_recCount";
-            this.tSSLabel_recCount.Size = new System.Drawing.Size(105, 17);
-            this.tSSLabel_recCount.Text = "tSSLabel_recCount";
+            this.xcount.HeaderText = "xcount";
+            this.xcount.Name = "xcount";
+            this.xcount.ReadOnly = true;
+            this.xcount.Visible = false;
+            // 
+            // xoffbalance
+            // 
+            this.xoffbalance.HeaderText = "xoffbalance";
+            this.xoffbalance.Name = "xoffbalance";
+            this.xoffbalance.ReadOnly = true;
+            this.xoffbalance.Visible = false;
             // 
             // fAcc
             // 
@@ -195,13 +243,18 @@
         private System.Windows.Forms.ToolStripButton tSButton_edit;
         private System.Windows.Forms.ToolStripButton tSButton_del;
         private System.Windows.Forms.DataGridView dataGridView_main;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_recCount;
+        private System.Windows.Forms.ToolStripButton tSButton_copy;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_I;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_I_I;
         private System.Windows.Forms.DataGridViewTextBoxColumn group_II;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_recCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xvid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xcount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xoffbalance;
 
     }
 }
