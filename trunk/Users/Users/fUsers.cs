@@ -44,6 +44,7 @@ namespace com.sbs.gui.users
             tSButton_menu.Image = com.sbs.dll.utilites.Properties.Resources.menu_26;
             tSButton_pwd.Image = com.sbs.dll.utilites.Properties.Resources.lock_26;
             tSButton_doc.Image = com.sbs.dll.utilites.Properties.Resources.doc_26;
+            tSButton_applyFilter.Image = com.sbs.dll.utilites.Properties.Resources.filter_26;
         }
 
         private void initReferences()

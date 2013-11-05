@@ -66,7 +66,7 @@
             this.tSSLabel_recCount});
             this.statusStrip_bottom.Location = new System.Drawing.Point(0, 472);
             this.statusStrip_bottom.Name = "statusStrip_bottom";
-            this.statusStrip_bottom.Size = new System.Drawing.Size(864, 22);
+            this.statusStrip_bottom.Size = new System.Drawing.Size(950, 22);
             this.statusStrip_bottom.TabIndex = 6;
             this.statusStrip_bottom.Text = "statusStrip_bottom";
             // 
@@ -91,7 +91,7 @@
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_top.Name = "toolStrip_top";
             this.toolStrip_top.Padding = new System.Windows.Forms.Padding(5);
-            this.toolStrip_top.Size = new System.Drawing.Size(864, 33);
+            this.toolStrip_top.Size = new System.Drawing.Size(950, 33);
             this.toolStrip_top.TabIndex = 7;
             this.toolStrip_top.Text = "toolStrip_top";
             // 
@@ -195,7 +195,7 @@
             this.tSButton_applyFilter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 33);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(864, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(950, 25);
             this.toolStrip1.TabIndex = 8;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -259,6 +259,7 @@
             // 
             this.tSButton_applyFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_applyFilter.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_applyFilter.Image")));
+            this.tSButton_applyFilter.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_applyFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_applyFilter.Name = "tSButton_applyFilter";
             this.tSButton_applyFilter.Size = new System.Drawing.Size(23, 22);
@@ -302,14 +303,14 @@
             this.dataGridView_main.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(864, 414);
+            this.dataGridView_main.Size = new System.Drawing.Size(950, 414);
             this.dataGridView_main.TabIndex = 9;
             // 
             // fUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 494);
+            this.ClientSize = new System.Drawing.Size(950, 494);
             this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStrip_top);
