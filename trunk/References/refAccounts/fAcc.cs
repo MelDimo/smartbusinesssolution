@@ -23,6 +23,7 @@ namespace com.sbs.gui.references.accounts
             tSButton_add.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             tSButton_edit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
             tSButton_del.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+            tSButton_copy.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
 
             dataGridView_main.AutoGenerateColumns = false;
 
@@ -38,7 +39,7 @@ namespace com.sbs.gui.references.accounts
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = "SELECT id, group_I, group_I_I, group_II, name" +
+                command.CommandText = "SELECT id, group_I, group_I_I, group_II, name, xvid, xcount, xoffbalance" +
                                         " FROM ref_accounts"+
                                         " ORDER BY group_I, group_I_I, group_II";
 
@@ -57,6 +58,9 @@ namespace com.sbs.gui.references.accounts
             dataGridView_main.Columns["group_I_I"].DataPropertyName = "group_I_I";
             dataGridView_main.Columns["group_II"].DataPropertyName = "group_II";
             dataGridView_main.Columns["name"].DataPropertyName = "name";
+            dataGridView_main.Columns["xvid"].DataPropertyName = "xvid";
+            dataGridView_main.Columns["xcount"].DataPropertyName = "xcount";
+            dataGridView_main.Columns["xoffbalance"].DataPropertyName = "xoffbalance";
 
             tSSLabel_recCount.Text = "Итого записей: " + dt.Rows.Count;
         }
@@ -66,7 +70,14 @@ namespace com.sbs.gui.references.accounts
             Account oAcc = new Account();
             fAddEdit faddedit = new fAddEdit(oAcc);
             faddedit.Text = "Ввод нового элемента";
-            if (faddedit.ShowDialog() == DialogResult.OK) updateData();
+            if (faddedit.ShowDialog() == DialogResult.OK)
+            {
+                updateData();
+                if(dataGridView_main.Rows.Count > 0)
+                {
+                    dataGridView_main.CurrentCell = dataGridView_main.Rows[dataGridView_main.Rows.Count - 1].Cells[1];
+                }
+            }
             
         }
 
@@ -90,6 +101,9 @@ namespace com.sbs.gui.references.accounts
             oAcc.group_I = (int)dr.Cells["group_I"].Value;
             oAcc.group_I_I = (int)dr.Cells["group_I_I"].Value;
             oAcc.group_II = (int)dr.Cells["group_II"].Value;
+            oAcc.xvid = (int)dr.Cells["xvid"].Value;
+            oAcc.xcount = (int)dr.Cells["xcount"].Value;
+            oAcc.xoffbalance = (int)dr.Cells["xoffbalance"].Value;
 
 
             fAddEdit faddedit = new fAddEdit(oAcc);
@@ -135,6 +149,40 @@ namespace com.sbs.gui.references.accounts
 
             updateData();
         }
+
+        private void tSButton_copy_Click(object sender, EventArgs e)
+        {
+            int index;
+
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для дублирования", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataGridViewRow dr = dataGridView_main.SelectedRows[0];
+
+            index = dr.Index;
+
+            Account oAcc = new Account();
+            oAcc.id = 0;
+            oAcc.name = dr.Cells["name"].Value.ToString();
+            oAcc.group_I = (int)dr.Cells["group_I"].Value;
+            oAcc.group_I_I = (int)dr.Cells["group_I_I"].Value;
+            oAcc.group_II = (int)dr.Cells["group_II"].Value;
+            oAcc.xvid = (int)dr.Cells["xvid"].Value;
+            oAcc.xcount = (int)dr.Cells["xcount"].Value;
+            oAcc.xoffbalance = (int)dr.Cells["xoffbalance"].Value;
+
+
+            fAddEdit faddedit = new fAddEdit(oAcc);
+            faddedit.Text = "Ввод нового элемента";
+            if (faddedit.ShowDialog() == DialogResult.OK)
+            {
+                updateData();
+                dataGridView_main.CurrentCell = dataGridView_main.Rows[index + 1].Cells[1]; // Могут отменить форму ввода
+            }
+        }
     }
 
     public class Account
@@ -144,5 +192,8 @@ namespace com.sbs.gui.references.accounts
         public int group_I_I { get; set; }
         public int group_II { get; set; }
         public string name { get; set; }
+        public int xvid { get; set; }
+        public int xcount { get; set; }
+        public int xoffbalance { get; set; }
     }
 }
