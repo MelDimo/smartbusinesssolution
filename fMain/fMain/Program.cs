@@ -9,6 +9,8 @@ using com.sbs.dll.utilites;
 using System.Data;
 using System.Reflection;
 using System.IO;
+using System.Data.SqlClient;
+using System.Security.Policy;
 
 namespace com.sbs.gui.main
 {
@@ -57,48 +59,15 @@ namespace com.sbs.gui.main
             foreach (string str in pArrayModules)
             try
             {
-                //Assembly.LoadFile(Environment.CurrentDirectory + Path.DirectorySeparatorChar + "module" + Path.DirectorySeparatorChar + str);
-                Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
+#if DEBUG
+                //Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
+                Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str);
+#else
+                Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
+                    new Evidence( Assembly.GetExecutingAssembly().Evidence ));
+#endif
             }
             catch (Exception exc) { throw exc; }
         }
-
-        //private static bool loadConfig()
-        //{
-        //    string msgError = "В ходе разбора файла конфигурации произошли следующие ошибки:";
-
-        //    XmlDocument doc = new XmlDocument();
-        //    XmlNode node_ref_unit;
-        //    XmlNode node_dbmode;
-        //    XmlNode node_maindb;
-
-        //    try
-        //    {
-        //        doc.Load(GValues.fileSettingsPath);
-        //        node_ref_unit = doc.GetElementsByTagName("ref_unit")[0];
-        //        node_dbmode = doc.GetElementsByTagName("dbmode")[0];
-        //        node_maindb = doc.GetElementsByTagName("maindb")[0];
-
-        //        if (!int.TryParse(node_ref_unit.InnerText, out GValues.unitID))
-        //            msgError += Environment.NewLine + "- Не удалось определить заведение;";
-            
-        //        GValues.DBMode = node_dbmode.InnerText;
-        //        if (GValues.DBMode.Length == 0)
-        //            msgError += Environment.NewLine + "- Не удалось определить режим взаисодействия с БД;";
-
-        //        GValues.mainDB = node_maindb.InnerText;
-        //        if (GValues.mainDB.Length == 0)
-        //            msgError += Environment.NewLine + "- Не удалось определить головную БД;";
-
-        //        if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
-        //        {
-        //            uMessage.Show(msgError + Environment.NewLine + Environment.NewLine + "Приложение будет закрыто.", SystemIcons.Error);
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception exc) { uMessage.Show("Неудалось прочесть файл конфигураций", exc, SystemIcons.Information); return false; }
-
-        //    return true;
-        //}
     }
 }

@@ -41,17 +41,23 @@ namespace com.sbs.gui.gPwd
                 if (File.Exists(GValues.mdfPath)) File.Delete(GValues.mdfPath);
                 uMessage.Show("Неудалось создать файл", exc, SystemIcons.Information); 
             }
+
+            uMessage.Show("Файл конфигураций создан.", SystemIcons.Information); 
+            
         }
 
         private void updateFileLogo()
         {
+            string strPwd = textBox_key.Text;
+            strPwd = strPwd.PadRight(32, '0');
+
             try
             {
                 using (FileStream fs = File.Open(GValues.logoPath, FileMode.Open, FileAccess.ReadWrite))
                 {
-                    fs.SetLength(indexAE + textBox_key.Text.Length);
+                    fs.SetLength(indexAE + strPwd.Length);
                     fs.Seek(indexAE, SeekOrigin.Current);
-                    fs.Write(System.Text.Encoding.ASCII.GetBytes(textBox_key.Text), 0, textBox_key.Text.Length);
+                    fs.Write(System.Text.Encoding.ASCII.GetBytes(strPwd), 0, strPwd.Length);
                     fs.Flush();
                 }
             }
@@ -103,7 +109,10 @@ namespace com.sbs.gui.gPwd
                 using (FileStream fs = File.Create(GValues.mdfPath))
                 {
                     Rijndael RijndaelAlg = Rijndael.Create();
-                    
+                    RijndaelAlg.KeySize = 256;
+                    RijndaelAlg.BlockSize = 128;
+                    RijndaelAlg.Mode = System.Security.Cryptography.CipherMode.CFB;
+                    RijndaelAlg.Padding = System.Security.Cryptography.PaddingMode.ISO10126;
                     CryptoStream cStream = new CryptoStream(fs,
                                                             RijndaelAlg.CreateEncryptor(rgbKey, GValues.rgbIV),
                                                             CryptoStreamMode.Write);
@@ -145,13 +154,13 @@ namespace com.sbs.gui.gPwd
             {
                 readFile();
             }
-            catch (Exception exc)
+            catch// (Exception exc)
             {
-                uMessage.Show("Ошибка чтения", exc, SystemIcons.Information);
-                groupBox1.Enabled = false;
-                groupBox2.Enabled = false;
-                groupBox3.Enabled = false;
-                panel1.Enabled = false;
+                //uMessage.Show("Ошибка чтения", exc, SystemIcons.Information);
+                //groupBox1.Enabled = false;
+                //groupBox2.Enabled = false;
+                //groupBox3.Enabled = false;
+                //panel1.Enabled = false;
             }
         }
 

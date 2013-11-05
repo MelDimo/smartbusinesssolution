@@ -23,6 +23,7 @@ namespace com.sbs.dll
 
         public static int unitId;
         public static int branchId;
+        public static string resourcePath;
 
         public static byte[] rgbIV = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
@@ -42,17 +43,52 @@ namespace com.sbs.dll
 
 
 #if DEBUG
-        public static string logoPath = @"D:\VisualStudio2010\Projects\SBS\resource\logo.png";
+        //public static string logoPath = @"D:\VisualStudio2010\Projects\SBS\resource\logo.png";
 
-        public static string mdfPath = @"D:\VisualStudio2010\Projects\SBS\resource\db.mdf";
+        //public static string mdfPath = @"D:\VisualStudio2010\Projects\SBS\resource\db.mdf";
 
         public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\SBS\resource\settings.xml";
+
+        public static string logoPath
+        {
+            get { return GValues.resourcePath + @"\logo.png"; }
+            set { logoPath = value; }
+
+        }
+
+        public static string mdfPath
+        {
+            get { return GValues.resourcePath + @"\db.mdf"; }
+            set { mdfPath = value; }
+
+        }
+
+        public static string modulesPath;
+
         public static string mainDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
         public static string localDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563"; 
+
 #else
-        public static string fileSettingsPath = Environment.CurrentDirectory + @"\resource\settings.xml";
-        public static string fileBDLocalPath = Environment.CurrentDirectory + @"\DataBase\localData.sdf";
-        private static string mainDBConStr = "Server=myServerAddress; Database=fileBDLocalPath; Password=74563;";
+        public static string logoPath
+        {
+            get { return GValues.resourcePath + @"\logo.png"; }
+            set { logoPath = value; }
+
+        }
+
+        public static string mdfPath
+        {
+            get { return GValues.resourcePath + @"\db.mdf"; }
+            set { mdfPath = value; }
+
+        }
+
+        public static string modulesPath;
+
+        public static string fileSettingsPath = Environment.CurrentDirectory + @"\settings.xml";
+
+        public static string mainDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563";
+        public static string localDBConStr;// = @"Data Source=Programer\SQLEXP_SBS;Initial Catalog=sbsLocal;User ID=sa;Password=74563"; 
 #endif
 
     }
@@ -95,7 +131,10 @@ namespace com.sbs.dll
                 using (FileStream fStream = File.Open(GValues.mdfPath, FileMode.Open))
                 {
                     Rijndael RijndaelAlg = Rijndael.Create();
-
+                    RijndaelAlg.KeySize = 256;
+                    RijndaelAlg.BlockSize = 128;
+                    RijndaelAlg.Mode = System.Security.Cryptography.CipherMode.CFB;
+                    RijndaelAlg.Padding = System.Security.Cryptography.PaddingMode.ISO10126;
                     CryptoStream cStream = new CryptoStream(fStream,
                                                             RijndaelAlg.CreateDecryptor(rgbKey, GValues.rgbIV),
                                                             CryptoStreamMode.Read);
@@ -118,8 +157,6 @@ namespace com.sbs.dll
             }
         }
 
-
-
         public bool loadConfig()
         {
             string msgError = "В ходе разбора файла конфигурации произошли следующие ошибки:";
@@ -127,17 +164,18 @@ namespace com.sbs.dll
             XmlDocument doc = new XmlDocument();
             XmlNode node_ref_branch;
             XmlNode node_dbmode;
-            XmlNode node_maindb;
             XmlNode node_waiterConfig;
+            XmlNode node_resourcePath;
+            XmlNode node_modulesPath;
 
             try
             {
                 doc.Load(GValues.fileSettingsPath);
                 node_ref_branch = doc.GetElementsByTagName("ref_branch")[0];
                 node_dbmode = doc.GetElementsByTagName("dbmode")[0];
-                node_maindb = doc.GetElementsByTagName("maindb")[0];
                 node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
-
+                node_resourcePath = doc.GetElementsByTagName("resourcePath")[0];
+                node_modulesPath = doc.GetElementsByTagName("modulesPath")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -147,14 +185,17 @@ namespace com.sbs.dll
                 if (GValues.DBMode.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить режим взаисодействия с БД;";
 
-                GValues.mainDB = node_maindb.InnerText;
-                if (GValues.mainDB.Length == 0)
-                    msgError += Environment.NewLine + "- Не удалось определить головную БД;";
-
                 if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
                 else GValues.authortype = xBranchId;
 
+                GValues.resourcePath = node_resourcePath.InnerText;
+                if (GValues.resourcePath.Length == 0)
+                    msgError += Environment.NewLine + "- Не удалось определить путь к ресурсам;";
+
+                GValues.modulesPath = node_modulesPath.InnerText;
+                if (GValues.modulesPath.Length == 0)
+                    msgError += Environment.NewLine + "- Не удалось определить путь к модулям;";
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {
