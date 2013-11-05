@@ -28,7 +28,7 @@ namespace com.sbs.gui.docs
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT dtype.id, dtype.name, dtype.ref_status, stat.name AS ref_status_name" +
+                command.CommandText = " SELECT dtype.id, dtype.name, dtype.ref_status, stat.name AS ref_status_name, dtype.log_name" +
                                         " FROM docs_type dtype" +
                                         " INNER JOIN ref_status stat ON stat.id = dtype.ref_status" +
                                         " ORDER BY name";
@@ -54,9 +54,10 @@ namespace com.sbs.gui.docs
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " INSERT INTO docs_type(name, ref_status) VALUES (@name, @ref_status)";
+                command.CommandText = " INSERT INTO docs_type(name, ref_status, log_name) VALUES (@name, @ref_status, @logname)";
 
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pDocsType.name;
+                command.Parameters.Add("logname", SqlDbType.NVarChar).Value = pDocsType.logname;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pDocsType.refStat;
 
                 command.ExecuteNonQuery();
@@ -75,9 +76,10 @@ namespace com.sbs.gui.docs
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " UPDATE docs_type SET name = @name, ref_status = @ref_status WHERE id = @id";
+                command.CommandText = " UPDATE docs_type SET name = @name, ref_status = @ref_status, log_name = @logname WHERE id = @id";
 
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pDocsType.name;
+                command.Parameters.Add("logname", SqlDbType.NVarChar).Value = pDocsType.logname;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pDocsType.refStat;
                 command.Parameters.Add("id", SqlDbType.Int).Value = pDocsType.id;
 
@@ -343,6 +345,7 @@ namespace com.sbs.gui.docs
         public int id { get; set; }
         public string name { get; set; }
         public int refStat { get; set; }
+        public string logname { get; set; }
     }
 
     public class DocsParam

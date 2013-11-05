@@ -23,7 +23,8 @@ namespace com.sbs.gui.docs
 
         DocsType oDocsType;// = new DocsType();
         DocsParam oDocsParam;// = new DocsParam();
-        DocsBlock oDocsBlock;
+        //DocsBlock oDocsBlock;
+
         getReference oRef = new getReference();
         DBAccess dbAccess = new DBAccess();
 
@@ -82,6 +83,7 @@ namespace com.sbs.gui.docs
             oDocsType.id = (int)dr.Cells["docstype_id"].Value;
             oDocsType.name = dr.Cells["docstype_name"].Value.ToString();
             oDocsType.refStat = (int)dr.Cells["docstype_refStatus"].Value;
+            oDocsType.logname = dr.Cells["docstype_logname"].Value.ToString();
 
             fDocsAddEdit faddeditdocs = new fDocsAddEdit(oDocsType);
             faddeditdocs.comboBox_refStatus.DataSource = dtRefStatus;
@@ -288,6 +290,7 @@ namespace com.sbs.gui.docs
             dataGridView_docs.Columns["docstype_name"].DataPropertyName = "name";
             dataGridView_docs.Columns["docstype_refStatus"].DataPropertyName = "ref_status";
             dataGridView_docs.Columns["docstype_refStatusName"].DataPropertyName = "ref_status_name";
+            dataGridView_docs.Columns["docstype_logname"].DataPropertyName = "log_name";
 
             dataGridView_docs.SelectionChanged +=new EventHandler(dataGridView_docs_SelectionChanged);
 
