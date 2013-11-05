@@ -30,46 +30,31 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fDocs));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView_docs = new System.Windows.Forms.DataGridView();
+            this.docstype_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.docstype_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.docstype_refStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.docstype_refStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip_docs = new System.Windows.Forms.ToolStrip();
             this.tSButton_docsAdd = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_docsDel = new System.Windows.Forms.ToolStripButton();
             this.tSButton_docsEdit = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_docsDel = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tSButton_docsCopy = new System.Windows.Forms.ToolStripButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView_docsParam = new System.Windows.Forms.DataGridView();
+            this.refdocsparam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.refdocsparam_refdocsparam = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.refdocsparam_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.refdocsparam_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip_docsParam = new System.Windows.Forms.ToolStrip();
             this.tSButton_docsParamAdd = new System.Windows.Forms.ToolStripButton();
             this.tSButton_docsParamEdit = new System.Windows.Forms.ToolStripButton();
             this.tSButton_docsParamDel = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom = new System.Windows.Forms.StatusStrip();
-            this.docstype_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.docstype_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.docstype_refStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.docstype_refStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.refdocsparam_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.refdocsparam_refdocsparam = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.refdocsparam_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.refdocsparam_description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView_docsBlock = new System.Windows.Forms.DataGridView();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.dataGridView_docsAction = new System.Windows.Forms.DataGridView();
-            this.toolStrip_block = new System.Windows.Forms.ToolStrip();
-            this.tSButton_mapAdd = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_mapEdit = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_mapDel = new System.Windows.Forms.ToolStripButton();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tSButton_actionAdd = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_actionEdit = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_actionDel = new System.Windows.Forms.ToolStripButton();
-            this.docsblockaction_docsblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.docsblocsaction_xorder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.docsblockaction_assemblyPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docsblock_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docsblock_xorder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docsblock_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,17 +65,33 @@
             this.docsblock_refStatusOut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docsblock_isAuto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docsblock_condition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip_block = new System.Windows.Forms.ToolStrip();
+            this.tSButton_mapAdd = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_mapEdit = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_mapDel = new System.Windows.Forms.ToolStripButton();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_docsAction = new System.Windows.Forms.DataGridView();
+            this.docsblockaction_docsblock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.docsblocsaction_xorder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.docsblockaction_assemblyPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.tSButton_actionAdd = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_actionEdit = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_actionDel = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docs)).BeginInit();
             this.toolStrip_docs.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsParam)).BeginInit();
             this.toolStrip_docsParam.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsBlock)).BeginInit();
+            this.toolStrip_block.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -99,7 +100,6 @@
             this.splitContainer3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsAction)).BeginInit();
-            this.toolStrip_block.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,6 +119,18 @@
             this.splitContainer1.Size = new System.Drawing.Size(935, 354);
             this.splitContainer1.SplitterDistance = 414;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dataGridView_docs);
+            this.groupBox1.Controls.Add(this.toolStrip_docs);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(414, 354);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Тип документа";
             // 
             // dataGridView_docs
             // 
@@ -141,6 +153,36 @@
             this.dataGridView_docs.Size = new System.Drawing.Size(408, 310);
             this.dataGridView_docs.TabIndex = 1;
             this.dataGridView_docs.SelectionChanged += new System.EventHandler(this.dataGridView_docs_SelectionChanged);
+            // 
+            // docstype_id
+            // 
+            this.docstype_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docstype_id.HeaderText = "id";
+            this.docstype_id.Name = "docstype_id";
+            this.docstype_id.ReadOnly = true;
+            this.docstype_id.Width = 40;
+            // 
+            // docstype_name
+            // 
+            this.docstype_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.docstype_name.HeaderText = "Наименование";
+            this.docstype_name.Name = "docstype_name";
+            this.docstype_name.ReadOnly = true;
+            // 
+            // docstype_refStatus
+            // 
+            this.docstype_refStatus.HeaderText = "doctype_refStatusId";
+            this.docstype_refStatus.Name = "docstype_refStatus";
+            this.docstype_refStatus.ReadOnly = true;
+            this.docstype_refStatus.Visible = false;
+            // 
+            // docstype_refStatusName
+            // 
+            this.docstype_refStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docstype_refStatusName.HeaderText = "Статус";
+            this.docstype_refStatusName.Name = "docstype_refStatusName";
+            this.docstype_refStatusName.ReadOnly = true;
+            this.docstype_refStatusName.Width = 66;
             // 
             // toolStrip_docs
             // 
@@ -168,17 +210,6 @@
             this.tSButton_docsAdd.Text = "Добавить документ";
             this.tSButton_docsAdd.Click += new System.EventHandler(this.tSButton_docsAdd_Click);
             // 
-            // tSButton_docsDel
-            // 
-            this.tSButton_docsDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tSButton_docsDel.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_docsDel.Image")));
-            this.tSButton_docsDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tSButton_docsDel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSButton_docsDel.Name = "tSButton_docsDel";
-            this.tSButton_docsDel.Size = new System.Drawing.Size(23, 22);
-            this.tSButton_docsDel.Text = "Удалить документ";
-            this.tSButton_docsDel.Click += new System.EventHandler(this.tSButton_docsDel_Click);
-            // 
             // tSButton_docsEdit
             // 
             this.tSButton_docsEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -189,6 +220,17 @@
             this.tSButton_docsEdit.Size = new System.Drawing.Size(23, 22);
             this.tSButton_docsEdit.Text = "Редактировать документ";
             this.tSButton_docsEdit.Click += new System.EventHandler(this.tSButton_docsEdit_Click);
+            // 
+            // tSButton_docsDel
+            // 
+            this.tSButton_docsDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_docsDel.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_docsDel.Image")));
+            this.tSButton_docsDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSButton_docsDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_docsDel.Name = "tSButton_docsDel";
+            this.tSButton_docsDel.Size = new System.Drawing.Size(23, 22);
+            this.tSButton_docsDel.Text = "Удалить документ";
+            this.tSButton_docsDel.Click += new System.EventHandler(this.tSButton_docsDel_Click);
             // 
             // toolStripSeparator1
             // 
@@ -205,6 +247,18 @@
             this.tSButton_docsCopy.Size = new System.Drawing.Size(23, 22);
             this.tSButton_docsCopy.Text = "Дублировать документ";
             this.tSButton_docsCopy.Click += new System.EventHandler(this.tSButton_docsCopy_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView_docsParam);
+            this.groupBox2.Controls.Add(this.toolStrip_docsParam);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(517, 354);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Параметры документа";
             // 
             // dataGridView_docsParam
             // 
@@ -226,6 +280,35 @@
             this.dataGridView_docsParam.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_docsParam.Size = new System.Drawing.Size(511, 310);
             this.dataGridView_docsParam.TabIndex = 1;
+            // 
+            // refdocsparam_id
+            // 
+            this.refdocsparam_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.refdocsparam_id.HeaderText = "id";
+            this.refdocsparam_id.Name = "refdocsparam_id";
+            this.refdocsparam_id.ReadOnly = true;
+            this.refdocsparam_id.Width = 40;
+            // 
+            // refdocsparam_refdocsparam
+            // 
+            this.refdocsparam_refdocsparam.HeaderText = "refdocparam_refdocsparam";
+            this.refdocsparam_refdocsparam.Name = "refdocsparam_refdocsparam";
+            this.refdocsparam_refdocsparam.ReadOnly = true;
+            this.refdocsparam_refdocsparam.Visible = false;
+            // 
+            // refdocsparam_name
+            // 
+            this.refdocsparam_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.refdocsparam_name.HeaderText = "Наименование";
+            this.refdocsparam_name.Name = "refdocsparam_name";
+            this.refdocsparam_name.ReadOnly = true;
+            // 
+            // refdocsparam_description
+            // 
+            this.refdocsparam_description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.refdocsparam_description.HeaderText = "Описание";
+            this.refdocsparam_description.Name = "refdocsparam_description";
+            this.refdocsparam_description.ReadOnly = true;
             // 
             // toolStrip_docsParam
             // 
@@ -281,89 +364,6 @@
             this.statusStrip_bottom.TabIndex = 0;
             this.statusStrip_bottom.Text = "statusStrip1";
             // 
-            // docstype_id
-            // 
-            this.docstype_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docstype_id.HeaderText = "id";
-            this.docstype_id.Name = "docstype_id";
-            this.docstype_id.ReadOnly = true;
-            this.docstype_id.Width = 40;
-            // 
-            // docstype_name
-            // 
-            this.docstype_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.docstype_name.HeaderText = "Наименование";
-            this.docstype_name.Name = "docstype_name";
-            this.docstype_name.ReadOnly = true;
-            // 
-            // docstype_refStatus
-            // 
-            this.docstype_refStatus.HeaderText = "doctype_refStatusId";
-            this.docstype_refStatus.Name = "docstype_refStatus";
-            this.docstype_refStatus.ReadOnly = true;
-            this.docstype_refStatus.Visible = false;
-            // 
-            // docstype_refStatusName
-            // 
-            this.docstype_refStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docstype_refStatusName.HeaderText = "Статус";
-            this.docstype_refStatusName.Name = "docstype_refStatusName";
-            this.docstype_refStatusName.ReadOnly = true;
-            this.docstype_refStatusName.Width = 66;
-            // 
-            // refdocsparam_id
-            // 
-            this.refdocsparam_id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.refdocsparam_id.HeaderText = "id";
-            this.refdocsparam_id.Name = "refdocsparam_id";
-            this.refdocsparam_id.ReadOnly = true;
-            this.refdocsparam_id.Width = 40;
-            // 
-            // refdocsparam_refdocsparam
-            // 
-            this.refdocsparam_refdocsparam.HeaderText = "refdocparam_refdocsparam";
-            this.refdocsparam_refdocsparam.Name = "refdocsparam_refdocsparam";
-            this.refdocsparam_refdocsparam.ReadOnly = true;
-            this.refdocsparam_refdocsparam.Visible = false;
-            // 
-            // refdocsparam_name
-            // 
-            this.refdocsparam_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.refdocsparam_name.HeaderText = "Наименование";
-            this.refdocsparam_name.Name = "refdocsparam_name";
-            this.refdocsparam_name.ReadOnly = true;
-            // 
-            // refdocsparam_description
-            // 
-            this.refdocsparam_description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.refdocsparam_description.HeaderText = "Описание";
-            this.refdocsparam_description.Name = "refdocsparam_description";
-            this.refdocsparam_description.ReadOnly = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.dataGridView_docs);
-            this.groupBox1.Controls.Add(this.toolStrip_docs);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 354);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Тип документа";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dataGridView_docsParam);
-            this.groupBox2.Controls.Add(this.toolStrip_docsParam);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(517, 354);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Параметры документа";
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridView_docsBlock);
@@ -371,7 +371,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(411, 237);
+            this.groupBox3.Size = new System.Drawing.Size(410, 237);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Этапы документа";
@@ -400,72 +400,81 @@
             this.dataGridView_docsBlock.ReadOnly = true;
             this.dataGridView_docsBlock.RowHeadersVisible = false;
             this.dataGridView_docsBlock.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_docsBlock.Size = new System.Drawing.Size(405, 193);
+            this.dataGridView_docsBlock.Size = new System.Drawing.Size(404, 193);
             this.dataGridView_docsBlock.TabIndex = 0;
             // 
-            // splitContainer2
+            // docsblock_id
             // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.docsblock_id.HeaderText = "id";
+            this.docsblock_id.Name = "docsblock_id";
+            this.docsblock_id.ReadOnly = true;
+            this.docsblock_id.Visible = false;
             // 
-            // splitContainer2.Panel1
+            // docsblock_xorder
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            this.docsblock_xorder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docsblock_xorder.HeaderText = "№ п/п";
+            this.docsblock_xorder.Name = "docsblock_xorder";
+            this.docsblock_xorder.ReadOnly = true;
+            this.docsblock_xorder.Width = 59;
             // 
-            // splitContainer2.Panel2
+            // docsblock_name
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(935, 595);
-            this.splitContainer2.SplitterDistance = 354;
-            this.splitContainer2.TabIndex = 2;
+            this.docsblock_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.docsblock_name.HeaderText = "Наименование";
+            this.docsblock_name.Name = "docsblock_name";
+            this.docsblock_name.ReadOnly = true;
             // 
-            // splitContainer3
+            // docsblock_docsType
             // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
+            this.docsblock_docsType.HeaderText = "docs_type";
+            this.docsblock_docsType.Name = "docsblock_docsType";
+            this.docsblock_docsType.ReadOnly = true;
+            this.docsblock_docsType.Visible = false;
             // 
-            // splitContainer3.Panel1
+            // docsblock_refStatusInName
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.groupBox3);
+            this.docsblock_refStatusInName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docsblock_refStatusInName.HeaderText = "Входящий статус";
+            this.docsblock_refStatusInName.Name = "docsblock_refStatusInName";
+            this.docsblock_refStatusInName.ReadOnly = true;
+            this.docsblock_refStatusInName.Width = 109;
             // 
-            // splitContainer3.Panel2
+            // docsblock_refStatusIn
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.groupBox4);
-            this.splitContainer3.Size = new System.Drawing.Size(935, 237);
-            this.splitContainer3.SplitterDistance = 411;
-            this.splitContainer3.TabIndex = 1;
+            this.docsblock_refStatusIn.HeaderText = "docsblock_refStatusIn";
+            this.docsblock_refStatusIn.Name = "docsblock_refStatusIn";
+            this.docsblock_refStatusIn.ReadOnly = true;
+            this.docsblock_refStatusIn.Visible = false;
             // 
-            // groupBox4
+            // docsblock_refStatusOutName
             // 
-            this.groupBox4.Controls.Add(this.dataGridView_docsAction);
-            this.groupBox4.Controls.Add(this.toolStrip1);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(520, 237);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Действия";
+            this.docsblock_refStatusOutName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docsblock_refStatusOutName.HeaderText = "Исходящий статус";
+            this.docsblock_refStatusOutName.Name = "docsblock_refStatusOutName";
+            this.docsblock_refStatusOutName.ReadOnly = true;
+            this.docsblock_refStatusOutName.Width = 115;
             // 
-            // dataGridView_docsAction
+            // docsblock_refStatusOut
             // 
-            this.dataGridView_docsAction.AllowUserToAddRows = false;
-            this.dataGridView_docsAction.AllowUserToDeleteRows = false;
-            this.dataGridView_docsAction.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView_docsAction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_docsAction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.docsblockaction_docsblock,
-            this.docsblocsaction_xorder,
-            this.docsblockaction_assemblyPath});
-            this.dataGridView_docsAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_docsAction.Location = new System.Drawing.Point(3, 41);
-            this.dataGridView_docsAction.Name = "dataGridView_docsAction";
-            this.dataGridView_docsAction.ReadOnly = true;
-            this.dataGridView_docsAction.Size = new System.Drawing.Size(514, 193);
-            this.dataGridView_docsAction.TabIndex = 0;
+            this.docsblock_refStatusOut.HeaderText = "docsblock_refStatusOut";
+            this.docsblock_refStatusOut.Name = "docsblock_refStatusOut";
+            this.docsblock_refStatusOut.ReadOnly = true;
+            this.docsblock_refStatusOut.Visible = false;
+            // 
+            // docsblock_isAuto
+            // 
+            this.docsblock_isAuto.HeaderText = "docsblock_isAuto";
+            this.docsblock_isAuto.Name = "docsblock_isAuto";
+            this.docsblock_isAuto.ReadOnly = true;
+            this.docsblock_isAuto.Visible = false;
+            // 
+            // docsblock_condition
+            // 
+            this.docsblock_condition.HeaderText = "docsblock_condition";
+            this.docsblock_condition.Name = "docsblock_condition";
+            this.docsblock_condition.ReadOnly = true;
+            this.docsblock_condition.Visible = false;
             // 
             // toolStrip_block
             // 
@@ -476,7 +485,7 @@
             this.tSButton_mapDel});
             this.toolStrip_block.Location = new System.Drawing.Point(3, 16);
             this.toolStrip_block.Name = "toolStrip_block";
-            this.toolStrip_block.Size = new System.Drawing.Size(405, 25);
+            this.toolStrip_block.Size = new System.Drawing.Size(404, 25);
             this.toolStrip_block.TabIndex = 1;
             this.toolStrip_block.Text = "toolStrip1";
             // 
@@ -513,6 +522,92 @@
             this.tSButton_mapDel.Text = "Удалить этап";
             this.tSButton_mapDel.Click += new System.EventHandler(this.tSButton_mapDel_Click);
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
+            this.splitContainer2.Size = new System.Drawing.Size(935, 595);
+            this.splitContainer2.SplitterDistance = 354;
+            this.splitContainer2.TabIndex = 2;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox3);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.groupBox4);
+            this.splitContainer3.Size = new System.Drawing.Size(935, 237);
+            this.splitContainer3.SplitterDistance = 410;
+            this.splitContainer3.TabIndex = 1;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.dataGridView_docsAction);
+            this.groupBox4.Controls.Add(this.toolStrip1);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 0);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(521, 237);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Действия";
+            // 
+            // dataGridView_docsAction
+            // 
+            this.dataGridView_docsAction.AllowUserToAddRows = false;
+            this.dataGridView_docsAction.AllowUserToDeleteRows = false;
+            this.dataGridView_docsAction.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView_docsAction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_docsAction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.docsblockaction_docsblock,
+            this.docsblocsaction_xorder,
+            this.docsblockaction_assemblyPath});
+            this.dataGridView_docsAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_docsAction.Location = new System.Drawing.Point(3, 41);
+            this.dataGridView_docsAction.Name = "dataGridView_docsAction";
+            this.dataGridView_docsAction.ReadOnly = true;
+            this.dataGridView_docsAction.Size = new System.Drawing.Size(515, 193);
+            this.dataGridView_docsAction.TabIndex = 0;
+            // 
+            // docsblockaction_docsblock
+            // 
+            this.docsblockaction_docsblock.HeaderText = "docsblockaction_docsblock";
+            this.docsblockaction_docsblock.Name = "docsblockaction_docsblock";
+            this.docsblockaction_docsblock.ReadOnly = true;
+            this.docsblockaction_docsblock.Visible = false;
+            // 
+            // docsblocsaction_xorder
+            // 
+            this.docsblocsaction_xorder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.docsblocsaction_xorder.HeaderText = "№ п/п";
+            this.docsblocsaction_xorder.Name = "docsblocsaction_xorder";
+            this.docsblocsaction_xorder.ReadOnly = true;
+            this.docsblocsaction_xorder.Width = 59;
+            // 
+            // docsblockaction_assemblyPath
+            // 
+            this.docsblockaction_assemblyPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.docsblockaction_assemblyPath.HeaderText = "Выполняемый метод";
+            this.docsblockaction_assemblyPath.Name = "docsblockaction_assemblyPath";
+            this.docsblockaction_assemblyPath.ReadOnly = true;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -522,7 +617,7 @@
             this.tSButton_actionDel});
             this.toolStrip1.Location = new System.Drawing.Point(3, 16);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(514, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(515, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -556,101 +651,6 @@
             this.tSButton_actionDel.Size = new System.Drawing.Size(23, 22);
             this.tSButton_actionDel.Text = "Удалить действие";
             // 
-            // docsblockaction_docsblock
-            // 
-            this.docsblockaction_docsblock.HeaderText = "docsblockaction_docsblock";
-            this.docsblockaction_docsblock.Name = "docsblockaction_docsblock";
-            this.docsblockaction_docsblock.ReadOnly = true;
-            this.docsblockaction_docsblock.Visible = false;
-            // 
-            // docsblocsaction_xorder
-            // 
-            this.docsblocsaction_xorder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docsblocsaction_xorder.HeaderText = "№ п/п";
-            this.docsblocsaction_xorder.Name = "docsblocsaction_xorder";
-            this.docsblocsaction_xorder.ReadOnly = true;
-            this.docsblocsaction_xorder.Width = 63;
-            // 
-            // docsblockaction_assemblyPath
-            // 
-            this.docsblockaction_assemblyPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.docsblockaction_assemblyPath.HeaderText = "Выполняемый метод";
-            this.docsblockaction_assemblyPath.Name = "docsblockaction_assemblyPath";
-            this.docsblockaction_assemblyPath.ReadOnly = true;
-            // 
-            // docsblock_id
-            // 
-            this.docsblock_id.HeaderText = "id";
-            this.docsblock_id.Name = "docsblock_id";
-            this.docsblock_id.ReadOnly = true;
-            this.docsblock_id.Visible = false;
-            // 
-            // docsblock_xorder
-            // 
-            this.docsblock_xorder.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docsblock_xorder.HeaderText = "№ п/п";
-            this.docsblock_xorder.Name = "docsblock_xorder";
-            this.docsblock_xorder.ReadOnly = true;
-            this.docsblock_xorder.Width = 63;
-            // 
-            // docsblock_name
-            // 
-            this.docsblock_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.docsblock_name.HeaderText = "Наименование";
-            this.docsblock_name.Name = "docsblock_name";
-            this.docsblock_name.ReadOnly = true;
-            // 
-            // docsblock_docsType
-            // 
-            this.docsblock_docsType.HeaderText = "docs_type";
-            this.docsblock_docsType.Name = "docsblock_docsType";
-            this.docsblock_docsType.ReadOnly = true;
-            this.docsblock_docsType.Visible = false;
-            // 
-            // docsblock_refStatusInName
-            // 
-            this.docsblock_refStatusInName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docsblock_refStatusInName.HeaderText = "Входящий статус";
-            this.docsblock_refStatusInName.Name = "docsblock_refStatusInName";
-            this.docsblock_refStatusInName.ReadOnly = true;
-            this.docsblock_refStatusInName.Width = 119;
-            // 
-            // docsblock_refStatusIn
-            // 
-            this.docsblock_refStatusIn.HeaderText = "docsblock_refStatusIn";
-            this.docsblock_refStatusIn.Name = "docsblock_refStatusIn";
-            this.docsblock_refStatusIn.ReadOnly = true;
-            this.docsblock_refStatusIn.Visible = false;
-            // 
-            // docsblock_refStatusOutName
-            // 
-            this.docsblock_refStatusOutName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.docsblock_refStatusOutName.HeaderText = "Исходящий статус";
-            this.docsblock_refStatusOutName.Name = "docsblock_refStatusOutName";
-            this.docsblock_refStatusOutName.ReadOnly = true;
-            this.docsblock_refStatusOutName.Width = 126;
-            // 
-            // docsblock_refStatusOut
-            // 
-            this.docsblock_refStatusOut.HeaderText = "docsblock_refStatusOut";
-            this.docsblock_refStatusOut.Name = "docsblock_refStatusOut";
-            this.docsblock_refStatusOut.ReadOnly = true;
-            this.docsblock_refStatusOut.Visible = false;
-            // 
-            // docsblock_isAuto
-            // 
-            this.docsblock_isAuto.HeaderText = "docsblock_isAuto";
-            this.docsblock_isAuto.Name = "docsblock_isAuto";
-            this.docsblock_isAuto.ReadOnly = true;
-            this.docsblock_isAuto.Visible = false;
-            // 
-            // docsblock_condition
-            // 
-            this.docsblock_condition.HeaderText = "docsblock_condition";
-            this.docsblock_condition.Name = "docsblock_condition";
-            this.docsblock_condition.ReadOnly = true;
-            this.docsblock_condition.Visible = false;
-            // 
             // fDocs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,19 +667,21 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docs)).EndInit();
             this.toolStrip_docs.ResumeLayout(false);
             this.toolStrip_docs.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsParam)).EndInit();
             this.toolStrip_docsParam.ResumeLayout(false);
             this.toolStrip_docsParam.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsBlock)).EndInit();
+            this.toolStrip_block.ResumeLayout(false);
+            this.toolStrip_block.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
@@ -689,8 +691,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_docsAction)).EndInit();
-            this.toolStrip_block.ResumeLayout(false);
-            this.toolStrip_block.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
