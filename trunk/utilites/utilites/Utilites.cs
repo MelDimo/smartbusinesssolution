@@ -205,5 +205,63 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
+
+        public DataTable getRefPrinters(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name" +
+                                        " FROM ref_printers" +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getRefPrintersType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name" +
+                                        " FROM ref_printers_type" +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 }
