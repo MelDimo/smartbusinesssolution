@@ -33,6 +33,7 @@ namespace com.sbs.gui.docs
             textBox_id.Text = oDocType.id.ToString();
             textBox_name.Text = oDocType.name;
             textBox_id.Text = oDocType.id.ToString();
+            textBox_logname.DataBindings.Add("Text", oDocType, "logname");
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -60,6 +61,7 @@ namespace com.sbs.gui.docs
             if (oDocType.name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
             if (comboBox_refStatus.SelectedValue == null) errMessage += System.Environment.NewLine + "- Статус;";
             else oDocType.refStat = (int)comboBox_refStatus.SelectedValue;
+            if (oDocType.logname.Length == 0) errMessage += System.Environment.NewLine + "- Логическое имя;";
 
             if (!errMessage.Equals("Заполнены не все обязательные поля:"))
             {
