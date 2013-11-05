@@ -59,7 +59,7 @@ namespace com.sbs.gui.main
             {
                 UsersInfo.UserId = int.Parse(dt.Rows[0]["id"].ToString());
                 UsersInfo.UserTabn = int.Parse(dt.Rows[0]["tabn"].ToString());
-                UsersInfo.UserName = dt.Rows[0]["fname"].ToString() + " " + dt.Rows[0]["sname"].ToString() + " " + dt.Rows[0]["lname"].ToString();
+                UsersInfo.UserName = dt.Rows[0]["lname"].ToString() + " " + dt.Rows[0]["fname"].ToString() + " " + dt.Rows[0]["sname"].ToString();
                 UsersInfo.PostId = int.Parse(dt.Rows[0]["ref_post"].ToString());
 
                 return true;
