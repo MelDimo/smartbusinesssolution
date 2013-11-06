@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs", "DocsParameters\Docs.csproj", "{22E76547-F6BC-4338-A464-651569E65881}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocsForm", "DocsForm\DocsForm.csproj", "{A677708B-1C6D-42E3-A74D-1916655E8668}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -17,6 +19,10 @@ Global
 		{22E76547-F6BC-4338-A464-651569E65881}.Debug|x86.Build.0 = Debug|x86
 		{22E76547-F6BC-4338-A464-651569E65881}.Release|x86.ActiveCfg = Release|x86
 		{22E76547-F6BC-4338-A464-651569E65881}.Release|x86.Build.0 = Release|x86
+		{A677708B-1C6D-42E3-A74D-1916655E8668}.Debug|x86.ActiveCfg = Debug|x86
+		{A677708B-1C6D-42E3-A74D-1916655E8668}.Debug|x86.Build.0 = Debug|x86
+		{A677708B-1C6D-42E3-A74D-1916655E8668}.Release|x86.ActiveCfg = Release|x86
+		{A677708B-1C6D-42E3-A74D-1916655E8668}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
