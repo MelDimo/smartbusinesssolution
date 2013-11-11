@@ -30,7 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
-            this.button_apply = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.textBox_id = new System.Windows.Forms.TextBox();
             this.textBox_name = new System.Windows.Forms.TextBox();
@@ -43,16 +42,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox_refPrintersType = new System.Windows.Forms.ComboBox();
             this.comboBox_refPrinters = new System.Windows.Forms.ComboBox();
+            this.checkBox_isDepot = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button_cancel);
-            this.panel1.Controls.Add(this.button_apply);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 193);
+            this.panel1.Location = new System.Drawing.Point(0, 203);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(466, 35);
             this.panel1.TabIndex = 24;
@@ -68,21 +68,10 @@
             this.button_cancel.UseVisualStyleBackColor = true;
             this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
-            // button_apply
-            // 
-            this.button_apply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_apply.Location = new System.Drawing.Point(289, 6);
-            this.button_apply.Name = "button_apply";
-            this.button_apply.Size = new System.Drawing.Size(75, 23);
-            this.button_apply.TabIndex = 1;
-            this.button_apply.Text = "Применить";
-            this.button_apply.UseVisualStyleBackColor = true;
-            this.button_apply.Click += new System.EventHandler(this.button_apply_Click);
-            // 
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(208, 6);
+            this.button_ok.Location = new System.Drawing.Point(289, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -180,7 +169,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_refPrintersType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_refPrintersType.FormattingEnabled = true;
-            this.comboBox_refPrintersType.Location = new System.Drawing.Point(117, 155);
+            this.comboBox_refPrintersType.Location = new System.Drawing.Point(117, 152);
             this.comboBox_refPrintersType.Name = "comboBox_refPrintersType";
             this.comboBox_refPrintersType.Size = new System.Drawing.Size(337, 21);
             this.comboBox_refPrintersType.TabIndex = 35;
@@ -191,16 +180,36 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_refPrinters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_refPrinters.FormattingEnabled = true;
-            this.comboBox_refPrinters.Location = new System.Drawing.Point(117, 128);
+            this.comboBox_refPrinters.Location = new System.Drawing.Point(117, 125);
             this.comboBox_refPrinters.Name = "comboBox_refPrinters";
             this.comboBox_refPrinters.Size = new System.Drawing.Size(337, 21);
             this.comboBox_refPrinters.TabIndex = 33;
+            // 
+            // checkBox_isDepot
+            // 
+            this.checkBox_isDepot.AutoSize = true;
+            this.checkBox_isDepot.Location = new System.Drawing.Point(117, 182);
+            this.checkBox_isDepot.Name = "checkBox_isDepot";
+            this.checkBox_isDepot.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_isDepot.TabIndex = 36;
+            this.checkBox_isDepot.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 182);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 37;
+            this.label6.Text = "Склад";
             // 
             // fAddEdit_unit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 228);
+            this.ClientSize = new System.Drawing.Size(466, 238);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.checkBox_isDepot);
             this.Controls.Add(this.comboBox_refPrintersType);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBox_refPrinters);
@@ -227,7 +236,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button_cancel;
-        private System.Windows.Forms.Button button_apply;
         private System.Windows.Forms.Button button_ok;
         private System.Windows.Forms.TextBox textBox_id;
         private System.Windows.Forms.TextBox textBox_name;
@@ -240,5 +248,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox_refPrintersType;
         private System.Windows.Forms.ComboBox comboBox_refPrinters;
+        private System.Windows.Forms.CheckBox checkBox_isDepot;
+        private System.Windows.Forms.Label label6;
     }
 }

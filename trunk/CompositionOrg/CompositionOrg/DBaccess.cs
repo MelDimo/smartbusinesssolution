@@ -229,7 +229,7 @@ namespace com.sbs.gui.compositionorg
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name, " +
-                                            " ref_printers, ref_printers_type" +
+                                            " ref_printers, ref_printers_type, isDepot" +
                                         " FROM unit un" +
                                         " INNER JOIN ref_status stat ON stat.id = un.ref_status" +
                                         " ORDER BY un.name";
@@ -256,10 +256,14 @@ namespace com.sbs.gui.compositionorg
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO unit(name, branch, ref_status) VALUES(@name, @branch, @ref_status)";
+                command.CommandText = "INSERT INTO unit(name, branch, ref_status, ref_printers, ref_printers_type, isDepot)" +
+                                                    " VALUES(@name, @branch, @ref_status, @ref_printers, @ref_printers_type, @isDepot)";
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
+                command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
+                command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
 
                 command.ExecuteNonQuery();
 
@@ -278,11 +282,16 @@ namespace com.sbs.gui.compositionorg
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "UPDATE unit SET name = @name, ref_status = @ref_status, branch = @branch WHERE id = @id";
+                command.CommandText = "UPDATE unit SET name = @name, ref_status = @ref_status, branch = @branch, "+
+                                        " ref_printers = @ref_printers, ref_printers_type = @ref_printers_type, isDepot = @isDepot "+
+                                        " WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = pUnitDTO.Id;
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
+                command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
+                command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
 
                 command.ExecuteNonQuery();
 

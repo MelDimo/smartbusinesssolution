@@ -78,6 +78,7 @@
             this.unit_branch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unit_ref_printers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.unit_ref_printers_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unit_isDepot = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer_org.Panel1.SuspendLayout();
             this.splitContainer_org.Panel2.SuspendLayout();
             this.splitContainer_org.SuspendLayout();
@@ -464,7 +465,8 @@
             this.unit_ref_status,
             this.unit_branch,
             this.unit_ref_printers,
-            this.unit_ref_printers_type});
+            this.unit_ref_printers_type,
+            this.unit_isDepot});
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -595,6 +597,13 @@
             this.unit_ref_printers_type.ReadOnly = true;
             this.unit_ref_printers_type.Visible = false;
             // 
+            // unit_isDepot
+            // 
+            this.unit_isDepot.HeaderText = "unit_isDepot";
+            this.unit_isDepot.Name = "unit_isDepot";
+            this.unit_isDepot.ReadOnly = true;
+            this.unit_isDepot.Visible = false;
+            // 
             // fCompOrg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,6 +681,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_branch;
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_printers;
         private System.Windows.Forms.DataGridViewTextBoxColumn unit_ref_printers_type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unit_isDepot;
     }
 }
 

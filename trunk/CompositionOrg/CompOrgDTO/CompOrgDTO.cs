@@ -79,6 +79,13 @@ namespace com.sbs.dll.dto
             private int _branch;
             private int _refPrinters;
             private int _refPrintersType;
+            private int _isDepot;
+
+            public int isDepot
+            {
+                get { return _isDepot; }
+                set { _isDepot = value; }
+            }
 
             public int RefPrintersType
             {
