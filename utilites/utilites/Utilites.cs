@@ -263,5 +263,72 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
+
+        public DataTable getAccounts(string pDbType, int pGroup_I, int pGroup_I_I)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, group_I, group_I_I, group_II, name, xvid, xcount, xoffbalance" +
+                                        " FROM ref_accounts" +
+                                        " WHERE group_I = @group_I AND group_I_I = @group_I_I" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("group_I", SqlDbType.Int).Value = pGroup_I;
+                command.Parameters.Add("group_I_I", SqlDbType.Int).Value = pGroup_I_I;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getAccounts(string pDbType, int pGroup_I, int pGroup_I_I, int pGroup_II)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, group_I, group_I_I, group_II, name, xvid, xcount, xoffbalance" +
+                                        " FROM ref_accounts" +
+                                        " WHERE group_I = @group_I AND group_I_I = @group_I_I AND group_II = @group_II" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("group_I", SqlDbType.Int).Value = pGroup_I;
+                command.Parameters.Add("group_I_I", SqlDbType.Int).Value = pGroup_I_I;
+                command.Parameters.Add("group_II", SqlDbType.Int).Value = pGroup_II;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 }
