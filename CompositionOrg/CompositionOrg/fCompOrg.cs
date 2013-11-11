@@ -90,7 +90,8 @@ namespace com.sbs.gui.compositionorg
             dataGridView_unit.Columns["unit_ref_status"].DataPropertyName = "ref_status";
             dataGridView_unit.Columns["unit_ref_printers"].DataPropertyName = "ref_printers";
             dataGridView_unit.Columns["unit_ref_printers_type"].DataPropertyName = "ref_printers_type";
-
+            dataGridView_unit.Columns["unit_isDepot"].DataPropertyName = "isDepot";
+            
             dataGridView_org.SelectionChanged += new EventHandler(dataGridView_org_SelectionChanged);
             dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
             dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
@@ -265,6 +266,7 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.Branch = (int)dataRow.Cells["unit_branch"].Value;
             oUnitDTO.RefPrinters = (dataRow.Cells["unit_ref_printers"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers"].Value;
             oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
+            oUnitDTO.isDepot = (int)dataRow.Cells["unit_isDepot"].Value;
 
             fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
             faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
