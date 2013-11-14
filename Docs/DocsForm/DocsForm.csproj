@@ -8,7 +8,7 @@
     <ProjectGuid>{A677708B-1C6D-42E3-A74D-1916655E8668}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.sbs.gui.docsform.supplytmc</RootNamespace>
+    <RootNamespace>com.sbs.gui.docsform</RootNamespace>
     <AssemblyName>DocsForm</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -57,10 +57,19 @@
     <Compile Include="fSupplyTMC.Designer.cs">
       <DependentUpon>fSupplyTMC.cs</DependentUpon>
     </Compile>
+    <Compile Include="fSupplyTMC_DOC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSupplyTMC_DOC.Designer.cs">
+      <DependentUpon>fSupplyTMC_DOC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fSupplyTMC.resx">
       <DependentUpon>fSupplyTMC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSupplyTMC_DOC.resx">
+      <DependentUpon>fSupplyTMC_DOC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
