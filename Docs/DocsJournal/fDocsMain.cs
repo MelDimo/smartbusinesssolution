@@ -35,6 +35,32 @@ namespace com.sbs.gui.docsjournal
                 setEnabled(false);
                 return;
             }
+
+            CreateMnu();
+        }
+
+        private void CreateMnu()
+        {
+            foreach (DataRow dr in dtDocsType.Rows)
+            {
+                //id, name, log_name, classPath, ref_status
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Name = dr["log_name"].ToString();
+                tsmi.Text = dr["name"].ToString();
+                tsmi.Click += new EventHandler(tsmi_Click);
+                tsmi.Tag = dr;
+                tSMenuItem_create.DropDownItems.Add(tsmi);
+            }
+        }
+
+        void tsmi_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
+            MessageBox.Show(tsmi.Name);
+            //switch (tsmi.Name)
+            //{ 
+
+            //}
         }
 
         private void setEnabled(bool pEnabled)
