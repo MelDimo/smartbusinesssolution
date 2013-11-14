@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using com.sbs.dll;
 
-namespace DocsJournal
+namespace com.sbs.gui.docsjournal
 {
     static class Program
     {

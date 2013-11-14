@@ -1,4 +1,4 @@
-﻿namespace DocsJournal
+﻿namespace com.sbs.gui.docsjournal
 {
     partial class fDocsMain
     {
