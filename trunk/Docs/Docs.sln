@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docs", "DocsParameters\Docs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocsForm", "DocsForm\DocsForm.csproj", "{A677708B-1C6D-42E3-A74D-1916655E8668}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocsJournal", "DocsJournal\DocsJournal.csproj", "{71CC32AB-2A01-42B0-B120-54A0CA33B7B4}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -23,6 +25,10 @@ Global
 		{A677708B-1C6D-42E3-A74D-1916655E8668}.Debug|x86.Build.0 = Debug|x86
 		{A677708B-1C6D-42E3-A74D-1916655E8668}.Release|x86.ActiveCfg = Release|x86
 		{A677708B-1C6D-42E3-A74D-1916655E8668}.Release|x86.Build.0 = Release|x86
+		{71CC32AB-2A01-42B0-B120-54A0CA33B7B4}.Debug|x86.ActiveCfg = Debug|x86
+		{71CC32AB-2A01-42B0-B120-54A0CA33B7B4}.Debug|x86.Build.0 = Debug|x86
+		{71CC32AB-2A01-42B0-B120-54A0CA33B7B4}.Release|x86.ActiveCfg = Release|x86
+		{71CC32AB-2A01-42B0-B120-54A0CA33B7B4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
