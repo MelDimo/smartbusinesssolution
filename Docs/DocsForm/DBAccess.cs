@@ -44,5 +44,35 @@ namespace com.sbs.gui.docsform.db
 
             return dtResult;
         }
+
+        public DataTable getTmcByType(string pDbType, int pTmcType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name" +
+                                        " FROM ref_contractor" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.NVarChar).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 }

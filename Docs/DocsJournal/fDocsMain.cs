@@ -57,10 +57,10 @@ namespace com.sbs.gui.docsjournal
         {
             ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
             MessageBox.Show(tsmi.Name);
-            //switch (tsmi.Name)
-            //{ 
+            switch (tsmi.Name)
+            { 
 
-            //}
+            }
         }
 
         private void setEnabled(bool pEnabled)
@@ -73,7 +73,14 @@ namespace com.sbs.gui.docsjournal
 
         private void getReferences()
         {
-            dtDocsType = oReferences.getDocsType("offline");
+            try
+            {
+                dtDocsType = oReferences.getDocsType("offline");
+            }
+            catch (Exception exc)
+            { 
+
+            }
         }
     }
 }

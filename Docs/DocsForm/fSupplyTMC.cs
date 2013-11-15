@@ -14,9 +14,16 @@ namespace com.sbs.gui.docsform
     public partial class fSupplyTMC : Form
     {
         getReference oReference = new getReference();
+        
         DBAccess dbAccess = new DBAccess();
 
-        DataTable dtUnit = new DataTable();
+        DataTable dtUnit;           // Справочник подразделений(склады)
+        DataTable dtBuff;           // Временная таблица для объединения счетов
+        DataTable dtAccount;        // Таблица счетов
+        DataTable dtContractor;     // Поставщики
+        DataTable dtCurr;           // Валюта
+
+        DataTable dtTmcType;        // Вид ТМС
 
         public fSupplyTMC()
         {
@@ -26,13 +33,92 @@ namespace com.sbs.gui.docsform
             tSButton_edit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
             tSButton_del.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
             tSButton_copy.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
+
+            tSButton_addDop.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_editDop.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_delDop.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+            tSButton_copyDop.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
+
+            fillReferences();
+        }
+
+        private void fillReferences()
+        {
+            dtUnit = new DataTable();
+            dtBuff = new DataTable();
+            dtAccount = new DataTable();
+            dtContractor = new DataTable();
+            dtCurr = new DataTable();
+
+            try
+            {
+                dtUnit = oReference.getUnit("offline");
+                
+                dtAccount = oReference.getAccounts("offline", 52, 1);
+                dtBuff = oReference.getAccounts("offline", 61, 2);
+                dtAccount = dtAccount.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
+
+                dtContractor = dbAccess.getContactor("offline");
+                
+                dtCurr = oReference.getCurrency("offline");
+                dtTmcType = oReference.getTmcType("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка получения данных.", exc, SystemIcons.Error);
+                setEnabled(false);
+                return;
+            }
+        }
+
+        private SupplyTMC checkValidity()
+        {
+            Object[] oData;
+            SupplyTMC oSupplyTMC = new SupplyTMC();
+
+            try
+            {
+                oData = textBox_mol.Tag as Object[];
+                oSupplyTMC.mol = (int)oData[0];
+
+                oData = textBox_AccKT.Tag as Object[];
+                oSupplyTMC.accKred = (int)oData[0];
+
+                oData = textBox_kontr.Tag as Object[];
+                oSupplyTMC.kontrId = (int)oData[0];
+
+                oData = textBox_curr.Tag as Object[];
+                oSupplyTMC.currId = (int)oData[6];
+                oSupplyTMC.currCode = oData[1].ToString();
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+
+            return oSupplyTMC;
         }
 
         private void tSButton_add_Click(object sender, EventArgs e)
         {
-            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC();
+            SupplyTMC oSupplyTMC;
+
+            try
+            {
+                oSupplyTMC = checkValidity();
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Проверка валидности данных привела к ошибке." + Environment.NewLine +
+                                "Проверьте заполнены ли обязательные поля.", exc, SystemIcons.Information);
+                return;
+            }
+
+            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC);
             fsupplyDoc.ShowDialog();
         }
+
+
 
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
@@ -60,27 +146,17 @@ namespace com.sbs.gui.docsform
             groupBox3.Enabled = pEnabled;
             groupBox4.Enabled = pEnabled;
             button_save.Enabled = pEnabled;
+            toolStrip1.Enabled = pEnabled;
+            toolStrip2.Enabled = pEnabled;
         }
 
 #region ------------------------------------------------------ -------------------Элементы шапки
 
         private void button_getUnit_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = oReference.getUnit("offline");
-            }
-            catch (Exception exc)
-            {
-                uMessage.Show("Ошибка получения данных", exc, SystemIcons.Error);
-                setEnabled(false);
-                return;
-            }
-
             fChooser fChose = new fChooser("UNIT");
 
-            fChose.dataGridView_main.DataSource = dt;
+            fChose.dataGridView_main.DataSource = dtUnit;
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
             col0.HeaderText = "id";
@@ -107,25 +183,9 @@ namespace com.sbs.gui.docsform
 
         private void button_getAccKT_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            DataTable dtBuff = new DataTable();
-            try
-            {
-                dt = oReference.getAccounts("offline", 52, 1);
-                dtBuff = oReference.getAccounts("offline", 61, 2);
-
-                dt = dt.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
-            }
-            catch (Exception exc)
-            {
-                uMessage.Show("Ошибка получения данных", exc, SystemIcons.Error);
-                setEnabled(false);
-                return;
-            }
-
             fChooser fChose = new fChooser("ACCOUNT");
 
-            fChose.dataGridView_main.DataSource = dt;
+            fChose.dataGridView_main.DataSource = dtAccount;
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
             col0.HeaderText = "id";
@@ -158,21 +218,9 @@ namespace com.sbs.gui.docsform
 
         private void button_getKontr_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = dbAccess.getContactor("offline");
-            }
-            catch (Exception exc)
-            {
-                uMessage.Show("Ошибка получения данных", exc, SystemIcons.Error);
-                setEnabled(false);
-                return;
-            }
-
             fChooser fChose = new fChooser("CONTRACTOR");
 
-            fChose.dataGridView_main.DataSource = dt;
+            fChose.dataGridView_main.DataSource = dtContractor;
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
             col0.HeaderText = "id";
@@ -197,64 +245,11 @@ namespace com.sbs.gui.docsform
             }
         }
 
-        private void button_getContract_Click(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = dbAccess.getContactor("offline");
-            }
-            catch (Exception exc)
-            {
-                uMessage.Show("Ошибка получения данных", exc, SystemIcons.Error);
-                setEnabled(false);
-                return;
-            }
-
-            fChooser fChose = new fChooser("CONTRACTOR");
-
-            fChose.dataGridView_main.DataSource = dt;
-
-            DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
-            col0.HeaderText = "id";
-            col0.Name = "id";
-            col0.DataPropertyName = "id";
-            col0.Visible = false;
-
-            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
-            col1.HeaderText = "Наименование";
-            col1.Name = "name";
-            col1.DataPropertyName = "name";
-            col1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1 });
-
-            fChose.Text = "Контрагент";
-
-            if (fChose.ShowDialog() == DialogResult.OK)
-            {
-                textBox_AccKT.Text = fChose.xData[1].ToString();
-                textBox_AccKT.Tag = fChose.xData;
-            }
-        }
-
         private void button_cur_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = oReference.getCurrency("offline");
-            }
-            catch (Exception exc)
-            {
-                uMessage.Show("Ошибка получения данных", exc, SystemIcons.Error);
-                setEnabled(false);
-                return;
-            }
-
             fChooser fChose = new fChooser("CURRENCY");
 
-            fChose.dataGridView_main.DataSource = dt;
+            fChose.dataGridView_main.DataSource = dtCurr;
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
             col0.HeaderText = "idCurrency";
@@ -323,12 +318,19 @@ namespace com.sbs.gui.docsform
             }
         }
 
-        private void button_getCurType_Click(object sender, EventArgs e)
-        {
-
-        }
-
 #endregion -------------------------------------------------------------------------------------
 
+    }
+
+    public class SupplyTMC
+    {
+        public int mol;
+        public int accKred;
+        public int kontrId;
+        public string DocReason = string.Empty;
+        public string DocProxy = string.Empty;
+        public int currId;
+        public string currCode;
+        public string comment;
     }
 }
