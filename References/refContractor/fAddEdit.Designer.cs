@@ -160,6 +160,7 @@
             this.comboBox_contrType.Name = "comboBox_contrType";
             this.comboBox_contrType.Size = new System.Drawing.Size(113, 21);
             this.comboBox_contrType.TabIndex = 4;
+            this.comboBox_contrType.SelectedIndexChanged += new System.EventHandler(this.comboBox_contrType_SelectedIndexChanged);
             // 
             // label4
             // 

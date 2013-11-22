@@ -170,7 +170,38 @@ namespace com.sbs.gui.references.contractor
 
         private void tSButton_del_Click(object sender, EventArgs e)
         {
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для удаления", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            DataGridViewRow dr = dataGridView_main.SelectedRows[0];
+
+            if (DialogResult.Yes != MessageBox.Show("Вы уверены, что хотите удалить контрагента '" + dr.Cells["name"].Value.ToString() + "'?", GValues.prgNameFull,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                return;
+            }
+
+            SqlConnection con = new DBCon().getConnection("offline");
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "DELETE FROM ref_contractor WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = (int)dr.Cells["id"].Value;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка удаления данных", exc, SystemIcons.Error); return; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            updateData();
         }
 
         private void tSButton_copy_Click(object sender, EventArgs e)

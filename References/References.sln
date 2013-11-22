@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refAccounts", "refAccounts\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refContractor", "refContractor\refContractor.csproj", "{573D0848-8210-4EDB-9302-D9F6C674835D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refCurrency", "refCurrency\refCurrency.csproj", "{479AC902-5C4B-486C-BC93-354F4AC45C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refItems", "refItems\refItems.csproj", "{77B442CE-D7E4-4C32-984D-00E6FB8B695C}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -65,6 +69,14 @@ Global
 		{573D0848-8210-4EDB-9302-D9F6C674835D}.Debug|x86.Build.0 = Debug|x86
 		{573D0848-8210-4EDB-9302-D9F6C674835D}.Release|x86.ActiveCfg = Release|x86
 		{573D0848-8210-4EDB-9302-D9F6C674835D}.Release|x86.Build.0 = Release|x86
+		{479AC902-5C4B-486C-BC93-354F4AC45C3D}.Debug|x86.ActiveCfg = Debug|x86
+		{479AC902-5C4B-486C-BC93-354F4AC45C3D}.Debug|x86.Build.0 = Debug|x86
+		{479AC902-5C4B-486C-BC93-354F4AC45C3D}.Release|x86.ActiveCfg = Release|x86
+		{479AC902-5C4B-486C-BC93-354F4AC45C3D}.Release|x86.Build.0 = Release|x86
+		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Debug|x86.ActiveCfg = Debug|x86
+		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Debug|x86.Build.0 = Debug|x86
+		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Release|x86.ActiveCfg = Release|x86
+		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
