@@ -43,7 +43,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(457, 437);
+            this.groupBox1.Size = new System.Drawing.Size(401, 455);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные";
@@ -61,16 +61,17 @@
             this.dataGridView_main.ReadOnly = true;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(451, 418);
+            this.dataGridView_main.Size = new System.Drawing.Size(395, 436);
             this.dataGridView_main.TabIndex = 0;
+            this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button_select);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 437);
+            this.panel1.Location = new System.Drawing.Point(0, 455);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(457, 32);
+            this.panel1.Size = new System.Drawing.Size(401, 32);
             this.panel1.TabIndex = 3;
             // 
             // button_select
@@ -78,7 +79,7 @@
             this.button_select.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_select.Location = new System.Drawing.Point(0, 0);
             this.button_select.Name = "button_select";
-            this.button_select.Size = new System.Drawing.Size(457, 32);
+            this.button_select.Size = new System.Drawing.Size(401, 32);
             this.button_select.TabIndex = 0;
             this.button_select.Text = "Выбрать";
             this.button_select.UseVisualStyleBackColor = true;
@@ -87,11 +88,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 469);
+            this.ClientSize = new System.Drawing.Size(401, 487);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "fChooserUnit";
             this.Text = "fChooserUnit";
+            this.Shown += new System.EventHandler(this.fChooserUnit_Shown);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();
             this.panel1.ResumeLayout(false);
