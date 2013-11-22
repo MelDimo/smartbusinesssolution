@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.gui.docsform.db;
+using com.sbs.dll.docsaction;
 
 namespace com.sbs.gui.docsform
 {
@@ -25,8 +26,12 @@ namespace com.sbs.gui.docsform
 
         DataTable dtTmcType;        // Вид ТМС
 
-        public fSupplyTMC()
+        Packages oPackages;
+
+        public fSupplyTMC(Packages pPackages)
         {
+            oPackages = pPackages;
+
             InitializeComponent();
 
             tSButton_add.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
@@ -118,7 +123,7 @@ namespace com.sbs.gui.docsform
 
             //SupplyTMC oSupplyTMC = new SupplyTMC();
 
-            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC, oSupplyTMC_DOC);
+            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC, oSupplyTMC_DOC, oPackages);
             fsupplyDoc.ShowDialog();
         }
 

@@ -10,6 +10,7 @@ using com.sbs.dll.utilites;
 using com.sbs.gui.docsform.db;
 using com.sbs.dll;
 using System.Data.SqlClient;
+using com.sbs.dll.docsaction;
 
 namespace com.sbs.gui.docsform
 {
@@ -20,15 +21,18 @@ namespace com.sbs.gui.docsform
 
         DataTable dtTmcType;
         DataTable dtAccount;
+        
         SupplyTMC oSupplyTMC;
         SupplyTMC_DOC oSupplyTMC_DOC;
+        Packages oPackages;
 
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
 
-        public fSupplyTMC_DOC(SupplyTMC pSupplyTMC, SupplyTMC_DOC pSupplyTMC_DOC)
+        public fSupplyTMC_DOC(SupplyTMC pSupplyTMC, SupplyTMC_DOC pSupplyTMC_DOC, Packages pPackages)
         {
             oSupplyTMC = pSupplyTMC;
             oSupplyTMC_DOC = pSupplyTMC_DOC;
+            oPackages = pPackages;
 
             if (oSupplyTMC_DOC.itemId == 0) formMode = "ADD";
             else formMode = "EDIT";
