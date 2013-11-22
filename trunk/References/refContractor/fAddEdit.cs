@@ -32,6 +32,8 @@ namespace com.sbs.gui.references.contractor
                 formMode = "EDIT";
                 getAdditionInfo();
             }
+
+            tabControl_main.TabPages.Remove(tabPage_passport);
         }
 
         private void getAdditionInfo()
@@ -123,6 +125,7 @@ namespace com.sbs.gui.references.contractor
             try
             {
                 con.Open();
+
                 command = con.CreateCommand();
 
                 command.Parameters.Add("ref_contractor_type", SqlDbType.Int).Value = oContr.refContractorType;
@@ -153,7 +156,9 @@ namespace com.sbs.gui.references.contractor
                                                                     " tel = @tel," +
                                                                     " ref_status = @refStatus" +
                                                 " WHERE id = @id";
+
                         command.Parameters.Add("id", SqlDbType.Int).Value = oContr.id;
+
                         break;
 
                     default:
@@ -173,6 +178,14 @@ namespace com.sbs.gui.references.contractor
         private void button_cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void comboBox_contrType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox_contrType.SelectedValue.ToString().Equals("2"))
+                tabControl_main.TabPages.Add(tabPage_passport);
+            else
+                tabControl_main.TabPages.Remove(tabPage_passport);
         }
     }
 }
