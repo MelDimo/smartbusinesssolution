@@ -41,15 +41,15 @@
             this.button_getTmcAcc = new System.Windows.Forms.Button();
             this.textBox_TmcAcc = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_TmcMeasure = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_priceRub = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_priceCurr = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
@@ -63,10 +63,10 @@
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_priceRub)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_priceCurr)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
@@ -91,7 +91,7 @@
             this.comboBox_tmcType.Location = new System.Drawing.Point(62, 10);
             this.comboBox_tmcType.Name = "comboBox_tmcType";
             this.comboBox_tmcType.Size = new System.Drawing.Size(121, 21);
-            this.comboBox_tmcType.TabIndex = 1;
+            this.comboBox_tmcType.TabIndex = 0;
             // 
             // label2
             // 
@@ -130,7 +130,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(605, 102);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel1
             // 
@@ -149,7 +149,7 @@
             this.button_TMC.Location = new System.Drawing.Point(224, 1);
             this.button_TMC.Name = "button_TMC";
             this.button_TMC.Size = new System.Drawing.Size(24, 24);
-            this.button_TMC.TabIndex = 4;
+            this.button_TMC.TabIndex = 0;
             this.button_TMC.Text = "...";
             this.button_TMC.UseVisualStyleBackColor = true;
             this.button_TMC.Click += new System.EventHandler(this.button_TMC_Click);
@@ -175,7 +175,7 @@
             this.panel2.Location = new System.Drawing.Point(266, 5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(334, 26);
-            this.panel2.TabIndex = 1;
+            this.panel2.TabIndex = 0;
             // 
             // textBox_TmcCurr
             // 
@@ -193,9 +193,10 @@
             this.button_getTmcAcc.Location = new System.Drawing.Point(265, 1);
             this.button_getTmcAcc.Name = "button_getTmcAcc";
             this.button_getTmcAcc.Size = new System.Drawing.Size(24, 24);
-            this.button_getTmcAcc.TabIndex = 6;
+            this.button_getTmcAcc.TabIndex = 0;
             this.button_getTmcAcc.Text = "...";
             this.button_getTmcAcc.UseVisualStyleBackColor = true;
+            this.button_getTmcAcc.Click += new System.EventHandler(this.button_getTmcAcc_Click);
             // 
             // textBox_TmcAcc
             // 
@@ -215,7 +216,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.numericUpDown1, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDown_count, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label5, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.textBox_TmcMeasure, 1, 0);
@@ -225,16 +226,16 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(253, 26);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.tableLayoutPanel2.TabIndex = 4;
             // 
-            // numericUpDown1
+            // numericUpDown_count
             // 
-            this.numericUpDown1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown1.Location = new System.Drawing.Point(179, 3);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(71, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.numericUpDown_count.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_count.Location = new System.Drawing.Point(179, 3);
+            this.numericUpDown_count.Name = "numericUpDown_count";
+            this.numericUpDown_count.Size = new System.Drawing.Size(71, 20);
+            this.numericUpDown_count.TabIndex = 1;
             // 
             // label4
             // 
@@ -266,7 +267,7 @@
             this.textBox_TmcMeasure.Name = "textBox_TmcMeasure";
             this.textBox_TmcMeasure.ReadOnly = true;
             this.textBox_TmcMeasure.Size = new System.Drawing.Size(71, 20);
-            this.textBox_TmcMeasure.TabIndex = 1;
+            this.textBox_TmcMeasure.TabIndex = 0;
             // 
             // tableLayoutPanel3
             // 
@@ -275,10 +276,10 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown3, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDown_priceRub, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label7, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown2, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDown_priceCurr, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(266, 39);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -287,15 +288,15 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(334, 26);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
-            // numericUpDown3
+            // numericUpDown_priceRub
             // 
-            this.numericUpDown3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown3.Location = new System.Drawing.Point(252, 3);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.ReadOnly = true;
-            this.numericUpDown3.Size = new System.Drawing.Size(79, 20);
-            this.numericUpDown3.TabIndex = 3;
+            this.numericUpDown_priceRub.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_priceRub.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_priceRub.Location = new System.Drawing.Point(252, 3);
+            this.numericUpDown_priceRub.Name = "numericUpDown_priceRub";
+            this.numericUpDown_priceRub.ReadOnly = true;
+            this.numericUpDown_priceRub.Size = new System.Drawing.Size(79, 20);
+            this.numericUpDown_priceRub.TabIndex = 1;
             // 
             // label6
             // 
@@ -319,14 +320,14 @@
             this.label7.Text = "в Руб.";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown2
+            // numericUpDown_priceCurr
             // 
-            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown2.Location = new System.Drawing.Point(100, 3);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(79, 20);
-            this.numericUpDown2.TabIndex = 1;
+            this.numericUpDown_priceCurr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_priceCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_priceCurr.Location = new System.Drawing.Point(100, 3);
+            this.numericUpDown_priceCurr.Name = "numericUpDown_priceCurr";
+            this.numericUpDown_priceCurr.Size = new System.Drawing.Size(79, 20);
+            this.numericUpDown_priceCurr.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -366,7 +367,7 @@
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.ReadOnly = true;
             this.numericUpDown4.Size = new System.Drawing.Size(90, 20);
-            this.numericUpDown4.TabIndex = 2;
+            this.numericUpDown4.TabIndex = 0;
             // 
             // label8
             // 
@@ -387,7 +388,7 @@
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.ReadOnly = true;
             this.numericUpDown5.Size = new System.Drawing.Size(90, 20);
-            this.numericUpDown5.TabIndex = 4;
+            this.numericUpDown5.TabIndex = 1;
             // 
             // panel3
             // 
@@ -397,7 +398,7 @@
             this.panel3.Location = new System.Drawing.Point(2, 2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(605, 40);
-            this.panel3.TabIndex = 6;
+            this.panel3.TabIndex = 0;
             // 
             // panel4
             // 
@@ -407,7 +408,7 @@
             this.panel4.Location = new System.Drawing.Point(2, 145);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(605, 38);
-            this.panel4.TabIndex = 7;
+            this.panel4.TabIndex = 2;
             // 
             // button_Ok
             // 
@@ -415,9 +416,10 @@
             this.button_Ok.Location = new System.Drawing.Point(444, 8);
             this.button_Ok.Name = "button_Ok";
             this.button_Ok.Size = new System.Drawing.Size(75, 23);
-            this.button_Ok.TabIndex = 1;
+            this.button_Ok.TabIndex = 0;
             this.button_Ok.Text = "Сохранить";
             this.button_Ok.UseVisualStyleBackColor = true;
+            this.button_Ok.Click += new System.EventHandler(this.button_Ok_Click);
             // 
             // button_cancel
             // 
@@ -425,9 +427,10 @@
             this.button_cancel.Location = new System.Drawing.Point(525, 8);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 0;
+            this.button_cancel.TabIndex = 1;
             this.button_cancel.Text = "Отмена";
             this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
             // fSupplyTMC_DOC
             // 
@@ -452,11 +455,11 @@
             this.panel2.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_priceRub)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_priceCurr)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
@@ -482,16 +485,16 @@
         private System.Windows.Forms.Button button_getTmcAcc;
         private System.Windows.Forms.TextBox textBox_TmcAcc;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_count;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox_TmcMeasure;
         private System.Windows.Forms.TextBox textBox_TmcCurr;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_priceCurr;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown numericUpDown_priceRub;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button button_Ok;

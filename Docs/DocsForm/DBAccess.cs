@@ -55,12 +55,15 @@ namespace com.sbs.gui.docsform.db
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT id, name" +
-                                        " FROM ref_contractor" +
-                                        " WHERE ref_status = @ref_status" +
-                                        " ORDER BY name";
+                command.CommandText = " SELECT ri.id, ri.name, rm.name_short" +
+                                        " FROM ref_items ri" +
+                                        " INNER JOIN ref_measure rm ON rm.id = ri.ref_measure"+
+                                        " WHERE ri.ref_tmc_type = @ref_tmc_type AND" +
+                                            " ri.ref_status = @ref_status" +
+                                        " ORDER BY ri.name";
 
-                command.Parameters.Add("ref_status", SqlDbType.NVarChar).Value = 1;
+                command.Parameters.Add("ref_tmc_type", SqlDbType.Int).Value = pTmcType;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

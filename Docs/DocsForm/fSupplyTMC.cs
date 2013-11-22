@@ -53,7 +53,7 @@ namespace com.sbs.gui.docsform
             try
             {
                 dtUnit = oReference.getUnit("offline");
-                
+
                 dtAccount = oReference.getAccounts("offline", 52, 1);
                 dtBuff = oReference.getAccounts("offline", 61, 2);
                 dtAccount = dtAccount.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
@@ -101,7 +101,9 @@ namespace com.sbs.gui.docsform
 
         private void tSButton_add_Click(object sender, EventArgs e)
         {
+
             SupplyTMC oSupplyTMC;
+            SupplyTMC_DOC oSupplyTMC_DOC = new SupplyTMC_DOC();
 
             try
             {
@@ -114,7 +116,9 @@ namespace com.sbs.gui.docsform
                 return;
             }
 
-            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC);
+            //SupplyTMC oSupplyTMC = new SupplyTMC();
+
+            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC, oSupplyTMC_DOC);
             fsupplyDoc.ShowDialog();
         }
 
@@ -324,13 +328,26 @@ namespace com.sbs.gui.docsform
 
     public class SupplyTMC
     {
-        public int mol;
-        public int accKred;
-        public int kontrId;
-        public string DocReason = string.Empty;
-        public string DocProxy = string.Empty;
-        public int currId;
-        public string currCode;
-        public string comment;
+        public int mol { get; set; }
+        public int accKred { get; set; }
+        public int kontrId { get; set; }
+        public string DocReason { get; set; }
+        public string DocProxy { get; set; }
+        public int currId { get; set; }
+        public string currCode { get; set; }
+        public string comment { get; set; }
+    }
+
+    public class SupplyTMC_DOC
+    {
+        public int itemTmcType { get; set; }
+        public int itemId { get; set; }
+        public string itemName { get; set; }
+        public string itemMeasureName { get; set; }
+        public decimal itemCount { get; set; }
+        public int itemDeb { get; set; }
+        public string itemDebName { get; set; }
+        public decimal itemSumCurr { get; set; }
+        public decimal itemSumRub { get; set; }
     }
 }

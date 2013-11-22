@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.sbs.gui.docsform.supplytmc.Properties {
+namespace com.sbs.gui.docsform.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
