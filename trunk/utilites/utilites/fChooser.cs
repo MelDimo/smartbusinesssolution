@@ -63,11 +63,106 @@ namespace com.sbs.dll.utilites
                 case"CONTRACTOR":
                     returnContractor();
                     break;
+
+                case "CURRENCY":
+                    returnCurrency();
+                    break;
+
+                case "ITEMSRAW":
+                    returnItemsRaw();
+                    break;
+
+                case "NOMENCLATURE":
+                    returnNomenclature();
+                    break;
+
+                case "MEASURE":
+                    returnMeasure();
+                    break;
+
+                case "GETTMC":
+                    returnTMC();
+                    break;
+
             }
 
             isSelected = true;
 
             Close();
+        }
+
+        private void returnTMC()
+        {
+            int id;
+            string name;
+            string name_short;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+            name_short = dataGridView_main.SelectedRows[0].Cells["name_short"].Value.ToString();
+
+            xData = new object[] { id, name, name_short };
+        }
+
+        private void returnMeasure()
+        {
+            int id;
+            string name;
+            string name_short;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+            name_short = dataGridView_main.SelectedRows[0].Cells["name_short"].Value.ToString();
+
+            xData = new object[] { id, name, name_short };
+        }
+
+        private void returnNomenclature()
+        {
+            int id;
+            string name;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+
+            xData = new object[] { id, name };
+        }
+
+        private void returnItemsRaw()
+        {
+            int id;
+            string name;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+
+            xData = new object[] { id, name };
+
+        }
+
+        private void returnCurrency()
+        {
+            int IdCurrency;
+            string code;
+            string name;
+            string description;
+            int ref_currency_type;
+            string ref_currency_type_name;
+            int idCourse;
+            int multiplicity;
+            decimal course;
+
+            IdCurrency = (int)dataGridView_main.SelectedRows[0].Cells["IdCurrency"].Value;
+            code = dataGridView_main.SelectedRows[0].Cells["code"].Value.ToString() ;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+            description = dataGridView_main.SelectedRows[0].Cells["description"].Value.ToString();
+            ref_currency_type = (int)dataGridView_main.SelectedRows[0].Cells["ref_currency_type"].Value;
+            ref_currency_type_name = dataGridView_main.SelectedRows[0].Cells["ref_currency_type_name"].Value.ToString();
+            idCourse = (int)dataGridView_main.SelectedRows[0].Cells["idCourse"].Value;
+            multiplicity = (int)dataGridView_main.SelectedRows[0].Cells["multiplicity"].Value;
+            course = (decimal)dataGridView_main.SelectedRows[0].Cells["course"].Value;
+
+            xData = new object[] { IdCurrency, code, name, description, ref_currency_type, ref_currency_type_name, idCourse, multiplicity, course };
         }
 
         private void returnContractor()

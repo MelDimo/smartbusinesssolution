@@ -264,6 +264,35 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getAccounts(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, group_I, group_I_I, group_II, name, xvid, xcount, xoffbalance" +
+                                        " FROM ref_accounts" +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getAccounts(string pDbType, int pGroup_I, int pGroup_I_I)
         {
             DataTable dtResult = new DataTable();
@@ -330,5 +359,162 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
+
+        public DataTable getCurrency(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT rc.id AS IdCurrency, rc.code, rc.name, rc.description," +
+                                            " ref_currency_type," +
+                                            " rct.name AS ref_currency_type_name," +
+                                            " rcc.id AS IdCourse," +
+                                            " rcc.multiplicity," +
+                                            " rcc.course" +
+                                        " FROM ref_currency rc" +
+                                        " INNER JOIN ref_currency_type rct ON rct.id = rc.ref_currency_type" +
+                                        " INNER JOIN ref_currency_course rcc ON rcc.ref_currency = rc.id " +
+                                            " AND rcc.date_start = (SELECT max(date_start) FROM ref_currency_course WHERE ref_currency = rc.id)" +
+                                            " AND rcc.id = (SELECT max(id) FROM ref_currency_course WHERE ref_currency = rc.id)";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDocsType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, log_name, classPath, ref_status " +
+                                        " FROM docs_type " +
+                                        " WHERE ref_status = @ref_status " +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getTmcType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name " +
+                                        " FROM ref_tmc_type " +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getItemsRaw(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name " +
+                                        " FROM ref_items_raw " +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getMeasure(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, name_short, rate, ref_status " +
+                                        " FROM ref_measure " +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
     }
 }

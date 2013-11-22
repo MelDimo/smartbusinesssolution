@@ -95,6 +95,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap combo_26 {
+            get {
+                object obj = ResourceManager.GetObject("combo_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap copy_26 {
             get {
                 object obj = ResourceManager.GetObject("copy_26", resourceCulture);
