@@ -232,7 +232,6 @@ namespace com.sbs.gui.docsform
                 con.Open();
                 command = con.CreateCommand();
 
-
                 switch (formMode)
                 {
                     case "ADD":
