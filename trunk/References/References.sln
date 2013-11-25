@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refCurrency", "refCurrency\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refItems", "refItems\refItems.csproj", "{77B442CE-D7E4-4C32-984D-00E6FB8B695C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refAddCostsType", "refAddCostsType\refAddCostsType.csproj", "{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -77,6 +79,10 @@ Global
 		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Debug|x86.Build.0 = Debug|x86
 		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Release|x86.ActiveCfg = Release|x86
 		{77B442CE-D7E4-4C32-984D-00E6FB8B695C}.Release|x86.Build.0 = Release|x86
+		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Debug|x86.ActiveCfg = Debug|x86
+		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Debug|x86.Build.0 = Debug|x86
+		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Release|x86.ActiveCfg = Release|x86
+		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
