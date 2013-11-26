@@ -39,7 +39,7 @@ namespace refAddCostsType
                 con.Open();
                 command = con.CreateCommand();
                 command.CommandText = " SELECT rac.id, rac.name, " +
-                                            " rac.ref_accounts, str(acc.group_II) + '(' + acc.name + ')' AS ref_accounts_name, " +
+                                            " rac.ref_accounts, ltrim(str(acc.group_II) + ' (' + acc.name + ')') AS ref_accounts_name, " +
                                             " rac.ref_contractor, rc.name AS ref_contractor_name " +
                                         " FROM ref_additionalCost rac " +
                                         " INNER JOIN ref_accounts acc ON acc.id = rac.ref_accounts " +
@@ -67,7 +67,9 @@ namespace refAddCostsType
 
         private void tSButton_add_Click(object sender, EventArgs e)
         {
-
+            fAddEdit faddedit = new fAddEdit(new Items());
+            faddedit.Text = "Новый вид доп. расходов";
+            faddedit.ShowDialog();
         }
 
         private void tSButton_edit_Click(object sender, EventArgs e)
@@ -102,7 +104,38 @@ namespace refAddCostsType
 
         private void tSButton_del_Click(object sender, EventArgs e)
         {
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для удаления", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            DataGridViewRow dr = dataGridView_main.SelectedRows[0];
+
+            if (DialogResult.Yes != MessageBox.Show("Вы уверены, что хотите удалить '" + dr.Cells["name"].Value.ToString() + "'?", GValues.prgNameFull,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                return;
+            }
+
+            SqlConnection con = new DBCon().getConnection("offline");
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "DELETE FROM ref_additionalCost WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = (int)dr.Cells["id"].Value;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка удаления данных", exc, SystemIcons.Error); return; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            updateData();
         }
     }
 
