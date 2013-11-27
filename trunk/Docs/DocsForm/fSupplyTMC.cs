@@ -63,7 +63,7 @@ namespace com.sbs.gui.docsform
                 dtBuff = oReference.getAccounts("offline", 61, 2);
                 dtAccount = dtAccount.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
 
-                dtContractor = dbAccess.getContactor("offline");
+                dtContractor = oReference.getContactor("offline");
                 
                 dtCurr = oReference.getCurrency("offline");
                 dtTmcType = oReference.getTmcType("offline");
@@ -83,8 +83,7 @@ namespace com.sbs.gui.docsform
 
             try
             {
-                oData = textBox_mol.Tag as Object[];
-                oSupplyTMC.mol = (int)oData[0];
+                oSupplyTMC.mol = (int)textBox_mol.Tag;
 
                 oData = textBox_AccKT.Tag as Object[];
                 oSupplyTMC.accKred = (int)oData[0];
@@ -163,30 +162,13 @@ namespace com.sbs.gui.docsform
 
         private void button_getUnit_Click(object sender, EventArgs e)
         {
-            fChooser fChose = new fChooser("UNIT");
+            fChooserUnit fChoseUnit = new fChooserUnit(0, 3);
+            fChoseUnit.Text = "МОЛ (получатель)";
 
-            fChose.dataGridView_main.DataSource = dtUnit;
-
-            DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
-            col0.HeaderText = "id";
-            col0.Name = "id";
-            col0.DataPropertyName = "id";
-            col0.Visible = false;
-
-            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
-            col1.HeaderText = "Наименование";
-            col1.Name = "name";
-            col1.DataPropertyName = "name";
-            col1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1 });
-
-            fChose.Text = "МОЛ (получатель)";
-
-            if (fChose.ShowDialog() == DialogResult.OK)
+            if (fChoseUnit.ShowDialog() == DialogResult.OK)
             {
-                textBox_mol.Text = fChose.xData[1].ToString();
-                textBox_mol.Tag = fChose.xData;
+                textBox_mol.Text = fChoseUnit.selectedName;
+                textBox_mol.Tag = fChoseUnit.selectedId;
             }
         }
 
@@ -329,6 +311,28 @@ namespace com.sbs.gui.docsform
 
 #endregion -------------------------------------------------------------------------------------
 
+        private void tSButton_addDop_Click(object sender, EventArgs e)
+        {
+
+            fSupplyTMC_DOC_COST fsupplyDocCost = new fSupplyTMC_DOC_COST(new SupplyTMC_DOC_COST());
+            fsupplyDocCost.ShowDialog();
+        }
+
+        private void tSButton_editDop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tSButton_delDop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tSButton_copyDop_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 
     public class SupplyTMC
@@ -354,5 +358,15 @@ namespace com.sbs.gui.docsform
         public string itemDebName { get; set; }
         public decimal itemSumCurr { get; set; }
         public decimal itemSumRub { get; set; }
+    }
+
+    public class SupplyTMC_DOC_COST
+    {
+        public int costType { get; set; }
+        public string costTypeName { get; set; }
+        public int costAcc { get; set; }
+        public string costAccName { get; set; }
+        public int costContractor { get; set; }
+        public string costContractorName { get; set; }
     }
 }

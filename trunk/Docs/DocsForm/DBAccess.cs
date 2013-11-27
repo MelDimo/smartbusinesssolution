@@ -15,36 +15,6 @@ namespace com.sbs.gui.docsform.db
 
         DataTable dtResult;
 
-        public DataTable getContactor(string pDbType)
-        {
-            dtResult = new DataTable();
-
-            con = new DBCon().getConnection(pDbType);
-            try
-            {
-                con.Open();
-                command = con.CreateCommand();
-
-                command.CommandText = " SELECT id, name" +
-                                        " FROM ref_contractor" +
-                                        " WHERE ref_status = @ref_status" +
-                                        " ORDER BY name";
-
-                command.Parameters.Add("ref_status", SqlDbType.NVarChar).Value = 1;
-
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
-
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-
-            return dtResult;
-        }
-
         public DataTable getTmcByType(string pDbType, int pTmcType)
         {
             dtResult = new DataTable();
@@ -64,6 +34,36 @@ namespace com.sbs.gui.docsform.db
 
                 command.Parameters.Add("ref_tmc_type", SqlDbType.Int).Value = pTmcType;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getAdditionalCost(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT rac.id, rac.name, " +
+                                            " rac.ref_accounts, ltrim(str(acc.group_II) + ' (' + acc.name + ')') AS ref_accounts_name, " +
+                                            " rac.ref_contractor, rc.name AS ref_contractor_name " +
+                                        " FROM ref_additionalCost rac " +
+                                        " INNER JOIN ref_accounts acc ON acc.id = rac.ref_accounts " +
+                                        " INNER JOIN ref_contractor rc ON rc.id = rac.ref_contractor";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
