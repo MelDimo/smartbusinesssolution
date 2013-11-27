@@ -55,7 +55,7 @@
             this.groupBox_filter.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox_filter.Location = new System.Drawing.Point(2, 26);
             this.groupBox_filter.Name = "groupBox_filter";
-            this.groupBox_filter.Size = new System.Drawing.Size(775, 72);
+            this.groupBox_filter.Size = new System.Drawing.Size(960, 72);
             this.groupBox_filter.TabIndex = 0;
             this.groupBox_filter.TabStop = false;
             this.groupBox_filter.Text = "Фильтр документов";
@@ -83,7 +83,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(769, 53);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(954, 53);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -92,7 +92,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(288, 26);
+            this.label1.Size = new System.Drawing.Size(473, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Тип документа";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -104,14 +104,14 @@
             this.comboBox_docsType.FormattingEnabled = true;
             this.comboBox_docsType.Location = new System.Drawing.Point(3, 29);
             this.comboBox_docsType.Name = "comboBox_docsType";
-            this.comboBox_docsType.Size = new System.Drawing.Size(288, 21);
+            this.comboBox_docsType.Size = new System.Drawing.Size(473, 21);
             this.comboBox_docsType.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(297, 0);
+            this.label2.Location = new System.Drawing.Point(482, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(114, 26);
             this.label2.TabIndex = 2;
@@ -122,7 +122,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(417, 0);
+            this.label3.Location = new System.Drawing.Point(602, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 26);
             this.label3.TabIndex = 4;
@@ -132,7 +132,7 @@
             // textBox_docsNumber
             // 
             this.textBox_docsNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_docsNumber.Location = new System.Drawing.Point(297, 29);
+            this.textBox_docsNumber.Location = new System.Drawing.Point(482, 29);
             this.textBox_docsNumber.Name = "textBox_docsNumber";
             this.textBox_docsNumber.Size = new System.Drawing.Size(114, 20);
             this.textBox_docsNumber.TabIndex = 5;
@@ -141,7 +141,7 @@
             // 
             this.dateTimePicker_dateCreate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePicker_dateCreate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_dateCreate.Location = new System.Drawing.Point(417, 29);
+            this.dateTimePicker_dateCreate.Location = new System.Drawing.Point(602, 29);
             this.dateTimePicker_dateCreate.Name = "dateTimePicker_dateCreate";
             this.dateTimePicker_dateCreate.Size = new System.Drawing.Size(120, 20);
             this.dateTimePicker_dateCreate.TabIndex = 6;
@@ -150,7 +150,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(543, 0);
+            this.label4.Location = new System.Drawing.Point(728, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(193, 26);
             this.label4.TabIndex = 7;
@@ -162,7 +162,7 @@
             this.comboBox_own.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_own.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_own.FormattingEnabled = true;
-            this.comboBox_own.Location = new System.Drawing.Point(543, 29);
+            this.comboBox_own.Location = new System.Drawing.Point(728, 29);
             this.comboBox_own.Name = "comboBox_own";
             this.comboBox_own.Size = new System.Drawing.Size(193, 21);
             this.comboBox_own.TabIndex = 8;
@@ -171,7 +171,7 @@
             // 
             this.button_filter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_filter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_filter.Location = new System.Drawing.Point(742, 29);
+            this.button_filter.Location = new System.Drawing.Point(927, 29);
             this.button_filter.Name = "button_filter";
             this.button_filter.Size = new System.Drawing.Size(24, 21);
             this.button_filter.TabIndex = 9;
@@ -179,9 +179,9 @@
             // 
             // statusStrip_info
             // 
-            this.statusStrip_info.Location = new System.Drawing.Point(2, 366);
+            this.statusStrip_info.Location = new System.Drawing.Point(2, 437);
             this.statusStrip_info.Name = "statusStrip_info";
-            this.statusStrip_info.Size = new System.Drawing.Size(775, 22);
+            this.statusStrip_info.Size = new System.Drawing.Size(960, 22);
             this.statusStrip_info.TabIndex = 1;
             this.statusStrip_info.Text = "statusStrip1";
             // 
@@ -191,7 +191,7 @@
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(2, 98);
             this.dataGridView_main.Name = "dataGridView_main";
-            this.dataGridView_main.Size = new System.Drawing.Size(775, 268);
+            this.dataGridView_main.Size = new System.Drawing.Size(960, 339);
             this.dataGridView_main.TabIndex = 2;
             // 
             // menuStrip_filter
@@ -200,7 +200,7 @@
             this.tSMenuItem_create});
             this.menuStrip_filter.Location = new System.Drawing.Point(2, 2);
             this.menuStrip_filter.Name = "menuStrip_filter";
-            this.menuStrip_filter.Size = new System.Drawing.Size(775, 24);
+            this.menuStrip_filter.Size = new System.Drawing.Size(960, 24);
             this.menuStrip_filter.TabIndex = 3;
             this.menuStrip_filter.Text = "menuStrip1";
             // 
@@ -214,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 390);
+            this.ClientSize = new System.Drawing.Size(964, 461);
             this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.statusStrip_info);
             this.Controls.Add(this.groupBox_filter);

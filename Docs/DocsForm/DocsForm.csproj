@@ -66,6 +66,12 @@
     <Compile Include="fSupplyTMC_DOC.Designer.cs">
       <DependentUpon>fSupplyTMC_DOC.cs</DependentUpon>
     </Compile>
+    <Compile Include="fSupplyTMC_DOC_COST.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSupplyTMC_DOC_COST.Designer.cs">
+      <DependentUpon>fSupplyTMC_DOC_COST.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fSupplyTMC.resx">
@@ -73,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fSupplyTMC_DOC.resx">
       <DependentUpon>fSupplyTMC_DOC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSupplyTMC_DOC_COST.resx">
+      <DependentUpon>fSupplyTMC_DOC_COST.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
