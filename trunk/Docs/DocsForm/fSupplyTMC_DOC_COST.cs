@@ -20,6 +20,7 @@ namespace com.sbs.gui.docsform
         DataTable dtCost;
         DataTable dtAccount;
         DataTable dtContractor;
+        DataTable dtCurr;
 
         public fSupplyTMC_DOC_COST(SupplyTMC_DOC_COST pSupplyCost)
         {
@@ -36,6 +37,7 @@ namespace com.sbs.gui.docsform
                 dtCost = dbAccess.getAdditionalCost("offline");
                 dtAccount = oReference.getAccounts("offline");
                 dtContractor = oReference.getContactor("offline");
+                dtCurr = oReference.getCurrency("offline");
             }
             catch (Exception exc)
             {
@@ -47,6 +49,9 @@ namespace com.sbs.gui.docsform
             textBox_costAcc.DataBindings.Add("Text", oSupplyCost, "costAccName");
             textBox_costContractor.DataBindings.Add("Text", oSupplyCost, "costContractorName");
             textBox_costType.DataBindings.Add("Text", oSupplyCost, "costTypeName");
+            textBox_curr.DataBindings.Add("Text", oSupplyCost, "costCurrCodeName");
+            textBox_currCourse.DataBindings.Add("Text", oSupplyCost, "costCourseVal");
+            textBox_curType.DataBindings.Add("Text", oSupplyCost, "costCurrTypeName");
         }
 
         private void setEnabled(bool pIsEnabled)
@@ -179,6 +184,101 @@ namespace com.sbs.gui.docsform
 
                 textBox_costContractor.DataBindings[0].ReadValue();
             }
+        }
+
+        private void button_getCurr_Click(object sender, EventArgs e)
+        {
+            fChooser fChose = new fChooser("CURRENCY");
+
+            fChose.dataGridView_main.DataSource = dtCurr;
+
+            DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
+            col0.HeaderText = "idCurrency";
+            col0.Name = "idCurrency";
+            col0.DataPropertyName = "idCurrency";
+            col0.Visible = false;
+
+            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
+            col1.HeaderText = "code";
+            col1.Name = "code";
+            col1.DataPropertyName = "code";
+            col1.Visible = false;
+
+            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+            col2.HeaderText = "name";
+            col2.Name = "name";
+            col2.DataPropertyName = "name";
+            col2.Visible = false;
+
+            DataGridViewTextBoxColumn col3 = new DataGridViewTextBoxColumn();
+            col3.HeaderText = "Описание";
+            col3.Name = "description";
+            col3.DataPropertyName = "description";
+            col3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn();
+            col4.HeaderText = "ref_currency_type";
+            col4.Name = "ref_currency_type";
+            col4.DataPropertyName = "ref_currency_type";
+            col4.Visible = false;
+
+            DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
+            col5.HeaderText = "Тип";
+            col5.Name = "ref_currency_type_name";
+            col5.DataPropertyName = "ref_currency_type_name";
+            col5.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn();
+            col6.HeaderText = "idCourse";
+            col6.Name = "idCourse";
+            col6.DataPropertyName = "idCourse";
+            col6.Visible = false;
+
+            DataGridViewTextBoxColumn col7 = new DataGridViewTextBoxColumn();
+            col7.HeaderText = "multiplicity";
+            col7.Name = "multiplicity";
+            col7.DataPropertyName = "multiplicity";
+            col7.Visible = false;
+
+            DataGridViewTextBoxColumn col8 = new DataGridViewTextBoxColumn();
+            col8.HeaderText = "Курс";
+            col8.Name = "course";
+            col8.DataPropertyName = "course";
+            col8.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5, col6, col7, col8 });
+
+            fChose.Text = "Валюта расчета";
+            if (fChose.ShowDialog() == DialogResult.OK)
+            {
+                oSupplyCost.costCurr = (int)fChose.xData[0];
+                oSupplyCost.costCurrCodeName = fChose.xData[1].ToString();
+                oSupplyCost.costCurrTypeName = fChose.xData[5].ToString();
+                oSupplyCost.costCourse = (int)fChose.xData[6];
+                oSupplyCost.costCourseVal = (decimal)fChose.xData[8];
+
+                textBox_curr.DataBindings[0].ReadValue();
+                textBox_currCourse.DataBindings[0].ReadValue();
+                textBox_curType.DataBindings[0].ReadValue();
+            }
+        }
+
+        private void numericUpDown_sumCurr_Validating(object sender, CancelEventArgs e)
+        {
+            oSupplyCost.costSumCurr = numericUpDown_sumCurr.Value;
+            oSupplyCost.costSumRup = Math.Round(numericUpDown_sumCurr.Value * oSupplyCost.costCourseVal, 3);
+
+            numericUpDown_sumRup.Value = oSupplyCost.costSumRup;
+        }
+
+        private void button_Ok_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_cancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
 
 
