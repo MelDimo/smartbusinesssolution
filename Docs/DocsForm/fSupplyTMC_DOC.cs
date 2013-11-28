@@ -18,6 +18,7 @@ namespace com.sbs.gui.docsform
     {
         getReference oReference = new getReference();
         DBAccess dbAccess = new DBAccess();
+        DocActions oDocAction = new DocActions();
 
         DataTable dtTmcType;
         DataTable dtAccount;
@@ -81,6 +82,8 @@ namespace com.sbs.gui.docsform
             textBox_TmcAcc.DataBindings.Add("Text", oSupplyTMC_DOC, "itemDebName");
             textBox_TmcCurr.DataBindings.Add("Text", oSupplyTMC, "currCode");
             numericUpDown_priceCurr.DataBindings.Add("Value", oSupplyTMC_DOC, "itemSumCurr", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown_priceRub.DataBindings.Add("Value", oSupplyTMC_DOC, "itemSumRub", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown_sumCost.DataBindings.Add("Value", oSupplyTMC_DOC, "itemSumCost", true, DataSourceUpdateMode.OnPropertyChanged);
 
             if (formMode.Equals("ADD")) initControls(); // Если добавляем новый указываем дефолтный счет
 
@@ -227,50 +230,45 @@ namespace com.sbs.gui.docsform
                 return false;
             }
 
-            SqlConnection con = new DBCon().getConnection("offline");
-            SqlCommand command = null;
-            DataTable dt = new DataTable();
-
             try
             {
-                con.Open();
-                command = con.CreateCommand();
-
                 switch (formMode)
                 {
                     case "ADD":
-                        command.CommandText = "INSERT INTO ref_items(items_type,    name,       nameForSale,            ref_measure,    ref_measureForSale, koefSale," +
-                                                                    "ref_items_raw, koefRaw,    ref_tmc_type_nomenkl,   ref_tmc_type,   ref_status)" +
-                                                            "VALUES(@items_type,    @name,      @nameForSale,           @ref_measure,   @ref_measureForSale,@koefSale," +
-                                                                    "@ref_items_raw,@koefRaw,   @ref_tmc_type_nomenkl,  @ref_tmc_type,  @ref_status)";
+                        if (oPackages.id == 0)  // Запись документ добавляется в новый пакет
+                        {
+                            oPackages.ref_status = 28;
+                            oPackages.id = oDocAction.savePackage("offline", oPackages);
+                            
+                            Docs oDoc = new Docs();
+                            oDoc.docs_type = oPackages.docs_type;
+                            oDoc.packages = oPackages.id;
+                            oDoc.ref_status = 28;
+                            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
+                            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
+                            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+                            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
+                            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
+                            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
+                            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
+                            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
+                            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
+                            oDoc.addParam("COURSE", oSupplyTMC.courseId);
+
+                            oDocAction.saveDoc("offline", oPackages, oDoc);
+                        }
                         break;
 
                     case "EDIT":
-                        command.CommandText = "UPDATE ref_items SET items_type = @items_type, " +
-                                                                    " name = @name," +
-                                                                    " nameForSale = @nameForSale," +
-                                                                    " ref_measure = @ref_measure," +
-                                                                    " ref_measureForSale = @ref_measureForSale," +
-                                                                    " koefSale = @koefSale," +
-                                                                    " ref_items_raw = @ref_items_raw," +
-                                                                    " koefRaw = @koefRaw," +
-                                                                    " ref_tmc_type_nomenkl = @ref_tmc_type_nomenkl," +
-                                                                    " ref_tmc_type = @ref_tmc_type," +
-                                                                    " ref_status = @ref_status" +
-                                                " WHERE id = @id";
-                        command.Parameters.Add("id", SqlDbType.Int).Value = oSupplyTMC_DOC.itemId;
+
                         break;
 
                     default:
                         throw new Exception("Неудалось определить в каком режиме работает форма!");
                 }
-
-                command.ExecuteNonQuery();
-
-                con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally {  }
 
             return true;
         }

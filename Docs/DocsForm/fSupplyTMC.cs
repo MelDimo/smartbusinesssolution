@@ -92,7 +92,7 @@ namespace com.sbs.gui.docsform
                 oSupplyTMC.kontrId = (int)oData[0];
 
                 oData = textBox_curr.Tag as Object[];
-                oSupplyTMC.currId = (int)oData[6];
+                oSupplyTMC.courseId = (int)oData[6];
                 oSupplyTMC.currCode = oData[1].ToString();
             }
             catch (Exception exc)
@@ -273,10 +273,10 @@ namespace com.sbs.gui.docsform
             col4.Visible = false;
 
             DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
-            col5.HeaderText = "ref_currency_type_name";
+            col5.HeaderText = "Тип";
             col5.Name = "ref_currency_type_name";
             col5.DataPropertyName = "ref_currency_type_name";
-            col5.Visible = false;
+            col5.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
 
             DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn();
             col6.HeaderText = "idCourse";
@@ -291,7 +291,7 @@ namespace com.sbs.gui.docsform
             col7.Visible = false;
 
             DataGridViewTextBoxColumn col8 = new DataGridViewTextBoxColumn();
-            col8.HeaderText = "course";
+            col8.HeaderText = "Курс";
             col8.Name = "course";
             col8.DataPropertyName = "course";
             col8.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -342,7 +342,7 @@ namespace com.sbs.gui.docsform
         public int kontrId { get; set; }
         public string DocReason { get; set; }
         public string DocProxy { get; set; }
-        public int currId { get; set; }
+        public int courseId { get; set; }
         public string currCode { get; set; }
         public string comment { get; set; }
     }
@@ -358,6 +358,7 @@ namespace com.sbs.gui.docsform
         public string itemDebName { get; set; }
         public decimal itemSumCurr { get; set; }
         public decimal itemSumRub { get; set; }
+        public decimal itemSumCost { get; set; }
     }
 
     public class SupplyTMC_DOC_COST
@@ -368,5 +369,12 @@ namespace com.sbs.gui.docsform
         public string costAccName { get; set; }
         public int costContractor { get; set; }
         public string costContractorName { get; set; }
+        public int costCurr { get; set; }
+        public string costCurrTypeName { get; set; }
+        public string costCurrCodeName { get; set; }
+        public int costCourse { get; set; }
+        public decimal costCourseVal { get; set; }
+        public decimal costSumCurr { get; set; }
+        public decimal costSumRup { get; set; }
     }
 }
