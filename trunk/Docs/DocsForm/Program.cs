@@ -18,9 +18,11 @@ namespace com.sbs.gui.docsform
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+
+            UsersInfo.UserId = 1;
 #endif
             Packages oPackages = new Packages();
-            oPackages.docs_type = 4;
+            oPackages.packages_type = 1;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
