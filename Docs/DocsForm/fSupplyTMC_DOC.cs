@@ -239,24 +239,25 @@ namespace com.sbs.gui.docsform
                         {
                             oPackages.ref_status = 28;
                             oPackages.id = oDocAction.savePackage("offline", oPackages);
-                            
-                            Docs oDoc = new Docs();
-                            oDoc.docs_type = oPackages.docs_type;
-                            oDoc.packages = oPackages.id;
-                            oDoc.ref_status = 28;
-                            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
-                            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
-                            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
-                            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
-                            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
-                            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
-                            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
-                            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
-                            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
-                            oDoc.addParam("COURSE", oSupplyTMC.courseId);
-
-                            oDocAction.saveDoc("offline", oPackages, oDoc);
                         }
+
+                        Docs oDoc = new Docs();
+                        oDoc.docs_type = 4;
+                        oDoc.packages = oPackages.id;
+                        oDoc.ref_status = 28;
+                        oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
+                        oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
+                        oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+                        oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
+                        oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
+                        oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
+                        oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
+                        oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
+                        oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
+                        oDoc.addParam("COURSE", oSupplyTMC.courseId);
+
+                        oDocAction.saveDoc("offline", oPackages, oDoc);
+                        
                         break;
 
                     case "EDIT":
@@ -267,7 +268,12 @@ namespace com.sbs.gui.docsform
                         throw new Exception("Неудалось определить в каком режиме работает форма!");
                 }
             }
-            catch (Exception exc) { throw exc; }
+            catch (Exception exc)
+            {
+                uMessage.Show("Не удалось создать запись.", exc, SystemIcons.Information);
+                setEnabled(false);
+                return false;
+            }
             finally {  }
 
             return true;

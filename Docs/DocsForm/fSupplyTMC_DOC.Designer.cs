@@ -164,6 +164,7 @@
             this.textBox_TmcType.ReadOnly = true;
             this.textBox_TmcType.Size = new System.Drawing.Size(184, 20);
             this.textBox_TmcType.TabIndex = 3;
+            this.textBox_TmcType.TabStop = false;
             // 
             // panel2
             // 
@@ -175,7 +176,7 @@
             this.panel2.Location = new System.Drawing.Point(266, 5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(334, 26);
-            this.panel2.TabIndex = 0;
+            this.panel2.TabIndex = 2;
             // 
             // textBox_TmcCurr
             // 
@@ -186,6 +187,7 @@
             this.textBox_TmcCurr.ReadOnly = true;
             this.textBox_TmcCurr.Size = new System.Drawing.Size(35, 20);
             this.textBox_TmcCurr.TabIndex = 7;
+            this.textBox_TmcCurr.TabStop = false;
             // 
             // button_getTmcAcc
             // 
@@ -208,6 +210,7 @@
             this.textBox_TmcAcc.ReadOnly = true;
             this.textBox_TmcAcc.Size = new System.Drawing.Size(152, 20);
             this.textBox_TmcAcc.TabIndex = 5;
+            this.textBox_TmcAcc.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
@@ -226,7 +229,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(253, 26);
-            this.tableLayoutPanel2.TabIndex = 4;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // numericUpDown_count
             // 
@@ -235,7 +238,7 @@
             this.numericUpDown_count.Location = new System.Drawing.Point(179, 3);
             this.numericUpDown_count.Name = "numericUpDown_count";
             this.numericUpDown_count.Size = new System.Drawing.Size(71, 20);
-            this.numericUpDown_count.TabIndex = 1;
+            this.numericUpDown_count.TabIndex = 0;
             // 
             // label4
             // 
@@ -268,6 +271,7 @@
             this.textBox_TmcMeasure.ReadOnly = true;
             this.textBox_TmcMeasure.Size = new System.Drawing.Size(71, 20);
             this.textBox_TmcMeasure.TabIndex = 0;
+            this.textBox_TmcMeasure.TabStop = false;
             // 
             // tableLayoutPanel3
             // 
@@ -297,6 +301,7 @@
             this.numericUpDown_priceRub.ReadOnly = true;
             this.numericUpDown_priceRub.Size = new System.Drawing.Size(79, 20);
             this.numericUpDown_priceRub.TabIndex = 1;
+            this.numericUpDown_priceRub.TabStop = false;
             // 
             // label6
             // 
@@ -368,6 +373,7 @@
             this.numericUpDown_sumCost.ReadOnly = true;
             this.numericUpDown_sumCost.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown_sumCost.TabIndex = 0;
+            this.numericUpDown_sumCost.TabStop = false;
             // 
             // label8
             // 
@@ -389,6 +395,7 @@
             this.numericUpDown5.ReadOnly = true;
             this.numericUpDown5.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown5.TabIndex = 1;
+            this.numericUpDown5.TabStop = false;
             // 
             // panel3
             // 
