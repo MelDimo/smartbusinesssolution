@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="docsAction">
+      <HintPath>..\..\utilites\utilites\DocsAction\bin\Debug\docsAction.dll</HintPath>
+    </Reference>
     <Reference Include="GValues">
       <HintPath>..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
@@ -50,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBAccess.cs" />
     <Compile Include="fDocsMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +84,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DocsForm\DocsForm.csproj">
+      <Project>{A677708B-1C6D-42E3-A74D-1916655E8668}</Project>
+      <Name>DocsForm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
