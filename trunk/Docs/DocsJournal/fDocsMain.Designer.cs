@@ -36,11 +36,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox_docsNumber = new System.Windows.Forms.TextBox();
             this.dateTimePicker_dateCreate = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBox_own = new System.Windows.Forms.ComboBox();
             this.button_filter = new System.Windows.Forms.Button();
+            this.comboBox_own = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox_status = new System.Windows.Forms.ComboBox();
             this.statusStrip_info = new System.Windows.Forms.StatusStrip();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.packages_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.packages_typeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ref_statusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.date_create = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip_filter = new System.Windows.Forms.MenuStrip();
             this.tSMenuItem_create = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox_filter.SuspendLayout();
@@ -62,21 +70,24 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnCount = 6;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 199F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 121F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 147F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.comboBox_docsType, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBox_docsNumber, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dateTimePicker_dateCreate, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox_own, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.button_filter, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button_filter, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_own, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_status, 3, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -92,90 +103,116 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(473, 26);
+            this.label1.Size = new System.Drawing.Size(364, 26);
             this.label1.TabIndex = 0;
             this.label1.Text = "Тип документа";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboBox_docsType
             // 
-            this.comboBox_docsType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_docsType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_docsType.FormattingEnabled = true;
             this.comboBox_docsType.Location = new System.Drawing.Point(3, 29);
             this.comboBox_docsType.Name = "comboBox_docsType";
-            this.comboBox_docsType.Size = new System.Drawing.Size(473, 21);
+            this.comboBox_docsType.Size = new System.Drawing.Size(364, 21);
             this.comboBox_docsType.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(482, 0);
+            this.label2.Location = new System.Drawing.Point(373, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 26);
+            this.label2.Size = new System.Drawing.Size(115, 26);
             this.label2.TabIndex = 2;
             this.label2.Text = "Номер документа";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(602, 0);
+            this.label3.Location = new System.Drawing.Point(494, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 26);
+            this.label3.Size = new System.Drawing.Size(121, 26);
             this.label3.TabIndex = 4;
             this.label3.Text = "Дата создания";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBox_docsNumber
             // 
-            this.textBox_docsNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_docsNumber.Location = new System.Drawing.Point(482, 29);
+            this.textBox_docsNumber.Location = new System.Drawing.Point(373, 29);
             this.textBox_docsNumber.Name = "textBox_docsNumber";
             this.textBox_docsNumber.Size = new System.Drawing.Size(114, 20);
             this.textBox_docsNumber.TabIndex = 5;
+            this.textBox_docsNumber.Visible = false;
             // 
             // dateTimePicker_dateCreate
             // 
-            this.dateTimePicker_dateCreate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dateTimePicker_dateCreate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_dateCreate.Location = new System.Drawing.Point(602, 29);
+            this.dateTimePicker_dateCreate.Location = new System.Drawing.Point(494, 29);
             this.dateTimePicker_dateCreate.Name = "dateTimePicker_dateCreate";
             this.dateTimePicker_dateCreate.Size = new System.Drawing.Size(120, 20);
             this.dateTimePicker_dateCreate.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(728, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(193, 26);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Принадлежность";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // comboBox_own
-            // 
-            this.comboBox_own.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox_own.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_own.FormattingEnabled = true;
-            this.comboBox_own.Location = new System.Drawing.Point(728, 29);
-            this.comboBox_own.Name = "comboBox_own";
-            this.comboBox_own.Size = new System.Drawing.Size(193, 21);
-            this.comboBox_own.TabIndex = 8;
             // 
             // button_filter
             // 
             this.button_filter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button_filter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_filter.Location = new System.Drawing.Point(927, 29);
+            this.button_filter.Location = new System.Drawing.Point(926, 29);
             this.button_filter.Name = "button_filter";
-            this.button_filter.Size = new System.Drawing.Size(24, 21);
+            this.button_filter.Size = new System.Drawing.Size(25, 21);
             this.button_filter.TabIndex = 9;
             this.button_filter.UseVisualStyleBackColor = true;
+            this.button_filter.Click += new System.EventHandler(this.button_filter_Click);
+            // 
+            // comboBox_own
+            // 
+            this.comboBox_own.DisplayMember = "0";
+            this.comboBox_own.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_own.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_own.FormattingEnabled = true;
+            this.comboBox_own.Items.AddRange(new object[] {
+            "Созданые мной",
+            "Я участник",
+            "Чужые"});
+            this.comboBox_own.Location = new System.Drawing.Point(779, 29);
+            this.comboBox_own.Name = "comboBox_own";
+            this.comboBox_own.Size = new System.Drawing.Size(141, 21);
+            this.comboBox_own.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(779, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(141, 26);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Принадлежность";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(621, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(152, 26);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Статус документа";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_status
+            // 
+            this.comboBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_status.FormattingEnabled = true;
+            this.comboBox_status.Location = new System.Drawing.Point(621, 29);
+            this.comboBox_status.Name = "comboBox_status";
+            this.comboBox_status.Size = new System.Drawing.Size(152, 21);
+            this.comboBox_status.TabIndex = 11;
             // 
             // statusStrip_info
             // 
@@ -187,12 +224,69 @@
             // 
             // dataGridView_main
             // 
+            this.dataGridView_main.AllowUserToAddRows = false;
+            this.dataGridView_main.AllowUserToDeleteRows = false;
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.packages_type,
+            this.packages_typeName,
+            this.ref_status,
+            this.ref_statusName,
+            this.date_create});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(2, 98);
+            this.dataGridView_main.MultiSelect = false;
             this.dataGridView_main.Name = "dataGridView_main";
+            this.dataGridView_main.ReadOnly = true;
+            this.dataGridView_main.RowHeadersVisible = false;
+            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_main.Size = new System.Drawing.Size(960, 339);
             this.dataGridView_main.TabIndex = 2;
+            this.dataGridView_main.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_main_CellClick);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // packages_type
+            // 
+            this.packages_type.HeaderText = "packages_type";
+            this.packages_type.Name = "packages_type";
+            this.packages_type.ReadOnly = true;
+            this.packages_type.Visible = false;
+            // 
+            // packages_typeName
+            // 
+            this.packages_typeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.packages_typeName.HeaderText = "Наименование";
+            this.packages_typeName.Name = "packages_typeName";
+            this.packages_typeName.ReadOnly = true;
+            // 
+            // ref_status
+            // 
+            this.ref_status.HeaderText = "ref_status";
+            this.ref_status.Name = "ref_status";
+            this.ref_status.ReadOnly = true;
+            this.ref_status.Visible = false;
+            // 
+            // ref_statusName
+            // 
+            this.ref_statusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ref_statusName.HeaderText = "Статус";
+            this.ref_statusName.Name = "ref_statusName";
+            this.ref_statusName.ReadOnly = true;
+            // 
+            // date_create
+            // 
+            this.date_create.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.date_create.HeaderText = "Дата Создания";
+            this.date_create.Name = "date_create";
+            this.date_create.ReadOnly = true;
+            this.date_create.Width = 101;
             // 
             // menuStrip_filter
             // 
@@ -252,6 +346,14 @@
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.MenuStrip menuStrip_filter;
         private System.Windows.Forms.ToolStripMenuItem tSMenuItem_create;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox_status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn packages_type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn packages_typeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ref_status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ref_statusName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn date_create;
 
     }
 }

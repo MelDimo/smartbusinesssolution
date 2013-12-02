@@ -17,6 +17,8 @@ namespace com.sbs.gui.docsjournal
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+
+            UsersInfo.UserId = 1;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
