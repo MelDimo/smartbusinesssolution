@@ -89,7 +89,7 @@ namespace com.sbs.gui.docsform.db
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT doc.id, rdp.name, dpv.value" +
+                command.CommandText = " SELECT doc.id, doc.docs_type, rdp.name, dpv.value" +
                                         " FROM docs doc" +
                                         " INNER JOIN docs_param_value dpv ON dpv.docs = doc.id" +
                                         " INNER JOIN ref_docs_param rdp ON rdp.id = dpv.ref_docs_param" +

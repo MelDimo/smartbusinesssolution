@@ -19,6 +19,7 @@ namespace com.sbs.gui.docsform
         SupplyTMC oSupplyTMC = new SupplyTMC();
 
         List<SupplyTMC_DOC> oListSupplyTMC_DOC = new List<SupplyTMC_DOC>();
+        List<SupplyTMC_DOC_COST> oListSupplyTMC_DOC_COST = new List<SupplyTMC_DOC_COST>();
         
         DBAccess dbAccess = new DBAccess();
 
@@ -28,6 +29,7 @@ namespace com.sbs.gui.docsform
         DataTable dtContractor;     // Поставщики
         DataTable dtCurr;           // Валюта
         DataTable dtTMC;            // Товарно мат ценность
+        DataTable dtCost;           // Дополнительная расхода ;)
 
         DataTable dtTmcType;        // Вид ТМС
 
@@ -76,6 +78,8 @@ namespace com.sbs.gui.docsform
                 
                 dtCurr = oReference.getCurrency("offline");
                 dtTmcType = oReference.getTmcType("offline");
+
+                dtCost = dbAccess.getAdditionalCost("offline");
             }
             catch (Exception exc)
             {
@@ -212,25 +216,47 @@ namespace com.sbs.gui.docsform
             }
 
             SupplyTMC_DOC oSupplyTMC_DOC = new SupplyTMC_DOC();
+            SupplyTMC_DOC_COST oSupplyTMC_DOC_COST = new SupplyTMC_DOC_COST();
             foreach (DataRow dr in dtDoc.Rows)
             {
                 if (xDocId == 0)    // Первый проход
                 {
                     xDocId = int.Parse(dr["id"].ToString());
-                    oSupplyTMC_DOC.docId = xDocId;
+                    switch (dr["docs_type"].ToString())
+                    { 
+                        case "4":
+                            oSupplyTMC_DOC.docId = xDocId;
+                            break;
+
+                        case "5":
+                            oSupplyTMC_DOC_COST.docId = xDocId;
+                            break;
+                    }
                 }
 
-                if (xDocId != int.Parse(dr["id"].ToString()))
+                if (xDocId != int.Parse(dr["id"].ToString()) )
                 {
-                    oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
+                    switch (dr["docs_type"].ToString())
+                    {
+                        case "4":
+                            oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
+                            xDocId = int.Parse(dr["id"].ToString());
+                            oSupplyTMC_DOC = new SupplyTMC_DOC();
+                            oSupplyTMC_DOC.docId = xDocId;
+                            break;
 
-                    xDocId = int.Parse(dr["id"].ToString());
-                    oSupplyTMC_DOC = new SupplyTMC_DOC();
-                    oSupplyTMC_DOC.docId = xDocId;
+                        case "5":
+                            oListSupplyTMC_DOC_COST.Add(oSupplyTMC_DOC_COST);
+                            xDocId = int.Parse(dr["id"].ToString());
+                            oSupplyTMC_DOC_COST = new SupplyTMC_DOC_COST();
+                            oSupplyTMC_DOC_COST.docId = xDocId;
+                            break;
+                    }
                 }
 
                 switch (dr["name"].ToString())
                 {
+                    #region ----------------------------------------------------------- основной документ
                     case "SUPPLIER":
                         drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
                         textBox_kontr.Text = drValue["name"].ToString();
@@ -305,6 +331,44 @@ namespace com.sbs.gui.docsform
                         oSupplyTMC.DocProxy = dr["value"].ToString();
                         textBox_PROXY.Text = oSupplyTMC.DocProxy;
                         break;
+                    #endregion
+
+                    #region ----------------------------------------------------------- доп. затраты документ
+                    case "COST_TYPE":
+                        drValue = (from row in dtCost.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC_COST.costType = (int)dr["value"];
+                        oSupplyTMC_DOC_COST.costTypeName = drValue["name"].ToString();
+                        break;
+
+                    case "COST_ACC":
+                        drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC_COST.costAcc = (int)dr["value"];
+                        oSupplyTMC_DOC_COST.costAccName =  drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
+                        break;
+
+                    case "COST_SUPPLYER":
+                        drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC_COST.costContractor = (int)dr["value"];
+                        oSupplyTMC_DOC_COST.costContractorName = drValue["name"].ToString();
+                        break;
+
+                    case "COST_COURSE":
+                        drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC_COST.costCourse = (int)dr["value"];
+                        oSupplyTMC_DOC_COST.costCurrCodeName = drValue["code"].ToString();
+                        oSupplyTMC_DOC_COST.costCurrTypeName = drValue["ref_currency_type_name"].ToString();
+                        oSupplyTMC_DOC_COST.costCourseVal = decimal.Parse(drValue["course"].ToString());
+                        break;
+
+                    case "COST_SUM_CURR":
+                        oSupplyTMC_DOC_COST.costSumCurr = (decimal)dr["value"];
+                        break;
+
+                    case "COST_SUM_RUB":
+                        oSupplyTMC_DOC_COST.costSumRup = (decimal)dr["value"];
+                        break;
+
+                    #endregion
                 }
             }
 
@@ -550,6 +614,8 @@ namespace com.sbs.gui.docsform
 
     public class SupplyTMC_DOC_COST
     {
+        [Browsable(false)]
+        public int docId { get; set; }
         public int costType { get; set; }
         public string costTypeName { get; set; }
         public int costAcc { get; set; }
