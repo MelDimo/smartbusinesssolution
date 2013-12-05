@@ -31,20 +31,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox_costAcc = new System.Windows.Forms.TextBox();
             this.button_getCostAcc = new System.Windows.Forms.Button();
+            this.textBox_costAcc = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button_getCostContractor = new System.Windows.Forms.Button();
-            this.textBox_costContractor = new System.Windows.Forms.TextBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.button_Ok = new System.Windows.Forms.Button();
-            this.button_cancel = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button_getCostType = new System.Windows.Forms.Button();
-            this.textBox_costType = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.textBox_currCourse = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -56,23 +45,34 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.textBox_curType = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button_getCostType = new System.Windows.Forms.Button();
+            this.textBox_costType = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button_getCostContractor = new System.Windows.Forms.Button();
+            this.textBox_costContractor = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown_sumCurr = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_sumRup = new System.Windows.Forms.NumericUpDown();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button_Ok = new System.Windows.Forms.Button();
+            this.button_cancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sumCurr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sumRup)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -107,17 +107,6 @@
             this.panel1.Size = new System.Drawing.Size(395, 26);
             this.panel1.TabIndex = 1;
             // 
-            // textBox_costAcc
-            // 
-            this.textBox_costAcc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_costAcc.Location = new System.Drawing.Point(3, 3);
-            this.textBox_costAcc.Name = "textBox_costAcc";
-            this.textBox_costAcc.ReadOnly = true;
-            this.textBox_costAcc.Size = new System.Drawing.Size(353, 20);
-            this.textBox_costAcc.TabIndex = 0;
-            this.textBox_costAcc.TabStop = false;
-            // 
             // button_getCostAcc
             // 
             this.button_getCostAcc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -128,6 +117,18 @@
             this.button_getCostAcc.Text = "...";
             this.button_getCostAcc.UseVisualStyleBackColor = true;
             this.button_getCostAcc.Click += new System.EventHandler(this.button_getCostAcc_Click);
+            // 
+            // textBox_costAcc
+            // 
+            this.textBox_costAcc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_costAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_costAcc.Location = new System.Drawing.Point(3, 3);
+            this.textBox_costAcc.Name = "textBox_costAcc";
+            this.textBox_costAcc.ReadOnly = true;
+            this.textBox_costAcc.Size = new System.Drawing.Size(353, 20);
+            this.textBox_costAcc.TabIndex = 0;
+            this.textBox_costAcc.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -157,130 +158,12 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(477, 194);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 63);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(70, 31);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Контрагент";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.button_getCostContractor);
-            this.panel2.Controls.Add(this.textBox_costContractor);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(79, 66);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(395, 25);
-            this.panel2.TabIndex = 2;
-            // 
-            // button_getCostContractor
-            // 
-            this.button_getCostContractor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_getCostContractor.Location = new System.Drawing.Point(362, 1);
-            this.button_getCostContractor.Name = "button_getCostContractor";
-            this.button_getCostContractor.Size = new System.Drawing.Size(30, 23);
-            this.button_getCostContractor.TabIndex = 0;
-            this.button_getCostContractor.Text = "...";
-            this.button_getCostContractor.UseVisualStyleBackColor = true;
-            this.button_getCostContractor.Click += new System.EventHandler(this.button_getCostContractor_Click);
-            // 
-            // textBox_costContractor
-            // 
-            this.textBox_costContractor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_costContractor.Location = new System.Drawing.Point(3, 3);
-            this.textBox_costContractor.Name = "textBox_costContractor";
-            this.textBox_costContractor.ReadOnly = true;
-            this.textBox_costContractor.Size = new System.Drawing.Size(353, 20);
-            this.textBox_costContractor.TabIndex = 0;
-            this.textBox_costContractor.TabStop = false;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.button_Ok);
-            this.panel4.Controls.Add(this.button_cancel);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 210);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(501, 38);
-            this.panel4.TabIndex = 1;
-            // 
-            // button_Ok
-            // 
-            this.button_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_Ok.Location = new System.Drawing.Point(340, 8);
-            this.button_Ok.Name = "button_Ok";
-            this.button_Ok.Size = new System.Drawing.Size(75, 23);
-            this.button_Ok.TabIndex = 0;
-            this.button_Ok.Text = "Сохранить";
-            this.button_Ok.UseVisualStyleBackColor = true;
-            this.button_Ok.Click += new System.EventHandler(this.button_Ok_Click);
-            // 
-            // button_cancel
-            // 
-            this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(421, 8);
-            this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 1;
-            this.button_cancel.Text = "Отмена";
-            this.button_cancel.UseVisualStyleBackColor = true;
-            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button_getCostType);
-            this.panel3.Controls.Add(this.textBox_costType);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(79, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(395, 25);
-            this.panel3.TabIndex = 0;
-            // 
-            // button_getCostType
-            // 
-            this.button_getCostType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_getCostType.Location = new System.Drawing.Point(362, 1);
-            this.button_getCostType.Name = "button_getCostType";
-            this.button_getCostType.Size = new System.Drawing.Size(30, 23);
-            this.button_getCostType.TabIndex = 0;
-            this.button_getCostType.Text = "...";
-            this.button_getCostType.UseVisualStyleBackColor = true;
-            this.button_getCostType.Click += new System.EventHandler(this.button_getCostType_Click);
-            // 
-            // textBox_costType
-            // 
-            this.textBox_costType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_costType.Location = new System.Drawing.Point(3, 3);
-            this.textBox_costType.Name = "textBox_costType";
-            this.textBox_costType.ReadOnly = true;
-            this.textBox_costType.Size = new System.Drawing.Size(353, 20);
-            this.textBox_costType.TabIndex = 0;
-            this.textBox_costType.TabStop = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 94);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 50);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Валюта";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.38462F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.61538F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 173F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
             this.tableLayoutPanel3.Controls.Add(this.textBox_currCourse, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label7, 1, 0);
@@ -303,7 +186,7 @@
             this.textBox_currCourse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox_currCourse.Location = new System.Drawing.Point(125, 20);
             this.textBox_currCourse.Name = "textBox_currCourse";
-            this.textBox_currCourse.Size = new System.Drawing.Size(93, 20);
+            this.textBox_currCourse.Size = new System.Drawing.Size(92, 20);
             this.textBox_currCourse.TabIndex = 2;
             // 
             // label6
@@ -323,7 +206,7 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(125, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 17);
+            this.label7.Size = new System.Drawing.Size(92, 17);
             this.label7.TabIndex = 1;
             this.label7.Text = "Курс";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -332,9 +215,9 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(224, 0);
+            this.label10.Location = new System.Drawing.Point(223, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(168, 17);
+            this.label10.Size = new System.Drawing.Size(169, 17);
             this.label10.TabIndex = 2;
             this.label10.Text = "Форма расчета";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -376,9 +259,9 @@
             this.panel8.Controls.Add(this.textBox_curType);
             this.panel8.Controls.Add(this.button2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(224, 20);
+            this.panel8.Location = new System.Drawing.Point(223, 20);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(168, 21);
+            this.panel8.Size = new System.Drawing.Size(169, 21);
             this.panel8.TabIndex = 6;
             // 
             // textBox_curType
@@ -388,20 +271,108 @@
             this.textBox_curType.Location = new System.Drawing.Point(0, 0);
             this.textBox_curType.Name = "textBox_curType";
             this.textBox_curType.ReadOnly = true;
-            this.textBox_curType.Size = new System.Drawing.Size(139, 20);
+            this.textBox_curType.Size = new System.Drawing.Size(140, 20);
             this.textBox_curType.TabIndex = 6;
             this.textBox_curType.TabStop = false;
             // 
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.Location = new System.Drawing.Point(139, 0);
+            this.button2.Location = new System.Drawing.Point(140, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(29, 21);
             this.button2.TabIndex = 0;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.button_getCostType);
+            this.panel3.Controls.Add(this.textBox_costType);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(79, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(395, 25);
+            this.panel3.TabIndex = 0;
+            // 
+            // button_getCostType
+            // 
+            this.button_getCostType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_getCostType.Location = new System.Drawing.Point(362, 1);
+            this.button_getCostType.Name = "button_getCostType";
+            this.button_getCostType.Size = new System.Drawing.Size(30, 23);
+            this.button_getCostType.TabIndex = 0;
+            this.button_getCostType.Text = "...";
+            this.button_getCostType.UseVisualStyleBackColor = true;
+            this.button_getCostType.Click += new System.EventHandler(this.button_getCostType_Click);
+            // 
+            // textBox_costType
+            // 
+            this.textBox_costType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_costType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_costType.Location = new System.Drawing.Point(3, 3);
+            this.textBox_costType.Name = "textBox_costType";
+            this.textBox_costType.ReadOnly = true;
+            this.textBox_costType.Size = new System.Drawing.Size(353, 20);
+            this.textBox_costType.TabIndex = 0;
+            this.textBox_costType.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button_getCostContractor);
+            this.panel2.Controls.Add(this.textBox_costContractor);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(79, 66);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(395, 25);
+            this.panel2.TabIndex = 2;
+            // 
+            // button_getCostContractor
+            // 
+            this.button_getCostContractor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_getCostContractor.Location = new System.Drawing.Point(362, 1);
+            this.button_getCostContractor.Name = "button_getCostContractor";
+            this.button_getCostContractor.Size = new System.Drawing.Size(30, 23);
+            this.button_getCostContractor.TabIndex = 0;
+            this.button_getCostContractor.Text = "...";
+            this.button_getCostContractor.UseVisualStyleBackColor = true;
+            this.button_getCostContractor.Click += new System.EventHandler(this.button_getCostContractor_Click);
+            // 
+            // textBox_costContractor
+            // 
+            this.textBox_costContractor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_costContractor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_costContractor.Location = new System.Drawing.Point(3, 3);
+            this.textBox_costContractor.Name = "textBox_costContractor";
+            this.textBox_costContractor.ReadOnly = true;
+            this.textBox_costContractor.Size = new System.Drawing.Size(353, 20);
+            this.textBox_costContractor.TabIndex = 0;
+            this.textBox_costContractor.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 63);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 31);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Контрагент";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(3, 94);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(70, 50);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Валюта";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
@@ -454,12 +425,13 @@
             // 
             this.numericUpDown_sumCurr.DecimalPlaces = 3;
             this.numericUpDown_sumCurr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_sumCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_sumCurr.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDown_sumCurr.Location = new System.Drawing.Point(3, 21);
+            this.numericUpDown_sumCurr.Location = new System.Drawing.Point(3, 20);
             this.numericUpDown_sumCurr.Maximum = new decimal(new int[] {
             9999999,
             0,
@@ -474,12 +446,13 @@
             // 
             this.numericUpDown_sumRup.DecimalPlaces = 3;
             this.numericUpDown_sumRup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_sumRup.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_sumRup.Increment = new decimal(new int[] {
             1,
             0,
             0,
             196608});
-            this.numericUpDown_sumRup.Location = new System.Drawing.Point(200, 21);
+            this.numericUpDown_sumRup.Location = new System.Drawing.Point(200, 20);
             this.numericUpDown_sumRup.Maximum = new decimal(new int[] {
             9999999,
             0,
@@ -490,6 +463,38 @@
             this.numericUpDown_sumRup.Size = new System.Drawing.Size(192, 20);
             this.numericUpDown_sumRup.TabIndex = 3;
             this.numericUpDown_sumRup.TabStop = false;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button_Ok);
+            this.panel4.Controls.Add(this.button_cancel);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 210);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(501, 38);
+            this.panel4.TabIndex = 1;
+            // 
+            // button_Ok
+            // 
+            this.button_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_Ok.Location = new System.Drawing.Point(340, 8);
+            this.button_Ok.Name = "button_Ok";
+            this.button_Ok.Size = new System.Drawing.Size(75, 23);
+            this.button_Ok.TabIndex = 0;
+            this.button_Ok.Text = "Сохранить";
+            this.button_Ok.UseVisualStyleBackColor = true;
+            this.button_Ok.Click += new System.EventHandler(this.button_Ok_Click);
+            // 
+            // button_cancel
+            // 
+            this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_cancel.Location = new System.Drawing.Point(421, 8);
+            this.button_cancel.Name = "button_cancel";
+            this.button_cancel.Size = new System.Drawing.Size(75, 23);
+            this.button_cancel.TabIndex = 1;
+            this.button_cancel.Text = "Отмена";
+            this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
             // fSupplyTMC_DOC_COST
             // 
@@ -510,21 +515,21 @@
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sumCurr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_sumRup)).EndInit();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

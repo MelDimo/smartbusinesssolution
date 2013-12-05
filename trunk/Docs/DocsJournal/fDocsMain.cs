@@ -25,6 +25,8 @@ namespace com.sbs.gui.docsjournal
         DataTable dtPackType;
         DataTable dtRefStatus;
 
+        Filter oFilter;
+
         public fDocsMain()
         {
             InitializeComponent();
@@ -57,6 +59,9 @@ namespace com.sbs.gui.docsjournal
             dataGridView_main.Columns["ref_status"].DataPropertyName = "ref_status";
             dataGridView_main.Columns["ref_statusName"].DataPropertyName = "ref_statusName";
             dataGridView_main.Columns["date_create"].DataPropertyName = "date_create";
+            dataGridView_main.Columns["doc_base"].DataPropertyName = "doc_base";
+            dataGridView_main.Columns["doc_proxy"].DataPropertyName = "doc_proxy";
+            dataGridView_main.Columns["doc_comment"].DataPropertyName = "doc_comment";
         }
 
         private void fDocsMain_Shown(object sender, EventArgs e)
@@ -135,7 +140,7 @@ namespace com.sbs.gui.docsjournal
 
         private void button_filter_Click(object sender, EventArgs e)
         {
-            Filter oFilter = new Filter();
+            oFilter = new Filter();
             oFilter.packType = (int)comboBox_docsType.SelectedValue;
             oFilter.packNumber = textBox_docsNumber.Text.Trim();
             oFilter.packDate = dateTimePicker_dateCreate.Value;
@@ -156,6 +161,9 @@ namespace com.sbs.gui.docsjournal
             oPack.ref_status = (int)dr.Cells["ref_status"].Value;
             oPack.user_create = UsersInfo.UserId;
             oPack.date_create = (DateTime)dr.Cells["date_create"].Value;
+            oPack.doc_base = dr.Cells["doc_base"].Value.ToString();
+            oPack.doc_proxy = dr.Cells["doc_base"].Value.ToString();
+            oPack.doc_comment = dr.Cells["doc_comment"].Value.ToString();
             showPackage(oPack);
         }
 
@@ -166,8 +174,8 @@ namespace com.sbs.gui.docsjournal
                 case 1:
                     fSupplyTMC fsTMC = new fSupplyTMC(oPack);
                     fsTMC.ShowDialog();
+                    updateData(oFilter);
                     break;
-
             }
         }
     }
