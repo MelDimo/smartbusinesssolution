@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.gui.docsform.db;
+using com.sbs.dll;
 
 namespace com.sbs.gui.docsform
 {
@@ -273,7 +274,11 @@ namespace com.sbs.gui.docsform
 
         private void button_Ok_Click(object sender, EventArgs e)
         {
-
+            if (saveData())
+            {
+                MessageBox.Show("Данные успешно сохранены", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -281,6 +286,85 @@ namespace com.sbs.gui.docsform
             DialogResult = DialogResult.Cancel;
         }
 
+        private bool saveData()
+        {
+            //string errMessage = "Заполнены не все обязательные поля:";
+
+            //if (oSupplyCost.itemId == 0) errMessage += System.Environment.NewLine + "- ТМЦ;";
+            //if (oSupplyCost.itemCount == 0) errMessage += System.Environment.NewLine + "- Кол-во;";
+            //if (oSupplyCost.itemSumCurr == 0) errMessage += System.Environment.NewLine + "- Сумма в валюте;";
+
+            //if (!errMessage.Equals("Заполнены не все обязательные поля:"))
+            //{
+            //    uMessage.Show(errMessage, SystemIcons.Information);
+            //    return false;
+            //}
+
+            //Docs oDoc = new Docs();
+            //try
+            //{
+            //    switch (formMode)
+            //    {
+            //        case "ADD":
+            //            if (oPackages.id == 0)  // Запись документ добавляется в новый пакет
+            //            {
+            //                oPackages.ref_status = 28;
+            //                oPackages.id = oDocAction.savePackage("offline", oPackages);
+            //            }
+            //            oDoc.docs_type = 4;
+            //            oDoc.packages = oPackages.id;
+            //            oDoc.addParam("COST", oSupplyTMC.mol);
+            //            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
+            //            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
+            //            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+            //            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
+            //            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
+            //            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
+            //            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
+            //            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
+            //            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
+            //            oDoc.addParam("COURSE", oSupplyTMC.courseId);
+            //            oDocAction.saveDoc("offline", oPackages, oDoc);
+            //            break;
+
+            //        case "EDIT":
+
+            //            oDocAction.savePackage("offline", oPackages);
+
+            //            oDoc.id = oSupplyTMC_DOC.docId;
+            //            oDoc.docs_type = 4;
+            //            oDoc.packages = oPackages.id;
+            //            oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
+            //            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
+            //            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
+            //            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+            //            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
+            //            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
+            //            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
+            //            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
+            //            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
+            //            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
+            //            oDoc.addParam("COURSE", oSupplyTMC.courseId);
+            //            oDocAction.saveDoc("offline", oPackages, oDoc);
+            //            break;
+
+            //        default:
+            //            throw new Exception("Неудалось определить в каком режиме работает форма!");
+            //    }
+            //}
+            //catch (Exception exc)
+            //{
+            //    uMessage.Show("Не удалось создать запись.", exc, SystemIcons.Information);
+            //    setEnabled(false);
+            //    return false;
+            //}
+            //finally
+            //{
+
+            //}
+
+            return true;
+        }
 
     }
 }

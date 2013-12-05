@@ -157,7 +157,7 @@ namespace com.sbs.gui.docs
                 return;
             }
 
-            DataGridViewRow dr = dataGridView_docs.SelectedRows[0];
+            DataGridViewRow dr = dataGridView_docsParam.SelectedRows[0];
 
             if (DialogResult.Yes != MessageBox.Show("Вы уверены, что хотите удалить параметр '" + dr.Cells["refdocsparam_name"].Value.ToString() + "'?", GValues.prgNameFull,
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question))
