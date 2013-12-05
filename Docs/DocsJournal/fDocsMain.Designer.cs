@@ -43,14 +43,17 @@
             this.comboBox_status = new System.Windows.Forms.ComboBox();
             this.statusStrip_info = new System.Windows.Forms.StatusStrip();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
+            this.menuStrip_filter = new System.Windows.Forms.MenuStrip();
+            this.tSMenuItem_create = new System.Windows.Forms.ToolStripMenuItem();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.packages_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.packages_typeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_statusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.date_create = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.menuStrip_filter = new System.Windows.Forms.MenuStrip();
-            this.tSMenuItem_create = new System.Windows.Forms.ToolStripMenuItem();
+            this.doc_base = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.doc_proxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.doc_comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox_filter.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
@@ -233,7 +236,10 @@
             this.packages_typeName,
             this.ref_status,
             this.ref_statusName,
-            this.date_create});
+            this.date_create,
+            this.doc_base,
+            this.doc_proxy,
+            this.doc_comment});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(2, 98);
             this.dataGridView_main.MultiSelect = false;
@@ -244,6 +250,22 @@
             this.dataGridView_main.Size = new System.Drawing.Size(960, 339);
             this.dataGridView_main.TabIndex = 2;
             this.dataGridView_main.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_main_CellClick);
+            // 
+            // menuStrip_filter
+            // 
+            this.menuStrip_filter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSMenuItem_create});
+            this.menuStrip_filter.Location = new System.Drawing.Point(2, 2);
+            this.menuStrip_filter.Name = "menuStrip_filter";
+            this.menuStrip_filter.Size = new System.Drawing.Size(960, 24);
+            this.menuStrip_filter.TabIndex = 3;
+            this.menuStrip_filter.Text = "menuStrip1";
+            // 
+            // tSMenuItem_create
+            // 
+            this.tSMenuItem_create.Name = "tSMenuItem_create";
+            this.tSMenuItem_create.Size = new System.Drawing.Size(62, 20);
+            this.tSMenuItem_create.Text = "Создать";
             // 
             // id
             // 
@@ -288,21 +310,26 @@
             this.date_create.ReadOnly = true;
             this.date_create.Width = 101;
             // 
-            // menuStrip_filter
+            // doc_base
             // 
-            this.menuStrip_filter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSMenuItem_create});
-            this.menuStrip_filter.Location = new System.Drawing.Point(2, 2);
-            this.menuStrip_filter.Name = "menuStrip_filter";
-            this.menuStrip_filter.Size = new System.Drawing.Size(960, 24);
-            this.menuStrip_filter.TabIndex = 3;
-            this.menuStrip_filter.Text = "menuStrip1";
+            this.doc_base.HeaderText = "doc_base";
+            this.doc_base.Name = "doc_base";
+            this.doc_base.ReadOnly = true;
+            this.doc_base.Visible = false;
             // 
-            // tSMenuItem_create
+            // doc_proxy
             // 
-            this.tSMenuItem_create.Name = "tSMenuItem_create";
-            this.tSMenuItem_create.Size = new System.Drawing.Size(62, 20);
-            this.tSMenuItem_create.Text = "Создать";
+            this.doc_proxy.HeaderText = "doc_proxy";
+            this.doc_proxy.Name = "doc_proxy";
+            this.doc_proxy.ReadOnly = true;
+            this.doc_proxy.Visible = false;
+            // 
+            // doc_comment
+            // 
+            this.doc_comment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.doc_comment.HeaderText = "Комментарии";
+            this.doc_comment.Name = "doc_comment";
+            this.doc_comment.ReadOnly = true;
             // 
             // fDocsMain
             // 
@@ -354,6 +381,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_statusName;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_create;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doc_base;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doc_proxy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn doc_comment;
 
     }
 }

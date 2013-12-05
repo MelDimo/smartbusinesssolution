@@ -233,9 +233,15 @@
             // 
             // numericUpDown_count
             // 
+            this.numericUpDown_count.DecimalPlaces = 2;
             this.numericUpDown_count.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_count.Location = new System.Drawing.Point(179, 3);
+            this.numericUpDown_count.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
             this.numericUpDown_count.Name = "numericUpDown_count";
             this.numericUpDown_count.Size = new System.Drawing.Size(71, 20);
             this.numericUpDown_count.TabIndex = 0;
@@ -278,7 +284,7 @@
             this.tableLayoutPanel3.ColumnCount = 4;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 67F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.numericUpDown_priceRub, 3, 0);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
@@ -294,12 +300,18 @@
             // 
             // numericUpDown_priceRub
             // 
+            this.numericUpDown_priceRub.DecimalPlaces = 2;
             this.numericUpDown_priceRub.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_priceRub.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_priceRub.Location = new System.Drawing.Point(252, 3);
+            this.numericUpDown_priceRub.Location = new System.Drawing.Point(241, 3);
+            this.numericUpDown_priceRub.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
             this.numericUpDown_priceRub.Name = "numericUpDown_priceRub";
             this.numericUpDown_priceRub.ReadOnly = true;
-            this.numericUpDown_priceRub.Size = new System.Drawing.Size(79, 20);
+            this.numericUpDown_priceRub.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown_priceRub.TabIndex = 1;
             this.numericUpDown_priceRub.TabStop = false;
             // 
@@ -318,21 +330,28 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(185, 0);
+            this.label7.Location = new System.Drawing.Point(196, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 26);
+            this.label7.Size = new System.Drawing.Size(39, 26);
             this.label7.TabIndex = 2;
             this.label7.Text = "в Руб.";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numericUpDown_priceCurr
             // 
+            this.numericUpDown_priceCurr.DecimalPlaces = 2;
             this.numericUpDown_priceCurr.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_priceCurr.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_priceCurr.Location = new System.Drawing.Point(100, 3);
+            this.numericUpDown_priceCurr.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.numericUpDown_priceCurr.Name = "numericUpDown_priceCurr";
-            this.numericUpDown_priceCurr.Size = new System.Drawing.Size(79, 20);
+            this.numericUpDown_priceCurr.Size = new System.Drawing.Size(90, 20);
             this.numericUpDown_priceCurr.TabIndex = 0;
+            this.numericUpDown_priceCurr.Leave += new System.EventHandler(this.numericUpDown_priceCurr_Leave);
             // 
             // tableLayoutPanel4
             // 
@@ -366,9 +385,15 @@
             // 
             // numericUpDown_sumCost
             // 
+            this.numericUpDown_sumCost.DecimalPlaces = 2;
             this.numericUpDown_sumCost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_sumCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown_sumCost.Location = new System.Drawing.Point(59, 3);
+            this.numericUpDown_sumCost.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
             this.numericUpDown_sumCost.Name = "numericUpDown_sumCost";
             this.numericUpDown_sumCost.ReadOnly = true;
             this.numericUpDown_sumCost.Size = new System.Drawing.Size(90, 20);
@@ -388,9 +413,15 @@
             // 
             // numericUpDown5
             // 
+            this.numericUpDown5.DecimalPlaces = 2;
             this.numericUpDown5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.numericUpDown5.Location = new System.Drawing.Point(241, 3);
+            this.numericUpDown5.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
             this.numericUpDown5.Name = "numericUpDown5";
             this.numericUpDown5.ReadOnly = true;
             this.numericUpDown5.Size = new System.Drawing.Size(90, 20);

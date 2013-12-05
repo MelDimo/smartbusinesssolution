@@ -11,6 +11,7 @@ using com.sbs.gui.docsform.db;
 using com.sbs.dll;
 using System.Data.SqlClient;
 using com.sbs.dll.docsaction;
+using System.Diagnostics;
 
 namespace com.sbs.gui.docsform
 {
@@ -22,12 +23,13 @@ namespace com.sbs.gui.docsform
 
         DataTable dtTmcType;
         DataTable dtAccount;
+        DataTable dtTMC;
         
         SupplyTMC oSupplyTMC;
         SupplyTMC_DOC oSupplyTMC_DOC;
         Packages oPackages;
 
-        private string formMode; // В каком режиме диалог "EDIT"/"ADD"
+        private string formMode;        // В каком режиме диалог "EDIT"/"ADD"
 
         public fSupplyTMC_DOC(SupplyTMC pSupplyTMC, SupplyTMC_DOC pSupplyTMC_DOC, Packages pPackages)
         {
@@ -35,11 +37,10 @@ namespace com.sbs.gui.docsform
             oSupplyTMC_DOC = pSupplyTMC_DOC;
             oPackages = pPackages;
 
-            if (oSupplyTMC_DOC.itemId == 0) formMode = "ADD";
+            if (oSupplyTMC_DOC.docId == 0) formMode = "ADD";
             else formMode = "EDIT";
 
             InitializeComponent();
-
         }
 
         private void setEnabled(bool pEnabled)
@@ -74,6 +75,9 @@ namespace com.sbs.gui.docsform
             comboBox_tmcType.DisplayMember = "name";
             comboBox_tmcType.ValueMember = "id";
 
+            if(formMode != "ADD") // Если новый досумент не выбираем ничего
+                comboBox_tmcType.SelectedValue = oSupplyTMC_DOC.itemTmcType;
+
             comboBox_tmcType.SelectedValueChanged +=new EventHandler(comboBox_tmcType_SelectedValueChanged);
 
             textBox_TmcType.DataBindings.Add("Text", oSupplyTMC_DOC, "itemName");
@@ -92,6 +96,8 @@ namespace com.sbs.gui.docsform
         private void initControls()
         {
             DataRow recData;
+
+            oSupplyTMC_DOC.itemTmcType = (int)comboBox_tmcType.SelectedValue;
 
             switch ((int)comboBox_tmcType.SelectedValue)
             { 
@@ -123,7 +129,6 @@ namespace com.sbs.gui.docsform
 
         private void button_TMC_Click(object sender, EventArgs e)
         {
-            DataTable dtTMC = new DataTable();
             try
             {
                 dtTMC = dbAccess.getTmcByType("offline", (int)comboBox_tmcType.SelectedValue);
@@ -230,6 +235,7 @@ namespace com.sbs.gui.docsform
                 return false;
             }
 
+            Docs oDoc = new Docs();
             try
             {
                 switch (formMode)
@@ -240,11 +246,9 @@ namespace com.sbs.gui.docsform
                             oPackages.ref_status = 28;
                             oPackages.id = oDocAction.savePackage("offline", oPackages);
                         }
-
-                        Docs oDoc = new Docs();
                         oDoc.docs_type = 4;
                         oDoc.packages = oPackages.id;
-                        oDoc.ref_status = 28;
+                        oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
                         oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
                         oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
                         oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
@@ -255,13 +259,28 @@ namespace com.sbs.gui.docsform
                         oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
                         oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
                         oDoc.addParam("COURSE", oSupplyTMC.courseId);
-
                         oDocAction.saveDoc("offline", oPackages, oDoc);
-                        
                         break;
 
                     case "EDIT":
 
+                        oDocAction.savePackage("offline", oPackages);
+
+                        oDoc.id = oSupplyTMC_DOC.docId;
+                        oDoc.docs_type = 4;
+                        oDoc.packages = oPackages.id;
+                        oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
+                        oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
+                        oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
+                        oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+                        oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
+                        oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
+                        oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
+                        oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
+                        oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
+                        oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
+                        oDoc.addParam("COURSE", oSupplyTMC.courseId);
+                        oDocAction.saveDoc("offline", oPackages, oDoc);
                         break;
 
                     default:
@@ -274,7 +293,10 @@ namespace com.sbs.gui.docsform
                 setEnabled(false);
                 return false;
             }
-            finally {  }
+            finally
+            {
+                
+            }
 
             return true;
         }
@@ -282,6 +304,13 @@ namespace com.sbs.gui.docsform
         private void button_cancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void numericUpDown_priceCurr_Leave(object sender, EventArgs e)
+        {
+            numericUpDown_priceCurr.DataBindings[0].WriteValue();
+            oSupplyTMC_DOC.itemSumRub = Math.Round(oSupplyTMC_DOC.itemCount * oSupplyTMC_DOC.itemSumCurr * oSupplyTMC.currCourse, 2);
+            numericUpDown_priceRub.DataBindings[0].ReadValue();
         }
     }
 }

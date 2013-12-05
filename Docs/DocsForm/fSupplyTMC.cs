@@ -9,12 +9,16 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.gui.docsform.db;
 using com.sbs.dll.docsaction;
+using com.sbs.dll;
 
 namespace com.sbs.gui.docsform
 {
     public partial class fSupplyTMC : Form
     {
         getReference oReference = new getReference();
+        SupplyTMC oSupplyTMC = new SupplyTMC();
+
+        List<SupplyTMC_DOC> oListSupplyTMC_DOC = new List<SupplyTMC_DOC>();
         
         DBAccess dbAccess = new DBAccess();
 
@@ -23,6 +27,7 @@ namespace com.sbs.gui.docsform
         DataTable dtAccount;        // Таблица счетов
         DataTable dtContractor;     // Поставщики
         DataTable dtCurr;           // Валюта
+        DataTable dtTMC;            // Товарно мат ценность
 
         DataTable dtTmcType;        // Вид ТМС
 
@@ -43,6 +48,10 @@ namespace com.sbs.gui.docsform
             tSButton_editDop.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
             tSButton_delDop.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
             tSButton_copyDop.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
+
+            textBox_BASE.DataBindings.Add("Text", oPackages, "doc_base");
+            textBox_PROXY.DataBindings.Add("Text", oPackages, "doc_proxy");
+            textBox_comment.DataBindings.Add("Text", oPackages, "doc_comment");
 
             fillReferences();
         }
@@ -76,42 +85,61 @@ namespace com.sbs.gui.docsform
             }
         }
 
-        private SupplyTMC checkValidity()
+        private bool checkValidity(SupplyTMC pSupplyTMC)
         {
-            Object[] oData;
-            SupplyTMC oSupplyTMC = new SupplyTMC();
+            string errMsg = "Заполнены не все обязательные поля:" + Environment.NewLine;
 
             try
             {
-                oSupplyTMC.mol = (int)textBox_mol.Tag;
+                oSupplyTMC.DocReason = textBox_BASE.Text;
+                oSupplyTMC.DocProxy = textBox_PROXY.Text;
+                oSupplyTMC.comment = textBox_comment.Text;
 
-                oData = textBox_AccKT.Tag as Object[];
-                oSupplyTMC.accKred = (int)oData[0];
+                if (pSupplyTMC.mol == 0)
+                {
+                    errMsg += "- МОЛ;" + Environment.NewLine;
+                }
 
-                oData = textBox_kontr.Tag as Object[];
-                oSupplyTMC.kontrId = (int)oData[0];
+                if (pSupplyTMC.accKred == 0)
+                {
+                    errMsg += "- Счет Кредит;" + Environment.NewLine;
+                }
 
-                oData = textBox_curr.Tag as Object[];
-                oSupplyTMC.courseId = (int)oData[6];
-                oSupplyTMC.currCode = oData[1].ToString();
+                if (pSupplyTMC.kontrId == 0)
+                {
+                    errMsg += "- Контрагент;" + Environment.NewLine;
+                }
+
+                if (pSupplyTMC.courseId == 0)
+                {
+                    errMsg += "- Валюта;" + Environment.NewLine;
+                }
+
+                if (!errMsg.Equals("Заполнены не все обязательные поля:" + Environment.NewLine))
+                {
+                    throw new Exception(errMsg);
+                }
             }
             catch (Exception exc)
             {
                 throw exc;
             }
 
-            return oSupplyTMC;
+            return true;
         }
+
+#region ------------------------------------------------------ ------------------- Приход ТМЦ
 
         private void tSButton_add_Click(object sender, EventArgs e)
         {
-
-            SupplyTMC oSupplyTMC;
             SupplyTMC_DOC oSupplyTMC_DOC = new SupplyTMC_DOC();
 
             try
             {
-                oSupplyTMC = checkValidity();
+                if (!checkValidity(oSupplyTMC))
+                {
+                    throw new Exception("");
+                }
             }
             catch (Exception exc)
             {
@@ -120,17 +148,28 @@ namespace com.sbs.gui.docsform
                 return;
             }
 
-            //SupplyTMC oSupplyTMC = new SupplyTMC();
-
             fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC, oSupplyTMC_DOC, oPackages);
-            fsupplyDoc.ShowDialog();
+            if (fsupplyDoc.ShowDialog() == DialogResult.OK)
+                updateData();
         }
-
-
 
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
+            int index;
 
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            index = dataGridView_main.SelectedRows[0].Index;
+
+            if (!checkValidity(oSupplyTMC)) return;
+
+            fSupplyTMC_DOC fsupplyDoc = new fSupplyTMC_DOC(oSupplyTMC, oListSupplyTMC_DOC[index], oPackages);
+            if (fsupplyDoc.ShowDialog() == DialogResult.OK)
+                updateData();
         }
 
         private void tSButton_del_Click(object sender, EventArgs e)
@@ -143,9 +182,137 @@ namespace com.sbs.gui.docsform
 
         }
 
+#endregion -------------------------------------------------------------------------------------
+
         private void fSupplyTMC_Shown(object sender, EventArgs e)
         {
+            updateData();
+        }
 
+        private void updateData()
+        {
+            int xDocId = 0;
+
+            DataTable dtAccountAll;
+            DataTable dtDoc;
+            DataRow drValue;
+
+            if (oPackages.id == 0) return; // Новый пакет, просто отображаем форму
+
+            try
+            {
+                dtDoc = dbAccess.getTMC_DOC("offline", oPackages);
+                dtAccountAll = oReference.getAccounts("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Не удалось получить данные по пакету.", exc, SystemIcons.Information);
+                setEnabled(false);
+                return;
+            }
+
+            SupplyTMC_DOC oSupplyTMC_DOC = new SupplyTMC_DOC();
+            foreach (DataRow dr in dtDoc.Rows)
+            {
+                if (xDocId == 0)    // Первый проход
+                {
+                    xDocId = int.Parse(dr["id"].ToString());
+                    oSupplyTMC_DOC.docId = xDocId;
+                }
+
+                if (xDocId != int.Parse(dr["id"].ToString()))
+                {
+                    oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
+
+                    xDocId = int.Parse(dr["id"].ToString());
+                    oSupplyTMC_DOC = new SupplyTMC_DOC();
+                    oSupplyTMC_DOC.docId = xDocId;
+                }
+
+                switch (dr["name"].ToString())
+                {
+                    case "SUPPLIER":
+                        drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        textBox_kontr.Text = drValue["name"].ToString();
+                        textBox_kontr.Tag = drValue;
+                        oSupplyTMC.kontrId = (int)drValue["id"];
+                        break;
+                    case "ACC_DT":
+                        drValue = (from row in dtAccountAll.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC.itemDeb = (int)drValue["id"];
+                        oSupplyTMC_DOC.itemDebName = drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
+                        break;
+                    case "ACC_KT":
+                        drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        textBox_AccKT.Text = drValue["group_II"].ToString();
+                        oSupplyTMC.accKred = (int)drValue["id"];
+                        break;
+                    case "TYPE_TMC":
+                        drValue = (from row in dtTmcType.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        oSupplyTMC_DOC.itemTmcType_Name = drValue["name"].ToString();
+                        oSupplyTMC_DOC.itemTmcType = (int)drValue["id"];
+                        try
+                        {
+                            dtTMC = dbAccess.getTmcByType("offline", oSupplyTMC_DOC.itemTmcType);
+                        }
+                        catch (Exception exc)
+                        {
+                            uMessage.Show("Не удалось получить данные.", exc, SystemIcons.Information);
+                            setEnabled(false);
+                            return;
+                        }
+                        break;
+                    case "TMC":
+                        oSupplyTMC_DOC.itemId = int.Parse(dr["value"].ToString());
+                        drValue = (from row in dtTMC.AsEnumerable() where row.Field<int>("id") == oSupplyTMC_DOC.itemId select row).First();
+                        oSupplyTMC_DOC.itemName = drValue["name"].ToString();
+                        break;
+                    case "COUNT":
+                        oSupplyTMC_DOC.itemCount = decimal.Parse(dr["value"].ToString());
+                        break;
+                    case "SUM_CURR":
+                        oSupplyTMC_DOC.itemSumCurr = decimal.Parse(dr["value"].ToString());
+                        break;
+                    case "SUM_RUB":
+                        oSupplyTMC_DOC.itemSumRub = decimal.Parse(dr["value"].ToString());
+                        break;
+                    case "SUM_COST":
+                        oSupplyTMC_DOC.itemSumCost = decimal.Parse(dr["value"].ToString());
+                        break;
+                    case "COURSE":
+                        drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
+                        textBox_curr.Text = drValue["code"].ToString();
+                        textBox_currCourse.Text = drValue["course"].ToString();
+                        textBox_curType.Text = drValue["ref_currency_type_name"].ToString();
+                        oSupplyTMC.currCourse = (decimal)drValue["course"];
+                        oSupplyTMC.courseId = (int)drValue["idCourse"];
+                        oSupplyTMC.currCode = drValue["code"].ToString();
+                        break;
+                    case "UNIT_KT":
+                        drValue = (from row in dtUnit.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                        textBox_mol.Text = drValue["name"].ToString();
+                        oSupplyTMC.mol = (int)drValue["id"];
+                        break;
+                    case "COMMENTS":
+                        oSupplyTMC.comment = dr["value"].ToString();
+                        textBox_comment.Text = oSupplyTMC.comment;
+                        break;
+                    case "DOC_BASE":
+                        oSupplyTMC.DocReason = dr["value"].ToString();
+                        textBox_BASE.Text = oSupplyTMC.DocReason;
+                        break;
+                    case "DOC_PROXY":
+                        oSupplyTMC.DocProxy = dr["value"].ToString();
+                        textBox_PROXY.Text = oSupplyTMC.DocProxy;
+                        break;
+                }
+            }
+
+            if (dtDoc.Rows.Count > 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC); //Добавляем последний или единственный документ
+
+            dataGridView_main.DataSource = oListSupplyTMC_DOC;
+            dataGridView_main.Columns["itemName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView_main.Refresh();
         }
 
         private void setEnabled(bool pEnabled)
@@ -168,7 +335,8 @@ namespace com.sbs.gui.docsform
             if (fChoseUnit.ShowDialog() == DialogResult.OK)
             {
                 textBox_mol.Text = fChoseUnit.selectedName;
-                textBox_mol.Tag = fChoseUnit.selectedId;
+
+                oSupplyTMC.mol = (int)fChoseUnit.selectedId;
             }
         }
 
@@ -203,8 +371,9 @@ namespace com.sbs.gui.docsform
             {
                 textBox_AccKT.Text = fChose.xData[1].ToString();
                 textBox_AccKT.Tag = fChose.xData;
+
+                oSupplyTMC.accKred = (int)fChose.xData[0];
             }
-            
         }
 
         private void button_getKontr_Click(object sender, EventArgs e)
@@ -233,6 +402,8 @@ namespace com.sbs.gui.docsform
             {
                 textBox_kontr.Text = fChose.xData[1].ToString();
                 textBox_kontr.Tag = fChose.xData;
+
+                oSupplyTMC.kontrId = (int)fChose.xData[0];
             }
         }
 
@@ -305,7 +476,8 @@ namespace com.sbs.gui.docsform
                 textBox_currCourse.Text = fChose.xData[8].ToString();
                 textBox_curType.Text = fChose.xData[5].ToString();
 
-                textBox_curr.Tag = fChose.xData;
+                oSupplyTMC.courseId = (int)fChose.xData[6];
+                oSupplyTMC.currCode = fChose.xData[1].ToString();
             }
         }
 
@@ -342,6 +514,7 @@ namespace com.sbs.gui.docsform
         public int kontrId { get; set; }
         public string DocReason { get; set; }
         public string DocProxy { get; set; }
+        public decimal currCourse { get; set; }
         public int courseId { get; set; }
         public string currCode { get; set; }
         public string comment { get; set; }
@@ -349,15 +522,29 @@ namespace com.sbs.gui.docsform
 
     public class SupplyTMC_DOC
     {
+        [Browsable(false)]
+        public int docId { get; set; }
+        [Browsable(false)]
         public int itemTmcType { get; set; }
+        [DisplayName("Вид ТМЦ"),]
+        public string itemTmcType_Name { get; set; }
+        [Browsable(false)]
         public int itemId { get; set; }
+        [DisplayName("ТМЦ")]
         public string itemName { get; set; }
+        [Browsable(false)]
         public string itemMeasureName { get; set; }
+        [DisplayName("Кол-во")]
         public decimal itemCount { get; set; }
+        [DisplayName("Счет")]
         public int itemDeb { get; set; }
+        [Browsable(false)]
         public string itemDebName { get; set; }
+        [DisplayName("Сумма в валюте")]
         public decimal itemSumCurr { get; set; }
+        [DisplayName("Сумма в рублях")]
         public decimal itemSumRub { get; set; }
+        [DisplayName("Сумма затрат")]
         public decimal itemSumCost { get; set; }
     }
 
