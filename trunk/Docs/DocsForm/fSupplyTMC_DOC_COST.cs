@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.gui.docsform.db;
 using com.sbs.dll;
+using com.sbs.dll.docsaction;
 
 namespace com.sbs.gui.docsform
 {
@@ -17,15 +18,25 @@ namespace com.sbs.gui.docsform
         SupplyTMC_DOC_COST oSupplyCost;
         getReference oReference = new getReference();
         DBAccess dbAccess = new DBAccess();
+        DocActions oDocAction = new DocActions();
+        Packages oPackages;
+        SupplyTMC oSupplyTMC;
 
         DataTable dtCost;
         DataTable dtAccount;
         DataTable dtContractor;
         DataTable dtCurr;
 
-        public fSupplyTMC_DOC_COST(SupplyTMC_DOC_COST pSupplyCost)
+        private string formMode;        // В каком режиме диалог "EDIT"/"ADD"
+
+        public fSupplyTMC_DOC_COST(SupplyTMC pSupplyTMC, SupplyTMC_DOC_COST pSupplyCost, Packages pPackages)
         {
             oSupplyCost = pSupplyCost;
+            oPackages = pPackages;
+            oSupplyTMC = pSupplyTMC;
+
+            if (oSupplyCost.docId == 0) formMode = "ADD";
+            else formMode = "EDIT";
 
             InitializeComponent();
 
@@ -53,6 +64,7 @@ namespace com.sbs.gui.docsform
             textBox_curr.DataBindings.Add("Text", oSupplyCost, "costCurrCodeName");
             textBox_currCourse.DataBindings.Add("Text", oSupplyCost, "costCourseVal");
             textBox_curType.DataBindings.Add("Text", oSupplyCost, "costCurrTypeName");
+            numericUpDown_sumCurr.DataBindings.Add("Value", oSupplyCost, "itemSumCurr", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void setEnabled(bool pIsEnabled)
@@ -288,80 +300,76 @@ namespace com.sbs.gui.docsform
 
         private bool saveData()
         {
-            //string errMessage = "Заполнены не все обязательные поля:";
+            string errMessage = "Заполнены не все обязательные поля:";
 
-            //if (oSupplyCost.itemId == 0) errMessage += System.Environment.NewLine + "- ТМЦ;";
-            //if (oSupplyCost.itemCount == 0) errMessage += System.Environment.NewLine + "- Кол-во;";
-            //if (oSupplyCost.itemSumCurr == 0) errMessage += System.Environment.NewLine + "- Сумма в валюте;";
+            if (oSupplyCost.costType == 0) errMessage += System.Environment.NewLine + "- Вид;";
+            if (oSupplyCost.costAcc == 0) errMessage += System.Environment.NewLine + "- Счет;";
+            if (oSupplyCost.costContractor == 0) errMessage += System.Environment.NewLine + "- Контр агент;";
+            if (oSupplyCost.costCourse == 0) errMessage += System.Environment.NewLine + "- Контр агент;";
 
-            //if (!errMessage.Equals("Заполнены не все обязательные поля:"))
-            //{
-            //    uMessage.Show(errMessage, SystemIcons.Information);
-            //    return false;
-            //}
 
-            //Docs oDoc = new Docs();
-            //try
-            //{
-            //    switch (formMode)
-            //    {
-            //        case "ADD":
-            //            if (oPackages.id == 0)  // Запись документ добавляется в новый пакет
-            //            {
-            //                oPackages.ref_status = 28;
-            //                oPackages.id = oDocAction.savePackage("offline", oPackages);
-            //            }
-            //            oDoc.docs_type = 4;
-            //            oDoc.packages = oPackages.id;
-            //            oDoc.addParam("COST", oSupplyTMC.mol);
-            //            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
-            //            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
-            //            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
-            //            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
-            //            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
-            //            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
-            //            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
-            //            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
-            //            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
-            //            oDoc.addParam("COURSE", oSupplyTMC.courseId);
-            //            oDocAction.saveDoc("offline", oPackages, oDoc);
-            //            break;
+            if (!errMessage.Equals("Заполнены не все обязательные поля:"))
+            {
+                uMessage.Show(errMessage, SystemIcons.Information);
+                return false;
+            }
 
-            //        case "EDIT":
+            Docs oDoc = new Docs();
+            try
+            {
+                switch (formMode)
+                {
+                    case "ADD":
+                        if (oPackages.id == 0)  // Запись документ добавляется в новый пакет
+                        {
+                            oPackages.ref_status = 28;
+                            oPackages.id = oDocAction.savePackage("offline", oPackages);
+                        }
+                        oDoc.docs_type = 5;
+                        oDoc.packages = oPackages.id;
+                        oDoc.addParam("COST_TYPE", oSupplyCost.costType);
+                        oDoc.addParam("ACC_DT", oSupplyCost.costAcc);
+                        oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+                        oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
+                        oDoc.addParam("SUPPLYER", oSupplyCost.costContractor);
+                        oDoc.addParam("COURSE", oSupplyCost.costCourse);
+                        oDoc.addParam("SUM_CURR", oSupplyCost.costSumCurr);
+                        oDoc.addParam("SUM_RUB", oSupplyCost.costSumRup);
 
-            //            oDocAction.savePackage("offline", oPackages);
+                        oDocAction.saveDoc("offline", oPackages, oDoc);
+                        break;
 
-            //            oDoc.id = oSupplyTMC_DOC.docId;
-            //            oDoc.docs_type = 4;
-            //            oDoc.packages = oPackages.id;
-            //            oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
-            //            oDoc.addParam("SUPPLIER", oSupplyTMC.kontrId);
-            //            oDoc.addParam("ACC_DT", oSupplyTMC_DOC.itemDeb);
-            //            oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
-            //            oDoc.addParam("TYPE_TMC", oSupplyTMC_DOC.itemTmcType);
-            //            oDoc.addParam("TMC", oSupplyTMC_DOC.itemId);
-            //            oDoc.addParam("COUNT", oSupplyTMC_DOC.itemCount);
-            //            oDoc.addParam("SUM_CURR", oSupplyTMC_DOC.itemSumCurr);
-            //            oDoc.addParam("SUM_RUB", oSupplyTMC_DOC.itemSumRub);
-            //            oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
-            //            oDoc.addParam("COURSE", oSupplyTMC.courseId);
-            //            oDocAction.saveDoc("offline", oPackages, oDoc);
-            //            break;
+                    case "EDIT":
 
-            //        default:
-            //            throw new Exception("Неудалось определить в каком режиме работает форма!");
-            //    }
-            //}
-            //catch (Exception exc)
-            //{
-            //    uMessage.Show("Не удалось создать запись.", exc, SystemIcons.Information);
-            //    setEnabled(false);
-            //    return false;
-            //}
-            //finally
-            //{
+                        oDocAction.savePackage("offline", oPackages);
 
-            //}
+                        oDoc.id = oSupplyCost.docId;
+                        oDoc.docs_type = 5;
+                        oDoc.packages = oPackages.id;
+                        oDoc.addParam("COST_TYPE", oSupplyCost.costType);
+                        oDoc.addParam("ACC_DT", oSupplyCost.costAcc);
+                        oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
+                        oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
+                        oDoc.addParam("SUPPLYER", oSupplyCost.costContractor);
+                        oDoc.addParam("COURSE", oSupplyCost.costCourse);
+                        oDoc.addParam("SUM_CURR", oSupplyCost.costSumCurr);
+                        oDoc.addParam("SUM_RUB", oSupplyCost.costSumRup);
+                        break;
+
+                    default:
+                        throw new Exception("Неудалось определить в каком режиме работает форма!");
+                }
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Не удалось создать запись.", exc, SystemIcons.Information);
+                setEnabled(false);
+                return false;
+            }
+            finally
+            {
+
+            }
 
             return true;
         }

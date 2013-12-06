@@ -223,7 +223,7 @@ namespace com.sbs.gui.docsform
                 {
                     xDocId = int.Parse(dr["id"].ToString());
                     switch (dr["docs_type"].ToString())
-                    { 
+                    {
                         case "4":
                             oSupplyTMC_DOC.docId = xDocId;
                             break;
@@ -234,7 +234,7 @@ namespace com.sbs.gui.docsform
                     }
                 }
 
-                if (xDocId != int.Parse(dr["id"].ToString()) )
+                if (xDocId != int.Parse(dr["id"].ToString()))
                 {
                     switch (dr["docs_type"].ToString())
                     {
@@ -254,129 +254,151 @@ namespace com.sbs.gui.docsform
                     }
                 }
 
-                switch (dr["name"].ToString())
+                switch (dr["docs_type"].ToString())
                 {
-                    #region ----------------------------------------------------------- основной документ
-                    case "SUPPLIER":
-                        drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        textBox_kontr.Text = drValue["name"].ToString();
-                        textBox_kontr.Tag = drValue;
-                        oSupplyTMC.kontrId = (int)drValue["id"];
-                        break;
-                    case "ACC_DT":
-                        drValue = (from row in dtAccountAll.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC.itemDeb = (int)drValue["id"];
-                        oSupplyTMC_DOC.itemDebName = drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
-                        break;
-                    case "ACC_KT":
-                        drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        textBox_AccKT.Text = drValue["group_II"].ToString();
-                        oSupplyTMC.accKred = (int)drValue["id"];
-                        break;
-                    case "TYPE_TMC":
-                        drValue = (from row in dtTmcType.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC.itemTmcType_Name = drValue["name"].ToString();
-                        oSupplyTMC_DOC.itemTmcType = (int)drValue["id"];
-                        try
+                    case "4":
+                        #region ----------------------------------------------------------- основной документ
+                        switch (dr["name"].ToString())
                         {
-                            dtTMC = dbAccess.getTmcByType("offline", oSupplyTMC_DOC.itemTmcType);
+                            case "SUPPLIER":
+                                drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_kontr.Text = drValue["name"].ToString();
+                                textBox_kontr.Tag = drValue;
+                                oSupplyTMC.kontrId = (int)drValue["id"];
+                                break;
+                            case "ACC_DT":
+                                drValue = (from row in dtAccountAll.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC.itemDeb = (int)drValue["id"];
+                                oSupplyTMC_DOC.itemDebName = drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
+                                break;
+                            case "ACC_KT":
+                                drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_AccKT.Text = drValue["group_II"].ToString();
+                                oSupplyTMC.accKred = (int)drValue["id"];
+                                break;
+                            case "TYPE_TMC":
+                                drValue = (from row in dtTmcType.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC.itemTmcType_Name = drValue["name"].ToString();
+                                oSupplyTMC_DOC.itemTmcType = (int)drValue["id"];
+                                try
+                                {
+                                    dtTMC = dbAccess.getTmcByType("offline", oSupplyTMC_DOC.itemTmcType);
+                                }
+                                catch (Exception exc)
+                                {
+                                    uMessage.Show("Не удалось получить данные.", exc, SystemIcons.Information);
+                                    setEnabled(false);
+                                    return;
+                                }
+                                break;
+                            case "TMC":
+                                oSupplyTMC_DOC.itemId = int.Parse(dr["value"].ToString());
+                                drValue = (from row in dtTMC.AsEnumerable() where row.Field<int>("id") == oSupplyTMC_DOC.itemId select row).First();
+                                oSupplyTMC_DOC.itemName = drValue["name"].ToString();
+                                break;
+                            case "COUNT":
+                                oSupplyTMC_DOC.itemCount = decimal.Parse(dr["value"].ToString());
+                                break;
+                            case "SUM_CURR":
+                                oSupplyTMC_DOC.itemSumCurr = decimal.Parse(dr["value"].ToString());
+                                break;
+                            case "SUM_RUB":
+                                oSupplyTMC_DOC.itemSumRub = decimal.Parse(dr["value"].ToString());
+                                break;
+                            case "SUM_COST":
+                                oSupplyTMC_DOC.itemSumCost = decimal.Parse(dr["value"].ToString());
+                                break;
+                            case "COURSE":
+                                drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_curr.Text = drValue["code"].ToString();
+                                textBox_currCourse.Text = drValue["course"].ToString();
+                                textBox_curType.Text = drValue["ref_currency_type_name"].ToString();
+                                oSupplyTMC.currCourse = (decimal)drValue["course"];
+                                oSupplyTMC.courseId = (int)drValue["idCourse"];
+                                oSupplyTMC.currCode = drValue["code"].ToString();
+                                break;
+                            case "UNIT_KT":
+                                drValue = (from row in dtUnit.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_mol.Text = drValue["name"].ToString();
+                                oSupplyTMC.mol = (int)drValue["id"];
+                                break;
+                            case "COMMENTS":
+                                oSupplyTMC.comment = dr["value"].ToString();
+                                textBox_comment.Text = oSupplyTMC.comment;
+                                break;
+                            case "DOC_BASE":
+                                oSupplyTMC.DocReason = dr["value"].ToString();
+                                textBox_BASE.Text = oSupplyTMC.DocReason;
+                                break;
+                            case "DOC_PROXY":
+                                oSupplyTMC.DocProxy = dr["value"].ToString();
+                                textBox_PROXY.Text = oSupplyTMC.DocProxy;
+                                break;
                         }
-                        catch (Exception exc)
+                        break;
+                        #endregion
+
+                    case "5":
+                        #region ----------------------------------------------------------- доп. затраты документ
+                        switch (dr["name"].ToString())
                         {
-                            uMessage.Show("Не удалось получить данные.", exc, SystemIcons.Information);
-                            setEnabled(false);
-                            return;
+                            case "COST_TYPE":
+                                drValue = (from row in dtCost.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC_COST.costType = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costTypeName = drValue["name"].ToString();
+                                break;
+
+                            case "ACC_DT":
+                                drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC_COST.costAcc = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costAccName = drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
+                                break;
+
+                            case "ACC_KT":
+                                drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_AccKT.Text = drValue["group_II"].ToString();
+                                oSupplyTMC.accKred = (int)drValue["id"];
+                                break;
+
+                            case "UNIT_KT":
+                                drValue = (from row in dtUnit.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                textBox_mol.Text = drValue["name"].ToString();
+                                oSupplyTMC.mol = (int)drValue["id"];
+                                break;
+
+                            case "SUPPLYER":
+                                drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC_COST.costContractor = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costContractorName = drValue["name"].ToString();
+                                break;
+
+                            case "COURSE":
+                                drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
+                                oSupplyTMC_DOC_COST.costCourse = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costCurrCodeName = drValue["code"].ToString();
+                                oSupplyTMC_DOC_COST.costCurrTypeName = drValue["ref_currency_type_name"].ToString();
+                                oSupplyTMC_DOC_COST.costCourseVal = decimal.Parse(drValue["course"].ToString());
+                                break;
+
+                            case "SUM_CURR":
+                                oSupplyTMC_DOC_COST.costSumCurr = (decimal)dr["value"];
+                                break;
+
+                            case "SUM_RUB":
+                                oSupplyTMC_DOC_COST.costSumRup = (decimal)dr["value"];
+                                break;
                         }
                         break;
-                    case "TMC":
-                        oSupplyTMC_DOC.itemId = int.Parse(dr["value"].ToString());
-                        drValue = (from row in dtTMC.AsEnumerable() where row.Field<int>("id") == oSupplyTMC_DOC.itemId select row).First();
-                        oSupplyTMC_DOC.itemName = drValue["name"].ToString();
-                        break;
-                    case "COUNT":
-                        oSupplyTMC_DOC.itemCount = decimal.Parse(dr["value"].ToString());
-                        break;
-                    case "SUM_CURR":
-                        oSupplyTMC_DOC.itemSumCurr = decimal.Parse(dr["value"].ToString());
-                        break;
-                    case "SUM_RUB":
-                        oSupplyTMC_DOC.itemSumRub = decimal.Parse(dr["value"].ToString());
-                        break;
-                    case "SUM_COST":
-                        oSupplyTMC_DOC.itemSumCost = decimal.Parse(dr["value"].ToString());
-                        break;
-                    case "COURSE":
-                        drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
-                        textBox_curr.Text = drValue["code"].ToString();
-                        textBox_currCourse.Text = drValue["course"].ToString();
-                        textBox_curType.Text = drValue["ref_currency_type_name"].ToString();
-                        oSupplyTMC.currCourse = (decimal)drValue["course"];
-                        oSupplyTMC.courseId = (int)drValue["idCourse"];
-                        oSupplyTMC.currCode = drValue["code"].ToString();
-                        break;
-                    case "UNIT_KT":
-                        drValue = (from row in dtUnit.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        textBox_mol.Text = drValue["name"].ToString();
-                        oSupplyTMC.mol = (int)drValue["id"];
-                        break;
-                    case "COMMENTS":
-                        oSupplyTMC.comment = dr["value"].ToString();
-                        textBox_comment.Text = oSupplyTMC.comment;
-                        break;
-                    case "DOC_BASE":
-                        oSupplyTMC.DocReason = dr["value"].ToString();
-                        textBox_BASE.Text = oSupplyTMC.DocReason;
-                        break;
-                    case "DOC_PROXY":
-                        oSupplyTMC.DocProxy = dr["value"].ToString();
-                        textBox_PROXY.Text = oSupplyTMC.DocProxy;
-                        break;
-                    #endregion
+                        #endregion
 
-                    #region ----------------------------------------------------------- доп. затраты документ
-                    case "COST_TYPE":
-                        drValue = (from row in dtCost.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC_COST.costType = (int)dr["value"];
-                        oSupplyTMC_DOC_COST.costTypeName = drValue["name"].ToString();
-                        break;
-
-                    case "COST_ACC":
-                        drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC_COST.costAcc = (int)dr["value"];
-                        oSupplyTMC_DOC_COST.costAccName =  drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
-                        break;
-
-                    case "COST_SUPPLYER":
-                        drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC_COST.costContractor = (int)dr["value"];
-                        oSupplyTMC_DOC_COST.costContractorName = drValue["name"].ToString();
-                        break;
-
-                    case "COST_COURSE":
-                        drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
-                        oSupplyTMC_DOC_COST.costCourse = (int)dr["value"];
-                        oSupplyTMC_DOC_COST.costCurrCodeName = drValue["code"].ToString();
-                        oSupplyTMC_DOC_COST.costCurrTypeName = drValue["ref_currency_type_name"].ToString();
-                        oSupplyTMC_DOC_COST.costCourseVal = decimal.Parse(drValue["course"].ToString());
-                        break;
-
-                    case "COST_SUM_CURR":
-                        oSupplyTMC_DOC_COST.costSumCurr = (decimal)dr["value"];
-                        break;
-
-                    case "COST_SUM_RUB":
-                        oSupplyTMC_DOC_COST.costSumRup = (decimal)dr["value"];
-                        break;
-
-                    #endregion
                 }
+
+                if (dtDoc.Rows.Count > 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC); //Добавляем последний или единственный документ
+
+                dataGridView_main.DataSource = oListSupplyTMC_DOC;
+                dataGridView_main.Columns["itemName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView_main.Refresh();
             }
-
-            if (dtDoc.Rows.Count > 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC); //Добавляем последний или единственный документ
-
-            dataGridView_main.DataSource = oListSupplyTMC_DOC;
-            dataGridView_main.Columns["itemName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView_main.Refresh();
         }
 
         private void setEnabled(bool pEnabled)
@@ -549,9 +571,26 @@ namespace com.sbs.gui.docsform
 
         private void tSButton_addDop_Click(object sender, EventArgs e)
         {
+            SupplyTMC_DOC_COST oSupplyTMC_DOC_COST = new SupplyTMC_DOC_COST();
 
-            fSupplyTMC_DOC_COST fsupplyDocCost = new fSupplyTMC_DOC_COST(new SupplyTMC_DOC_COST());
-            fsupplyDocCost.ShowDialog();
+            try
+            {
+                if (!checkValidity(oSupplyTMC))
+                {
+                    throw new Exception("");
+                }
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Проверка валидности данных привела к ошибке." + Environment.NewLine +
+                                "Проверьте заполнены ли обязательные поля.", exc, SystemIcons.Information);
+                return;
+            }
+
+            fSupplyTMC_DOC_COST fsupplyDocCost = new fSupplyTMC_DOC_COST(oSupplyTMC, oSupplyTMC_DOC_COST, oPackages);
+            if (fsupplyDocCost.ShowDialog() == DialogResult.OK)
+                updateData();
+            
         }
 
         private void tSButton_editDop_Click(object sender, EventArgs e)
