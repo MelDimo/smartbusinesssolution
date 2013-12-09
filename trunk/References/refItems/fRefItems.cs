@@ -134,8 +134,7 @@ namespace com.sbs.gui.references.refitems
         
         private void tSButton_del_Click(object sender, EventArgs e)
         {
-
-
+            
         }
     }
 
