@@ -261,8 +261,10 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
-                command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
-                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
+                if (pUnitDTO.RefPrinters == 0) command.Parameters.Add("ref_printers", SqlDbType.Int).Value = DBNull.Value;
+                else command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
+                if (pUnitDTO.RefPrinters == 0) command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = DBNull.Value;
+                else command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
                 command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
 
                 command.ExecuteNonQuery();

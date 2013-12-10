@@ -57,8 +57,7 @@ namespace com.sbs.gui.compositionorg
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            saveData();
-            DialogResult = DialogResult.OK;
+            if(saveData()) DialogResult = DialogResult.OK;
         }
 
         private void button_apply_Click(object sender, EventArgs e)
@@ -68,11 +67,10 @@ namespace com.sbs.gui.compositionorg
 
         private void button_cancel_Click(object sender, EventArgs e)
         {
-            if (changeData) DialogResult = DialogResult.OK;
-            else DialogResult = DialogResult.Cancel;
+           DialogResult = DialogResult.Cancel;
         }
 
-        private void saveData()
+        private bool saveData()
         {
             string errMessage = "Заполнены не все обязательные поля:";
             oUnitDTO.Name = textBox_name.Text.Trim();
@@ -86,7 +84,7 @@ namespace com.sbs.gui.compositionorg
             if (!errMessage.Equals("Заполнены не все обязательные поля:"))
             {
                 uMessage.Show(errMessage, SystemIcons.Information);
-                return;
+                return false;
             }
             switch (formMode)
             {
@@ -106,7 +104,7 @@ namespace com.sbs.gui.compositionorg
                     break;
             }
 
-            changeData = true;
+            return true;
         }
     }
 }
