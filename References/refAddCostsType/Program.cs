@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using com.sbs.dll;
 
-namespace refAddCostsType
+namespace com.sbs.gui.references.refaddcoststype
 {
     static class Program
     {

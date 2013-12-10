@@ -182,6 +182,8 @@ namespace com.sbs.gui.references.contractor
 
         private void comboBox_contrType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox_contrType.SelectedValue == null) return;
+
             if (comboBox_contrType.SelectedValue.ToString().Equals("2"))
                 tabControl_main.TabPages.Add(tabPage_passport);
             else

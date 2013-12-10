@@ -1,4 +1,4 @@
-﻿namespace refAddCostsType
+﻿namespace com.sbs.gui.references.refaddcoststype
 {
     partial class fAddEdit
     {

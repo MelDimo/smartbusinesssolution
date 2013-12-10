@@ -10,7 +10,7 @@ using com.sbs.dll.utilites;
 using System.Data.SqlClient;
 using com.sbs.dll;
 
-namespace refAddCostsType
+namespace com.sbs.gui.references.refaddcoststype
 {
     public partial class fAddEdit : Form
     {
