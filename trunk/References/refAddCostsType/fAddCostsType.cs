@@ -10,7 +10,7 @@ using System.Data.SqlClient;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
 
-namespace refAddCostsType
+namespace com.sbs.gui.references.refaddcoststype
 {
     public partial class fAddCostsType : Form
     {
@@ -88,7 +88,7 @@ namespace refAddCostsType
 
             Items oItems = new Items();
             oItems.id = (int)dr.Cells["id"].Value;
-            oItems.name = dr.Cells["id"].Value.ToString();
+            oItems.name = dr.Cells["name"].Value.ToString();
             oItems.refAccounts = (int)dr.Cells["ref_accounts"].Value;
             oItems.refAccountsName = dr.Cells["ref_accounts_name"].Value.ToString();
             oItems.refContractor = (int)dr.Cells["ref_contractor"].Value;
