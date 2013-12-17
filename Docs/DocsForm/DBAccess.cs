@@ -94,7 +94,7 @@ namespace com.sbs.gui.docsform.db
                                         " INNER JOIN docs_param_value dpv ON dpv.docs = doc.id" +
                                         " INNER JOIN ref_docs_param rdp ON rdp.id = dpv.ref_docs_param" +
                                         " WHERE doc.packages = @packId"+
-                                        " ORDER BY id";
+                                        " ORDER BY doc.id, doc.docs_type";
 
                 command.Parameters.Add("packId", SqlDbType.Int).Value = pPackages.id;
 

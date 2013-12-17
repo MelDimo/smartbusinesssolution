@@ -112,7 +112,9 @@ namespace com.sbs.gui.docsjournal
                 case "1":         // Приход ТМЦ (пакет)
                     oPack = new Packages();
                     oPack.packages_type = 1;
-                    
+                    fSupplyTMC fsTMC = new fSupplyTMC(oPack);
+                    fsTMC.ShowDialog();
+                    updateData(getFilter());
                     break;
             }
         }
@@ -138,7 +140,7 @@ namespace com.sbs.gui.docsjournal
             }
         }
 
-        private void button_filter_Click(object sender, EventArgs e)
+        private Filter getFilter()
         {
             oFilter = new Filter();
             oFilter.packType = (int)comboBox_docsType.SelectedValue;
@@ -147,13 +149,61 @@ namespace com.sbs.gui.docsjournal
             oFilter.packStatus = (int)comboBox_status.SelectedValue;
             oFilter.packOwn = (int)comboBox_own.SelectedIndex;
 
-            updateData(oFilter);
+            return oFilter;
         }
 
-        private void dataGridView_main_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void button_filter_Click(object sender, EventArgs e)
+        {
+            updateData(getFilter());
+        }
+
+        private void showPackage(Packages pPackage)
+        {
+            switch (pPackage.packages_type)
+            { 
+                case 1:
+                    try
+                    {
+                        getBlockAndAction(oPack);
+                    }
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Ошибка сценария документа", exc, SystemIcons.Error);
+                        setEnabled(false);
+                        return;
+                    }
+                    fSupplyTMC fsTMC = new fSupplyTMC(oPack);
+                    fsTMC.ShowDialog();
+                    updateData(oFilter);
+                    break;
+            }
+        }
+
+        private void getBlockAndAction(Packages oPack)
+        {
+            
+        }
+
+        private void dataGridView_main_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView_main.SelectedRows.Count == 0) return;
 
+            activateDoc();
+        }
+
+        private void dataGridView_main_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (dataGridView_main.SelectedRows.Count == 0) return;
+                    activateDoc();
+                    break;
+            }
+        }
+
+        private void activateDoc()
+        {
             DataGridViewRow dr = dataGridView_main.SelectedRows[0];
             oPack = new Packages();
             oPack.id = (int)dr.Cells["id"].Value;
@@ -165,18 +215,6 @@ namespace com.sbs.gui.docsjournal
             oPack.doc_proxy = dr.Cells["doc_base"].Value.ToString();
             oPack.doc_comment = dr.Cells["doc_comment"].Value.ToString();
             showPackage(oPack);
-        }
-
-        private void showPackage(Packages pPackage)
-        {
-            switch (pPackage.packages_type)
-            { 
-                case 1:
-                    fSupplyTMC fsTMC = new fSupplyTMC(oPack);
-                    fsTMC.ShowDialog();
-                    updateData(oFilter);
-                    break;
-            }
         }
     }
 

@@ -260,6 +260,7 @@ namespace com.sbs.gui.docsform
                         oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
                         oDoc.addParam("COURSE", oSupplyTMC.courseId);
                         oDocAction.saveDoc("offline", oPackages, oDoc);
+                        oDocAction.recalcPackageCost("offline", oPackages, 4);
                         break;
 
                     case "EDIT":
@@ -281,6 +282,7 @@ namespace com.sbs.gui.docsform
                         oDoc.addParam("SUM_COST", oSupplyTMC_DOC.itemSumCost);
                         oDoc.addParam("COURSE", oSupplyTMC.courseId);
                         oDocAction.saveDoc("offline", oPackages, oDoc);
+                        oDocAction.recalcPackageCost("offline", oPackages, 4);
                         break;
 
                     default:

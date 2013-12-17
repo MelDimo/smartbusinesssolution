@@ -163,7 +163,7 @@
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.38462F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.61538F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 175F));
             this.tableLayoutPanel3.Controls.Add(this.textBox_currCourse, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.label7, 1, 0);
@@ -184,7 +184,7 @@
             // 
             this.textBox_currCourse.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_currCourse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_currCourse.Location = new System.Drawing.Point(125, 20);
+            this.textBox_currCourse.Location = new System.Drawing.Point(124, 20);
             this.textBox_currCourse.Name = "textBox_currCourse";
             this.textBox_currCourse.Size = new System.Drawing.Size(92, 20);
             this.textBox_currCourse.TabIndex = 2;
@@ -195,7 +195,7 @@
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Location = new System.Drawing.Point(3, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(116, 17);
+            this.label6.Size = new System.Drawing.Size(115, 17);
             this.label6.TabIndex = 0;
             this.label6.Text = "Валюта поставки";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -204,7 +204,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(125, 0);
+            this.label7.Location = new System.Drawing.Point(124, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(92, 17);
             this.label7.TabIndex = 1;
@@ -215,9 +215,9 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.Location = new System.Drawing.Point(223, 0);
+            this.label10.Location = new System.Drawing.Point(222, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(169, 17);
+            this.label10.Size = new System.Drawing.Size(170, 17);
             this.label10.TabIndex = 2;
             this.label10.Text = "Форма расчета";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -229,7 +229,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 20);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(116, 21);
+            this.panel5.Size = new System.Drawing.Size(115, 21);
             this.panel5.TabIndex = 1;
             // 
             // textBox_curr
@@ -239,14 +239,14 @@
             this.textBox_curr.Location = new System.Drawing.Point(0, 0);
             this.textBox_curr.Name = "textBox_curr";
             this.textBox_curr.ReadOnly = true;
-            this.textBox_curr.Size = new System.Drawing.Size(87, 20);
+            this.textBox_curr.Size = new System.Drawing.Size(86, 20);
             this.textBox_curr.TabIndex = 4;
             this.textBox_curr.TabStop = false;
             // 
             // button_getCurr
             // 
             this.button_getCurr.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button_getCurr.Location = new System.Drawing.Point(87, 0);
+            this.button_getCurr.Location = new System.Drawing.Point(86, 0);
             this.button_getCurr.Name = "button_getCurr";
             this.button_getCurr.Size = new System.Drawing.Size(29, 21);
             this.button_getCurr.TabIndex = 0;
@@ -259,9 +259,9 @@
             this.panel8.Controls.Add(this.textBox_curType);
             this.panel8.Controls.Add(this.button2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(223, 20);
+            this.panel8.Location = new System.Drawing.Point(222, 20);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(169, 21);
+            this.panel8.Size = new System.Drawing.Size(170, 21);
             this.panel8.TabIndex = 6;
             // 
             // textBox_curType
@@ -271,14 +271,14 @@
             this.textBox_curType.Location = new System.Drawing.Point(0, 0);
             this.textBox_curType.Name = "textBox_curType";
             this.textBox_curType.ReadOnly = true;
-            this.textBox_curType.Size = new System.Drawing.Size(140, 20);
+            this.textBox_curType.Size = new System.Drawing.Size(141, 20);
             this.textBox_curType.TabIndex = 6;
             this.textBox_curType.TabStop = false;
             // 
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button2.Location = new System.Drawing.Point(140, 0);
+            this.button2.Location = new System.Drawing.Point(141, 0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(29, 21);
             this.button2.TabIndex = 0;
@@ -440,7 +440,7 @@
             this.numericUpDown_sumCurr.Name = "numericUpDown_sumCurr";
             this.numericUpDown_sumCurr.Size = new System.Drawing.Size(191, 20);
             this.numericUpDown_sumCurr.TabIndex = 2;
-            this.numericUpDown_sumCurr.Validating += new System.ComponentModel.CancelEventHandler(this.numericUpDown_sumCurr_Validating);
+            this.numericUpDown_sumCurr.Leave += new System.EventHandler(this.numericUpDown_sumCurr_Leave);
             // 
             // numericUpDown_sumRup
             // 

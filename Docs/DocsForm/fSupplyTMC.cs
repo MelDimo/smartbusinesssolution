@@ -70,9 +70,9 @@ namespace com.sbs.gui.docsform
             {
                 dtUnit = oReference.getUnit("offline");
 
-                dtAccount = oReference.getAccounts("offline", 52, 1);
-                dtBuff = oReference.getAccounts("offline", 61, 2);
-                dtAccount = dtAccount.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
+                dtAccount = oReference.getAccounts("offline");
+                //dtBuff = oReference.getAccounts("offline", 61, 2);
+                //dtAccount = dtAccount.AsEnumerable().Union(dtBuff.AsEnumerable()).CopyToDataTable<DataRow>();
 
                 dtContractor = oReference.getContactor("offline");
                 
@@ -197,9 +197,12 @@ namespace com.sbs.gui.docsform
         {
             int xDocId = 0;
 
-            DataTable dtAccountAll;
-            DataTable dtDoc;
+            DataTable dtAccountAll = new DataTable();
+            DataTable dtDoc = new DataTable();
             DataRow drValue;
+
+            oListSupplyTMC_DOC = new List<SupplyTMC_DOC>();
+            oListSupplyTMC_DOC_COST = new List<SupplyTMC_DOC_COST>();
 
             if (oPackages.id == 0) return; // Новый пакет, просто отображаем форму
 
@@ -239,14 +242,14 @@ namespace com.sbs.gui.docsform
                     switch (dr["docs_type"].ToString())
                     {
                         case "4":
-                            oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
+                            if (oSupplyTMC_DOC.docId != 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
                             xDocId = int.Parse(dr["id"].ToString());
                             oSupplyTMC_DOC = new SupplyTMC_DOC();
                             oSupplyTMC_DOC.docId = xDocId;
                             break;
 
                         case "5":
-                            oListSupplyTMC_DOC_COST.Add(oSupplyTMC_DOC_COST);
+                            if (oSupplyTMC_DOC_COST.docId != 0) oListSupplyTMC_DOC_COST.Add(oSupplyTMC_DOC_COST);
                             xDocId = int.Parse(dr["id"].ToString());
                             oSupplyTMC_DOC_COST = new SupplyTMC_DOC_COST();
                             oSupplyTMC_DOC_COST.docId = xDocId;
@@ -306,7 +309,7 @@ namespace com.sbs.gui.docsform
                                 oSupplyTMC_DOC.itemSumRub = decimal.Parse(dr["value"].ToString());
                                 break;
                             case "SUM_COST":
-                                oSupplyTMC_DOC.itemSumCost = decimal.Parse(dr["value"].ToString());
+                                oSupplyTMC_DOC.itemSumCost = decimal.Parse(dr["value"].ToString().Replace('.',','));
                                 break;
                             case "COURSE":
                                 drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
@@ -344,13 +347,13 @@ namespace com.sbs.gui.docsform
                         {
                             case "COST_TYPE":
                                 drValue = (from row in dtCost.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                                oSupplyTMC_DOC_COST.costType = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costType = int.Parse(dr["value"].ToString());
                                 oSupplyTMC_DOC_COST.costTypeName = drValue["name"].ToString();
                                 break;
 
                             case "ACC_DT":
                                 drValue = (from row in dtAccount.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                                oSupplyTMC_DOC_COST.costAcc = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costAcc = int.Parse(dr["value"].ToString());
                                 oSupplyTMC_DOC_COST.costAccName = drValue["group_II"].ToString() + " (" + drValue["name"].ToString() + ")";
                                 break;
 
@@ -366,39 +369,46 @@ namespace com.sbs.gui.docsform
                                 oSupplyTMC.mol = (int)drValue["id"];
                                 break;
 
-                            case "SUPPLYER":
+                            case "SUPPLIER":
                                 drValue = (from row in dtContractor.AsEnumerable() where row.Field<int>("id") == int.Parse(dr["value"].ToString()) select row).First();
-                                oSupplyTMC_DOC_COST.costContractor = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costContractor = int.Parse(dr["value"].ToString());
                                 oSupplyTMC_DOC_COST.costContractorName = drValue["name"].ToString();
                                 break;
 
                             case "COURSE":
                                 drValue = (from row in dtCurr.AsEnumerable() where row.Field<int>("idCourse") == int.Parse(dr["value"].ToString()) select row).First();
-                                oSupplyTMC_DOC_COST.costCourse = (int)dr["value"];
+                                oSupplyTMC_DOC_COST.costCourse = int.Parse(dr["value"].ToString());
                                 oSupplyTMC_DOC_COST.costCurrCodeName = drValue["code"].ToString();
                                 oSupplyTMC_DOC_COST.costCurrTypeName = drValue["ref_currency_type_name"].ToString();
                                 oSupplyTMC_DOC_COST.costCourseVal = decimal.Parse(drValue["course"].ToString());
                                 break;
 
                             case "SUM_CURR":
-                                oSupplyTMC_DOC_COST.costSumCurr = (decimal)dr["value"];
+                                oSupplyTMC_DOC_COST.costSumCurr = decimal.Parse(dr["value"].ToString());
                                 break;
 
                             case "SUM_RUB":
-                                oSupplyTMC_DOC_COST.costSumRup = (decimal)dr["value"];
+                                oSupplyTMC_DOC_COST.costSumRup = decimal.Parse(dr["value"].ToString());
                                 break;
                         }
                         break;
                         #endregion
-
                 }
-
-                if (dtDoc.Rows.Count > 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC); //Добавляем последний или единственный документ
-
-                dataGridView_main.DataSource = oListSupplyTMC_DOC;
-                dataGridView_main.Columns["itemName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView_main.Refresh();
             }
+
+            if (dtDoc.Rows.Count > 0)   //Добавляем последний или единственный документ
+            {
+                if(oSupplyTMC_DOC.docId != 0) oListSupplyTMC_DOC.Add(oSupplyTMC_DOC);
+                if (oSupplyTMC_DOC_COST.docId != 0) oListSupplyTMC_DOC_COST.Add(oSupplyTMC_DOC_COST);
+            }
+
+            dataGridView_main.DataSource = oListSupplyTMC_DOC;
+            dataGridView_main.Columns["itemName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView_main.Refresh();
+
+            dataGridView_cost.DataSource = oListSupplyTMC_DOC_COST;
+            dataGridView_cost.Columns["costTypeName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView_cost.Refresh();
         }
 
         private void setEnabled(bool pEnabled)
@@ -595,7 +605,21 @@ namespace com.sbs.gui.docsform
 
         private void tSButton_editDop_Click(object sender, EventArgs e)
         {
+            int index;
 
+            if (dataGridView_cost.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            index = dataGridView_cost.SelectedRows[0].Index;
+
+            if (!checkValidity(oSupplyTMC)) return;
+
+            fSupplyTMC_DOC_COST fsupplyDocCost = new fSupplyTMC_DOC_COST(oSupplyTMC, oListSupplyTMC_DOC_COST[index], oPackages);
+            if (fsupplyDocCost.ShowDialog() == DialogResult.OK)
+                updateData();
         }
 
         private void tSButton_delDop_Click(object sender, EventArgs e)
@@ -604,6 +628,11 @@ namespace com.sbs.gui.docsform
         }
 
         private void tSButton_copyDop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_save_Click(object sender, EventArgs e)
         {
 
         }
@@ -639,9 +668,9 @@ namespace com.sbs.gui.docsform
         public string itemMeasureName { get; set; }
         [DisplayName("Кол-во")]
         public decimal itemCount { get; set; }
-        [DisplayName("Счет")]
-        public int itemDeb { get; set; }
         [Browsable(false)]
+        public int itemDeb { get; set; }
+        [DisplayName("Счет")]
         public string itemDebName { get; set; }
         [DisplayName("Сумма в валюте")]
         public decimal itemSumCurr { get; set; }
@@ -655,18 +684,31 @@ namespace com.sbs.gui.docsform
     {
         [Browsable(false)]
         public int docId { get; set; }
+        [Browsable(false)]
         public int costType { get; set; }
+        [DisplayName("Вид затрат")]
         public string costTypeName { get; set; }
+        [Browsable(false)]
         public int costAcc { get; set; }
+        [DisplayName("Счет")]
         public string costAccName { get; set; }
+        [Browsable(false)]
         public int costContractor { get; set; }
+        [DisplayName("Контрагент")]
         public string costContractorName { get; set; }
+        [Browsable(false)]
         public int costCurr { get; set; }
+        [Browsable(false)]
         public string costCurrTypeName { get; set; }
+        [DisplayName("Валюта")]
         public string costCurrCodeName { get; set; }
+        [Browsable(false)]
         public int costCourse { get; set; }
+        [Browsable(false)]
         public decimal costCourseVal { get; set; }
+        [DisplayName("Сумма в валюте")]
         public decimal costSumCurr { get; set; }
+        [DisplayName("Сумма в рублях")]
         public decimal costSumRup { get; set; }
     }
 }
