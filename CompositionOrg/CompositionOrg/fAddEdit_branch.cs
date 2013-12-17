@@ -50,6 +50,18 @@ namespace com.sbs.gui.compositionorg
             comboBox_city.ValueMember = "id";
             comboBox_city.SelectedValue = oBranchDTO.RefCity;
 
+            dateTimePicker_open.ShowUpDown = true;
+            dateTimePicker_open.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+            dateTimePicker_open.CustomFormat = "HH:mm";
+            dateTimePicker_open.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+
+            dateTimePicker_close.ShowUpDown = true;
+            dateTimePicker_close.CustomFormat = "HH:mm";
+            dateTimePicker_close.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
+            dateTimePicker_close.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+
+            numericUpDown_duration.Value = 15;
+
         }
 
         private void button_ok_Click(object sender, EventArgs e)
