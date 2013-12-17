@@ -196,7 +196,7 @@ namespace com.sbs.gui.compositionorg
             oBranchDTO.RefStatus = (int)dataRow.Cells["branch_ref_status"].Value;
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
-            faddeditbranch.Text = "Редактирование + '" + oBranchDTO.Name + "'";
+            faddeditbranch.Text = "Редактирование '" + oBranchDTO.Name + "'";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
 
             dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
