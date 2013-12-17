@@ -64,7 +64,8 @@ namespace com.sbs.gui.docsform
             textBox_curr.DataBindings.Add("Text", oSupplyCost, "costCurrCodeName");
             textBox_currCourse.DataBindings.Add("Text", oSupplyCost, "costCourseVal");
             textBox_curType.DataBindings.Add("Text", oSupplyCost, "costCurrTypeName");
-            numericUpDown_sumCurr.DataBindings.Add("Value", oSupplyCost, "itemSumCurr", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown_sumCurr.DataBindings.Add("Value", oSupplyCost, "costSumCurr", true, DataSourceUpdateMode.OnPropertyChanged);
+            numericUpDown_sumRup.DataBindings.Add("Value", oSupplyCost, "costSumRup", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void setEnabled(bool pIsEnabled)
@@ -276,14 +277,6 @@ namespace com.sbs.gui.docsform
             }
         }
 
-        private void numericUpDown_sumCurr_Validating(object sender, CancelEventArgs e)
-        {
-            oSupplyCost.costSumCurr = numericUpDown_sumCurr.Value;
-            oSupplyCost.costSumRup = Math.Round(numericUpDown_sumCurr.Value * oSupplyCost.costCourseVal, 3);
-
-            numericUpDown_sumRup.Value = oSupplyCost.costSumRup;
-        }
-
         private void button_Ok_Click(object sender, EventArgs e)
         {
             if (saveData())
@@ -331,16 +324,17 @@ namespace com.sbs.gui.docsform
                         oDoc.addParam("ACC_DT", oSupplyCost.costAcc);
                         oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
                         oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
-                        oDoc.addParam("SUPPLYER", oSupplyCost.costContractor);
+                        oDoc.addParam("SUPPLIER", oSupplyCost.costContractor);
                         oDoc.addParam("COURSE", oSupplyCost.costCourse);
                         oDoc.addParam("SUM_CURR", oSupplyCost.costSumCurr);
                         oDoc.addParam("SUM_RUB", oSupplyCost.costSumRup);
 
                         oDocAction.saveDoc("offline", oPackages, oDoc);
+                        oDocAction.recalcPackageCost("offline", oPackages, 4);
                         break;
 
                     case "EDIT":
-
+                        
                         oDocAction.savePackage("offline", oPackages);
 
                         oDoc.id = oSupplyCost.docId;
@@ -350,10 +344,13 @@ namespace com.sbs.gui.docsform
                         oDoc.addParam("ACC_DT", oSupplyCost.costAcc);
                         oDoc.addParam("ACC_KT", oSupplyTMC.accKred);
                         oDoc.addParam("UNIT_KT", oSupplyTMC.mol);
-                        oDoc.addParam("SUPPLYER", oSupplyCost.costContractor);
+                        oDoc.addParam("SUPPLIER", oSupplyCost.costContractor);
                         oDoc.addParam("COURSE", oSupplyCost.costCourse);
                         oDoc.addParam("SUM_CURR", oSupplyCost.costSumCurr);
                         oDoc.addParam("SUM_RUB", oSupplyCost.costSumRup);
+
+                        oDocAction.saveDoc("offline", oPackages, oDoc);
+                        oDocAction.recalcPackageCost("offline", oPackages, 4);
                         break;
 
                     default:
@@ -372,6 +369,13 @@ namespace com.sbs.gui.docsform
             }
 
             return true;
+        }
+
+        private void numericUpDown_sumCurr_Leave(object sender, EventArgs e)
+        {
+            numericUpDown_sumCurr.DataBindings[0].WriteValue();
+            oSupplyCost.costSumRup = Math.Round(oSupplyCost.costSumCurr * oSupplyCost.costCourseVal, 2);
+            numericUpDown_sumRup.DataBindings[0].ReadValue();
         }
 
     }
