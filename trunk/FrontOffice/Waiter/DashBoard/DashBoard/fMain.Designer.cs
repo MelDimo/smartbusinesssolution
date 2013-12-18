@@ -62,6 +62,8 @@
             this.tabControl_bill = new System.Windows.Forms.TabControl();
             this.tabPage_selectBill = new System.Windows.Forms.TabPage();
             this.dataGridView_billInfo = new System.Windows.Forms.DataGridView();
+            this.textBox_curItem = new System.Windows.Forms.TextBox();
+            this.billsinfo_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,7 +72,7 @@
             this.ref_status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox_curItem = new System.Windows.Forms.TextBox();
+            this.isToppingFor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip_bottom.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -499,6 +501,7 @@
             this.dataGridView_billInfo.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView_billInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_billInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.billsinfo_id,
             this.dishes,
             this.dishes_name,
             this.dishes_price,
@@ -506,7 +509,8 @@
             this.suma,
             this.ref_status,
             this.status_name,
-            this.discount});
+            this.discount,
+            this.isToppingFor});
             this.dataGridView_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_billInfo.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_billInfo.MultiSelect = false;
@@ -517,6 +521,27 @@
             this.dataGridView_billInfo.TabIndex = 0;
             this.dataGridView_billInfo.TabStop = false;
             this.dataGridView_billInfo.Leave += new System.EventHandler(this.dataGridView_billInfo_Leave);
+            // 
+            // textBox_curItem
+            // 
+            this.textBox_curItem.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox_curItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox_curItem.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBox_curItem.Enabled = false;
+            this.textBox_curItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox_curItem.Location = new System.Drawing.Point(0, 542);
+            this.textBox_curItem.Name = "textBox_curItem";
+            this.textBox_curItem.ReadOnly = true;
+            this.textBox_curItem.Size = new System.Drawing.Size(997, 29);
+            this.textBox_curItem.TabIndex = 0;
+            this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // billsinfo_id
+            // 
+            this.billsinfo_id.HeaderText = "billsinfo_id";
+            this.billsinfo_id.Name = "billsinfo_id";
+            this.billsinfo_id.ReadOnly = true;
+            this.billsinfo_id.Visible = false;
             // 
             // dishes
             // 
@@ -578,19 +603,12 @@
             this.discount.ReadOnly = true;
             this.discount.Visible = false;
             // 
-            // textBox_curItem
+            // isToppingFor
             // 
-            this.textBox_curItem.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox_curItem.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox_curItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox_curItem.Enabled = false;
-            this.textBox_curItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox_curItem.Location = new System.Drawing.Point(0, 542);
-            this.textBox_curItem.Name = "textBox_curItem";
-            this.textBox_curItem.ReadOnly = true;
-            this.textBox_curItem.Size = new System.Drawing.Size(997, 29);
-            this.textBox_curItem.TabIndex = 0;
-            this.textBox_curItem.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.isToppingFor.HeaderText = "isToppingFor";
+            this.isToppingFor.Name = "isToppingFor";
+            this.isToppingFor.ReadOnly = true;
+            this.isToppingFor.Visible = false;
             // 
             // fMain
             // 
@@ -682,6 +700,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn bill_numb;
         private System.Windows.Forms.DataGridViewTextBoxColumn date_open;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn billsinfo_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_price;
@@ -690,6 +709,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status;
         private System.Windows.Forms.DataGridViewTextBoxColumn status_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn discount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isToppingFor;
     }
 }
 
