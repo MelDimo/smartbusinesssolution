@@ -51,7 +51,7 @@ namespace com.sbs.gui.DashBoard
             xNewCount = (double)(numericUpDown_count.Value);
             try
             {
-                DbAccess.editDishToBill("offline", xBillInfo, xNewCount);
+                //DbAccess.editDishToBill("offline", xBillInfo, xNewCount);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return false; }
             xBillInfo.XCount = xNewCount;

@@ -84,6 +84,12 @@
     <Compile Include="fCloseSeason_Waiter.Designer.cs">
       <DependentUpon>fCloseSeason_Waiter.cs</DependentUpon>
     </Compile>
+    <Compile Include="fDishAddTopping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDishAddTopping.Designer.cs">
+      <DependentUpon>fDishAddTopping.cs</DependentUpon>
+    </Compile>
     <Compile Include="fDishToBill_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -150,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fCloseSeason_Waiter.resx">
       <DependentUpon>fCloseSeason_Waiter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDishAddTopping.resx">
+      <DependentUpon>fDishAddTopping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fDishToBill_Edit.resx">
       <DependentUpon>fDishToBill_Edit.cs</DependentUpon>

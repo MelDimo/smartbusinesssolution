@@ -110,7 +110,7 @@ namespace com.sbs.gui.DashBoard
 
                 command.Parameters.Clear();
 
-                command.CommandText = "SELECT bills, dishes, bi.dishes_name, bi.dishes_price, bi.xcount, bi.dishes_price * bi.xcount as suma, bi.ref_status, stat.name as ref_status_name, discount" +
+                command.CommandText = "SELECT bi.id, bills, dishes, bi.dishes_name, bi.dishes_price, bi.xcount, bi.dishes_price * bi.xcount as suma, bi.ref_status, stat.name as ref_status_name, discount, isnull(bi.isToppingFor, 0) as isToppingFor" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN ref_status stat ON stat.id = bi.ref_status" +
                                         " WHERE bills = @bills";
@@ -127,6 +127,8 @@ namespace com.sbs.gui.DashBoard
                         while (dreader.Read())
                         {
                             oBillInfo billInfo = new oBillInfo();
+                            billInfo.id = (int)dreader["id"];
+                            billInfo.isToppingFor = (int)dreader["isToppingFor"];
                             billInfo.Bill = (int)dreader["bills"];
                             billInfo.Dishes = (int)dreader["dishes"];
                             billInfo.DishesName = dreader["dishes_name"].ToString();
@@ -358,15 +360,21 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal void addDishToBill(string pDbType, oBill pBill, oDishes pDishes)
+        internal void addDishToBill(string pDbType, oBill pBill, oDishes pDishes, List<oDishes> pToppings, int pSelectedBillInfoId)
         {
+            int xBillInfoId;
+
             con = new DBCon().getConnection(pDbType);
 
             try
             {
                 con.Open();
 
+                tx = con.BeginTransaction();
+
                 command = con.CreateCommand();
+
+                command.Transaction = tx;
 
                 command.CommandText = "DishToBill_Add";
                 command.CommandType = CommandType.StoredProcedure;
@@ -380,45 +388,77 @@ namespace com.sbs.gui.DashBoard
                 command.Parameters.Add("pCount", SqlDbType.Int).Value = pDishes.Count;
                 command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pDishes.Discount;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+                command.Parameters.Add("pDishToBillInfo_id", SqlDbType.Int);
+                command.Parameters["pDishToBillInfo_id"].Value = pSelectedBillInfoId;
+                command.Parameters["pDishToBillInfo_id"].Direction = ParameterDirection.InputOutput;
 
                 command.ExecuteNonQuery();
+
+                xBillInfoId = (int)command.Parameters["pDishToBillInfo_id"].Value;
+
+                command.Parameters.Clear();
+
+                command.CommandText = "DishToBillTopping_Add";
+
+                command.Parameters.Add("pBranch", SqlDbType.Int);
+                command.Parameters.Add("pSeason", SqlDbType.Int);
+                command.Parameters.Add("pBillId", SqlDbType.Int);
+                command.Parameters.Add("pDishId", SqlDbType.Int);
+                command.Parameters.Add("pCount", SqlDbType.Int);
+                command.Parameters.Add("pUserId", SqlDbType.Int);
+                command.Parameters.Add("dishToBillInfo_id", SqlDbType.Int);
+
+                foreach (oDishes topp in pToppings)
+                {
+                    command.Parameters["pBranch"].Value = GValues.branchId;
+                    command.Parameters["pSeason"].Value = GValues.openSeasonId;
+                    command.Parameters["pBillId"].Value = pBill.BillId;
+                    command.Parameters["pDishId"].Value = topp.Id;
+                    command.Parameters["pCount"].Value = topp.Count;
+                    command.Parameters["pUserId"].Value = UsersInfo.UserId;
+                    command.Parameters["pDishToBillInfo_id"].Value = xBillInfoId;
+
+                    command.ExecuteNonQuery();
+                }
+
+                tx.Commit();
 
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
 
-        internal void editDishToBill(string pDbType, oBillInfo pBillInfo, double pCount)
-        {
-            con = new DBCon().getConnection(pDbType);
+        //internal void editDishToBill(string pDbType, oBillInfo pBillInfo, double pCount)
+        //{
+        //    con = new DBCon().getConnection(pDbType);
 
-            try
-            {
-                con.Open();
+        //    try
+        //    {
+        //        con.Open();
 
-                command = con.CreateCommand();
+        //        command = con.CreateCommand();
 
-                command.CommandText = "DishToBill_Edit";
-                command.CommandType = CommandType.StoredProcedure;
+        //        command.CommandText = "DishToBill_Edit";
+        //        command.CommandType = CommandType.StoredProcedure;
 
-                //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
+        //        //@pSeason int, @pBillId int, @pDishId int, @pCount decimal(18,2), @pDiscount decimal(18,2), @pUserId int
 
-                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
-                command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
-                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillInfo.Bill;
-                command.Parameters.Add("pDishId", SqlDbType.Int).Value = pBillInfo.Dishes;
-                command.Parameters.Add("pCount", SqlDbType.Int).Value = pCount;
-                command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBillInfo.Discount;
-                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+        //        command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+        //        command.Parameters.Add("pSeason", SqlDbType.Int).Value = GValues.openSeasonId;
+        //        command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillInfo.Bill;
+        //        command.Parameters.Add("pDishId", SqlDbType.Int).Value = pBillInfo.Dishes;
+        //        command.Parameters.Add("pCount", SqlDbType.Int).Value = pCount;
+        //        command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBillInfo.Discount;
+        //        command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
 
-                command.ExecuteNonQuery();
+        //        command.ExecuteNonQuery();
 
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-        }
+        //        con.Close();
+        //    }
+        //    catch (Exception exc) { throw exc; }
+        //    finally { if (con.State == ConnectionState.Open) con.Close(); }
+        //}
 
         internal DataTable processBill(string pDbType, oBill bill)
         {
@@ -722,6 +762,37 @@ namespace com.sbs.gui.DashBoard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
+
+        internal DataTable getToppings(string pDbType, int dishId)
+        {
+            dtResult = new DataTable("dishes");
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT d.id, d.dishes_group, d.name, 0 as price, 0 as isSelected" +
+                                            " FROM dishes d" +
+                                            " INNER JOIN dishes_topings dt on dt.dishes_id = d.id" +
+                                            " WHERE dt.dishes = @id";
+
+                command.Parameters.Add("id", SqlDbType.Int).Value = dishId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 
     public class oBill
@@ -758,11 +829,19 @@ namespace com.sbs.gui.DashBoard
 
     public class oDishes
     {
+        
         private int _id;
         private double _count;
         private double _price;
         private int _discount;
         private string _name;
+        private int _isToppingFor;
+
+        public int isToppingFor
+        {
+            get { return _isToppingFor; }
+            set { _isToppingFor = value; }
+        }
 
         public double Price
         {
@@ -798,6 +877,7 @@ namespace com.sbs.gui.DashBoard
 
     public class oBillInfo
     {
+        private int _id;
         private int _bill;
         private int _dishes;
         private string _dishesName;
@@ -807,6 +887,19 @@ namespace com.sbs.gui.DashBoard
         private int _refStatus;
         private string _refStatusName;
         private double _discount;
+        private int _isToppingFor;
+
+        public int isToppingFor
+        {
+            get { return _isToppingFor; }
+            set { _isToppingFor = value; }
+        }
+
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
 
         public double Discount
         {
