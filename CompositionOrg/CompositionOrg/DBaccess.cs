@@ -120,11 +120,13 @@ namespace com.sbs.gui.compositionorg
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT br.id, br.name, br.organization, br.ref_status, stat.name ref_status_name, br.ref_city, city.name ref_city_name" +
+                command.CommandText = "SELECT br.id, br.name, br.organization, br.ref_status, stat.name ref_status_name, br.ref_city, city.name ref_city_name," +
+                                        " bi.countBill, bi.xopen, bi.xclose, bi.season_duration, bi.xIP " +
                                         " FROM branch AS br " +
+                                        " LEFT JOIN branch_info bi ON bi.branch = br.id " +
                                         " INNER JOIN ref_status AS stat ON stat.id = br.ref_status " +
-                                        " LEFT JOIN ref_city AS city ON city.id = br.ref_city"+
-                                        " ORDER BY br.name";
+                                        " LEFT JOIN ref_city AS city ON city.id = br.ref_city "+
+                                        " ORDER BY br.name ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

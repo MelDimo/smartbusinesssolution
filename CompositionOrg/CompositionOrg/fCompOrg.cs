@@ -97,7 +97,6 @@ namespace com.sbs.gui.compositionorg
             dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
 
             if (branchIndex > 0) dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
-
         }
 
         #region Organization
@@ -177,6 +176,8 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_branchEdit_Click(object sender, EventArgs e)
         {
+            string bufDate = string.Empty;
+
             if (dataGridView_branch.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -194,6 +195,34 @@ namespace com.sbs.gui.compositionorg
             oBranchDTO.RefCity = ref_city;
             oBranchDTO.RefOrg = (int)dataRow.Cells["branch_organization"].Value;
             oBranchDTO.RefStatus = (int)dataRow.Cells["branch_ref_status"].Value;
+
+            var branchInfo = from rec in dtBranch.AsEnumerable()
+                             where rec.Field<int>("id") == oBranchDTO.Id
+                             select rec;
+
+            if (branchInfo.First().Field<string>("xopen") == null)
+                oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+            else
+            {
+                bufDate = branchInfo.First().Field<string>("xopen");
+                oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
+                                                                                                        int.Parse(bufDate.Substring(3, 2)),
+                                                                                                        int.Parse(bufDate.Substring(7, 2)));
+            }
+            if (branchInfo.First().Field<string>("xclose") == null)
+                oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
+            else
+            {
+                bufDate = branchInfo.First().Field<string>("xclose");
+                oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
+                                                                                                        int.Parse(bufDate.Substring(3, 2)),
+                                                                                                        int.Parse(bufDate.Substring(7, 2)));
+            }
+
+            if (branchInfo.First().Field<string>("season_duration") == null) oBranchDTO.XDuration = 15;
+            else oBranchDTO.XDuration = branchInfo.First().Field<int>("season_duration");
+
+
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Редактирование '" + oBranchDTO.Name + "'";

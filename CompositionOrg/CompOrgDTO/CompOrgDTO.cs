@@ -39,6 +39,34 @@ namespace com.sbs.dll.dto
             private int _refStatus;
             private int _refCity;
             private int _refOrg;
+            private DateTime _xopen;
+            private DateTime _xclose;
+            private int _xduration;
+            private string _xip;
+
+            public string Xip
+            {
+                get { return _xip; }
+                set { _xip = value; }
+            }
+
+            public int XDuration
+            {
+                get { return _xduration; }
+                set { _xduration = value; }
+            }
+
+            public DateTime XClose
+            {
+                get { return _xclose; }
+                set { _xclose = value; }
+            }
+
+            public DateTime XOpen
+            {
+                get { return _xopen; }
+                set { _xopen = value; }
+            }
 
             public int RefOrg
             {
