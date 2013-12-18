@@ -51,16 +51,18 @@ namespace com.sbs.gui.compositionorg
             comboBox_city.SelectedValue = oBranchDTO.RefCity;
 
             dateTimePicker_open.ShowUpDown = true;
-            dateTimePicker_open.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
             dateTimePicker_open.CustomFormat = "HH:mm";
             dateTimePicker_open.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dateTimePicker_open.DataBindings.Add("Value", oBranchDTO, "XOpen");
 
             dateTimePicker_close.ShowUpDown = true;
             dateTimePicker_close.CustomFormat = "HH:mm";
-            dateTimePicker_close.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
             dateTimePicker_close.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            dateTimePicker_close.DataBindings.Add("Value", oBranchDTO, "XClose");
 
-            numericUpDown_duration.Value = 15;
+            numericUpDown_duration.DataBindings.Add("Value", oBranchDTO, "XDuration");
+
+            maskedTextBox_IP.DataBindings.Add("Text", oBranchDTO, "Xip");
 
         }
 
