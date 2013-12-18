@@ -52,7 +52,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDown_duration = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBox_IP = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -204,12 +204,12 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.maskedTextBox1);
+            this.tabPage2.Controls.Add(this.maskedTextBox_IP);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(436, 272);
+            this.tabPage2.Size = new System.Drawing.Size(436, 119);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Связь";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -309,13 +309,13 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "IP Address";
             // 
-            // maskedTextBox1
+            // maskedTextBox_IP
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(70, 12);
-            this.maskedTextBox1.Mask = "000.000.000.000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(91, 20);
-            this.maskedTextBox1.TabIndex = 1;
+            this.maskedTextBox_IP.Location = new System.Drawing.Point(70, 12);
+            this.maskedTextBox_IP.Mask = "000.000.000.000";
+            this.maskedTextBox_IP.Name = "maskedTextBox_IP";
+            this.maskedTextBox_IP.Size = new System.Drawing.Size(91, 20);
+            this.maskedTextBox_IP.TabIndex = 1;
             // 
             // fAddEdit_branch
             // 
@@ -376,7 +376,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox_IP;
         private System.Windows.Forms.Label label8;
     }
 }

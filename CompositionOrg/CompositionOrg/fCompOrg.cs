@@ -200,18 +200,15 @@ namespace com.sbs.gui.compositionorg
                              where rec.Field<int>("id") == oBranchDTO.Id
                              select rec;
 
-            if (branchInfo.First().Field<string>("xopen") == null)
-                oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
-            else
+            if (branchInfo.First().Field<string>("xopen") != null)
             {
                 bufDate = branchInfo.First().Field<string>("xopen");
                 oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
                                                                                                         int.Parse(bufDate.Substring(3, 2)),
                                                                                                         int.Parse(bufDate.Substring(7, 2)));
             }
-            if (branchInfo.First().Field<string>("xclose") == null)
-                oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
-            else
+
+            if (branchInfo.First().Field<string>("xclose") != null)
             {
                 bufDate = branchInfo.First().Field<string>("xclose");
                 oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
@@ -219,10 +216,9 @@ namespace com.sbs.gui.compositionorg
                                                                                                         int.Parse(bufDate.Substring(7, 2)));
             }
 
-            if (branchInfo.First().Field<string>("season_duration") == null) oBranchDTO.XDuration = 15;
-            else oBranchDTO.XDuration = branchInfo.First().Field<int>("season_duration");
+            if (branchInfo.First().Field<string>("season_duration") != null) oBranchDTO.XDuration = branchInfo.First().Field<int>("season_duration");
 
-
+            if (branchInfo.First().Field<string>("xIP") != null) oBranchDTO.Xip = branchInfo.First().Field<string>("xIP");
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Редактирование '" + oBranchDTO.Name + "'";

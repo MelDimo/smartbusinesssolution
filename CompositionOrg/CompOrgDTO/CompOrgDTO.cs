@@ -39,10 +39,10 @@ namespace com.sbs.dll.dto
             private int _refStatus;
             private int _refCity;
             private int _refOrg;
-            private DateTime _xopen;
-            private DateTime _xclose;
-            private int _xduration;
-            private string _xip;
+            private DateTime _xopen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+            private DateTime _xclose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
+            private int _xduration = 15;
+            private string _xip = "000.000.000.000";
 
             public string Xip
             {

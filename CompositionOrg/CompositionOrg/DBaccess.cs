@@ -11,14 +11,19 @@ namespace com.sbs.gui.compositionorg
 {
     class DBaccess
     {
+        SqlConnection con;
+        SqlCommand command;
+        DataTable dtResult;
+
         #region Organization
 
         public DataTable getOrganization(string pDbType)
         {
-            DataTable dtResult = new DataTable();
+            dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -44,8 +49,9 @@ namespace com.sbs.gui.compositionorg
 
         public void addOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -65,8 +71,9 @@ namespace com.sbs.gui.compositionorg
 
         public void editOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -87,8 +94,9 @@ namespace com.sbs.gui.compositionorg
 
         public void delOrganization(string pDbType, CompOrgDTO.OrganizationDTO pOrgDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -111,10 +119,11 @@ namespace com.sbs.gui.compositionorg
 
         public DataTable getBranch(string pDbType)
         {
-            DataTable dtResult = new DataTable();
+            dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -145,8 +154,9 @@ namespace com.sbs.gui.compositionorg
         {
             object ref_city = DBNull.Value;
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -171,8 +181,9 @@ namespace com.sbs.gui.compositionorg
         {
             object ref_city = DBNull.Value;
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -197,8 +208,9 @@ namespace com.sbs.gui.compositionorg
 
         public void delBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -221,10 +233,11 @@ namespace com.sbs.gui.compositionorg
 
         public DataTable getUnit(string pDbType)
         {
-            DataTable dtResult = new DataTable();
+            dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -251,8 +264,9 @@ namespace com.sbs.gui.compositionorg
 
         public void addUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -279,8 +293,9 @@ namespace com.sbs.gui.compositionorg
 
         public void editUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -307,8 +322,9 @@ namespace com.sbs.gui.compositionorg
 
         public void delUnit(string pDbType, CompOrgDTO.UnitDTO pUnitDTO)
         {
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
@@ -329,10 +345,11 @@ namespace com.sbs.gui.compositionorg
 
         public DataTable getCity(string pDbType)
         {
-            DataTable dtResult = new DataTable();
+            dtResult = new DataTable();
 
-            SqlConnection con = new DBCon().getConnection(pDbType);
-            SqlCommand command = null;
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
             try
             {
                 con.Open();
