@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refPost", "refPost\refPost.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refMeasure", "refMeasure\refMeasure.csproj", "{2AD130FE-F148-4F0E-AEDA-932EFBB36E32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refGoods", "refGoods\refGoods.csproj", "{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refGoods_", "refGoods\refGoods_.csproj", "{D85D6696-335C-4A42-AC8D-DA92EC5C7CF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refDepot", "refDepot\refDepot.csproj", "{E694906D-5F05-4D81-846E-B9026E941A31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refDepot_", "refDepot\refDepot_.csproj", "{E694906D-5F05-4D81-846E-B9026E941A31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refAccounts", "refAccounts\refAccounts.csproj", "{3942783B-01AB-479B-B743-FCA602FE7BE7}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refItems", "refItems\refItems.csproj", "{77B442CE-D7E4-4C32-984D-00E6FB8B695C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refAddCostsType", "refAddCostsType\refAddCostsType.csproj", "{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refDishes", "refDishes\refDishes.csproj", "{A1745469-CB11-49D6-B635-2C1D91FE5296}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -83,6 +85,10 @@ Global
 		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Debug|x86.Build.0 = Debug|x86
 		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Release|x86.ActiveCfg = Release|x86
 		{8F4A9F16-E146-4EDC-9FFB-94D4734D755E}.Release|x86.Build.0 = Release|x86
+		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Debug|x86.ActiveCfg = Debug|x86
+		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Debug|x86.Build.0 = Debug|x86
+		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Release|x86.ActiveCfg = Release|x86
+		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
