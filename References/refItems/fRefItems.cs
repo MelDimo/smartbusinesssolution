@@ -40,7 +40,6 @@ namespace com.sbs.gui.references.refitems
                 con.Open();
                 command = con.CreateCommand();
                 command.CommandText = " SELECT ri.id," +
-                                            " ri.items_type, it.name AS items_type_name," +
                                             " ri.name," +
                                             " ri.nameForSale," +
                                             " ri.ref_measure, rm.name_short AS ref_measure_name," +
@@ -52,7 +51,6 @@ namespace com.sbs.gui.references.refitems
                                             " ri.ref_tmc_type, rtt.name AS ref_tmc_type_name," +
                                             " ri.ref_status, rs.name AS ref_status_name" +
                                         " FROM ref_items ri" +
-                                        " INNER JOIN items_type it ON it.id = ri.items_type" +
                                         " INNER JOIN ref_items_raw rir ON rir.id = ri.ref_items_raw" +
                                         " INNER JOIN ref_tmc_type rtt ON rtt.id = ri.ref_tmc_type" +
                                         " INNER JOIN ref_tmc_type rttNomenkl ON rttNomenkl.id = ri.ref_tmc_type_nomenkl" +
@@ -83,7 +81,7 @@ namespace com.sbs.gui.references.refitems
         {
             fAddEdit faddedit = new fAddEdit(new Items());
             faddedit.Text = "Новый материал";
-            faddedit.ShowDialog();
+            if (faddedit.ShowDialog() == DialogResult.OK) updateData();
         }
 
         private void tSButton_edit_Click(object sender, EventArgs e)
@@ -106,8 +104,6 @@ namespace com.sbs.gui.references.refitems
 
             Items oItems = new Items();
             oItems.id = (int)recData["id"];
-            oItems.itemsType = (int)recData["items_type"];
-            oItems.itemsTypeName = recData["items_type_name"].ToString();
             oItems.name = recData["name"].ToString();
             oItems.nameForSale = recData["nameForSale"].ToString();
             oItems.refMeasure = (int)recData["ref_measure"];
@@ -134,7 +130,39 @@ namespace com.sbs.gui.references.refitems
         
         private void tSButton_del_Click(object sender, EventArgs e)
         {
-            
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                uMessage.Show("Укажите удаляемый элемент", SystemIcons.Information);
+                return;
+            }
+
+            if (MessageBox.Show("Вы уверены что шотите удалить элемент '" +
+                dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString() + "'",
+                GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            int xId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+
+            SqlConnection con = new DBCon().getConnection("offline");
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "DELETE FROM ref_items WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = xId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            updateData();
         }
     }
 
@@ -142,7 +170,6 @@ namespace com.sbs.gui.references.refitems
     {
         public Items()
         {
-            itemsTypeName = string.Empty;
             name = string.Empty;
             nameForSale = string.Empty;
             refMeasureName = string.Empty;
@@ -153,8 +180,6 @@ namespace com.sbs.gui.references.refitems
         }
 
         public int id { get; set; }
-        public int itemsType { get; set; }
-        public string itemsTypeName { get; set; }
         public string name { get; set; }
         public string nameForSale { get; set; }
         public int refMeasure { get; set; }

@@ -98,11 +98,8 @@ namespace com.sbs.gui.references.refitems
 
             if (oItems.name.Length == 0) errMessage += System.Environment.NewLine + "- Наименовние;";
             if (oItems.nameForSale.Length == 0) errMessage += System.Environment.NewLine + "- Наименование для продажи;";
-            if (oItems.itemsType == 0) errMessage += System.Environment.NewLine + "- Тип;";
             if (oItems.refItemsRaw == 0) errMessage += System.Environment.NewLine + "- Сырье;";
             if (oItems.refMeasure == 0) errMessage += System.Environment.NewLine + "- Измерение;";
-            //if (oItems.refMeasureForSale == 0) errMessage += System.Environment.NewLine + "- Наименование;";
-            //if (oItems.refNomencl == 0) errMessage += System.Environment.NewLine + "- Наименование;";
             if (oItems.refTmcType == 0) errMessage += System.Environment.NewLine + "- Тип ТМЦ;";
             if (comboBox_status.SelectedValue == null) errMessage += System.Environment.NewLine + "- Статус;";
             else oItems.refStatus = (int)comboBox_status.SelectedValue;
@@ -121,7 +118,6 @@ namespace com.sbs.gui.references.refitems
                 con.Open();
                 command = con.CreateCommand();
 
-                command.Parameters.Add("items_type", SqlDbType.Int).Value = oItems.itemsType;
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = oItems.name;
                 command.Parameters.Add("nameForSale", SqlDbType.NVarChar).Value = oItems.nameForSale;
                 command.Parameters.Add("ref_measure", SqlDbType.Int).Value = oItems.refMeasure;
@@ -136,15 +132,14 @@ namespace com.sbs.gui.references.refitems
                 switch (formMode)
                 {
                     case "ADD":
-                        command.CommandText = "INSERT INTO ref_items(items_type,    name,       nameForSale,            ref_measure,    ref_measureForSale, koefSale," +
+                        command.CommandText = "INSERT INTO ref_items(name,       nameForSale,            ref_measure,    ref_measureForSale, koefSale," +
                                                                     "ref_items_raw, koefRaw,    ref_tmc_type_nomenkl,   ref_tmc_type,   ref_status)" +
-                                                            "VALUES(@items_type,    @name,      @nameForSale,           @ref_measure,   @ref_measureForSale,@koefSale," +
+                                                            "VALUES(@name,      @nameForSale,           @ref_measure,   @ref_measureForSale,@koefSale," +
                                                                     "@ref_items_raw,@koefRaw,   @ref_tmc_type_nomenkl,  @ref_tmc_type,  @ref_status)";
                         break;
 
                     case "EDIT":
-                        command.CommandText = "UPDATE ref_items SET items_type = @items_type, " +
-                                                                    " name = @name," +
+                        command.CommandText = "UPDATE ref_items SET name = @name," +
                                                                     " nameForSale = @nameForSale," +
                                                                     " ref_measure = @ref_measure," +
                                                                     " ref_measureForSale = @ref_measureForSale," +
@@ -338,14 +333,20 @@ namespace com.sbs.gui.references.refitems
             col1.DataPropertyName = "name";
             col1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1 });
+            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+            col2.HeaderText = "Краткое наименование";
+            col2.Name = "name_short";
+            col2.DataPropertyName = "name_short";
+            col2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            fChose.Text = "Ед.изм. продажная";
+            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2 });
+
+            fChose.Text = "Ед.изм. продажная.";
 
             if (fChose.ShowDialog() == DialogResult.OK)
             {
                 oItems.refMeasureForSale = (int)fChose.xData[0];
-                oItems.refMeasureNameForSale = fChose.xData[1].ToString();
+                oItems.refMeasureNameForSale = fChose.xData[2].ToString();
 
                 textBox_measureForSale.DataBindings[0].ReadValue();
             }
