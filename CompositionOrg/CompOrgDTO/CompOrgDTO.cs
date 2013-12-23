@@ -43,6 +43,21 @@ namespace com.sbs.dll.dto
             private DateTime _xclose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 0, 0);
             private int _xduration = 15;
             private string _xip = "000.000.000.000";
+            private int _xtable;
+            private int _code;
+
+            public int Code
+            {
+                get { return _code; }
+                set { _code = value; }
+            }
+
+            public int XTable
+            {
+                get { return _xtable; }
+                set { _xtable = value; }
+            }
+            
 
             public string Xip
             {
@@ -108,6 +123,14 @@ namespace com.sbs.dll.dto
             private int _refPrinters;
             private int _refPrintersType;
             private int _isDepot;
+            private int _code;
+
+            public int Code
+            {
+                get { return _code; }
+                set { _code = value; }
+            }
+            
 
             public int isDepot
             {

@@ -8,12 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.dto;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.compositionorg
 {
     public partial class fAddEdit_branch : Form
     {
-        private bool changeData = false;
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
 
         private DBaccess dbAccess = new DBaccess();
@@ -64,26 +64,27 @@ namespace com.sbs.gui.compositionorg
 
             maskedTextBox_IP.DataBindings.Add("Text", oBranchDTO, "Xip");
 
+            numericUpDown_tableCount.DataBindings.Add("Value", oBranchDTO, "XTable");
+
+            numericUpDown_code.DataBindings.Add("Value", oBranchDTO, "Code");
+
         }
 
         private void button_ok_Click(object sender, EventArgs e)
         {
-            saveData();
-            DialogResult = DialogResult.OK;
-        }
-
-        private void button_apply_Click(object sender, EventArgs e)
-        {
-            saveData();
+            if (saveData())
+            {
+                MessageBox.Show("Данные успешно сохранены", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
         {
-            if (changeData) DialogResult = DialogResult.OK;
-            else DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.Cancel;
         }
 
-        private void saveData()
+        private bool saveData()
         {
             string errMessage = "Заполнены не все обязательные поля:";
             oBranchDTO.Name = textBox_name.Text.Trim();
@@ -98,7 +99,7 @@ namespace com.sbs.gui.compositionorg
             if (!errMessage.Equals("Заполнены не все обязательные поля:"))
             {
                 uMessage.Show(errMessage, SystemIcons.Information);
-                return;
+                return false;
             }
             switch (formMode)
             {
@@ -107,18 +108,18 @@ namespace com.sbs.gui.compositionorg
                     {
                         dbAccess.addBranch("offline", oBranchDTO);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); return false; }
                     break;
                 case "EDIT":
                     try
                     {
                         dbAccess.editBranch("offline", oBranchDTO);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); return false; }
                     break;
             }
 
-            changeData = true;
+            return true;
         }
     }
 }
