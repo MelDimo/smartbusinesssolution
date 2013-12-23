@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using com.sbs.dll;
 
-namespace refDishes
+namespace com.sbs.gui.references.refdishes
 {
     static class Program
     {
@@ -13,6 +14,10 @@ namespace refDishes
         [STAThread]
         static void Main()
         {
+#if DEBUG
+            Config conf = new Config();
+            if (!conf.loadConfig()) return;
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new fRefDishes());
