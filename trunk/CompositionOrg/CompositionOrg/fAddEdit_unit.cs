@@ -13,7 +13,6 @@ namespace com.sbs.gui.compositionorg
 {
     public partial class fAddEdit_unit : Form
     {
-        private bool changeData = false;
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
 
         private DBaccess dbAccess = new DBaccess();
@@ -52,6 +51,9 @@ namespace com.sbs.gui.compositionorg
             comboBox_refPrintersType.SelectedValue = oUnitDTO.RefPrintersType;
 
             checkBox_isDepot.DataBindings.Add("Checked", oUnitDTO, "isDepot");
+            numericUpDown_code.DataBindings.Add("Value", oUnitDTO, "Code");
+
+
 
         }
 

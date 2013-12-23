@@ -44,7 +44,10 @@
             this.comboBox_refPrinters = new System.Windows.Forms.ComboBox();
             this.checkBox_isDepot = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDown_code = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -203,11 +206,34 @@
             this.label6.TabIndex = 37;
             this.label6.Text = "Склад";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(134, 15);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(80, 13);
+            this.label10.TabIndex = 39;
+            this.label10.Text = "Внешний ключ";
+            // 
+            // numericUpDown_code
+            // 
+            this.numericUpDown_code.Location = new System.Drawing.Point(217, 11);
+            this.numericUpDown_code.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_code.Name = "numericUpDown_code";
+            this.numericUpDown_code.Size = new System.Drawing.Size(64, 20);
+            this.numericUpDown_code.TabIndex = 38;
+            // 
             // fAddEdit_unit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 238);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.numericUpDown_code);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.checkBox_isDepot);
             this.Controls.Add(this.comboBox_refPrintersType);
@@ -227,6 +253,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fAddEdit_unit";
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,5 +277,7 @@
         private System.Windows.Forms.ComboBox comboBox_refPrinters;
         private System.Windows.Forms.CheckBox checkBox_isDepot;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numericUpDown_code;
     }
 }

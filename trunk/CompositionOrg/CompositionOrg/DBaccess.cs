@@ -13,6 +13,8 @@ namespace com.sbs.gui.compositionorg
     {
         SqlConnection con;
         SqlCommand command;
+        SqlTransaction tx;
+
         DataTable dtResult;
 
         #region Organization
@@ -130,7 +132,7 @@ namespace com.sbs.gui.compositionorg
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT br.id, br.name, br.organization, br.ref_status, stat.name ref_status_name, br.ref_city, city.name ref_city_name," +
-                                        " bi.countBill, bi.xopen, bi.xclose, bi.season_duration, bi.xIP " +
+                                        " bi.countBill, bi.xopen, bi.xclose, bi.season_duration, bi.xIP, bi.xtable, bi.code " +
                                         " FROM branch AS br " +
                                         " LEFT JOIN branch_info bi ON bi.branch = br.id " +
                                         " INNER JOIN ref_status AS stat ON stat.id = br.ref_status " +
@@ -160,21 +162,37 @@ namespace com.sbs.gui.compositionorg
             try
             {
                 con.Open();
+                
+                tx = con.BeginTransaction();
+
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO branch(name, organization, ref_city, ref_status) VALUES(@name, @organization, @ref_city, @ref_status)";
-                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pBranchDTO.Name;
-                command.Parameters.Add("organization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
+                command.Transaction = tx;
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.CommandText = "Branch_add";
+
+                command.Parameters.Add("pName", SqlDbType.NVarChar).Value = pBranchDTO.Name;
+                command.Parameters.Add("pOrganization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
                 if(pBranchDTO.RefCity != 0) ref_city = pBranchDTO.RefCity;
-                command.Parameters.Add("ref_city", SqlDbType.Int).Value = ref_city;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pBranchDTO.RefStatus;
+                command.Parameters.Add("pRefCity", SqlDbType.Int).Value = ref_city;
+                command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBranchDTO.RefStatus;
+                command.Parameters.Add("pOpen", SqlDbType.Time).Value = pBranchDTO.XOpen.ToString("HH:mm");
+                command.Parameters.Add("pClose", SqlDbType.Time).Value = pBranchDTO.XClose.ToString("HH:mm");
+                command.Parameters.Add("pDuration", SqlDbType.Int).Value = pBranchDTO.XDuration;
+                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip;
+                command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
                 command.ExecuteNonQuery();
+
+                tx.Commit();
 
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
 
         public void editBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
@@ -187,23 +205,38 @@ namespace com.sbs.gui.compositionorg
             try
             {
                 con.Open();
+
+                tx = con.BeginTransaction();
+
                 command = con.CreateCommand();
 
-                command.CommandText = "UPDATE branch SET name = @name, organization = @organization, ref_city = @ref_city, ref_status = @ref_status"+
-                                        " WHERE id = @id";
-                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pBranchDTO.Name;
-                command.Parameters.Add("organization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
+                command.Transaction = tx;
+
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.CommandText = "Branch_edit";
+
+                command.Parameters.Add("pId", SqlDbType.Int).Value = pBranchDTO.Id;
+                command.Parameters.Add("pName", SqlDbType.NVarChar).Value = pBranchDTO.Name;
+                command.Parameters.Add("pOrganization", SqlDbType.Int).Value = pBranchDTO.RefOrg;
                 if (pBranchDTO.RefCity != 0) ref_city = pBranchDTO.RefCity;
-                command.Parameters.Add("ref_city", SqlDbType.Int).Value = ref_city;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pBranchDTO.RefStatus;
-                command.Parameters.Add("id", SqlDbType.Int).Value = pBranchDTO.Id;
+                command.Parameters.Add("pRefCity", SqlDbType.Int).Value = ref_city;
+                command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBranchDTO.RefStatus;
+                command.Parameters.Add("pOpen", SqlDbType.Time).Value = pBranchDTO.XOpen.ToString("HH:mm");
+                command.Parameters.Add("pClose", SqlDbType.Time).Value = pBranchDTO.XClose.ToString("HH:mm");
+                command.Parameters.Add("pDuration", SqlDbType.Int).Value = pBranchDTO.XDuration;
+                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip;
+                command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
                 command.ExecuteNonQuery();
+
+                tx.Commit();
 
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
         }
 
         public void delBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
@@ -244,7 +277,7 @@ namespace com.sbs.gui.compositionorg
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT un.id, un.name, un.ref_status, un.branch, stat.name ref_status_name, " +
-                                            " ref_printers, ref_printers_type, isDepot" +
+                                            " ref_printers, ref_printers_type, isDepot, code" +
                                         " FROM unit un" +
                                         " INNER JOIN ref_status stat ON stat.id = un.ref_status" +
                                         " ORDER BY un.name";
@@ -272,8 +305,8 @@ namespace com.sbs.gui.compositionorg
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO unit(name, branch, ref_status, ref_printers, ref_printers_type, isDepot)" +
-                                                    " VALUES(@name, @branch, @ref_status, @ref_printers, @ref_printers_type, @isDepot)";
+                command.CommandText = "INSERT INTO unit(name, branch, ref_status, ref_printers, ref_printers_type, isDepot, code)" +
+                                                    " VALUES(@name, @branch, @ref_status, @ref_printers, @ref_printers_type, @isDepot, @pCode )";
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUnitDTO.RefStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pUnitDTO.Branch;
@@ -282,6 +315,7 @@ namespace com.sbs.gui.compositionorg
                 if (pUnitDTO.RefPrinters == 0) command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = DBNull.Value;
                 else command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
                 command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pUnitDTO.Code;
 
                 command.ExecuteNonQuery();
 
@@ -302,7 +336,7 @@ namespace com.sbs.gui.compositionorg
                 command = con.CreateCommand();
 
                 command.CommandText = "UPDATE unit SET name = @name, ref_status = @ref_status, branch = @branch, "+
-                                        " ref_printers = @ref_printers, ref_printers_type = @ref_printers_type, isDepot = @isDepot "+
+                                        " ref_printers = @ref_printers, ref_printers_type = @ref_printers_type, isDepot = @isDepot, code = @pCode "+
                                         " WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = pUnitDTO.Id;
                 command.Parameters.Add("name", SqlDbType.NVarChar).Value = pUnitDTO.Name;
@@ -311,6 +345,7 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
                 command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
                 command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pUnitDTO.Code;
 
                 command.ExecuteNonQuery();
 

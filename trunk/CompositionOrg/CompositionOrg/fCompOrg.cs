@@ -25,7 +25,7 @@ namespace com.sbs.gui.compositionorg
         private DataTable dtPrinters = new DataTable();
         private DataTable dtPrintersType = new DataTable();
 
-        int branchIndex;
+        int branchIndex = -1;
 
         public fCompOrg()
         {
@@ -96,7 +96,7 @@ namespace com.sbs.gui.compositionorg
             dataGridView_branch.SelectionChanged += new EventHandler(dataGridView_branch_SelectionChanged);
             dataGridView_unit.SelectionChanged += new EventHandler(dataGridView_unit_SelectionChanged);
 
-            if (branchIndex > 0) dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
+            if (branchIndex > -1) dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
         }
 
         #region Organization
@@ -171,7 +171,7 @@ namespace com.sbs.gui.compositionorg
             faddeditbranch.Text = "Новое заведение";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
 
-            dataGridView_branch.Rows[0].Cells[1].Selected = true;
+            dataGridView_branch_SelectionChanged(new object(), new EventArgs());
         }
 
         private void tSButton_branchEdit_Click(object sender, EventArgs e)
@@ -200,31 +200,35 @@ namespace com.sbs.gui.compositionorg
                              where rec.Field<int>("id") == oBranchDTO.Id
                              select rec;
 
-            if (branchInfo.First().Field<string>("xopen") != null)
+            if (branchInfo.First().Field<TimeSpan?>("xopen") != null)
             {
-                bufDate = branchInfo.First().Field<string>("xopen");
+                bufDate = branchInfo.First().Field<TimeSpan>("xopen").ToString();
                 oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
                                                                                                         int.Parse(bufDate.Substring(3, 2)),
-                                                                                                        int.Parse(bufDate.Substring(7, 2)));
+                                                                                                        int.Parse(bufDate.Substring(6, 2)));
             }
 
-            if (branchInfo.First().Field<string>("xclose") != null)
+            if (branchInfo.First().Field<TimeSpan?>("xclose") != null)
             {
-                bufDate = branchInfo.First().Field<string>("xclose");
+                bufDate = branchInfo.First().Field<TimeSpan>("xclose").ToString();
                 oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
                                                                                                         int.Parse(bufDate.Substring(3, 2)),
-                                                                                                        int.Parse(bufDate.Substring(7, 2)));
+                                                                                                        int.Parse(bufDate.Substring(6, 2)));
             }
 
-            if (branchInfo.First().Field<string>("season_duration") != null) oBranchDTO.XDuration = branchInfo.First().Field<int>("season_duration");
+            if (branchInfo.First().Field<int?>("season_duration") != null)
+                oBranchDTO.XDuration = branchInfo.First().Field<int>("season_duration");
 
             if (branchInfo.First().Field<string>("xIP") != null) oBranchDTO.Xip = branchInfo.First().Field<string>("xIP");
+
+            oBranchDTO.XTable = branchInfo.First().Field<int>("xtable");
+            oBranchDTO.Code = branchInfo.First().Field<int>("code");
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Редактирование '" + oBranchDTO.Name + "'";
             if (faddeditbranch.ShowDialog() == DialogResult.OK) initData();
 
-            dataGridView_branch.CurrentCell = dataGridView_branch.Rows[branchIndex].Cells[1];
+            dataGridView_branch_SelectionChanged(new object(), new EventArgs());
         }
 
         private void tSButton_branchDel_Click(object sender, EventArgs e)
@@ -292,6 +296,12 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.RefPrinters = (dataRow.Cells["unit_ref_printers"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers"].Value;
             oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
             oUnitDTO.isDepot = (int)dataRow.Cells["unit_isDepot"].Value;
+            
+            var unitInfo = from rec in dtBranch.AsEnumerable()
+                             where rec.Field<int>("id") == oUnitDTO.Id
+                             select rec;
+
+            oUnitDTO.Code = unitInfo.First().Field<int>("code");
 
             fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
             faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
