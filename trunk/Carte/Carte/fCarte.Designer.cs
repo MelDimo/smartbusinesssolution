@@ -34,12 +34,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView_carte = new System.Windows.Forms.DataGridView();
+            this.carte_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.carte_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.carte_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_carteAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_carteEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_carteDel = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.treeView_group = new System.Windows.Forms.TreeView();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -58,10 +62,11 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox_branchName = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton_branch = new System.Windows.Forms.ToolStripButton();
-            this.carte_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.carte_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.carte_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.treeView_group = new System.Windows.Forms.TreeView();
+            this.dishes_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_ref_printers_type_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -152,6 +157,28 @@
             this.dataGridView_carte.TabIndex = 1;
             this.dataGridView_carte.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_carte_KeyDown);
             // 
+            // carte_id
+            // 
+            this.carte_id.HeaderText = "carte_id";
+            this.carte_id.Name = "carte_id";
+            this.carte_id.ReadOnly = true;
+            this.carte_id.Visible = false;
+            // 
+            // carte_name
+            // 
+            this.carte_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.carte_name.HeaderText = "Наименование";
+            this.carte_name.Name = "carte_name";
+            this.carte_name.ReadOnly = true;
+            // 
+            // carte_ref_status_name
+            // 
+            this.carte_ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.carte_ref_status_name.HeaderText = "Статус";
+            this.carte_ref_status_name.Name = "carte_ref_status_name";
+            this.carte_ref_status_name.ReadOnly = true;
+            this.carte_ref_status_name.Width = 66;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -229,6 +256,17 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Структура меню";
+            // 
+            // treeView_group
+            // 
+            this.treeView_group.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView_group.FullRowSelect = true;
+            this.treeView_group.HideSelection = false;
+            this.treeView_group.Location = new System.Drawing.Point(3, 41);
+            this.treeView_group.Name = "treeView_group";
+            this.treeView_group.Size = new System.Drawing.Size(240, 410);
+            this.treeView_group.TabIndex = 2;
+            this.treeView_group.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_group_AfterSelect);
             // 
             // statusStrip2
             // 
@@ -308,11 +346,23 @@
             // 
             // dataGridView_dishes
             // 
+            this.dataGridView_dishes.AllowUserToAddRows = false;
+            this.dataGridView_dishes.AllowUserToDeleteRows = false;
             this.dataGridView_dishes.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView_dishes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_dishes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dishes_id,
+            this.dishes_name,
+            this.dishes_price,
+            this.dishes_ref_printers_type_name,
+            this.dishes_ref_status_name});
             this.dataGridView_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_dishes.Location = new System.Drawing.Point(3, 41);
+            this.dataGridView_dishes.MultiSelect = false;
             this.dataGridView_dishes.Name = "dataGridView_dishes";
+            this.dataGridView_dishes.ReadOnly = true;
+            this.dataGridView_dishes.RowHeadersVisible = false;
+            this.dataGridView_dishes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_dishes.Size = new System.Drawing.Size(319, 410);
             this.dataGridView_dishes.TabIndex = 2;
             // 
@@ -406,7 +456,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(264, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(210, 29);
             // 
             // toolStripButton_branch
             // 
@@ -419,35 +469,38 @@
             this.toolStripButton_branch.Text = "Выбрать";
             this.toolStripButton_branch.Click += new System.EventHandler(this.toolStripButton_branch_Click);
             // 
-            // carte_id
+            // dishes_id
             // 
-            this.carte_id.HeaderText = "carte_id";
-            this.carte_id.Name = "carte_id";
-            this.carte_id.ReadOnly = true;
-            this.carte_id.Visible = false;
+            this.dishes_id.HeaderText = "id";
+            this.dishes_id.Name = "dishes_id";
+            this.dishes_id.Visible = false;
             // 
-            // carte_name
+            // dishes_name
             // 
-            this.carte_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.carte_name.HeaderText = "Наименование";
-            this.carte_name.Name = "carte_name";
-            this.carte_name.ReadOnly = true;
+            this.dishes_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dishes_name.HeaderText = "Наименование";
+            this.dishes_name.Name = "dishes_name";
             // 
-            // carte_ref_status_name
+            // dishes_price
             // 
-            this.carte_ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.carte_ref_status_name.HeaderText = "Статус";
-            this.carte_ref_status_name.Name = "carte_ref_status_name";
-            this.carte_ref_status_name.ReadOnly = true;
-            this.carte_ref_status_name.Width = 66;
+            this.dishes_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_price.HeaderText = "Цена";
+            this.dishes_price.Name = "dishes_price";
+            this.dishes_price.Width = 58;
             // 
-            // treeView_group
+            // dishes_ref_printers_type_name
             // 
-            this.treeView_group.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView_group.Location = new System.Drawing.Point(3, 41);
-            this.treeView_group.Name = "treeView_group";
-            this.treeView_group.Size = new System.Drawing.Size(240, 410);
-            this.treeView_group.TabIndex = 2;
+            this.dishes_ref_printers_type_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_ref_printers_type_name.HeaderText = "Тип принтера";
+            this.dishes_ref_printers_type_name.Name = "dishes_ref_printers_type_name";
+            this.dishes_ref_printers_type_name.Width = 101;
+            // 
+            // dishes_ref_status_name
+            // 
+            this.dishes_ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_ref_status_name.HeaderText = "Статус";
+            this.dishes_ref_status_name.Name = "dishes_ref_status_name";
+            this.dishes_ref_status_name.Width = 66;
             // 
             // fCarte
             // 
@@ -528,6 +581,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn carte_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn carte_ref_status_name;
         private System.Windows.Forms.TreeView treeView_group;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_price;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_ref_printers_type_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dishes_ref_status_name;
     }
 }
 

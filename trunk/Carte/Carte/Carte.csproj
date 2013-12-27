@@ -60,6 +60,12 @@
     <Compile Include="fAddEdit_Carte.Designer.cs">
       <DependentUpon>fAddEdit_Carte.cs</DependentUpon>
     </Compile>
+    <Compile Include="fAddEdit_Dishes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddEdit_Dishes.Designer.cs">
+      <DependentUpon>fAddEdit_Dishes.cs</DependentUpon>
+    </Compile>
     <Compile Include="fAddEdit_Group.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fAddEdit_Carte.resx">
       <DependentUpon>fAddEdit_Carte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddEdit_Dishes.resx">
+      <DependentUpon>fAddEdit_Dishes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fAddEdit_Group.resx">
       <DependentUpon>fAddEdit_Group.cs</DependentUpon>

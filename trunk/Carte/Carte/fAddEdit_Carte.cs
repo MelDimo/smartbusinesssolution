@@ -42,6 +42,16 @@ namespace com.sbs.gui.carte
 
         private bool saveData()
         {
+            string errMsg = "Зполнены не все обязательные поля:";
+
+            if (comboBox_refStatus.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
+            else oCarte.refStatus = (int)comboBox_refStatus.SelectedValue;
+
+            if (!errMsg.Equals("Зполнены не все обязательные поля:"))
+            {
+                MessageBox.Show(errMsg, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
             try
             {
                 if (formMode.Equals("ADD")) 
