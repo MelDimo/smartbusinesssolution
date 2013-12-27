@@ -12,9 +12,6 @@ namespace com.sbs.gui.carte
     {
         SqlConnection con;
         SqlCommand command;
-        SqlTransaction tx;
-
-        DataTable dtResult;
 
         #region -------------------------------------------------------------- Меню
 
@@ -155,6 +152,96 @@ namespace com.sbs.gui.carte
 
                 command.CommandText = "DELETE FROM carte_dishes_group WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = pGroupId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
+
+        #region -------------------------------------------------------------- Блюда
+
+        public void dishes_add(string pDbType, DTO.CarteDishes pCarteDishes)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO carte_dishes(carte_dishes_group,     ref_dishes,     name,   price,  isvisible,  ref_printers_type,  ref_status)"+
+                                                        " VALUES(@carte_dishes_group,   @ref_dishes,    @name,  @price, @isvisible, @ref_printers_type, @ref_status)";
+
+                command.Parameters.Add("carte_dishes_group", SqlDbType.Int).Value = pCarteDishes.carteDishesGroup;
+                command.Parameters.Add("ref_dishes", SqlDbType.Int).Value = pCarteDishes.refDishes;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pCarteDishes.name;
+                command.Parameters.Add("price", SqlDbType.Decimal).Value = pCarteDishes.price;
+                command.Parameters.Add("isvisible", SqlDbType.Int).Value = pCarteDishes.isVisible;
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pCarteDishes.refPrintersType;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarteDishes.refStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void dishes_edit(string pDbType, DTO.CarteDishes pCarteDishes)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE carte_dishes SET carte_dishes_group = @carte_dishes_group, " + 
+                                                            " ref_dishes = @ref_dishes,"+
+                                                            " name = @name, "+
+                                                            " price = @price,"+
+                                                            " isvisible = @isvisible," +
+                                                            " ref_printers_type = @ref_printers_type,"+
+                                                            " ref_status = @ref_status" +
+                                                        " WHERE id = @id";
+
+                command.Parameters.Add("id", SqlDbType.Int).Value = pCarteDishes.id;
+                command.Parameters.Add("carte_dishes_group", SqlDbType.Int).Value = pCarteDishes.carteDishesGroup;
+                command.Parameters.Add("ref_dishes", SqlDbType.Int).Value = pCarteDishes.refDishes;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pCarteDishes.name;
+                command.Parameters.Add("price", SqlDbType.Decimal).Value = pCarteDishes.price;
+                command.Parameters.Add("isvisible", SqlDbType.Int).Value = pCarteDishes.isVisible;
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pCarteDishes.refPrintersType;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarteDishes.refStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void dishes_delete(string pDbType, int pDishesId)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM carte_dishes WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pDishesId;
 
                 command.ExecuteNonQuery();
 

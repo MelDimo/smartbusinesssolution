@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using System.Diagnostics;
 
 namespace com.sbs.gui.carte
 {
@@ -18,9 +19,7 @@ namespace com.sbs.gui.carte
         DTO.Carte oCarte;
         DTO.CarteDishesGroup oCarteGroup;
         DTO.CarteDishes oCarteDishes;
-        DTO.Dishes oDishes;
 
-        DataTable dtDishes;
         DataTable dtCarte;
         DataTable dtCarteDishesGroup;
         DataTable dtCarteDishes;
@@ -28,6 +27,7 @@ namespace com.sbs.gui.carte
         DataTable dtStatus;
         DataTable dtPrintersType;
         DataTable dtBranch;
+        DataTable dtRefDishes;
 
         int branchId = 0;
         string branchName = string.Empty;
@@ -39,6 +39,7 @@ namespace com.sbs.gui.carte
             InitializeComponent();
 
             dataGridView_carte.AutoGenerateColumns = false;
+            dataGridView_dishes.AutoGenerateColumns = false;
 
             toolStripButton_carteAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             toolStripButton_carteEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
@@ -64,6 +65,7 @@ namespace com.sbs.gui.carte
                 dtStatus = oReferences.getStatus("offline", 1);
                 dtPrintersType = oReferences.getRefPrintersType("offline");
                 dtBranch = oReferences.getBranch("offline");
+                dtRefDishes = oReferences.getRefDishes("offline");
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
         }
@@ -100,6 +102,9 @@ namespace com.sbs.gui.carte
         private void fillCarteDishesGroup(int pCarte)                           // Заполняем Группы согласно выбраному меню
         {
             treeView_group.Nodes.Clear();
+
+            dataGridView_dishes.DataSource = null;
+            dataGridView_dishes.Rows.Clear();
 
             dtCarteDishesGroup = new DataTable();
             try
@@ -305,9 +310,7 @@ namespace com.sbs.gui.carte
 
         private void toolStripButton_groupEdit_Click(object sender, EventArgs e)
         {
-            int xIndex = 0;
-
-            if (dataGridView_carte.SelectedRows.Count == 0)
+            if (treeView_group.SelectedNode == null)
             {
                 MessageBox.Show("Укажите элемент для редакттирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -353,8 +356,6 @@ namespace com.sbs.gui.carte
                 return;
             }
 
-            DataGridViewRow dr = dataGridView_carte.SelectedRows[0];
-
             groupId = int.Parse(treeView_group.SelectedNode.Name);
 
             try
@@ -376,19 +377,127 @@ namespace com.sbs.gui.carte
 
         private void toolStripButton_dishAdd_Click(object sender, EventArgs e)
         {
+            if (treeView_group.SelectedNode == null)
+            {
+                MessageBox.Show("Укажите категорию меню.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            oCarteDishes = new DTO.CarteDishes();
+            oCarteDishes.carteDishesGroup = int.Parse(treeView_group.SelectedNode.Name);
+            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
+            faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
+            faddedit.comboBox_group.DisplayMember = "name";
+            faddedit.comboBox_group.ValueMember = "id";
+            faddedit.comboBox_refPrintersType.DataSource = dtPrintersType;
+            faddedit.comboBox_refPrintersType.DisplayMember = "name";
+            faddedit.comboBox_refPrintersType.ValueMember = "id";
+            faddedit.comboBox_refStatus.DataSource = dtStatus;
+            faddedit.comboBox_refStatus.DisplayMember = "name";
+            faddedit.comboBox_refStatus.ValueMember = "id";
+            faddedit.dtDishes = dtRefDishes;
+            faddedit.Text = "Ввод новой позиции";
+            if (faddedit.ShowDialog() != DialogResult.OK) return;
+            updateDishes();
+
+        }
+
+        private void updateDishes()
+        {
+            int groupId = int.Parse(treeView_group.SelectedNode.Name);
+
+            fillGroupDishes(groupId);
+        }
+
+        private void fillGroupDishes(int pGroupId)
+        {
+            dtCarteDishes = new DataTable();
+            
+            try
+            {
+                dtCarteDishes = oReferences.getCarteDishes("offline", pGroupId);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+
+            dataGridView_dishes.DataSource = dtCarteDishes;
+            dataGridView_dishes.Columns["dishes_id"].DataPropertyName = "id";
+            dataGridView_dishes.Columns["dishes_name"].DataPropertyName = "name";
+            dataGridView_dishes.Columns["dishes_price"].DataPropertyName = "price";
+            dataGridView_dishes.Columns["dishes_ref_printers_type_name"].DataPropertyName = "ref_printers_type_name";
+            dataGridView_dishes.Columns["dishes_ref_status_name"].DataPropertyName = "ref_status_name";
         }
 
         private void toolStripButton_dishEdit_Click(object sender, EventArgs e)
         {
+            if (dataGridView_dishes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            oCarteDishes = new DTO.CarteDishes();
+            oCarteDishes.id = (int)dataGridView_dishes.SelectedRows[0].Cells["dishes_id"].Value;
+
+            DataRow dishInfo = (from rec in dtCarteDishes.AsEnumerable()
+                                 where rec.Field<int>("id") == oCarteDishes.id
+                                 select rec).First();
+
+            oCarteDishes.carteDishesGroup = dishInfo.Field<int>("carte_dishes_group");
+            oCarteDishes.isVisible = dishInfo.Field<int>("isvisible");
+            oCarteDishes.name = dishInfo.Field<string>("name");
+            oCarteDishes.price = dishInfo.Field<decimal>("price");
+            oCarteDishes.refDishes = dishInfo.Field<int>("ref_dishes");
+            oCarteDishes.refPrintersType = dishInfo.Field<int>("ref_printers_type");
+            oCarteDishes.refStatus = dishInfo.Field<int>("ref_status");
+
+            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
+            faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
+            faddedit.comboBox_group.DisplayMember = "name";
+            faddedit.comboBox_group.ValueMember = "id";
+            faddedit.comboBox_refPrintersType.DataSource = dtPrintersType;
+            faddedit.comboBox_refPrintersType.DisplayMember = "name";
+            faddedit.comboBox_refPrintersType.ValueMember = "id";
+            faddedit.comboBox_refStatus.DataSource = dtStatus;
+            faddedit.comboBox_refStatus.DisplayMember = "name";
+            faddedit.comboBox_refStatus.ValueMember = "id";
+            faddedit.dtDishes = dtRefDishes;
+            faddedit.Text = "Редактирование '" + oCarteDishes.name + "'";
+            if (faddedit.ShowDialog() != DialogResult.OK) return;
+
+            updateDishes();
         }
 
         private void toolStripButton_dishDel_Click(object sender, EventArgs e)
         {
+            int dishId;
 
+            if (dataGridView_dishes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для удаления.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            dishId = (int)dataGridView_dishes.SelectedRows[0].Cells["id"].Value;
+
+            try
+            {
+                bdAccess.dishes_delete("offline", dishId);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Нуедалось удалить элемент.", exc, SystemIcons.Information);
+                return;
+            }
+
+            updateDishes();
         }
 
         #endregion
+
+        private void treeView_group_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            updateDishes();
+        }
+
     }
 }
