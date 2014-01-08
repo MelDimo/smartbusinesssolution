@@ -2,8 +2,8 @@
 <settings>
   <ref_branch>2</ref_branch><!-- id заведения -->
   <dbmode>offline</dbmode><!-- offline; online; mixed -->
-  <resourcePath>\\MAIN2\11111\BackOffice\resource</resourcePath>
-  <modulesPath>\\MAIN2\11111\BackOffice\modules</modulesPath>
+  <resourcePath>\\PROGRAMER\SBS\resource</resourcePath>
+  <modulesPath>\\PROGRAMER\SBS\modules</modulesPath>
   <waiter>
     <authortype>1</authortype>
   </waiter>
