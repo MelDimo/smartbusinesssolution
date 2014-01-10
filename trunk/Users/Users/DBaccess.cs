@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
 using System.Drawing;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace com.sbs.gui.users
 {
@@ -152,10 +154,11 @@ namespace com.sbs.gui.users
             return dtResult;
         }
 
-        public UsersDTO getUser(string pDbType, int pIdUser)
+        public DTO.User getUser(string pDbType, int pIdUser)
         {
-            UsersDTO oUsers = new UsersDTO();
+            DTO.User oUsers = new DTO.User();
             DataTable dtResult = new DataTable();
+            XmlSerializer xmlSer = new XmlSerializer(typeof(DTO.User));
 
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -164,9 +167,14 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, tabn, fname, sname, lname, bdate, org, branch, unit, ref_post, ref_status, pwd" +
+                command.CommandText = "SELECT id,	tabn,			fname as fName,	sname as sName,	lname as lName,	bdate,			org," +
+                                                    " branch,			unit,			ref_post as refPost, ref_status as refStatus,	refStatusDate,	dateAdopted," +
+                                                    " dateStarted,	dateFired,		docNumber,		pensNumber,		citizen1,		citizen2," +
+                                                    " nationality,	passSeriy,		passNumber,		passDateIssued,	passWhoIssued,	passAddress," +
+                                                    " education1,	specialty1,		doc1,			education2,		specialty2,		doc2" +
                                         " FROM users" +
-                                        " WHERE id = @id";
+                                        " WHERE id = @id" +
+                                        " FOR XML RAW('User'), ELEMENTS XSINIL;";
 
                 command.Parameters.Add("id", SqlDbType.Int).Value = pIdUser;
 
@@ -182,81 +190,39 @@ namespace com.sbs.gui.users
 
             foreach (DataRow dr in dtResult.Rows)
             {
-                oUsers.Id = (int)dr["id"];
-                oUsers.Tabn = (int)dr["tabn"];
-                oUsers.fName = dr["fname"].ToString();
-                oUsers.sName = dr["sname"].ToString();
-                oUsers.lName = dr["lname"].ToString();
-                oUsers.BDate = (DateTime)dr["bdate"];
-                oUsers.Org = (int)dr["org"];
-                oUsers.Branch = (int)dr["branch"];
-                oUsers.Unit = (int)dr["unit"];
-                oUsers.RefPost = (int)dr["ref_post"];
-                oUsers.RefStatus = (int)dr["ref_status"];
+                StringReader reader = new StringReader(dr[0].ToString());
+                oUsers = (DTO.User)xmlSer.Deserialize(reader);
             }
 
             return oUsers;
         }
 
-        public void addUser(string pDbType, UsersDTO pUsersDTO)
+        public void addEditUser(string pDbType, DTO.User pUsersDTO)
         {
-            con = new DBCon().getConnection(pDbType);
-            command = null;
-            try
+            XmlSerializer xmlSer = new XmlSerializer(typeof(DTO.User));
+
+            StringWriter sw = new StringWriter();
+            xmlSer.Serialize(sw, pUsersDTO);
+            string xml = sw.ToString();
+
+            using (con = new DBCon().getConnection(pDbType))
             {
-                con.Open();
-                command = con.CreateCommand();
+                command = null;
+                try
+                {
+                    con.Open();
+                    command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO users (tabn,   fname,  sname,  lname,  bdate,  org,    branch,     unit,   ref_post,   ref_status)" +
-                                                " VALUES (@tabn,  @fname, @sname, @lname, @bdate, @org,   @branch,    @unit,  @ref_post,  @ref_status)";
-                command.Parameters.Add("tabn", SqlDbType.Int).Value = pUsersDTO.Tabn;
-                command.Parameters.Add("fname", SqlDbType.NVarChar).Value = pUsersDTO.fName;
-                command.Parameters.Add("sname", SqlDbType.NVarChar).Value = pUsersDTO.sName;
-                command.Parameters.Add("lname", SqlDbType.NVarChar).Value = pUsersDTO.lName;
-                command.Parameters.Add("bdate", SqlDbType.DateTime).Value = pUsersDTO.BDate;
-                command.Parameters.Add("org", SqlDbType.Int).Value = pUsersDTO.Org;
-                command.Parameters.Add("branch", SqlDbType.Int).Value = pUsersDTO.Branch;
-                command.Parameters.Add("unit", SqlDbType.Int).Value = pUsersDTO.Unit;
-                command.Parameters.Add("ref_post", SqlDbType.Int).Value = pUsersDTO.RefPost;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUsersDTO.RefStatus;
+                    command.CommandText = "Users_AddEdit";
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("pUserXML", SqlDbType.Xml).Value = xml;
 
-                command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
-                con.Close();
+                    con.Close();
+                }
+                catch (Exception exc) { throw exc; }
             }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-        }
-
-        public void editUser(string pDbType, UsersDTO pUsersDTO)
-        {
-            con = new DBCon().getConnection(pDbType);
-            command = null;
-            try
-            {
-                con.Open();
-                command = con.CreateCommand();
-
-                command.CommandText = "UPDATE users SET tabn = @tabn, fname = @fname, sname = @sname, lname = @lname, bdate = @bdate, org = @org, branch = @branch, unit = @unit, ref_post = @ref_post, ref_status = @ref_status"+
-                                        " WHERE id = @id";
-                command.Parameters.Add("id", SqlDbType.Int).Value = pUsersDTO.Id;
-                command.Parameters.Add("tabn", SqlDbType.Int).Value = pUsersDTO.Tabn;
-                command.Parameters.Add("fname", SqlDbType.NVarChar).Value = pUsersDTO.fName;
-                command.Parameters.Add("sname", SqlDbType.NVarChar).Value = pUsersDTO.sName;
-                command.Parameters.Add("lname", SqlDbType.NVarChar).Value = pUsersDTO.lName;
-                command.Parameters.Add("bdate", SqlDbType.DateTime).Value = pUsersDTO.BDate;
-                command.Parameters.Add("org", SqlDbType.Int).Value = pUsersDTO.Org;
-                command.Parameters.Add("branch", SqlDbType.Int).Value = pUsersDTO.Branch;
-                command.Parameters.Add("unit", SqlDbType.Int).Value = pUsersDTO.Unit;
-                command.Parameters.Add("ref_post", SqlDbType.Int).Value = pUsersDTO.RefPost;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pUsersDTO.RefStatus;
-
-                command.ExecuteNonQuery();
-
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
         public void delUser(string pDbType, int pIdUser)
@@ -415,7 +381,7 @@ namespace com.sbs.gui.users
             return dtResult;
         }
 
-        public void addGroup(string pDbType, GroupDTO pGroupDTO)
+        public void addGroup(string pDbType, DTO.Group pGroupDTO)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -426,8 +392,8 @@ namespace com.sbs.gui.users
 
                 command.CommandText = "INSERT INTO groups(name,  ref_status)" +
                                                 " VALUES(@name,  @ref_status)";
-                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pGroupDTO.Name;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pGroupDTO.RefStatus;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pGroupDTO.name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pGroupDTO.refStatus;
 
                 command.ExecuteNonQuery();
 
@@ -437,7 +403,7 @@ namespace com.sbs.gui.users
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public void editGroup(string pDbType, GroupDTO pGroupDTO)
+        public void editGroup(string pDbType, DTO.Group pGroupDTO)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -448,9 +414,9 @@ namespace com.sbs.gui.users
 
                 command.CommandText = "UPDATE groups SET name = @name, ref_status = @ref_status" +
                                                 " WHERE id = @id";
-                command.Parameters.Add("id", SqlDbType.Int).Value = pGroupDTO.Id;
-                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pGroupDTO.Name;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pGroupDTO.RefStatus;
+                command.Parameters.Add("id", SqlDbType.Int).Value = pGroupDTO.id;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pGroupDTO.name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pGroupDTO.refStatus;
 
                 command.ExecuteNonQuery();
 

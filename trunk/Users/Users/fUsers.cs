@@ -246,10 +246,10 @@ namespace com.sbs.gui.users
             switch (tSComboBox_RecType.ComboBox.Text)
             {
                 case "Пользователь":
-                    UsersDTO xUsersDTO = new UsersDTO();
-                    xUsersDTO.Org = tSComboBox_organization.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_organization.ComboBox.SelectedValue;
-                    xUsersDTO.Branch = tSComboBox_branch.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_branch.ComboBox.SelectedValue;
-                    xUsersDTO.Unit = tSComboBox_unit.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_unit.ComboBox.SelectedValue;
+                    DTO.User xUsersDTO = new DTO.User();
+                    xUsersDTO.org = tSComboBox_organization.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_organization.ComboBox.SelectedValue;
+                    xUsersDTO.branch = tSComboBox_branch.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_branch.ComboBox.SelectedValue;
+                    xUsersDTO.unit = tSComboBox_unit.ComboBox.SelectedValue == null ? 0 : (int)tSComboBox_unit.ComboBox.SelectedValue;
 
                     fAddEditUsers faddedit = new fAddEditUsers(xUsersDTO, dtOrg, dtBranch, dtUnit);
                     faddedit.Text = "Новый пользователь";
@@ -257,7 +257,7 @@ namespace com.sbs.gui.users
                     break;
 
                 case "Группа":
-                    GroupDTO xGroupDTO = new GroupDTO();
+                    DTO.Group xGroupDTO = new DTO.Group();
                     fAddEditGroup faddeditgroup = new fAddEditGroup(xGroupDTO);
                     faddeditgroup.Text = "Новая группа";
                     if (faddeditgroup.ShowDialog() == DialogResult.OK) tSButton_applyFilter_Click(new object(), new EventArgs());
@@ -278,7 +278,7 @@ namespace com.sbs.gui.users
             switch (tSComboBox_RecType.ComboBox.Text)
             {
                 case "Пользователь":
-                    UsersDTO xUsersDTO = new UsersDTO();
+                    DTO.User xUsersDTO = new DTO.User();
                     try
                     {
                         xUsersDTO = DbAccess.getUser("offline", (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
@@ -295,14 +295,14 @@ namespace com.sbs.gui.users
                     break;
 
                 case "Группа":
-                    GroupDTO xGroupDTO = new GroupDTO();
+                    DTO.Group xGroupDTO = new DTO.Group();
                     DataGridViewRow dr = dataGridView_main.SelectedRows[0];
-                    xGroupDTO.Id = (int)dr.Cells["id"].Value;
-                    xGroupDTO.Name = dr.Cells["name"].Value.ToString();
-                    xGroupDTO.RefStatus = (int)dr.Cells["ref_status"].Value;
+                    xGroupDTO.id = (int)dr.Cells["id"].Value;
+                    xGroupDTO.name = dr.Cells["name"].Value.ToString();
+                    xGroupDTO.refStatus = (int)dr.Cells["ref_status"].Value;
 
                     fAddEditGroup faddeditgroup = new fAddEditGroup(xGroupDTO);
-                    faddeditgroup.Text = "Редактирование " + xGroupDTO.Name;
+                    faddeditgroup.Text = "Редактирование " + xGroupDTO.name;
                     if (faddeditgroup.ShowDialog() == DialogResult.OK) tSButton_applyFilter_Click(new object(), new EventArgs());
                     break;
             }
@@ -316,8 +316,8 @@ namespace com.sbs.gui.users
                     GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            
-            if(MessageBox.Show("Вы уверены что хотите удалить запись '"+dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString()+"'?",
+
+            if (MessageBox.Show("Вы уверены что хотите удалить запись '" + dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString() + "'?",
                     GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
                 return;
 
