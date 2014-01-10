@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.users
 {
@@ -15,25 +16,25 @@ namespace com.sbs.gui.users
         private bool changeData = false;
 
         private DataTable dtRefStatus = new DataTable();
-        private GroupDTO oGroupDTO = new GroupDTO();
+        private DTO.Group oGroupDTO = new DTO.Group();
 
         private DBaccess DbAccess = new DBaccess();
 
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
 
-        public fAddEditGroup(GroupDTO pGroupDTO)
+        public fAddEditGroup(DTO.Group pGroupDTO)
         {
             InitializeComponent();
 
             oGroupDTO = pGroupDTO;
 
-            if (oGroupDTO.Id == 0) formMode = "ADD";
+            if (oGroupDTO.id == 0) formMode = "ADD";
             else formMode = "EDIT";
 
             initRef();
 
-            textBox_name.Text = oGroupDTO.Name;
-            comboBox_status.SelectedValue = oGroupDTO.RefStatus;
+            textBox_name.Text = oGroupDTO.name;
+            comboBox_status.SelectedValue = oGroupDTO.refStatus;
         }
 
         private void initRef()
@@ -66,11 +67,11 @@ namespace com.sbs.gui.users
         {
             string errMessage = "Заполнены не все обязательные поля:";
 
-            oGroupDTO.Name = textBox_name.Text.Trim();
-            oGroupDTO.RefStatus = comboBox_status.SelectedValue == null ? 0 : (int)comboBox_status.SelectedValue;
+            oGroupDTO.name = textBox_name.Text.Trim();
+            oGroupDTO.refStatus = comboBox_status.SelectedValue == null ? 0 : (int)comboBox_status.SelectedValue;
 
-            if (oGroupDTO.Name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
-            if (oGroupDTO.RefStatus == 0) errMessage += System.Environment.NewLine + "- Статус;";
+            if (oGroupDTO.name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
+            if (oGroupDTO.refStatus == 0) errMessage += System.Environment.NewLine + "- Статус;";
 
             if (!errMessage.Equals("Заполнены не все обязательные поля:"))
             {
