@@ -82,7 +82,7 @@ namespace com.sbs.gui.DashBoard
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
-            
+
             try
             {
                 con.Open();
@@ -282,7 +282,7 @@ namespace com.sbs.gui.DashBoard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
-            switch(dtResult.Rows.Count)
+            switch (dtResult.Rows.Count)
             {
                 case 0:
                     throw new Exception("Сотрудник не найден");
@@ -562,12 +562,12 @@ namespace com.sbs.gui.DashBoard
                 command.CommandType = CommandType.Text;
                 command.Parameters.Clear();
 
-                command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, bi.xcount,  rp.name AS printerName, rr.xpath AS reportPath"+
-                                        " FROM bills_info bi"+
-                                        " INNER JOIN bills b ON b.id = bi.bills"+
-                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type"+
-                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers"+
-                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type"+
+                command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, bi.xcount,  rp.name AS printerName, rr.xpath AS reportPath" +
+                                        " FROM bills_info bi" +
+                                        " INNER JOIN bills b ON b.id = bi.bills" +
+                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type" +
                                         " WHERE bi.bills = @bills";
                 command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
                 command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.BillId;
@@ -579,7 +579,7 @@ namespace com.sbs.gui.DashBoard
 
                 if (dtResult.Rows.Count == 0)
                 {
-                    throw new Exception("Не найдено данных для печати Счета. " + Environment.NewLine +"Операция закрытия Счета не выполнена.");
+                    throw new Exception("Не найдено данных для печати Счета. " + Environment.NewLine + "Операция закрытия Счета не выполнена.");
                 }
 
                 tx.Commit();
@@ -673,12 +673,12 @@ namespace com.sbs.gui.DashBoard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT b.id, b.numb, sum(bi.dishes_price * xcount) AS suma, "+
-                                                " b.date_open, b.date_close, stat.name"+
-                                            " FROM bills b"+
-                                            " LEFT JOIN bills_info bi ON bi.bills = b.id"+
-                                            " INNER JOIN ref_status stat ON stat.id = b.ref_status"+
-                                        " WHERE b.season = @season AND b.user_open = @userOpen"+
+                command.CommandText = " SELECT b.id, b.numb, sum(bi.dishes_price * xcount) AS suma, " +
+                                                " b.date_open, b.date_close, stat.name" +
+                                            " FROM bills b" +
+                                            " LEFT JOIN bills_info bi ON bi.bills = b.id" +
+                                            " INNER JOIN ref_status stat ON stat.id = b.ref_status" +
+                                        " WHERE b.season = @season AND b.user_open = @userOpen" +
                                         " GROUP BY b.id, b.numb, b.date_open, b.date_close, stat.name";
 
                 command.Parameters.Add("season", SqlDbType.Int).Value = GValues.openSeasonId;
@@ -807,19 +807,19 @@ namespace com.sbs.gui.DashBoard
             get { return _summa; }
             set { _summa = value; }
         }
-        
+
         public int Table
         {
             get { return _table; }
             set { _table = value; }
         }
-        
+
         public DateTime DateOpen
         {
             get { return _dateOpen; }
             set { _dateOpen = value; }
         }
-        
+
         public int BillId
         {
             get { return _billId; }
@@ -829,7 +829,6 @@ namespace com.sbs.gui.DashBoard
 
     public class oDishes
     {
-        
         private int _id;
         private double _count;
         private double _price;
@@ -866,13 +865,13 @@ namespace com.sbs.gui.DashBoard
             get { return _count; }
             set { _count = value; }
         }
-        
+
         public int Id
         {
             get { return _id; }
             set { _id = value; }
         }
-        
+
     }
 
     public class oBillInfo
@@ -906,7 +905,7 @@ namespace com.sbs.gui.DashBoard
             get { return _discount; }
             set { _discount = value; }
         }
-        
+
 
         public string RefStatusName
         {
@@ -941,7 +940,7 @@ namespace com.sbs.gui.DashBoard
             get { return _dishesPrice; }
             set { _dishesPrice = value; }
         }
-        
+
         public string DishesName
         {
             get { return _dishesName; }
@@ -959,6 +958,6 @@ namespace com.sbs.gui.DashBoard
             get { return _bill; }
             set { _bill = value; }
         }
-        
+
     }
 }
