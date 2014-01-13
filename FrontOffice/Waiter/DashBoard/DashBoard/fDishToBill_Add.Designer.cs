@@ -124,7 +124,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 41);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(547, 1);
+            this.groupBox1.Size = new System.Drawing.Size(547, 22);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Топпинги";
@@ -146,7 +146,7 @@
             this.dataGridView_main.ReadOnly = true;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(541, 0);
+            this.dataGridView_main.Size = new System.Drawing.Size(541, 3);
             this.dataGridView_main.TabIndex = 0;
             // 
             // isChecked
@@ -182,7 +182,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 42);
+            this.ClientSize = new System.Drawing.Size(547, 63);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tableLayoutPanel1);
