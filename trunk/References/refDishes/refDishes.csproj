@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DTO">
+      <HintPath>..\..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
+    </Reference>
     <Reference Include="GValues">
       <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>

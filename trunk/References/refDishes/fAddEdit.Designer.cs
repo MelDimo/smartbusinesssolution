@@ -41,6 +41,7 @@
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.comboBox_refPrintersType = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             this.panel8.SuspendLayout();
@@ -98,7 +99,18 @@
             // 
             this.numericUpDown_price.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_price.DecimalPlaces = 2;
+            this.numericUpDown_price.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.numericUpDown_price.Location = new System.Drawing.Point(98, 83);
+            this.numericUpDown_price.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
             this.numericUpDown_price.Name = "numericUpDown_price";
             this.numericUpDown_price.Size = new System.Drawing.Size(114, 20);
             this.numericUpDown_price.TabIndex = 43;
@@ -106,7 +118,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 91);
+            this.label2.Location = new System.Drawing.Point(9, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 44;
@@ -115,7 +127,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 176);
+            this.label3.Location = new System.Drawing.Point(9, 139);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 45;
@@ -127,7 +139,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_refStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_refStatus.FormattingEnabled = true;
-            this.comboBox_refStatus.Location = new System.Drawing.Point(98, 168);
+            this.comboBox_refStatus.Location = new System.Drawing.Point(98, 136);
             this.comboBox_refStatus.Name = "comboBox_refStatus";
             this.comboBox_refStatus.Size = new System.Drawing.Size(345, 21);
             this.comboBox_refStatus.TabIndex = 46;
@@ -137,7 +149,7 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 210);
+            this.panel8.Location = new System.Drawing.Point(0, 172);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(455, 35);
             this.panel8.TabIndex = 47;
@@ -171,11 +183,21 @@
             this.comboBox_refPrintersType.Size = new System.Drawing.Size(345, 21);
             this.comboBox_refPrintersType.TabIndex = 48;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(76, 13);
+            this.label4.TabIndex = 49;
+            this.label4.Text = "Тип принтера";
+            // 
             // fAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 245);
+            this.ClientSize = new System.Drawing.Size(455, 207);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox_refPrintersType);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.comboBox_refStatus);
@@ -207,10 +229,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_price;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox_refStatus;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button button_cancel;
         private System.Windows.Forms.Button button_ok;
-        private System.Windows.Forms.ComboBox comboBox_refPrintersType;
+        private System.Windows.Forms.Label label4;
+        internal System.Windows.Forms.ComboBox comboBox_refStatus;
+        internal System.Windows.Forms.ComboBox comboBox_refPrintersType;
     }
 }
