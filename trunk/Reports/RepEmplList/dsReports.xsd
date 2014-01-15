@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsReports" targetNamespace="http://tempuri.org/dsReports.xsd" xmlns:mstns="http://tempuri.org/dsReports.xsd" xmlns="http://tempuri.org/dsReports.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReports" msprop:Generator_UserDSName="dsReports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="employeesList" msprop:Generator_TableClassName="employeesListDataTable" msprop:Generator_TableVarName="tableemployeesList" msprop:Generator_TablePropName="employeesList" msprop:Generator_RowDeletingName="employeesListRowDeleting" msprop:Generator_UserTableName="employeesList" msprop:Generator_RowChangingName="employeesListRowChanging" msprop:Generator_RowEvHandlerName="employeesListRowChangeEventHandler" msprop:Generator_RowDeletedName="employeesListRowDeleted" msprop:Generator_RowEvArgName="employeesListRowChangeEvent" msprop:Generator_RowChangedName="employeesListRowChanged" msprop:Generator_RowClassName="employeesListRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="tabn" msprop:Generator_ColumnVarNameInTable="columntabn" msprop:Generator_ColumnPropNameInRow="tabn" msprop:Generator_ColumnPropNameInTable="tabnColumn" msprop:Generator_UserColumnName="tabn" type="xs:int" minOccurs="0" />
+              <xs:element name="fio" msprop:Generator_ColumnVarNameInTable="columnfio" msprop:Generator_ColumnPropNameInRow="fio" msprop:Generator_ColumnPropNameInTable="fioColumn" msprop:Generator_UserColumnName="fio" type="xs:string" minOccurs="0" />
+              <xs:element name="org" msprop:Generator_ColumnVarNameInTable="columnorg" msprop:Generator_ColumnPropNameInRow="org" msprop:Generator_ColumnPropNameInTable="orgColumn" msprop:Generator_UserColumnName="org" type="xs:string" minOccurs="0" />
+              <xs:element name="branch" msprop:Generator_ColumnVarNameInTable="columnbranch" msprop:Generator_ColumnPropNameInRow="branch" msprop:Generator_ColumnPropNameInTable="branchColumn" msprop:Generator_UserColumnName="branch" type="xs:string" minOccurs="0" />
+              <xs:element name="unit" msprop:Generator_ColumnVarNameInTable="columnunit" msprop:Generator_ColumnPropNameInRow="unit" msprop:Generator_ColumnPropNameInTable="unitColumn" msprop:Generator_UserColumnName="unit" type="xs:string" minOccurs="0" />
+              <xs:element name="post" msprop:Generator_ColumnVarNameInTable="columnpost" msprop:Generator_ColumnPropNameInRow="post" msprop:Generator_ColumnPropNameInTable="postColumn" msprop:Generator_UserColumnName="post" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
