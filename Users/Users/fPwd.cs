@@ -22,6 +22,8 @@ namespace com.sbs.gui.users
             InitializeComponent();
 
             button_refresh.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.refresh_26;
+            
+            textBox_login.Text = UsersInfo.LogIn;
 
             foreach (DataRow dr in pDtUsersPwd.Rows)
             { 
@@ -42,20 +44,26 @@ namespace com.sbs.gui.users
         {
             string xCardID = textBox_cardID.Text.Trim();
             string xPwd = textBox_pwd.Text.Trim();
+            string xLogIn = textBox_login.Text.Trim();
 
             string msg = "Не указаны след виды авторизации:";
 
             if (xPwd.Length == 0) msg += Environment.NewLine + "- Пароль;";
             if (xCardID.Length == 0) msg += Environment.NewLine + @"- Браслет\Карта (Mifare);";
+            if (xLogIn.Length == 0)
+            {
+                MessageBox.Show("Не заполенено обязательное поле: " + Environment.NewLine + "- Имя учетной записи;" , GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                return;
+            } 
 
             if(!msg.Equals("Не указаны след виды авторизации:"))
             {
                 msg += Environment.NewLine + Environment.NewLine + "Все равно продолжить?";
-                if(MessageBox.Show(msg,GValues.prgNameFull,MessageBoxButtons.YesNo,MessageBoxIcon.Question) == DialogResult.No) return;
+                if(MessageBox.Show(msg, GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No) return;
             }
 
             try{
-                DbAccess.saveUsersPwd("offline", new object[]{xUserId, xCardID, xPwd});
+                DbAccess.saveUsersPwd("offline", new object[] { xUserId, xCardID, xPwd, xLogIn });
             }catch(Exception exc){uMessage.Show("Неудалось сохранить данные", exc,SystemIcons.Information);}
 
             uMessage.Show("Данные сохранены.", SystemIcons.Information);

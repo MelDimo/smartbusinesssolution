@@ -43,12 +43,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label_fio = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox_login = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl_main.SuspendLayout();
             this.tabPage_password.SuspendLayout();
             this.tabPage_bracelet.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -56,7 +59,7 @@
             this.panel1.Controls.Add(this.button_cancel);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 170);
+            this.panel1.Location = new System.Drawing.Point(3, 208);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(407, 35);
             this.panel1.TabIndex = 1;
@@ -91,7 +94,7 @@
             this.tabControl_main.Location = new System.Drawing.Point(3, 16);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
-            this.tabControl_main.Size = new System.Drawing.Size(401, 92);
+            this.tabControl_main.Size = new System.Drawing.Size(401, 88);
             this.tabControl_main.TabIndex = 2;
             this.tabControl_main.SelectedIndexChanged += new System.EventHandler(this.tabControl_main_SelectedIndexChanged);
             // 
@@ -102,7 +105,7 @@
             this.tabPage_password.Location = new System.Drawing.Point(4, 22);
             this.tabPage_password.Name = "tabPage_password";
             this.tabPage_password.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_password.Size = new System.Drawing.Size(393, 66);
+            this.tabPage_password.Size = new System.Drawing.Size(393, 56);
             this.tabPage_password.TabIndex = 0;
             this.tabPage_password.Text = "Пароль";
             this.tabPage_password.UseVisualStyleBackColor = true;
@@ -137,7 +140,7 @@
             this.tabPage_bracelet.Location = new System.Drawing.Point(4, 22);
             this.tabPage_bracelet.Name = "tabPage_bracelet";
             this.tabPage_bracelet.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_bracelet.Size = new System.Drawing.Size(393, 66);
+            this.tabPage_bracelet.Size = new System.Drawing.Size(393, 62);
             this.tabPage_bracelet.TabIndex = 1;
             this.tabPage_bracelet.Text = "Браслет";
             this.tabPage_bracelet.UseVisualStyleBackColor = true;
@@ -183,9 +186,9 @@
             // 
             this.groupBox1.Controls.Add(this.tabControl_main);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 59);
+            this.groupBox1.Location = new System.Drawing.Point(3, 101);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(407, 111);
+            this.groupBox1.Size = new System.Drawing.Size(407, 107);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Авторизация";
@@ -215,12 +218,32 @@
             this.label_fio.Text = "label_fio";
             this.label_fio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBox_login);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(3, 59);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(407, 42);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Имя учетной записи";
+            // 
+            // textBox_login
+            // 
+            this.textBox_login.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_login.Location = new System.Drawing.Point(3, 16);
+            this.textBox_login.Name = "textBox_login";
+            this.textBox_login.Size = new System.Drawing.Size(401, 20);
+            this.textBox_login.TabIndex = 0;
+            // 
             // fPwd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 208);
+            this.ClientSize = new System.Drawing.Size(413, 246);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(429, 246);
@@ -236,6 +259,8 @@
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -257,5 +282,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox_showPwd;
         public System.Windows.Forms.Label label_fio;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox_login;
     }
 }
