@@ -56,7 +56,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(156, 1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(299, 30);
+            this.label3.Size = new System.Drawing.Size(298, 30);
             this.label3.TabIndex = 3;
             this.label3.Text = "Наименование";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -145,7 +145,7 @@
             this.textBox_name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_name.Location = new System.Drawing.Point(156, 35);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(299, 20);
+            this.textBox_name.Size = new System.Drawing.Size(298, 20);
             this.textBox_name.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -157,7 +157,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 122F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
             this.tableLayoutPanel1.Controls.Add(this.label3, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -178,9 +178,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(462, 1);
+            this.label4.Location = new System.Drawing.Point(461, 1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 30);
+            this.label4.Size = new System.Drawing.Size(117, 30);
             this.label4.TabIndex = 6;
             this.label4.Text = "Вид счета";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -193,9 +193,9 @@
             this.comboBox_xvid.Items.AddRange(new object[] {
             "Активный",
             "Пассивный"});
-            this.comboBox_xvid.Location = new System.Drawing.Point(462, 35);
+            this.comboBox_xvid.Location = new System.Drawing.Point(461, 35);
             this.comboBox_xvid.Name = "comboBox_xvid";
-            this.comboBox_xvid.Size = new System.Drawing.Size(116, 21);
+            this.comboBox_xvid.Size = new System.Drawing.Size(117, 21);
             this.comboBox_xvid.TabIndex = 3;
             // 
             // panel2
