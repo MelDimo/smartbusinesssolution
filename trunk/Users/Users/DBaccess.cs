@@ -570,13 +570,12 @@ namespace com.sbs.gui.users
             return dtResult;
         }
 
-
-
         public void saveUsersPwd(string pDbType, object[] pOParam)
         {
             int xUsersId = (int)pOParam[0];
             string xCardID = pOParam[1].ToString();
             string xPwd = pOParam[2].ToString();
+            string xLogIn = pOParam[3].ToString();
 
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -598,6 +597,12 @@ namespace com.sbs.gui.users
                 command.ExecuteNonQuery();
                 command.Parameters["users_pwd_type"].Value = 2;
                 command.Parameters["pwd"].Value = xCardID;
+                command.ExecuteNonQuery();
+
+                command.Parameters.Clear();
+                command.CommandText = "UPDATE users SET login = @login WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = xUsersId;
+                command.Parameters.Add("login", SqlDbType.NVarChar).Value = xLogIn;
                 command.ExecuteNonQuery();
 
                 tx.Commit();

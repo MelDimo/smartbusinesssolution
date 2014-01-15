@@ -11,12 +11,14 @@ namespace com.sbs.gui.users
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        
         [STAThread]
         static void Main()
         {
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            UsersInfo.LogIn = "dimon";
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
