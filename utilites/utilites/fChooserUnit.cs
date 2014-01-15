@@ -6,15 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace com.sbs.dll.utilites
 {
     public partial class fChooserUnit : Form
     {
+        public int selectedId;
+        public string selectedName;
+
         // Сохраняем выбанные элементы
-        public int xOrgId;
-        public int xBranchId;
-        public int xUnitId;
+        private int xOrgId;
+        private int xBranchId;
+        private int xUnitId;
 
         getReference oReference = new getReference();
 
@@ -25,7 +29,6 @@ namespace com.sbs.dll.utilites
         private int lvl_min;    // Уровь отображение 0 - Орг; 1 - Заведение; 2 - Подразделение
         private int lvl_max;    // Уровь отображение 0 - Орг; 1 - Заведение; 2 - Подразделение
         private int lvl_curent; // Уровь - текущий
-        private int id;         // id предыдущего уровня (0 - незаморачиваюсь, меню организации)
 
         public fChooserUnit(int plvl_min, int plvl_max)
         {
@@ -41,7 +44,7 @@ namespace com.sbs.dll.utilites
         {
             dtOrg = oReference.getOrganization("offline");
             dtBranch = oReference.getBranch("offline");
-            dtUnit = oReference.getUnit("offline");
+            dtUnit = oReference.getUnitWhithDepot("offline");
         }
 
         private void fChooserUnit_Shown(object sender, EventArgs e)
@@ -68,32 +71,105 @@ namespace com.sbs.dll.utilites
             { 
                 case Keys.Enter:
                     inItem();
+                    e.SuppressKeyPress = true;
                     break;
 
                 case Keys.Back:
                     fromItem();
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Escape:
+                    closeForm(false);
                     break;
             }
         }
 
         private void fromItem()
         {
-            DataGridViewRow dr = dataGridView_main.SelectedRows[0];
+            int index;
+            string itemPath;
+
             if (lvl_curent > lvl_min)
             {
                 lvl_curent = lvl_curent - 1;
-                dtBranch.DefaultView.RowFilter = "organization =" + dr.Cells["id"].Value.ToString() ;
-                dataGridView_main.DataSource = dtBranch;
+                switch (lvl_curent)
+                { 
+                    case 0:
+                        dataGridView_main.DataSource = dtOrg;
+                        break;
+
+                    case 1:
+                        dtBranch.DefaultView.RowFilter = "organization =" + xOrgId;
+                        dataGridView_main.DataSource = dtBranch;
+                        break;
+                }
+
+                index = label_path.Text.LastIndexOf(" \\ ");
+                if (index == -1)
+                {
+                    label_path.Text = string.Empty;
+                }
+                else
+                {
+                    itemPath = label_path.Text.Substring(0, index);
+                    label_path.Text = itemPath;
+                }
             }
         }
 
         private void inItem()
         {
+            string itemName;
+            if (dataGridView_main.SelectedRows.Count == 0) return;
+
             DataGridViewRow dr = dataGridView_main.SelectedRows[0];
-            if (lvl_curent < lvl_max)
+            if (lvl_curent < lvl_max - 1)
             {
+                itemName = dr.Cells["name"].Value.ToString();
                 lvl_curent = lvl_curent + 1;
+                switch (lvl_curent)
+                {
+                    case 1:
+                        xOrgId = (int)dr.Cells["id"].Value;
+                        dtBranch.DefaultView.RowFilter = "organization =" + xOrgId;
+                        dataGridView_main.DataSource = dtBranch;
+                        break;
+
+                    case 2:
+                        xBranchId = (int)dr.Cells["id"].Value;
+                        dtUnit.DefaultView.RowFilter = "branch =" + xBranchId;
+                        dataGridView_main.DataSource = dtUnit;
+                        break;
+
+                }
+                if (label_path.Text.Length != 0) label_path.Text += " \\ ";
+                label_path.Text += itemName;
             }
+            else // Конечный элемент
+            {
+                selectedId = (int)dr.Cells["id"].Value;
+                selectedName = dr.Cells["name"].Value.ToString();
+                closeForm(true);
+            }
+
+        }
+
+        private void closeForm(bool pSelectItem)
+        {
+            if (pSelectItem)
+            {
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private void dataGridView_main_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            inItem();
         }
     }
 }

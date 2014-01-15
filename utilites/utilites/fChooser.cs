@@ -84,11 +84,55 @@ namespace com.sbs.dll.utilites
                     returnTMC();
                     break;
 
+                case "ADDITIONALCOST":
+                    returnAddCost();
+                    break;
+
+                case "REFDISHES":
+                    returnRefDishes();
+                    break;
+
             }
 
             isSelected = true;
 
             Close();
+        }
+
+        private void returnRefDishes()
+        {
+            int id;
+            string name;
+            decimal price;
+            int ref_status;
+            int ref_printers_type;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+            price = (decimal)dataGridView_main.SelectedRows[0].Cells["price"].Value;
+            ref_status = (int)dataGridView_main.SelectedRows[0].Cells["ref_status"].Value;
+            ref_printers_type = (int)dataGridView_main.SelectedRows[0].Cells["ref_printers_type"].Value;
+
+            xData = new object[] { id, name, price, ref_status, ref_printers_type };
+        }
+
+        private void returnAddCost()
+        {
+            int id;
+            string name;
+            int ref_accounts;
+            string ref_accounts_name;
+            int ref_contractor;
+            string ref_contractor_name;
+
+            id = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            name = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+            ref_accounts = (int)dataGridView_main.SelectedRows[0].Cells["ref_accounts"].Value;
+            ref_accounts_name = dataGridView_main.SelectedRows[0].Cells["ref_accounts_name"].Value.ToString();
+            ref_contractor = (int)dataGridView_main.SelectedRows[0].Cells["ref_contractor"].Value;
+            ref_contractor_name = dataGridView_main.SelectedRows[0].Cells["ref_contractor_name"].Value.ToString();
+
+            xData = new object[] { id, name, ref_accounts, ref_accounts_name, ref_contractor, ref_contractor_name };
         }
 
         private void returnTMC()
