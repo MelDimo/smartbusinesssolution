@@ -40,7 +40,9 @@ namespace com.sbs.gui.main
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = "SELECT id, tabn, fname, sname, lname, org, branch, unit, ref_post FROM users WHERE login = @login AND pwd = @pwd";
+                command.CommandText = "SELECT u.id, u.tabn, u.fname, u.sname, u.lname, u.org, u.branch, u.unit, u.ref_post, u.login " +
+                                        " FROM users u " +
+                                        " INNER JOIN users_pwd up ON up.users = u.id WHERE u.login = @login AND up.pwd = @pwd";
                 command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -61,6 +63,7 @@ namespace com.sbs.gui.main
                 UsersInfo.UserTabn = int.Parse(dt.Rows[0]["tabn"].ToString());
                 UsersInfo.UserName = dt.Rows[0]["lname"].ToString() + " " + dt.Rows[0]["fname"].ToString() + " " + dt.Rows[0]["sname"].ToString();
                 UsersInfo.PostId = int.Parse(dt.Rows[0]["ref_post"].ToString());
+                UsersInfo.LogIn = dt.Rows[0]["login"].ToString();
 
                 return true;
             }

@@ -50,10 +50,10 @@ namespace com.sbs.dll
             public string passAddress { get; set; }
             public int education1 { get; set; }
             public int specialty1 { get; set; }
-            public int doc1 { get; set; }
+            public string doc1 { get; set; }
             public int education2 { get; set; }
             public int specialty2 { get; set; }
-            public int doc2 { get; set; }
+            public string doc2 { get; set; }
         }
 
         public class Group

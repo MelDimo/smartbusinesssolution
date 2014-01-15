@@ -47,7 +47,7 @@ namespace com.sbs.dll
 
         //public static string mdfPath = @"D:\VisualStudio2010\Projects\SBS\resource\db.mdf";
 
-        public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\SBS\resource\settings.xml";
+        public static string fileSettingsPath = @"D:\VisualStudio2010\Projects\RELEASE\SBS\settings.xml";
 
         public static string logoPath
         {
@@ -268,6 +268,7 @@ namespace com.sbs.dll
         private static int _userTabn;
         private static int _postId;
         private static List<int> _acl;
+        private static string _logIN;
 
         public static void Clear()
         {
@@ -276,6 +277,12 @@ namespace com.sbs.dll
             _userTabn = 0;
             _postId = 0;
             _acl = new List<int>();
+        }
+
+        public static string LogIn
+        {
+            get { return _logIN; }
+            set { _logIN = value; }
         }
 
         public static List<int> Acl

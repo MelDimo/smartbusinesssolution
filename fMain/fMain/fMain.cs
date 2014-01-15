@@ -68,10 +68,21 @@ namespace com.sbs.gui.main
                     Form form = (Form)Activator.CreateInstance(type);
                     form.Name = clickedItem.Name;
                     tabControl_top.TabPages.Add(form.Name, form.Text);
-                    form.MdiParent = this;
+                    if (form.Tag != null)
+                    {
+                        if (form.Tag.Equals("DIALOG")) form.MdiParent = this;
+                    }
+                    else
+                        form.MdiParent = this;
+
                     form.FormClosed += new FormClosedEventHandler(form_FormClosed);
                     form.Activated += new EventHandler(form_Activated);
-                    form.Show(); // Or Application.Run(form)
+                    if (form.Tag != null)
+                    {
+                        if (form.Tag.Equals("DIALOG")) form.ShowDialog(); // Or Application.Run(form)
+                    }
+                    else
+                        form.Show();
                     return;
                 }
             }
