@@ -149,6 +149,35 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getUnitWhithDepot(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, branch, name, ref_status FROM unit"+
+                                        " WHERE isDepot = 1";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            dtResult.TableName = "Unit";
+
+            return dtResult;
+        }
+
         public DataTable getPost(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -429,6 +458,35 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getPackageType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name" +
+                                        " FROM packages_type " +
+                                        " ORDER BY name";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getTmcType(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -516,5 +574,300 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getContactor(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name" +
+                                        " FROM ref_contractor" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.NVarChar).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCarte(string pDbType, int pBranch)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT c.id, c.code, c.name, c.branch, c.ref_status, stat.name as ref_status_name" +
+                                        " FROM carte c" +
+                                        " INNER JOIN ref_status stat ON stat.id = c.ref_status" +
+                                        " WHERE c.branch = @pBranch";
+
+                command.Parameters.Add("pBranch", SqlDbType.NVarChar).Value = pBranch;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCarteDishesGroup(string pDbType, int pCarte)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT cdg.id, cdg.id_parent, cdg.name, cdg.ref_status, stat.name as ref_status_name" +
+                                        " FROM carte_dishes_group cdg" +
+                                        " INNER JOIN ref_status stat ON stat.id = cdg.ref_status" +
+                                        " WHERE cdg.carte = @pCarte";
+
+                command.Parameters.Add("pCarte", SqlDbType.NVarChar).Value = pCarte;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCarteDishes(string pDbType, int pCarteDishesGroup)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT cd.id, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, " +
+                                            " cd.ref_printers_type, rpt.name as ref_printers_type_name," +
+                                            " cd.ref_status, stat.name as ref_status_name" +
+                                        " FROM carte_dishes cd" +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
+                                        " INNER JOIN ref_status stat ON stat.id = cdg.ref_status" +
+                                        " INNER JOIN ref_printers_type rpt ON rpt.id = cd.ref_printers_type" +
+                                        " WHERE cd.carte_dishes_group = @pCarteDishesGroup";
+
+                command.Parameters.Add("pCarteDishesGroup", SqlDbType.NVarChar).Value = pCarteDishesGroup;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getRefDishes(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price," +
+                                            " rd.ref_printers_type, rpt.name as ref_printers_type_name," +
+                                            " rd.ref_status, rs.name as ref_status_name" +
+                                        " FROM ref_dishes rd" +
+                                        " INNER JOIN ref_printers_type rpt ON rpt.id = rd.ref_printers_type" +
+                                        " INNER JOIN ref_status rs ON rs.id = rd.ref_status" +
+                                        " WHERE rd.ref_status = @ref_status";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getSitizen(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, ref_status" +
+                                        " FROM ref_sitizen" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getNationality(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, ref_status" +
+                                        " FROM ref_nationality" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getEducation(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, ref_status" +
+                                        " FROM ref_education" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getSpecialty(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, ref_status" +
+                                        " FROM ref_specialty" +
+                                        " WHERE ref_status = @ref_status" +
+                                        " ORDER BY name";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+        
     }
 }
