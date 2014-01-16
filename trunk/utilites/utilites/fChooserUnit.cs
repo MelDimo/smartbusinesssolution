@@ -16,9 +16,12 @@ namespace com.sbs.dll.utilites
         public string selectedName;
 
         // Сохраняем выбанные элементы
-        private int xOrgId;
-        private int xBranchId;
-        private int xUnitId;
+        public int xOrgId;
+        public string xOrgName;
+        public int xBranchId;
+        public string xBranchName;
+        //public int xUnitId;
+        //public string xUnitName;
 
         getReference oReference = new getReference();
 
@@ -132,12 +135,14 @@ namespace com.sbs.dll.utilites
                 {
                     case 1:
                         xOrgId = (int)dr.Cells["id"].Value;
+                        xOrgName = dr.Cells["name"].Value.ToString();
                         dtBranch.DefaultView.RowFilter = "organization =" + xOrgId;
                         dataGridView_main.DataSource = dtBranch;
                         break;
 
                     case 2:
                         xBranchId = (int)dr.Cells["id"].Value;
+                        xBranchName = dr.Cells["name"].Value.ToString();
                         dtUnit.DefaultView.RowFilter = "branch =" + xBranchId;
                         dataGridView_main.DataSource = dtUnit;
                         break;

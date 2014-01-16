@@ -49,7 +49,7 @@ namespace com.sbs.dll.docsaction
     {
         private SqlConnection con;
         private SqlCommand command = null;
-        private SqlTransaction tx = null;
+        //private SqlTransaction tx = null;
 
         public int savePackage(string pDbType, Packages pPackage)
         {
