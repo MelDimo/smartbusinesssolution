@@ -57,6 +57,12 @@
     <Compile Include="fChooserUnit.Designer.cs">
       <DependentUpon>fChooserUnit.cs</DependentUpon>
     </Compile>
+    <Compile Include="fChooserUnitTree.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fChooserUnitTree.Designer.cs">
+      <DependentUpon>fChooserUnitTree.cs</DependentUpon>
+    </Compile>
     <Compile Include="fMessage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fChooserUnit.resx">
       <DependentUpon>fChooserUnit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fChooserUnitTree.resx">
+      <DependentUpon>fChooserUnitTree.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fMessage.resx">
       <DependentUpon>fMessage.cs</DependentUpon>

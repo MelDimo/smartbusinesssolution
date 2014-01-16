@@ -868,6 +868,39 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
-        
+
+        public DataSet getOrganizationTree(string pDbType)
+        {
+            DataSet ds = new DataSet();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            SqlDataAdapter da;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, 0 as idparent, name FROM organization; " +
+                                    " SELECT id, organization as idparent, name FROM branch; " +
+                                    " SELECT id, branch as idparent, name FROM unit;";
+
+                da = new SqlDataAdapter(command);
+
+                da.Fill(ds);
+
+                ds.Tables[0].TableName = "organization";
+                ds.Tables[1].TableName = "branch";
+                ds.Tables[2].TableName = "unit";
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return ds;
+        }
     }
 }
