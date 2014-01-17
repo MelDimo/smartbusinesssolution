@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using CrystalDecisions.CrystalReports.Engine;
 
-namespace com.sbs.gui.report
+namespace com.sbs.gui.report.repempllist
 {
     public partial class fRepEmplList : Form
     {
@@ -36,6 +37,7 @@ namespace com.sbs.gui.report
         private void button_selectedUnit_Click(object sender, EventArgs e)
         {
             fChooserUnitTree fOrgTree = new fChooserUnitTree();
+            fOrgTree.autoCheckChild = true;
             fOrgTree.Text = "Выбор подразделения";
             fOrgTree.StartPosition = FormStartPosition.CenterParent;
             fOrgTree.ShowDialog();
@@ -45,6 +47,7 @@ namespace com.sbs.gui.report
 
         private void prepareReport()
         {
+            string pathForReport = string.Empty;
             DataTable dt = new DataTable();
 
             try
@@ -57,7 +60,18 @@ namespace com.sbs.gui.report
                 return;
             }
 
-            
+            pathForReport = Environment.CurrentDirectory + @"\reports\personnel\employeesList.rpt";
+
+            ReportDocument repDoc = new ReportDocument();
+            repDoc.Load(pathForReport);
+            repDoc.SetDataSource(dt);
+            repDoc.SetParameterValue("xDate", "15.01.2014");
+
+            fViewer fviewer = new fViewer();
+            fviewer.crystalReportViewer_main.ReportSource = repDoc;
+            fviewer.crystalReportViewer_main.Refresh();
+            fviewer.ShowDialog();
+
         }
     }
 }

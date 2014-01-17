@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using com.sbs.dll;
 
-namespace com.sbs.gui.report.repempllist
+namespace com.sbs.gui.report.repempllog
 {
     static class Program
     {
@@ -14,13 +13,9 @@ namespace com.sbs.gui.report.repempllist
         [STAThread]
         static void Main()
         {
-#if DEBUG
-            Config conf = new Config();
-            if (!conf.loadConfig()) return;
-#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fRepEmplList());
+            Application.Run(new fRepEmplLog());
         }
     }
 }
