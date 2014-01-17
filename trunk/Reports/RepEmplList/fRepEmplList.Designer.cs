@@ -1,4 +1,4 @@
-﻿namespace com.sbs.gui.report
+﻿namespace com.sbs.gui.report.repempllist
 {
     partial class fRepEmplList
     {

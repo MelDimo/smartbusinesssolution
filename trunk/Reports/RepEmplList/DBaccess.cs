@@ -57,7 +57,7 @@ namespace com.sbs.gui.report
 
             foreach (int id in pRepParam.checkedUnit)
             {
-                sId += "id" + ",";
+                sId += id + ",";
             }
 
             try
