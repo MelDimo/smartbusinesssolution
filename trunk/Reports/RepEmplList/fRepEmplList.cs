@@ -38,6 +38,7 @@ namespace com.sbs.gui.report.repempllist
         {
             fChooserUnitTree fOrgTree = new fChooserUnitTree();
             fOrgTree.autoCheckChild = true;
+            fOrgTree.checkLvl = "unit";
             fOrgTree.Text = "Выбор подразделения";
             fOrgTree.StartPosition = FormStartPosition.CenterParent;
             fOrgTree.ShowDialog();

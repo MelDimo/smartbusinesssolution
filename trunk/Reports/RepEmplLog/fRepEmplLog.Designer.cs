@@ -31,10 +31,10 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button_getEmpl = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox_users = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button_getGroup = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox_usersGroups = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -44,7 +44,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button_getBranch = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_branchsNames = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
@@ -86,7 +86,7 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.button_getEmpl);
-            this.panel3.Controls.Add(this.textBox3);
+            this.panel3.Controls.Add(this.textBox_users);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(132, 123);
             this.panel3.Name = "panel3";
@@ -96,7 +96,7 @@
             // button_getEmpl
             // 
             this.button_getEmpl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_getEmpl.Location = new System.Drawing.Point(267, 1);
+            this.button_getEmpl.Location = new System.Drawing.Point(267, 2);
             this.button_getEmpl.Name = "button_getEmpl";
             this.button_getEmpl.Size = new System.Drawing.Size(30, 23);
             this.button_getEmpl.TabIndex = 1;
@@ -104,19 +104,20 @@
             this.button_getEmpl.UseVisualStyleBackColor = true;
             this.button_getEmpl.Click += new System.EventHandler(this.button_getEmpl_Click);
             // 
-            // textBox3
+            // textBox_users
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBox_users.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(4, 4);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(257, 20);
-            this.textBox3.TabIndex = 0;
+            this.textBox_users.Location = new System.Drawing.Point(4, 4);
+            this.textBox_users.Name = "textBox_users";
+            this.textBox_users.ReadOnly = true;
+            this.textBox_users.Size = new System.Drawing.Size(257, 20);
+            this.textBox_users.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.button_getGroup);
-            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.textBox_usersGroups);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(132, 90);
             this.panel2.Name = "panel2";
@@ -134,14 +135,15 @@
             this.button_getGroup.UseVisualStyleBackColor = true;
             this.button_getGroup.Click += new System.EventHandler(this.button_getGroup_Click);
             // 
-            // textBox2
+            // textBox_usersGroups
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBox_usersGroups.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(4, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(257, 20);
-            this.textBox2.TabIndex = 0;
+            this.textBox_usersGroups.Location = new System.Drawing.Point(4, 4);
+            this.textBox_usersGroups.Name = "textBox_usersGroups";
+            this.textBox_usersGroups.ReadOnly = true;
+            this.textBox_usersGroups.Size = new System.Drawing.Size(257, 20);
+            this.textBox_usersGroups.TabIndex = 0;
             // 
             // label1
             // 
@@ -217,7 +219,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.button_getBranch);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.textBox_branchsNames);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(132, 57);
             this.panel1.Name = "panel1";
@@ -235,20 +237,23 @@
             this.button_getBranch.UseVisualStyleBackColor = true;
             this.button_getBranch.Click += new System.EventHandler(this.button_getBranch_Click);
             // 
-            // textBox1
+            // textBox_branchsNames
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.textBox_branchsNames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(257, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBox_branchsNames.Location = new System.Drawing.Point(4, 4);
+            this.textBox_branchsNames.Name = "textBox_branchsNames";
+            this.textBox_branchsNames.ReadOnly = true;
+            this.textBox_branchsNames.Size = new System.Drawing.Size(257, 20);
+            this.textBox_branchsNames.TabIndex = 0;
             // 
             // panel8
             // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel8.Location = new System.Drawing.Point(0, 160);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(439, 35);
@@ -256,7 +261,6 @@
             // 
             // button_cancel
             // 
-            this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_cancel.Location = new System.Drawing.Point(343, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
@@ -267,7 +271,6 @@
             // 
             // button_ok
             // 
-            this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ok.Location = new System.Drawing.Point(262, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
@@ -283,6 +286,7 @@
             this.ClientSize = new System.Drawing.Size(439, 195);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel8);
+            this.MinimumSize = new System.Drawing.Size(455, 233);
             this.Name = "fRepEmplLog";
             this.Text = "Form1";
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -307,16 +311,16 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button_getEmpl;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox_users;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button button_getGroup;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox_usersGroups;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button_getBranch;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_branchsNames;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button button_cancel;
         private System.Windows.Forms.Button button_ok;
