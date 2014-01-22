@@ -283,10 +283,10 @@ namespace com.sbs.gui.users
                     {
                         xUsersDTO = DbAccess.getUser("offline", (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
                     }
-                    catch (Exception exc) 
-                    { 
-                        uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information); 
-                        return; 
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information);
+                        return;
                     }
 
                     fAddEditUsers faddedit = new fAddEditUsers(xUsersDTO, dtOrg, dtBranch, dtUnit);

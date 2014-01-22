@@ -171,7 +171,7 @@ namespace com.sbs.gui.users
                                                     " branch,			unit,			ref_post as refPost, ref_status as refStatus,	refStatusDate,	dateAdopted," +
                                                     " dateStarted,	dateFired,		docNumber,		pensNumber,		citizen1,		citizen2," +
                                                     " nationality,	passSeriy,		passNumber,		passDateIssued,	passWhoIssued,	passAddress," +
-                                                    " education1,	specialty1,		doc1,			education2,		specialty2,		doc2" +
+                                                    " education1,	specialty1,		doc1,			education2,		specialty2,		doc2,   reservist" +
                                         " FROM users" +
                                         " WHERE id = @id" +
                                         " FOR XML RAW('User'), ELEMENTS XSINIL;";

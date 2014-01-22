@@ -115,6 +115,13 @@ namespace com.sbs.gui.users
 
             textBox_doc1.DataBindings.Add("Text", oUsers, "doc1");
             textBox_doc2.DataBindings.Add("Text", oUsers, "doc2");
+
+            Binding bind = new Binding("Checked", oUsers, "reservist");
+            bind.Format += (s, e) =>
+            {
+                e.Value = (int)e.Value == 1;
+            };
+            checkBox_reservist.DataBindings.Add(bind);
         }
 
         private void initRef()
@@ -184,8 +191,6 @@ namespace com.sbs.gui.users
                 uMessage.Show(errMessage, SystemIcons.Information);
                 return false;
             }
-
-
 
             switch (formMode)
             {
