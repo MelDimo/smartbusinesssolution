@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace com.sbs.gui.users
 {
@@ -115,13 +116,6 @@ namespace com.sbs.gui.users
 
             textBox_doc1.DataBindings.Add("Text", oUsers, "doc1");
             textBox_doc2.DataBindings.Add("Text", oUsers, "doc2");
-
-            Binding bind = new Binding("Checked", oUsers, "reservist");
-            bind.Format += (s, e) =>
-            {
-                e.Value = (int)e.Value == 1;
-            };
-            checkBox_reservist.DataBindings.Add(bind);
         }
 
         private void initRef()
@@ -219,8 +213,15 @@ namespace com.sbs.gui.users
             comboBox_unit.SelectedIndexChanged += new EventHandler(comboBox_unit_SelectedIndexChanged);
             comboBox_branch.SelectedIndexChanged += new EventHandler(comboBox_branch_SelectedIndexChanged);
             comboBox_org.SelectedIndexChanged += new EventHandler(comboBox_org_SelectedIndexChanged);
-
             comboBox_org.SelectedValue = oUsers.org;
+
+            checkBox_reservist.CheckedChanged += new EventHandler(checkBox_reservist_CheckedChanged);
+            checkBox_reservist.DataBindings.Add("Checked", oUsers, "reservist", true, DataSourceUpdateMode.Never, false);
+        }
+
+        void checkBox_reservist_CheckedChanged(object sender, EventArgs e)
+        {
+            oUsers.reservist = checkBox_reservist.Checked == true ? 1 : 0;
         }
 
         void comboBox_unit_SelectedIndexChanged(object sender, EventArgs e)

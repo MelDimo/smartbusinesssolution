@@ -97,7 +97,7 @@
             this.textBox_bpalce = new System.Windows.Forms.TextBox();
             this.dateTimePicker_bdate = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage_education = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -112,7 +112,8 @@
             this.comboBox_specialty1 = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.comboBox_education1 = new System.Windows.Forms.ComboBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage_reservist = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.checkBox_reservist = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl_main.SuspendLayout();
@@ -130,14 +131,15 @@
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPage_education.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox_doc2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPage_reservist.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -187,8 +189,8 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl_main.Controls.Add(this.tabPage_official);
             this.tabControl_main.Controls.Add(this.tabPage_private);
-            this.tabControl_main.Controls.Add(this.tabPage1);
-            this.tabControl_main.Controls.Add(this.tabPage2);
+            this.tabControl_main.Controls.Add(this.tabPage_education);
+            this.tabControl_main.Controls.Add(this.tabPage_reservist);
             this.tabControl_main.Location = new System.Drawing.Point(0, 0);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
@@ -939,16 +941,16 @@
             this.label14.Text = "Место рождения";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabPage1
+            // tabPage_education
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(753, 290);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Образование";
+            this.tabPage_education.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_education.Controls.Add(this.groupBox2);
+            this.tabPage_education.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_education.Name = "tabPage_education";
+            this.tabPage_education.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_education.Size = new System.Drawing.Size(753, 290);
+            this.tabPage_education.TabIndex = 2;
+            this.tabPage_education.Text = "Образование";
             // 
             // groupBox2
             // 
@@ -1102,21 +1104,29 @@
             this.comboBox_education1.Size = new System.Drawing.Size(200, 21);
             this.comboBox_education1.TabIndex = 0;
             // 
-            // tabPage2
+            // tabPage_reservist
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage2.Controls.Add(this.checkBox_reservist);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(753, 290);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "Воинская обязанность";
+            this.tabPage_reservist.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_reservist.Controls.Add(this.panel5);
+            this.tabPage_reservist.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_reservist.Name = "tabPage_reservist";
+            this.tabPage_reservist.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_reservist.Size = new System.Drawing.Size(753, 290);
+            this.tabPage_reservist.TabIndex = 3;
+            this.tabPage_reservist.Text = "Воинская обязанность";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.checkBox_reservist);
+            this.panel5.Location = new System.Drawing.Point(8, 15);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(303, 174);
+            this.panel5.TabIndex = 1;
             // 
             // checkBox_reservist
             // 
             this.checkBox_reservist.AutoSize = true;
-            this.checkBox_reservist.Location = new System.Drawing.Point(8, 18);
+            this.checkBox_reservist.Location = new System.Drawing.Point(3, 3);
             this.checkBox_reservist.Name = "checkBox_reservist";
             this.checkBox_reservist.Size = new System.Drawing.Size(119, 17);
             this.checkBox_reservist.TabIndex = 0;
@@ -1162,7 +1172,7 @@
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.tabPage_education.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -1173,8 +1183,9 @@
             this.panel3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPage_reservist.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1231,7 +1242,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox textBox_bpalce;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage_education;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Panel panel4;
@@ -1266,7 +1277,8 @@
         private System.Windows.Forms.ComboBox comboBox_specialty2;
         private System.Windows.Forms.ComboBox comboBox_education2;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage_reservist;
         private System.Windows.Forms.CheckBox checkBox_reservist;
+        private System.Windows.Forms.Panel panel5;
     }
 }
