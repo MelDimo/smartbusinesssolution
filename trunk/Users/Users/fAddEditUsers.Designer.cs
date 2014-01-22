@@ -112,6 +112,8 @@
             this.comboBox_specialty1 = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.comboBox_education1 = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBox_reservist = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl_main.SuspendLayout();
             this.tabPage_official.SuspendLayout();
@@ -135,6 +137,7 @@
             this.groupBox_doc2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -185,6 +188,7 @@
             this.tabControl_main.Controls.Add(this.tabPage_official);
             this.tabControl_main.Controls.Add(this.tabPage_private);
             this.tabControl_main.Controls.Add(this.tabPage1);
+            this.tabControl_main.Controls.Add(this.tabPage2);
             this.tabControl_main.Location = new System.Drawing.Point(0, 0);
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
@@ -1098,6 +1102,27 @@
             this.comboBox_education1.Size = new System.Drawing.Size(200, 21);
             this.comboBox_education1.TabIndex = 0;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.checkBox_reservist);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(753, 290);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "Воинская обязанность";
+            // 
+            // checkBox_reservist
+            // 
+            this.checkBox_reservist.AutoSize = true;
+            this.checkBox_reservist.Location = new System.Drawing.Point(8, 18);
+            this.checkBox_reservist.Name = "checkBox_reservist";
+            this.checkBox_reservist.Size = new System.Drawing.Size(119, 17);
+            this.checkBox_reservist.TabIndex = 0;
+            this.checkBox_reservist.Text = "Военнообязанный";
+            this.checkBox_reservist.UseVisualStyleBackColor = true;
+            // 
             // fAddEditUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1148,6 +1173,8 @@
             this.panel3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1239,5 +1266,7 @@
         private System.Windows.Forms.ComboBox comboBox_specialty2;
         private System.Windows.Forms.ComboBox comboBox_education2;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox checkBox_reservist;
     }
 }
