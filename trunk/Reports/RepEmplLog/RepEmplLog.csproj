@@ -86,6 +86,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>employeesLog.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <EmbeddedResource Include="fRepEmplLog.resx">
       <DependentUpon>fRepEmplLog.cs</DependentUpon>
@@ -103,10 +104,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="reports\personnel\employeesLog.rpt">
+    <Content Include="reports\personnel\employeesLog.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>employeesLog.cs</LastGenOutput>
-    </EmbeddedResource>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="dsReports.xsc">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </None>

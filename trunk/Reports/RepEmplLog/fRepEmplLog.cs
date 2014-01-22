@@ -164,12 +164,13 @@ namespace com.sbs.gui.report.repempllog
                 return;
             }
 
-            pathForReport = Environment.CurrentDirectory + @"\reports\personnel\employeesList.rpt";
+            pathForReport = Environment.CurrentDirectory + @"\reports\personnel\employeesLog.rpt";
 
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
-            repDoc.SetParameterValue("xDate", "15.01.2014");
+            repDoc.SetParameterValue("xDateTime_start", "15.01.2014");
+            repDoc.SetParameterValue("xDateTime_end", "15.01.2014");
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;

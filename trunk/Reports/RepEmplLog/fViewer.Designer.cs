@@ -39,14 +39,14 @@
             this.crystalReportViewer_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crystalReportViewer_main.Location = new System.Drawing.Point(0, 0);
             this.crystalReportViewer_main.Name = "crystalReportViewer_main";
-            this.crystalReportViewer_main.Size = new System.Drawing.Size(599, 488);
+            this.crystalReportViewer_main.Size = new System.Drawing.Size(970, 544);
             this.crystalReportViewer_main.TabIndex = 0;
             // 
             // fViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 488);
+            this.ClientSize = new System.Drawing.Size(970, 544);
             this.Controls.Add(this.crystalReportViewer_main);
             this.Name = "fViewer";
             this.Text = "fViewer";

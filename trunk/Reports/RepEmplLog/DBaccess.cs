@@ -97,11 +97,16 @@ namespace com.sbs.gui.report.repempllog
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT us.id, us.lname +' '+ us.fname +' '+ us.sname as fio, tt.datetime_in, tt.datetime_out " +
+                command.CommandText = " SELECT us.lname +' '+ us.fname +' '+ us.sname as fio, " +
+                                            " org.name as org, br.name as branch, un.name as unit, post.name as post, " +
+                                            " tt.datetime_in, tt.datetime_out " +
                                         " FROM users us " +
+                                        " INNER JOIN organization org ON org.id = us.org " +
                                         " INNER JOIN branch br ON br.id = us.branch " +
+                                        " INNER JOIN unit un ON un.id = us.unit " +
+                                        " INNER JOIN ref_post post ON post.id = us.ref_post " +
                                         " INNER JOIN users_groups us_gr ON us_gr.users = us.id " +
-                                        " LEFT JOIN timeTracking tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " tt.branch in (" + branch.TrimEnd(',') + ") ") +
+                                        " LEFT JOIN timeTracking tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
                                         sWhere;
 
                 using (SqlDataReader dr = command.ExecuteReader())

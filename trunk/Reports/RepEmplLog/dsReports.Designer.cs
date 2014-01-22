@@ -279,8 +279,6 @@ namespace com.sbs.gui.report.repempllog {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class employeesLogDataTable : global::System.Data.TypedTableBase<employeesLogRow> {
             
-            private global::System.Data.DataColumn columnid;
-            
             private global::System.Data.DataColumn columnfio;
             
             private global::System.Data.DataColumn columnorg;
@@ -326,14 +324,6 @@ namespace com.sbs.gui.report.repempllog {
             protected employeesLogDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn idColumn {
-                get {
-                    return this.columnid;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -429,10 +419,9 @@ namespace com.sbs.gui.report.repempllog {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public employeesLogRow AddemployeesLogRow(string id, string fio, string org, string branch, string unit, string post, string datetime_in, string datetime_out) {
+            public employeesLogRow AddemployeesLogRow(string fio, string org, string branch, string unit, string post, System.DateTime datetime_in, System.DateTime datetime_out) {
                 employeesLogRow rowemployeesLogRow = ((employeesLogRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        id,
                         fio,
                         org,
                         branch,
@@ -462,7 +451,6 @@ namespace com.sbs.gui.report.repempllog {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
-                this.columnid = base.Columns["id"];
                 this.columnfio = base.Columns["fio"];
                 this.columnorg = base.Columns["org"];
                 this.columnbranch = base.Columns["branch"];
@@ -475,8 +463,6 @@ namespace com.sbs.gui.report.repempllog {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
-                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid);
                 this.columnfio = new global::System.Data.DataColumn("fio", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfio);
                 this.columnorg = new global::System.Data.DataColumn("org", typeof(string), null, global::System.Data.MappingType.Element);
@@ -487,9 +473,9 @@ namespace com.sbs.gui.report.repempllog {
                 base.Columns.Add(this.columnunit);
                 this.columnpost = new global::System.Data.DataColumn("post", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpost);
-                this.columndatetime_in = new global::System.Data.DataColumn("datetime_in", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columndatetime_in = new global::System.Data.DataColumn("datetime_in", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndatetime_in);
-                this.columndatetime_out = new global::System.Data.DataColumn("datetime_out", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columndatetime_out = new global::System.Data.DataColumn("datetime_out", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndatetime_out);
             }
             
@@ -633,22 +619,6 @@ namespace com.sbs.gui.report.repempllog {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string id {
-                get {
-                    try {
-                        return ((string)(this[this.tableemployeesLog.idColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'employeesLog\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableemployeesLog.idColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string fio {
                 get {
                     try {
@@ -729,10 +699,10 @@ namespace com.sbs.gui.report.repempllog {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string datetime_in {
+            public System.DateTime datetime_in {
                 get {
                     try {
-                        return ((string)(this[this.tableemployeesLog.datetime_inColumn]));
+                        return ((global::System.DateTime)(this[this.tableemployeesLog.datetime_inColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'datetime_in\' in table \'employeesLog\' is DBNull.", e);
@@ -745,10 +715,10 @@ namespace com.sbs.gui.report.repempllog {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string datetime_out {
+            public System.DateTime datetime_out {
                 get {
                     try {
-                        return ((string)(this[this.tableemployeesLog.datetime_outColumn]));
+                        return ((global::System.DateTime)(this[this.tableemployeesLog.datetime_outColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'datetime_out\' in table \'employeesLog\' is DBNull.", e);
@@ -757,18 +727,6 @@ namespace com.sbs.gui.report.repempllog {
                 set {
                     this[this.tableemployeesLog.datetime_outColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsidNull() {
-                return this.IsNull(this.tableemployeesLog.idColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetidNull() {
-                this[this.tableemployeesLog.idColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
