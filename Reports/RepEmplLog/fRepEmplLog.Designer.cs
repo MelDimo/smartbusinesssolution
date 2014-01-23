@@ -36,8 +36,8 @@
             this.button_getGroup = new System.Windows.Forms.Button();
             this.textBox_usersGroups = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -63,8 +63,8 @@
             this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker_start, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker_end, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
@@ -156,21 +156,21 @@
             this.label1.Text = "Начало периода";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // dateTimePicker1
+            // dateTimePicker_start
             // 
-            this.dateTimePicker1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker1.Location = new System.Drawing.Point(132, 6);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(301, 20);
-            this.dateTimePicker1.TabIndex = 2;
+            this.dateTimePicker_start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_start.Location = new System.Drawing.Point(132, 6);
+            this.dateTimePicker_start.Name = "dateTimePicker_start";
+            this.dateTimePicker_start.Size = new System.Drawing.Size(301, 20);
+            this.dateTimePicker_start.TabIndex = 2;
             // 
-            // dateTimePicker2
+            // dateTimePicker_end
             // 
-            this.dateTimePicker2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dateTimePicker2.Location = new System.Drawing.Point(132, 32);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(301, 20);
-            this.dateTimePicker2.TabIndex = 3;
+            this.dateTimePicker_end.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dateTimePicker_end.Location = new System.Drawing.Point(132, 32);
+            this.dateTimePicker_end.Name = "dateTimePicker_end";
+            this.dateTimePicker_end.Size = new System.Drawing.Size(301, 20);
+            this.dateTimePicker_end.TabIndex = 3;
             // 
             // label2
             // 
@@ -288,7 +288,7 @@
             this.Controls.Add(this.panel8);
             this.MinimumSize = new System.Drawing.Size(455, 233);
             this.Name = "fRepEmplLog";
-            this.Text = "Form1";
+            this.Text = "Журнал регистрации сотрудников";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -306,8 +306,8 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_end;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button_getEmpl;
