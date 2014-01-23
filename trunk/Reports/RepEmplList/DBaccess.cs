@@ -52,13 +52,18 @@ namespace com.sbs.gui.report
         {
             dtResult = new DataTable();
             string sId = string.Empty;
+            string sWhere = string.Empty;
 
             con = new DBCon().getConnection(pDbType);
+
+            if (pRepParam.checkedUnit == null) pRepParam.checkedUnit = new List<int>();
 
             foreach (int id in pRepParam.checkedUnit)
             {
                 sId += id + ",";
             }
+
+            if (sId.Length > 0)sWhere = " WHERE us.unit in (" + sId.TrimEnd(',') + ") ";
 
             try
             {
@@ -70,8 +75,8 @@ namespace com.sbs.gui.report
                                         " INNER JOIN ref_post post ON post.id = us.ref_post " +
                                         " INNER JOIN organization org ON org.id = us.org " +
                                         " INNER JOIN branch br ON br.id = us.branch " +
-                                        " INNER JOIN unit un ON un.id = us.unit " +
-                                        " WHERE us.unit in (" + sId.TrimEnd(',') + ") ";
+                                        " INNER JOIN unit un ON un.id = us.unit " + sWhere;
+                                        //" WHERE us.unit in (" + sId.TrimEnd(',') + ") ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
