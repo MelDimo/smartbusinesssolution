@@ -141,7 +141,6 @@ namespace com.sbs.gui.report.repempllog
                 oRepParam.checkedUsers = (List<int>)fChose.xData[0];
                 textBox_users.Text = fChose.xData[1].ToString();
             }
-
         }
 
         private void button_ok_Click(object sender, EventArgs e)
