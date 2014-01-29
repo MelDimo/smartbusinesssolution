@@ -287,7 +287,7 @@ namespace com.sbs.gui.DashBoard
                             xCurDishesGroup = xId;
 
                             var results = from myRow in dsDishes.Tables["dishes"].AsEnumerable()
-                                          where myRow.Field<int>("dishes_group") == xId
+                                          where myRow.Field<int>("carte_dishes_group") == xId
                                           select myRow;
 
                             if (results.Count() > 0)
@@ -336,9 +336,7 @@ namespace com.sbs.gui.DashBoard
 
         private void addDishToBill()
         {
-            DataTable dtToppings;
             oDishes Dishes = new oDishes();
-            List<oDishes> Toppings = new List<oDishes>();
 
             if (UsersInfo.Acl.Contains(4))   // Позволяет добавлять позиции к заказу
             {
@@ -354,39 +352,12 @@ namespace com.sbs.gui.DashBoard
                 billInfo.RefStatus = 23;
                 billInfo.RefStatusName = "Не обработано";
 
-                try
-                {
-                    dtToppings = DbAccess.getToppings("offline", Dishes.Id);
-                }
-                catch (Exception exc)
-                { uMessage.Show("Не удалось получить топинги для блюда '" + Dishes.Name + "'", exc, SystemIcons.Information); return; }
-
-                foreach (System.Data.DataColumn col in dtToppings.Columns) col.ReadOnly = false; 
-
-                foreach(oBillInfo bi in BillInfo[billInfo.Bill])    // Отмечаю выбранные топинги, если редактируем
-                {
-                    if (bi.isToppingFor == 0) continue;
-
-                    foreach (DataRow dr in dtToppings.Rows)
-                    {
-                        if ((int)dr["id"] == bi.Dishes)
-                        {
-                            dr.SetField("isSelected", 1);
-                        }
-                    }
-                }
-
-                fDishToBill_Add fAddDish = new fDishToBill_Add(ref Dishes, dtToppings);
-                if (fAddDish.ShowDialog() != DialogResult.OK) return;
-
-                Toppings = fAddDish.arrDishesToping;
-
                 billInfo.XCount = Dishes.Count;
                 billInfo.Suma = billInfo.DishesPrice * billInfo.XCount;
 
                 try
                 {
-                    DbAccess.addDishToBill("offline", bill, Dishes, Toppings, xSelectedBillInfoId);
+                    DbAccess.addDishToBill("offline", bill, Dishes, xSelectedBillInfoId);
                 }
                 catch (Exception exc) { uMessage.Show("Не удалось добавить позицию к заказу.", exc, SystemIcons.Information); return; }
 
@@ -498,7 +469,8 @@ namespace com.sbs.gui.DashBoard
         {
             dataGridView_dish.Columns.Clear();
 
-            dsDishes.Tables["dishes"].DefaultView.RowFilter = string.Format("dishes_group = {0}", pCurDishesGroup);
+            
+            dsDishes.Tables["dishes"].DefaultView.RowFilter = string.Format("carte_dishes_group = {0}", pCurDishesGroup);
             dataGridView_dish.DataSource = dsDishes.Tables["dishes"];
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
@@ -508,9 +480,9 @@ namespace com.sbs.gui.DashBoard
             col0.Visible = false;
 
             DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
-            col1.HeaderText = "dishes_group";
-            col1.Name = "dishes_group";
-            col1.DataPropertyName = "dishes_group";
+            col1.HeaderText = "carte_dishes_group";
+            col1.Name = "carte_dishes_group";
+            col1.DataPropertyName = "carte_dishes_group";
             col1.Visible = false;
 
             DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();

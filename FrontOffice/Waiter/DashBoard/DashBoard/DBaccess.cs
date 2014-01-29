@@ -197,7 +197,7 @@ namespace com.sbs.gui.DashBoard
                 command = con.CreateCommand();
 
                 command.CommandText = " SELECT id, carte, id_parent, name" +
-                                        " FROM dishes_group" +
+                                        " FROM carte_dishes_group" +
                                         " WHERE ref_status = @ref_status" +
                                         " ORDER BY id_parent";
 
@@ -227,8 +227,8 @@ namespace com.sbs.gui.DashBoard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT id, dishes_group, name, price " +
-                                        " FROM dishes" +
+                command.CommandText = " SELECT id, carte_dishes_group, name, price " +
+                                        " FROM carte_dishes" +
                                         " WHERE ref_status = @ref_status";
 
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
@@ -297,7 +297,7 @@ namespace com.sbs.gui.DashBoard
             UsersInfo.Clear();
             UsersInfo.UserId = (int)dtResult.Rows[0]["id"];
             UsersInfo.UserName = dtResult.Rows[0]["fio"].ToString();
-            UsersInfo.UserTabn = (int)dtResult.Rows[0]["tabn"];
+            UsersInfo.UserTabn = dtResult.Rows[0]["tabn"].ToString();
 
             dtResult = new DataTable();
 
@@ -360,7 +360,7 @@ namespace com.sbs.gui.DashBoard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal void addDishToBill(string pDbType, oBill pBill, oDishes pDishes, List<oDishes> pToppings, int pSelectedBillInfoId)
+        internal void addDishToBill(string pDbType, oBill pBill, oDishes pDishes, int pSelectedBillInfoId)
         {
             int xBillInfoId;
 
@@ -395,31 +395,6 @@ namespace com.sbs.gui.DashBoard
                 command.ExecuteNonQuery();
 
                 xBillInfoId = (int)command.Parameters["pDishToBillInfo_id"].Value;
-
-                command.Parameters.Clear();
-
-                command.CommandText = "DishToBillTopping_Add";
-
-                command.Parameters.Add("pBranch", SqlDbType.Int);
-                command.Parameters.Add("pSeason", SqlDbType.Int);
-                command.Parameters.Add("pBillId", SqlDbType.Int);
-                command.Parameters.Add("pDishId", SqlDbType.Int);
-                command.Parameters.Add("pCount", SqlDbType.Int);
-                command.Parameters.Add("pUserId", SqlDbType.Int);
-                command.Parameters.Add("dishToBillInfo_id", SqlDbType.Int);
-
-                foreach (oDishes topp in pToppings)
-                {
-                    command.Parameters["pBranch"].Value = GValues.branchId;
-                    command.Parameters["pSeason"].Value = GValues.openSeasonId;
-                    command.Parameters["pBillId"].Value = pBill.BillId;
-                    command.Parameters["pDishId"].Value = topp.Id;
-                    command.Parameters["pCount"].Value = topp.Count;
-                    command.Parameters["pUserId"].Value = UsersInfo.UserId;
-                    command.Parameters["pDishToBillInfo_id"].Value = xBillInfoId;
-
-                    command.ExecuteNonQuery();
-                }
 
                 tx.Commit();
 
@@ -761,37 +736,6 @@ namespace com.sbs.gui.DashBoard
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
-        }
-
-        internal DataTable getToppings(string pDbType, int dishId)
-        {
-            dtResult = new DataTable("dishes");
-
-            con = new DBCon().getConnection(pDbType);
-
-            try
-            {
-                con.Open();
-                command = con.CreateCommand();
-
-                command.CommandText = " SELECT d.id, d.dishes_group, d.name, 0 as price, 0 as isSelected" +
-                                            " FROM dishes d" +
-                                            " INNER JOIN dishes_topings dt on dt.dishes_id = d.id" +
-                                            " WHERE dt.dishes = @id";
-
-                command.Parameters.Add("id", SqlDbType.Int).Value = dishId;
-
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
-
-                con.Close();
-            }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
-
-            return dtResult;
         }
     }
 
