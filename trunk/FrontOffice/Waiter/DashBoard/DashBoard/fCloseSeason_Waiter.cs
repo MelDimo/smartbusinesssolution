@@ -215,7 +215,7 @@ namespace com.sbs.gui.DashBoard
         {
             private int _userId;
             private string _userName;
-            private int _userTabn;
+            private string _userTabn;
             private int _postId;
             private List<int> _acl;
 
