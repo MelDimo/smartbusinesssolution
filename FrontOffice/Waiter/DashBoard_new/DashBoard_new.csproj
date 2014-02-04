@@ -60,6 +60,12 @@
     <Compile Include="fMIFare.Designer.cs">
       <DependentUpon>fMIFare.cs</DependentUpon>
     </Compile>
+    <Compile Include="fSeason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSeason.Designer.cs">
+      <DependentUpon>fSeason.cs</DependentUpon>
+    </Compile>
     <Compile Include="fSplash.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fMIFare.resx">
       <DependentUpon>fMIFare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSeason.resx">
+      <DependentUpon>fSeason.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fSplash.resx">
       <DependentUpon>fSplash.cs</DependentUpon>
