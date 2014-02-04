@@ -19,6 +19,8 @@ namespace com.sbs.gui.users
         SqlCommand command = null;
         SqlTransaction tx = null;
 
+        DataTable dtResult;
+
         public DataTable getOrganipation(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -130,7 +132,7 @@ namespace com.sbs.gui.users
                 command.CommandText = "SELECT u.id, u.tabn, u.lname + ' ' + u.fname + ' ' + u.sname AS fio, stat.name AS status_name, post.name AS post" +
                                         " FROM users AS u INNER JOIN " +
                                         " ref_status AS stat ON stat.id = u.ref_status INNER JOIN " +
-                                        " ref_post AS post ON post.id = u.ref_post";
+                                        " ref_post AS post ON post.id = u.ref_post ";
 
                 if (pIdOrg != 0) where += " org = " + pIdOrg + " AND";
                 if(pIdBranch != 0) where += " branch = " + pIdBranch + " AND";
@@ -167,7 +169,7 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id,	tabn,			fname as fName,	sname as sName,	lname as lName,	bdate,			org," +
+                command.CommandText = "SELECT id,	tabn,			fname as fName,	sname as sName,	lname as lName,	bdate,		bPlace, 	org," +
                                                     " branch,			unit,			ref_post as refPost, ref_status as refStatus,	refStatusDate,	dateAdopted," +
                                                     " dateStarted,	dateFired,		docNumber,		pensNumber,		citizen1,		citizen2," +
                                                     " nationality,	passSeriy,		passNumber,		passDateIssued,	passWhoIssued,	passAddress," +
@@ -234,8 +236,9 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "DELETE FROM users WHERE id = @id";
-                command.Parameters.Add("id", SqlDbType.Int).Value = pIdUser;
+                command.CommandText = "Users_delete";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = pIdUser;
 
                 command.ExecuteNonQuery();
 
@@ -435,7 +438,7 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "DELETE FROM groups" +
+                command.CommandText = "DELETE FROM groups " +
                                         " WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = pIdGroup;
 
@@ -540,6 +543,70 @@ namespace com.sbs.gui.users
 
         #endregion
 
+        #region ACL
+
+        internal DataTable getUserACL(string pDbType, int pUserID)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT ua.user_acl_type acl_type, uat.name " +
+                                         " FROM users_acl ua " +
+                                         " INNER JOIN users_acl_type uat ON uat.id = ua.user_acl_type " +
+                                         " WHERE ua.users = @userID";
+
+                command.Parameters.Add("userID", SqlDbType.Int).Value = pUserID;
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        internal DataTable getGroupACL(string pDbType, int pGroupID)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT gacl.user_acl_type acl_type, uat.name " +
+                                         " FROM groups_acl gacl " +
+                                         " INNER JOIN users_acl_type uat ON uat.id = gacl.user_acl_type " +
+                                         " WHERE gacl.groups = @groupID";
+
+                command.Parameters.Add("groupID", SqlDbType.Int).Value = pGroupID;
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        #endregion
+
         public DataTable getPwdUser(string pDbType, int pUserId)
         {
             DataTable dtResult = new DataTable();
@@ -551,8 +618,9 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT users_pwd_type, pwd" + 
-                                        " FROM users_pwd up"+
+                command.CommandText = "SELECT up.users_pwd_type, up.pwd, u.login " + 
+                                        " FROM users_pwd up "+
+                                        " INNER JOIN users u ON u.id = up.users " +
                                         " WHERE users = @users";
 
                 command.Parameters.Add("users", SqlDbType.Int).Value = pUserId;
@@ -582,34 +650,21 @@ namespace com.sbs.gui.users
             try
             {
                 con.Open();
-                tx = con.BeginTransaction();
-
                 command = con.CreateCommand();
-                command.Transaction = tx;
 
-                command.CommandText = "DELETE FROM users_pwd WHERE users = @users";
-                command.Parameters.Add("users", SqlDbType.Int).Value = xUsersId;
+                command.CommandText = "Users_savePWD";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@pUsers", SqlDbType.Int).Value = xUsersId;
+                command.Parameters.Add("@pLogIn", SqlDbType.NVarChar).Value = xLogIn;
+                command.Parameters.Add("@pPwd", SqlDbType.NVarChar).Value = xPwd;
+                command.Parameters.Add("@pCardID", SqlDbType.NVarChar).Value = xCardID;
+
                 command.ExecuteNonQuery();
 
-                command.CommandText = "INSERT INTO users_pwd(users, users_pwd_type, pwd) VALUES(@users, @users_pwd_type, @pwd)";
-                command.Parameters.Add("users_pwd_type", SqlDbType.Int).Value = 1;
-                command.Parameters.Add("pwd",SqlDbType.NVarChar).Value = xPwd;
-                command.ExecuteNonQuery();
-                command.Parameters["users_pwd_type"].Value = 2;
-                command.Parameters["pwd"].Value = xCardID;
-                command.ExecuteNonQuery();
-
-                command.Parameters.Clear();
-                command.CommandText = "UPDATE users SET login = @login WHERE id = @id";
-                command.Parameters.Add("id", SqlDbType.Int).Value = xUsersId;
-                command.Parameters.Add("login", SqlDbType.NVarChar).Value = xLogIn;
-                command.ExecuteNonQuery();
-
-                tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+            finally { if (con.State == ConnectionState.Open) { con.Close(); } }
         }
     }
 }

@@ -150,7 +150,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 316);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(761, 35);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 1;
             // 
             // button_cancel
             // 
@@ -195,7 +195,7 @@
             this.tabControl_main.Name = "tabControl_main";
             this.tabControl_main.SelectedIndex = 0;
             this.tabControl_main.Size = new System.Drawing.Size(761, 316);
-            this.tabControl_main.TabIndex = 2;
+            this.tabControl_main.TabIndex = 0;
             // 
             // tabPage_official
             // 
@@ -252,7 +252,7 @@
             this.maskedTextBox_pensNumber.Mask = "99-C9C99C99";
             this.maskedTextBox_pensNumber.Name = "maskedTextBox_pensNumber";
             this.maskedTextBox_pensNumber.Size = new System.Drawing.Size(81, 20);
-            this.maskedTextBox_pensNumber.TabIndex = 1;
+            this.maskedTextBox_pensNumber.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -280,7 +280,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(589, 54);
-            this.tableLayoutPanel4.TabIndex = 9;
+            this.tableLayoutPanel4.TabIndex = 2;
             // 
             // label8
             // 
@@ -299,7 +299,7 @@
             this.textBox_tabn.Location = new System.Drawing.Point(3, 28);
             this.textBox_tabn.Name = "textBox_tabn";
             this.textBox_tabn.Size = new System.Drawing.Size(111, 20);
-            this.textBox_tabn.TabIndex = 3;
+            this.textBox_tabn.TabIndex = 0;
             // 
             // dateTimePicker_fired
             // 
@@ -310,7 +310,7 @@
             this.dateTimePicker_fired.Name = "dateTimePicker_fired";
             this.dateTimePicker_fired.ShowCheckBox = true;
             this.dateTimePicker_fired.Size = new System.Drawing.Size(115, 20);
-            this.dateTimePicker_fired.TabIndex = 15;
+            this.dateTimePicker_fired.TabIndex = 4;
             // 
             // label13
             // 
@@ -343,7 +343,7 @@
             this.dateTimePicker_started.Name = "dateTimePicker_started";
             this.dateTimePicker_started.ShowCheckBox = true;
             this.dateTimePicker_started.Size = new System.Drawing.Size(111, 20);
-            this.dateTimePicker_started.TabIndex = 13;
+            this.dateTimePicker_started.TabIndex = 3;
             // 
             // label9
             // 
@@ -363,7 +363,7 @@
             this.dateTimePicker_adopted.Location = new System.Drawing.Point(237, 28);
             this.dateTimePicker_adopted.Name = "dateTimePicker_adopted";
             this.dateTimePicker_adopted.Size = new System.Drawing.Size(111, 20);
-            this.dateTimePicker_adopted.TabIndex = 12;
+            this.dateTimePicker_adopted.TabIndex = 2;
             // 
             // label19
             // 
@@ -382,7 +382,7 @@
             this.textBox_docNumber.Location = new System.Drawing.Point(120, 28);
             this.textBox_docNumber.Name = "textBox_docNumber";
             this.textBox_docNumber.Size = new System.Drawing.Size(111, 20);
-            this.textBox_docNumber.TabIndex = 17;
+            this.textBox_docNumber.TabIndex = 1;
             // 
             // pictureBox_users
             // 
@@ -417,7 +417,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(589, 57);
-            this.tableLayoutPanel2.TabIndex = 7;
+            this.tableLayoutPanel2.TabIndex = 1;
             // 
             // label5
             // 
@@ -460,7 +460,7 @@
             this.comboBox_branch.Location = new System.Drawing.Point(150, 31);
             this.comboBox_branch.Name = "comboBox_branch";
             this.comboBox_branch.Size = new System.Drawing.Size(141, 21);
-            this.comboBox_branch.TabIndex = 3;
+            this.comboBox_branch.TabIndex = 1;
             // 
             // comboBox_unit
             // 
@@ -470,7 +470,7 @@
             this.comboBox_unit.Location = new System.Drawing.Point(297, 31);
             this.comboBox_unit.Name = "comboBox_unit";
             this.comboBox_unit.Size = new System.Drawing.Size(141, 21);
-            this.comboBox_unit.TabIndex = 4;
+            this.comboBox_unit.TabIndex = 2;
             // 
             // comboBox_post
             // 
@@ -480,7 +480,7 @@
             this.comboBox_post.Location = new System.Drawing.Point(444, 31);
             this.comboBox_post.Name = "comboBox_post";
             this.comboBox_post.Size = new System.Drawing.Size(142, 21);
-            this.comboBox_post.TabIndex = 5;
+            this.comboBox_post.TabIndex = 3;
             // 
             // label11
             // 
@@ -501,7 +501,7 @@
             this.comboBox_org.Location = new System.Drawing.Point(3, 31);
             this.comboBox_org.Name = "comboBox_org";
             this.comboBox_org.Size = new System.Drawing.Size(141, 21);
-            this.comboBox_org.TabIndex = 7;
+            this.comboBox_org.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -529,7 +529,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(589, 54);
-            this.tableLayoutPanel1.TabIndex = 6;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
@@ -548,7 +548,7 @@
             this.textBox_sname.Location = new System.Drawing.Point(241, 30);
             this.textBox_sname.Name = "textBox_sname";
             this.textBox_sname.Size = new System.Drawing.Size(113, 20);
-            this.textBox_sname.TabIndex = 5;
+            this.textBox_sname.TabIndex = 2;
             // 
             // textBox_lname
             // 
@@ -556,7 +556,7 @@
             this.textBox_lname.Location = new System.Drawing.Point(3, 30);
             this.textBox_lname.Name = "textBox_lname";
             this.textBox_lname.Size = new System.Drawing.Size(113, 20);
-            this.textBox_lname.TabIndex = 3;
+            this.textBox_lname.TabIndex = 0;
             // 
             // label3
             // 
@@ -575,7 +575,7 @@
             this.textBox_fname.Location = new System.Drawing.Point(122, 30);
             this.textBox_fname.Name = "textBox_fname";
             this.textBox_fname.Size = new System.Drawing.Size(113, 20);
-            this.textBox_fname.TabIndex = 4;
+            this.textBox_fname.TabIndex = 1;
             // 
             // label2
             // 
@@ -607,7 +607,7 @@
             this.comboBox_status.Location = new System.Drawing.Point(360, 30);
             this.comboBox_status.Name = "comboBox_status";
             this.comboBox_status.Size = new System.Drawing.Size(113, 21);
-            this.comboBox_status.TabIndex = 7;
+            this.comboBox_status.TabIndex = 3;
             // 
             // dateTimePicker_statusEND
             // 
@@ -617,7 +617,7 @@
             this.dateTimePicker_statusEND.Name = "dateTimePicker_statusEND";
             this.dateTimePicker_statusEND.ShowCheckBox = true;
             this.dateTimePicker_statusEND.Size = new System.Drawing.Size(107, 20);
-            this.dateTimePicker_statusEND.TabIndex = 8;
+            this.dateTimePicker_statusEND.TabIndex = 4;
             // 
             // label20
             // 
@@ -686,7 +686,7 @@
             this.textBox_passAddress.Location = new System.Drawing.Point(71, 3);
             this.textBox_passAddress.Name = "textBox_passAddress";
             this.textBox_passAddress.Size = new System.Drawing.Size(667, 20);
-            this.textBox_passAddress.TabIndex = 1;
+            this.textBox_passAddress.TabIndex = 0;
             // 
             // tableLayoutPanel7
             // 
@@ -751,7 +751,7 @@
             this.textBox_passNumber.Location = new System.Drawing.Point(91, 29);
             this.textBox_passNumber.Name = "textBox_passNumber";
             this.textBox_passNumber.Size = new System.Drawing.Size(73, 20);
-            this.textBox_passNumber.TabIndex = 4;
+            this.textBox_passNumber.TabIndex = 1;
             // 
             // label24
             // 
@@ -771,7 +771,7 @@
             this.dateTimePicker_PassWhen.Location = new System.Drawing.Point(170, 29);
             this.dateTimePicker_PassWhen.Name = "dateTimePicker_PassWhen";
             this.dateTimePicker_PassWhen.Size = new System.Drawing.Size(113, 20);
-            this.dateTimePicker_PassWhen.TabIndex = 6;
+            this.dateTimePicker_PassWhen.TabIndex = 2;
             // 
             // textBox_passWho
             // 
@@ -779,7 +779,7 @@
             this.textBox_passWho.Location = new System.Drawing.Point(289, 29);
             this.textBox_passWho.Name = "textBox_passWho";
             this.textBox_passWho.Size = new System.Drawing.Size(449, 20);
-            this.textBox_passWho.TabIndex = 7;
+            this.textBox_passWho.TabIndex = 3;
             // 
             // textBox_passSeriya
             // 
@@ -787,7 +787,7 @@
             this.textBox_passSeriya.Location = new System.Drawing.Point(3, 29);
             this.textBox_passSeriya.Name = "textBox_passSeriya";
             this.textBox_passSeriya.Size = new System.Drawing.Size(82, 20);
-            this.textBox_passSeriya.TabIndex = 5;
+            this.textBox_passSeriya.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -851,7 +851,7 @@
             this.comboBox_citizen1.Location = new System.Drawing.Point(27, 3);
             this.comboBox_citizen1.Name = "comboBox_citizen1";
             this.comboBox_citizen1.Size = new System.Drawing.Size(377, 21);
-            this.comboBox_citizen1.TabIndex = 2;
+            this.comboBox_citizen1.TabIndex = 0;
             // 
             // comboBox_citizen2
             // 
@@ -861,7 +861,7 @@
             this.comboBox_citizen2.Location = new System.Drawing.Point(27, 29);
             this.comboBox_citizen2.Name = "comboBox_citizen2";
             this.comboBox_citizen2.Size = new System.Drawing.Size(377, 21);
-            this.comboBox_citizen2.TabIndex = 3;
+            this.comboBox_citizen2.TabIndex = 1;
             // 
             // label17
             // 
@@ -882,7 +882,7 @@
             this.comboBox_nationality.Location = new System.Drawing.Point(410, 29);
             this.comboBox_nationality.Name = "comboBox_nationality";
             this.comboBox_nationality.Size = new System.Drawing.Size(328, 21);
-            this.comboBox_nationality.TabIndex = 5;
+            this.comboBox_nationality.TabIndex = 2;
             // 
             // tableLayoutPanel3
             // 
@@ -919,7 +919,7 @@
             this.textBox_bpalce.Location = new System.Drawing.Point(112, 23);
             this.textBox_bpalce.Name = "textBox_bpalce";
             this.textBox_bpalce.Size = new System.Drawing.Size(632, 20);
-            this.textBox_bpalce.TabIndex = 4;
+            this.textBox_bpalce.TabIndex = 1;
             // 
             // dateTimePicker_bdate
             // 
@@ -928,7 +928,7 @@
             this.dateTimePicker_bdate.Location = new System.Drawing.Point(3, 23);
             this.dateTimePicker_bdate.Name = "dateTimePicker_bdate";
             this.dateTimePicker_bdate.Size = new System.Drawing.Size(103, 20);
-            this.dateTimePicker_bdate.TabIndex = 2;
+            this.dateTimePicker_bdate.TabIndex = 0;
             // 
             // label14
             // 

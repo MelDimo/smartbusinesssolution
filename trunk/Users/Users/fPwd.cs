@@ -23,8 +23,6 @@ namespace com.sbs.gui.users
 
             button_refresh.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.refresh_26;
             
-            textBox_login.Text = UsersInfo.LogIn;
-
             foreach (DataRow dr in pDtUsersPwd.Rows)
             { 
                 switch(dr["users_pwd_type"].ToString())
@@ -37,6 +35,7 @@ namespace com.sbs.gui.users
                         textBox_cardID.Text = dr["pwd"].ToString();
                         break;
                 }
+                textBox_login.Text = dr["login"].ToString();
             }
         }
 
@@ -64,7 +63,8 @@ namespace com.sbs.gui.users
 
             try{
                 DbAccess.saveUsersPwd("offline", new object[] { xUserId, xCardID, xPwd, xLogIn });
-            }catch(Exception exc){uMessage.Show("Неудалось сохранить данные", exc,SystemIcons.Information);}
+            }
+            catch (Exception exc) { uMessage.Show("Неудалось сохранить данные", exc, SystemIcons.Information); return; }
 
             uMessage.Show("Данные сохранены.", SystemIcons.Information);
             DialogResult = DialogResult.OK;

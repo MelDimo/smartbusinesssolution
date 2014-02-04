@@ -268,6 +268,8 @@ namespace com.sbs.gui.users
 
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
+            int xId = 0;
+
             if (dataGridView_main.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Укажите элемент для редактирования.", 
@@ -279,6 +281,7 @@ namespace com.sbs.gui.users
             {
                 case "Пользователь":
                     DTO.User xUsersDTO = new DTO.User();
+                    xId = (int)dataGridView_main.SelectedRows[0].Index;
                     try
                     {
                         xUsersDTO = DbAccess.getUser("offline", (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
@@ -288,10 +291,14 @@ namespace com.sbs.gui.users
                         uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information);
                         return;
                     }
-
+                    
                     fAddEditUsers faddedit = new fAddEditUsers(xUsersDTO, dtOrg, dtBranch, dtUnit);
                     faddedit.Text = "Редактирование " + xUsersDTO.lName +" "+ xUsersDTO.fName +" "+ xUsersDTO.sName;
-                    if (faddedit.ShowDialog() == DialogResult.OK) tSButton_applyFilter_Click(new object(), new EventArgs());
+                    if (faddedit.ShowDialog() == DialogResult.OK)
+                    {
+                        tSButton_applyFilter_Click(new object(), new EventArgs());
+                        dataGridView_main.Rows[xId].Selected = true;
+                    }
                     break;
 
                 case "Группа":
@@ -317,13 +324,13 @@ namespace com.sbs.gui.users
                 return;
             }
 
-            if (MessageBox.Show("Вы уверены что хотите удалить запись '" + dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString() + "'?",
-                    GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
-                return;
 
             switch (tSComboBox_RecType.ComboBox.Text)
             {
                 case "Пользователь":
+                    if (MessageBox.Show("Вы уверены что хотите удалить запись '" + dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString() + "'?",
+                        GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
+                        break;
                     try
                     {
                         DbAccess.delUser("offline", (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
@@ -336,6 +343,9 @@ namespace com.sbs.gui.users
                     break;
 
                 case "Группа":
+                    if (MessageBox.Show("Вы уверены что хотите удалить запись '" + dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString() + "'?",
+                        GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
+                        break;
                     try
                     {
                         DbAccess.delGroup("offline", (int)dataGridView_main.SelectedRows[0].Cells["id"].Value);
@@ -443,8 +453,8 @@ namespace com.sbs.gui.users
                 case "Пользователь":
                     xUserId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
                     xUserName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
-                    DataTable dtMenu = new DataTable();
-                    DataTable dtMenuUser = new DataTable();
+                    //DataTable dtMenu = new DataTable();
+                    //DataTable dtMenuUser = new DataTable();
                     try
                     {
                         dtPwdUsers = DbAccess.getPwdUser("offline", xUserId);
@@ -459,6 +469,34 @@ namespace com.sbs.gui.users
                     fpwd.label_fio.Text = xUserName;
                     fpwd.xUserId = xUserId;
                     fpwd.ShowDialog();
+                    break;
+
+                case "Группа":
+                    break;
+            }
+        }
+
+        private void tSButton_acl_Click(object sender, EventArgs e)
+        {
+            int xUserId;
+            string xUserName;
+            DataTable dtPwdUsers = new DataTable();
+
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.",
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            switch (tSComboBox_RecType.ComboBox.Text)
+            {
+                case "Пользователь":
+                    xUserId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
+                    xUserName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
+
+                    fUserGroupACL facl = new fUserGroupACL(0, xUserId, xUserName);
+                    facl.ShowDialog();
                     break;
 
                 case "Группа":
