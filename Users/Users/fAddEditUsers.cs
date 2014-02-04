@@ -17,7 +17,7 @@ namespace com.sbs.gui.users
     {
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
 
-        private DTO.User oUsers = new DTO.User();
+        private DTO.User oUsers;
         private DBaccess DbAccess = new DBaccess();
 
         private DataTable dtRefStatus = new DataTable();
@@ -99,23 +99,7 @@ namespace com.sbs.gui.users
             comboBox_specialty2.DisplayMember = "name";
             comboBox_specialty2.SelectedValue = oUsers.specialty2;
 
-            textBox_fname.DataBindings.Add("Text", oUsers, "fName");
-            textBox_lname.DataBindings.Add("Text", oUsers, "lName");
-            textBox_sname.DataBindings.Add("Text", oUsers, "sName");
-            textBox_docNumber.DataBindings.Add("Text", oUsers, "docNumber");
-            textBox_tabn.DataBindings.Add("Text", oUsers, "tabn");
-            maskedTextBox_pensNumber.DataBindings.Add("Text", oUsers, "pensNumber");
 
-            dateTimePicker_bdate.DataBindings.Add("Value", oUsers, "bdate");
-            textBox_bpalce.DataBindings.Add("Text", oUsers, "bPlace");
-            textBox_passSeriya.DataBindings.Add("Text", oUsers, "passSeriy");
-            textBox_passNumber.DataBindings.Add("Text", oUsers, "passNumber");
-            dateTimePicker_PassWhen.DataBindings.Add("Value", oUsers, "passDateIssued");
-            textBox_passWho.DataBindings.Add("Text", oUsers, "passWhoIssued");
-            textBox_passAddress.DataBindings.Add("Text", oUsers, "passAddress");
-
-            textBox_doc1.DataBindings.Add("Text", oUsers, "doc1");
-            textBox_doc2.DataBindings.Add("Text", oUsers, "doc2");
         }
 
         private void initRef()
@@ -150,6 +134,8 @@ namespace com.sbs.gui.users
         private bool saveData()
         {
             string errMessage = "Заполнены не все обязательные поля:";
+
+            writeBindingsData();
 
             oUsers.org = comboBox_org.SelectedValue == null ? 0 : (int)comboBox_org.SelectedValue;
             oUsers.branch = comboBox_branch.SelectedValue == null ? 0 : (int)comboBox_branch.SelectedValue;
@@ -193,7 +179,7 @@ namespace com.sbs.gui.users
                     {
                         DbAccess.addEditUser("offline", oUsers);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); return false; }
                     break;
 
                 case "EDIT":
@@ -201,22 +187,64 @@ namespace com.sbs.gui.users
                     {
                         DbAccess.addEditUser("offline", oUsers);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); return false; }
                     break;
             }
 
             return true;
         }
 
+        private void writeBindingsData()
+        {
+            oUsers.fName = textBox_fname.Text;
+            oUsers.lName = textBox_lname.Text;
+            oUsers.sName = textBox_sname.Text;
+
+            oUsers.docNumber = textBox_docNumber.Text;
+            oUsers.tabn = textBox_tabn.Text;
+            oUsers.pensNumber = maskedTextBox_pensNumber.Text;
+
+            oUsers.bdate = dateTimePicker_bdate.Value;
+            oUsers.bPlace = textBox_bpalce.Text;
+            oUsers.passSeriy = textBox_passSeriya.Text;
+            oUsers.passNumber = textBox_passNumber.Text;
+            oUsers.passDateIssued = dateTimePicker_PassWhen.Value == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : dateTimePicker_PassWhen.Value;
+            oUsers.passWhoIssued = textBox_passWho.Text;
+            oUsers.passAddress = textBox_passAddress.Text;
+
+            oUsers.doc1 = textBox_doc1.Text;
+            oUsers.doc2 = textBox_doc2.Text;
+        }
+
         private void fAddEditUsers_Shown(object sender, EventArgs e)
         {
+            textBox_fname.Text = oUsers.fName;
+            textBox_lname.Text = oUsers.lName;
+            textBox_sname.Text = oUsers.sName;
+
+            textBox_docNumber.Text = oUsers.docNumber;
+            textBox_tabn.Text = oUsers.tabn;
+            maskedTextBox_pensNumber.Text = oUsers.pensNumber;
+
+            dateTimePicker_bdate.Value = oUsers.bdate;
+            textBox_bpalce.Text = oUsers.bPlace;
+            textBox_passSeriya.Text = oUsers.passSeriy;
+            textBox_passNumber.Text = oUsers.passNumber;
+            dateTimePicker_PassWhen.Value = (DateTime)(oUsers.passDateIssued == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+            textBox_passWho.Text = oUsers.passWhoIssued;
+            textBox_passAddress.Text = oUsers.passAddress;
+
+            textBox_doc1.Text = oUsers.doc1;
+            textBox_doc2.Text = oUsers.doc2;
+
             comboBox_unit.SelectedIndexChanged += new EventHandler(comboBox_unit_SelectedIndexChanged);
             comboBox_branch.SelectedIndexChanged += new EventHandler(comboBox_branch_SelectedIndexChanged);
             comboBox_org.SelectedIndexChanged += new EventHandler(comboBox_org_SelectedIndexChanged);
             comboBox_org.SelectedValue = oUsers.org;
 
             checkBox_reservist.CheckedChanged += new EventHandler(checkBox_reservist_CheckedChanged);
-            checkBox_reservist.DataBindings.Add("Checked", oUsers, "reservist", true, DataSourceUpdateMode.Never, false);
+            checkBox_reservist.DataBindings.Add("Checked", oUsers, "reservist", false, DataSourceUpdateMode.Never, false);
+
         }
 
         void checkBox_reservist_CheckedChanged(object sender, EventArgs e)

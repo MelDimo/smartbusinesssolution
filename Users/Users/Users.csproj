@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5111C2FF-BCF1-44B0-8ED0-D4AD9A807DC1}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.users</RootNamespace>
     <AssemblyName>Users</AssemblyName>
@@ -75,6 +75,12 @@
     <Compile Include="fPwd.Designer.cs">
       <DependentUpon>fPwd.cs</DependentUpon>
     </Compile>
+    <Compile Include="fUserGroupACL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fUserGroupACL.Designer.cs">
+      <DependentUpon>fUserGroupACL.cs</DependentUpon>
+    </Compile>
     <Compile Include="fUserGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fPwd.resx">
       <DependentUpon>fPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fUserGroupACL.resx">
+      <DependentUpon>fUserGroupACL.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUserGroup.resx">
       <DependentUpon>fUserGroup.cs</DependentUpon>

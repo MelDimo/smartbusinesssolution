@@ -21,6 +21,9 @@ namespace com.sbs.gui.users
         {
             InitializeComponent();
 
+            tSButton_add.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_del.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+
             label_fio.Text = pNameUser;
             dtUserGroup = pDtUserGroup;
 
@@ -97,6 +100,20 @@ namespace com.sbs.gui.users
 
             getUserGroups();
             updateDSUsersGroups();
+        }
+
+        private void button_ok_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    DbAccess.addUserGroups("offline", xIdUser, dtUserGroup);
+            //}
+            //catch (Exception exc)
+            //{
+            //    uMessage.Show("Неудалось сохранить информацию по сотруднику.", exc, SystemIcons.Information);
+            //    return;
+            //}
+            Close();
         }
     }
 }
