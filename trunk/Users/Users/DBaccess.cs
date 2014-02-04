@@ -605,6 +605,79 @@ namespace com.sbs.gui.users
             return dtResult;
         }
 
+        internal void addUserACL(string pDbType, int pUserID, int pACLType)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " INSERT INTO user_acl(users, user_acl_type) VALUES (@users, @user_acl_type)";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserID;
+                command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void deleteUserACL(string pDbType, int pUserID, int pACLType)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " DELETE FROM user_acl WHERE users = @users AND user_acl_type = @user_acl_type";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserID;
+                command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal DataTable getAllACL(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, note " +
+                                         " FROM users_acl_type " +
+                                         " WHERE ref_status = @ref_status";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         #endregion
 
         public DataTable getPwdUser(string pDbType, int pUserId)
