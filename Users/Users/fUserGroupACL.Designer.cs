@@ -52,13 +52,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 414);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(331, 35);
+            this.panel1.Size = new System.Drawing.Size(307, 35);
             this.panel1.TabIndex = 2;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(233, 7);
+            this.button_cancel.Location = new System.Drawing.Point(209, 7);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 2;
@@ -69,7 +69,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(152, 7);
+            this.button_ok.Location = new System.Drawing.Point(128, 7);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -87,9 +87,9 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.5314F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.4686F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(331, 414);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.42512F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.57488F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(307, 414);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label_name
@@ -99,7 +99,7 @@
             this.label_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_name.Location = new System.Drawing.Point(3, 0);
             this.label_name.Name = "label_name";
-            this.label_name.Size = new System.Drawing.Size(325, 84);
+            this.label_name.Size = new System.Drawing.Size(301, 68);
             this.label_name.TabIndex = 0;
             this.label_name.Text = "___";
             this.label_name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -109,9 +109,9 @@
             this.groupBox1.Controls.Add(this.listBox_acl);
             this.groupBox1.Controls.Add(this.toolStrip1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 87);
+            this.groupBox1.Location = new System.Drawing.Point(3, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(325, 324);
+            this.groupBox1.Size = new System.Drawing.Size(301, 340);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Привилегии";
@@ -124,7 +124,7 @@
             this.tSButton_del});
             this.toolStrip1.Location = new System.Drawing.Point(3, 16);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(319, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(295, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -138,6 +138,7 @@
             this.tSButton_add.Size = new System.Drawing.Size(23, 22);
             this.tSButton_add.Text = "toolStripButton1";
             this.tSButton_add.ToolTipText = "Включить в группу...";
+            this.tSButton_add.Click += new System.EventHandler(this.tSButton_add_Click);
             // 
             // tSButton_del
             // 
@@ -149,6 +150,7 @@
             this.tSButton_del.Size = new System.Drawing.Size(23, 22);
             this.tSButton_del.Text = "toolStripButton2";
             this.tSButton_del.ToolTipText = "Исключить из группы";
+            this.tSButton_del.Click += new System.EventHandler(this.tSButton_del_Click);
             // 
             // listBox_acl
             // 
@@ -156,14 +158,14 @@
             this.listBox_acl.FormattingEnabled = true;
             this.listBox_acl.Location = new System.Drawing.Point(3, 41);
             this.listBox_acl.Name = "listBox_acl";
-            this.listBox_acl.Size = new System.Drawing.Size(319, 280);
+            this.listBox_acl.Size = new System.Drawing.Size(295, 296);
             this.listBox_acl.TabIndex = 2;
             // 
             // fUserGroupACL
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 449);
+            this.ClientSize = new System.Drawing.Size(307, 449);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Name = "fUserGroupACL";
