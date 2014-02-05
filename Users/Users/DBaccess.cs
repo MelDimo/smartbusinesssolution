@@ -614,9 +614,31 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " INSERT INTO user_acl(users, user_acl_type) VALUES (@users, @user_acl_type)";
+                command.CommandText = " INSERT INTO users_acl(users, user_acl_type) VALUES (@users, @user_acl_type)";
 
                 command.Parameters.Add("users", SqlDbType.Int).Value = pUserID;
+                command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void addGroupACL(string pDbType, int pUserID, int pACLType)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " INSERT INTO groups_acl(groups, user_acl_type) VALUES (@groups, @user_acl_type)";
+
+                command.Parameters.Add("groups", SqlDbType.Int).Value = pUserID;
                 command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
 
                 command.ExecuteNonQuery();
@@ -636,9 +658,31 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " DELETE FROM user_acl WHERE users = @users AND user_acl_type = @user_acl_type";
+                command.CommandText = " DELETE FROM users_acl WHERE users = @users AND user_acl_type = @user_acl_type";
 
                 command.Parameters.Add("users", SqlDbType.Int).Value = pUserID;
+                command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void deleteGroupACL(string pDbType, int pUserID, int pACLType)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " DELETE FROM groups_acl WHERE groups = @groups AND user_acl_type = @user_acl_type";
+
+                command.Parameters.Add("groups", SqlDbType.Int).Value = pUserID;
                 command.Parameters.Add("user_acl_type", SqlDbType.Int).Value = pACLType;
 
                 command.ExecuteNonQuery();
