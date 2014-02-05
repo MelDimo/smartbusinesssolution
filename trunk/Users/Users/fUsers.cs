@@ -479,9 +479,10 @@ namespace com.sbs.gui.users
 
         private void tSButton_acl_Click(object sender, EventArgs e)
         {
-            int xUserId;
-            string xUserName;
+            int xUserGroupId;
+            string xUserGroupName;
             DataTable dtPwdUsers = new DataTable();
+            fUserGroupACL facl;
 
             if (dataGridView_main.SelectedRows.Count == 0)
             {
@@ -490,17 +491,24 @@ namespace com.sbs.gui.users
                 return;
             }
 
+
+
             switch (tSComboBox_RecType.ComboBox.Text)
             {
                 case "Пользователь":
-                    xUserId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
-                    xUserName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
+                    xUserGroupId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
+                    xUserGroupName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
 
-                    fUserGroupACL facl = new fUserGroupACL(0, xUserId, xUserName);
+                    facl = new fUserGroupACL(0, xUserGroupId, xUserGroupName);
                     facl.ShowDialog();
                     break;
 
                 case "Группа":
+                    xUserGroupId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+                    xUserGroupName = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+
+                    facl = new fUserGroupACL(1, xUserGroupId, xUserGroupName);
+                    facl.ShowDialog();
                     break;
             }
         }
