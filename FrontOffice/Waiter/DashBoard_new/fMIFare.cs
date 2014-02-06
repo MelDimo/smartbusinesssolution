@@ -12,7 +12,7 @@ namespace com.sbs.gui.dashboard
 {
     public partial class fMIFare : Form
     {
-        public string keyId = "";
+        public string keyId = string.Empty;
 
         public fMIFare()
         {
@@ -29,7 +29,8 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) { uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
 
-            DialogResult = DialogResult.OK;
+            if (keyId.Equals(string.Empty)) DialogResult = DialogResult.Cancel;
+            else DialogResult = DialogResult.OK;
         }
     }
 }

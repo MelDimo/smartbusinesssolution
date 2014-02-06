@@ -94,9 +94,9 @@
             this.Name = "fSeason";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fSeason";
-            this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fSeason_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

@@ -13,25 +13,25 @@ namespace com.sbs.gui.dashboard
 {
     public partial class fSeason : Form
     {
-        DBaccess DbAccess = new DBaccess();
-        SeasonBranch[] oSeasonBranchArray;
+        DBaccess dbAccess = new DBaccess();
+        Suppurt Supp = new Suppurt();
+
         Button btnSeason;
 
         public fSeason(SeasonBranch[] pSeasonBranchArray)
         {
-            oSeasonBranchArray = pSeasonBranchArray; 
             InitializeComponent();
 
             this.Text = GValues.prgNameFull;
 
             button_cancel.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.close_48;
 
-            createContrlos();
+            createContrlos(pSeasonBranchArray);
         }
 
-        private void createContrlos()
+        private void createContrlos(SeasonBranch[] pSeasonBranchArray)
         {
-            foreach (SeasonBranch sb in oSeasonBranchArray)
+            foreach (SeasonBranch sb in pSeasonBranchArray)
             {
                 btnSeason = new Button();
                 btnSeason.BackColor = Color.FromArgb(255, 255, 196);
@@ -66,38 +66,68 @@ namespace com.sbs.gui.dashboard
             Button btn = (Button)sender;
 
             if (btn.Tag == null){
-
                 openNewSeason();
             }
             else{
-                DataRow dr = (DataRow)btn.Tag;
-                GValues.openSeasonDate= dr["date_open"].ToString();
-                GValues.openSeasonUserName = dr["fio"].ToString();
-                GValues.openSeasonId = (int)dr["id"];
-                openExistSeason((int)dr["id"]);
+                openExistSeason((SeasonBranch)btn.Tag);
             }
         }
 
-        private void openExistSeason(int pSeasonId)
+        private void openExistSeason(SeasonBranch pSeasonBranch)
         {
+            int xPriv = 0;
+            string xErrMessage = string.Empty;
 
-            closeForm(pSeasonId);
+            if (pSeasonBranch.userID == DashboardEnvironment.gUser.id){ // Пытаемся войти в свою, открытую ранее смену
+                xPriv = 10; xErrMessage = "У Вас отсутствуют привилегии на ввод заведения в открытую Вами ранее смену.";
+            }
+            else{                                                        // Пытаемся войти в чужую, открытую ранее смену
+                xPriv = 11; xErrMessage = "У Вас отсутствуют привилегии на ввод заведения в чужую, открытую ранее смену.";
+            }
+
+            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+            {
+                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DashboardEnvironment.gSeasonBranch = pSeasonBranch;
+
+            MessageBox.Show("Рабочее место заведено в смену № " + DashboardEnvironment.gSeasonBranch.seasonID +
+                                                Environment.NewLine + "Смена открыта: " + DashboardEnvironment.gSeasonBranch.dateOpen +
+                                                Environment.NewLine + "Администратор: " + DashboardEnvironment.gSeasonBranch.userName +
+                                                Environment.NewLine + "Удачного дня!",
+                                                GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            closeForm(0);
         }
 
         private void openNewSeason()
         {
-            //try
-            //{
-            //    DbAccess.openNewSeason("offline");
-            //}
-            //catch (Exception exc)
-            //{
-            //    uMessage.Show("Не удалось получить данные по сменам", exc, SystemIcons.Information);
-            //    return;
-            //}
+            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, 1))
+            {
+                MessageBox.Show("У Вас отсутствуют привилегии на открытие смены заведения.", GValues.prgNameFull, 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-            //uMessage.Show("Смена создана!", SystemIcons.Information);
-            //closeForm(0);
+            try
+            {
+                dbAccess.openNewSeason("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Не удалось открыть новую смену.", exc, SystemIcons.Information);
+                return;
+            }
+
+            MessageBox.Show("Смена создана!" + Environment.NewLine + "Рабочее место заведено в смену № " + DashboardEnvironment.gSeasonBranch.seasonID +
+                                                Environment.NewLine + "Смена открыта: " + DashboardEnvironment.gSeasonBranch.dateOpen +
+                                                Environment.NewLine + "Администратор: " + DashboardEnvironment.gSeasonBranch.userName +
+                                                Environment.NewLine + "Удачного дня!",
+                                                GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            closeForm(0);
+                
         }
 
         private void closeForm(int pCloseParam)

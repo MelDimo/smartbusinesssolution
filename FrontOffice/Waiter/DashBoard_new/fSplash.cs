@@ -13,7 +13,7 @@ namespace com.sbs.gui.dashboard
 {
     public partial class fSplash : Form
     {
-        private DBaccess DbAccess = new DBaccess();
+        private DBaccess dbAccess = new DBaccess();
 
         private SeasonBranch[] oSeasonBranchArray;
         private User oUser;
@@ -32,16 +32,25 @@ namespace com.sbs.gui.dashboard
                 case Keys.Enter:
                     enterKey();
                     break;
+
+                case Keys.Escape:
+                    if (MessageBox.Show("Вы увеерены что хотите выйти?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        != DialogResult.Yes) return;
+
+                    DashboardEnvironment.Clear();
+                    Close();
+                    break;
             }
         }
 
         /// <summary>
         /// Получаем информацию о пользователе
         /// Получаем информацию об открытых сменах
-        /// Получаем информацию о пользователе открывшем смену
+        /// Заводим рабочее место в смену
         /// </summary>
         private void enterKey()
         {
+            bool chkFlag = false;
             //--------------------------------------------------------------- Получаем информацию о пользователе
             switch(GValues.authortype)
             {
@@ -51,7 +60,7 @@ namespace com.sbs.gui.dashboard
                     {
                         try
                         {
-                            DashboardEnveronvent.gUser = getUserByKey(fMiFare.keyId); 
+                            DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
                         }
                         catch (Exception exc)
                         {
@@ -59,24 +68,53 @@ namespace com.sbs.gui.dashboard
                             return;
                         }
                     }
+                    else
+                        return;
                     break;
                 case 2:
                     MessageBox.Show("Авторизация по логину на данном этапе не доступна");
                     return;
             }
             //--------------------------------------------------------------- Получаем информацию об открытых сменах
-            DashboardEnveronvent.gSeasonBranchArray
-            oSeasonBranchArray = getOpenSeason();
+            if (DashboardEnvironment.gSeasonBranch == null) // рабочее место не в смене
+            {
+                oSeasonBranchArray = getOpenSeason();
 
-            fSeason fseason = new fSeason(oSeasonBranchArray);
-            fseason.ShowDialog();
+                fSeason fseason = new fSeason(oSeasonBranchArray);
+                if (fseason.ShowDialog() == DialogResult.OK) // Если определились со сменами, загружаю основное окно офиц части
+                    chkFlag = true;
+            }
+            else
+                chkFlag = true;
+
+            if (chkFlag) showMainForm();//--------------------- Запускаем основную официантскую форму
+
+        }
+
+
+        private void showMainForm()
+        {
+            DashboardEnvironment.gBillList = new List<Bill>();
+
+            try
+            {
+                DashboardEnvironment.gBillList = dbAccess.getBills("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                return;
+            }
+
+            fMain fmain = new fMain();
+            fmain.ShowDialog();
         }
 
         private SeasonBranch[] getOpenSeason()
         {
             try
             {
-                oSeasonBranchArray = DbAccess.getAvaliableSeason("offline");
+                oSeasonBranchArray = dbAccess.getAvaliableSeason("offline");
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return null; }
 
@@ -87,7 +125,7 @@ namespace com.sbs.gui.dashboard
         {
             try
             {
-                oUser = DbAccess.getMifareUser("offline", pUserKey);
+                oUser = dbAccess.getMifareUser("offline", pUserKey);
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return null; }
 
