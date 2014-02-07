@@ -262,11 +262,98 @@ namespace com.sbs.gui.dashboard
             return oBillList;
         }
 
-        internal List<Dish> getBillDishes(string pDbType, Bill pBill)
+        internal List<Dish> getBillInfo(string pDbType, Bill pBill)
         {
-            return new List<Dish>();
+            List<Dish> oBillInfoList = new List<Dish>();
+            Dish oDish;
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+
+                command.CommandText = "BillsInfo_get";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBills", SqlDbType.Int).Value = pBill.id;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+
+            for (int i = 0; i < dtResult.Rows.Count; i++)
+            {
+                oDish = new Dish();
+                oDish.id = (int)dtResult.Rows[i]["id"];
+                oDish.name = dtResult.Rows[i]["dishes_name"].ToString();
+                oDish.portion = dtResult.Rows[i]["portion"].ToString();
+                oDish.price = (decimal)dtResult.Rows[i]["dishes_price"];
+                oDish.count = (int)dtResult.Rows[i]["xcount"];
+                oDish.addDate = (DateTime)dtResult.Rows[i]["date_add"];
+                oDish.refStatus = (int)dtResult.Rows[i]["ref_status"];
+                oBillInfoList.Add(oDish);
+            }
+
+            return oBillInfoList;
         }
 
+
+        internal Bill BillOpen(string pDbType)
+        {
+            Bill oBill = new Bill();
+            dtResult = new DataTable();
+
+            oBill.openDate = DateTime.Now;
+            oBill.refStat = 19;
+            oBill.table = 0;
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "BillOpen";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBillId", SqlDbType.Int);
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pNumber", SqlDbType.Int);
+                command.Parameters.Add("pxTable", SqlDbType.Int).Value = oBill.table;
+                command.Parameters.Add("pDateOpen", SqlDbType.DateTime).Value = DateTime.Now;
+                command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
+                command.Parameters["pNumber"].Value = 0;
+                command.Parameters["pNumber"].Direction = ParameterDirection.InputOutput;
+                command.Parameters["pBillId"].Value = 0;
+                command.Parameters["pBillId"].Direction = ParameterDirection.InputOutput;
+
+                command.ExecuteNonQuery();
+
+                oBill.numb = (int)command.Parameters["pNumber"].Value;
+                oBill.id = (int)command.Parameters["pBillId"].Value;
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+
+            return oBill;
+        }
     }
 
     public class SeasonBranch
@@ -313,6 +400,12 @@ namespace com.sbs.gui.dashboard
     {
         public int id { get; set; }
         public string name { get; set; }
+        public decimal price { get; set; }
+        public int count { get; set; }
+        public string portion { get; set; }
+        public DateTime? addDate { get; set; }
+        public int refStatus { get; set; }
+        public int refPrintersType { get; set; }
     }
 
     internal class Suppurt
