@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace com.sbs.dll.utilites
 {
@@ -14,6 +15,10 @@ namespace com.sbs.dll.utilites
     {
         public List<int> checkedUnit = new List<int>();
         public string checkedUnitName = string.Empty;
+        public List<int> checkedBranch = new List<int>();
+        public string checkedBranchName = string.Empty;
+
+        public string checkLvl = string.Empty;
         public bool autoCheckChild = false;
 
         getReference oReference = new getReference();
@@ -43,6 +48,7 @@ namespace com.sbs.dll.utilites
 
         private void createTree(DataSet pDsOrgTree)
         {
+            Debug.Print("checkLvl: " + checkLvl);
             bool isChild = false;
             string parentId = string.Empty;
             TreeNode nodes;
@@ -56,6 +62,8 @@ namespace com.sbs.dll.utilites
                     nodes = new TreeNode();
                     nodes.Text = dr["name"].ToString();
 
+                    nodes.Name = "";
+
                     switch (dt.TableName)
                     {
                         case "organization":
@@ -64,15 +72,23 @@ namespace com.sbs.dll.utilites
                             break;
 
                         case "branch":
-                            nodes.Name = "branch" + dr["id"].ToString();
-                            parentId = "organization" + dr["idparent"].ToString();
+                            if (checkLvl.Equals("branch") || checkLvl.Equals("unit"))
+                            {
+                                nodes.Name = "branch" + dr["id"].ToString();
+                                parentId = "organization" + dr["idparent"].ToString();
+                            }
                             break;
 
                         case "unit":
-                            nodes.Name = "unit" + dr["id"].ToString();
-                            parentId = "branch" + dr["idparent"].ToString();
+                            if (checkLvl.Equals("unit"))
+                            {
+                                nodes.Name = "unit" + dr["id"].ToString();
+                                parentId = "branch" + dr["idparent"].ToString();
+                            }
                             break;
                     }
+
+                    if (nodes.Name.Equals("")) continue;  // если елемент вообще не надо выводить
 
                     foreach (TreeNode node_parent in treeView_main.Nodes.Find(parentId, true))
                     {
@@ -106,9 +122,21 @@ namespace com.sbs.dll.utilites
         private void button_select_Click(object sender, EventArgs e)
         {
             getCheckedId(treeView_main.Nodes[0]);
-            checkedUnitName = checkedUnitName.Substring(0, checkedUnitName.Length - 2);
 
-            if (checkedUnit.Count == 0) DialogResult = DialogResult.Cancel;
+            switch (checkLvl) 
+            {
+                case "branch":
+                    checkedBranchName = checkedBranchName.Substring(0, checkedBranchName.Length - 2);
+                    if (checkedBranch.Count == 0) DialogResult = DialogResult.Cancel;
+                    
+                    break;
+
+                case "unit":
+                    checkedUnitName = checkedUnitName.Substring(0, checkedUnitName.Length - 2);
+                    if (checkedUnit.Count == 0) DialogResult = DialogResult.Cancel;
+                    break;
+            }
+
             DialogResult = DialogResult.OK;
         }
 
@@ -122,7 +150,32 @@ namespace com.sbs.dll.utilites
             if (pTn.Nodes.Count > 0) // есть дети
             {
                 foreach (TreeNode tn in pTn.Nodes)
+                {
+                    //curWord = regOnlyLetter.Replace(pTn.Name, "");
+                    //switch (curWord)
+                    //{
+                    //    case "organization":
+                    //        break;
+
+                    //    case "branch":
+                    //        if (pTn.Checked)
+                    //        {
+                    //            checkedBranch.Add(int.Parse(regOnlyNumber.Replace(pTn.Name, "")));
+                    //            checkedBranchName += pTn.Text + "; ";
+                    //        }
+                    //        break;
+
+                    //    case "unit":
+                    //        if (pTn.Checked)
+                    //        {
+                    //            checkedUnit.Add(int.Parse(regOnlyNumber.Replace(pTn.Name, "")));
+                    //            checkedUnitName += pTn.Text + "; ";
+                    //        }
+                    //        break;
+                    //}
                     getCheckedId(tn);
+                }
+                
             }
             else                    // конечный узел
             {
@@ -133,6 +186,11 @@ namespace com.sbs.dll.utilites
                         break;
 
                     case "branch":
+                        if (pTn.Checked)
+                        {
+                            checkedBranch.Add(int.Parse(regOnlyNumber.Replace(pTn.Name, "")));
+                            checkedBranchName += pTn.Text + "; ";
+                        }
                         break;
 
                     case "unit":

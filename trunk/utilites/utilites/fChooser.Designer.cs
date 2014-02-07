@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button_select = new System.Windows.Forms.Button();
-            this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -47,6 +47,22 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные";
+            // 
+            // dataGridView_main
+            // 
+            this.dataGridView_main.AllowUserToAddRows = false;
+            this.dataGridView_main.AllowUserToDeleteRows = false;
+            this.dataGridView_main.AllowUserToResizeRows = false;
+            this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_main.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_main.MultiSelect = false;
+            this.dataGridView_main.Name = "dataGridView_main";
+            this.dataGridView_main.RowHeadersVisible = false;
+            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_main.Size = new System.Drawing.Size(418, 423);
+            this.dataGridView_main.TabIndex = 0;
+            this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
             // 
             // panel1
             // 
@@ -68,23 +84,6 @@
             this.button_select.UseVisualStyleBackColor = true;
             this.button_select.Click += new System.EventHandler(this.button_select_Click);
             // 
-            // dataGridView_main
-            // 
-            this.dataGridView_main.AllowUserToAddRows = false;
-            this.dataGridView_main.AllowUserToDeleteRows = false;
-            this.dataGridView_main.AllowUserToResizeRows = false;
-            this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_main.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView_main.MultiSelect = false;
-            this.dataGridView_main.Name = "dataGridView_main";
-            this.dataGridView_main.ReadOnly = true;
-            this.dataGridView_main.RowHeadersVisible = false;
-            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(418, 423);
-            this.dataGridView_main.TabIndex = 0;
-            this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
-            // 
             // fChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -101,8 +100,8 @@
             this.Text = "fChooser";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fChooser_FormClosing);
             this.groupBox1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

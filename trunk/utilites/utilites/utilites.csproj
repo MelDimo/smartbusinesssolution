@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ctrDishes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrDishes.Designer.cs">
+      <DependentUpon>ctrDishes.cs</DependentUpon>
+    </Compile>
     <Compile Include="fChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ctrDishes.resx">
+      <DependentUpon>ctrDishes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fChooser.resx">
       <DependentUpon>fChooser.cs</DependentUpon>
     </EmbeddedResource>
@@ -162,6 +171,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\key-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\documents-26.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
