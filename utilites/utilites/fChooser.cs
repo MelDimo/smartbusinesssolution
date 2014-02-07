@@ -92,11 +92,69 @@ namespace com.sbs.dll.utilites
                     returnRefDishes();
                     break;
 
+                case "USERGROUPS":
+                    returnUserGroups();
+                    break;
+
+                case "USERS":
+                    returnUsers();
+                    break;
+
+                case "ACL":
+                    returnACL();
+                    break;
             }
 
             isSelected = true;
 
             Close();
+        }
+
+        private void returnACL()
+        {
+            int xId;
+            string xName;
+
+            xId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            xName = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+
+            xData = new object[] { xId, xName };
+        }
+
+        private void returnUsers()
+        {
+            List<int> id = new List<int>(); ;
+            string name = string.Empty;
+
+            foreach (DataGridViewRow dr in dataGridView_main.Rows)
+            {
+                if ((bool)dr.Cells["checked"].Value)
+                {
+                    id.Add((int)dr.Cells["id"].Value);
+                    name += dr.Cells["fio"].Value.ToString() + "; ";
+                }
+            }
+            name.TrimEnd(new char[] { ';', ' ' });
+
+            xData = new object[] { id, name };
+        }
+
+        private void returnUserGroups()
+        {
+            List<int> id = new List<int>(); ;
+            string name = string.Empty;
+
+            foreach (DataGridViewRow dr in dataGridView_main.Rows)
+            {
+                if ((bool)dr.Cells["checked"].Value)
+                {
+                    id.Add((int)dr.Cells["id"].Value);
+                    name += dr.Cells["name"].Value.ToString() + "; ";
+                }
+            }
+            name.TrimEnd(new char[] { ';', ' ' });
+
+            xData = new object[] { id, name };
         }
 
         private void returnRefDishes()
