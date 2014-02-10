@@ -39,9 +39,11 @@
             this.radioButton_editBills = new System.Windows.Forms.RadioButton();
             this.tabControl_right = new System.Windows.Forms.TabControl();
             this.tabPage_billInfo = new System.Windows.Forms.TabPage();
-            this.tabPage_carte = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel_billInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage_groups = new System.Windows.Forms.TabPage();
-            this.tabPage_dishes = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.treeView_CarteGroups = new System.Windows.Forms.TreeView();
+            this.flowLayoutPanel_dish = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage_saintBox = new System.Windows.Forms.TabPage();
             this.tabPage_freePage = new System.Windows.Forms.TabPage();
             this.tabControl_left = new System.Windows.Forms.TabControl();
@@ -54,17 +56,16 @@
             this.panel_arroundRight = new System.Windows.Forms.Panel();
             this.panel_right = new System.Windows.Forms.Panel();
             this.radioButton_groups = new System.Windows.Forms.RadioButton();
-            this.radioButton_carte = new System.Windows.Forms.RadioButton();
             this.radioButton_billInfo = new System.Windows.Forms.RadioButton();
             this.radioButton_freePage = new System.Windows.Forms.RadioButton();
             this.radioButton_saintBox = new System.Windows.Forms.RadioButton();
-            this.radioButton_dishes = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel_billInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip1.SuspendLayout();
             this.panel_left.SuspendLayout();
             this.tabControl_right.SuspendLayout();
             this.tabPage_billInfo.SuspendLayout();
+            this.tabPage_groups.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.tabControl_left.SuspendLayout();
             this.tabPage_currBills.SuspendLayout();
             this.tabPage_editBill.SuspendLayout();
@@ -149,6 +150,7 @@
             this.radioButton_curBills.Name = "radioButton_curBills";
             this.radioButton_curBills.Size = new System.Drawing.Size(14, 13);
             this.radioButton_curBills.TabIndex = 1;
+            this.radioButton_curBills.TabStop = true;
             this.radioButton_curBills.UseVisualStyleBackColor = true;
             // 
             // radioButton_editBills
@@ -165,9 +167,7 @@
             // 
             this.tabControl_right.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl_right.Controls.Add(this.tabPage_billInfo);
-            this.tabControl_right.Controls.Add(this.tabPage_carte);
             this.tabControl_right.Controls.Add(this.tabPage_groups);
-            this.tabControl_right.Controls.Add(this.tabPage_dishes);
             this.tabControl_right.Controls.Add(this.tabPage_saintBox);
             this.tabControl_right.Controls.Add(this.tabPage_freePage);
             this.tabControl_right.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -190,19 +190,18 @@
             this.tabPage_billInfo.TabIndex = 0;
             this.tabPage_billInfo.Text = "Информация по текущему заказу";
             // 
-            // tabPage_carte
+            // flowLayoutPanel_billInfo
             // 
-            this.tabPage_carte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage_carte.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_carte.Name = "tabPage_carte";
-            this.tabPage_carte.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_carte.Size = new System.Drawing.Size(610, 518);
-            this.tabPage_carte.TabIndex = 1;
-            this.tabPage_carte.Text = "Меню";
+            this.flowLayoutPanel_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_billInfo.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel_billInfo.Name = "flowLayoutPanel_billInfo";
+            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(602, 510);
+            this.flowLayoutPanel_billInfo.TabIndex = 0;
             // 
             // tabPage_groups
             // 
             this.tabPage_groups.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage_groups.Controls.Add(this.tableLayoutPanel2);
             this.tabPage_groups.Location = new System.Drawing.Point(4, 25);
             this.tabPage_groups.Name = "tabPage_groups";
             this.tabPage_groups.Padding = new System.Windows.Forms.Padding(3);
@@ -210,15 +209,39 @@
             this.tabPage_groups.TabIndex = 2;
             this.tabPage_groups.Text = "Категории";
             // 
-            // tabPage_dishes
+            // tableLayoutPanel2
             // 
-            this.tabPage_dishes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage_dishes.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_dishes.Name = "tabPage_dishes";
-            this.tabPage_dishes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_dishes.Size = new System.Drawing.Size(610, 518);
-            this.tabPage_dishes.TabIndex = 3;
-            this.tabPage_dishes.Text = "Блюда";
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel2.Controls.Add(this.treeView_CarteGroups, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel_dish, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(602, 510);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // treeView_CarteGroups
+            // 
+            this.treeView_CarteGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView_CarteGroups.Location = new System.Drawing.Point(3, 3);
+            this.treeView_CarteGroups.Name = "treeView_CarteGroups";
+            this.treeView_CarteGroups.Size = new System.Drawing.Size(174, 504);
+            this.treeView_CarteGroups.TabIndex = 0;
+            this.treeView_CarteGroups.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_CarteGroups_AfterSelect);
+            // 
+            // flowLayoutPanel_dish
+            // 
+            this.flowLayoutPanel_dish.AutoSize = true;
+            this.flowLayoutPanel_dish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_dish.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel_dish.Location = new System.Drawing.Point(183, 3);
+            this.flowLayoutPanel_dish.Name = "flowLayoutPanel_dish";
+            this.flowLayoutPanel_dish.Size = new System.Drawing.Size(416, 504);
+            this.flowLayoutPanel_dish.TabIndex = 1;
             // 
             // tabPage_saintBox
             // 
@@ -338,11 +361,9 @@
             // panel_right
             // 
             this.panel_right.Controls.Add(this.radioButton_groups);
-            this.panel_right.Controls.Add(this.radioButton_carte);
             this.panel_right.Controls.Add(this.radioButton_billInfo);
             this.panel_right.Controls.Add(this.radioButton_freePage);
             this.panel_right.Controls.Add(this.radioButton_saintBox);
-            this.panel_right.Controls.Add(this.radioButton_dishes);
             this.panel_right.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel_right.Location = new System.Drawing.Point(2, 549);
             this.panel_right.Name = "panel_right";
@@ -353,38 +374,29 @@
             // 
             this.radioButton_groups.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.radioButton_groups.AutoSize = true;
-            this.radioButton_groups.Location = new System.Drawing.Point(290, 8);
+            this.radioButton_groups.Location = new System.Drawing.Point(326, 8);
             this.radioButton_groups.Name = "radioButton_groups";
             this.radioButton_groups.Size = new System.Drawing.Size(14, 13);
             this.radioButton_groups.TabIndex = 5;
             this.radioButton_groups.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_carte
-            // 
-            this.radioButton_carte.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.radioButton_carte.AutoSize = true;
-            this.radioButton_carte.Location = new System.Drawing.Point(266, 8);
-            this.radioButton_carte.Name = "radioButton_carte";
-            this.radioButton_carte.Size = new System.Drawing.Size(14, 13);
-            this.radioButton_carte.TabIndex = 4;
-            this.radioButton_carte.UseVisualStyleBackColor = true;
             // 
             // radioButton_billInfo
             // 
             this.radioButton_billInfo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.radioButton_billInfo.AutoSize = true;
             this.radioButton_billInfo.Checked = true;
-            this.radioButton_billInfo.Location = new System.Drawing.Point(242, 8);
+            this.radioButton_billInfo.Location = new System.Drawing.Point(302, 8);
             this.radioButton_billInfo.Name = "radioButton_billInfo";
             this.radioButton_billInfo.Size = new System.Drawing.Size(14, 13);
             this.radioButton_billInfo.TabIndex = 3;
+            this.radioButton_billInfo.TabStop = true;
             this.radioButton_billInfo.UseVisualStyleBackColor = true;
             // 
             // radioButton_freePage
             // 
             this.radioButton_freePage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.radioButton_freePage.AutoSize = true;
-            this.radioButton_freePage.Location = new System.Drawing.Point(362, 8);
+            this.radioButton_freePage.Location = new System.Drawing.Point(278, 8);
             this.radioButton_freePage.Name = "radioButton_freePage";
             this.radioButton_freePage.Size = new System.Drawing.Size(14, 13);
             this.radioButton_freePage.TabIndex = 2;
@@ -394,21 +406,11 @@
             // 
             this.radioButton_saintBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.radioButton_saintBox.AutoSize = true;
-            this.radioButton_saintBox.Location = new System.Drawing.Point(338, 8);
+            this.radioButton_saintBox.Location = new System.Drawing.Point(254, 8);
             this.radioButton_saintBox.Name = "radioButton_saintBox";
             this.radioButton_saintBox.Size = new System.Drawing.Size(14, 13);
             this.radioButton_saintBox.TabIndex = 1;
             this.radioButton_saintBox.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_dishes
-            // 
-            this.radioButton_dishes.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.radioButton_dishes.AutoSize = true;
-            this.radioButton_dishes.Location = new System.Drawing.Point(314, 8);
-            this.radioButton_dishes.Name = "radioButton_dishes";
-            this.radioButton_dishes.Size = new System.Drawing.Size(14, 13);
-            this.radioButton_dishes.TabIndex = 0;
-            this.radioButton_dishes.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -426,14 +428,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 585);
             this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // flowLayoutPanel_billInfo
-            // 
-            this.flowLayoutPanel_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_billInfo.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel_billInfo.Name = "flowLayoutPanel_billInfo";
-            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(602, 510);
-            this.flowLayoutPanel_billInfo.TabIndex = 0;
             // 
             // fMain
             // 
@@ -454,6 +448,9 @@
             this.panel_left.PerformLayout();
             this.tabControl_right.ResumeLayout(false);
             this.tabPage_billInfo.ResumeLayout(false);
+            this.tabPage_groups.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tabControl_left.ResumeLayout(false);
             this.tabPage_currBills.ResumeLayout(false);
             this.tabPage_currBills.PerformLayout();
@@ -482,9 +479,7 @@
         private System.Windows.Forms.RadioButton radioButton_editBills;
         private System.Windows.Forms.TabControl tabControl_right;
         private System.Windows.Forms.TabPage tabPage_billInfo;
-        private System.Windows.Forms.TabPage tabPage_carte;
         private System.Windows.Forms.TabPage tabPage_groups;
-        private System.Windows.Forms.TabPage tabPage_dishes;
         private System.Windows.Forms.TabPage tabPage_saintBox;
         private System.Windows.Forms.TabControl tabControl_left;
         private System.Windows.Forms.TabPage tabPage_currBills;
@@ -498,12 +493,13 @@
         private System.Windows.Forms.TabPage tabPage_freePage;
         private System.Windows.Forms.Panel panel_right;
         private System.Windows.Forms.RadioButton radioButton_groups;
-        private System.Windows.Forms.RadioButton radioButton_carte;
         private System.Windows.Forms.RadioButton radioButton_billInfo;
         private System.Windows.Forms.RadioButton radioButton_freePage;
         private System.Windows.Forms.RadioButton radioButton_saintBox;
-        private System.Windows.Forms.RadioButton radioButton_dishes;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_billInfo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TreeView treeView_CarteGroups;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_dish;
 
     }
 }

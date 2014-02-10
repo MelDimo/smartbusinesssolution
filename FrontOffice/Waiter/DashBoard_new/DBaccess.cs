@@ -308,7 +308,6 @@ namespace com.sbs.gui.dashboard
             return oBillInfoList;
         }
 
-
         internal Bill BillOpen(string pDbType)
         {
             Bill oBill = new Bill();
@@ -353,6 +352,85 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
 
             return oBill;
+        }
+
+        internal DataSet prepareCarteDishes(string pDbType)
+        {
+            DataSet ds = new DataSet();
+            DataTable dtCarte = new DataTable("carte");
+            DataTable dtGrop = new DataTable("group");
+            DataTable dtDishes = new DataTable("dishes");
+
+            string sCarte = string.Empty;
+            string sGroup = string.Empty;
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                #region carte
+
+                command.CommandText = " SELECT id, code, name " +
+                                        " FROM carte " +
+                                        " WHERE branch = @branch AND ref_status = @refStatus";
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtCarte.Load(dr);
+                }
+
+                #endregion
+
+                command.Parameters.Clear();
+
+                foreach (DataRow dr in dtCarte.Rows) sCarte += dr["id"].ToString() + ",";
+
+                sCarte = sCarte.TrimEnd(',');
+
+                #region carte_dishes_group
+
+                command.CommandText = " SELECT id, id_parent, carte, name " +
+                                        " FROM carte_dishes_group " +
+                                        (sCarte.Equals(string.Empty) ? string.Empty : " WHERE carte in (" + sCarte + ")");
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtGrop.Load(dr);
+                }
+
+                #endregion
+
+                command.Parameters.Clear();
+
+                foreach (DataRow dr in dtGrop.Rows) sGroup += dr["id"].ToString() + ",";
+
+                sGroup = sGroup.TrimEnd(',');
+
+                #region carte_dishes
+
+                command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, portion, isvisible, ref_printers_type " +
+                                        " FROM carte_dishes " +
+                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE carte_dishes_group in (" + sGroup + ")"); 
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtDishes.Load(dr);
+                }
+
+                #endregion
+            }
+            catch (Exception exc) { throw exc;}
+
+            ds.Tables.AddRange(new DataTable[] { dtCarte, dtGrop, dtDishes });
+
+            return ds;
+
         }
     }
 
