@@ -26,6 +26,8 @@ namespace com.sbs.gui.dashboard
         zoneFocus ePrevZoneFocus;
         action ePrevAction;
 
+        DataTable dtDishes;
+
         public fMain()
         {
             InitializeComponent();
@@ -55,16 +57,16 @@ namespace com.sbs.gui.dashboard
 
             switch (ePrevZoneFocus)
             { 
-                case zoneFocus.PANEL_LEFT:
+                case zoneFocus.PANEL_LEFT:                          // Левая панель
                     switch (ePrevAction)
                     { 
-                        case action.ADD_DISH:
+                        case action.ADD_DISH:                           // Добавляем блюдо
                             break;
-                        case action.SELECT_BILL:
+                        case action.SELECT_BILL:                        // Выбераем заказ
                             break;
                     }
                     break;
-                case zoneFocus.PANEL_RIGHT:
+                case zoneFocus.PANEL_RIGHT:                         // Правая панель
                     break;
             }
         }
@@ -137,7 +139,7 @@ namespace com.sbs.gui.dashboard
             {
                 oCtrDishes = new ctrDishes();
                 oCtrDishes.label_name.Text = oDish.name;
-                oCtrDishes.label_count.Text = oDish.count.ToString();
+                oCtrDishes.textBox_count.Text = oDish.count.ToString();
                 oCtrDishes.label_portion.Text = oDish.portion;
                 oCtrDishes.label_price.Text = (oDish.price * oDish.count).ToString();
  
@@ -162,9 +164,62 @@ namespace com.sbs.gui.dashboard
                                     "Открыт: " + pBill.openDate.ToString() + Environment.NewLine;
 
             tabControl_left.SelectedTab = tabControl_left.TabPages[1];
+
+            if (dtDishes == null) prepareCarteDishes(pBill);
+            
+            tabControl_right.SelectedTab = tabControl_right.TabPages[1];
+            treeView_CarteGroups.Focus();
         }
 
+        private void prepareCarteDishes(Bill pBill)
+        {
+            DataSet dsTables = new DataSet();
+            DataTable dtBuf = new DataTable();
 
+            TreeNode nodes;
+            bool inPalce = false;
+
+            try
+            {
+                dsTables = dbAccess.prepareCarteDishes("offline");
+            }
+            catch (Exception exc) { uMessage.Show("Неудалось сформировать меню.", exc, SystemIcons.Information); return; }
+
+            dtBuf = dsTables.Tables["carte"];
+            foreach (DataRow dr in dtBuf.Rows)
+            {
+                nodes = new TreeNode();
+                nodes.Text = dr["name"].ToString();
+                nodes.Name = "carte" + dr["id"].ToString();
+
+                treeView_CarteGroups.Nodes.Add(nodes);
+            }
+
+            dtBuf = dsTables.Tables["group"];
+            foreach (DataRow dr in dtBuf.Rows)
+            {
+                inPalce = false;
+                nodes = new TreeNode();
+                nodes.Text = dr["name"].ToString();
+                nodes.Name = "group" + dr["id"].ToString();
+
+                foreach(TreeNode tn in treeView_CarteGroups.Nodes.Find("group" + dr["id_parent"].ToString(), true))
+                {
+                    tn.Nodes.Add(nodes);
+                    inPalce = true;
+                }
+
+                if (!inPalce)
+                {
+                    foreach (TreeNode tn in treeView_CarteGroups.Nodes.Find("carte" + dr["carte"].ToString(), true))
+                    {
+                        tn.Nodes.Add(nodes);
+                    }
+                }
+            }
+
+            dtDishes = dsTables.Tables["dishes"];
+        }
 
         private void changeFocus()
         {
@@ -193,16 +248,8 @@ namespace com.sbs.gui.dashboard
                     radioButton_billInfo.Checked = true;
                     break;
 
-                case 1:
-                    radioButton_carte.Checked = true;
-                    break;
-
                 case 2:
                     radioButton_groups.Checked = true;
-                    break;
-
-                case 3:
-                    radioButton_dishes.Checked = true;
                     break;
 
                 case 4:
@@ -213,6 +260,41 @@ namespace com.sbs.gui.dashboard
                     radioButton_freePage.Checked = true;
                     break;
             }
+        }
+
+        private void treeView_CarteGroups_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            int idGroup = 0;
+
+            flowLayoutPanel_dish.Controls.Clear();
+
+            if (treeView_CarteGroups.SelectedNode.Nodes.Count > 0) return; // Отсекаем не конечные пункты
+
+            if(!int.TryParse(treeView_CarteGroups.SelectedNode.Name.Replace("group", ""), out idGroup)) return;
+
+            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + idGroup))
+            {
+                oCtrDishes = new ctrDishes();
+                oCtrDishes.label_name.Text = dr["name"].ToString();
+                oCtrDishes.label_portion.Text = dr["portion"].ToString();
+                oCtrDishes.label_price.Text = dr["price"].ToString();
+                oCtrDishes.button_host.Click += new EventHandler(button_host_Click);
+                
+                oCtrDishes.button_topping.Visible = false;
+                oCtrDishes.button_deals.Visible = false;
+                oCtrDishes.textBox_count.Visible = false;
+
+                flowLayoutPanel_dish.Controls.Add(oCtrDishes);
+            }
+        }
+
+        void button_host_Click(object sender, EventArgs e)
+        {
+
+            ctrDishes oDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
+            fAddDishToBill faddDish2Bill = new fAddDishToBill();
+            faddDish2Bill.Controls.Add(oDishes);
+            faddDish2Bill.ShowDialog();
         }
 
         
