@@ -45,11 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ctrDishes.cs">
+    <Compile Include="Controls\ctrBill.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ctrDishes.Designer.cs">
+    <Compile Include="Controls\ctrBill.Designer.cs">
+      <DependentUpon>ctrBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrDishes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrDishes.Designer.cs">
       <DependentUpon>ctrDishes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrDishesSmall.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrDishesSmall.Designer.cs">
+      <DependentUpon>ctrDishesSmall.cs</DependentUpon>
     </Compile>
     <Compile Include="fChooser.cs">
       <SubType>Form</SubType>
@@ -92,8 +104,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ctrDishes.resx">
+    <EmbeddedResource Include="Controls\ctrBill.resx">
+      <DependentUpon>ctrBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrDishes.resx">
       <DependentUpon>ctrDishes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrDishesSmall.resx">
+      <DependentUpon>ctrDishesSmall.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fChooser.resx">
       <DependentUpon>fChooser.cs</DependentUpon>

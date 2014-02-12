@@ -34,7 +34,8 @@
             this.button_topping = new System.Windows.Forms.Button();
             this.button_deals = new System.Windows.Forms.Button();
             this.button_host = new System.Windows.Forms.Button();
-            this.textBox_count = new System.Windows.Forms.TextBox();
+            this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
             this.SuspendLayout();
             // 
             // label_name
@@ -59,6 +60,7 @@
             // 
             // label_price
             // 
+            this.label_price.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_price.AutoSize = true;
             this.label_price.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_price.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -91,6 +93,7 @@
             // 
             // button_host
             // 
+            this.button_host.AutoSize = true;
             this.button_host.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button_host.Location = new System.Drawing.Point(0, 0);
             this.button_host.Name = "button_host";
@@ -98,21 +101,32 @@
             this.button_host.TabIndex = 0;
             this.button_host.UseVisualStyleBackColor = false;
             // 
-            // textBox_count
+            // numericUpDown_count
             // 
-            this.textBox_count.Location = new System.Drawing.Point(338, 6);
-            this.textBox_count.Name = "textBox_count";
-            this.textBox_count.ReadOnly = true;
-            this.textBox_count.Size = new System.Drawing.Size(100, 20);
-            this.textBox_count.TabIndex = 7;
-            this.textBox_count.TabStop = false;
-            this.textBox_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown_count.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_count.Location = new System.Drawing.Point(364, 7);
+            this.numericUpDown_count.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_count.Name = "numericUpDown_count";
+            this.numericUpDown_count.ReadOnly = true;
+            this.numericUpDown_count.Size = new System.Drawing.Size(74, 20);
+            this.numericUpDown_count.TabIndex = 0;
+            this.numericUpDown_count.TabStop = false;
+            this.numericUpDown_count.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_count.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDown_count_KeyUp);
             // 
             // ctrDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBox_count);
+            this.Controls.Add(this.numericUpDown_count);
             this.Controls.Add(this.button_deals);
             this.Controls.Add(this.button_topping);
             this.Controls.Add(this.label_price);
@@ -121,6 +135,7 @@
             this.Controls.Add(this.button_host);
             this.Name = "ctrDishes";
             this.Size = new System.Drawing.Size(447, 75);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,7 +149,7 @@
         public System.Windows.Forms.Button button_topping;
         public System.Windows.Forms.Button button_deals;
         public System.Windows.Forms.Button button_host;
-        public System.Windows.Forms.TextBox textBox_count;
+        public System.Windows.Forms.NumericUpDown numericUpDown_count;
 
     }
 }

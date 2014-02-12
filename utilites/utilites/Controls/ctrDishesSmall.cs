@@ -9,17 +9,13 @@ using System.Windows.Forms;
 
 namespace com.sbs.dll.utilites
 {
-    public partial class ctrDishes : UserControl, ICloneable
+    public partial class ctrDishesSmall : UserControl
     {
-        public ctrDishes()
+        public int id;
+
+        public ctrDishesSmall()
         {
             InitializeComponent();
-        }
-
-        public object Clone()
-        {
-            ctrDishes retVal = this;
-            return retVal;
         }
     }
 }
