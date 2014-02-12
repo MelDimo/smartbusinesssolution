@@ -34,11 +34,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 74);
+            this.ClientSize = new System.Drawing.Size(448, 74);
             this.ControlBox = false;
             this.KeyPreview = true;
             this.Name = "fAddDishToBill";
             this.Padding = new System.Windows.Forms.Padding(2);
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fAddDishToBill_KeyDown);
             this.ResumeLayout(false);
