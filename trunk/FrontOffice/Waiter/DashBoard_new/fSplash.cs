@@ -106,6 +106,7 @@ namespace com.sbs.gui.dashboard
                 return;
             }
 
+            //fMain_old fmain = new fMain_old();
             fMain fmain = new fMain();
             fmain.ShowDialog();
         }

@@ -299,7 +299,7 @@ namespace com.sbs.gui.dashboard
                 oDish.name = dtResult.Rows[i]["dishes_name"].ToString();
                 oDish.portion = dtResult.Rows[i]["portion"].ToString();
                 oDish.price = (decimal)dtResult.Rows[i]["dishes_price"];
-                oDish.count = (int)dtResult.Rows[i]["xcount"];
+                oDish.count = (decimal)dtResult.Rows[i]["xcount"];
                 oDish.addDate = (DateTime)dtResult.Rows[i]["date_add"];
                 oDish.refStatus = (int)dtResult.Rows[i]["ref_status"];
                 oBillInfoList.Add(oDish);
@@ -349,7 +349,7 @@ namespace com.sbs.gui.dashboard
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return oBill;
         }
@@ -432,6 +432,38 @@ namespace com.sbs.gui.dashboard
             return ds;
 
         }
+
+        internal void addDish2Bill(string pDbType, Bill pBill, Dish pDish)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_Add";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDish.id;
+                command.Parameters.Add("dishesName", SqlDbType.NVarChar).Value = pDish.name;
+                command.Parameters.Add("pCount", SqlDbType.Decimal).Value = pDish.count;
+                command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
+                
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
     }
 
     public class SeasonBranch
@@ -479,7 +511,7 @@ namespace com.sbs.gui.dashboard
         public int id { get; set; }
         public string name { get; set; }
         public decimal price { get; set; }
-        public int count { get; set; }
+        public decimal count { get; set; }
         public string portion { get; set; }
         public DateTime? addDate { get; set; }
         public int refStatus { get; set; }
