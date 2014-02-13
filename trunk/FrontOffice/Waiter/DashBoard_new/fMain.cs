@@ -14,11 +14,14 @@ namespace com.sbs.gui.dashboard
     {
         DBaccess dbAccess = new DBaccess();
 
+        enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES };
+        groupBox curGroupBox;
+
         List<Bill> lBills;
         List<Dish> lDishs;
 
         DataTable dtDishes;
-
+        
         bool errorOnInit = false;
 
         public fMain()
@@ -33,6 +36,8 @@ namespace com.sbs.gui.dashboard
             if (!errorOnInit) Close();
 
             showBill();
+
+            this.KeyDown += new KeyEventHandler(fMain_KeyDown);
         }
 
         #region Наполняем объекты 
@@ -87,8 +92,6 @@ namespace com.sbs.gui.dashboard
                 oCtrBill.button_host.Click += new EventHandler(Bill_button_host_Click);
                 oCtrBill.Tag = oBill;
 
-                oCtrBill.TabStop = false;
-
                 oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
                 flowLayoutPanel_bills.Controls.Add(oCtrBill);
@@ -97,8 +100,13 @@ namespace com.sbs.gui.dashboard
             if (flowLayoutPanel_bills.Controls.Count > 0)
             {
                 flowLayoutPanel_bills.Controls[0].Focus();
-                groupBox_bills.BackColor = Color.Blue;
             }
+
+            this.Focus();
+
+            curGroupBox = groupBox.BILL;
+
+            groupBox_bills.BorderColor = Color.Blue;
         }
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
@@ -260,7 +268,7 @@ namespace com.sbs.gui.dashboard
             }
         }
 
-        void Dish_button_host_Click(object sender, EventArgs e)
+        private void Dish_button_host_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -280,24 +288,52 @@ namespace com.sbs.gui.dashboard
             }
         }
 
-        private void fMain_KeyDown(object sender, KeyEventArgs e)
+        void fMain_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
-            { 
+            {
                 case Keys.Up:
+                    SendKeys.Send("+{TAB}");
                     break;
 
                 case Keys.Down:
+                    SendKeys.Send("{TAB}");
                     break;
 
                 case Keys.Left:
+                    changeGroup("LEFT");
                     break;
 
                 case Keys.Right:
+                    changeGroup("RIGHT");
                     break;
 
                 case Keys.Escape:
                     closeForm();
+                    break;
+
+                case Keys.Back:
+                    break;
+            }
+        }
+
+        private void changeGroup(string pDirection)
+        {
+            switch (curGroupBox)
+            { 
+                case groupBox.BILL:
+                    break;
+
+                case groupBox.BILLDISH:
+                    break;
+
+                case groupBox.BILLINFO:
+                    break;
+
+                case groupBox.DISHES:
+                    break;
+
+                case groupBox.GROUP:
                     break;
             }
         }
