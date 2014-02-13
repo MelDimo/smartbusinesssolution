@@ -35,6 +35,8 @@ namespace com.sbs.gui.dashboard
             showBill();
         }
 
+        #region Наполняем объекты 
+
         private bool fillBills()
         {
             lBills = new List<Bill>();
@@ -67,6 +69,8 @@ namespace com.sbs.gui.dashboard
             return true;
         }
 
+        #endregion
+
         private void showBill()
         { 
             ctrBill oCtrBill;
@@ -83,6 +87,8 @@ namespace com.sbs.gui.dashboard
                 oCtrBill.button_host.Click += new EventHandler(Bill_button_host_Click);
                 oCtrBill.Tag = oBill;
 
+                oCtrBill.TabStop = false;
+
                 oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
                 flowLayoutPanel_bills.Controls.Add(oCtrBill);
@@ -91,6 +97,7 @@ namespace com.sbs.gui.dashboard
             if (flowLayoutPanel_bills.Controls.Count > 0)
             {
                 flowLayoutPanel_bills.Controls[0].Focus();
+                groupBox_bills.BackColor = Color.Blue;
             }
         }
 
@@ -111,7 +118,9 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.label_portion.Text = oDish.portion;
                 oCtrDishes.label_price.Text = oDish.price.ToString("F2");
                 oCtrDishes.numericUpDown_count.Value = oDish.count;
-                
+
+                oCtrDishes.TabStop = false;
+
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
 
@@ -131,6 +140,8 @@ namespace com.sbs.gui.dashboard
             tabControl_main.SelectedTab = tabControl_main.TabPages[1];
         }
 
+        #region Редактирование заказа
+        
         private void showBillInfo(Bill pCurBill)
         {
             flowLayoutPanel_billEdit.Controls.Clear();
@@ -157,6 +168,8 @@ namespace com.sbs.gui.dashboard
                 oCtrDishesSmall.label_name.Text = oDish.name;
                 oCtrDishesSmall.label_count.Text = oDish.count.ToString("F2");
                 oCtrDishesSmall.label_summa.Text = (oDish.count * oDish.price).ToString("F2");
+
+                oCtrDishesSmall.TabStop = false;
 
                 oCtrDishesSmall.Width = flowLayoutPanel_billEdit.Width - 10;
 
@@ -236,6 +249,7 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.label_price.Text = dr["price"].ToString();
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
+                oCtrDishes.TabStop = false;
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.numericUpDown_count.Visible = false;
@@ -251,6 +265,8 @@ namespace com.sbs.gui.dashboard
             throw new NotImplementedException();
         }
 
+        #endregion
+
         private void tabControl_main_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(tabControl_main.SelectedIndex)
@@ -262,6 +278,33 @@ namespace com.sbs.gui.dashboard
                     //MessageBox.Show("1");
                     break;
             }
+        }
+
+        private void fMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.Up:
+                    break;
+
+                case Keys.Down:
+                    break;
+
+                case Keys.Left:
+                    break;
+
+                case Keys.Right:
+                    break;
+
+                case Keys.Escape:
+                    closeForm();
+                    break;
+            }
+        }
+
+        private void closeForm()
+        {
+            Close();
         }
 
         
