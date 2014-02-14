@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using System.Threading;
+using System.Diagnostics;
 
 namespace com.sbs.gui.dashboard
 {
@@ -18,8 +20,12 @@ namespace com.sbs.gui.dashboard
         private SeasonBranch[] oSeasonBranchArray;
         private User oUser;
 
+        Thread trReadCard;
+
         public fSplash()
         {
+            trReadCard = new Thread(enterKey);
+
             InitializeComponent();
 
             this.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.splash_1;
@@ -30,7 +36,12 @@ namespace com.sbs.gui.dashboard
             switch (e.KeyCode)
             { 
                 case Keys.Enter:
-                    enterKey();
+                    if (!trReadCard.IsAlive)
+                    {
+                        trReadCard = new Thread(enterKey);
+                        trReadCard.Start();
+                    }
+                    Debug.Print("Keys.Enter");
                     break;
 
                 case Keys.Escape:
@@ -71,10 +82,12 @@ namespace com.sbs.gui.dashboard
                     else
                         return;
                     break;
+
                 case 2:
                     MessageBox.Show("Авторизация по логину на данном этапе не доступна");
                     return;
             }
+
             //--------------------------------------------------------------- Получаем информацию об открытых сменах
             if (DashboardEnvironment.gSeasonBranch == null) // рабочее место не в смене
             {
