@@ -41,6 +41,7 @@
             this.Padding = new System.Windows.Forms.Padding(2);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Shown += new System.EventHandler(this.fAddDishToBill_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fAddDishToBill_KeyDown);
             this.ResumeLayout(false);
 

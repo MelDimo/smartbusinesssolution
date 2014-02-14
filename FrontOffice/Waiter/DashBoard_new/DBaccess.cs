@@ -229,13 +229,12 @@ namespace com.sbs.gui.dashboard
                 command = con.CreateCommand();
 
 
-                command.CommandText = "getBills";
+                command.CommandText = "BillsGet";
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
-                command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = 20;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -256,6 +255,7 @@ namespace com.sbs.gui.dashboard
                 oBill.refStat = (int)dtResult.Rows[i]["ref_status"];
                 oBill.refStatName = dtResult.Rows[i]["ref_status_name"].ToString();
                 oBill.table = (int)dtResult.Rows[i]["xTable"];
+                oBill.summ = (decimal)dtResult.Rows[i]["summa"];
                 oBillList.Add(oBill);
             }
 
@@ -464,6 +464,55 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
+
+        internal void BillCancel(string pDbType)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "BillCancel";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void BillInfoCancel(string pDbType, Bill pBill)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "BillInfoCancel";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
     }
 
     public class SeasonBranch
@@ -504,6 +553,7 @@ namespace com.sbs.gui.dashboard
         public DateTime openDate { get; set; }
         public int refStat { get; set; }
         public string refStatName { get; set; }
+        public decimal summ { get; set; }
     }
 
     public class Dish

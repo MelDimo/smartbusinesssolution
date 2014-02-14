@@ -56,5 +56,16 @@ namespace com.sbs.gui.dashboard
 
             return true;
         }
+
+        private void fAddDishToBill_Shown(object sender, EventArgs e)
+        {
+            foreach (Control ctr in this.Controls)
+            {
+                ((ctrDishes)ctr).button_host.TabStop = false;
+                ((ctrDishes)ctr).button_deals.TabStop = true;
+                ((ctrDishes)ctr).button_topping.TabStop = true;
+                ((ctrDishes)ctr).numericUpDown_count.Focus();
+            }
+        }
     }
 }
