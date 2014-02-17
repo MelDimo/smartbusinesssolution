@@ -513,6 +513,45 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
+
+        internal void commitDish(string pDbType, Bill pBill)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandText = "DishToBill_changeStatus";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pStatusId", SqlDbType.Int).Value = 24;
+                
+                command.ExecuteNonQuery();
+
+                printRunners(pBill);
+                
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+        }
+
+        private void printRunners(Bill pBill)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class SeasonBranch

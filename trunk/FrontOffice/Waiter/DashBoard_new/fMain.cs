@@ -260,7 +260,7 @@ namespace com.sbs.gui.dashboard
             panel_dishes.BringToFront();
         }
 
-        #region Редактирование заказа
+        #region ----------------------------------------------------------------- Редактирование заказа
         
         private void showBillInfo()
         {
@@ -288,6 +288,8 @@ namespace com.sbs.gui.dashboard
                 oCtrDishesSmall.label_name.Text = oDish.name;
                 oCtrDishesSmall.label_count.Text = oDish.count.ToString("F2");
                 oCtrDishesSmall.label_summa.Text = (oDish.count * oDish.price).ToString("F2");
+                                                                                    // Обработан : Необработан
+                oCtrDishesSmall.pictureBox_status.BackColor = oDish.refStatus == 24 ? Color.Red : Color.Green;
 
                 oCtrDishesSmall.TabStop = false;
 
@@ -295,6 +297,8 @@ namespace com.sbs.gui.dashboard
 
                 flowLayoutPanel_billEdit.Controls.Add(oCtrDishesSmall);
             }
+
+            panel_dishes.Refresh();
         }
 
         private void prepareCarteDishes()
@@ -395,7 +399,7 @@ namespace com.sbs.gui.dashboard
 
         #endregion
 
-        #region Обработка курсора. Навигация
+        #region ----------------------------------------------------------------- Обработка курсора. Навигация
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -503,7 +507,7 @@ namespace com.sbs.gui.dashboard
 
         #endregion
 
-        #region Функциональные клавиши
+        #region ------------------------------------------------------------------ Функциональные клавиши
 
         private void fMain_KeyDown(object sender, KeyEventArgs e)
         {
@@ -519,7 +523,7 @@ namespace com.sbs.gui.dashboard
                 case Keys.F3:   // Печать бегунков
                     if (curGroupBox == groupBox.BILL)
                     {
-
+                        commitDish();
                     }
                     break;
 
@@ -546,6 +550,15 @@ namespace com.sbs.gui.dashboard
                         else treeView_CarteGroups.SelectedNode.Expand();
                     break;
             }
+        }
+
+        private void commitDish()
+        {
+            try
+            {
+                dbAccess.commitDish("offline", curBill);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось исключить необработанные позиции.", exc, SystemIcons.Information); return; }
         }
 
         private bool checkBillInfo()
@@ -636,6 +649,11 @@ namespace com.sbs.gui.dashboard
             lDishs = new List<Dish>();
 
             billEdit();
+        }
+
+        private void button_newBill_Click(object sender, EventArgs e)
+        {
+            openBill();
         }
     }
 }
