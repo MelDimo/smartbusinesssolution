@@ -41,7 +41,6 @@ namespace com.sbs.gui.dashboard
                         trReadCard = new Thread(enterKey);
                         trReadCard.Start();
                     }
-                    Debug.Print("Keys.Enter");
                     break;
 
                 case Keys.Escape:
@@ -50,6 +49,19 @@ namespace com.sbs.gui.dashboard
 
                     DashboardEnvironment.Clear();
                     Close();
+                    break;
+
+                    // Закрытие индивидуально смены
+                case Keys.Alt | Keys.F12:
+                    break;
+
+                    // Закрытие смены заведение
+                case Keys.F12:
+                    fCloseSeason_Branch fCSB = new fCloseSeason_Branch();
+                    if (fCSB.ShowDialog() == DialogResult.OK)
+                    {
+                        DashboardEnvironment.Clear();
+                    }
                     break;
             }
         }
