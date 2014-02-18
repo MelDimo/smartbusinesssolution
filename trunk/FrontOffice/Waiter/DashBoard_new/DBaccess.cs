@@ -18,6 +18,7 @@ namespace com.sbs.gui.dashboard
         {
             gUser = null;
             gSeasonBranch = null;
+            gBillList = null;
         }
     }
 
@@ -641,6 +642,41 @@ namespace com.sbs.gui.dashboard
 
             return dtResult;
         }
+
+        #region ------------------------------------------------------------ Закрытие смен
+
+        internal List<SeasonUser> getSeasonUser(string pDbType)
+        {
+            List<SeasonUser> lSeasonUser = new List<SeasonUser>();
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+
+                command.CommandText = "BillsInfo_get";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+
+
+            return lSeasonUser;
+        }
+
+        #endregion
+
     }
 
     public class SeasonBranch

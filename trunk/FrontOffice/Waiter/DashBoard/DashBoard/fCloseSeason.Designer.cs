@@ -34,6 +34,7 @@
             this.label_seasonNumber = new System.Windows.Forms.Label();
             this.flowLayoutPanel_waiter = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_main = new System.Windows.Forms.Panel();
+            this.button_closeSeason = new System.Windows.Forms.Button();
             this.panel_waiterInfo = new System.Windows.Forms.Panel();
             this.dataGridView_waiterInfo = new System.Windows.Forms.DataGridView();
             this.billId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,7 +44,6 @@
             this.billNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.billStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button_closeSeason = new System.Windows.Forms.Button();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_main.SuspendLayout();
@@ -125,6 +125,17 @@
             this.panel_main.Size = new System.Drawing.Size(548, 370);
             this.panel_main.TabIndex = 1;
             // 
+            // button_closeSeason
+            // 
+            this.button_closeSeason.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_closeSeason.Location = new System.Drawing.Point(11, 336);
+            this.button_closeSeason.Name = "button_closeSeason";
+            this.button_closeSeason.Size = new System.Drawing.Size(524, 29);
+            this.button_closeSeason.TabIndex = 1;
+            this.button_closeSeason.Text = "Закрыть смену";
+            this.button_closeSeason.UseVisualStyleBackColor = true;
+            this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
+            // 
             // panel_waiterInfo
             // 
             this.panel_waiterInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -203,17 +214,6 @@
             this.billStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.billStatus.HeaderText = "Состояние счета";
             this.billStatus.Name = "billStatus";
-            // 
-            // button_closeSeason
-            // 
-            this.button_closeSeason.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_closeSeason.Location = new System.Drawing.Point(11, 336);
-            this.button_closeSeason.Name = "button_closeSeason";
-            this.button_closeSeason.Size = new System.Drawing.Size(524, 29);
-            this.button_closeSeason.TabIndex = 1;
-            this.button_closeSeason.Text = "Закрыть смену";
-            this.button_closeSeason.UseVisualStyleBackColor = true;
-            this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
             // fCloseSeason
             // 
