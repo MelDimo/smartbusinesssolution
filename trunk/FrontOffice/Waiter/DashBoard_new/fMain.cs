@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using System.Diagnostics;
 using com.sbs.dll;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace com.sbs.gui.dashboard
 {
@@ -507,7 +508,7 @@ namespace com.sbs.gui.dashboard
 
         #endregion
 
-        #region ------------------------------------------------------------------ Функциональные клавиши
+        #region ----------------------------------------------------------------- Функциональные клавиши
 
         private void fMain_KeyDown(object sender, KeyEventArgs e)
         {
@@ -521,7 +522,7 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.F3:   // Печать бегунков
-                    if (curGroupBox == groupBox.BILL)
+                    if (curGroupBox != groupBox.BILL)
                     {
                         commitDish();
                     }
@@ -530,7 +531,7 @@ namespace com.sbs.gui.dashboard
                 case Keys.F5:   // Печать чека
                     if (curGroupBox == groupBox.BILL)
                     {
-
+                        printBill();
                     }
                     break;
 
@@ -540,7 +541,8 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.Back:
-                    if(!checkBillInfo()) return;
+                    if (curGroupBox == groupBox.BILLINFO)
+                        if (!checkBillInfo()) return;
                     keysBackspace();
                     break;
 
@@ -552,13 +554,89 @@ namespace com.sbs.gui.dashboard
             }
         }
 
-        private void commitDish()
+        private void printBill()
         {
+            DataTable dtResult = new DataTable();
+            ReportDocument repDoc;
+
+            if (curBill == null) return;
+
             try
             {
-                dbAccess.commitDish("offline", curBill);
+                dtResult = dbAccess.billClose("offline", curBill);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
+
+            if (dtResult.Rows.Count == 0) return;
+
+            repDoc = new ReportDocument();
+            repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
+            repDoc.SetDataSource(dtResult);
+            repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+            repDoc.PrintOptions.PrinterName = dtResult.Rows[0]["printerName"].ToString();
+            repDoc.PrintToPrinter(1, false, 0, 0);
+
+            fillBills();
+            showBill();
+        }
+
+        private void commitDish()
+        {
+            DataTable dtResult = new DataTable();
+            ReportDocument repDoc;
+
+            bool flag = false;
+            
+            try
+            {
+                dtResult = dbAccess.commitDish("offline", curBill);
             }
             catch (Exception exc) { uMessage.Show("Не удалось исключить необработанные позиции.", exc, SystemIcons.Information); return; }
+
+            var results_1 = from myRow in dtResult.AsEnumerable()
+                            where myRow.Field<int>("ref_printers_type") == 1
+                            select myRow;
+
+            if (results_1.Count() > 0) // есть позиции на принтер Кухни
+            {
+                repDoc = new ReportDocument();
+                repDoc.Load(results_1.First().Field<string>("reportPath"));
+                repDoc.SetDataSource(dtResult);
+                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                repDoc.SetParameterValue("curDate", DateTime.Now);
+                repDoc.SetParameterValue("billNumber", curBill.numb);
+                repDoc.SetParameterValue("printersType", 1);
+                repDoc.PrintOptions.PrinterName = results_1.First().Field<string>("printerName");
+                repDoc.PrintToPrinter(1, false, 0, 0);
+
+                flag = true;
+            }
+
+            var results_2 = from myRow in dtResult.AsEnumerable()
+                            where myRow.Field<int>("ref_printers_type") == 2
+                            select myRow;
+
+            if (results_2.Count() > 0) // есть позиции на принтер Бара
+            {
+                repDoc = new ReportDocument();
+                repDoc.Load(results_2.First().Field<string>("reportPath"));
+                repDoc.SetDataSource(dtResult);
+                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                repDoc.SetParameterValue("curDate", DateTime.Now);
+                repDoc.SetParameterValue("billNumber", curBill.numb);
+                repDoc.SetParameterValue("printersType", 2);
+                repDoc.PrintOptions.PrinterName = results_2.First().Field<string>("printerName");
+                repDoc.PrintToPrinter(1, false, 0, 0);
+
+                flag = true;
+            }
+
+            if (flag)
+            {
+                fillBillsInfo(curBill);
+                billEdit();
+            }
+
         }
 
         private bool checkBillInfo()
@@ -572,7 +650,7 @@ namespace com.sbs.gui.dashboard
                     strMsg.AppendLine("- " + oDish.name + ", в количестве: " + oDish.count);
             }
 
-            if (strMsg.ToString().Equals("В заказе присудствуют следующие необработанные позиции.")) return true; // Все ровно, все позиции подтверждены (отправлены бигунки)
+            if (strMsg.ToString().Equals("В счете присутствуют следующие необработанные позиции." + Environment.NewLine)) return true; // Все ровно, все позиции подтверждены (отправлены бигунки)
 
 
             strMsg.AppendLine("Если вы выйдите из режима редактирования счета, необработанные позиции исключатся из счета.");
@@ -608,14 +686,14 @@ namespace com.sbs.gui.dashboard
 
         private void closeForm()
         {
-            closeBills();
+            cancelBills();
 
             Close();
         }
 
         #endregion
 
-        private bool closeBills()
+        private bool cancelBills()
         {
             try
             {
