@@ -449,7 +449,7 @@ namespace com.sbs.gui.DashBoard
 
                 command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath" +
                                         " FROM bills_info bi" +
-                                        " INNER JOIN dishes d ON d.id = bi.dishes" +
+                                        " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +

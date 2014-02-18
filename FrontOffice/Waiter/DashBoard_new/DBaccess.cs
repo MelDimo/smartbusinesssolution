@@ -23,7 +23,7 @@ namespace com.sbs.gui.dashboard
 
     internal class DBaccess
     {
-        private DataTable dtResult = new DataTable();
+        private DataTable dtResult;
 
         private SqlConnection con;
         private SqlCommand command = null;
@@ -514,8 +514,10 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal void commitDish(string pDbType, Bill pBill)
+        internal DataTable commitDish(string pDbType, Bill pBill)
         {
+            dtResult = new DataTable();
+
             con = new DBCon().getConnection(pDbType);
 
             try
@@ -535,22 +537,109 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
-                command.Parameters.Add("pStatusId", SqlDbType.Int).Value = 24;
+                command.Parameters.Add("pStatusId", SqlDbType.Int).Value = 24; // Позиция была отправлена на изготовление
                 
                 command.ExecuteNonQuery();
 
-                printRunners(pBill);
+                dtResult = printRunners(command, pBill);
                 
                 tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+
+            return dtResult;
         }
 
-        private void printRunners(Bill pBill)
+        private DataTable printRunners(SqlCommand command, Bill pBill)
         {
-            throw new NotImplementedException();
+            dtResult = new DataTable();
+
+            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath" +
+                                        " FROM bills_info bi" +
+                                        " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
+                                        " INNER JOIN bills b ON b.id = bi.bills" +
+                                        " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type" +
+                                        " WHERE bi.bills = @bills";
+            
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Clear();
+            command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                dtResult.Load(dr);
+            }
+
+            return dtResult;
+        }
+
+        internal DataTable billClose(string pDbType, Bill pBill)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandText = "BillClose";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
+                command.ExecuteNonQuery();
+
+                dtResult = printBill(command, pBill);
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+
+            return dtResult;
+
+        }
+
+        private DataTable printBill(SqlCommand command, Bill pBill)
+        {
+            dtResult = new DataTable();
+
+            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, bi.xcount,  rp.name AS printerName, rr.xpath AS reportPath" +
+                                        " FROM bills_info bi" +
+                                        " INNER JOIN bills b ON b.id = bi.bills" +
+                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type" +
+                                        " WHERE bi.bills = @bills";
+
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Clear();
+            command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
+            command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                dtResult.Load(dr);
+            }
+
+            return dtResult;
         }
     }
 
