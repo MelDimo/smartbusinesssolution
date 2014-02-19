@@ -46,14 +46,20 @@ namespace com.sbs.gui.report.reptimesheets
 
         private void button_getBranch_Click(object sender, EventArgs e)
         {
-            fChooserUnitTree fOrgTree = new fChooserUnitTree();
-            fOrgTree.checkLvl = "branch";
-            fOrgTree.autoCheckChild = false;
-            fOrgTree.Text = "Выбор заведения";
-            fOrgTree.StartPosition = FormStartPosition.CenterParent;
-            fOrgTree.ShowDialog();
-            oRepParam.checkedBranch = fOrgTree.checkedBranch;
-            textBox_branchsNames.Text = fOrgTree.checkedBranchName;
+            fChooserUnit fChooseBranch = new fChooserUnit(0, 2);
+            if (fChooseBranch.ShowDialog() != DialogResult.OK) return;
+
+            oRepParam.xBranch = fChooseBranch.selectedId;
+            textBox_branchsNames.Text = fChooseBranch.selectedName;
+
+            //fChooserUnitTree fOrgTree = new fChooserUnitTree();
+            //fOrgTree.checkLvl = "branch";
+            //fOrgTree.autoCheckChild = false;
+            //fOrgTree.Text = "Выбор заведения";
+            //fOrgTree.StartPosition = FormStartPosition.CenterParent;
+            //fOrgTree.ShowDialog();
+            //oRepParam.checkedBranch = fOrgTree.checkedBranch;
+            //textBox_branchsNames.Text = fOrgTree.checkedBranchName;
         }
 
         private void button_getGroup_Click(object sender, EventArgs e)
@@ -153,6 +159,11 @@ namespace com.sbs.gui.report.reptimesheets
             string pathForReport = string.Empty;
             DataTable dt = new DataTable();
 
+            oRepParam.xYear = dateTimePicker_year.Value.Year;
+            oRepParam.xMonth = dateTimePicker_month.Value.Month;
+            oRepParam.xDayStart = dateTimePicker_dayStart.Value.Day;
+            oRepParam.xDayEnd = dateTimePicker_dayEnd.Value.Day;
+            
             try
             {
                 dt = dbAccess.prepareReport("offline", oRepParam);
@@ -168,8 +179,8 @@ namespace com.sbs.gui.report.reptimesheets
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
-            repDoc.SetParameterValue("xDateTime_start", "15.01.2014");
-            repDoc.SetParameterValue("xDateTime_end", "15.01.2014");
+            repDoc.SetParameterValue("xDateTime_start", oRepParam.xDayStart.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
+            repDoc.SetParameterValue("xDateTime_end",oRepParam.xDayEnd.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;

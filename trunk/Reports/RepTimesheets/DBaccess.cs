@@ -75,39 +75,40 @@ namespace com.sbs.gui.report.reptimesheets
 
             con = new DBCon().getConnection(pDbType);
 
-            foreach (int id in pRepParam.checkedBranch) branch += id + ",";
-            foreach (int id in pRepParam.checkedUsersGroup) groups += id + ",";
+            //foreach (int id in pRepParam.checkedBranch)
+            //{
+            //    pRepParam.xBranch = id;
+            //    branch += id + ",";
+            //}
 
-            if (!branch.Equals(string.Empty))
-            {
-                sWhere += " br.id in (" + branch.TrimEnd(',') + ") AND";
-            }
-            if (!groups.Equals(string.Empty))
-            {
-                sWhere += " us_gr.groups in(" + groups.TrimEnd(',') + ") AND";
-            }
+            //foreach (int id in pRepParam.checkedUsersGroup) groups += id + ",";
 
-            if (!sWhere.Equals(" WHERE "))
-                sWhere = sWhere.TrimEnd('A', 'N', 'D');
-            else
-                sWhere = string.Empty;
+            //if (!branch.Equals(string.Empty))
+            //{
+            //    sWhere += " br.id in (" + branch.TrimEnd(',') + ") AND";
+            //}
+            //if (!groups.Equals(string.Empty))
+            //{
+            //    sWhere += " us_gr.groups in(" + groups.TrimEnd(',') + ") AND";
+            //}
+
+            //if (!sWhere.Equals(" WHERE "))
+            //    sWhere = sWhere.TrimEnd('A', 'N', 'D');
+            //else
+            //    sWhere = string.Empty;
 
             try
             {
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT us.lname +' '+ us.fname +' '+ us.sname as fio, " +
-                                            " org.name as org, br.name as branch, un.name as unit, post.name as post, " +
-                                            " tt.datetime_in, tt.datetime_out " +
-                                        " FROM users us " +
-                                        " INNER JOIN organization org ON org.id = us.org " +
-                                        " INNER JOIN branch br ON br.id = us.branch " +
-                                        " INNER JOIN unit un ON un.id = us.unit " +
-                                        " INNER JOIN ref_post post ON post.id = us.ref_post " +
-                                        " INNER JOIN users_groups us_gr ON us_gr.users = us.id " +
-                                        " LEFT JOIN timeTracking tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
-                                        sWhere;
+                command.CommandText = "REP_Timesheets";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("pYear", SqlDbType.Int).Value = pRepParam.xYear;
+                command.Parameters.Add("pMonth", SqlDbType.Int).Value = pRepParam.xMonth;
+                command.Parameters.Add("pDayStart", SqlDbType.Int).Value = pRepParam.xDayStart;
+                command.Parameters.Add("pDayEnd", SqlDbType.Int).Value = pRepParam.xDayEnd;
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pRepParam.xBranch;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -129,13 +130,17 @@ namespace com.sbs.gui.report.reptimesheets
         public List<int> checkedUsersGroup { get; set; }
         public List<int> checkedUsers { get; set; }
 
+        public int xYear { get; set; }
+        public int xMonth { get; set; }
+        public int xDayStart { get; set; }
+        public int xDayEnd { get; set; }
+        public int xBranch { get; set; }
+
         public RepParam()
         {
             checkedBranch = new List<int>();
             checkedUsersGroup = new List<int>();
             checkedUsers = new List<int>();
         }
-
-
     }
 }
