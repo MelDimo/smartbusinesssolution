@@ -105,7 +105,7 @@ namespace com.sbs.gui.report.repempllog
                                         " INNER JOIN branch br ON br.id = us.branch " +
                                         " INNER JOIN unit un ON un.id = us.unit " +
                                         " INNER JOIN ref_post post ON post.id = us.ref_post " +
-                                        " INNER JOIN users_groups us_gr ON us_gr.users = us.id " +
+                                        " LEFT JOIN users_groups us_gr ON us_gr.users = us.id " +
                                         " LEFT JOIN timeTracking tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
                                         sWhere;
 
