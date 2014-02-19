@@ -16,11 +16,15 @@ namespace com.sbs.gui.dashboard
     public partial class fSplash : Form
     {
         private DBaccess dbAccess = new DBaccess();
+        Suppurt Supp = new Suppurt();
 
         private SeasonBranch[] oSeasonBranchArray;
         private User oUser;
 
         Thread trReadCard;
+
+        private int xPriv = 0;
+        private string xErrMessage = string.Empty;
 
         public fSplash()
         {
@@ -38,8 +42,17 @@ namespace com.sbs.gui.dashboard
                 case Keys.Enter:
                     if (!trReadCard.IsAlive)
                     {
+                        DashboardEnvironment.gUser = null;
+
                         trReadCard = new Thread(enterKey);
                         trReadCard.Start();
+
+                        trReadCard.Join();
+
+                        if (DashboardEnvironment.gUser != null)
+                        {
+                            if (showSeasonForm()) showMainForm();
+                        }
                     }
                     break;
 
@@ -57,10 +70,49 @@ namespace com.sbs.gui.dashboard
 
                     // Закрытие смены заведение
                 case Keys.F12:
-                    fCloseSeason_Branch fCSB = new fCloseSeason_Branch();
-                    if (fCSB.ShowDialog() == DialogResult.OK)
+                    if (DashboardEnvironment.gSeasonBranch == null)
                     {
-                        DashboardEnvironment.Clear();
+                        MessageBox.Show("Заведение не заведено в смену." + Environment.NewLine + "Закрытие смены заведения не возможно!", GValues.prgNameFull,
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    if (!trReadCard.IsAlive)
+                    {
+                        DashboardEnvironment.gUser = null;
+
+                        trReadCard = new Thread(enterKey);
+                        trReadCard.Start();
+
+                        trReadCard.Join();
+
+                        if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                        #region проверка привелегий
+
+                        if (DashboardEnvironment.gSeasonBranch.userID == DashboardEnvironment.gUser.id)
+                        {                                               // Пытаемся закрыть в свою смену
+                            xPriv = 2; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее Вами.";
+                        }
+                        else
+                        {                                               // Пытаемся закрыть чужую смену
+                            xPriv = 13; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее не Вами.";
+                        }
+
+                        if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                        {
+                            MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        #endregion
+
+                        fCloseSeason_Branch fCSB = new fCloseSeason_Branch();
+                        if (fCSB.ShowDialog() == DialogResult.OK)
+                        {
+                            DashboardEnvironment.Clear();
+                        }
                     }
                     break;
             }
@@ -68,12 +120,9 @@ namespace com.sbs.gui.dashboard
 
         /// <summary>
         /// Получаем информацию о пользователе
-        /// Получаем информацию об открытых сменах
-        /// Заводим рабочее место в смену
         /// </summary>
         private void enterKey()
         {
-            bool chkFlag = false;
             //--------------------------------------------------------------- Получаем информацию о пользователе
             switch(GValues.authortype)
             {
@@ -100,22 +149,24 @@ namespace com.sbs.gui.dashboard
                     return;
             }
 
-            //--------------------------------------------------------------- Получаем информацию об открытых сменах
+        }
+
+        //--------------------------------------------------------------- Получаем информацию об открытых сменах
+        private bool showSeasonForm()
+        {
             if (DashboardEnvironment.gSeasonBranch == null) // рабочее место не в смене
             {
                 oSeasonBranchArray = getOpenSeason();
 
                 fSeason fseason = new fSeason(oSeasonBranchArray);
                 if (fseason.ShowDialog() == DialogResult.OK) // Если определились со сменами, загружаю основное окно офиц части
-                    chkFlag = true;
+                    return true;
             }
             else
-                chkFlag = true;
+                return true;
 
-            if (chkFlag) showMainForm();//--------------------- Запускаем основную официантскую форму
-
+            return false;
         }
-
 
         private void showMainForm()
         {
