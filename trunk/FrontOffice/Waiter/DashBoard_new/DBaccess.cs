@@ -647,7 +647,11 @@ namespace com.sbs.gui.dashboard
 
         internal List<SeasonUser> getSeasonUser(string pDbType)
         {
+            dtResult = new DataTable();
             List<SeasonUser> lSeasonUser = new List<SeasonUser>();
+            SeasonUser oSeasonUser;
+
+            con = new DBCon().getConnection(pDbType);
 
             try
             {
@@ -656,9 +660,10 @@ namespace com.sbs.gui.dashboard
                 command = con.CreateCommand();
 
 
-                command.CommandText = "BillsInfo_get";
+                command.CommandText = "SeasonUser_get";
                 command.CommandType = CommandType.StoredProcedure;
 
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -669,8 +674,19 @@ namespace com.sbs.gui.dashboard
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
 
+            for (int i = 0; i < dtResult.Rows.Count; i++)
+            {
+                oSeasonUser = new SeasonUser();
+                oSeasonUser.id = (int)dtResult.Rows[i]["id"];
+                oSeasonUser.userOpenName = dtResult.Rows[i]["fio"].ToString();
+                oSeasonUser.dateOpen = (DateTime)dtResult.Rows[i]["date_open"];
+                oSeasonUser.dateClose = (DateTime)dtResult.Rows[i]["date_open"];
+                oSeasonUser.refStatus = (int)dtResult.Rows[i]["ref_status"];
+                oSeasonUser.refStatusName = dtResult.Rows[i]["ref_status_name"].ToString();
+                lSeasonUser.Add(oSeasonUser);
+            }
 
             return lSeasonUser;
         }
@@ -690,9 +706,11 @@ namespace com.sbs.gui.dashboard
     public class SeasonUser
     {
         public int id { get; set; }
-        public string idUser { get; set; }
+        public string userOpenName { get; set; }
         public DateTime dateOpen { get; set; }
         public DateTime? dateClose { get; set; }
+        public int refStatus { get; set; }
+        public string refStatusName { get; set; }
     }
 
     public class User : UserACL
