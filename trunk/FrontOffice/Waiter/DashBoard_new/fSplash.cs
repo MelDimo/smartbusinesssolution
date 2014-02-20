@@ -37,84 +37,132 @@ namespace com.sbs.gui.dashboard
 
         private void fSplash_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.KeyCode)
-            { 
-                case Keys.Enter:
-                    if (!trReadCard.IsAlive)
-                    {
-                        DashboardEnvironment.gUser = null;
-
-                        trReadCard = new Thread(enterKey);
-                        trReadCard.Start();
-
-                        trReadCard.Join();
-
-                        if (DashboardEnvironment.gUser != null)
-                        {
-                            if (showSeasonForm()) showMainForm();
-                        }
-                    }
-                    break;
-
-                case Keys.Escape:
-                    if (MessageBox.Show("Вы увеерены что хотите выйти?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                        != DialogResult.Yes) return;
-
-                    DashboardEnvironment.Clear();
-                    Close();
-                    break;
-
+            if (e.Modifiers == Keys.Alt)
+            {
+                switch (e.KeyCode)
+                {
                     // Закрытие индивидуально смены
-                case Keys.Alt | Keys.F12:
-                    break;
-
-                    // Закрытие смены заведение
-                case Keys.F12:
-                    if (DashboardEnvironment.gSeasonBranch == null)
-                    {
-                        MessageBox.Show("Заведение не заведено в смену." + Environment.NewLine + "Закрытие смены заведения не возможно!", GValues.prgNameFull,
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-
-                    if (!trReadCard.IsAlive)
-                    {
-                        DashboardEnvironment.gUser = null;
-
-                        trReadCard = new Thread(enterKey);
-                        trReadCard.Start();
-
-                        trReadCard.Join();
-
-                        if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
-
-                        #region проверка привелегий
-
-                        if (DashboardEnvironment.gSeasonBranch.userID == DashboardEnvironment.gUser.id)
-                        {                                               // Пытаемся закрыть в свою смену
-                            xPriv = 2; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее Вами.";
-                        }
-                        else
-                        {                                               // Пытаемся закрыть чужую смену
-                            xPriv = 13; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее не Вами.";
-                        }
-
-                        if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                    case (Keys.F12):
+                        if (DashboardEnvironment.gSeasonBranch == null)
                         {
-                            MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                            MessageBox.Show("Заведение не заведено в смену." + Environment.NewLine + "Закрытие индивидуальной смены невозможно!", GValues.prgNameFull,
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
 
-                        #endregion
-
-                        fCloseSeason_Branch fCSB = new fCloseSeason_Branch();
-                        if (fCSB.ShowDialog() == DialogResult.OK)
+                        if (!trReadCard.IsAlive)
                         {
-                            DashboardEnvironment.Clear();
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                            #region проверка привелегий
+
+                            xPriv = 14; xErrMessage = "У Вас отсутствуют привилегии на закрытие индивидуальной смены.";
+
+                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                            {
+                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            #endregion
+
+                            fCloseSeason_User fCSB = new fCloseSeason_User(DashboardEnvironment.gUser);
+                            if (fCSB.errMsg.Length > 0)
+                            {
+                                MessageBox.Show(fCSB.errMsg, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+                            fCSB.ShowDialog();
                         }
-                    }
-                    break;
+                        break;
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Enter:
+                        if (!trReadCard.IsAlive)
+                        {
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser != null)
+                            {
+                                if (showSeasonForm()) showMainForm();
+                            }
+                        }
+                        break;
+
+                    case Keys.Escape:
+                        if (MessageBox.Show("Вы увеерены что хотите выйти?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                            != DialogResult.Yes) return;
+
+                        DashboardEnvironment.Clear();
+                        Close();
+                        break;
+
+                    // Закрытие смены заведение
+                    case Keys.F12:
+                        if (DashboardEnvironment.gSeasonBranch == null)
+                        {
+                            MessageBox.Show("Заведение не заведено в смену." + Environment.NewLine + "Закрытие смены заведения невозможно!", GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        if (!trReadCard.IsAlive)
+                        {
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                            #region проверка привелегий
+
+                            if (DashboardEnvironment.gSeasonBranch.userID == DashboardEnvironment.gUser.id)
+                            {                                               // Пытаемся закрыть в свою смену
+                                xPriv = 2; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее Вами.";
+                            }
+                            else
+                            {                                               // Пытаемся закрыть чужую смену
+                                xPriv = 13; xErrMessage = "У Вас отсутствуют привилегии на закрытие смены заведения, открытую ранее не Вами.";
+                            }
+
+                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                            {
+                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            #endregion
+
+                            fCloseSeason_Branch fCSB = new fCloseSeason_Branch();
+                            if (fCSB.ShowDialog() == DialogResult.OK)
+                            {
+                                DashboardEnvironment.Clear();
+
+                            }
+                        }
+                        break;
+                }
             }
         }
 

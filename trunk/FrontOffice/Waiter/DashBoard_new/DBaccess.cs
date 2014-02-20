@@ -643,9 +643,7 @@ namespace com.sbs.gui.dashboard
             return dtResult;
         }
 
-        #region ------------------------------------------------------------ Закрытие смен
-
-        internal List<SeasonUser> getSeasonUser(string pDbType)
+        internal List<SeasonUser> getSeasonUser(string pDbType, User pUser)
         {
             dtResult = new DataTable();
             List<SeasonUser> lSeasonUser = new List<SeasonUser>();
@@ -659,12 +657,12 @@ namespace com.sbs.gui.dashboard
 
                 command = con.CreateCommand();
 
-
                 command.CommandText = "SeasonUser_get";
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = pUser == null ? 0 : pUser.id;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -685,14 +683,44 @@ namespace com.sbs.gui.dashboard
                 oSeasonUser.dateClose = (DateTime)dtResult.Rows[i]["date_open"];
                 oSeasonUser.refStatus = (int)dtResult.Rows[i]["ref_status"];
                 oSeasonUser.refStatusName = dtResult.Rows[i]["ref_status_name"].ToString();
+                oSeasonUser.summ = (decimal)dtResult.Rows[i]["summ"];
                 lSeasonUser.Add(oSeasonUser);
             }
 
             return lSeasonUser;
         }
 
-        #endregion
+        internal void seasonUser_Close(string pDbType, User pUser)
+        {
+            con = new DBCon().getConnection(pDbType);
 
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SeasonUser_close";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pUser_openSeason", SqlDbType.Int).Value = pUser.id;
+                command.Parameters.Add("pUser_closeSeason", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pDateClose", SqlDbType.DateTime).Value = DateTime.Now;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #region ------------------------------------------------------------ Закрытие смен
+
+        
+
+        #endregion
     }
 
     public class SeasonBranch
@@ -711,6 +739,7 @@ namespace com.sbs.gui.dashboard
         public DateTime? dateClose { get; set; }
         public int refStatus { get; set; }
         public string refStatusName { get; set; }
+        public decimal summ { get; set; }
     }
 
     public class User : UserACL
