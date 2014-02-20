@@ -96,6 +96,16 @@ namespace com.sbs.gui.dashboard
 
         private bool closeSeason()
         {
+            try
+            {
+                dbAccess.seasonBranch_Close("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                return false;
+            }
+
             return true;
         }
 
