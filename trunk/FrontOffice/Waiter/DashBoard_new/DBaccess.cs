@@ -215,7 +215,7 @@ namespace com.sbs.gui.dashboard
             DashboardEnvironment.gSeasonBranch = oSeasonBranch;
         }
 
-        internal List<Bill> getBills(string pDbType)
+        internal List<Bill> getBills(string pDbType, User pUser)
         {
             List<Bill> oBillList = new List<Bill>();
             Bill oBill = new Bill();
@@ -235,7 +235,7 @@ namespace com.sbs.gui.dashboard
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
-                command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = pUser.id;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -253,6 +253,7 @@ namespace com.sbs.gui.dashboard
                 oBill.id = (int)dtResult.Rows[i]["id"];
                 oBill.numb = (int)dtResult.Rows[i]["numb"];
                 oBill.openDate = (DateTime)dtResult.Rows[i]["date_open"];
+                oBill.closeDate = (DateTime?)dtResult.Rows[i]["date_open"];
                 oBill.refStat = (int)dtResult.Rows[i]["ref_status"];
                 oBill.refStatName = dtResult.Rows[i]["ref_status_name"].ToString();
                 oBill.table = (int)dtResult.Rows[i]["xTable"];
@@ -716,6 +717,31 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
+        internal void seasonBranch_Close(string pDbType)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SeasonClose";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pDateClose", SqlDbType.DateTime).Value = DateTime.Now;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
         #region ------------------------------------------------------------ Закрытие смен
 
         
@@ -762,6 +788,7 @@ namespace com.sbs.gui.dashboard
         public int numb { get; set; }
         public int table { get; set; }
         public DateTime openDate { get; set; }
+        public DateTime? closeDate { get; set; }
         public int refStat { get; set; }
         public string refStatName { get; set; }
         public decimal summ { get; set; }

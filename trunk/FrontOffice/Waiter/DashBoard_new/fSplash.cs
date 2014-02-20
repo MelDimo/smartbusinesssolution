@@ -222,7 +222,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                DashboardEnvironment.gBillList = dbAccess.getBills("offline");
+                DashboardEnvironment.gBillList = dbAccess.getBills("offline", DashboardEnvironment.gUser);
             }
             catch (Exception exc)
             {
@@ -230,7 +230,6 @@ namespace com.sbs.gui.dashboard
                 return;
             }
 
-            //fMain_old fmain = new fMain_old();
             fMain fmain = new fMain();
             fmain.ShowDialog();
         }

@@ -143,7 +143,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                lBills = dbAccess.getBills("offline");
+                lBills = dbAccess.getBills("offline", DashboardEnvironment.gUser);
             }
             catch (Exception exc)
             {
@@ -183,7 +183,17 @@ namespace com.sbs.gui.dashboard
                 oCtrBill.id = oBill.id;
                 oCtrBill.label_numbBill.Text = oBill.numb.ToString();
                 oCtrBill.label_numbTable.Text = oBill.table.ToString();
-                oCtrBill.label_dateOpen.Text = oBill.openDate.ToString();
+                oCtrBill.label_refStatusName.Text = oBill.refStatName;
+                switch (oBill.refStat)
+                { 
+                    case 20:
+                        oCtrBill.label_refStatusName.ForeColor = Color.Red;
+                        break;
+                    case 21:
+                        oCtrBill.label_refStatusName.ForeColor = Color.Green;
+                        break;
+                }
+                oCtrBill.label_dateOpenClose.Text = oBill.openDate.ToString();
                 oCtrBill.label_summ.Text = oBill.summ.ToString("F2");
                 oCtrBill.button_host.GotFocus += new EventHandler(Bill_button_host_GotFocus);
                 oCtrBill.button_host.Click += new EventHandler(Bill_button_host_Click);
@@ -274,7 +284,17 @@ namespace com.sbs.gui.dashboard
             oCtrBill.id = curBill.id;
             oCtrBill.label_numbBill.Text = curBill.numb.ToString();
             oCtrBill.label_numbTable.Text = curBill.table.ToString();
-            oCtrBill.label_dateOpen.Text = curBill.openDate.ToString();
+            oCtrBill.label_refStatusName.Text = curBill.refStatName;
+            switch (curBill.refStat)
+            {
+                case 20:
+                    oCtrBill.label_refStatusName.ForeColor = Color.Red;
+                    break;
+                case 21:
+                    oCtrBill.label_refStatusName.ForeColor = Color.Green;
+                    break;
+            }
+            oCtrBill.label_dateOpenClose.Text = curBill.openDate.ToString();
             oCtrBill.Tag = curBill;
             oCtrBill.TabStop = false;
 
@@ -536,20 +556,16 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.Escape:
-                    if (curGroupBox != groupBox.BILL) keysBackspace();
-                    else closeForm();
+                    if (curGroupBox != groupBox.BILL)
+                        SendKeys.Send("{BACKSPACE}");
+                    else
+                        closeForm();
                     break;
 
                 case Keys.Back:
-                    if (curGroupBox == groupBox.BILLINFO)
+                    if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.GROUP || curGroupBox == groupBox.DISHES)
                         if (!checkBillInfo()) return;
                     keysBackspace();
-                    break;
-
-                case Keys.Space:
-                    if (curGroupBox == groupBox.GROUP)
-                        if (treeView_CarteGroups.SelectedNode.IsExpanded) treeView_CarteGroups.SelectedNode.Collapse();
-                        else treeView_CarteGroups.SelectedNode.Expand();
                     break;
             }
         }

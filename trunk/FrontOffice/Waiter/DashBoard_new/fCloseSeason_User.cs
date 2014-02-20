@@ -15,10 +15,14 @@ namespace com.sbs.gui.dashboard
     {
         private DBaccess dbAccess = new DBaccess();
         List<SeasonUser> lSeasonUser;
+        
+        List<Bill> lBills;
+        ctrBill oCtrBill;
 
         User oUser;
 
-        public string errMsg;
+
+        public string errMsg = string.Empty;
 
         public fCloseSeason_User(User pUser)
         {
@@ -34,6 +38,7 @@ namespace com.sbs.gui.dashboard
             try
             {
                 lSeasonUser = dbAccess.getSeasonUser("offline", oUser);
+                lBills = dbAccess.getBills("offline", oUser);
             }
             catch (Exception exc)
             {
@@ -60,11 +65,34 @@ namespace com.sbs.gui.dashboard
                 numericUpDown_season.Value = oSeasonUser.summ;
             }
 
+            foreach (Bill xBill in lBills)
+            {
+                oCtrBill = new ctrBill();
+                oCtrBill.label_numbBill.Text = xBill.numb.ToString();
+                oCtrBill.label_numbTable.Text = xBill.table.ToString();
+                oCtrBill.label_summ.Text = xBill.summ.ToString("F2");
+                oCtrBill.label_refStatusName.Text = xBill.refStatName;
+                switch (xBill.refStat)
+                {
+                    case 20:
+                        oCtrBill.label_refStatusName.ForeColor = Color.Red;
+                        oCtrBill.label_dateOpenClose.Text = xBill.openDate.ToString();
+                        break;
+                    case 21:
+                        oCtrBill.label_refStatusName.ForeColor = Color.Green;
+                        oCtrBill.label_dateOpenClose.Text = xBill.closeDate.ToString();
+                        break;
+                }
+
+                oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
+
+                flowLayoutPanel_bills.Controls.Add(oCtrBill);
+            }
+
         }
 
         private void button_closeSeason_Click(object sender, EventArgs e)
         {
-
             if (closeSeason())
                 DialogResult = DialogResult.OK;
         }
