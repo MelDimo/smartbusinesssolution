@@ -30,7 +30,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                lSeasonUser = dbAccess.getSeasonUser("offline");
+                lSeasonUser = dbAccess.getSeasonUser("offline", null);
             }
             catch (Exception exc)
             {

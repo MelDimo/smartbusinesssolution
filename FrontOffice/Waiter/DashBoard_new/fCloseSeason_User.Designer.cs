@@ -35,22 +35,22 @@
             this.label_seasonFIO = new System.Windows.Forms.Label();
             this.label_seasonPeriod = new System.Windows.Forms.Label();
             this.panel_front = new System.Windows.Forms.Panel();
+            this.numericUpDown_diff = new System.Windows.Forms.NumericUpDown();
+            this.label_diff = new System.Windows.Forms.Label();
+            this.numericUpDown_curr = new System.Windows.Forms.NumericUpDown();
+            this.label_summ = new System.Windows.Forms.Label();
+            this.label_sumSeason = new System.Windows.Forms.Label();
+            this.numericUpDown_season = new System.Windows.Forms.NumericUpDown();
             this.panel_bottom = new System.Windows.Forms.Panel();
             this.button_closeSeason = new System.Windows.Forms.Button();
-            this.numericUpDown_season = new System.Windows.Forms.NumericUpDown();
-            this.label_sumSeason = new System.Windows.Forms.Label();
-            this.label_summ = new System.Windows.Forms.Label();
-            this.numericUpDown_curr = new System.Windows.Forms.NumericUpDown();
-            this.label_diff = new System.Windows.Forms.Label();
-            this.numericUpDown_diff = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel_front.SuspendLayout();
-            this.panel_bottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_season)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_season)).BeginInit();
+            this.panel_bottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -105,7 +105,7 @@
             this.label_season.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.label_season.Location = new System.Drawing.Point(3, 0);
             this.label_season.Name = "label_season";
-            this.label_season.Size = new System.Drawing.Size(546, 27);
+            this.label_season.Size = new System.Drawing.Size(546, 28);
             this.label_season.TabIndex = 0;
             this.label_season.Text = "Закрытие индивидуальной смены №";
             this.label_season.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -116,9 +116,9 @@
             this.label_seasonFIO.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_seasonFIO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_seasonFIO.ForeColor = System.Drawing.Color.White;
-            this.label_seasonFIO.Location = new System.Drawing.Point(3, 27);
+            this.label_seasonFIO.Location = new System.Drawing.Point(3, 28);
             this.label_seasonFIO.Name = "label_seasonFIO";
-            this.label_seasonFIO.Size = new System.Drawing.Size(546, 27);
+            this.label_seasonFIO.Size = new System.Drawing.Size(546, 28);
             this.label_seasonFIO.TabIndex = 1;
             this.label_seasonFIO.Text = "label_seasonFIO";
             this.label_seasonFIO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -129,9 +129,9 @@
             this.label_seasonPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_seasonPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_seasonPeriod.ForeColor = System.Drawing.Color.White;
-            this.label_seasonPeriod.Location = new System.Drawing.Point(3, 54);
+            this.label_seasonPeriod.Location = new System.Drawing.Point(3, 56);
             this.label_seasonPeriod.Name = "label_seasonPeriod";
-            this.label_seasonPeriod.Size = new System.Drawing.Size(546, 30);
+            this.label_seasonPeriod.Size = new System.Drawing.Size(546, 28);
             this.label_seasonPeriod.TabIndex = 2;
             this.label_seasonPeriod.Text = "label_seasonPeriod";
             this.label_seasonPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -148,7 +148,117 @@
             this.panel_front.Location = new System.Drawing.Point(3, 93);
             this.panel_front.Name = "panel_front";
             this.panel_front.Size = new System.Drawing.Size(552, 137);
-            this.panel_front.TabIndex = 1;
+            this.panel_front.TabIndex = 0;
+            // 
+            // numericUpDown_diff
+            // 
+            this.numericUpDown_diff.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericUpDown_diff.DecimalPlaces = 2;
+            this.numericUpDown_diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_diff.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDown_diff.Location = new System.Drawing.Point(287, 92);
+            this.numericUpDown_diff.Maximum = new decimal(new int[] {
+            -1981284353,
+            -1966660860,
+            0,
+            0});
+            this.numericUpDown_diff.Minimum = new decimal(new int[] {
+            -1981284353,
+            -1966660860,
+            0,
+            -2147483648});
+            this.numericUpDown_diff.Name = "numericUpDown_diff";
+            this.numericUpDown_diff.ReadOnly = true;
+            this.numericUpDown_diff.Size = new System.Drawing.Size(161, 29);
+            this.numericUpDown_diff.TabIndex = 5;
+            this.numericUpDown_diff.TabStop = false;
+            this.numericUpDown_diff.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown_diff.ThousandsSeparator = true;
+            // 
+            // label_diff
+            // 
+            this.label_diff.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_diff.AutoSize = true;
+            this.label_diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_diff.Location = new System.Drawing.Point(105, 94);
+            this.label_diff.Name = "label_diff";
+            this.label_diff.Size = new System.Drawing.Size(85, 24);
+            this.label_diff.TabIndex = 4;
+            this.label_diff.Text = "Разница";
+            // 
+            // numericUpDown_curr
+            // 
+            this.numericUpDown_curr.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericUpDown_curr.DecimalPlaces = 2;
+            this.numericUpDown_curr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_curr.Location = new System.Drawing.Point(287, 55);
+            this.numericUpDown_curr.Maximum = new decimal(new int[] {
+            -1981284353,
+            -1966660860,
+            0,
+            0});
+            this.numericUpDown_curr.Name = "numericUpDown_curr";
+            this.numericUpDown_curr.Size = new System.Drawing.Size(161, 29);
+            this.numericUpDown_curr.TabIndex = 0;
+            this.numericUpDown_curr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown_curr.ThousandsSeparator = true;
+            this.numericUpDown_curr.Enter += new System.EventHandler(this.numericUpDown_curr_Enter);
+            this.numericUpDown_curr.Leave += new System.EventHandler(this.numericUpDown_curr_Leave);
+            // 
+            // label_summ
+            // 
+            this.label_summ.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_summ.AutoSize = true;
+            this.label_summ.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_summ.Location = new System.Drawing.Point(105, 57);
+            this.label_summ.Name = "label_summ";
+            this.label_summ.Size = new System.Drawing.Size(170, 24);
+            this.label_summ.TabIndex = 2;
+            this.label_summ.Text = "Сдаваемая сумма";
+            // 
+            // label_sumSeason
+            // 
+            this.label_sumSeason.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label_sumSeason.AutoSize = true;
+            this.label_sumSeason.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_sumSeason.Location = new System.Drawing.Point(105, 21);
+            this.label_sumSeason.Name = "label_sumSeason";
+            this.label_sumSeason.Size = new System.Drawing.Size(152, 24);
+            this.label_sumSeason.TabIndex = 1;
+            this.label_sumSeason.Text = "Сумма за смену";
+            // 
+            // numericUpDown_season
+            // 
+            this.numericUpDown_season.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.numericUpDown_season.DecimalPlaces = 2;
+            this.numericUpDown_season.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericUpDown_season.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericUpDown_season.Location = new System.Drawing.Point(287, 19);
+            this.numericUpDown_season.Maximum = new decimal(new int[] {
+            -1981284353,
+            -1966660860,
+            0,
+            0});
+            this.numericUpDown_season.Minimum = new decimal(new int[] {
+            -1981284353,
+            -1966660860,
+            0,
+            -2147483648});
+            this.numericUpDown_season.Name = "numericUpDown_season";
+            this.numericUpDown_season.ReadOnly = true;
+            this.numericUpDown_season.Size = new System.Drawing.Size(161, 29);
+            this.numericUpDown_season.TabIndex = 0;
+            this.numericUpDown_season.TabStop = false;
+            this.numericUpDown_season.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDown_season.ThousandsSeparator = true;
             // 
             // panel_bottom
             // 
@@ -158,7 +268,7 @@
             this.panel_bottom.Name = "panel_bottom";
             this.panel_bottom.Padding = new System.Windows.Forms.Padding(8);
             this.panel_bottom.Size = new System.Drawing.Size(552, 48);
-            this.panel_bottom.TabIndex = 2;
+            this.panel_bottom.TabIndex = 1;
             // 
             // button_closeSeason
             // 
@@ -172,81 +282,6 @@
             this.button_closeSeason.UseVisualStyleBackColor = true;
             this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
-            // numericUpDown_season
-            // 
-            this.numericUpDown_season.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numericUpDown_season.DecimalPlaces = 2;
-            this.numericUpDown_season.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_season.Location = new System.Drawing.Point(287, 19);
-            this.numericUpDown_season.Name = "numericUpDown_season";
-            this.numericUpDown_season.ReadOnly = true;
-            this.numericUpDown_season.Size = new System.Drawing.Size(161, 29);
-            this.numericUpDown_season.TabIndex = 0;
-            this.numericUpDown_season.TabStop = false;
-            this.numericUpDown_season.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown_season.ThousandsSeparator = true;
-            // 
-            // label_sumSeason
-            // 
-            this.label_sumSeason.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label_sumSeason.AutoSize = true;
-            this.label_sumSeason.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_sumSeason.Location = new System.Drawing.Point(105, 21);
-            this.label_sumSeason.Name = "label_sumSeason";
-            this.label_sumSeason.Size = new System.Drawing.Size(152, 24);
-            this.label_sumSeason.TabIndex = 1;
-            this.label_sumSeason.Text = "Сумма за смену";
-            // 
-            // label_summ
-            // 
-            this.label_summ.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label_summ.AutoSize = true;
-            this.label_summ.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_summ.Location = new System.Drawing.Point(105, 57);
-            this.label_summ.Name = "label_summ";
-            this.label_summ.Size = new System.Drawing.Size(170, 24);
-            this.label_summ.TabIndex = 2;
-            this.label_summ.Text = "Сдаваемая сумма";
-            // 
-            // numericUpDown_curr
-            // 
-            this.numericUpDown_curr.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numericUpDown_curr.DecimalPlaces = 2;
-            this.numericUpDown_curr.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_curr.Location = new System.Drawing.Point(287, 55);
-            this.numericUpDown_curr.Name = "numericUpDown_curr";
-            this.numericUpDown_curr.ReadOnly = true;
-            this.numericUpDown_curr.Size = new System.Drawing.Size(161, 29);
-            this.numericUpDown_curr.TabIndex = 3;
-            this.numericUpDown_curr.TabStop = false;
-            this.numericUpDown_curr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown_curr.ThousandsSeparator = true;
-            // 
-            // label_diff
-            // 
-            this.label_diff.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label_diff.AutoSize = true;
-            this.label_diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_diff.Location = new System.Drawing.Point(105, 94);
-            this.label_diff.Name = "label_diff";
-            this.label_diff.Size = new System.Drawing.Size(85, 24);
-            this.label_diff.TabIndex = 4;
-            this.label_diff.Text = "Разница";
-            // 
-            // numericUpDown_diff
-            // 
-            this.numericUpDown_diff.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numericUpDown_diff.DecimalPlaces = 2;
-            this.numericUpDown_diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_diff.Location = new System.Drawing.Point(287, 92);
-            this.numericUpDown_diff.Name = "numericUpDown_diff";
-            this.numericUpDown_diff.ReadOnly = true;
-            this.numericUpDown_diff.Size = new System.Drawing.Size(161, 29);
-            this.numericUpDown_diff.TabIndex = 5;
-            this.numericUpDown_diff.TabStop = false;
-            this.numericUpDown_diff.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.numericUpDown_diff.ThousandsSeparator = true;
-            // 
             // fCloseSeason_User
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,17 +289,20 @@
             this.ClientSize = new System.Drawing.Size(558, 287);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.Name = "fCloseSeason_User";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fCloseSeason_User_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel_top.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel_front.ResumeLayout(false);
             this.panel_front.PerformLayout();
-            this.panel_bottom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_season)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_diff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_season)).EndInit();
+            this.panel_bottom.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
