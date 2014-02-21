@@ -9,12 +9,11 @@ using System.Windows.Forms;
 
 namespace com.sbs.dll.utilites
 {
-    public partial class ctrBill : UserControl
+    public partial class ctrSeasonPerson : UserControl
     {
-        public int id;
         public int refStatus;
 
-        public ctrBill()
+        public ctrSeasonPerson()
         {
             InitializeComponent();
         }

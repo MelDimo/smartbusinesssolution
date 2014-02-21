@@ -32,6 +32,8 @@
             this.label_count = new System.Windows.Forms.Label();
             this.label_summa = new System.Windows.Forms.Label();
             this.button_host = new System.Windows.Forms.Button();
+            this.pictureBox_status = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status)).BeginInit();
             this.SuspendLayout();
             // 
             // label_name
@@ -77,16 +79,26 @@
             this.button_host.TabIndex = 3;
             this.button_host.UseVisualStyleBackColor = false;
             // 
+            // pictureBox_status
+            // 
+            this.pictureBox_status.Location = new System.Drawing.Point(7, 27);
+            this.pictureBox_status.Name = "pictureBox_status";
+            this.pictureBox_status.Size = new System.Drawing.Size(68, 11);
+            this.pictureBox_status.TabIndex = 4;
+            this.pictureBox_status.TabStop = false;
+            // 
             // ctrDishesSmall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pictureBox_status);
             this.Controls.Add(this.label_summa);
             this.Controls.Add(this.label_count);
             this.Controls.Add(this.label_name);
             this.Controls.Add(this.button_host);
             this.Name = "ctrDishesSmall";
             this.Size = new System.Drawing.Size(262, 46);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,5 +110,6 @@
         public System.Windows.Forms.Label label_count;
         public System.Windows.Forms.Label label_summa;
         public System.Windows.Forms.Button button_host;
+        public System.Windows.Forms.PictureBox pictureBox_status;
     }
 }

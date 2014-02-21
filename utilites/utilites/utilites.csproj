@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DTO">
+      <HintPath>..\..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
+    </Reference>
     <Reference Include="GValues, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
@@ -62,6 +65,12 @@
     </Compile>
     <Compile Include="Controls\ctrDishesSmall.Designer.cs">
       <DependentUpon>ctrDishesSmall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrSeasonPerson.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrSeasonPerson.Designer.cs">
+      <DependentUpon>ctrSeasonPerson.cs</DependentUpon>
     </Compile>
     <Compile Include="fChooser.cs">
       <SubType>Form</SubType>
@@ -112,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrDishesSmall.resx">
       <DependentUpon>ctrDishesSmall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrSeasonPerson.resx">
+      <DependentUpon>ctrSeasonPerson.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fChooser.resx">
       <DependentUpon>fChooser.cs</DependentUpon>
@@ -195,6 +207,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\documents-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\selectedBC.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
