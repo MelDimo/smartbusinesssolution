@@ -20,7 +20,7 @@ namespace com.sbs.dll
             }
 
             public int id { get; set; }
-            public int tabn { get; set; }
+            public string tabn { get; set; }
             public string login { get; set; }
             public string fName { get; set; }
             public string sName { get; set; }
@@ -54,6 +54,8 @@ namespace com.sbs.dll
             public int education2 { get; set; }
             public int specialty2 { get; set; }
             public string doc2 { get; set; }
+
+            public int reservist { get; set; }
         }
 
         public class Group
