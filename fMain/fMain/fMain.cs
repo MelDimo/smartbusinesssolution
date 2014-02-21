@@ -70,7 +70,7 @@ namespace com.sbs.gui.main
                     tabControl_top.TabPages.Add(form.Name, form.Text);
                     if (form.Tag != null)
                     {
-                        if (form.Tag.Equals("DIALOG")) form.MdiParent = this;
+                        if (!form.Tag.Equals("DIALOG")) form.MdiParent = this;
                     }
                     else
                         form.MdiParent = this;

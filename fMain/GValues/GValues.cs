@@ -29,6 +29,8 @@ namespace com.sbs.dll
 
         public static int authortype;
 
+        #region ----------------------------- Оставил пока не перепишу официантскую часть, потом убрать -----------------------------
+
         public static int openSeasonId;
         public static int openSeasonUserId;
         public static string openSeasonDate;
@@ -40,7 +42,7 @@ namespace com.sbs.dll
             openSeasonDate = string.Empty;
             openSeasonUserName = string.Empty;
         }
-
+        #endregion
 
 #if DEBUG
         //public static string logoPath = @"D:\VisualStudio2010\Projects\SBS\resource\logo.png";
@@ -265,7 +267,7 @@ namespace com.sbs.dll
     {
         private static int _userId;
         private static string _userName;
-        private static int _userTabn;
+        private static string _userTabn;
         private static int _postId;
         private static List<int> _acl;
         private static string _logIN;
@@ -274,7 +276,7 @@ namespace com.sbs.dll
         {
             _userId = 0;
             _userName = "";
-            _userTabn = 0;
+            _userTabn = "";
             _postId = 0;
             _acl = new List<int>();
         }
@@ -297,7 +299,7 @@ namespace com.sbs.dll
             set { _postId = value; }
         }
 
-        public static int UserTabn
+        public static string UserTabn
         {
             get { return _userTabn; }
             set { _userTabn = value; }
