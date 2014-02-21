@@ -31,11 +31,6 @@ namespace com.sbs.gui.dashboard
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel_bills = new System.Windows.Forms.Panel();
-            this.panel_dishes = new System.Windows.Forms.Panel();
-            this.button_trapFocus = new System.Windows.Forms.Button();
             this.groupBox_bills = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,24 +38,29 @@ namespace com.sbs.gui.dashboard
             this.button_newBill = new System.Windows.Forms.Button();
             this.groupBox_billDish = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_billInfo = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_billInfo = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_billEdit = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_billInfo = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_groups = new com.sbs.gui.dashboard.extGroupBox();
             this.treeView_CarteGroups = new System.Windows.Forms.TreeView();
             this.groupBox_dish = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_dish = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_bills = new System.Windows.Forms.Panel();
+            this.panel_dishes = new System.Windows.Forms.Panel();
+            this.button_trapFocus = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel_bills.SuspendLayout();
-            this.panel_dishes.SuspendLayout();
             this.groupBox_bills.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox_billDish.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.groupBox_billInfo.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.groupBox_groups.SuspendLayout();
             this.groupBox_dish.SuspendLayout();
+            this.panel_bills.SuspendLayout();
+            this.panel_dishes.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -78,64 +78,6 @@ namespace com.sbs.gui.dashboard
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1127, 694);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.TabStop = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox_billInfo, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1127, 694);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.Controls.Add(this.groupBox_groups, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.groupBox_dish, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(397, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 688);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // panel_bills
-            // 
-            this.panel_bills.Controls.Add(this.tableLayoutPanel1);
-            this.panel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_bills.Location = new System.Drawing.Point(0, 0);
-            this.panel_bills.Name = "panel_bills";
-            this.panel_bills.Size = new System.Drawing.Size(1127, 694);
-            this.panel_bills.TabIndex = 1;
-            // 
-            // panel_dishes
-            // 
-            this.panel_dishes.Controls.Add(this.tableLayoutPanel2);
-            this.panel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_dishes.Location = new System.Drawing.Point(0, 0);
-            this.panel_dishes.Name = "panel_dishes";
-            this.panel_dishes.Size = new System.Drawing.Size(1127, 694);
-            this.panel_dishes.TabIndex = 2;
-            // 
-            // button_trapFocus
-            // 
-            this.button_trapFocus.Location = new System.Drawing.Point(0, 0);
-            this.button_trapFocus.Name = "button_trapFocus";
-            this.button_trapFocus.Size = new System.Drawing.Size(75, 14);
-            this.button_trapFocus.TabIndex = 1;
-            this.button_trapFocus.TabStop = false;
-            this.button_trapFocus.Text = "button_trapFocus";
-            this.button_trapFocus.UseVisualStyleBackColor = true;
             // 
             // groupBox_bills
             // 
@@ -210,6 +152,21 @@ namespace com.sbs.gui.dashboard
             this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(721, 669);
             this.flowLayoutPanel_billInfo.TabIndex = 0;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel2.Controls.Add(this.groupBox_billInfo, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1127, 694);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
             // groupBox_billInfo
             // 
             this.groupBox_billInfo.BorderColor = System.Drawing.Color.Empty;
@@ -237,6 +194,21 @@ namespace com.sbs.gui.dashboard
             this.panel_billInfo.Name = "panel_billInfo";
             this.panel_billInfo.Size = new System.Drawing.Size(382, 89);
             this.panel_billInfo.TabIndex = 1;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.Controls.Add(this.groupBox_groups, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox_dish, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(397, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 688);
+            this.tableLayoutPanel3.TabIndex = 0;
             // 
             // groupBox_groups
             // 
@@ -280,6 +252,34 @@ namespace com.sbs.gui.dashboard
             this.flowLayoutPanel_dish.Size = new System.Drawing.Size(425, 663);
             this.flowLayoutPanel_dish.TabIndex = 1;
             // 
+            // panel_bills
+            // 
+            this.panel_bills.Controls.Add(this.tableLayoutPanel1);
+            this.panel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_bills.Location = new System.Drawing.Point(0, 0);
+            this.panel_bills.Name = "panel_bills";
+            this.panel_bills.Size = new System.Drawing.Size(1127, 694);
+            this.panel_bills.TabIndex = 1;
+            // 
+            // panel_dishes
+            // 
+            this.panel_dishes.Controls.Add(this.tableLayoutPanel2);
+            this.panel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_dishes.Location = new System.Drawing.Point(0, 0);
+            this.panel_dishes.Name = "panel_dishes";
+            this.panel_dishes.Size = new System.Drawing.Size(1127, 694);
+            this.panel_dishes.TabIndex = 2;
+            // 
+            // button_trapFocus
+            // 
+            this.button_trapFocus.Location = new System.Drawing.Point(0, 0);
+            this.button_trapFocus.Name = "button_trapFocus";
+            this.button_trapFocus.Size = new System.Drawing.Size(75, 14);
+            this.button_trapFocus.TabIndex = 1;
+            this.button_trapFocus.TabStop = false;
+            this.button_trapFocus.Text = "button_trapFocus";
+            this.button_trapFocus.UseVisualStyleBackColor = true;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,16 +294,16 @@ namespace com.sbs.gui.dashboard
             this.Shown += new System.EventHandler(this.fMain_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel_bills.ResumeLayout(false);
-            this.panel_dishes.ResumeLayout(false);
             this.groupBox_bills.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox_billDish.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox_billInfo.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.groupBox_groups.ResumeLayout(false);
             this.groupBox_dish.ResumeLayout(false);
+            this.panel_bills.ResumeLayout(false);
+            this.panel_dishes.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

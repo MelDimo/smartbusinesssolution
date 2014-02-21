@@ -18,8 +18,8 @@ namespace com.sbs.gui.dashboard
         private DBaccess dbAccess = new DBaccess();
         Suppurt Supp = new Suppurt();
 
-        private SeasonBranch[] oSeasonBranchArray;
-        private User oUser;
+        private com.sbs.dll.DTO_DBoard.SeasonBranch[] oSeasonBranchArray;
+        private com.sbs.dll.DTO_DBoard.User oUser;
 
         Thread trReadCard;
 
@@ -218,7 +218,7 @@ namespace com.sbs.gui.dashboard
 
         private void showMainForm()
         {
-            DashboardEnvironment.gBillList = new List<Bill>();
+            DashboardEnvironment.gBillList = new List<com.sbs.dll.DTO_DBoard.Bill>();
 
             try
             {
@@ -234,7 +234,7 @@ namespace com.sbs.gui.dashboard
             fmain.ShowDialog();
         }
 
-        private SeasonBranch[] getOpenSeason()
+        private com.sbs.dll.DTO_DBoard.SeasonBranch[] getOpenSeason()
         {
             try
             {
@@ -245,7 +245,7 @@ namespace com.sbs.gui.dashboard
             return oSeasonBranchArray;
         }
 
-        private User getUserByKey(string pUserKey)
+        private com.sbs.dll.DTO_DBoard.User getUserByKey(string pUserKey)
         {
             try
             {

@@ -14,17 +14,17 @@ namespace com.sbs.gui.dashboard
     public partial class fCloseSeason_User : Form
     {
         private DBaccess dbAccess = new DBaccess();
-        List<SeasonUser> lSeasonUser;
+        List<com.sbs.dll.DTO_DBoard.SeasonUser> lSeasonUser;
         
-        List<Bill> lBills;
+        List<com.sbs.dll.DTO_DBoard.Bill> lBills;
         ctrBill oCtrBill;
 
-        User oUser;
+        com.sbs.dll.DTO_DBoard.User oUser;
 
 
         public string errMsg = string.Empty;
 
-        public fCloseSeason_User(User pUser)
+        public fCloseSeason_User(com.sbs.dll.DTO_DBoard.User pUser)
         {
             oUser = pUser;
 
@@ -50,7 +50,7 @@ namespace com.sbs.gui.dashboard
             label_seasonFIO.Text = DashboardEnvironment.gSeasonBranch.userName;
             label_seasonPeriod.Text = DashboardEnvironment.gSeasonBranch.dateOpen.ToString();
 
-            foreach (SeasonUser oSeasonUser in lSeasonUser)
+            foreach (com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser in lSeasonUser)
             {
                 if (oSeasonUser.refStatus == 17) // Смена закрыта
                 {
@@ -65,7 +65,7 @@ namespace com.sbs.gui.dashboard
                 numericUpDown_season.Value = oSeasonUser.summ;
             }
 
-            foreach (Bill xBill in lBills)
+            foreach (com.sbs.dll.DTO_DBoard.Bill xBill in lBills)
             {
                 oCtrBill = new ctrBill();
                 oCtrBill.label_numbBill.Text = xBill.numb.ToString();

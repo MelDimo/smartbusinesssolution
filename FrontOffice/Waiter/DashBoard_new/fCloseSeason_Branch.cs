@@ -13,8 +13,8 @@ namespace com.sbs.gui.dashboard
     public partial class fCloseSeason_Branch : Form
     {
         private DBaccess dbAccess = new DBaccess();
-        List<SeasonUser> lSeasonUser = new List<SeasonUser>();
-        SeasonUser oSeasonUser = new SeasonUser();
+        List<com.sbs.dll.DTO_DBoard.SeasonUser> lSeasonUser = new List<com.sbs.dll.DTO_DBoard.SeasonUser>();
+        com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser = new com.sbs.dll.DTO_DBoard.SeasonUser();
         ctrSeasonPerson ctrSUser;
 
         public fCloseSeason_Branch()
@@ -42,7 +42,7 @@ namespace com.sbs.gui.dashboard
             label_seasonFIO.Text = DashboardEnvironment.gSeasonBranch.userName;
             label_seasonPeriod.Text = DashboardEnvironment.gSeasonBranch.dateOpen.ToString();
 
-            foreach (SeasonUser oSeasonUser in lSeasonUser)
+            foreach (com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser in lSeasonUser)
             {
                 ctrSUser = new ctrSeasonPerson();
                 ctrSUser.label_fio.Text = oSeasonUser.userOpenName;

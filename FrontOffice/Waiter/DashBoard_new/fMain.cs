@@ -112,10 +112,12 @@ namespace com.sbs.gui.dashboard
             }
         }
 
-        List<Bill> lBills;
-        List<Dish> lDishs;
+        List<DTO_DBoard.Bill> lBills;
+        List<DTO_DBoard.Dish> lDishs;
 
-        Bill curBill;
+        ctrDishesSmall oCtrDishesSmall;
+
+        DTO_DBoard.Bill curBill;
 
         DataTable dtDishes;
         
@@ -139,7 +141,7 @@ namespace com.sbs.gui.dashboard
 
         private bool fillBills()
         {
-            lBills = new List<Bill>();
+            lBills = new List<com.sbs.dll.DTO_DBoard.Bill>();
 
             try
             {
@@ -153,9 +155,9 @@ namespace com.sbs.gui.dashboard
             return true;
         }
 
-        private bool fillBillsInfo(Bill pBill)
+        private bool fillBillsInfo(DTO_DBoard.Bill pBill)
         {
-            lDishs = new List<Dish>();
+            lDishs = new List<DTO_DBoard.Dish>();
 
             try
             {
@@ -177,7 +179,7 @@ namespace com.sbs.gui.dashboard
             ctrBill oCtrBill;
             flowLayoutPanel_bills.Controls.Clear();
 
-            foreach(Bill oBill in lBills)
+            foreach(DTO_DBoard.Bill oBill in lBills)
             {
                 oCtrBill = new ctrBill();
                 oCtrBill.id = oBill.id;
@@ -219,14 +221,14 @@ namespace com.sbs.gui.dashboard
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
         {
-            Bill curBill = (Bill)((ctrBill)((Button)sender).Parent).Tag;
+            DTO_DBoard.Bill curBill = (DTO_DBoard.Bill)((ctrBill)((Button)sender).Parent).Tag;
 
             if (!fillBillsInfo(curBill)) return;
 
             ctrDishes oCtrDishes;
             flowLayoutPanel_billInfo.Controls.Clear();
 
-            foreach (Dish oDish in lDishs)
+            foreach (DTO_DBoard.Dish oDish in lDishs)
             {
                 oCtrDishes = new ctrDishes();
                 oCtrDishes.id = oDish.id;
@@ -248,7 +250,7 @@ namespace com.sbs.gui.dashboard
         
         void Bill_button_host_Click(object sender, EventArgs e)
         {
-            curBill = (Bill)((ctrBill)((Button)sender).Parent).Tag;
+            curBill = (DTO_DBoard.Bill)((ctrBill)((Button)sender).Parent).Tag;
             
             billEdit();
         }
@@ -278,7 +280,6 @@ namespace com.sbs.gui.dashboard
             flowLayoutPanel_billEdit.Controls.Clear();
 
             ctrBill oCtrBill = new ctrBill();
-            ctrDishesSmall oCtrDishesSmall;
 
             oCtrBill = new ctrBill();
             oCtrBill.id = curBill.id;
@@ -302,15 +303,12 @@ namespace com.sbs.gui.dashboard
 
             panel_billInfo.Controls.Add(oCtrBill);
 
-            foreach (Dish oDish in lDishs)
+            foreach (DTO_DBoard.Dish oDish in lDishs)
             {
-                oCtrDishesSmall = new ctrDishesSmall();
-                oCtrDishesSmall.id = oDish.id;
-                oCtrDishesSmall.label_name.Text = oDish.name;
-                oCtrDishesSmall.label_count.Text = oDish.count.ToString("F2");
-                oCtrDishesSmall.label_summa.Text = (oDish.count * oDish.price).ToString("F2");
-                                                                                    // Обработан : Необработан
-                oCtrDishesSmall.pictureBox_status.BackColor = oDish.refStatus == 24 ? Color.Red : Color.Green;
+                oCtrDishesSmall = new ctrDishesSmall(oDish);
+
+                oCtrDishesSmall.button_host.Click += new EventHandler(oCtrDishesSmall_button_host_Click);
+                oCtrDishesSmall.Name = oDish.id.ToString(); // Присваиваю имя, чтобы потом вернуть фокус при редактировании позиции
 
                 oCtrDishesSmall.TabStop = false;
 
@@ -320,6 +318,27 @@ namespace com.sbs.gui.dashboard
             }
 
             panel_dishes.Refresh();
+        }
+
+        void oCtrDishesSmall_button_host_Click(object sender, EventArgs e)
+        {
+            oCtrDishesSmall = (ctrDishesSmall)((Button)sender).Parent;
+            fDishToBill_ACTION fDishAction = new fDishToBill_ACTION(curBill, oCtrDishesSmall.oDish);
+            if (fDishAction.ShowDialog() == DialogResult.Cancel)
+            {
+                fDishAction.Dispose();
+                return;
+            }
+
+            fDishAction.Dispose();
+
+            fillBillsInfo(curBill);
+            showBillInfo();
+
+            if (flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name] != null) flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name].Focus();
+            else
+                if (flowLayoutPanel_billEdit.Controls.Count > 0) flowLayoutPanel_billEdit.Controls[0].Focus();
+                else treeView_CarteGroups.Focus();
         }
 
         private void prepareCarteDishes()
@@ -407,7 +426,7 @@ namespace com.sbs.gui.dashboard
 
         private void Dish_button_host_Click(object sender, EventArgs e)
         {
-            Dish oDish = new Dish();
+            com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
             ctrDishes oCtrDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
 
             fAddDishToBill faddDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
@@ -660,7 +679,7 @@ namespace com.sbs.gui.dashboard
             StringBuilder strMsg = new StringBuilder();
             strMsg.AppendLine("В счете присутствуют следующие необработанные позиции.");
 
-            foreach(Dish oDish in lDishs)
+            foreach(com.sbs.dll.DTO_DBoard.Dish oDish in lDishs)
             {
                 if (oDish.refStatus == 23) // ref_status.id (Необработано) (Позиция в счете нового блюда)
                     strMsg.AppendLine("- " + oDish.name + ", в количестве: " + oDish.count);
@@ -740,7 +759,7 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
             
-            lDishs = new List<Dish>();
+            lDishs = new List<com.sbs.dll.DTO_DBoard.Dish>();
 
             billEdit();
         }
