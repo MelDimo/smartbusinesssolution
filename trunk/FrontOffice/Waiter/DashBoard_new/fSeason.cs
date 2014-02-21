@@ -18,7 +18,7 @@ namespace com.sbs.gui.dashboard
 
         Button btnSeason;
 
-        public fSeason(SeasonBranch[] pSeasonBranchArray)
+        public fSeason(com.sbs.dll.DTO_DBoard.SeasonBranch[] pSeasonBranchArray)
         {
             InitializeComponent();
 
@@ -29,9 +29,9 @@ namespace com.sbs.gui.dashboard
             createContrlos(pSeasonBranchArray);
         }
 
-        private void createContrlos(SeasonBranch[] pSeasonBranchArray)
+        private void createContrlos(com.sbs.dll.DTO_DBoard.SeasonBranch[] pSeasonBranchArray)
         {
-            foreach (SeasonBranch sb in pSeasonBranchArray)
+            foreach (com.sbs.dll.DTO_DBoard.SeasonBranch sb in pSeasonBranchArray)
             {
                 btnSeason = new Button();
                 btnSeason.BackColor = Color.FromArgb(255, 255, 196);
@@ -69,11 +69,11 @@ namespace com.sbs.gui.dashboard
                 openNewSeason();
             }
             else{
-                openExistSeason((SeasonBranch)btn.Tag);
+                openExistSeason((com.sbs.dll.DTO_DBoard.SeasonBranch)btn.Tag);
             }
         }
 
-        private void openExistSeason(SeasonBranch pSeasonBranch)
+        private void openExistSeason(com.sbs.dll.DTO_DBoard.SeasonBranch pSeasonBranch)
         {
             int xPriv = 0;
             string xErrMessage = string.Empty;

@@ -10,9 +10,9 @@ namespace com.sbs.gui.dashboard
 {
     class DashboardEnvironment
     {
-        public static User gUser;
-        public static SeasonBranch gSeasonBranch;
-        public static List<Bill> gBillList;
+        public static com.sbs.dll.DTO_DBoard.User gUser;
+        public static com.sbs.dll.DTO_DBoard.SeasonBranch gSeasonBranch;
+        public static List<com.sbs.dll.DTO_DBoard.Bill> gBillList;
 
         public static void Clear()
         {
@@ -30,12 +30,12 @@ namespace com.sbs.gui.dashboard
         private SqlCommand command = null;
         private SqlTransaction tx = null;
 
-        private SeasonBranch[] oSeasonBranchArray;
-        private SeasonBranch oSeasonBranch;
-        private User oUser;
-        private UserACL[] oUserACL;
+        private DTO_DBoard.SeasonBranch[] oSeasonBranchArray;
+        private DTO_DBoard.SeasonBranch oSeasonBranch;
+        private DTO_DBoard.User oUser;
+        private DTO_DBoard.UserACL[] oUserACL;
 
-        internal User getMifareUser(string pDbType, string pKeyId)
+        internal DTO_DBoard.User getMifareUser(string pDbType, string pKeyId)
         {
             dtResult = new DataTable();
 
@@ -76,7 +76,7 @@ namespace com.sbs.gui.dashboard
                     throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
             }
 
-            oUser = new User();
+            oUser = new com.sbs.dll.DTO_DBoard.User();
             oUser.id = (int)dtResult.Rows[0]["id"];
             oUser.name = dtResult.Rows[0]["fio"].ToString();
             oUser.tabn = dtResult.Rows[0]["tabn"].ToString();
@@ -90,7 +90,7 @@ namespace com.sbs.gui.dashboard
             return oUser;
         }
 
-        private UserACL[] getUserACL(string pDbType, int pUserId)
+        private DTO_DBoard.UserACL[] getUserACL(string pDbType, int pUserId)
         {
             dtResult = new DataTable();
 
@@ -125,10 +125,10 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
-            oUserACL = new UserACL[dtResult.Rows.Count];
+            oUserACL = new com.sbs.dll.DTO_DBoard.UserACL[dtResult.Rows.Count];
             for(int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oUserACL[i] = new UserACL();
+                oUserACL[i] = new com.sbs.dll.DTO_DBoard.UserACL();
                 oUserACL[i].id = (int)dtResult.Rows[i]["user_acl_type"];
                 oUserACL[i].name = dtResult.Rows[i]["name"].ToString();
             }
@@ -136,7 +136,7 @@ namespace com.sbs.gui.dashboard
             return oUserACL;
         }
 
-        internal SeasonBranch[] getAvaliableSeason(string pDbType)
+        internal DTO_DBoard.SeasonBranch[] getAvaliableSeason(string pDbType)
         {
             dtResult = new DataTable();
 
@@ -166,10 +166,10 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
-            oSeasonBranchArray = new SeasonBranch[dtResult.Rows.Count];
+            oSeasonBranchArray = new com.sbs.dll.DTO_DBoard.SeasonBranch[dtResult.Rows.Count];
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oSeasonBranchArray[i] = new SeasonBranch();
+                oSeasonBranchArray[i] = new com.sbs.dll.DTO_DBoard.SeasonBranch();
                 oSeasonBranchArray[i].seasonID = (int)dtResult.Rows[i]["seasonId"];
                 oSeasonBranchArray[i].userID = (int)dtResult.Rows[i]["userId"];
                 oSeasonBranchArray[i].userName = (string)dtResult.Rows[i]["fio"];
@@ -183,7 +183,7 @@ namespace com.sbs.gui.dashboard
         {
             con = new DBCon().getConnection(pDbType);
 
-            oSeasonBranch = new SeasonBranch();
+            oSeasonBranch = new com.sbs.dll.DTO_DBoard.SeasonBranch();
             oSeasonBranch.dateOpen = DateTime.Now;
             oSeasonBranch.userID = DashboardEnvironment.gUser.id;
             oSeasonBranch.userName = DashboardEnvironment.gUser.name;
@@ -215,10 +215,10 @@ namespace com.sbs.gui.dashboard
             DashboardEnvironment.gSeasonBranch = oSeasonBranch;
         }
 
-        internal List<Bill> getBills(string pDbType, User pUser)
+        internal List<DTO_DBoard.Bill> getBills(string pDbType, DTO_DBoard.User pUser)
         {
-            List<Bill> oBillList = new List<Bill>();
-            Bill oBill = new Bill();
+            List<com.sbs.dll.DTO_DBoard.Bill> oBillList = new List<com.sbs.dll.DTO_DBoard.Bill>();
+            com.sbs.dll.DTO_DBoard.Bill oBill = new com.sbs.dll.DTO_DBoard.Bill();
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
@@ -249,7 +249,7 @@ namespace com.sbs.gui.dashboard
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oBill = new Bill();
+                oBill = new com.sbs.dll.DTO_DBoard.Bill();
                 oBill.id = (int)dtResult.Rows[i]["id"];
                 oBill.numb = (int)dtResult.Rows[i]["numb"];
                 oBill.openDate = (DateTime)dtResult.Rows[i]["date_open"];
@@ -264,10 +264,10 @@ namespace com.sbs.gui.dashboard
             return oBillList;
         }
 
-        internal List<Dish> getBillInfo(string pDbType, Bill pBill)
+        internal List<DTO_DBoard.Dish> getBillInfo(string pDbType, DTO_DBoard.Bill pBill)
         {
-            List<Dish> oBillInfoList = new List<Dish>();
-            Dish oDish;
+            List<DTO_DBoard.Dish> oBillInfoList = new List<DTO_DBoard.Dish>();
+            DTO_DBoard.Dish oDish;
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
@@ -296,8 +296,9 @@ namespace com.sbs.gui.dashboard
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oDish = new Dish();
+                oDish = new com.sbs.dll.DTO_DBoard.Dish();
                 oDish.id = (int)dtResult.Rows[i]["id"];
+                oDish.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
                 oDish.name = dtResult.Rows[i]["dishes_name"].ToString();
                 oDish.portion = dtResult.Rows[i]["portion"].ToString();
                 oDish.price = (decimal)dtResult.Rows[i]["dishes_price"];
@@ -310,9 +311,9 @@ namespace com.sbs.gui.dashboard
             return oBillInfoList;
         }
 
-        internal Bill BillOpen(string pDbType)
+        internal DTO_DBoard.Bill BillOpen(string pDbType)
         {
-            Bill oBill = new Bill();
+            com.sbs.dll.DTO_DBoard.Bill oBill = new com.sbs.dll.DTO_DBoard.Bill();
             dtResult = new DataTable();
 
             oBill.openDate = DateTime.Now;
@@ -435,7 +436,7 @@ namespace com.sbs.gui.dashboard
 
         }
 
-        internal void addDish2Bill(string pDbType, Bill pBill, Dish pDish)
+        internal void addDish2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -491,7 +492,7 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal void BillInfoCancel(string pDbType, Bill pBill)
+        internal void BillInfoCancel(string pDbType, DTO_DBoard.Bill pBill)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -516,7 +517,7 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal DataTable commitDish(string pDbType, Bill pBill)
+        internal DataTable commitDish(string pDbType, DTO_DBoard.Bill pBill)
         {
             dtResult = new DataTable();
 
@@ -554,7 +555,7 @@ namespace com.sbs.gui.dashboard
             return dtResult;
         }
 
-        private DataTable printRunners(SqlCommand command, Bill pBill)
+        private DataTable printRunners(SqlCommand command, DTO_DBoard.Bill pBill)
         {
             dtResult = new DataTable();
 
@@ -580,7 +581,7 @@ namespace com.sbs.gui.dashboard
             return dtResult;
         }
 
-        internal DataTable billClose(string pDbType, Bill pBill)
+        internal DataTable billClose(string pDbType, DTO_DBoard.Bill pBill)
         {
             dtResult = new DataTable();
 
@@ -618,7 +619,7 @@ namespace com.sbs.gui.dashboard
 
         }
 
-        private DataTable printBill(SqlCommand command, Bill pBill)
+        private DataTable printBill(SqlCommand command, DTO_DBoard.Bill pBill)
         {
             dtResult = new DataTable();
 
@@ -644,11 +645,11 @@ namespace com.sbs.gui.dashboard
             return dtResult;
         }
 
-        internal List<SeasonUser> getSeasonUser(string pDbType, User pUser)
+        internal List<DTO_DBoard.SeasonUser> getSeasonUser(string pDbType, DTO_DBoard.User pUser)
         {
             dtResult = new DataTable();
-            List<SeasonUser> lSeasonUser = new List<SeasonUser>();
-            SeasonUser oSeasonUser;
+            List<com.sbs.dll.DTO_DBoard.SeasonUser> lSeasonUser = new List<com.sbs.dll.DTO_DBoard.SeasonUser>();
+            com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser;
 
             con = new DBCon().getConnection(pDbType);
 
@@ -677,7 +678,7 @@ namespace com.sbs.gui.dashboard
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oSeasonUser = new SeasonUser();
+                oSeasonUser = new com.sbs.dll.DTO_DBoard.SeasonUser();
                 oSeasonUser.id = (int)dtResult.Rows[i]["id"];
                 oSeasonUser.userOpenName = dtResult.Rows[i]["fio"].ToString();
                 oSeasonUser.dateOpen = (DateTime)dtResult.Rows[i]["date_open"];
@@ -691,7 +692,9 @@ namespace com.sbs.gui.dashboard
             return lSeasonUser;
         }
 
-        internal void seasonUser_Close(string pDbType, User pUser)
+        #region ------------------------------------------------------------ Закрытие смен
+
+        internal void seasonUser_Close(string pDbType, DTO_DBoard.User pUser)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -742,75 +745,42 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        #region ------------------------------------------------------------ Закрытие смен
-
-        
-
         #endregion
-    }
 
-    public class SeasonBranch
-    {
-        public int seasonID { get; set; }
-        public int userID { get; set; }
-        public string userName { get; set; }
-        public DateTime dateOpen { get; set; }
-    }
+        internal void dishRefuse(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish, int pNewCount)
+        {
+            con = new DBCon().getConnection(pDbType);
 
-    public class SeasonUser
-    {
-        public int id { get; set; }
-        public string userOpenName { get; set; }
-        public DateTime dateOpen { get; set; }
-        public DateTime? dateClose { get; set; }
-        public int refStatus { get; set; }
-        public string refStatusName { get; set; }
-        public decimal summ { get; set; }
-    }
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
 
-    public class User : UserACL
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string tabn { get; set; }
-        public UserACL[] oUserACL { get; set; }
-    }
+                command.CommandText = "DishToBill_Refuse";
+                command.CommandType = CommandType.StoredProcedure;
 
-    public class UserACL
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-    }
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pDish2BillId", SqlDbType.Int).Value = pDish.id;
+                command.Parameters.Add("pUser", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pNewCount", SqlDbType.Int).Value = pNewCount;
+                command.Parameters.Add("pDateTime", SqlDbType.DateTime).Value = DateTime.Now;
 
-    public class Bill
-    {
-        public int id { get; set; }
-        public int numb { get; set; }
-        public int table { get; set; }
-        public DateTime openDate { get; set; }
-        public DateTime? closeDate { get; set; }
-        public int refStat { get; set; }
-        public string refStatName { get; set; }
-        public decimal summ { get; set; }
-    }
+                command.ExecuteNonQuery();
 
-    public class Dish
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public decimal price { get; set; }
-        public decimal count { get; set; }
-        public string portion { get; set; }
-        public DateTime? addDate { get; set; }
-        public int refStatus { get; set; }
-        public int refPrintersType { get; set; }
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
     }
 
     internal class Suppurt
     {
-        internal bool checkPrivileges(UserACL[] pUserACL, int pUsersAclType)
+        internal bool checkPrivileges(com.sbs.dll.DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
         {
-            foreach (UserACL uAcl in pUserACL)
+            foreach (com.sbs.dll.DTO_DBoard.UserACL uAcl in pUserACL)
             {
                 if (uAcl.id == pUsersAclType) return true;
             }

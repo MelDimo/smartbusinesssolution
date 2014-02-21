@@ -14,9 +14,9 @@ namespace com.sbs.gui.dashboard
     {
         private DBaccess dbAccess = new DBaccess();
         ctrDishes oCtrDishes;
-        Bill oBill;
+        com.sbs.dll.DTO_DBoard.Bill oBill;
 
-        public fAddDishToBill(Bill pBill, ctrDishes pCtrDishes)
+        public fAddDishToBill(com.sbs.dll.DTO_DBoard.Bill pBill, ctrDishes pCtrDishes)
         {
             oBill = pBill;
             oCtrDishes = pCtrDishes;
@@ -41,7 +41,7 @@ namespace com.sbs.gui.dashboard
 
         private bool addDish2Bill()
         {
-            Dish oDish = new Dish();
+            com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
             oDish.id = oCtrDishes.id;
             oDish.name = oCtrDishes.label_name.Text;
             oDish.portion = oCtrDishes.label_portion.Text;
