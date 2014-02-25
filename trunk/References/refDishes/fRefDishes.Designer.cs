@@ -59,6 +59,7 @@
             this.ref_status_name});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView_main.MultiSelect = false;
             this.dataGridView_main.Name = "dataGridView_main";
             this.dataGridView_main.ReadOnly = true;
             this.dataGridView_main.RowHeadersVisible = false;

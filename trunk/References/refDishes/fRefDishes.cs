@@ -103,6 +103,8 @@ namespace com.sbs.gui.references.refdishes
             oDishes = new DTO.Dishes();
             DataRow dishInfo;
 
+            int rowIndex = 0;
+
             if (dataGridView_main.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -110,6 +112,7 @@ namespace com.sbs.gui.references.refdishes
             }
 
             DataGridViewRow dataRow = dataGridView_main.SelectedRows[0];
+            rowIndex = dataRow.Index;
 
             oDishes.id = (int)dataRow.Cells["id"].Value;
 
@@ -133,7 +136,14 @@ namespace com.sbs.gui.references.refdishes
             faddedit.comboBox_refPrintersType.ValueMember = "id";
             faddedit.comboBox_refPrintersType.SelectedValue = oDishes.refPrintersType;
             faddedit.Text = "Редактирование блюда '" + oDishes.name + "'";
-            if (faddedit.ShowDialog() == DialogResult.OK) updateData();
+            if (faddedit.ShowDialog() == DialogResult.OK)
+            {
+                updateData();
+                //dataGridView_main.Rows[rowIndex].Selected = true;
+                dataGridView_main.CurrentCell = dataGridView_main.Rows[rowIndex].Cells[1];
+            }
+
+
         }
 
         private void tSButton_del_Click(object sender, EventArgs e)
