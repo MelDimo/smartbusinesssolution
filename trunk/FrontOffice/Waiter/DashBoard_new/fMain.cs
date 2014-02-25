@@ -10,6 +10,7 @@ using com.sbs.dll.utilites;
 using System.Diagnostics;
 using com.sbs.dll;
 using CrystalDecisions.CrystalReports.Engine;
+using System.Threading;
 
 namespace com.sbs.gui.dashboard
 {
@@ -137,7 +138,7 @@ namespace com.sbs.gui.dashboard
             showBill();
         }
 
-        #region Наполняем объекты 
+        #region ----------------------------------------------------------------- Наполняем объекты
 
         private bool fillBills()
         {
@@ -178,6 +179,7 @@ namespace com.sbs.gui.dashboard
         { 
             ctrBill oCtrBill;
             flowLayoutPanel_bills.Controls.Clear();
+            flowLayoutPanel_billInfo.Controls.Clear();
 
             foreach(DTO_DBoard.Bill oBill in lBills)
             {
@@ -209,6 +211,7 @@ namespace com.sbs.gui.dashboard
             if (flowLayoutPanel_bills.Controls.Count > 0)
             {
                 flowLayoutPanel_bills.Controls[0].Focus();
+                curBill = (DTO_DBoard.Bill)((ctrBill)flowLayoutPanel_bills.Controls[0]).Tag;
             }
 
             foreach (ctrBill ctr in flowLayoutPanel_bills.Controls)
@@ -591,25 +594,8 @@ namespace com.sbs.gui.dashboard
 
         private void printBill()
         {
-            DataTable dtResult = new DataTable();
-            ReportDocument repDoc;
-
-            if (curBill == null) return;
-
-            try
-            {
-                dtResult = dbAccess.billClose("offline", curBill);
-            }
-            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
-
-            if (dtResult.Rows.Count == 0) return;
-
-            repDoc = new ReportDocument();
-            repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
-            repDoc.SetDataSource(dtResult);
-            repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-            repDoc.PrintOptions.PrinterName = dtResult.Rows[0]["printerName"].ToString();
-            repDoc.PrintToPrinter(1, false, 0, 0);
+            fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
+            fWait.ShowDialog();
 
             fillBills();
             showBill();
@@ -617,56 +603,10 @@ namespace com.sbs.gui.dashboard
 
         private void commitDish()
         {
-            DataTable dtResult = new DataTable();
-            ReportDocument repDoc;
+            fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
+            fWait.ShowDialog();
 
-            bool flag = false;
-            
-            try
-            {
-                dtResult = dbAccess.commitDish("offline", curBill);
-            }
-            catch (Exception exc) { uMessage.Show("Не удалось исключить необработанные позиции.", exc, SystemIcons.Information); return; }
-
-            var results_1 = from myRow in dtResult.AsEnumerable()
-                            where myRow.Field<int>("ref_printers_type") == 1
-                            select myRow;
-
-            if (results_1.Count() > 0) // есть позиции на принтер Кухни
-            {
-                repDoc = new ReportDocument();
-                repDoc.Load(results_1.First().Field<string>("reportPath"));
-                repDoc.SetDataSource(dtResult);
-                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-                repDoc.SetParameterValue("curDate", DateTime.Now);
-                repDoc.SetParameterValue("billNumber", curBill.numb);
-                repDoc.SetParameterValue("printersType", 1);
-                repDoc.PrintOptions.PrinterName = results_1.First().Field<string>("printerName");
-                repDoc.PrintToPrinter(1, false, 0, 0);
-
-                flag = true;
-            }
-
-            var results_2 = from myRow in dtResult.AsEnumerable()
-                            where myRow.Field<int>("ref_printers_type") == 2
-                            select myRow;
-
-            if (results_2.Count() > 0) // есть позиции на принтер Бара
-            {
-                repDoc = new ReportDocument();
-                repDoc.Load(results_2.First().Field<string>("reportPath"));
-                repDoc.SetDataSource(dtResult);
-                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-                repDoc.SetParameterValue("curDate", DateTime.Now);
-                repDoc.SetParameterValue("billNumber", curBill.numb);
-                repDoc.SetParameterValue("printersType", 2);
-                repDoc.PrintOptions.PrinterName = results_2.First().Field<string>("printerName");
-                repDoc.PrintToPrinter(1, false, 0, 0);
-
-                flag = true;
-            }
-
-            if (flag)
+            if (fWait.retflag)
             {
                 fillBillsInfo(curBill);
                 billEdit();
@@ -701,8 +641,10 @@ namespace com.sbs.gui.dashboard
 
                 return true;
             }
-
-            return true;
+            else
+            {
+                return false;
+            }
         }
 
         private void keysBackspace()

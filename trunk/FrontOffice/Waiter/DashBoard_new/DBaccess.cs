@@ -533,6 +533,8 @@ namespace com.sbs.gui.dashboard
                 command.Connection = con;
                 command.Transaction = tx;
 
+                dtResult = printRunners(command, pBill); // Возвращаем перечень блюд для бегунка
+
                 command.CommandText = "DishToBill_changeStatus";
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -544,13 +546,11 @@ namespace com.sbs.gui.dashboard
                 
                 command.ExecuteNonQuery();
 
-                dtResult = printRunners(command, pBill);
-                
                 tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); dtResult = null; con.Close(); } }
 
             return dtResult;
         }
@@ -559,7 +559,7 @@ namespace com.sbs.gui.dashboard
         {
             dtResult = new DataTable();
 
-            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath" +
+            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +

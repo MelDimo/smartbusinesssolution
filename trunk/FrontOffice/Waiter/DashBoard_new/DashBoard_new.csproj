@@ -116,6 +116,12 @@
     <Compile Include="fSplash.Designer.cs">
       <DependentUpon>fSplash.cs</DependentUpon>
     </Compile>
+    <Compile Include="fWaitProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fWaitProcess.Designer.cs">
+      <DependentUpon>fWaitProcess.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reports\order.cs">
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fSplash.resx">
       <DependentUpon>fSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fWaitProcess.resx">
+      <DependentUpon>fWaitProcess.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
