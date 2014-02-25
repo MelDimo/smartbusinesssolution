@@ -163,6 +163,7 @@
             this.button_cancel.TabIndex = 1;
             this.button_cancel.Text = "Отмена";
             this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
             // button_ok
             // 
@@ -173,6 +174,7 @@
             this.button_ok.TabIndex = 0;
             this.button_ok.Text = "Ок";
             this.button_ok.UseVisualStyleBackColor = true;
+            this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
             // comboBox_refPrintersType
             // 
