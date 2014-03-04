@@ -30,6 +30,7 @@
         {
             this.statusStrip_mainBottom = new System.Windows.Forms.StatusStrip();
             this.tSSLabel_info = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSSLabel_mailChecker = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl_top = new System.Windows.Forms.TabControl();
             this.statusStrip_mainBottom.SuspendLayout();
             this.SuspendLayout();
@@ -37,7 +38,8 @@
             // statusStrip_mainBottom
             // 
             this.statusStrip_mainBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSSLabel_info});
+            this.tSSLabel_info,
+            this.tSSLabel_mailChecker});
             this.statusStrip_mainBottom.Location = new System.Drawing.Point(0, 413);
             this.statusStrip_mainBottom.Name = "statusStrip_mainBottom";
             this.statusStrip_mainBottom.Size = new System.Drawing.Size(732, 22);
@@ -47,8 +49,16 @@
             // tSSLabel_info
             // 
             this.tSSLabel_info.Name = "tSSLabel_info";
-            this.tSSLabel_info.Size = new System.Drawing.Size(77, 17);
+            this.tSSLabel_info.Size = new System.Drawing.Size(588, 17);
+            this.tSSLabel_info.Spring = true;
             this.tSSLabel_info.Text = "tSSLabel_info";
+            this.tSSLabel_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tSSLabel_mailChecker
+            // 
+            this.tSSLabel_mailChecker.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.tSSLabel_mailChecker.Name = "tSSLabel_mailChecker";
+            this.tSSLabel_mailChecker.Size = new System.Drawing.Size(0, 17);
             // 
             // tabControl_top
             // 
@@ -71,6 +81,7 @@
             this.Name = "fMain";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fMain_FormClosed);
             this.Shown += new System.EventHandler(this.fMain_Shown);
             this.statusStrip_mainBottom.ResumeLayout(false);
             this.statusStrip_mainBottom.PerformLayout();
@@ -84,6 +95,7 @@
         private System.Windows.Forms.StatusStrip statusStrip_mainBottom;
         private System.Windows.Forms.ToolStripStatusLabel tSSLabel_info;
         private System.Windows.Forms.TabControl tabControl_top;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_mailChecker;
     }
 }
 
