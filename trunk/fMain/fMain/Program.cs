@@ -48,10 +48,16 @@ namespace com.sbs.gui.main
             try
             {
                 loadProgramModules((List<string>)xResultSet[1]);
+                loadAutorunModules();
             }
             catch (Exception exc) { uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); return; }
 
             Application.Run(new fMain((DataTable)xResultSet[0]));
+        }
+
+        private static void loadAutorunModules()
+        {
+            
         }
 
         private static void loadProgramModules(List<string> pArrayModules)
@@ -62,9 +68,29 @@ namespace com.sbs.gui.main
 #if DEBUG
                 //Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
                 Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str);
-#else
-                Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
+
+                Assembly assembly = Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
                     new Evidence( Assembly.GetExecutingAssembly().Evidence ));
+
+                if (str == "mailChecker.dll")   // если проверка почты
+                {
+                    Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
+                    MethodInfo methodInfo = type.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(type, null);
+                    methodInfo.Invoke(classInstance, null);
+                }
+
+#else
+                Assembly assembly = Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
+                    new Evidence( Assembly.GetExecutingAssembly().Evidence ));
+
+                if (str == "mailChecker.dll")   // если проверка почты
+                {
+                    Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
+                    MethodInfo methodInfo = type.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(type, null);
+                    methodInfo.Invoke(classInstance, null);
+                }
 #endif
             }
             catch (Exception exc) { throw exc; }

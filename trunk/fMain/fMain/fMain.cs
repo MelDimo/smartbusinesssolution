@@ -9,18 +9,57 @@ using System.Windows.Forms;
 using com.sbs.dll;
 using System.Diagnostics;
 using System.Reflection;
+using System.ServiceModel;
+using System.Threading;
+using System.Messaging;
 
 namespace com.sbs.gui.main
 {
     public partial class fMain : Form
     {
+        DTO.Message oMessage = new DTO.Message();
+        Thread msgListner;
+
         public fMain(DataTable pDtMnu)
         {
+            
             InitializeComponent();
 
             this.Text = GValues.prgNameFull;
 
             createMnu(pDtMnu);
+
+            msgListner = new Thread(monitorMessage);
+            msgListner.Start();
+
+        }
+
+        private void monitorMessage()
+        {
+            if (!MessageQueue.Exists(@".\Private$\SBSInnerMessage")) MessageQueue.Create(@".\Private$\SBSInnerMessage");
+
+            MessageQueue messageQueue = new MessageQueue(@".\Private$\SBSInnerMessage");
+            messageQueue.Purge();
+
+            while (true)
+            {
+                System.Messaging.Message[] messages = messageQueue.GetAllMessages();
+                foreach (System.Messaging.Message message in messages)
+                {
+                    message.Formatter = new XmlMessageFormatter(new Type[] { typeof(DTO.Message) });
+                    oMessage = (DTO.Message)message.Body;
+                    switch(oMessage.id)
+                    {
+                        case "MESSAGE_UNSEEN": // Непрочитанные сообщения
+                            setMailInfo(oMessage);  
+                            break;
+                    }
+                }
+                // after all processing, delete all the messages
+                messageQueue.Purge();
+
+                Thread.Sleep(5000);
+            }
         }
 
         private void createMnu(DataTable pDtMnu)
@@ -37,7 +76,6 @@ namespace com.sbs.gui.main
                 mnuItem.Name = dr["id"].ToString();
                 mnuItem.Tag = dr["assembly_name"].ToString();
                 mnuItem.Click += new EventHandler(mnuItem_Click);
-
 
                 foreach (ToolStripMenuItem parentItem in mainMnu.Items.Find(dr["id_parent"].ToString(), true))
                 {
@@ -134,6 +172,18 @@ namespace com.sbs.gui.main
                     form.Activate();
                 }
             }
+        }
+
+        public void setMailInfo(DTO.Message oMessage)
+        {
+            Debug.Print("int.Parse(oMessage.Body) > 0 :" + (int.Parse(oMessage.Body) > 0));
+            tSSLabel_mailChecker.Text = int.Parse(oMessage.Body) > 0 ? oMessage.Header + oMessage.Body : "";
+        }
+
+        private void fMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (msgListner != null)
+                if (msgListner.IsAlive) msgListner.Abort();
         }
     }
 }
