@@ -31,15 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.toolStrip_top = new System.Windows.Forms.ToolStrip();
             this.tSButton_recive = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_config = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSButton_config = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom = new System.Windows.Forms.StatusStrip();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView_postBox = new System.Windows.Forms.DataGridView();
-            this.webBrowser_content = new System.Windows.Forms.WebBrowser();
             this.from = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dateIncoming = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.webBrowser_content = new System.Windows.Forms.WebBrowser();
             this.toolStrip_top.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_postBox)).BeginInit();
@@ -67,6 +67,12 @@
             this.tSButton_recive.Size = new System.Drawing.Size(23, 22);
             this.tSButton_recive.Text = "tSButton_recive";
             this.tSButton_recive.ToolTipText = "Получить почту";
+            this.tSButton_recive.Click += new System.EventHandler(this.tSButton_recive_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tSButton_config
             // 
@@ -77,11 +83,6 @@
             this.tSButton_config.Size = new System.Drawing.Size(23, 22);
             this.tSButton_config.Text = "tSButton_config";
             this.tSButton_config.ToolTipText = "Настройки";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // statusStrip_bottom
             // 
@@ -126,15 +127,6 @@
             this.dataGridView_postBox.Size = new System.Drawing.Size(280, 431);
             this.dataGridView_postBox.TabIndex = 0;
             // 
-            // webBrowser_content
-            // 
-            this.webBrowser_content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser_content.Location = new System.Drawing.Point(289, 3);
-            this.webBrowser_content.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser_content.Name = "webBrowser_content";
-            this.webBrowser_content.Size = new System.Drawing.Size(526, 431);
-            this.webBrowser_content.TabIndex = 1;
-            // 
             // from
             // 
             this.from.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
@@ -157,6 +149,15 @@
             this.dateIncoming.Name = "dateIncoming";
             this.dateIncoming.ReadOnly = true;
             this.dateIncoming.Width = 58;
+            // 
+            // webBrowser_content
+            // 
+            this.webBrowser_content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser_content.Location = new System.Drawing.Point(289, 3);
+            this.webBrowser_content.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser_content.Name = "webBrowser_content";
+            this.webBrowser_content.Size = new System.Drawing.Size(526, 431);
+            this.webBrowser_content.TabIndex = 1;
             // 
             // fMain
             // 

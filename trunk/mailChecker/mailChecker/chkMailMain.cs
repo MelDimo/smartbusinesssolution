@@ -5,80 +5,88 @@ using System.Text;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net.Security;
-using ActiveUp.Net.Mail;
+using System.IO;
+using System.Diagnostics;
+using System.Reflection;
+using System.Messaging;
+using System.Text.RegularExpressions;
+using com.sbs.dll.utilites;
+using System.Drawing;
 
 namespace com.sbs.dll.mailChecker
 {
     public class ChkMailMain
     {
+        Thread chkMailThread;
+        
         public void run()
         {
-            //Thread chkThread = new Thread(new Checker().run);
-            //chkThread.Name = "thrChkMail";
-            //chkThread.Start();
+            chkMailThread = new Thread(new Checker().run);
+            chkMailThread.IsBackground = true;
+            chkMailThread.Start();
 
-            Checker chk = new Checker();
-            chk.run();
+            return;
         }
+
+        public void stop()
+        {
+            if (chkMailThread != null)
+                if (chkMailThread.IsAlive) chkMailThread.Abort();
+        }
+
     }
 
     public class Checker
-    { 
+    {
+        DTO.Message msg = new DTO.Message();
+        DTO.Mail mail = new DTO.Mail();
+
+        string username = "meldimo@gmail.com", password = "dimon_google";
+
         public void run()
         {
-            MailRepository rep = new MailRepository("imap.gmail.com", 993, true, @"meldimo@gmail.com", "dimon_google");
-            checkMail(rep);
+            while (true)
+            {
+                try
+                {
+                    getUnseenMessage();
+                }
+                catch (Exception exc)
+                {
+                    Debug.Print(exc.Message);
+                }
+
+                Thread.Sleep(5000);
+            }
             
         }
 
-        private void checkMail(MailRepository pRep)
+        private void getUnseenMessage()
         {
-            foreach (Message email in pRep.GetAllMails("INBOX"))
-            {
-                continue;
-            }
-        }
-    }
+            msg = new DTO.Message();
+            int cntUnseenMessage = 0;
 
-    public class MailRepository
-    {
-        private Imap4Client _client = null;
-
-        public MailRepository(string mailServer, int port, bool ssl, string login, string password)
-        {
-            if (ssl)
-                Client.ConnectSsl(mailServer, port);
-            else
-                Client.Connect(mailServer, port);
-
-            Client.Login(login, password);
+            
+            msg.id = "MESSAGE_UNSEEN";
+            msg.Header = "Непрочитанных сообщений:";
+            msg.Body = cntUnseenMessage.ToString();
+            sendMessage(msg);
         }
 
-        public IEnumerable<Message> GetAllMails(string mailBox)
+        private void sendMessage(DTO.Message pMsg)
         {
-            return GetMails(mailBox, "ALL").Cast<Message>();
+            MessageQueue myQueue = new MessageQueue(".\\Private$\\SBSInnerMessage");
+            myQueue.Send(pMsg);
         }
 
-        public IEnumerable<Message> GetUnreadMails(string mailBox)
+        internal List<DTO.Mail> getMail(int pCurCount, int pStepMail)
         {
-            return GetMails(mailBox, "UNSEEN").Cast<Message>();
+            List<DTO.Mail> lMail = new List<DTO.Mail>();
+            DTO.Mail oMail = new DTO.Mail();
+
+
+            return lMail;
         }
 
-        protected Imap4Client Client
-        {
-            get
-            {
-                if (_client == null)
-                    _client = new Imap4Client();
-                return _client;
-            }
-        }
-
-        private MessageCollection GetMails(string mailBox, string searchPhrase)
-        {
-            Mailbox mails = Client.SelectMailbox(mailBox);
-            MessageCollection messages = mails.SearchParse(searchPhrase);
-            return messages;
-        }
-    }
+    }   
 }
