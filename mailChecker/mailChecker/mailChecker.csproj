@@ -31,20 +31,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ActiveUp.Net.Common">
-      <HintPath>..\..\Install\MailSystem.NET.December.2009\Release\ActiveUp.Net.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ActiveUp.Net.Imap4">
-      <HintPath>..\..\Install\MailSystem.NET.December.2009\Release\ActiveUp.Net.Imap4.dll</HintPath>
+    <Reference Include="DTO">
+      <HintPath>..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="utilites">
+      <HintPath>..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBAccess.cs" />
@@ -61,6 +62,7 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ChkMailMain.cs" />
+    <Compile Include="Pop3MailClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
