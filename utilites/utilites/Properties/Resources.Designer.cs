@@ -74,17 +74,27 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
-        public static byte[] android_sms_new {
+        public static System.IO.UnmanagedMemoryStream Afternoon_Ding {
             get {
-                object obj = ResourceManager.GetObject("android_sms_new", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("Afternoon_Ding", resourceCulture);
             }
         }
         
-        public static byte[] celtic_irish {
+        public static System.IO.UnmanagedMemoryStream Afternoon_Notify {
             get {
-                object obj = ResourceManager.GetObject("celtic_irish", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetStream("Afternoon_Notify", resourceCulture);
+            }
+        }
+        
+        public static System.IO.UnmanagedMemoryStream Cityscape_Ding {
+            get {
+                return ResourceManager.GetStream("Cityscape_Ding", resourceCulture);
+            }
+        }
+        
+        public static System.IO.UnmanagedMemoryStream Cityscape_Notify {
+            get {
+                return ResourceManager.GetStream("Cityscape_Notify", resourceCulture);
             }
         }
         
@@ -186,13 +196,6 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
-        public static byte[] kill_bill___whistle {
-            get {
-                object obj = ResourceManager.GetObject("kill_bill___whistle", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         public static System.Drawing.Bitmap left_26 {
             get {
                 object obj = ResourceManager.GetObject("left_26", resourceCulture);
@@ -204,20 +207,6 @@ namespace com.sbs.dll.utilites.Properties {
             get {
                 object obj = ResourceManager.GetObject("lock_26", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static byte[] lone_ranger_theme {
-            get {
-                object obj = ResourceManager.GetObject("lone_ranger_theme", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        public static byte[] loud_alarm {
-            get {
-                object obj = ResourceManager.GetObject("loud_alarm", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -274,13 +263,6 @@ namespace com.sbs.dll.utilites.Properties {
             get {
                 object obj = ResourceManager.GetObject("splash_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        public static byte[] tequila {
-            get {
-                object obj = ResourceManager.GetObject("tequila", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }
