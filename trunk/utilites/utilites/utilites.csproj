@@ -228,22 +228,16 @@
     <None Include="Resources\services-26.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\kill_bill___whistle.mp3" />
+    <None Include="Resources\Afternoon_Notify.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\lone_ranger_theme.mp3" />
+    <None Include="Resources\Cityscape_Ding.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\loud_alarm.mp3" />
+    <None Include="Resources\Cityscape_Notify.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tequila.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\android_sms_new.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\celtic_irish.mp3" />
+    <None Include="Resources\Afternoon_Ding.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
