@@ -4,18 +4,28 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Data.Linq.SqlClient;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace com.sbs.dll.utilites
 {
     public partial class fChooser : Form
     {
         public Object[] xData;
+        
+        private DataTable dtSource = new DataTable(); // Зесь храню таблицу котороя отображается в гриде
 
         private string sourceName;  // Расматриваю значение и принимаю решение какие данные возвращать
+        private string field4QuickSearch = string.Empty; // Поле по которому происходит быстрый поиск. если пусто быстрого поиска нет
+        private string field4QuickIndex = string.Empty; // Поле по которому происходит быстрый поиск. если пусто быстрого поиска нет
 
         private bool isSelected = false;
+
+        private string strSearch = string.Empty;
+        private int intSearch = 0;
+
 
         /// <summary>
         /// Форма отображает табличные данные для выбора
@@ -24,6 +34,17 @@ namespace com.sbs.dll.utilites
         public fChooser(string pSourceName)
         {
             sourceName = pSourceName;
+
+            InitializeComponent();
+
+            dataGridView_main.AutoGenerateColumns = false;
+        }
+
+        public fChooser(string pSourceName, string pField4QuickSearch, string pField4QuickIndex)
+        {
+            sourceName = pSourceName;
+            field4QuickSearch = pField4QuickSearch;
+            field4QuickIndex = pField4QuickIndex;
 
             InitializeComponent();
 
@@ -42,7 +63,35 @@ namespace com.sbs.dll.utilites
                 case Keys.Escape:
                     Close();
                     break;
+            }
 
+            if (Char.IsLetter((char)e.KeyCode) && !field4QuickSearch.Equals(string.Empty))
+            {
+                if (!panel_bottom.Visible)
+                {
+                    panel_bottom.Visible = true;
+                    //textBox_search.Text = ((char)e.KeyCode).ToString();
+                    textBox_search.Focus();
+                }
+            }
+        }
+
+        private void showStrSearch(string pChar4Search)
+        {
+            var result = from row in dtSource.AsEnumerable()
+                         where row.Field<string>(field4QuickSearch).ToUpper().StartsWith(pChar4Search.ToUpper())
+                         select row;
+
+            if (result.Count() == 0) return;
+
+            intSearch = result.First().Field<int>(field4QuickIndex);
+
+            foreach (DataGridViewRow dr in dataGridView_main.Rows)
+            {
+                if ((int)dr.Cells[field4QuickIndex].Value == intSearch)
+                {
+                    dataGridView_main.CurrentCell = dr.Cells[1];
+                }
             }
         }
 
@@ -311,6 +360,27 @@ namespace com.sbs.dll.utilites
         {
             if (isSelected) DialogResult = DialogResult.OK;
             else DialogResult = DialogResult.Cancel;
+        }
+
+        private void fChooser_Shown(object sender, EventArgs e)
+        {
+            dtSource = (DataTable)dataGridView_main.DataSource;
+        }
+
+        private void textBox_search_TextChanged(object sender, EventArgs e)
+        {
+            showStrSearch(textBox_search.Text);
+        }
+
+        private void textBox_search_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.Escape:
+                    dataGridView_main.Focus();
+                    panel_bottom.Visible = false;
+                    break;
+            }
         }
     }
 }

@@ -74,6 +74,20 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static byte[] android_sms_new {
+            get {
+                object obj = ResourceManager.GetObject("android_sms_new", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        public static byte[] celtic_irish {
+            get {
+                object obj = ResourceManager.GetObject("celtic_irish", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap close_26 {
             get {
                 object obj = ResourceManager.GetObject("close_26", resourceCulture);
@@ -102,6 +116,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap config_26 {
+            get {
+                object obj = ResourceManager.GetObject("config_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap copy_26 {
             get {
                 object obj = ResourceManager.GetObject("copy_26", resourceCulture);
@@ -112,6 +133,13 @@ namespace com.sbs.dll.utilites.Properties {
         public static System.Drawing.Bitmap delete_26 {
             get {
                 object obj = ResourceManager.GetObject("delete_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap delete_26_1 {
+            get {
+                object obj = ResourceManager.GetObject("delete_26_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -158,6 +186,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static byte[] kill_bill___whistle {
+            get {
+                object obj = ResourceManager.GetObject("kill_bill___whistle", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap left_26 {
             get {
                 object obj = ResourceManager.GetObject("left_26", resourceCulture);
@@ -172,9 +207,37 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static byte[] lone_ranger_theme {
+            get {
+                object obj = ResourceManager.GetObject("lone_ranger_theme", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        public static byte[] loud_alarm {
+            get {
+                object obj = ResourceManager.GetObject("loud_alarm", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap menu_26 {
             get {
                 object obj = ResourceManager.GetObject("menu_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap msg_26 {
+            get {
+                object obj = ResourceManager.GetObject("msg_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap msg_black_26 {
+            get {
+                object obj = ResourceManager.GetObject("msg_black_26", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -211,6 +274,13 @@ namespace com.sbs.dll.utilites.Properties {
             get {
                 object obj = ResourceManager.GetObject("splash_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static byte[] tequila {
+            get {
+                object obj = ResourceManager.GetObject("tequila", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

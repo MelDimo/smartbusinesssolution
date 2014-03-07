@@ -142,7 +142,6 @@
   <data name="delete_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete_26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="documents_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\documents-26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -184,5 +183,36 @@
   </data>
   <data name="splash_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\splash_1.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="msg_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\message_outline-26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="msg_black_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\message-26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="android_sms_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\android_sms_new.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="celtic_irish" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\celtic_irish.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="config_26" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\services-26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete_26_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete-26.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kill_bill___whistle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kill_bill___whistle.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lone_ranger_theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lone_ranger_theme.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="loud_alarm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\loud_alarm.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tequila" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tequila.mp3;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
