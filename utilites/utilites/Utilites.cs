@@ -687,7 +687,7 @@ namespace com.sbs.dll.utilites
                                             " cd.ref_status, stat.name as ref_status_name" +
                                         " FROM carte_dishes cd" +
                                         " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
-                                        " INNER JOIN ref_status stat ON stat.id = cdg.ref_status" +
+                                        " INNER JOIN ref_status stat ON stat.id = cd.ref_status" +
                                         " INNER JOIN ref_printers_type rpt ON rpt.id = cd.ref_printers_type" +
                                         " WHERE cd.carte_dishes_group = @pCarteDishesGroup";
 
@@ -724,7 +724,8 @@ namespace com.sbs.dll.utilites
                                         " FROM ref_dishes rd" +
                                         " INNER JOIN ref_printers_type rpt ON rpt.id = rd.ref_printers_type" +
                                         " INNER JOIN ref_status rs ON rs.id = rd.ref_status" +
-                                        " WHERE rd.ref_status = @ref_status";
+                                        " WHERE rd.ref_status = @ref_status" +
+                                        " ORDER BY rd.name";
 
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 
@@ -919,6 +920,37 @@ namespace com.sbs.dll.utilites
                                         " WHERE ref_status = @ref_status";
 
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getEmailUser(string pDbType, int pUserId)
+        {
+            DataTable dtResult = new DataTable();
+            
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT users, email, login, pwd " +
+                                        " FROM users_email " +
+                                        " WHERE users = @users";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = pUserId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

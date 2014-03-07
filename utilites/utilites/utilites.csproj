@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -210,6 +211,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\selectedBC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\message_outline-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\message-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\services-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kill_bill___whistle.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lone_ranger_theme.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loud_alarm.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tequila.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\android_sms_new.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\celtic_irish.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

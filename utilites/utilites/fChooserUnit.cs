@@ -176,5 +176,10 @@ namespace com.sbs.dll.utilites
         {
             inItem();
         }
+
+        private void button_select_Click(object sender, EventArgs e)
+        {
+            inItem();
+        }
     }
 }
