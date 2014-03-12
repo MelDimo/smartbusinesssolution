@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
+using System.Messaging;
 
 namespace com.sbs.gui.users
 {
@@ -19,6 +20,8 @@ namespace com.sbs.gui.users
         DataTable dtOrg = new DataTable();
         DataTable dtBranch = new DataTable();
         DataTable dtUnit = new DataTable();
+
+        getReference oReferences = new getReference();
 
         public fUsers()
         {
@@ -46,6 +49,7 @@ namespace com.sbs.gui.users
             tSButton_doc.Image = com.sbs.dll.utilites.Properties.Resources.doc_26;
             tSButton_applyFilter.Image = com.sbs.dll.utilites.Properties.Resources.filter_26;
             tSButton_acl.Image = com.sbs.dll.utilites.Properties.Resources.key_26;
+            tSButton_mail.Image = com.sbs.dll.utilites.Properties.Resources.msg_black_26;
         }
 
         private void initReferences()
@@ -511,6 +515,40 @@ namespace com.sbs.gui.users
                     facl.ShowDialog();
                     break;
             }
+        }
+
+        private void tSButton_mail_Click(object sender, EventArgs e)
+        {
+            int xUserGroupId;
+            string xUserGroupName;
+            DataTable dtEmail = new DataTable();
+            
+
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.",
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            xUserGroupId = (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value;
+            xUserGroupName = dataGridView_main.SelectedRows[0].Cells["user_fio"].Value.ToString();
+
+            try
+            {
+                dtEmail = oReferences.getEmailUser("offline", xUserGroupId);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось получить информацию по сотруднику.", exc, SystemIcons.Information);
+                return;
+            }
+
+            fUserMail fMail = new fUserMail();
+            fMail.dtMail = dtEmail;
+            fMail.userID = xUserGroupId;
+            fMail.userName = xUserGroupName;
+            fMail.ShowDialog();
         }
     }
 }
