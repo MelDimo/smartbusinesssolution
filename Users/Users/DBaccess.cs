@@ -783,5 +783,38 @@ namespace com.sbs.gui.users
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) { con.Close(); } }
         }
+
+        #region email
+
+        public void saveEmailUser(string pDbType, object[] pOParam)
+        {
+            int xUsersId = (int)pOParam[0];
+            string xEMail = pOParam[1].ToString();
+            string xLogIn = pOParam[2].ToString();
+            string xPwd = pOParam[3].ToString();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "Users_saveEmail";
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add("@pUsers", SqlDbType.Int).Value = xUsersId;
+                command.Parameters.Add("@pLogIn", SqlDbType.NVarChar).Value = xLogIn;
+                command.Parameters.Add("@pPwd", SqlDbType.NVarChar).Value = xPwd;
+                command.Parameters.Add("@xEMail", SqlDbType.NVarChar).Value = xEMail;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { con.Close(); } }
+        }
+
+        #endregion
     }
 }
