@@ -44,7 +44,6 @@ namespace com.sbs.gui.dashboard
             com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
             oDish.id = oCtrDishes.id;
             oDish.name = oCtrDishes.label_name.Text;
-            oDish.portion = oCtrDishes.label_portion.Text;
             oDish.price = decimal.Parse(oCtrDishes.label_price.Text);
             oDish.count = oCtrDishes.numericUpDown_count.Value;
 

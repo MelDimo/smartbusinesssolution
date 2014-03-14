@@ -19,7 +19,7 @@ namespace com.sbs.gui.dashboard
         DBaccess dbAccess = new DBaccess();
         Suppurt Supp = new Suppurt();
 
-        enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES };
+        enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES, REFUSE };
         groupBox _curGroupBox;
         groupBox curGroupBox
         {
@@ -35,14 +35,13 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = true;
                         //groupBox_billDish.Enabled = false;
                         //groupBox_billInfo.Enabled = false;
                         //groupBox_groups.Enabled = false;
                         //groupBox_dish.Enabled = false;
-
-                        Debug.Print("SET groupBox_bills.BorderColor");
                         break;
 
                     case groupBox.BILLDISH:
@@ -51,14 +50,13 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = false;
                         //groupBox_billDish.Enabled = true;
                         //groupBox_billInfo.Enabled = false;
                         //groupBox_groups.Enabled = false;
                         //groupBox_dish.Enabled = false;
-
-                        Debug.Print("SET groupBox_billDish.BorderColor");
                         break;
 
                     case groupBox.BILLINFO:
@@ -67,14 +65,13 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Blue;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = false;
                         //groupBox_billDish.Enabled = false;
                         //groupBox_billInfo.Enabled = true;
                         //groupBox_groups.Enabled = false;
                         //groupBox_dish.Enabled = false;
-
-                        Debug.Print("SET groupBox_billInfo.BorderColor");
                         break;
 
                     case groupBox.DISHES:
@@ -83,14 +80,13 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Blue;
+                        groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = false;
                         //groupBox_billDish.Enabled = false;
                         //groupBox_billInfo.Enabled = false;
                         //groupBox_groups.Enabled = false;
                         //groupBox_dish.Enabled = true;
-
-                        Debug.Print("SET groupBox_dish.BorderColor");
                         break;
 
                     case groupBox.GROUP:
@@ -99,14 +95,28 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Blue;
                         groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = false;
                         //groupBox_billDish.Enabled = false;
                         //groupBox_billInfo.Enabled = false;
                         //groupBox_groups.Enabled = true;
                         //groupBox_dish.Enabled = false;
+                        break;
 
-                        Debug.Print("SET groupBox_groups.BorderColor");
+                    case groupBox.REFUSE:
+                        groupBox_bills.BorderColor = Color.Gray;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_refuse.BorderColor = Color.Blue;
+
+                        //groupBox_bills.Enabled = false;
+                        //groupBox_billDish.Enabled = false;
+                        //groupBox_billInfo.Enabled = false;
+                        //groupBox_groups.Enabled = true;
+                        //groupBox_dish.Enabled = false;
                         break;
                 }
                 this.Refresh();
@@ -136,6 +146,8 @@ namespace com.sbs.gui.dashboard
             if (!errorOnInit) Close();
 
             showBill();
+
+            tSSLabel_fio.Text = DashboardEnvironment.gUser.name;
         }
 
         #region ----------------------------------------------------------------- Наполняем объекты
@@ -236,7 +248,6 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes = new ctrDishes();
                 oCtrDishes.id = oDish.id;
                 oCtrDishes.label_name.Text = oDish.name;
-                oCtrDishes.label_portion.Text = oDish.portion;
                 oCtrDishes.label_price.Text = oDish.price.ToString("F2");
                 oCtrDishes.numericUpDown_count.Value = oDish.count;
 
@@ -273,14 +284,39 @@ namespace com.sbs.gui.dashboard
 
             treeView_CarteGroups.Focus();
 
+            // Подгружаем висяки
+            getRefuse();
+
             panel_dishes.BringToFront();
+        }
+
+        private void getRefuse()
+        {
+            ctrDishesRefuse oCtrDishesRefuse;
+            List<DTO_DBoard.DishRefuse> lDishesRefuse;
+            try 
+            {
+                lDishesRefuse = dbAccess.getRefuse("offline");
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка получения отказных позиций." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                return;
+            }
+
+            foreach (DTO_DBoard.DishRefuse oDishRefuse in lDishesRefuse)
+            {
+                oCtrDishesRefuse = new ctrDishesRefuse(oDishRefuse);
+
+            }
+
         }
 
         #region ----------------------------------------------------------------- Редактирование заказа
         
         private void showBillInfo()
         {
-            flowLayoutPanel_billEdit.Controls.Clear();
+            panel_billInfo.Controls.Clear();
 
             ctrBill oCtrBill = new ctrBill();
 
@@ -289,6 +325,7 @@ namespace com.sbs.gui.dashboard
             oCtrBill.label_numbBill.Text = curBill.numb.ToString();
             oCtrBill.label_numbTable.Text = curBill.table.ToString();
             oCtrBill.label_refStatusName.Text = curBill.refStatName;
+            oCtrBill.label_summ.Visible = false;
             switch (curBill.refStat)
             {
                 case 20:
@@ -306,6 +343,8 @@ namespace com.sbs.gui.dashboard
 
             panel_billInfo.Controls.Add(oCtrBill);
 
+            flowLayoutPanel_billEdit.Controls.Clear();
+
             foreach (DTO_DBoard.Dish oDish in lDishs)
             {
                 oCtrDishesSmall = new ctrDishesSmall(oDish);
@@ -315,7 +354,7 @@ namespace com.sbs.gui.dashboard
 
                 oCtrDishesSmall.TabStop = false;
 
-                oCtrDishesSmall.Width = flowLayoutPanel_billEdit.Width - 10;
+                oCtrDishesSmall.Width = flowLayoutPanel_billEdit.Width - 25;
 
                 flowLayoutPanel_billEdit.Controls.Add(oCtrDishesSmall);
             }
@@ -327,7 +366,7 @@ namespace com.sbs.gui.dashboard
         {
             oCtrDishesSmall = (ctrDishesSmall)((Button)sender).Parent;
             fDishToBill_ACTION fDishAction = new fDishToBill_ACTION(curBill, oCtrDishesSmall.oDish);
-            if (fDishAction.ShowDialog() == DialogResult.Cancel)
+            if (fDishAction.ShowDialog() != DialogResult.OK)
             {
                 fDishAction.Dispose();
                 return;
@@ -411,8 +450,8 @@ namespace com.sbs.gui.dashboard
             {
                 oCtrDishes = new ctrDishes();
                 oCtrDishes.id = (int)dr["id"];
+                oCtrDishes.maxStep = (decimal)dr["minStep"];
                 oCtrDishes.label_name.Text = dr["name"].ToString();
-                oCtrDishes.label_portion.Text = dr["portion"].ToString();
                 oCtrDishes.label_price.Text = dr["price"].ToString();
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
@@ -421,7 +460,7 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.numericUpDown_count.Visible = false;
 
-                oCtrDishes.Width = flowLayoutPanel_dish.Width - 10;
+                oCtrDishes.Width = flowLayoutPanel_dish.Width - 25;
 
                 flowLayoutPanel_dish.Controls.Add(oCtrDishes);
             }
@@ -429,7 +468,7 @@ namespace com.sbs.gui.dashboard
 
         private void Dish_button_host_Click(object sender, EventArgs e)
         {
-            com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
+            //com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
             ctrDishes oCtrDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
 
             fAddDishToBill faddDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
@@ -449,13 +488,11 @@ namespace com.sbs.gui.dashboard
             switch (keyData)
             {
                 case Keys.Up:
-                    if (curGroupBox != groupBox.GROUP)
-                        SendKeys.Send("+{TAB}");
+                    if (curGroupBox != groupBox.GROUP) SendKeys.Send("+{TAB}");
                     break;
 
                 case Keys.Down:
-                    if (curGroupBox != groupBox.GROUP)
-                        SendKeys.Send("{TAB}");
+                    if (curGroupBox != groupBox.GROUP) SendKeys.Send("{TAB}");
                     break;
 
                 case Keys.Left | Keys.Control:
@@ -465,6 +502,14 @@ namespace com.sbs.gui.dashboard
                 case Keys.Right | Keys.Control:
                     changeGroup("RIGHT");
                     break;
+
+                case Keys.Down | Keys.Control:
+                    if (curGroupBox == groupBox.GROUP) changeGroup("DOWN");
+                    break;
+
+                case Keys.Up | Keys.Control:
+                    if (curGroupBox == groupBox.REFUSE) changeGroup("UP");
+                    break;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -472,7 +517,7 @@ namespace com.sbs.gui.dashboard
 
         private void changeGroup(string pDirection)
         {
-            Debug.Print(curGroupBox.ToString() + " | " + "pDirection: " + pDirection);
+            //Debug.Print(curGroupBox.ToString() + " | " + "pDirection: " + pDirection);
             switch (curGroupBox)
             { 
                 case groupBox.BILL:
@@ -543,8 +588,60 @@ namespace com.sbs.gui.dashboard
 
                             curGroupBox = groupBox.DISHES;
                             break;
+
+                        case "DOWN":
+                            if (flowLayoutPanel_refuse.Controls.Count > 0)
+                            {
+                                ;
+                            }
+                            else 
+                                button_trapFocus.Focus();
+
+                            curGroupBox = groupBox.REFUSE;
+                            break;
                     }
                     break;
+
+                case groupBox.REFUSE:
+                    switch (pDirection)
+                    {
+                        case "UP":
+                            treeView_CarteGroups.Focus();
+                            curGroupBox = groupBox.GROUP;
+                            break;
+
+                        case "LEFT":
+                            if (flowLayoutPanel_billEdit.Controls.Count > 1)
+                            {
+                                foreach (ctrDishesSmall ctr in flowLayoutPanel_billEdit.Controls)
+                                {
+                                    ctr.TabStop = true;
+                                }
+                                flowLayoutPanel_billEdit.Controls[0].Focus();
+                            }
+                            else 
+                                button_trapFocus.Focus();
+
+                            curGroupBox = groupBox.BILLINFO;
+                            break;
+
+                        case "RIGHT":
+                            if (flowLayoutPanel_dish.Controls.Count > 0)
+                            {
+                                foreach (ctrDishes ctr in flowLayoutPanel_dish.Controls)
+                                {
+                                    ctr.TabStop = true;
+                                }
+                                flowLayoutPanel_dish.Controls[0].Focus();
+                            }
+                            else
+                                button_trapFocus.Focus();
+
+                            curGroupBox = groupBox.DISHES;
+                            break;
+                    }
+                    break;
+
             }
         }
 
@@ -625,8 +722,7 @@ namespace com.sbs.gui.dashboard
                     strMsg.AppendLine("- " + oDish.name + ", в количестве: " + oDish.count);
             }
 
-            if (strMsg.ToString().Equals("В счете присутствуют следующие необработанные позиции." + Environment.NewLine)) return true; // Все ровно, все позиции подтверждены (отправлены бигунки)
-
+            if (strMsg.ToString().Equals("В счете присутствуют следующие необработанные позиции." + Environment.NewLine))return true; // Все ровно, все позиции подтверждены (отправлены бигунки)
 
             strMsg.AppendLine("Если вы выйдите из режима редактирования счета, необработанные позиции исключатся из счета.");
             strMsg.AppendLine("Вы уверены, что хотите выйти из режима редактирования счета?");
@@ -651,6 +747,7 @@ namespace com.sbs.gui.dashboard
         {
             if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.GROUP)
             {
+
                 fillBills();
 
                 showBill();
@@ -694,6 +791,7 @@ namespace com.sbs.gui.dashboard
                 MessageBox.Show(xErrMessage, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            curBill = new DTO_DBoard.Bill();
 
             try
             {

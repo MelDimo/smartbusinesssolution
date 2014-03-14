@@ -17,6 +17,7 @@ namespace com.sbs.gui.dashboard
         private DTO_DBoard.Bill oBill;
 
         DBaccess dbAccess = new DBaccess();
+        Suppurt Supp = new Suppurt();
 
         public fDishToBill_ACTION(DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
         {
@@ -40,6 +41,27 @@ namespace com.sbs.gui.dashboard
 
         private void button_refuse_Click(object sender, EventArgs e)
         {
+            int xPriv = 0;
+            string xErrMessage = string.Empty;
+
+            switch (oDish.refStatus)
+            {
+                case 23:        // Позиция в счете нового блюда
+                    xPriv = 16; xErrMessage = "У Вас отсутствует привилегия на изменение количества блюда.";
+                    break;
+
+                case 24:        // Позиция была отправлена на изготовление
+                    xPriv = 15; xErrMessage = "У Вас отсутствует привилегия на изменение количества блюда отправленного на изготовление.";
+                    break;
+            }
+
+            // Проверяем привелегию отмены блюда
+            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+            {
+                MessageBox.Show(xErrMessage, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             fRefuse fref = new fRefuse();
             fref.trackBar_count.Minimum = 0;
             fref.trackBar_count.Maximum = int.Parse(oDish.count.ToString("F0"));
@@ -55,9 +77,13 @@ namespace com.sbs.gui.dashboard
             DialogResult = DialogResult.OK;
         }
 
-        private void refuseDish(int pNewCount)
+        #region --------------------------------------------------------------------- Отказы ---------------------------------------------
+
+        private void refuseDish(int pNewCount)  
         {
             dbAccess.dishRefuse("offline", oBill, oDish, pNewCount);
         }
+
+        #endregion
     }
 }
