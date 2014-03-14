@@ -300,10 +300,10 @@ namespace com.sbs.gui.dashboard
                 oDish.id = (int)dtResult.Rows[i]["id"];
                 oDish.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
                 oDish.name = dtResult.Rows[i]["dishes_name"].ToString();
-                oDish.portion = dtResult.Rows[i]["portion"].ToString();
                 oDish.price = (decimal)dtResult.Rows[i]["dishes_price"];
+                oDish.minStep = (decimal)dtResult.Rows[i]["minStep"];
                 oDish.count = (decimal)dtResult.Rows[i]["xcount"];
-                oDish.addDate = (DateTime)dtResult.Rows[i]["date_add"];
+                oDish.dateStatus = (DateTime)dtResult.Rows[i]["date_status"];
                 oDish.refStatus = (int)dtResult.Rows[i]["ref_status"];
                 oBillInfoList.Add(oDish);
             }
@@ -418,7 +418,7 @@ namespace com.sbs.gui.dashboard
 
                 #region carte_dishes
 
-                command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, portion, isvisible, ref_printers_type " +
+                command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, ref_printers_type " +
                                         " FROM carte_dishes " +
                                         (sGroup.Equals(string.Empty) ? string.Empty : " WHERE carte_dishes_group in (" + sGroup + ")"); 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -458,7 +458,6 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
                 command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
-                
 
                 command.ExecuteNonQuery();
 
@@ -530,7 +529,6 @@ namespace com.sbs.gui.dashboard
 
                 tx = con.BeginTransaction();
 
-                command.Connection = con;
                 command.Transaction = tx;
 
                 dtResult = printRunners(command, pBill); // Возвращаем перечень блюд для бегунка
@@ -538,11 +536,14 @@ namespace com.sbs.gui.dashboard
                 command.CommandText = "DishToBill_changeStatus";
                 command.CommandType = CommandType.StoredProcedure;
 
+                command.Parameters.Clear();
+
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
                 command.Parameters.Add("pStatusId", SqlDbType.Int).Value = 24; // Позиция была отправлена на изготовление
+                command.Parameters.Add("pDateStatus", SqlDbType.DateTime).Value = DateTime.Now;
                 
                 command.ExecuteNonQuery();
 
@@ -773,6 +774,52 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal List<DTO_DBoard.DishRefuse> getRefuse(string pDbType)
+        {
+            DTO_DBoard.DishRefuse oDishRefuse;
+            List<DTO_DBoard.DishRefuse> lDishesRefuse = new List<DTO_DBoard.DishRefuse>();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_refuseGet";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            for (int i = 0; i < dtResult.Rows.Count; i++)
+            {
+                oDishRefuse = new DTO_DBoard.DishRefuse();
+                oDishRefuse.id = (int)dtResult.Rows[i]["id"];
+                oDishRefuse.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
+                oDishRefuse.name = dtResult.Rows[i]["name"].ToString();
+                oDishRefuse.minStep = (decimal)dtResult.Rows[i]["minStep"];
+                oDishRefuse.count = (decimal)dtResult.Rows[i]["xcount"];
+                oDishRefuse.price = (decimal)dtResult.Rows[i]["price"];
+                oDishRefuse.refuseDate = (DateTime)dtResult.Rows[i]["date_refuse"];
+                oDishRefuse.refuseFio = dtResult.Rows[i]["fio"].ToString();
+                oDishRefuse.refPrintersType = (int)dtResult.Rows[i]["ref_printers_type"];
+                lDishesRefuse.Add(oDishRefuse);
+            }
+
+            return lDishesRefuse;
         }
     }
 

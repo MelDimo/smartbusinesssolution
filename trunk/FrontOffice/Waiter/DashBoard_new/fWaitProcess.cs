@@ -18,7 +18,7 @@ namespace com.sbs.gui.dashboard
         DTO_DBoard.Bill oBill;
         public string type;
 
-        public bool retflag = false;
+        public bool retflag;
 
         public fWaitProcess(string pType, DTO_DBoard.Bill pCurBill)
         {
@@ -105,20 +105,38 @@ namespace com.sbs.gui.dashboard
 
         private void fWaitProcess_Shown(object sender, EventArgs e)
         {
+            BackgroundWorker worThread = new BackgroundWorker();
+            worThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(runWorkerCompleted);
+
             switch (type)
             {
                 case "PRINTBILL":
                     label_actionName.Text = "Печать счета, подождите...";
-                    printBill();
-                    Close();
+                    worThread.DoWork += new DoWorkEventHandler(printBill_DoWork);
                     break;
 
                 case "PRINTDISH":
                     label_actionName.Text = "Печать бегунка, подождите...";
-                    printDish();
-                    Close();
+                    worThread.DoWork += new DoWorkEventHandler(printDish_DoWork);
                     break;
             }
+
+            worThread.RunWorkerAsync();
+        }
+
+        void printBill_DoWork(object sender, DoWorkEventArgs e)
+        {
+            printBill();
+        }
+
+        void printDish_DoWork(object sender, DoWorkEventArgs e)
+        {
+            printDish();
+        }
+
+        void runWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Close();
         }
     }
 }
