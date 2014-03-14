@@ -31,9 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActiveUp.Net.Common">
+      <HintPath>..\..\Install\MailSystem.NET.December.2009\Release\ActiveUp.Net.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiveUp.Net.Imap4">
+      <HintPath>..\..\Install\MailSystem.NET.December.2009\Release\ActiveUp.Net.Imap4.dll</HintPath>
+    </Reference>
+    <Reference Include="ActiveUp.Net.Mail">
+      <HintPath>..\..\Install\MailSystem.NET.December.2009\Release\ActiveUp.Net.Mail.dll</HintPath>
+    </Reference>
     <Reference Include="DTO">
       <HintPath>..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
     </Reference>
+    <Reference Include="GValues, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\fMain\fMain\GValues\bin\Release\GValues.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,6 +69,12 @@
     <Compile Include="fConfig.Designer.cs">
       <DependentUpon>fConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="fFormWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fFormWaiting.Designer.cs">
+      <DependentUpon>fFormWaiting.cs</DependentUpon>
+    </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,12 +82,14 @@
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
     <Compile Include="ChkMailMain.cs" />
-    <Compile Include="Pop3MailClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="fConfig.resx">
       <DependentUpon>fConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fFormWaiting.resx">
+      <DependentUpon>fFormWaiting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
