@@ -36,6 +36,10 @@
     <Reference Include="DTO">
       <HintPath>..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
     </Reference>
+    <Reference Include="GValues, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
