@@ -61,6 +61,12 @@
     <Compile Include="Controls\ctrDishes.Designer.cs">
       <DependentUpon>ctrDishes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ctrDishesRefuse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrDishesRefuse.Designer.cs">
+      <DependentUpon>ctrDishesRefuse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ctrDishesSmall.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrDishes.resx">
       <DependentUpon>ctrDishes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrDishesRefuse.resx">
+      <DependentUpon>ctrDishesRefuse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrDishesSmall.resx">
       <DependentUpon>ctrDishesSmall.cs</DependentUpon>
