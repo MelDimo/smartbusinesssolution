@@ -42,9 +42,12 @@
             this.button_ok = new System.Windows.Forms.Button();
             this.comboBox_refPrintersType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDown_minStep = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minStep)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox_id
@@ -90,9 +93,9 @@
             // 
             this.textBox_name.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_name.Location = new System.Drawing.Point(98, 57);
+            this.textBox_name.Location = new System.Drawing.Point(154, 57);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(345, 20);
+            this.textBox_name.Size = new System.Drawing.Size(358, 20);
             this.textBox_name.TabIndex = 42;
             // 
             // numericUpDown_price
@@ -105,20 +108,20 @@
             0,
             0,
             65536});
-            this.numericUpDown_price.Location = new System.Drawing.Point(98, 83);
+            this.numericUpDown_price.Location = new System.Drawing.Point(154, 109);
             this.numericUpDown_price.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             0});
             this.numericUpDown_price.Name = "numericUpDown_price";
-            this.numericUpDown_price.Size = new System.Drawing.Size(114, 20);
+            this.numericUpDown_price.Size = new System.Drawing.Size(183, 20);
             this.numericUpDown_price.TabIndex = 43;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 85);
+            this.label2.Location = new System.Drawing.Point(9, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 44;
@@ -127,7 +130,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 139);
+            this.label3.Location = new System.Drawing.Point(9, 165);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 45;
@@ -139,9 +142,9 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_refStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_refStatus.FormattingEnabled = true;
-            this.comboBox_refStatus.Location = new System.Drawing.Point(98, 136);
+            this.comboBox_refStatus.Location = new System.Drawing.Point(154, 162);
             this.comboBox_refStatus.Name = "comboBox_refStatus";
-            this.comboBox_refStatus.Size = new System.Drawing.Size(345, 21);
+            this.comboBox_refStatus.Size = new System.Drawing.Size(358, 21);
             this.comboBox_refStatus.TabIndex = 46;
             // 
             // panel8
@@ -149,15 +152,15 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 172);
+            this.panel8.Location = new System.Drawing.Point(0, 193);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(455, 35);
+            this.panel8.Size = new System.Drawing.Size(524, 35);
             this.panel8.TabIndex = 47;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(359, 6);
+            this.button_cancel.Location = new System.Drawing.Point(428, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
@@ -168,7 +171,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(278, 6);
+            this.button_ok.Location = new System.Drawing.Point(347, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -178,27 +181,70 @@
             // 
             // comboBox_refPrintersType
             // 
+            this.comboBox_refPrintersType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_refPrintersType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_refPrintersType.FormattingEnabled = true;
-            this.comboBox_refPrintersType.Location = new System.Drawing.Point(98, 109);
+            this.comboBox_refPrintersType.Location = new System.Drawing.Point(154, 135);
             this.comboBox_refPrintersType.Name = "comboBox_refPrintersType";
-            this.comboBox_refPrintersType.Size = new System.Drawing.Size(345, 21);
+            this.comboBox_refPrintersType.Size = new System.Drawing.Size(358, 21);
             this.comboBox_refPrintersType.TabIndex = 48;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 112);
+            this.label4.Location = new System.Drawing.Point(9, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 49;
             this.label4.Text = "Тип принтера";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(109, 13);
+            this.label5.TabIndex = 50;
+            this.label5.Text = "Мин. реализ. кол-во";
+            // 
+            // numericUpDown_minStep
+            // 
+            this.numericUpDown_minStep.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_minStep.DecimalPlaces = 2;
+            this.numericUpDown_minStep.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minStep.Location = new System.Drawing.Point(154, 83);
+            this.numericUpDown_minStep.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown_minStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minStep.Name = "numericUpDown_minStep";
+            this.numericUpDown_minStep.Size = new System.Drawing.Size(183, 20);
+            this.numericUpDown_minStep.TabIndex = 51;
+            this.numericUpDown_minStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // fAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(455, 207);
+            this.ClientSize = new System.Drawing.Size(524, 228);
+            this.Controls.Add(this.numericUpDown_minStep);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBox_refPrintersType);
             this.Controls.Add(this.panel8);
@@ -211,11 +257,13 @@
             this.Controls.Add(this.numericUpDown_code);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox_id);
+            this.MinimizeBox = false;
             this.Name = "fAddEdit";
             this.Text = "fAddEdit";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).EndInit();
             this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minStep)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,5 +285,7 @@
         private System.Windows.Forms.Label label4;
         internal System.Windows.Forms.ComboBox comboBox_refStatus;
         internal System.Windows.Forms.ComboBox comboBox_refPrintersType;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minStep;
     }
 }
