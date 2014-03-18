@@ -31,23 +31,6 @@ namespace com.sbs.gui.dashboard
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel_bills = new System.Windows.Forms.Panel();
-            this.panel_dishes = new System.Windows.Forms.Panel();
-            this.button_trapFocus = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tSSLabel_fio = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox_billInfo = new com.sbs.gui.dashboard.extGroupBox();
-            this.flowLayoutPanel_billEdit = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel_billInfo = new System.Windows.Forms.Panel();
-            this.groupBox_groups = new com.sbs.gui.dashboard.extGroupBox();
-            this.treeView_CarteGroups = new System.Windows.Forms.TreeView();
-            this.groupBox_refuse = new com.sbs.gui.dashboard.extGroupBox();
-            this.flowLayoutPanel_refuse = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox_dish = new com.sbs.gui.dashboard.extGroupBox();
-            this.flowLayoutPanel_dish = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox_bills = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -55,20 +38,37 @@ namespace com.sbs.gui.dashboard
             this.button_newBill = new System.Windows.Forms.Button();
             this.groupBox_billDish = new com.sbs.gui.dashboard.extGroupBox();
             this.flowLayoutPanel_billInfo = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox_billInfo = new com.sbs.gui.dashboard.extGroupBox();
+            this.flowLayoutPanel_billEdit = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_billInfo = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox_groups = new com.sbs.gui.dashboard.extGroupBox();
+            this.treeView_CarteGroups = new System.Windows.Forms.TreeView();
+            this.groupBox_refuse = new com.sbs.gui.dashboard.extGroupBox();
+            this.flowLayoutPanel_refuse = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox_dish = new com.sbs.gui.dashboard.extGroupBox();
+            this.flowLayoutPanel_dish = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_bills = new System.Windows.Forms.Panel();
+            this.panel_dishes = new System.Windows.Forms.Panel();
+            this.button_trapFocus = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tSSLabel_fio = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel_bills.SuspendLayout();
-            this.panel_dishes.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.groupBox_billInfo.SuspendLayout();
-            this.groupBox_groups.SuspendLayout();
-            this.groupBox_refuse.SuspendLayout();
-            this.groupBox_dish.SuspendLayout();
             this.groupBox_bills.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox_billDish.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox_billInfo.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBox_groups.SuspendLayout();
+            this.groupBox_refuse.SuspendLayout();
+            this.groupBox_dish.SuspendLayout();
+            this.panel_bills.SuspendLayout();
+            this.panel_dishes.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -87,6 +87,80 @@ namespace com.sbs.gui.dashboard
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.TabStop = true;
             // 
+            // groupBox_bills
+            // 
+            this.groupBox_bills.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_bills.Controls.Add(this.flowLayoutPanel_bills);
+            this.groupBox_bills.Controls.Add(this.panel1);
+            this.groupBox_bills.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_bills.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_bills.Name = "groupBox_bills";
+            this.groupBox_bills.Size = new System.Drawing.Size(388, 666);
+            this.groupBox_bills.TabIndex = 0;
+            this.groupBox_bills.TabStop = false;
+            // 
+            // flowLayoutPanel_bills
+            // 
+            this.flowLayoutPanel_bills.AutoScroll = true;
+            this.flowLayoutPanel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_bills.Location = new System.Drawing.Point(3, 95);
+            this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
+            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(382, 568);
+            this.flowLayoutPanel_bills.TabIndex = 0;
+            this.flowLayoutPanel_bills.TabStop = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button_printBill);
+            this.panel1.Controls.Add(this.button_newBill);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(382, 79);
+            this.panel1.TabIndex = 1;
+            // 
+            // button_printBill
+            // 
+            this.button_printBill.Location = new System.Drawing.Point(84, 8);
+            this.button_printBill.Name = "button_printBill";
+            this.button_printBill.Size = new System.Drawing.Size(75, 62);
+            this.button_printBill.TabIndex = 2;
+            this.button_printBill.TabStop = false;
+            this.button_printBill.Text = "F5";
+            this.button_printBill.UseVisualStyleBackColor = true;
+            this.button_printBill.Click += new System.EventHandler(this.button_printBill_Click);
+            // 
+            // button_newBill
+            // 
+            this.button_newBill.Location = new System.Drawing.Point(3, 8);
+            this.button_newBill.Name = "button_newBill";
+            this.button_newBill.Size = new System.Drawing.Size(75, 62);
+            this.button_newBill.TabIndex = 0;
+            this.button_newBill.TabStop = false;
+            this.button_newBill.Text = "F2";
+            this.button_newBill.UseVisualStyleBackColor = true;
+            this.button_newBill.Click += new System.EventHandler(this.button_newBill_Click);
+            // 
+            // groupBox_billDish
+            // 
+            this.groupBox_billDish.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_billDish.Controls.Add(this.flowLayoutPanel_billInfo);
+            this.groupBox_billDish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_billDish.Location = new System.Drawing.Point(397, 3);
+            this.groupBox_billDish.Name = "groupBox_billDish";
+            this.groupBox_billDish.Size = new System.Drawing.Size(727, 666);
+            this.groupBox_billDish.TabIndex = 1;
+            this.groupBox_billDish.TabStop = false;
+            // 
+            // flowLayoutPanel_billInfo
+            // 
+            this.flowLayoutPanel_billInfo.AutoScroll = true;
+            this.flowLayoutPanel_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_billInfo.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel_billInfo.Name = "flowLayoutPanel_billInfo";
+            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(721, 647);
+            this.flowLayoutPanel_billInfo.TabIndex = 0;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
@@ -102,6 +176,34 @@ namespace com.sbs.gui.dashboard
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1127, 672);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // groupBox_billInfo
+            // 
+            this.groupBox_billInfo.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_billInfo.Controls.Add(this.flowLayoutPanel_billEdit);
+            this.groupBox_billInfo.Controls.Add(this.panel_billInfo);
+            this.groupBox_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_billInfo.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_billInfo.Name = "groupBox_billInfo";
+            this.groupBox_billInfo.Size = new System.Drawing.Size(388, 666);
+            this.groupBox_billInfo.TabIndex = 0;
+            this.groupBox_billInfo.TabStop = false;
+            // 
+            // flowLayoutPanel_billEdit
+            // 
+            this.flowLayoutPanel_billEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_billEdit.Location = new System.Drawing.Point(3, 105);
+            this.flowLayoutPanel_billEdit.Name = "flowLayoutPanel_billEdit";
+            this.flowLayoutPanel_billEdit.Size = new System.Drawing.Size(382, 558);
+            this.flowLayoutPanel_billEdit.TabIndex = 0;
+            // 
+            // panel_billInfo
+            // 
+            this.panel_billInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_billInfo.Location = new System.Drawing.Point(3, 16);
+            this.panel_billInfo.Name = "panel_billInfo";
+            this.panel_billInfo.Size = new System.Drawing.Size(382, 89);
+            this.panel_billInfo.TabIndex = 1;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
@@ -116,6 +218,81 @@ namespace com.sbs.gui.dashboard
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 666);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox_groups);
+            this.panel2.Controls.Add(this.groupBox_refuse);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(284, 660);
+            this.panel2.TabIndex = 0;
+            // 
+            // groupBox_groups
+            // 
+            this.groupBox_groups.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_groups.Controls.Add(this.treeView_CarteGroups);
+            this.groupBox_groups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_groups.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_groups.Name = "groupBox_groups";
+            this.groupBox_groups.Size = new System.Drawing.Size(284, 542);
+            this.groupBox_groups.TabIndex = 0;
+            this.groupBox_groups.TabStop = false;
+            // 
+            // treeView_CarteGroups
+            // 
+            this.treeView_CarteGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView_CarteGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.treeView_CarteGroups.FullRowSelect = true;
+            this.treeView_CarteGroups.HideSelection = false;
+            this.treeView_CarteGroups.Location = new System.Drawing.Point(3, 16);
+            this.treeView_CarteGroups.Name = "treeView_CarteGroups";
+            this.treeView_CarteGroups.Size = new System.Drawing.Size(278, 523);
+            this.treeView_CarteGroups.TabIndex = 0;
+            this.treeView_CarteGroups.TabStop = false;
+            this.treeView_CarteGroups.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_CarteGroups_AfterSelect);
+            // 
+            // groupBox_refuse
+            // 
+            this.groupBox_refuse.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_refuse.Controls.Add(this.flowLayoutPanel_refuse);
+            this.groupBox_refuse.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox_refuse.Location = new System.Drawing.Point(0, 542);
+            this.groupBox_refuse.Name = "groupBox_refuse";
+            this.groupBox_refuse.Size = new System.Drawing.Size(284, 118);
+            this.groupBox_refuse.TabIndex = 1;
+            this.groupBox_refuse.TabStop = false;
+            this.groupBox_refuse.Text = "Отказные позиции";
+            // 
+            // flowLayoutPanel_refuse
+            // 
+            this.flowLayoutPanel_refuse.AutoScroll = true;
+            this.flowLayoutPanel_refuse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_refuse.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel_refuse.Name = "flowLayoutPanel_refuse";
+            this.flowLayoutPanel_refuse.Size = new System.Drawing.Size(278, 99);
+            this.flowLayoutPanel_refuse.TabIndex = 0;
+            // 
+            // groupBox_dish
+            // 
+            this.groupBox_dish.BorderColor = System.Drawing.Color.Empty;
+            this.groupBox_dish.Controls.Add(this.flowLayoutPanel_dish);
+            this.groupBox_dish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_dish.Location = new System.Drawing.Point(293, 3);
+            this.groupBox_dish.Name = "groupBox_dish";
+            this.groupBox_dish.Size = new System.Drawing.Size(431, 660);
+            this.groupBox_dish.TabIndex = 1;
+            this.groupBox_dish.TabStop = false;
+            // 
+            // flowLayoutPanel_dish
+            // 
+            this.flowLayoutPanel_dish.AutoScroll = true;
+            this.flowLayoutPanel_dish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_dish.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel_dish.Name = "flowLayoutPanel_dish";
+            this.flowLayoutPanel_dish.Size = new System.Drawing.Size(425, 641);
+            this.flowLayoutPanel_dish.TabIndex = 1;
             // 
             // panel_bills
             // 
@@ -161,181 +338,6 @@ namespace com.sbs.gui.dashboard
             this.tSSLabel_fio.Size = new System.Drawing.Size(70, 17);
             this.tSSLabel_fio.Text = "tSSLabel_fio";
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox_groups);
-            this.panel2.Controls.Add(this.groupBox_refuse);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(284, 660);
-            this.panel2.TabIndex = 0;
-            // 
-            // groupBox_billInfo
-            // 
-            this.groupBox_billInfo.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_billInfo.Controls.Add(this.flowLayoutPanel_billEdit);
-            this.groupBox_billInfo.Controls.Add(this.panel_billInfo);
-            this.groupBox_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_billInfo.Location = new System.Drawing.Point(3, 3);
-            this.groupBox_billInfo.Name = "groupBox_billInfo";
-            this.groupBox_billInfo.Size = new System.Drawing.Size(388, 666);
-            this.groupBox_billInfo.TabIndex = 0;
-            this.groupBox_billInfo.TabStop = false;
-            // 
-            // flowLayoutPanel_billEdit
-            // 
-            this.flowLayoutPanel_billEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_billEdit.Location = new System.Drawing.Point(3, 105);
-            this.flowLayoutPanel_billEdit.Name = "flowLayoutPanel_billEdit";
-            this.flowLayoutPanel_billEdit.Size = new System.Drawing.Size(382, 558);
-            this.flowLayoutPanel_billEdit.TabIndex = 0;
-            // 
-            // panel_billInfo
-            // 
-            this.panel_billInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_billInfo.Location = new System.Drawing.Point(3, 16);
-            this.panel_billInfo.Name = "panel_billInfo";
-            this.panel_billInfo.Size = new System.Drawing.Size(382, 89);
-            this.panel_billInfo.TabIndex = 1;
-            // 
-            // groupBox_groups
-            // 
-            this.groupBox_groups.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_groups.Controls.Add(this.treeView_CarteGroups);
-            this.groupBox_groups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_groups.Location = new System.Drawing.Point(0, 0);
-            this.groupBox_groups.Name = "groupBox_groups";
-            this.groupBox_groups.Size = new System.Drawing.Size(284, 552);
-            this.groupBox_groups.TabIndex = 0;
-            this.groupBox_groups.TabStop = false;
-            // 
-            // treeView_CarteGroups
-            // 
-            this.treeView_CarteGroups.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView_CarteGroups.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.treeView_CarteGroups.FullRowSelect = true;
-            this.treeView_CarteGroups.HideSelection = false;
-            this.treeView_CarteGroups.Location = new System.Drawing.Point(3, 16);
-            this.treeView_CarteGroups.Name = "treeView_CarteGroups";
-            this.treeView_CarteGroups.Size = new System.Drawing.Size(278, 533);
-            this.treeView_CarteGroups.TabIndex = 0;
-            this.treeView_CarteGroups.TabStop = false;
-            this.treeView_CarteGroups.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_CarteGroups_AfterSelect);
-            // 
-            // groupBox_refuse
-            // 
-            this.groupBox_refuse.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_refuse.Controls.Add(this.flowLayoutPanel_refuse);
-            this.groupBox_refuse.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox_refuse.Location = new System.Drawing.Point(0, 552);
-            this.groupBox_refuse.Name = "groupBox_refuse";
-            this.groupBox_refuse.Size = new System.Drawing.Size(284, 108);
-            this.groupBox_refuse.TabIndex = 1;
-            this.groupBox_refuse.TabStop = false;
-            this.groupBox_refuse.Text = "Отказные позиции";
-            // 
-            // flowLayoutPanel_refuse
-            // 
-            this.flowLayoutPanel_refuse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_refuse.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel_refuse.Name = "flowLayoutPanel_refuse";
-            this.flowLayoutPanel_refuse.Size = new System.Drawing.Size(278, 89);
-            this.flowLayoutPanel_refuse.TabIndex = 0;
-            // 
-            // groupBox_dish
-            // 
-            this.groupBox_dish.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_dish.Controls.Add(this.flowLayoutPanel_dish);
-            this.groupBox_dish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_dish.Location = new System.Drawing.Point(293, 3);
-            this.groupBox_dish.Name = "groupBox_dish";
-            this.groupBox_dish.Size = new System.Drawing.Size(431, 660);
-            this.groupBox_dish.TabIndex = 1;
-            this.groupBox_dish.TabStop = false;
-            // 
-            // flowLayoutPanel_dish
-            // 
-            this.flowLayoutPanel_dish.AutoScroll = true;
-            this.flowLayoutPanel_dish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_dish.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel_dish.Name = "flowLayoutPanel_dish";
-            this.flowLayoutPanel_dish.Size = new System.Drawing.Size(425, 641);
-            this.flowLayoutPanel_dish.TabIndex = 1;
-            // 
-            // groupBox_bills
-            // 
-            this.groupBox_bills.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_bills.Controls.Add(this.flowLayoutPanel_bills);
-            this.groupBox_bills.Controls.Add(this.panel1);
-            this.groupBox_bills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_bills.Location = new System.Drawing.Point(3, 3);
-            this.groupBox_bills.Name = "groupBox_bills";
-            this.groupBox_bills.Size = new System.Drawing.Size(388, 666);
-            this.groupBox_bills.TabIndex = 0;
-            this.groupBox_bills.TabStop = false;
-            // 
-            // flowLayoutPanel_bills
-            // 
-            this.flowLayoutPanel_bills.AutoScroll = true;
-            this.flowLayoutPanel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_bills.Location = new System.Drawing.Point(3, 95);
-            this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
-            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(382, 568);
-            this.flowLayoutPanel_bills.TabIndex = 0;
-            this.flowLayoutPanel_bills.TabStop = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button_printBill);
-            this.panel1.Controls.Add(this.button_newBill);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(3, 16);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(382, 79);
-            this.panel1.TabIndex = 1;
-            // 
-            // button_printBill
-            // 
-            this.button_printBill.Location = new System.Drawing.Point(84, 8);
-            this.button_printBill.Name = "button_printBill";
-            this.button_printBill.Size = new System.Drawing.Size(75, 62);
-            this.button_printBill.TabIndex = 2;
-            this.button_printBill.TabStop = false;
-            this.button_printBill.Text = "F5";
-            this.button_printBill.UseVisualStyleBackColor = true;
-            // 
-            // button_newBill
-            // 
-            this.button_newBill.Location = new System.Drawing.Point(3, 8);
-            this.button_newBill.Name = "button_newBill";
-            this.button_newBill.Size = new System.Drawing.Size(75, 62);
-            this.button_newBill.TabIndex = 0;
-            this.button_newBill.TabStop = false;
-            this.button_newBill.Text = "F2";
-            this.button_newBill.UseVisualStyleBackColor = true;
-            this.button_newBill.Click += new System.EventHandler(this.button_newBill_Click);
-            // 
-            // groupBox_billDish
-            // 
-            this.groupBox_billDish.BorderColor = System.Drawing.Color.Empty;
-            this.groupBox_billDish.Controls.Add(this.flowLayoutPanel_billInfo);
-            this.groupBox_billDish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_billDish.Location = new System.Drawing.Point(397, 3);
-            this.groupBox_billDish.Name = "groupBox_billDish";
-            this.groupBox_billDish.Size = new System.Drawing.Size(727, 666);
-            this.groupBox_billDish.TabIndex = 1;
-            this.groupBox_billDish.TabStop = false;
-            // 
-            // flowLayoutPanel_billInfo
-            // 
-            this.flowLayoutPanel_billInfo.AutoScroll = true;
-            this.flowLayoutPanel_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_billInfo.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel_billInfo.Name = "flowLayoutPanel_billInfo";
-            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(721, 647);
-            this.flowLayoutPanel_billInfo.TabIndex = 0;
-            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -352,20 +354,20 @@ namespace com.sbs.gui.dashboard
             this.Shown += new System.EventHandler(this.fMain_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox_bills.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.groupBox_billDish.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.groupBox_billInfo.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.groupBox_groups.ResumeLayout(false);
+            this.groupBox_refuse.ResumeLayout(false);
+            this.groupBox_dish.ResumeLayout(false);
             this.panel_bills.ResumeLayout(false);
             this.panel_dishes.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.groupBox_billInfo.ResumeLayout(false);
-            this.groupBox_groups.ResumeLayout(false);
-            this.groupBox_refuse.ResumeLayout(false);
-            this.groupBox_dish.ResumeLayout(false);
-            this.groupBox_bills.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.groupBox_billDish.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

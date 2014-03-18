@@ -250,6 +250,10 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.label_name.Text = oDish.name;
                 oCtrDishes.label_price.Text = oDish.price.ToString("F2");
                 oCtrDishes.numericUpDown_count.Value = oDish.count;
+                oCtrDishes.numericUpDown_count.ReadOnly = true;
+                oCtrDishes.comboBox_note.FlatStyle = FlatStyle.Standard;
+                oCtrDishes.comboBox_note.Items.Add(oDish.refNotesName);
+                oCtrDishes.comboBox_note.SelectedItem = oDish.refNotesName;
 
                 oCtrDishes.TabStop = false;
 
@@ -304,12 +308,29 @@ namespace com.sbs.gui.dashboard
                 return;
             }
 
-            foreach (DTO_DBoard.DishRefuse oDishRefuse in lDishesRefuse)
+            if (lDishesRefuse.Count > 0)
             {
-                oCtrDishesRefuse = new ctrDishesRefuse(oDishRefuse);
+                groupBox_refuse.Visible = true;
+                
+                flowLayoutPanel_refuse.Controls.Clear();
 
+                foreach (DTO_DBoard.DishRefuse oDishRefuse in lDishesRefuse)
+                {
+                    oCtrDishesRefuse = new ctrDishesRefuse(oDishRefuse);
+                    oCtrDishesRefuse.button_host.Click += new EventHandler(CtrDishesRefuse_Click);
+                    oCtrDishesRefuse.Width = flowLayoutPanel_refuse.Width - 25;
+                    flowLayoutPanel_refuse.Controls.Add(oCtrDishesRefuse);
+                }
             }
+            else
+                groupBox_refuse.Visible = false;
 
+        }
+
+        void CtrDishesRefuse_Click(object sender, EventArgs e)
+        {
+            ctrDishesRefuse oCtrDishesRefuse = (ctrDishesRefuse)((Button)sender).Parent;
+            MessageBox.Show(oCtrDishesRefuse.label_name, GValues.prgNameFull);
         }
 
         #region ----------------------------------------------------------------- Редактирование заказа
@@ -370,6 +391,12 @@ namespace com.sbs.gui.dashboard
             {
                 fDishAction.Dispose();
                 return;
+            }
+            switch (fDishAction.returnCode)
+            {
+                case "CLOSE_BILL":
+                    printBill();
+                    break;
             }
 
             fDishAction.Dispose();
@@ -459,6 +486,7 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.numericUpDown_count.Visible = false;
+                oCtrDishes.comboBox_note.Visible = false;
 
                 oCtrDishes.Width = flowLayoutPanel_dish.Width - 25;
 
@@ -468,9 +496,13 @@ namespace com.sbs.gui.dashboard
 
         private void Dish_button_host_Click(object sender, EventArgs e)
         {
-            //com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
+            DataTable dtNotesDish = new DataTable();
             ctrDishes oCtrDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
 
+            DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0,2)";
+            oCtrDishes.comboBox_note.DataSource = DashboardEnvironment.dtNotes; // Выбераем только статусы доступные для блюд
+            oCtrDishes.comboBox_note.DisplayMember = "note";
+            oCtrDishes.comboBox_note.ValueMember = "id";
             fAddDishToBill faddDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
             if (faddDish2Bill.ShowDialog() == DialogResult.OK)
             {
@@ -488,7 +520,10 @@ namespace com.sbs.gui.dashboard
             switch (keyData)
             {
                 case Keys.Up:
-                    if (curGroupBox != groupBox.GROUP) SendKeys.Send("+{TAB}");
+                    if (curGroupBox != groupBox.GROUP)
+                    {
+                        SendKeys.Send("+{TAB}");
+                    }
                     break;
 
                 case Keys.Down:
@@ -517,7 +552,8 @@ namespace com.sbs.gui.dashboard
 
         private void changeGroup(string pDirection)
         {
-            //Debug.Print(curGroupBox.ToString() + " | " + "pDirection: " + pDirection);
+            int bufHeight;
+            
             switch (curGroupBox)
             { 
                 case groupBox.BILL:
@@ -590,12 +626,17 @@ namespace com.sbs.gui.dashboard
                             break;
 
                         case "DOWN":
-                            if (flowLayoutPanel_refuse.Controls.Count > 0)
-                            {
-                                ;
-                            }
-                            else 
-                                button_trapFocus.Focus();
+
+                            if (!flowLayoutPanel_refuse.Visible) return;
+
+                            if (flowLayoutPanel_refuse.Controls.Count > 0) flowLayoutPanel_refuse.Controls[0].Focus();
+                            else button_trapFocus.Focus();
+
+                            foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls) ctr.TabStop = true;
+
+                            bufHeight = groupBox_refuse.Height;
+                            groupBox_refuse.Height = groupBox_groups.Height;
+                            groupBox_groups.Height = bufHeight;
 
                             curGroupBox = groupBox.REFUSE;
                             break;
@@ -640,8 +681,16 @@ namespace com.sbs.gui.dashboard
                             curGroupBox = groupBox.DISHES;
                             break;
                     }
-                    break;
+                    bufHeight = groupBox_groups.Height;
+                    groupBox_groups.Height = groupBox_refuse.Height;
+                    groupBox_refuse.Height = bufHeight;
 
+                    foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls)
+                    {
+                        ctr.TabStop = false;
+                    }
+
+                    break;
             }
         }
 
@@ -668,10 +717,7 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.F5:   // Печать чека
-                    if (curGroupBox == groupBox.BILL)
-                    {
-                        printBill();
-                    }
+                    printBill();
                     break;
 
                 case Keys.Escape:
@@ -691,6 +737,11 @@ namespace com.sbs.gui.dashboard
 
         private void printBill()
         {
+            fCloseBill fCB = new fCloseBill(curBill, lDishs);
+            if (fCB.ShowDialog() != DialogResult.OK) return;
+
+            curBill.paymentType = fCB.paymentType;
+
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
             fWait.ShowDialog();
 
@@ -702,12 +753,11 @@ namespace com.sbs.gui.dashboard
         {
             fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
             fWait.ShowDialog();
-
-            if (fWait.retflag)
-            {
+            //if (fWait.retflag)
+            //{
                 fillBillsInfo(curBill);
                 billEdit();
-            }
+            //}
 
         }
 
@@ -747,7 +797,6 @@ namespace com.sbs.gui.dashboard
         {
             if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.GROUP)
             {
-
                 fillBills();
 
                 showBill();
@@ -807,6 +856,11 @@ namespace com.sbs.gui.dashboard
         private void button_newBill_Click(object sender, EventArgs e)
         {
             openBill();
+        }
+
+        private void button_printBill_Click(object sender, EventArgs e)
+        {
+            printBill();
         }
     }
 }

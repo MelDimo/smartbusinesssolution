@@ -23,6 +23,7 @@ namespace com.sbs.gui.dashboard
 
             InitializeComponent();
 
+            oCtrDishes.Dock = DockStyle.Fill;
             Controls.Add(oCtrDishes);
         }
 
@@ -46,6 +47,7 @@ namespace com.sbs.gui.dashboard
             oDish.name = oCtrDishes.label_name.Text;
             oDish.price = decimal.Parse(oCtrDishes.label_price.Text);
             oDish.count = oCtrDishes.numericUpDown_count.Value;
+            oDish.refNotes = (int)oCtrDishes.comboBox_note.SelectedValue;
 
             try
             {
@@ -61,8 +63,15 @@ namespace com.sbs.gui.dashboard
             foreach (Control ctr in this.Controls)
             {
                 ((ctrDishes)ctr).button_host.TabStop = false;
+                
                 ((ctrDishes)ctr).button_deals.TabStop = true;
+                ((ctrDishes)ctr).button_deals.Enabled = false;
+                
                 ((ctrDishes)ctr).button_topping.TabStop = true;
+                ((ctrDishes)ctr).button_topping.Enabled = false;
+
+                ((ctrDishes)ctr).comboBox_note.TabStop = true;
+
                 ((ctrDishes)ctr).numericUpDown_count.Focus();
             }
         }

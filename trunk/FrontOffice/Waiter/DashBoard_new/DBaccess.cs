@@ -10,9 +10,95 @@ namespace com.sbs.gui.dashboard
 {
     class DashboardEnvironment
     {
+
         public static com.sbs.dll.DTO_DBoard.User gUser;
         public static com.sbs.dll.DTO_DBoard.SeasonBranch gSeasonBranch;
         public static List<com.sbs.dll.DTO_DBoard.Bill> gBillList;
+
+        public static DataTable dtNotes;
+        public static DataTable dtPayment;
+
+        public static void initRefDataTables()
+        {
+            SqlConnection con;
+            SqlCommand command = null;
+
+            dtNotes = new DataTable();
+
+            con = new DBCon().getConnection("offline");
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandType = CommandType.Text;
+                command.CommandText = " SELECT 0 as id, 0 as ref_notes_type, '<Выберите комментарий>' as note" +
+                                        "    UNION" +
+                                        " SELECT id, ref_notes_type, note " +
+                                        "   FROM ref_notes WHERE ref_status = @ref_status" +
+                                        " ORDER BY note";
+
+                command.Parameters.Clear();
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtNotes.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally 
+            {
+                if (con.State == ConnectionState.Open) 
+                {  
+                    con.Close(); 
+                } 
+            }
+        }
+
+        public static void initPayment()
+        {
+            SqlConnection con;
+            SqlCommand command = null;
+
+            dtPayment = new DataTable();
+
+            con = new DBCon().getConnection("offline");
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandType = CommandType.Text;
+                command.CommandText = " SELECT rpt.id, rpt.name, rpt.color" +
+                                        " FROM branch_payment bp " +
+                                        " INNER JOIN ref_payment_type rpt ON rpt.id = bp.ref_payment_type" +
+                                        " WHERE bp.branch = @branch AND ref_status = @refStatus";
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtPayment.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
 
         public static void Clear()
         {
@@ -81,6 +167,61 @@ namespace com.sbs.gui.dashboard
             oUser.name = dtResult.Rows[0]["fio"].ToString();
             oUser.tabn = dtResult.Rows[0]["tabn"].ToString();
             
+            try
+            {
+                oUser.oUserACL = getUserACL(pDbType, oUser.id);
+            }
+            catch (Exception exc) { throw exc; }
+
+            return oUser;
+        }
+
+        internal DTO_DBoard.User getLoginUser(string pDbType, string pPwd)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn" +
+                                        " FROM users_pwd upwd" +
+                                        " INNER JOIN users u ON u.id = upwd.users AND u.branch = @branch" +
+                                        " WHERE upwd.pwd = @pwd";
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            switch (dtResult.Rows.Count)
+            {
+                case 0:
+                    throw new Exception("Сотрудник не найден");
+
+                case 1:
+                    break;
+
+                default:
+                    throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
+            }
+
+            oUser = new com.sbs.dll.DTO_DBoard.User();
+            oUser.id = (int)dtResult.Rows[0]["id"];
+            oUser.name = dtResult.Rows[0]["fio"].ToString();
+            oUser.tabn = dtResult.Rows[0]["tabn"].ToString();
+
             try
             {
                 oUser.oUserACL = getUserACL(pDbType, oUser.id);
@@ -305,6 +446,8 @@ namespace com.sbs.gui.dashboard
                 oDish.count = (decimal)dtResult.Rows[i]["xcount"];
                 oDish.dateStatus = (DateTime)dtResult.Rows[i]["date_status"];
                 oDish.refStatus = (int)dtResult.Rows[i]["ref_status"];
+                oDish.refNotes = (int)dtResult.Rows[i]["ref_notes"];
+                oDish.refNotesName = dtResult.Rows[i]["ref_notes_name"].ToString();
                 oBillInfoList.Add(oDish);
             }
 
@@ -458,6 +601,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
                 command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
+                command.Parameters.Add("pNote", SqlDbType.Int).Value = pDish.refNotes;
 
                 command.ExecuteNonQuery();
 
@@ -604,6 +748,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pPaymentType", SqlDbType.Int).Value = pBill.paymentType;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
 
                 command.ExecuteNonQuery();
@@ -780,6 +925,8 @@ namespace com.sbs.gui.dashboard
         {
             DTO_DBoard.DishRefuse oDishRefuse;
             List<DTO_DBoard.DishRefuse> lDishesRefuse = new List<DTO_DBoard.DishRefuse>();
+
+            dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
 

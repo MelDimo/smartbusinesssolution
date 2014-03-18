@@ -71,6 +71,12 @@
     <Compile Include="fAddDishToBill.Designer.cs">
       <DependentUpon>fAddDishToBill.cs</DependentUpon>
     </Compile>
+    <Compile Include="fCloseBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCloseBill.Designer.cs">
+      <DependentUpon>fCloseBill.cs</DependentUpon>
+    </Compile>
     <Compile Include="fCloseSeason_Branch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +94,12 @@
     </Compile>
     <Compile Include="fDishToBill_ACTION.Designer.cs">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fLogin.Designer.cs">
+      <DependentUpon>fLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
@@ -144,6 +156,9 @@
     <EmbeddedResource Include="fAddDishToBill.resx">
       <DependentUpon>fAddDishToBill.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fCloseBill.resx">
+      <DependentUpon>fCloseBill.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fCloseSeason_Branch.resx">
       <DependentUpon>fCloseSeason_Branch.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fDishToBill_ACTION.resx">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fLogin.resx">
+      <DependentUpon>fLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
