@@ -29,6 +29,8 @@ namespace com.sbs.dll.utilites
             label_name.Text = oDish.name;
             label_summa.Text = (oDish.count * oDish.price).ToString("F2");
             pictureBox_status.BackColor = oDish.refStatus == 24 ? Color.Red : Color.Green;
+            label_time.Text = oDish.dateStatus.Value.ToLongTimeString();
+            label_note.Text = oDish.refNotesName;
         }
     }
 }
