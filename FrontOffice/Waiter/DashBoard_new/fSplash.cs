@@ -32,7 +32,26 @@ namespace com.sbs.gui.dashboard
 
             InitializeComponent();
 
+            // Подгружаем общие справочиники
+            try
+            {
+                DashboardEnvironment.initRefDataTables();
+                DashboardEnvironment.initPayment();
+            }
+            catch (Exception exc) 
+            { 
+                uMessage.Show("Неудалось заполнить справочники."+ Environment.NewLine + "Модуль будет закрыт принудительно.", exc, SystemIcons.Information);
+                Load += (s, e) => CloseForm();
+                return; 
+            }
+
             this.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.splash_1;
+        }
+
+        private void CloseForm()
+        {
+            DashboardEnvironment.Clear();
+            Close();
         }
 
         private void fSplash_KeyDown(object sender, KeyEventArgs e)
@@ -109,9 +128,7 @@ namespace com.sbs.gui.dashboard
                     case Keys.Escape:
                         if (MessageBox.Show("Вы увеерены что хотите выйти?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                             != DialogResult.Yes) return;
-
-                        DashboardEnvironment.Clear();
-                        Close();
+                        CloseForm();
                         break;
 
                     // Закрытие смены заведение
@@ -193,11 +210,23 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case 2:
-                    MessageBox.Show("Авторизация по логину на данном этапе не доступна");
-                    return;
+                    fLogin fl = new fLogin();
+                    if (fl.ShowDialog() != DialogResult.OK) return;
+
+                    try
+                    {
+                        DashboardEnvironment.gUser = getUserByPwd(fl.pwd);
+                    }
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                        return;
+                    }
+                    break;
             }
 
         }
+        
 
         //--------------------------------------------------------------- Получаем информацию об открытых сменах
         private bool showSeasonForm()
@@ -234,7 +263,7 @@ namespace com.sbs.gui.dashboard
             fmain.ShowDialog();
         }
 
-        private com.sbs.dll.DTO_DBoard.SeasonBranch[] getOpenSeason()
+        private DTO_DBoard.SeasonBranch[] getOpenSeason()
         {
             try
             {
@@ -245,14 +274,15 @@ namespace com.sbs.gui.dashboard
             return oSeasonBranchArray;
         }
 
-        private com.sbs.dll.DTO_DBoard.User getUserByKey(string pUserKey)
+        private DTO_DBoard.User getUserByKey(string pUserKey)
         {
-            try
-            {
-                oUser = dbAccess.getMifareUser("offline", pUserKey);
-            }
-            catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return null; }
+            oUser = dbAccess.getMifareUser("offline", pUserKey);
+            return oUser;
+        }
 
+        private DTO_DBoard.User getUserByPwd(string pPwd)
+        {
+            oUser = dbAccess.getLoginUser("offline", pPwd);
             return oUser;
         }
     }

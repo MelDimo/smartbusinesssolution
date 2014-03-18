@@ -19,6 +19,8 @@ namespace com.sbs.gui.dashboard
         DBaccess dbAccess = new DBaccess();
         Suppurt Supp = new Suppurt();
 
+        public string returnCode = string.Empty;
+
         public fDishToBill_ACTION(DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
         {
             oBill = pBill;
@@ -85,5 +87,11 @@ namespace com.sbs.gui.dashboard
         }
 
         #endregion
+
+        private void button_closeBill_Click(object sender, EventArgs e)
+        {
+            returnCode = "CLOSE_BILL";
+            DialogResult = DialogResult.OK;
+        }
     }
 }

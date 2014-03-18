@@ -16,9 +16,8 @@ namespace com.sbs.gui.dashboard
     {
         DBaccess dbAccess = new DBaccess();
         DTO_DBoard.Bill oBill;
-        public string type;
 
-        public bool retflag;
+        public string type;
 
         public fWaitProcess(string pType, DTO_DBoard.Bill pCurBill)
         {
@@ -34,12 +33,8 @@ namespace com.sbs.gui.dashboard
             ReportDocument repDoc;
 
             if (oBill == null) { return; }
-
-            try
-            {
-                dtResult = dbAccess.billClose("offline", oBill);
-            }
-            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
+            
+            dtResult = dbAccess.billClose("offline", oBill);
 
             if (dtResult.Rows.Count == 0) return;
 
@@ -49,8 +44,6 @@ namespace com.sbs.gui.dashboard
             repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
             repDoc.PrintOptions.PrinterName = dtResult.Rows[0]["printerName"].ToString();
             repDoc.PrintToPrinter(1, false, 0, 0);
-
-            Close();
         }
 
         private void printDish()
@@ -58,16 +51,11 @@ namespace com.sbs.gui.dashboard
             DataTable dtResult = new DataTable();
             ReportDocument repDoc;
 
-            try
-            {
-                dtResult = dbAccess.commitDish("offline", oBill);
-            }
-            catch (Exception exc) { uMessage.Show("Не удалось исключить необработанные позиции.", exc, SystemIcons.Information); return; }
+            dtResult = dbAccess.commitDish("offline", oBill);
 
             var results_1 = from myRow in dtResult.AsEnumerable()
                             where myRow.Field<int>("ref_printers_type") == 1 && myRow.Field<int>("ref_status") != 23
                             select myRow;
-
             if (results_1.Count() > 0) // есть позиции на принтер Кухни
             {
                 repDoc = new ReportDocument();
@@ -80,7 +68,8 @@ namespace com.sbs.gui.dashboard
                 repDoc.PrintOptions.PrinterName = results_1.First().Field<string>("printerName");
                 repDoc.PrintToPrinter(1, false, 0, 0);
 
-                retflag = true;
+                MessageBox.Show("есть позиции на принтер Кухни;" + Environment.NewLine
+                    + repDoc.PrintOptions.PrinterName);
             }
 
             var results_2 = from myRow in dtResult.AsEnumerable()
@@ -99,7 +88,6 @@ namespace com.sbs.gui.dashboard
                 repDoc.PrintOptions.PrinterName = results_2.First().Field<string>("printerName");
                 repDoc.PrintToPrinter(1, false, 0, 0);
 
-                retflag = true;
             }
         }
 
@@ -126,12 +114,20 @@ namespace com.sbs.gui.dashboard
 
         void printBill_DoWork(object sender, DoWorkEventArgs e)
         {
-            printBill();
+            try
+            {
+                printBill();
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
         }
 
         void printDish_DoWork(object sender, DoWorkEventArgs e)
         {
-            printDish();
+            try
+            {
+                printDish();
+            }
+            catch (Exception exc) { uMessage.Show("Не удалась печать бегунков.", exc, SystemIcons.Information); return; }
         }
 
         void runWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

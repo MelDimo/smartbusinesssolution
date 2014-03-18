@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 74);
+            this.ClientSize = new System.Drawing.Size(504, 77);
             this.ControlBox = false;
             this.KeyPreview = true;
             this.Name = "fAddDishToBill";
