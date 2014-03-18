@@ -58,7 +58,7 @@ namespace com.sbs.gui.references.refdishes
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price, " +
+                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price, rd.minStep" +
                                             " rd.ref_printers_type," +
                                             " rd.ref_status, rs.name AS ref_status_name" +
                                         " FROM ref_dishes rd" +
@@ -78,6 +78,7 @@ namespace com.sbs.gui.references.refdishes
             dataGridView_main.Columns["code"].DataPropertyName = "code";
             dataGridView_main.Columns["name"].DataPropertyName = "name";
             dataGridView_main.Columns["price"].DataPropertyName = "price";
+            dataGridView_main.Columns["minStep"].DataPropertyName = "minStep";
             dataGridView_main.Columns["ref_status_name"].DataPropertyName = "ref_status_name";
 
             tSSLabel_recCount.Text = "Итого записей: " + dtItems.Rows.Count;
@@ -139,7 +140,6 @@ namespace com.sbs.gui.references.refdishes
             if (faddedit.ShowDialog() == DialogResult.OK)
             {
                 updateData();
-                //dataGridView_main.Rows[rowIndex].Selected = true;
                 dataGridView_main.CurrentCell = dataGridView_main.Rows[rowIndex].Cells[1];
             }
 
