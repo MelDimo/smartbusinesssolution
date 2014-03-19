@@ -44,14 +44,14 @@ namespace com.sbs.gui.carte
             textBox_id.DataBindings.Add("Text", oCarteDishes, "id");
             textBox_name.DataBindings.Add("Text", oCarteDishes, "name");
             numericUpDown_price.DataBindings.Add("Value", oCarteDishes, "price");
-            comboBox_group.SelectedValue = oCarteDishes.carteDishesGroup;
-            checkBox_isVisible.Checked = oCarteDishes.isVisible == 1 ? true : false;
+            numericUpDown_minStep.DataBindings.Add("Value", oCarteDishes, "minStep");
+            if (formMode.Equals("EDIT")) checkBox_isVisible.Checked = oCarteDishes.isVisible == 1 ? true : false;
             if (formMode.Equals("EDIT")) initRefDishes();
         }
 
         private void button_getDishes_Click(object sender, EventArgs e)
         {
-            fChooser fChose = new fChooser("REFDISHES");
+            fChooser fChose = new fChooser("REFDISHES", "name", "id");
 
             fChose.dataGridView_main.DataSource = dtDishes;
 
@@ -119,6 +119,7 @@ namespace com.sbs.gui.carte
 
                 textBox_name.DataBindings[0].ReadValue();
                 numericUpDown_price.DataBindings[0].ReadValue();
+                numericUpDown_minStep.DataBindings[0].ReadValue();
                 comboBox_refStatus.SelectedValue = oCarteDishes.refStatus;
                 comboBox_refPrintersType.SelectedValue = oCarteDishes.refPrintersType;
             }
