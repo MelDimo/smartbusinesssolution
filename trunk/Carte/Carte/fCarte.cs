@@ -111,7 +111,7 @@ namespace com.sbs.gui.carte
             {
                 dtCarteDishesGroup = oReferences.getCarteDishesGroup("offline", pCarte);
             }
-            catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+            catch (Exception exc) { uMessage.Show("Ошибка получения справочников.", exc, SystemIcons.Error); return; }
 
             bool isChild;
 
@@ -240,6 +240,7 @@ namespace com.sbs.gui.carte
         private void toolStripButton_carteDel_Click(object sender, EventArgs e)
         {
             int carteId;
+            string carteName = string.Empty;
 
             if (dataGridView_carte.SelectedRows.Count == 0)
             {
@@ -250,6 +251,10 @@ namespace com.sbs.gui.carte
             DataGridViewRow dr = dataGridView_carte.SelectedRows[0];
 
             carteId = (int)dr.Cells["carte_id"].Value;
+            carteName = dr.Cells["carte_name"].Value.ToString();
+
+            if (MessageBox.Show(@"Вы действительно хотите удалить меню '" + carteName + "'?", GValues.prgNameFull,
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             try
             {
@@ -349,6 +354,7 @@ namespace com.sbs.gui.carte
         private void toolStripButton_groupDel_Click(object sender, EventArgs e)
         {
             int groupId;
+            string groupName;
 
             if (treeView_group.Nodes.Count == 0)
             {
@@ -357,6 +363,10 @@ namespace com.sbs.gui.carte
             }
 
             groupId = int.Parse(treeView_group.SelectedNode.Name);
+            groupName = treeView_group.SelectedNode.Text;
+
+            if (MessageBox.Show(@"Вы действительно хотите удалить группу '" + groupName + "'?", GValues.prgNameFull,
+               MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             try
             {
@@ -384,14 +394,19 @@ namespace com.sbs.gui.carte
             }
 
             oCarteDishes = new DTO.CarteDishes();
+            oCarteDishes.minStep = 1;
             oCarteDishes.carteDishesGroup = int.Parse(treeView_group.SelectedNode.Name);
+            
             fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
             faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
             faddedit.comboBox_group.DisplayMember = "name";
             faddedit.comboBox_group.ValueMember = "id";
+            faddedit.comboBox_group.SelectedValue = treeView_group.SelectedNode.Name;
+
             faddedit.comboBox_refPrintersType.DataSource = dtPrintersType;
             faddedit.comboBox_refPrintersType.DisplayMember = "name";
             faddedit.comboBox_refPrintersType.ValueMember = "id";
+
             faddedit.comboBox_refStatus.DataSource = dtStatus;
             faddedit.comboBox_refStatus.DisplayMember = "name";
             faddedit.comboBox_refStatus.ValueMember = "id";
@@ -449,17 +464,24 @@ namespace com.sbs.gui.carte
             oCarteDishes.refDishes = dishInfo.Field<int>("ref_dishes");
             oCarteDishes.refPrintersType = dishInfo.Field<int>("ref_printers_type");
             oCarteDishes.refStatus = dishInfo.Field<int>("ref_status");
+            oCarteDishes.minStep = dishInfo.Field<decimal>("minStep");
 
             fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
             faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
             faddedit.comboBox_group.DisplayMember = "name";
             faddedit.comboBox_group.ValueMember = "id";
+            faddedit.comboBox_group.SelectedValue = oCarteDishes.carteDishesGroup;
+
             faddedit.comboBox_refPrintersType.DataSource = dtPrintersType;
             faddedit.comboBox_refPrintersType.DisplayMember = "name";
             faddedit.comboBox_refPrintersType.ValueMember = "id";
+            faddedit.comboBox_refPrintersType.SelectedValue = oCarteDishes.refPrintersType;
+
             faddedit.comboBox_refStatus.DataSource = dtStatus;
             faddedit.comboBox_refStatus.DisplayMember = "name";
             faddedit.comboBox_refStatus.ValueMember = "id";
+            faddedit.comboBox_refStatus.SelectedValue = oCarteDishes.refStatus;
+
             faddedit.dtDishes = dtRefDishes;
             faddedit.Text = "Редактирование '" + oCarteDishes.name + "'";
             if (faddedit.ShowDialog() != DialogResult.OK) return;
@@ -470,6 +492,7 @@ namespace com.sbs.gui.carte
         private void toolStripButton_dishDel_Click(object sender, EventArgs e)
         {
             int dishId;
+            string dishName = string.Empty;
 
             if (dataGridView_dishes.SelectedRows.Count == 0)
             {
@@ -477,7 +500,11 @@ namespace com.sbs.gui.carte
                 return;
             }
 
-            dishId = (int)dataGridView_dishes.SelectedRows[0].Cells["id"].Value;
+            dishId = (int)dataGridView_dishes.SelectedRows[0].Cells["dishes_id"].Value;
+            dishName = dataGridView_dishes.SelectedRows[0].Cells["dishes_name"].Value.ToString();
+
+            if (MessageBox.Show(@"Вы действительно хотите удалить позицию '" + dishName + "' из меню?", GValues.prgNameFull,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
 
             try
             {

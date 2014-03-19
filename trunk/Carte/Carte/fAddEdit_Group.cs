@@ -42,7 +42,7 @@ namespace com.sbs.gui.carte
             if (comboBox_status.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
             else oCarteDishesGroup.refStatus = (int)comboBox_status.SelectedValue;
 
-            if (errMsg.Equals("Зполнены не все обязательные поля:"))
+            if (!errMsg.Equals("Зполнены не все обязательные поля:"))
             {
                 MessageBox.Show(errMsg, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;

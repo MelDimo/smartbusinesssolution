@@ -52,6 +52,11 @@
             this.toolStripButton_groupDel = new System.Windows.Forms.ToolStripButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView_dishes = new System.Windows.Forms.DataGridView();
+            this.dishes_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_ref_printers_type_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dishes_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip3 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -62,11 +67,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox_branchName = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton_branch = new System.Windows.Forms.ToolStripButton();
-            this.dishes_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishes_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishes_price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishes_ref_printers_type_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dishes_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -366,6 +366,44 @@
             this.dataGridView_dishes.Size = new System.Drawing.Size(319, 410);
             this.dataGridView_dishes.TabIndex = 2;
             // 
+            // dishes_id
+            // 
+            this.dishes_id.HeaderText = "id";
+            this.dishes_id.Name = "dishes_id";
+            this.dishes_id.ReadOnly = true;
+            this.dishes_id.Visible = false;
+            // 
+            // dishes_name
+            // 
+            this.dishes_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dishes_name.HeaderText = "Наименование";
+            this.dishes_name.Name = "dishes_name";
+            this.dishes_name.ReadOnly = true;
+            // 
+            // dishes_price
+            // 
+            this.dishes_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_price.HeaderText = "Цена";
+            this.dishes_price.Name = "dishes_price";
+            this.dishes_price.ReadOnly = true;
+            this.dishes_price.Width = 58;
+            // 
+            // dishes_ref_printers_type_name
+            // 
+            this.dishes_ref_printers_type_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_ref_printers_type_name.HeaderText = "Тип принтера";
+            this.dishes_ref_printers_type_name.Name = "dishes_ref_printers_type_name";
+            this.dishes_ref_printers_type_name.ReadOnly = true;
+            this.dishes_ref_printers_type_name.Width = 101;
+            // 
+            // dishes_ref_status_name
+            // 
+            this.dishes_ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dishes_ref_status_name.HeaderText = "Статус";
+            this.dishes_ref_status_name.Name = "dishes_ref_status_name";
+            this.dishes_ref_status_name.ReadOnly = true;
+            this.dishes_ref_status_name.Width = 66;
+            // 
             // statusStrip3
             // 
             this.statusStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -456,7 +494,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(210, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(138, 29);
             // 
             // toolStripButton_branch
             // 
@@ -468,39 +506,6 @@
             this.toolStripButton_branch.Size = new System.Drawing.Size(26, 26);
             this.toolStripButton_branch.Text = "Выбрать";
             this.toolStripButton_branch.Click += new System.EventHandler(this.toolStripButton_branch_Click);
-            // 
-            // dishes_id
-            // 
-            this.dishes_id.HeaderText = "id";
-            this.dishes_id.Name = "dishes_id";
-            this.dishes_id.Visible = false;
-            // 
-            // dishes_name
-            // 
-            this.dishes_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dishes_name.HeaderText = "Наименование";
-            this.dishes_name.Name = "dishes_name";
-            // 
-            // dishes_price
-            // 
-            this.dishes_price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dishes_price.HeaderText = "Цена";
-            this.dishes_price.Name = "dishes_price";
-            this.dishes_price.Width = 58;
-            // 
-            // dishes_ref_printers_type_name
-            // 
-            this.dishes_ref_printers_type_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dishes_ref_printers_type_name.HeaderText = "Тип принтера";
-            this.dishes_ref_printers_type_name.Name = "dishes_ref_printers_type_name";
-            this.dishes_ref_printers_type_name.Width = 101;
-            // 
-            // dishes_ref_status_name
-            // 
-            this.dishes_ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dishes_ref_status_name.HeaderText = "Статус";
-            this.dishes_ref_status_name.Name = "dishes_ref_status_name";
-            this.dishes_ref_status_name.Width = 66;
             // 
             // fCarte
             // 
