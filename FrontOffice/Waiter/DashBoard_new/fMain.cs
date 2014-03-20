@@ -596,18 +596,15 @@ namespace com.sbs.gui.dashboard
                     switch (pDirection)
                     { 
                         case "LEFT":
-                            if (flowLayoutPanel_billEdit.Controls.Count > 1)
+                            if (flowLayoutPanel_billEdit.Controls.Count > 0)
                             {
                                 foreach (ctrDishesSmall ctr in flowLayoutPanel_billEdit.Controls)
                                 {
                                     ctr.TabStop = true;
                                 }
                                 flowLayoutPanel_billEdit.Controls[0].Focus();
+                                curGroupBox = groupBox.BILLINFO;
                             }
-                            else 
-                                button_trapFocus.Focus();
-
-                            curGroupBox = groupBox.BILLINFO;
                             break;
 
                         case "RIGHT":
@@ -618,11 +615,8 @@ namespace com.sbs.gui.dashboard
                                     ctr.TabStop = true;
                                 }
                                 flowLayoutPanel_dish.Controls[0].Focus();
+                                curGroupBox = groupBox.DISHES;
                             }
-                            else
-                                button_trapFocus.Focus();
-
-                            curGroupBox = groupBox.DISHES;
                             break;
 
                         case "DOWN":
@@ -630,7 +624,6 @@ namespace com.sbs.gui.dashboard
                             if (!flowLayoutPanel_refuse.Visible) return;
 
                             if (flowLayoutPanel_refuse.Controls.Count > 0) flowLayoutPanel_refuse.Controls[0].Focus();
-                            else button_trapFocus.Focus();
 
                             foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls) ctr.TabStop = true;
 
@@ -652,18 +645,14 @@ namespace com.sbs.gui.dashboard
                             break;
 
                         case "LEFT":
-                            if (flowLayoutPanel_billEdit.Controls.Count > 1)
+                            if (flowLayoutPanel_billEdit.Controls.Count > 0)
                             {
                                 foreach (ctrDishesSmall ctr in flowLayoutPanel_billEdit.Controls)
                                 {
                                     ctr.TabStop = true;
                                 }
-                                flowLayoutPanel_billEdit.Controls[0].Focus();
+                                curGroupBox = groupBox.BILLINFO;
                             }
-                            else 
-                                button_trapFocus.Focus();
-
-                            curGroupBox = groupBox.BILLINFO;
                             break;
 
                         case "RIGHT":
@@ -674,11 +663,8 @@ namespace com.sbs.gui.dashboard
                                     ctr.TabStop = true;
                                 }
                                 flowLayoutPanel_dish.Controls[0].Focus();
+                                curGroupBox = groupBox.DISHES;
                             }
-                            else
-                                button_trapFocus.Focus();
-
-                            curGroupBox = groupBox.DISHES;
                             break;
                     }
                     bufHeight = groupBox_groups.Height;
@@ -745,8 +731,10 @@ namespace com.sbs.gui.dashboard
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
             fWait.ShowDialog();
 
-            fillBills();
-            showBill();
+            keysBackspace();
+
+            //fillBills();
+            //showBill();
         }
 
         private void commitDish()
