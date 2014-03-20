@@ -33,6 +33,21 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="xReport" msprop:Generator_TableClassName="xReportDataTable" msprop:Generator_TableVarName="tablexReport" msprop:Generator_TablePropName="xReport" msprop:Generator_RowDeletingName="xReportRowDeleting" msprop:Generator_UserTableName="xReport" msprop:Generator_RowChangingName="xReportRowChanging" msprop:Generator_RowEvHandlerName="xReportRowChangeEventHandler" msprop:Generator_RowDeletedName="xReportRowDeleted" msprop:Generator_RowEvArgName="xReportRowChangeEvent" msprop:Generator_RowChangedName="xReportRowChanged" msprop:Generator_RowClassName="xReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="seasonId" msprop:Generator_ColumnVarNameInTable="columnseasonId" msprop:Generator_ColumnPropNameInRow="seasonId" msprop:Generator_ColumnPropNameInTable="seasonIdColumn" msprop:Generator_UserColumnName="seasonId" type="xs:int" minOccurs="0" />
+              <xs:element name="season_start" msprop:Generator_ColumnVarNameInTable="columnseason_start" msprop:Generator_ColumnPropNameInRow="season_start" msprop:Generator_ColumnPropNameInTable="season_startColumn" msprop:Generator_UserColumnName="season_start" type="xs:string" minOccurs="0" />
+              <xs:element name="season_end" msprop:Generator_ColumnVarNameInTable="columnseason_end" msprop:Generator_ColumnPropNameInRow="season_end" msprop:Generator_ColumnPropNameInTable="season_endColumn" msprop:Generator_UserColumnName="season_end" type="xs:string" minOccurs="0" />
+              <xs:element name="user_tabn" msprop:Generator_ColumnVarNameInTable="columnuser_tabn" msprop:Generator_ColumnPropNameInRow="user_tabn" msprop:Generator_ColumnPropNameInTable="user_tabnColumn" msprop:Generator_UserColumnName="user_tabn" type="xs:string" minOccurs="0" />
+              <xs:element name="user_fio" msprop:Generator_ColumnVarNameInTable="columnuser_fio" msprop:Generator_ColumnPropNameInRow="user_fio" msprop:Generator_ColumnPropNameInTable="user_fioColumn" msprop:Generator_UserColumnName="user_fio" type="xs:string" minOccurs="0" />
+              <xs:element name="bill" msprop:Generator_ColumnVarNameInTable="columnbill" msprop:Generator_ColumnPropNameInRow="bill" msprop:Generator_ColumnPropNameInTable="billColumn" msprop:Generator_UserColumnName="bill" type="xs:string" minOccurs="0" />
+              <xs:element name="dish_printer" msprop:Generator_ColumnVarNameInTable="columndish_printer" msprop:Generator_ColumnPropNameInRow="dish_printer" msprop:Generator_ColumnPropNameInTable="dish_printerColumn" msprop:Generator_UserColumnName="dish_printer" type="xs:string" minOccurs="0" />
+              <xs:element name="dish_sum" msprop:Generator_ColumnVarNameInTable="columndish_sum" msprop:Generator_ColumnPropNameInRow="dish_sum" msprop:Generator_ColumnPropNameInTable="dish_sumColumn" msprop:Generator_UserColumnName="dish_sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

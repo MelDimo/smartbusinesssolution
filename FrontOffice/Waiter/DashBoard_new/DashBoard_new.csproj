@@ -59,6 +59,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataForReports.cs">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DataForReports.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -158,6 +162,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>xReport.rpt</DependentUpon>
     </Compile>
+    <Compile Include="reports\xReport_orderUser.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderUser.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="fAddDishToBill.resx">
       <DependentUpon>fAddDishToBill.cs</DependentUpon>
     </EmbeddedResource>
@@ -217,6 +227,10 @@
     <EmbeddedResource Include="reports\xReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>xReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderUser.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderUser.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="DataForReports.xsc">
       <DependentUpon>DataForReports.xsd</DependentUpon>
