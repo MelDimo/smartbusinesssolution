@@ -52,9 +52,6 @@ namespace com.sbs.gui.compositionorg
 
             checkBox_isDepot.DataBindings.Add("Checked", oUnitDTO, "isDepot");
             numericUpDown_code.DataBindings.Add("Value", oUnitDTO, "Code");
-
-
-
         }
 
         private void button_ok_Click(object sender, EventArgs e)

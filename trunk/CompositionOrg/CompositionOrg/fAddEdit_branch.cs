@@ -67,7 +67,6 @@ namespace com.sbs.gui.compositionorg
             numericUpDown_tableCount.DataBindings.Add("Value", oBranchDTO, "XTable");
 
             numericUpDown_code.DataBindings.Add("Value", oBranchDTO, "Code");
-
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -101,6 +100,13 @@ namespace com.sbs.gui.compositionorg
                 uMessage.Show(errMessage, SystemIcons.Information);
                 return false;
             }
+
+            for (int i = 0; i < checkedListBox_payment.Items.Count; i++)
+            {
+                //CompOrgDTO.BranchPaymentType obj = (CompOrgDTO.BranchPaymentType)checkedListBox_payment.Items[i];
+                oBranchDTO.paymentType[i].isChecked = checkedListBox_payment.GetItemChecked(i);
+            }
+
             switch (formMode)
             {
                 case "ADD":
@@ -120,6 +126,19 @@ namespace com.sbs.gui.compositionorg
             }
 
             return true;
+        }
+
+        private void fAddEdit_branch_Shown(object sender, EventArgs e)
+        {
+            ((ListBox)checkedListBox_payment).DataSource = oBranchDTO.paymentType;
+            ((ListBox)checkedListBox_payment).DisplayMember = "name";
+            ((ListBox)checkedListBox_payment).ValueMember = "isChecked";
+
+            for (int i = 0; i < checkedListBox_payment.Items.Count; i++)
+            {
+                CompOrgDTO.BranchPaymentType obj = (CompOrgDTO.BranchPaymentType)checkedListBox_payment.Items[i];
+                checkedListBox_payment.SetItemChecked(i, obj.isChecked);
+            }
         }
     }
 }

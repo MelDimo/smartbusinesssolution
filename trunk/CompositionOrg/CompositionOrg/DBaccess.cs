@@ -155,6 +155,7 @@ namespace com.sbs.gui.compositionorg
         public void addBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
         {
             object ref_city = DBNull.Value;
+            string paymentsTypes = string.Empty;
 
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -185,6 +186,12 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
                 command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
+                foreach (CompOrgDTO.BranchPaymentType bpt in pBranchDTO.paymentType)
+                {
+                    if (bpt.isChecked) paymentsTypes += bpt.id + ";";
+                }
+                command.Parameters.Add("pPaymentType", SqlDbType.NVarChar).Value = paymentsTypes.Substring(0, paymentsTypes.Length - 1); ;
+
                 command.ExecuteNonQuery();
 
                 tx.Commit();
@@ -198,6 +205,7 @@ namespace com.sbs.gui.compositionorg
         public void editBranch(string pDbType, CompOrgDTO.BranchDTO pBranchDTO)
         {
             object ref_city = DBNull.Value;
+            string paymentsTypes = string.Empty;
 
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -229,6 +237,12 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
                 command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
+                foreach (CompOrgDTO.BranchPaymentType bpt in pBranchDTO.paymentType)
+                {
+                    if (bpt.isChecked) paymentsTypes += bpt.id + ";";
+                }
+                command.Parameters.Add("pPaymentType", SqlDbType.NVarChar).Value = paymentsTypes.Substring(0, paymentsTypes.Length - 1);
+
                 command.ExecuteNonQuery();
 
                 tx.Commit();
@@ -258,6 +272,51 @@ namespace com.sbs.gui.compositionorg
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal List<CompOrgDTO.BranchPaymentType> getBranchPaymentType(string pDbType, int pBranchId)
+        {
+            CompOrgDTO.BranchPaymentType oBranchPaymentType;
+            List<CompOrgDTO.BranchPaymentType> lBranchPaymentType = new List<CompOrgDTO.BranchPaymentType>();
+
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT rpt.id, isnull(bp.ref_payment_type, 0) as ref_payment_type, rpt.name " +
+                                        " FROM ref_payment_type rpt " +
+                                        " LEFT JOIN branch_payment bp ON bp.ref_payment_type = rpt.id AND bp.branch = @branch ";
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pBranchId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            foreach (DataRow dr in dtResult.Rows)
+            {
+                oBranchPaymentType = new CompOrgDTO.BranchPaymentType()
+                                            {
+                                                id = (int)dr["id"],
+                                                name = dr["name"].ToString(),
+                                                isChecked = (int)dr["id"] == (int)dr["ref_payment_type"] ? true : false
+                                            };
+                lBranchPaymentType.Add(oBranchPaymentType);
+            }
+
+            return lBranchPaymentType;
         }
 
         #endregion
@@ -404,5 +463,7 @@ namespace com.sbs.gui.compositionorg
 
             return dtResult;
         }
+
+        
     }
 }
