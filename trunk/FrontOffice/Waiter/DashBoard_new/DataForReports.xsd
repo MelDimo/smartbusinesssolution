@@ -45,6 +45,7 @@
               <xs:element name="dish_printer" msprop:Generator_ColumnVarNameInTable="columndish_printer" msprop:Generator_ColumnPropNameInRow="dish_printer" msprop:Generator_ColumnPropNameInTable="dish_printerColumn" msprop:Generator_UserColumnName="dish_printer" type="xs:string" minOccurs="0" />
               <xs:element name="dish_sum" msprop:Generator_ColumnVarNameInTable="columndish_sum" msprop:Generator_ColumnPropNameInRow="dish_sum" msprop:Generator_ColumnPropNameInTable="dish_sumColumn" msprop:Generator_UserColumnName="dish_sum" type="xs:decimal" minOccurs="0" />
               <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
+              <xs:element name="unit" msprop:Generator_ColumnVarNameInTable="columnunit" msprop:Generator_ColumnPropNameInRow="unit" msprop:Generator_ColumnPropNameInTable="unitColumn" msprop:Generator_UserColumnName="unit" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
