@@ -24,6 +24,7 @@ namespace com.sbs.gui.compositionorg
         private DataTable dtCity = new DataTable();
         private DataTable dtPrinters = new DataTable();
         private DataTable dtPrintersType = new DataTable();
+        private DataTable dtPaymentType = new DataTable();
 
         int branchIndex = -1;
 
@@ -65,6 +66,7 @@ namespace com.sbs.gui.compositionorg
                 dtCity = dbAccess.getCity("offline");
                 dtPrinters = oReference.getRefPrinters("offline");
                 dtPrintersType = oReference.getRefPrintersType("offline");
+                dtPaymentType = oReference.getPaymentType("offline");
             }
             catch (Exception exc) { uMessage.Show("Невозможно получить данные!", exc, SystemIcons.Error); Close(); }
 
@@ -164,8 +166,18 @@ namespace com.sbs.gui.compositionorg
         {
             DataGridViewRow dataRow = dataGridView_org.SelectedRows[0];
             CompOrgDTO.BranchDTO oBranchDTO = new CompOrgDTO.BranchDTO();
+            oBranchDTO.paymentType = new List<CompOrgDTO.BranchPaymentType>();
 
             oBranchDTO.RefOrg = (int)dataRow.Cells["org_id"].Value;
+            foreach (DataRow dr in dtPaymentType.Rows)
+            {
+                oBranchDTO.paymentType.Add(new CompOrgDTO.BranchPaymentType() 
+                                            { 
+                                                isChecked = bool.Parse(dr["isChecked"].ToString()), 
+                                                id = (int)dr["id"], 
+                                                name = (string)dr["name"] 
+                                            });
+            }
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Новое заведение";
@@ -223,6 +235,16 @@ namespace com.sbs.gui.compositionorg
 
             oBranchDTO.XTable = branchInfo.First().Field<int>("xtable");
             oBranchDTO.Code = branchInfo.First().Field<int>("code");
+
+            try
+            {
+                oBranchDTO.paymentType = dbAccess.getBranchPaymentType("offline", oBranchDTO.Id);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось получить перечень типов оплаты для заведения " + oBranchDTO.Name + ".", exc, SystemIcons.Information);
+                return;
+            }
 
             fAddEdit_branch faddeditbranch = new fAddEdit_branch(oBranchDTO, dtOrg, dtStatus, dtCity);
             faddeditbranch.Text = "Редактирование '" + oBranchDTO.Name + "'";

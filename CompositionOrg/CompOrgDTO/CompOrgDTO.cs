@@ -45,7 +45,7 @@ namespace com.sbs.dll.dto
             private string _xip = "000.000.000.000";
             private int _xtable;
             private int _code;
-
+            #region
             public int Code
             {
                 get { return _code; }
@@ -57,7 +57,6 @@ namespace com.sbs.dll.dto
                 get { return _xtable; }
                 set { _xtable = value; }
             }
-            
 
             public string Xip
             {
@@ -111,7 +110,17 @@ namespace com.sbs.dll.dto
             {
                 get { return _id; }
                 set { _id = value; }
-            }   
+            }
+            #endregion
+
+            public List<BranchPaymentType> paymentType { get; set; }
+        }
+
+        public class BranchPaymentType
+        {
+            public bool isChecked { get; set; }
+            public int id { get; set; }
+            public string name { get; set; }
         }
 
         public class UnitDTO
@@ -149,14 +158,12 @@ namespace com.sbs.dll.dto
                 get { return _refPrinters; }
                 set { _refPrinters = value; }
             }
-            
 
             public int Branch
             {
                 get { return _branch; }
                 set { _branch = value; }
             }
-            
 
             public int RefStatus
             {

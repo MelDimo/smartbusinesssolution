@@ -42,6 +42,8 @@
             this.button_ok = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.numericUpDown_tableCount = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.numericUpDown_duration = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -53,19 +55,20 @@
             this.maskedTextBox_IP = new System.Windows.Forms.MaskedTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown_tableCount = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown_code = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
+            this.tabPage_payment = new System.Windows.Forms.TabPage();
+            this.checkedListBox_payment = new System.Windows.Forms.CheckedListBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_tableCount)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_duration)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_tableCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
+            this.tabPage_payment.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_id
@@ -190,6 +193,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage_payment);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(3, 16);
             this.tabControl1.Name = "tabControl1";
@@ -209,6 +213,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основные";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown_tableCount
+            // 
+            this.numericUpDown_tableCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_tableCount.Location = new System.Drawing.Point(88, 111);
+            this.numericUpDown_tableCount.Name = "numericUpDown_tableCount";
+            this.numericUpDown_tableCount.Size = new System.Drawing.Size(342, 20);
+            this.numericUpDown_tableCount.TabIndex = 2;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 113);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(79, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Кол-во столов";
             // 
             // groupBox2
             // 
@@ -325,24 +347,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройки";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 113);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(79, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Кол-во столов";
-            // 
-            // numericUpDown_tableCount
-            // 
-            this.numericUpDown_tableCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown_tableCount.Location = new System.Drawing.Point(88, 111);
-            this.numericUpDown_tableCount.Name = "numericUpDown_tableCount";
-            this.numericUpDown_tableCount.Size = new System.Drawing.Size(342, 20);
-            this.numericUpDown_tableCount.TabIndex = 2;
-            // 
             // numericUpDown_code
             // 
             this.numericUpDown_code.Location = new System.Drawing.Point(212, 11);
@@ -363,6 +367,26 @@
             this.label10.Size = new System.Drawing.Size(80, 13);
             this.label10.TabIndex = 27;
             this.label10.Text = "Внешний ключ";
+            // 
+            // tabPage_payment
+            // 
+            this.tabPage_payment.Controls.Add(this.checkedListBox_payment);
+            this.tabPage_payment.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_payment.Name = "tabPage_payment";
+            this.tabPage_payment.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPage_payment.Size = new System.Drawing.Size(438, 141);
+            this.tabPage_payment.TabIndex = 2;
+            this.tabPage_payment.Text = "Платежи";
+            this.tabPage_payment.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox_payment
+            // 
+            this.checkedListBox_payment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_payment.FormattingEnabled = true;
+            this.checkedListBox_payment.Location = new System.Drawing.Point(5, 5);
+            this.checkedListBox_payment.Name = "checkedListBox_payment";
+            this.checkedListBox_payment.Size = new System.Drawing.Size(428, 131);
+            this.checkedListBox_payment.TabIndex = 0;
             // 
             // fAddEdit_branch
             // 
@@ -386,18 +410,20 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fAddEdit_branch";
+            this.Shown += new System.EventHandler(this.fAddEdit_branch_Shown);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_tableCount)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_duration)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_tableCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).EndInit();
+            this.tabPage_payment.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,5 +460,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDown_code;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TabPage tabPage_payment;
+        private System.Windows.Forms.CheckedListBox checkedListBox_payment;
     }
 }
