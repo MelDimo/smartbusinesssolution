@@ -161,6 +161,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>xReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reports\xReport_orderPayment.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderPayment.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="reports\xReport_orderUnit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderUnit.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reports\xReport_orderUser.cs">
       <AutoGen>True</AutoGen>
@@ -227,6 +239,14 @@
     <EmbeddedResource Include="reports\xReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>xReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderPayment.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderUnit.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderUnit.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reports\xReport_orderUser.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
