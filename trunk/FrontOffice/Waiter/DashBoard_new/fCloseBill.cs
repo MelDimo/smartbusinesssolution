@@ -73,7 +73,7 @@ namespace com.sbs.gui.dashboard
                 oCtrDishesSmall.TabStop = false;
                 flowLayoutPanel_bills.Controls.Add(oCtrDishesSmall);
 
-                sumBill = oDish.price * oDish.count;
+                sumBill += oDish.price * oDish.count;
             }
 
             oCtrBill.label_summ.Text = sumBill.ToString("F2");

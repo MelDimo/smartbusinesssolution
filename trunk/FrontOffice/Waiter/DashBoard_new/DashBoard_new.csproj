@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D6EFC30B-F1A6-4E0F-8C7C-646694918686}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
     <AssemblyName>DashBoard</AssemblyName>
@@ -153,6 +153,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="reports\xReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport.rpt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="fAddDishToBill.resx">
       <DependentUpon>fAddDishToBill.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +213,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>preOrder.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="DataForReports.xsc">
       <DependentUpon>DataForReports.xsd</DependentUpon>
