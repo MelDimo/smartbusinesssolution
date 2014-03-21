@@ -16,14 +16,14 @@ namespace com.sbs.gui.dashboard.reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class xReport : ReportClass {
+    public class xReport_header : ReportClass {
         
-        public xReport() {
+        public xReport_header() {
         }
         
         public override string ResourceName {
             get {
-                return "xReport.rpt";
+                return "xReport_header.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace com.sbs.gui.dashboard.reports {
         
         public override string FullResourceName {
             get {
-                return "com.sbs.gui.dashboard.reports.xReport.rpt";
+                return "com.sbs.gui.dashboard.reports.xReport_header.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace com.sbs.gui.dashboard.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection4 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace com.sbs.gui.dashboard.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,41 +82,17 @@ namespace com.sbs.gui.dashboard.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection3 {
-            get {
-                return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[5];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_pBranchName {
-            get {
-                return this.DataDefinition.ParameterFields[0];
+                return this.ReportDefinition.Sections[4];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedxReport : Component, ICachedReport {
+    public class CachedxReport_header : Component, ICachedReport {
         
-        public CachedxReport() {
+        public CachedxReport_header() {
         }
         
         [Browsable(false)]
@@ -153,7 +129,7 @@ namespace com.sbs.gui.dashboard.reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            xReport rpt = new xReport();
+            xReport_header rpt = new xReport_header();
             rpt.Site = this.Site;
             return rpt;
         }

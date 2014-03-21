@@ -10,7 +10,6 @@ namespace com.sbs.gui.dashboard
 {
     class DashboardEnvironment
     {
-
         public static com.sbs.dll.DTO_DBoard.User gUser;
         public static com.sbs.dll.DTO_DBoard.SeasonBranch gSeasonBranch;
         public static List<com.sbs.dll.DTO_DBoard.Bill> gBillList;
@@ -762,7 +761,6 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
 
             return dtResult;
-
         }
 
         private DataTable printBill(SqlCommand command, DTO_DBoard.Bill pBill)
@@ -774,13 +772,14 @@ namespace com.sbs.gui.dashboard
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
-                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type" +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logNmae" +
                                         " WHERE bi.bills = @bills";
 
             command.CommandType = CommandType.Text;
 
             command.Parameters.Clear();
             command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
+            command.Parameters.Add("logNmae", SqlDbType.Int).Value = "bill";
             command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
 
             using (SqlDataReader dr = command.ExecuteReader())
@@ -968,6 +967,46 @@ namespace com.sbs.gui.dashboard
 
             return lDishesRefuse;
         }
+
+        internal Report REP_xOrder(string pDbType)
+        {
+            Report oReport = new Report();
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.Connection = con;
+
+                command.CommandText = "REP_xOrder";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("repPath", SqlDbType.NVarChar, 128);
+                command.Parameters["repPath"].Direction = ParameterDirection.Output;
+                command.Parameters.Add("printerName", SqlDbType.NVarChar, 128);
+                command.Parameters["printerName"].Direction = ParameterDirection.Output;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+                dtResult.TableName = "xReport";
+                oReport = new Report() { repPath = command.Parameters["repPath"].Value.ToString(),
+                                         printName = command.Parameters["printerName"].Value.ToString(),
+                                         dtReport = dtResult};
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { con.Close(); } }
+
+            return oReport;
+        }
     }
 
     internal class Suppurt
@@ -981,5 +1020,12 @@ namespace com.sbs.gui.dashboard
 
             return false;
         }
+    }
+
+    internal class Report
+    {
+        public string repPath;
+        public string printName;
+        public DataTable dtReport;
     }
 }
