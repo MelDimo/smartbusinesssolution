@@ -10,6 +10,7 @@ using com.sbs.dll;
 using com.sbs.dll.utilites;
 using System.Threading;
 using System.Diagnostics;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace com.sbs.gui.dashboard
 {
@@ -25,6 +26,8 @@ namespace com.sbs.gui.dashboard
 
         private int xPriv = 0;
         private string xErrMessage = string.Empty;
+
+        DataTable dtResult;
 
         public fSplash()
         {
@@ -177,6 +180,57 @@ namespace com.sbs.gui.dashboard
                                 DashboardEnvironment.Clear();
 
                             }
+                        }
+                        break;
+
+                    case Keys.Home:
+                        if (!trReadCard.IsAlive)
+                        {
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                            #region проверка привелегий
+
+                            // Пытаемся закрыть в свою смену
+                            xPriv = 20; xErrMessage = "У Вас отсутствуют привилегии на формирование Х Отчета.";
+
+
+                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                            {
+                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            #endregion
+
+                            Report oReport = new Report();
+
+                            try
+                            {
+                                oReport = dbAccess.REP_xOrder("offline");
+                            }
+                            catch(Exception exc)
+                            {
+                                uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
+                                return;
+                            }
+
+                            ReportDocument repDoc = new ReportDocument();
+                            repDoc.Load(oReport.repPath);
+                            repDoc.SetDataSource(oReport.dtReport);
+                            repDoc.SetParameterValue("pBranchName", GValues.branchName);
+                            repDoc.PrintOptions.PrinterName = oReport.printName;
+
+                            fRepViewer repViewer = new fRepViewer();
+                            repViewer.crystalReportViewer_main.ReportSource = repDoc;
+                            repViewer.ShowDialog();
                         }
                         break;
                 }

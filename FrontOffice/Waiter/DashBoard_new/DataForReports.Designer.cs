@@ -959,8 +959,6 @@ namespace com.sbs.gui.dashboard {
             
             private global::System.Data.DataColumn columnbill_paymentType;
             
-            private global::System.Data.DataColumn columnunit;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public xReportDataTable() {
@@ -1068,14 +1066,6 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn unitColumn {
-                get {
-                    return this.columnunit;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1111,7 +1101,7 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public xReportRow AddxReportRow(int seasonId, string season_start, string season_end, string user_tabn, string user_fio, string bill, string dish_printer, decimal dish_sum, string bill_paymentType, string unit) {
+            public xReportRow AddxReportRow(int seasonId, string season_start, string season_end, string user_tabn, string user_fio, string bill, string dish_printer, decimal dish_sum, string bill_paymentType) {
                 xReportRow rowxReportRow = ((xReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         seasonId,
@@ -1122,8 +1112,7 @@ namespace com.sbs.gui.dashboard {
                         bill,
                         dish_printer,
                         dish_sum,
-                        bill_paymentType,
-                        unit};
+                        bill_paymentType};
                 rowxReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowxReportRow);
                 return rowxReportRow;
@@ -1155,7 +1144,6 @@ namespace com.sbs.gui.dashboard {
                 this.columndish_printer = base.Columns["dish_printer"];
                 this.columndish_sum = base.Columns["dish_sum"];
                 this.columnbill_paymentType = base.Columns["bill_paymentType"];
-                this.columnunit = base.Columns["unit"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1179,8 +1167,6 @@ namespace com.sbs.gui.dashboard {
                 base.Columns.Add(this.columndish_sum);
                 this.columnbill_paymentType = new global::System.Data.DataColumn("bill_paymentType", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbill_paymentType);
-                this.columnunit = new global::System.Data.DataColumn("unit", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnunit);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1749,22 +1735,6 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string unit {
-                get {
-                    try {
-                        return ((string)(this[this.tablexReport.unitColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'unit\' in table \'xReport\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablexReport.unitColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsseasonIdNull() {
                 return this.IsNull(this.tablexReport.seasonIdColumn);
             }
@@ -1869,18 +1839,6 @@ namespace com.sbs.gui.dashboard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setbill_paymentTypeNull() {
                 this[this.tablexReport.bill_paymentTypeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsunitNull() {
-                return this.IsNull(this.tablexReport.unitColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetunitNull() {
-                this[this.tablexReport.unitColumn] = global::System.Convert.DBNull;
             }
         }
         
