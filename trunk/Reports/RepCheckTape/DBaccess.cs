@@ -28,7 +28,7 @@ namespace com.sbs.gui.report.repchecktape
 
                 command.CommandText = "REP_CheckType";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("pBranch", SqlDbType.DateTime).Value = pRepParam.branch;
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pRepParam.branch;
                 command.Parameters.Add("pDateStart", SqlDbType.DateTime).Value = pRepParam.dateStart;
                 command.Parameters.Add("pDateEnd", SqlDbType.DateTime).Value = pRepParam.dateEnd;
 
@@ -52,7 +52,7 @@ namespace com.sbs.gui.report.repchecktape
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }
 
-        RepParam()
+        public RepParam()
         {
             branch = 0;
             dateStart = DateTime.Now;
