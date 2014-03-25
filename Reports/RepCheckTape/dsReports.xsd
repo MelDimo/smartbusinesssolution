@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsReports" targetNamespace="http://tempuri.org/dsReports.xsd" xmlns:mstns="http://tempuri.org/dsReports.xsd" xmlns="http://tempuri.org/dsReports.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReports" msprop:Generator_UserDSName="dsReports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtCheckType" msprop:Generator_TableClassName="dtCheckTypeDataTable" msprop:Generator_TableVarName="tabledtCheckType" msprop:Generator_TablePropName="dtCheckType" msprop:Generator_RowDeletingName="dtCheckTypeRowDeleting" msprop:Generator_UserTableName="dtCheckType" msprop:Generator_RowChangingName="dtCheckTypeRowChanging" msprop:Generator_RowEvHandlerName="dtCheckTypeRowChangeEventHandler" msprop:Generator_RowDeletedName="dtCheckTypeRowDeleted" msprop:Generator_RowEvArgName="dtCheckTypeRowChangeEvent" msprop:Generator_RowChangedName="dtCheckTypeRowChanged" msprop:Generator_RowClassName="dtCheckTypeRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="sesId" msprop:Generator_ColumnVarNameInTable="columnsesId" msprop:Generator_ColumnPropNameInRow="sesId" msprop:Generator_ColumnPropNameInTable="sesIdColumn" msprop:Generator_UserColumnName="sesId" type="xs:int" minOccurs="0" />
+              <xs:element name="ses_dateOpen" msprop:Generator_ColumnVarNameInTable="columnses_dateOpen" msprop:Generator_ColumnPropNameInRow="ses_dateOpen" msprop:Generator_ColumnPropNameInTable="ses_dateOpenColumn" msprop:Generator_UserColumnName="ses_dateOpen" type="xs:string" minOccurs="0" />
+              <xs:element name="ses_dateClose" msprop:Generator_ColumnVarNameInTable="columnses_dateClose" msprop:Generator_ColumnPropNameInRow="ses_dateClose" msprop:Generator_ColumnPropNameInTable="ses_dateCloseColumn" msprop:Generator_UserColumnName="ses_dateClose" type="xs:string" minOccurs="0" />
+              <xs:element name="ses_openFio" msprop:Generator_ColumnVarNameInTable="columnses_openFio" msprop:Generator_ColumnPropNameInRow="ses_openFio" msprop:Generator_ColumnPropNameInTable="ses_openFioColumn" msprop:Generator_UserColumnName="ses_openFio" type="xs:string" minOccurs="0" />
+              <xs:element name="ses_status" msprop:Generator_ColumnVarNameInTable="columnses_status" msprop:Generator_ColumnPropNameInRow="ses_status" msprop:Generator_ColumnPropNameInTable="ses_statusColumn" msprop:Generator_UserColumnName="ses_status" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_numb" msprop:Generator_ColumnVarNameInTable="columnbill_numb" msprop:Generator_ColumnPropNameInRow="bill_numb" msprop:Generator_ColumnPropNameInTable="bill_numbColumn" msprop:Generator_UserColumnName="bill_numb" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_xTable" msprop:Generator_ColumnVarNameInTable="columnbill_xTable" msprop:Generator_ColumnPropNameInRow="bill_xTable" msprop:Generator_ColumnPropNameInTable="bill_xTableColumn" msprop:Generator_UserColumnName="bill_xTable" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_dateOpen" msprop:Generator_ColumnVarNameInTable="columnbill_dateOpen" msprop:Generator_ColumnPropNameInRow="bill_dateOpen" msprop:Generator_ColumnPropNameInTable="bill_dateOpenColumn" msprop:Generator_UserColumnName="bill_dateOpen" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_dateClose" msprop:Generator_ColumnVarNameInTable="columnbill_dateClose" msprop:Generator_ColumnPropNameInRow="bill_dateClose" msprop:Generator_ColumnPropNameInTable="bill_dateCloseColumn" msprop:Generator_UserColumnName="bill_dateClose" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_userOpen" msprop:Generator_ColumnVarNameInTable="columnbill_userOpen" msprop:Generator_ColumnPropNameInRow="bill_userOpen" msprop:Generator_ColumnPropNameInTable="bill_userOpenColumn" msprop:Generator_UserColumnName="bill_userOpen" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_userClose" msprop:Generator_ColumnVarNameInTable="columnbill_userClose" msprop:Generator_ColumnPropNameInRow="bill_userClose" msprop:Generator_ColumnPropNameInTable="bill_userCloseColumn" msprop:Generator_UserColumnName="bill_userClose" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_status" msprop:Generator_ColumnVarNameInTable="columnbill_status" msprop:Generator_ColumnPropNameInRow="bill_status" msprop:Generator_ColumnPropNameInTable="bill_statusColumn" msprop:Generator_UserColumnName="bill_status" type="xs:string" minOccurs="0" />
+              <xs:element name="billinfo_dishName" msprop:Generator_ColumnVarNameInTable="columnbillinfo_dishName" msprop:Generator_ColumnPropNameInRow="billinfo_dishName" msprop:Generator_ColumnPropNameInTable="billinfo_dishNameColumn" msprop:Generator_UserColumnName="billinfo_dishName" type="xs:string" minOccurs="0" />
+              <xs:element name="billinfo_dishPrice" msprop:Generator_ColumnVarNameInTable="columnbillinfo_dishPrice" msprop:Generator_ColumnPropNameInRow="billinfo_dishPrice" msprop:Generator_ColumnPropNameInTable="billinfo_dishPriceColumn" msprop:Generator_UserColumnName="billinfo_dishPrice" type="xs:decimal" minOccurs="0" />
+              <xs:element name="billinfo_dishCount" msprop:Generator_ColumnVarNameInTable="columnbillinfo_dishCount" msprop:Generator_ColumnPropNameInRow="billinfo_dishCount" msprop:Generator_ColumnPropNameInTable="billinfo_dishCountColumn" msprop:Generator_UserColumnName="billinfo_dishCount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bill_sum" msprop:Generator_ColumnVarNameInTable="columnbill_sum" msprop:Generator_ColumnPropNameInRow="bill_sum" msprop:Generator_ColumnPropNameInTable="bill_sumColumn" msprop:Generator_UserColumnName="bill_sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ses_closeFio" msprop:Generator_ColumnVarNameInTable="columnses_closeFio" msprop:Generator_ColumnPropNameInRow="ses_closeFio" msprop:Generator_ColumnPropNameInTable="ses_closeFioColumn" msprop:Generator_UserColumnName="ses_closeFio" type="xs:string" minOccurs="0" />
+              <xs:element name="billinfo_dishStatus" msprop:Generator_ColumnVarNameInTable="columnbillinfo_dishStatus" msprop:Generator_ColumnPropNameInRow="billinfo_dishStatus" msprop:Generator_ColumnPropNameInTable="billinfo_dishStatusColumn" msprop:Generator_UserColumnName="billinfo_dishStatus" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

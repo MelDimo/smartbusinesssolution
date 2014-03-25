@@ -126,11 +126,11 @@
     <None Include="dsReports.xsc">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </None>
-    <None Include="dsReports.xsd">
+    <EmbeddedResource Include="dsReports.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsReports.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="dsReports.xss">
       <DependentUpon>dsReports.xsd</DependentUpon>
     </None>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace RepCheckTape
+namespace com.sbs.gui.report.repchecktape
 {
     static class Program
     {

@@ -71,31 +71,8 @@ namespace com.sbs.gui.report.reptimesheets
             dtResult = new DataTable();
             string branch = string.Empty;
             string groups = string.Empty;
-            string sWhere = " WHERE ";
 
             con = new DBCon().getConnection(pDbType);
-
-            //foreach (int id in pRepParam.checkedBranch)
-            //{
-            //    pRepParam.xBranch = id;
-            //    branch += id + ",";
-            //}
-
-            //foreach (int id in pRepParam.checkedUsersGroup) groups += id + ",";
-
-            //if (!branch.Equals(string.Empty))
-            //{
-            //    sWhere += " br.id in (" + branch.TrimEnd(',') + ") AND";
-            //}
-            //if (!groups.Equals(string.Empty))
-            //{
-            //    sWhere += " us_gr.groups in(" + groups.TrimEnd(',') + ") AND";
-            //}
-
-            //if (!sWhere.Equals(" WHERE "))
-            //    sWhere = sWhere.TrimEnd('A', 'N', 'D');
-            //else
-            //    sWhere = string.Empty;
 
             try
             {
