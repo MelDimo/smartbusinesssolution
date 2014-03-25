@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.report.repchecktape
 {
@@ -28,6 +29,15 @@ namespace com.sbs.gui.report.repchecktape
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            if (oRepParam.branch == 0)
+            {
+                MessageBox.Show("Укажите заведение.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            oRepParam.dateStart = dateTimePicker_dateStart.Value;
+            oRepParam.dateEnd = dateTimePicker_dateEnd.Value;
+
             prepareReport();
         }
 
@@ -62,7 +72,11 @@ namespace com.sbs.gui.report.repchecktape
 
         private void button_branch_Click(object sender, EventArgs e)
         {
-            
+            fChooserUnit fChooseBranch = new fChooserUnit(0, 2);
+            if (fChooseBranch.ShowDialog() != DialogResult.OK) return;
+
+            oRepParam.branch = fChooseBranch.selectedId;
+            textBox_branchsNames.Text = fChooseBranch.selectedName;
         }
     }
 }

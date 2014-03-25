@@ -545,7 +545,7 @@ namespace com.sbs.gui.report.repchecktape {
                         string ses_dateClose, 
                         string ses_openFio, 
                         string ses_status, 
-                        string bill_numb, 
+                        int bill_numb, 
                         string bill_xTable, 
                         string bill_dateOpen, 
                         string bill_dateClose, 
@@ -636,7 +636,7 @@ namespace com.sbs.gui.report.repchecktape {
                 base.Columns.Add(this.columnses_openFio);
                 this.columnses_status = new global::System.Data.DataColumn("ses_status", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnses_status);
-                this.columnbill_numb = new global::System.Data.DataColumn("bill_numb", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnbill_numb = new global::System.Data.DataColumn("bill_numb", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbill_numb);
                 this.columnbill_xTable = new global::System.Data.DataColumn("bill_xTable", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbill_xTable);
@@ -886,10 +886,10 @@ namespace com.sbs.gui.report.repchecktape {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string bill_numb {
+            public int bill_numb {
                 get {
                     try {
-                        return ((string)(this[this.tabledtCheckType.bill_numbColumn]));
+                        return ((int)(this[this.tabledtCheckType.bill_numbColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'bill_numb\' in table \'dtCheckType\' is DBNull.", e);
