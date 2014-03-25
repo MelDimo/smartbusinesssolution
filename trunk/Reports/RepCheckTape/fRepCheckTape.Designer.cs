@@ -1,4 +1,4 @@
-﻿namespace RepCheckTape
+﻿namespace com.sbs.gui.report.repchecktape
 {
     partial class fRepCheckTape
     {
@@ -37,6 +37,7 @@
             this.button_ok = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.button_branch = new System.Windows.Forms.Button();
             this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,10 +45,11 @@
             // 
             this.dateTimePicker_dateStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateStart.Location = new System.Drawing.Point(95, 36);
             this.dateTimePicker_dateStart.Name = "dateTimePicker_dateStart";
-            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker_dateStart.TabIndex = 0;
+            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(250, 20);
+            this.dateTimePicker_dateStart.TabIndex = 1;
             // 
             // label1
             // 
@@ -71,40 +73,43 @@
             // 
             this.dateTimePicker_dateEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dateTimePicker_dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateEnd.Location = new System.Drawing.Point(95, 12);
             this.dateTimePicker_dateEnd.Name = "dateTimePicker_dateEnd";
-            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker_dateEnd.TabIndex = 3;
+            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(250, 20);
+            this.dateTimePicker_dateEnd.TabIndex = 0;
             // 
             // panel8
             // 
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 131);
+            this.panel8.Location = new System.Drawing.Point(0, 101);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(308, 35);
-            this.panel8.TabIndex = 48;
+            this.panel8.Size = new System.Drawing.Size(358, 35);
+            this.panel8.TabIndex = 3;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(212, 6);
+            this.button_cancel.Location = new System.Drawing.Point(262, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
             this.button_cancel.Text = "Отмена";
             this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(131, 6);
+            this.button_ok.Location = new System.Drawing.Point(181, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
             this.button_ok.Text = "Ок";
             this.button_ok.UseVisualStyleBackColor = true;
+            this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
             // textBox1
             // 
@@ -112,8 +117,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(95, 63);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 20);
-            this.textBox1.TabIndex = 49;
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(221, 20);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TabStop = false;
             // 
             // label3
             // 
@@ -124,11 +131,23 @@
             this.label3.TabIndex = 50;
             this.label3.Text = "Заведение";
             // 
+            // button_branch
+            // 
+            this.button_branch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_branch.Location = new System.Drawing.Point(321, 62);
+            this.button_branch.Name = "button_branch";
+            this.button_branch.Size = new System.Drawing.Size(24, 23);
+            this.button_branch.TabIndex = 2;
+            this.button_branch.Text = "...";
+            this.button_branch.UseVisualStyleBackColor = true;
+            this.button_branch.Click += new System.EventHandler(this.button_branch_Click);
+            // 
             // fRepCheckTape
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(308, 166);
+            this.ClientSize = new System.Drawing.Size(358, 136);
+            this.Controls.Add(this.button_branch);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel8);
@@ -155,6 +174,7 @@
         private System.Windows.Forms.Button button_ok;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button_branch;
     }
 }
 

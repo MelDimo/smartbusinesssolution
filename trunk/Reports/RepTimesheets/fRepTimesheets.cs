@@ -51,15 +51,6 @@ namespace com.sbs.gui.report.reptimesheets
 
             oRepParam.xBranch = fChooseBranch.selectedId;
             textBox_branchsNames.Text = fChooseBranch.selectedName;
-
-            //fChooserUnitTree fOrgTree = new fChooserUnitTree();
-            //fOrgTree.checkLvl = "branch";
-            //fOrgTree.autoCheckChild = false;
-            //fOrgTree.Text = "Выбор заведения";
-            //fOrgTree.StartPosition = FormStartPosition.CenterParent;
-            //fOrgTree.ShowDialog();
-            //oRepParam.checkedBranch = fOrgTree.checkedBranch;
-            //textBox_branchsNames.Text = fOrgTree.checkedBranchName;
         }
 
         private void button_getGroup_Click(object sender, EventArgs e)

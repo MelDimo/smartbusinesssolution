@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepEmplLog", "RepEmplLog\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepTimesheets", "RepTimesheets\RepTimesheets.csproj", "{EFD02D1D-57C8-48DB-AB1C-E04FF2EB6BF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepCheckTape", "RepCheckTape\RepCheckTape.csproj", "{D4D6EF2B-1DD2-4FCE-80F7-C0336DB3AA04}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -29,6 +31,10 @@ Global
 		{EFD02D1D-57C8-48DB-AB1C-E04FF2EB6BF1}.Debug|x86.Build.0 = Debug|x86
 		{EFD02D1D-57C8-48DB-AB1C-E04FF2EB6BF1}.Release|x86.ActiveCfg = Release|x86
 		{EFD02D1D-57C8-48DB-AB1C-E04FF2EB6BF1}.Release|x86.Build.0 = Release|x86
+		{D4D6EF2B-1DD2-4FCE-80F7-C0336DB3AA04}.Debug|x86.ActiveCfg = Debug|x86
+		{D4D6EF2B-1DD2-4FCE-80F7-C0336DB3AA04}.Debug|x86.Build.0 = Debug|x86
+		{D4D6EF2B-1DD2-4FCE-80F7-C0336DB3AA04}.Release|x86.ActiveCfg = Release|x86
+		{D4D6EF2B-1DD2-4FCE-80F7-C0336DB3AA04}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
