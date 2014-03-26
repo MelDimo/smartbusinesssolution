@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Data.SqlServerCe;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 using System.Xml;
 using com.sbs.dll.utilites;
 using System.Drawing;
@@ -23,25 +22,22 @@ namespace com.sbs.dll
 
         public static int unitId;
         public static int branchId;
+        public static string branchName;
         public static string resourcePath;
 
         public static byte[] rgbIV = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
         public static int authortype;
 
-        #region ----------------------------- Оставил пока не перепишу официантскую часть, потом убрать -----------------------------
+        #region -------------------------------------------- Почта
 
-        public static int openSeasonId;
-        public static int openSeasonUserId;
-        public static string openSeasonDate;
-        public static string openSeasonUserName;
-        public static void seasonInfoClear()
-        {
-            openSeasonId = 0;
-            openSeasonUserId = 0;
-            openSeasonDate = string.Empty;
-            openSeasonUserName = string.Empty;
-        }
+        public static string mailBox;
+        public static string mailUsername;
+        public static string mailPassword;
+        public static int mailMax = 5;
+        public static int mailChkSec = 30000;
+        public static string mailMelody;
+
         #endregion
 
 #if DEBUG
@@ -97,6 +93,49 @@ namespace com.sbs.dll
 
     public class Config
     {
+        private SqlConnection con = null;
+        private SqlCommand command = null;
+
+        DataTable dtResult;
+
+        public void getMailConfig(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT email, login, pwd, ring_name, maxMail, chkSec " +
+                                        " FROM users_email ue, mailbox_config mc" +
+                                        " WHERE ue.users = @users AND mc.users = @users";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            if (dtResult.Rows.Count > 0)
+            {
+                GValues.mailBox = dtResult.Rows[0]["email"].ToString();
+                GValues.mailUsername = dtResult.Rows[0]["login"].ToString();
+                GValues.mailPassword = dtResult.Rows[0]["pwd"].ToString();
+
+                GValues.mailMax = (int)dtResult.Rows[0]["maxMail"];
+                GValues.mailMelody = dtResult.Rows[0]["ring_name"].ToString();
+                GValues.mailChkSec = (int)dtResult.Rows[0]["chkSec"];
+            }
+        }
+
         private byte[] readKey()
         {
             string strPwd = string.Empty;
@@ -145,7 +184,7 @@ namespace com.sbs.dll
                     resultString = sReader.ReadToEnd().Split(new string[] { "\n" }, StringSplitOptions.None);
 
                     GValues.localDBConStr = "Data Source=" + resultString[0] + ";Initial Catalog=" + resultString[1] + ";User ID=" + resultString[2] + ";Password=" + resultString[3];
-                    GValues.localDBConStr = "Data Source=" + resultString[4] + ";Initial Catalog=" + resultString[5] + ";User ID=" + resultString[6] + ";Password=" + resultString[7];
+                    GValues.mainDBConStr = "Data Source=" + resultString[4] + ";Initial Catalog=" + resultString[5] + ";User ID=" + resultString[6] + ";Password=" + resultString[7];
 
                     sReader.Close();
                     cStream.Close();
@@ -210,6 +249,38 @@ namespace com.sbs.dll
             catch (Exception exc) { uMessage.Show("Неудалось прочесть файл конфигураций", exc, SystemIcons.Information); return false; }
 
             return true;
+        }
+
+        public void initAdditionData(string pDbType)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT b.name AS branchName " +
+                                        " FROM branch b " +
+                                        " WHERE b.id = @pBranch";
+
+                command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            foreach(DataRow dr in dtResult.Rows)
+            {
+                GValues.branchName = dr["branchName"].ToString();
+            }
         }
     }
     

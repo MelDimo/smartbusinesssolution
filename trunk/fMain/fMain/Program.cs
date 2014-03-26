@@ -44,20 +44,20 @@ namespace com.sbs.gui.main
             }
             catch (Exception exc) { uMessage.Show("Ошибка формирования меню", exc, SystemIcons.Error); return; }
 
+            // Читаем конфигурацию взаимодействия с почтой
+            conf.getMailConfig("offline");
+
+            // Инициализируем дополнительные параметры
+            conf.initAdditionData("offline");
+
             // загрузка необходимых модулей
             try
             {
                 loadProgramModules((List<string>)xResultSet[1]);
-                loadAutorunModules();
             }
             catch (Exception exc) { uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); return; }
 
             Application.Run(new fMain((DataTable)xResultSet[0]));
-        }
-
-        private static void loadAutorunModules()
-        {
-            
         }
 
         private static void loadProgramModules(List<string> pArrayModules)
@@ -91,6 +91,7 @@ namespace com.sbs.gui.main
                     object classInstance = Activator.CreateInstance(type, null);
                     methodInfo.Invoke(classInstance, null);
                 }
+
 #endif
             }
             catch (Exception exc) { throw exc; }

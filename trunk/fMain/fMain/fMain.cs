@@ -12,6 +12,7 @@ using System.Reflection;
 using System.ServiceModel;
 using System.Threading;
 using System.Messaging;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.main
 {
@@ -19,6 +20,8 @@ namespace com.sbs.gui.main
     {
         DTO.Message oMessage = new DTO.Message();
         Thread msgListner;
+
+        static bool threadFlag = true;
 
         public fMain(DataTable pDtMnu)
         {
@@ -36,29 +39,37 @@ namespace com.sbs.gui.main
 
         private void monitorMessage()
         {
-            if (!MessageQueue.Exists(@".\Private$\SBSInnerMessage")) MessageQueue.Create(@".\Private$\SBSInnerMessage");
-
-            MessageQueue messageQueue = new MessageQueue(@".\Private$\SBSInnerMessage");
-            messageQueue.Purge();
-
-            while (true)
+            try
             {
-                System.Messaging.Message[] messages = messageQueue.GetAllMessages();
-                foreach (System.Messaging.Message message in messages)
-                {
-                    message.Formatter = new XmlMessageFormatter(new Type[] { typeof(DTO.Message) });
-                    oMessage = (DTO.Message)message.Body;
-                    switch(oMessage.id)
-                    {
-                        case "MESSAGE_UNSEEN": // Непрочитанные сообщения
-                            setMailInfo(oMessage);  
-                            break;
-                    }
-                }
-                // after all processing, delete all the messages
+                if (!MessageQueue.Exists(@".\Private$\SBSInnerMessage")) MessageQueue.Create(@".\Private$\SBSInnerMessage");
+
+                MessageQueue messageQueue = new MessageQueue(@".\Private$\SBSInnerMessage");
                 messageQueue.Purge();
 
-                Thread.Sleep(5000);
+                while (threadFlag)
+                {
+                    System.Messaging.Message[] messages = messageQueue.GetAllMessages();
+                    foreach (System.Messaging.Message message in messages)
+                    {
+                        message.Formatter = new XmlMessageFormatter(new Type[] { typeof(DTO.Message) });
+                        oMessage = (DTO.Message)message.Body;
+                        switch (oMessage.id)
+                        {
+                            case "MESSAGE_UNSEEN": // Непрочитанные сообщения
+                                setMailInfo(oMessage);
+                                break;
+                        }
+                    }
+                    // after all processing, delete all the messages
+                    messageQueue.Purge();
+
+                    Thread.Sleep(30000);
+                }
+            }
+            catch (Exception exc) 
+            { 
+                uMessage.Show("Ошибка в прослушивателе сообщений.", exc, SystemIcons.Information); 
+                return; 
             }
         }
 
@@ -182,8 +193,9 @@ namespace com.sbs.gui.main
 
         private void fMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (msgListner != null)
-                if (msgListner.IsAlive) msgListner.Abort();
+            threadFlag = false;
+            //if (msgListner != null)
+            //    if (msgListner.IsAlive) msgListner.Abort();
         }
     }
 }

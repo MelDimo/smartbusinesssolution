@@ -27,7 +27,7 @@ namespace com.sbs.gui.main
             string uPwd = textBox_pwd.Text.Trim();
 
             if (!checkLogin(uLogIn, uPwd)) { uMessage.Show("Неверное имя пользователя или пароль", SystemIcons.Information); }
-            else { DialogResult = DialogResult.OK;}
+            else { DialogResult = DialogResult.OK; }
         }
 
         private bool checkLogin(string pLogIn, string pPwd)
