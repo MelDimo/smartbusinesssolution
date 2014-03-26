@@ -38,8 +38,12 @@
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -33,6 +33,7 @@ namespace com.sbs.dll
             public int refDishes { get; set; }
             public string name { get; set; }
             public decimal price { get; set; }
+            public decimal minStep { get; set; }
             public int refStatus { get; set; }
             public int isVisible { get; set; }
             public int refPrintersType { get; set; }
@@ -44,6 +45,7 @@ namespace com.sbs.dll
             public int code { get; set; }
             public string name { get; set; }
             public decimal price { get; set; }
+            public decimal minStep { get; set; }
             public int refPrintersType { get; set; }
             public int refStatus { get; set; }
         }

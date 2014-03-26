@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gPwd", "gPwd\gPwd.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{E1F66FC2-68E4-4046-AE7A-13619FA5A1F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "synchData", "synchData\synchData.csproj", "{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -68,6 +70,16 @@ Global
 		{E1F66FC2-68E4-4046-AE7A-13619FA5A1F5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E1F66FC2-68E4-4046-AE7A-13619FA5A1F5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E1F66FC2-68E4-4046-AE7A-13619FA5A1F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Debug|x86.ActiveCfg = Debug|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Debug|x86.Build.0 = Debug|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Release|Any CPU.ActiveCfg = Release|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Release|x86.ActiveCfg = Release|x86
+		{F6BDD25F-27D0-4BD1-9E9F-3CE4323BA1AD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

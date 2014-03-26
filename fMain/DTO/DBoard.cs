@@ -48,8 +48,10 @@ namespace com.sbs.dll
             public DateTime openDate { get; set; }
             public DateTime? closeDate { get; set; }
             public int refStat { get; set; }
+            public int refNotes { get; set; }
             public string refStatName { get; set; }
             public decimal summ { get; set; }
+            public int paymentType { get; set; }
         }
 
         public class Dish
@@ -58,10 +60,27 @@ namespace com.sbs.dll
             public int carteDishes { get; set; }
             public string name { get; set; }
             public decimal price { get; set; }
+            public decimal minStep { get; set; }
             public decimal count { get; set; }
-            public string portion { get; set; }
-            public DateTime? addDate { get; set; }
+            //public string portion { get; set; }
+            public DateTime? dateStatus { get; set; }
             public int refStatus { get; set; }
+            public int refNotes { get; set; }
+            public string refNotesName { get; set; }
+            public int refPrintersType { get; set; }
+
+        }
+
+        public class DishRefuse
+        {
+            public int id { get; set; }
+            public int carteDishes { get; set; }
+            public string name { get; set; }
+            public decimal minStep { get; set; }
+            public decimal count { get; set; }
+            public decimal price { get; set; }
+            public DateTime refuseDate { get; set; }
+            public string refuseFio { get; set; }
             public int refPrintersType { get; set; }
         }
     }
