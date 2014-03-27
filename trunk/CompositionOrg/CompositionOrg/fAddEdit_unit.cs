@@ -75,6 +75,7 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.Name = textBox_name.Text.Trim();
             oUnitDTO.RefStatus = comboBox_refStatus.SelectedValue == null ? 0 : (int)comboBox_refStatus.SelectedValue;
             oUnitDTO.Branch = comboBox_branch.SelectedValue == null ? 0 : (int)comboBox_branch.SelectedValue;
+            //oUnitDTO.RefPrintersType = comboBox_refPrintersType
 
             if (oUnitDTO.Name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
             if (oUnitDTO.Branch == 0) errMessage += System.Environment.NewLine + "- Заведение;";
