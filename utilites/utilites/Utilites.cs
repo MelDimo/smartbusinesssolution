@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll.utilites.Properties;
+using System.IO;
 
 namespace com.sbs.dll.utilites
 {
@@ -684,7 +685,7 @@ namespace com.sbs.dll.utilites
 
                 command.CommandText = " SELECT cd.id, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, " +
                                             " cd.ref_printers_type, rpt.name as ref_printers_type_name," +
-                                            " cd.ref_status, stat.name as ref_status_name" +
+                                            " cd.ref_status, stat.name as ref_status_name, cd.minStep" +
                                         " FROM carte_dishes cd" +
                                         " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
                                         " INNER JOIN ref_status stat ON stat.id = cd.ref_status" +
@@ -720,7 +721,7 @@ namespace com.sbs.dll.utilites
 
                 command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price," +
                                             " rd.ref_printers_type, rpt.name as ref_printers_type_name," +
-                                            " rd.ref_status, rs.name as ref_status_name" +
+                                            " rd.ref_status, rs.name as ref_status_name, rd.minStep" +
                                         " FROM ref_dishes rd" +
                                         " INNER JOIN ref_printers_type rpt ON rpt.id = rd.ref_printers_type" +
                                         " INNER JOIN ref_status rs ON rs.id = rd.ref_status" +
@@ -963,6 +964,50 @@ namespace com.sbs.dll.utilites
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return dtResult;
+        }
+
+        public DataTable getPaymentType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT 'false' as isChecked, id, name FROM ref_payment_type " +
+                                        " WHERE ref_status = @ref_status";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+    }
+
+    public static class WriteLog
+    {
+        public static void write(string pString)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(GValues.prgLogFile))) Directory.CreateDirectory(Path.GetDirectoryName(GValues.prgLogFile));
+            if (!File.Exists(GValues.prgLogFile)) File.Create(GValues.prgLogFile).Dispose();
+
+            using (StreamWriter sw = new StreamWriter(GValues.prgLogFile, true))
+            {
+                sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
+            }
         }
     }
 }
