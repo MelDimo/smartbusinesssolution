@@ -188,8 +188,6 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_branchEdit_Click(object sender, EventArgs e)
         {
-            string bufDate = string.Empty;
-
             if (dataGridView_branch.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -212,20 +210,14 @@ namespace com.sbs.gui.compositionorg
                              where rec.Field<int>("id") == oBranchDTO.Id
                              select rec;
 
-            if (branchInfo.First().Field<TimeSpan?>("xopen") != null)
+            if (branchInfo.First().Field<DateTime?>("xopen") != null)
             {
-                bufDate = branchInfo.First().Field<TimeSpan>("xopen").ToString();
-                oBranchDTO.XOpen = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
-                                                                                                        int.Parse(bufDate.Substring(3, 2)),
-                                                                                                        int.Parse(bufDate.Substring(6, 2)));
+                oBranchDTO.XOpen = branchInfo.First().Field<DateTime>("xopen");
             }
 
-            if (branchInfo.First().Field<TimeSpan?>("xclose") != null)
+            if (branchInfo.First().Field<DateTime?>("xclose") != null)
             {
-                bufDate = branchInfo.First().Field<TimeSpan>("xclose").ToString();
-                oBranchDTO.XClose = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(bufDate.Substring(0, 2)),
-                                                                                                        int.Parse(bufDate.Substring(3, 2)),
-                                                                                                        int.Parse(bufDate.Substring(6, 2)));
+                oBranchDTO.XClose = branchInfo.First().Field<DateTime>("xclose");
             }
 
             if (branchInfo.First().Field<int?>("season_duration") != null)

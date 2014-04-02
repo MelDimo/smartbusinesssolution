@@ -59,11 +59,6 @@ namespace com.sbs.gui.compositionorg
             if(saveData()) DialogResult = DialogResult.OK;
         }
 
-        private void button_apply_Click(object sender, EventArgs e)
-        {
-            saveData();
-        }
-
         private void button_cancel_Click(object sender, EventArgs e)
         {
            DialogResult = DialogResult.Cancel;
@@ -75,7 +70,9 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.Name = textBox_name.Text.Trim();
             oUnitDTO.RefStatus = comboBox_refStatus.SelectedValue == null ? 0 : (int)comboBox_refStatus.SelectedValue;
             oUnitDTO.Branch = comboBox_branch.SelectedValue == null ? 0 : (int)comboBox_branch.SelectedValue;
-            //oUnitDTO.RefPrintersType = comboBox_refPrintersType
+            oUnitDTO.RefPrintersType = comboBox_refPrintersType.SelectedValue == null ? 0 : (int)comboBox_refPrintersType.SelectedValue;
+            oUnitDTO.RefPrinters = comboBox_refPrinters.SelectedValue == null ? 0 : (int)comboBox_refPrinters.SelectedValue;
+
 
             if (oUnitDTO.Name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
             if (oUnitDTO.Branch == 0) errMessage += System.Environment.NewLine + "- Заведение;";
