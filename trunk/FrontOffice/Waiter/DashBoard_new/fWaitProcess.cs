@@ -54,7 +54,7 @@ namespace com.sbs.gui.dashboard
             dtResult = dbAccess.commitDish("offline", oBill);
 
             var results_1 = from myRow in dtResult.AsEnumerable()
-                            where myRow.Field<int>("ref_printers_type") == 1 && myRow.Field<int>("ref_status") != 23
+                            where myRow.Field<int>("ref_printers_type") == 1 && myRow.Field<int>("ref_status") == 23
                             select myRow;
             if (results_1.Count() > 0) // есть позиции на принтер Кухни
             {
@@ -68,12 +68,12 @@ namespace com.sbs.gui.dashboard
                 repDoc.PrintOptions.PrinterName = results_1.First().Field<string>("printerName");
                 repDoc.PrintToPrinter(1, false, 0, 0);
 
-                MessageBox.Show("есть позиции на принтер Кухни;" + Environment.NewLine
-                    + repDoc.PrintOptions.PrinterName);
+                //MessageBox.Show("есть позиции на принтер Кухни;" + Environment.NewLine
+                //    + repDoc.PrintOptions.PrinterName);
             }
 
             var results_2 = from myRow in dtResult.AsEnumerable()
-                            where myRow.Field<int>("ref_printers_type") == 2 && myRow.Field<int>("ref_status") != 23
+                            where myRow.Field<int>("ref_printers_type") == 2 && myRow.Field<int>("ref_status") == 23
                             select myRow;
 
             if (results_2.Count() > 0) // есть позиции на принтер Бара

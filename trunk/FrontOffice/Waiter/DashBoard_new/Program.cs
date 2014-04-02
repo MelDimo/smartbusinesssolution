@@ -17,6 +17,7 @@ namespace com.sbs.gui.dashboard
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
             GValues.branchName = "Ла плачинте";
 #endif
             Application.EnableVisualStyles();

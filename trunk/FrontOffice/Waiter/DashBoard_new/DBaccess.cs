@@ -37,7 +37,6 @@ namespace com.sbs.gui.dashboard
                                         " SELECT id, ref_notes_type, note " +
                                         "   FROM ref_notes WHERE ref_status = @ref_status" +
                                         " ORDER BY note";
-
                 command.Parameters.Clear();
 
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
@@ -779,7 +778,7 @@ namespace com.sbs.gui.dashboard
 
             command.Parameters.Clear();
             command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
-            command.Parameters.Add("logNmae", SqlDbType.Int).Value = "bill";
+            command.Parameters.Add("logNmae", SqlDbType.NVarChar).Value = "bill";
             command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
 
             using (SqlDataReader dr = command.ExecuteReader())
