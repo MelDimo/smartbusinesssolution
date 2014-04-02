@@ -17,6 +17,7 @@ namespace com.sbs.gui.compositionorg
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
