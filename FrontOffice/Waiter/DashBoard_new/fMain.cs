@@ -190,6 +190,7 @@ namespace com.sbs.gui.dashboard
         private void showBill()
         { 
             ctrBill oCtrBill;
+
             flowLayoutPanel_bills.Controls.Clear();
             flowLayoutPanel_billInfo.Controls.Clear();
 
@@ -224,6 +225,10 @@ namespace com.sbs.gui.dashboard
             {
                 flowLayoutPanel_bills.Controls[0].Focus();
                 curBill = (DTO_DBoard.Bill)((ctrBill)flowLayoutPanel_bills.Controls[0]).Tag;
+            }
+            else
+            {
+                this.Focus();
             }
 
             foreach (ctrBill ctr in flowLayoutPanel_bills.Controls)
@@ -731,10 +736,15 @@ namespace com.sbs.gui.dashboard
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
             fWait.ShowDialog();
 
-            keysBackspace();
-
-            //fillBills();
-            //showBill();
+            if (curGroupBox != groupBox.BILL)
+            {
+                keysBackspace();
+            }
+            else
+            {
+                fillBills();
+                showBill();
+            }
         }
 
         private void commitDish()
@@ -786,11 +796,8 @@ namespace com.sbs.gui.dashboard
             if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.GROUP)
             {
                 fillBills();
-
                 showBill();
-
                 curGroupBox = groupBox.BILL;
-
                 panel_bills.BringToFront();
             }
         }
