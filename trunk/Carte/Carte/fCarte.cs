@@ -44,6 +44,7 @@ namespace com.sbs.gui.carte
             toolStripButton_carteAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             toolStripButton_carteEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
             toolStripButton_carteDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+            toolStripButton_carteDublicate.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
 
             toolStripButton_groupAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             toolStripButton_groupEdit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
@@ -524,6 +525,36 @@ namespace com.sbs.gui.carte
         private void treeView_group_AfterSelect(object sender, TreeViewEventArgs e)
         {
             updateDishes();
+        }
+
+        private void toolStripButton_carteDublicate_Click(object sender, EventArgs e)
+        {
+            int index = 0;
+
+            if (dataGridView_carte.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataGridViewRow dr = dataGridView_carte.SelectedRows[0];
+            index = dr.Index;
+            oCarte = new DTO.Carte();
+
+            oCarte.id = (int)dr.Cells["carte_id"].Value;
+
+            DataRow carteInfo = (from rec in dtCarte.AsEnumerable()
+                                 where rec.Field<int>("id") == oCarte.id
+                                 select rec).First();
+
+            oCarte.branch = carteInfo.Field<int>("branch");
+            oCarte.code = carteInfo.Field<int>("code");
+            oCarte.name = carteInfo.Field<string>("name");
+            oCarte.refStatus = carteInfo.Field<int>("ref_status");
+
+            fDublicate_Carte fDubCarte = new fDublicate_Carte(toolStripTextBox_branchName.Text, oCarte, dtBranch);
+            fDubCarte.ShowDialog();
+
         }
 
     }

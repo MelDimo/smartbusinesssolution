@@ -10,8 +10,9 @@ namespace com.sbs.gui.carte
 {
     public class DBAccess
     {
-        SqlConnection con;
-        SqlCommand command;
+        private SqlConnection con;
+        private SqlCommand command;
+        private SqlTransaction tx;
 
         #region -------------------------------------------------------------- Меню
 
@@ -84,6 +85,36 @@ namespace com.sbs.gui.carte
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void carte_dublicate(string pDbType, int pCarteId, int pBranch, int pCode)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandText = "CarteDublicate";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pCarteId;
+                command.Parameters.Add("pCarte", SqlDbType.Int).Value = pCarteId;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pCarteId;
+
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
         }
 
         #endregion

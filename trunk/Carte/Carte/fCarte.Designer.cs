@@ -67,6 +67,8 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox_branchName = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton_branch = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_carteDublicate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -185,7 +187,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_carteAdd,
             this.toolStripButton_carteEdit,
-            this.toolStripButton_carteDel});
+            this.toolStripButton_carteDel,
+            this.toolStripSeparator1,
+            this.toolStripButton_carteDublicate});
             this.toolStrip1.Location = new System.Drawing.Point(3, 16);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(338, 25);
@@ -494,7 +498,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(120, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(250, 29);
             // 
             // toolStripButton_branch
             // 
@@ -506,6 +510,23 @@
             this.toolStripButton_branch.Size = new System.Drawing.Size(26, 26);
             this.toolStripButton_branch.Text = "Выбрать";
             this.toolStripButton_branch.Click += new System.EventHandler(this.toolStripButton_branch_Click);
+            // 
+            // toolStripButton_carteDublicate
+            // 
+            this.toolStripButton_carteDublicate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_carteDublicate.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_carteDublicate.Image")));
+            this.toolStripButton_carteDublicate.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_carteDublicate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_carteDublicate.Name = "toolStripButton_carteDublicate";
+            this.toolStripButton_carteDublicate.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_carteDublicate.Text = "Дублировать";
+            this.toolStripButton_carteDublicate.ToolTipText = "Дублировать";
+            this.toolStripButton_carteDublicate.Click += new System.EventHandler(this.toolStripButton_carteDublicate_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // fCarte
             // 
@@ -591,6 +612,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_price;
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_ref_printers_type_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_ref_status_name;
+        private System.Windows.Forms.ToolStripButton toolStripButton_carteDublicate;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
