@@ -55,14 +55,17 @@ namespace com.sbs.gui.users
             comboBox_org.DataSource = pDtOrg.Copy();
             comboBox_org.ValueMember = "id";
             comboBox_org.DisplayMember = "name";
+            comboBox_org.SelectedValue = pUsersDTO.org;
 
             comboBox_branch.DataSource = pDtBranch.Copy();
             comboBox_branch.ValueMember = "id";
             comboBox_branch.DisplayMember = "name";
+            comboBox_branch.SelectedValue = pUsersDTO.branch;
 
             comboBox_unit.DataSource = pDtUnit.Copy();
             comboBox_unit.ValueMember = "id";
             comboBox_unit.DisplayMember = "name";
+            comboBox_unit.SelectedValue = pUsersDTO.unit;
 
             comboBox_citizen1.DataSource = dtSitizen1;
             comboBox_citizen1.ValueMember = "id";

@@ -18,6 +18,7 @@ namespace com.sbs.gui.users
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
             UsersInfo.LogIn = "dimon";
 #endif
             Application.EnableVisualStyles();
