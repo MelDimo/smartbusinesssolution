@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll.utilites.Properties;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace com.sbs.dll.utilites
 {
@@ -1008,6 +1009,47 @@ namespace com.sbs.dll.utilites
             {
                 sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
             }
+        }
+    }
+
+    public static class Crypto
+    {
+        public static string Encrypt(string toEncrypt, string securityKey)
+        {
+            var key = securityKey;
+            var keyArray = Encoding.UTF8.GetBytes(key);
+
+            var tdes = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.ANSIX923
+            };
+
+            var cTransform = tdes.CreateEncryptor();
+            var toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
+            var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            tdes.Clear();
+            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+        }
+
+        public static string Decrypt(string cipherString, string securityKey)
+        {
+            var key = securityKey;
+            var keyArray = Encoding.UTF8.GetBytes(key);
+
+            var tdes = new TripleDESCryptoServiceProvider
+            {
+                Key = keyArray,
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.ANSIX923
+            };
+
+            var cTransform = tdes.CreateDecryptor();
+            var toEncryptArray = Convert.FromBase64String(cipherString);
+            var resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            tdes.Clear();
+            return Encoding.UTF8.GetString(resultArray);
         }
     }
 }
