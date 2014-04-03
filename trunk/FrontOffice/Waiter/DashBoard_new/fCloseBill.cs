@@ -60,7 +60,6 @@ namespace com.sbs.gui.dashboard
             oCtrBill.label_summ.Visible = true;
 
             oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
-            //oCtrBill.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             
             flowLayoutPanel_bills.Controls.Add(oCtrBill);
 
@@ -69,7 +68,6 @@ namespace com.sbs.gui.dashboard
                 oCtrDishesSmall = new ctrDishesSmall(oDish);
 
                 oCtrDishesSmall.Width = flowLayoutPanel_bills.Width - 25;
-                //oCtrDishesSmall.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
                 oCtrDishesSmall.TabStop = false;
                 flowLayoutPanel_bills.Controls.Add(oCtrDishesSmall);
 
