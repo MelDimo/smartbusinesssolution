@@ -311,7 +311,7 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
             oUnitDTO.isDepot = (int)dataRow.Cells["unit_isDepot"].Value;
             
-            var unitInfo = from rec in dtBranch.AsEnumerable()
+            var unitInfo = from rec in dtUnit.AsEnumerable()
                              where rec.Field<int>("id") == oUnitDTO.Id
                              select rec;
 
