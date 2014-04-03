@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.sbs.gui.DashBoard.reports {
+namespace com.sbs.gui.dashboard.reports {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace com.sbs.gui.DashBoard.reports {
         
         public override string FullResourceName {
             get {
-                return "com.sbs.gui.DashBoard.reports.preOrder.rpt";
+                return "com.sbs.gui.dashboard.reports.preOrder.rpt";
             }
             set {
                 // Do nothing
