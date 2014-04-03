@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fUsers));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip_bottom = new System.Windows.Forms.StatusStrip();
             this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip_top = new System.Windows.Forms.ToolStrip();
@@ -44,6 +44,7 @@
             this.tSButton_doc = new System.Windows.Forms.ToolStripButton();
             this.tSButton_pwd = new System.Windows.Forms.ToolStripButton();
             this.tSButton_acl = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_mail = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tSComboBox_RecType = new System.Windows.Forms.ToolStripComboBox();
@@ -55,7 +56,6 @@
             this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
             this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
-            this.tSButton_mail = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -196,6 +196,18 @@
             this.tSButton_acl.ToolTipText = "Права...";
             this.tSButton_acl.Click += new System.EventHandler(this.tSButton_acl_Click);
             // 
+            // tSButton_mail
+            // 
+            this.tSButton_mail.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_mail.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_mail.Image")));
+            this.tSButton_mail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSButton_mail.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_mail.Name = "tSButton_mail";
+            this.tSButton_mail.Size = new System.Drawing.Size(23, 20);
+            this.tSButton_mail.Text = "tSButton_mail";
+            this.tSButton_mail.ToolTipText = "Почта";
+            this.tSButton_mail.Click += new System.EventHandler(this.tSButton_mail_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -287,52 +299,40 @@
             // 
             this.dataGridView_main.AllowUserToAddRows = false;
             this.dataGridView_main.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_main.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_main.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_main.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_main.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(0, 58);
             this.dataGridView_main.MultiSelect = false;
             this.dataGridView_main.Name = "dataGridView_main";
             this.dataGridView_main.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_main.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_main.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_main.Size = new System.Drawing.Size(950, 414);
             this.dataGridView_main.TabIndex = 9;
-            // 
-            // tSButton_mail
-            // 
-            this.tSButton_mail.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tSButton_mail.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_mail.Image")));
-            this.tSButton_mail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tSButton_mail.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSButton_mail.Name = "tSButton_mail";
-            this.tSButton_mail.Size = new System.Drawing.Size(23, 20);
-            this.tSButton_mail.Text = "tSButton_mail";
-            this.tSButton_mail.ToolTipText = "Почта";
-            this.tSButton_mail.Click += new System.EventHandler(this.tSButton_mail_Click);
             // 
             // fUsers
             // 
