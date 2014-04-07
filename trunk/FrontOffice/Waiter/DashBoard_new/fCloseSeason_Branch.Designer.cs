@@ -33,11 +33,12 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label_season = new System.Windows.Forms.Label();
             this.label_seasonFIO = new System.Windows.Forms.Label();
+            this.label_seasonPeriod = new System.Windows.Forms.Label();
             this.panel_front = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel_seasonPerson = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_bottom = new System.Windows.Forms.Panel();
             this.button_closeSeason = new System.Windows.Forms.Button();
-            this.flowLayoutPanel_seasonPerson = new System.Windows.Forms.FlowLayoutPanel();
-            this.label_seasonPeriod = new System.Windows.Forms.Label();
+            this.flowLayoutPanel_refuse = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -97,7 +98,7 @@
             this.label_season.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(220)))), ((int)(((byte)(0)))));
             this.label_season.Location = new System.Drawing.Point(3, 0);
             this.label_season.Name = "label_season";
-            this.label_season.Size = new System.Drawing.Size(621, 27);
+            this.label_season.Size = new System.Drawing.Size(621, 28);
             this.label_season.TabIndex = 0;
             this.label_season.Text = "Закрытие смены №";
             this.label_season.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -108,21 +109,44 @@
             this.label_seasonFIO.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_seasonFIO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_seasonFIO.ForeColor = System.Drawing.Color.White;
-            this.label_seasonFIO.Location = new System.Drawing.Point(3, 27);
+            this.label_seasonFIO.Location = new System.Drawing.Point(3, 28);
             this.label_seasonFIO.Name = "label_seasonFIO";
-            this.label_seasonFIO.Size = new System.Drawing.Size(621, 27);
+            this.label_seasonFIO.Size = new System.Drawing.Size(621, 28);
             this.label_seasonFIO.TabIndex = 1;
             this.label_seasonFIO.Text = "label_seasonFIO";
             this.label_seasonFIO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label_seasonPeriod
+            // 
+            this.label_seasonPeriod.AutoSize = true;
+            this.label_seasonPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_seasonPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_seasonPeriod.ForeColor = System.Drawing.Color.White;
+            this.label_seasonPeriod.Location = new System.Drawing.Point(3, 56);
+            this.label_seasonPeriod.Name = "label_seasonPeriod";
+            this.label_seasonPeriod.Size = new System.Drawing.Size(621, 28);
+            this.label_seasonPeriod.TabIndex = 2;
+            this.label_seasonPeriod.Text = "label_seasonPeriod";
+            this.label_seasonPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // panel_front
             // 
             this.panel_front.Controls.Add(this.flowLayoutPanel_seasonPerson);
+            this.panel_front.Controls.Add(this.flowLayoutPanel_refuse);
             this.panel_front.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_front.Location = new System.Drawing.Point(3, 93);
             this.panel_front.Name = "panel_front";
             this.panel_front.Size = new System.Drawing.Size(627, 308);
             this.panel_front.TabIndex = 1;
+            // 
+            // flowLayoutPanel_seasonPerson
+            // 
+            this.flowLayoutPanel_seasonPerson.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel_seasonPerson.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_seasonPerson.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel_seasonPerson.Name = "flowLayoutPanel_seasonPerson";
+            this.flowLayoutPanel_seasonPerson.Size = new System.Drawing.Size(342, 308);
+            this.flowLayoutPanel_seasonPerson.TabIndex = 0;
             // 
             // panel_bottom
             // 
@@ -146,26 +170,15 @@
             this.button_closeSeason.UseVisualStyleBackColor = true;
             this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
-            // flowLayoutPanel_seasonPerson
+            // flowLayoutPanel_refuse
             // 
-            this.flowLayoutPanel_seasonPerson.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_seasonPerson.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel_seasonPerson.Name = "flowLayoutPanel_seasonPerson";
-            this.flowLayoutPanel_seasonPerson.Size = new System.Drawing.Size(627, 308);
-            this.flowLayoutPanel_seasonPerson.TabIndex = 0;
-            // 
-            // label_seasonPeriod
-            // 
-            this.label_seasonPeriod.AutoSize = true;
-            this.label_seasonPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label_seasonPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_seasonPeriod.ForeColor = System.Drawing.Color.White;
-            this.label_seasonPeriod.Location = new System.Drawing.Point(3, 54);
-            this.label_seasonPeriod.Name = "label_seasonPeriod";
-            this.label_seasonPeriod.Size = new System.Drawing.Size(621, 30);
-            this.label_seasonPeriod.TabIndex = 2;
-            this.label_seasonPeriod.Text = "label_seasonPeriod";
-            this.label_seasonPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flowLayoutPanel_refuse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel_refuse.Dock = System.Windows.Forms.DockStyle.Right;
+            this.flowLayoutPanel_refuse.Location = new System.Drawing.Point(342, 0);
+            this.flowLayoutPanel_refuse.Name = "flowLayoutPanel_refuse";
+            this.flowLayoutPanel_refuse.Size = new System.Drawing.Size(285, 308);
+            this.flowLayoutPanel_refuse.TabIndex = 1;
+            this.flowLayoutPanel_refuse.Visible = false;
             // 
             // fCloseSeason_Branch
             // 
@@ -202,5 +215,6 @@
         private System.Windows.Forms.Button button_closeSeason;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_seasonPerson;
         private System.Windows.Forms.Label label_seasonPeriod;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_refuse;
     }
 }

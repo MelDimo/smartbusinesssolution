@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cMStrip_closeType = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.numericUpDown_curSumm = new System.Windows.Forms.NumericUpDown();
             this.label_diff = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,8 +40,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.cMStrip_closeType = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curSumm)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -61,6 +61,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Оплата";
+            // 
+            // button1
+            // 
+            this.button1.ContextMenuStrip = this.cMStrip_closeType;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(6, 137);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(236, 32);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Закрытие счета";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cMStrip_closeType
+            // 
+            this.cMStrip_closeType.Name = "cMStrip_closeType";
+            this.cMStrip_closeType.Size = new System.Drawing.Size(61, 4);
             // 
             // numericUpDown_curSumm
             // 
@@ -147,23 +164,6 @@
             this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
             this.flowLayoutPanel_bills.Size = new System.Drawing.Size(491, 462);
             this.flowLayoutPanel_bills.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.ContextMenuStrip = this.cMStrip_closeType;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(8, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(231, 32);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Закрытие счета";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // cMStrip_closeType
-            // 
-            this.cMStrip_closeType.Name = "cMStrip_closeType";
-            this.cMStrip_closeType.Size = new System.Drawing.Size(61, 4);
             // 
             // fCloseBill
             // 
