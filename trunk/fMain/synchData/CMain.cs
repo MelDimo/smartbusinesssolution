@@ -11,6 +11,7 @@ namespace com.sbs.dll.synchdata
         {
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
 
             SynchData synchData = new SynchData();
             synchData.send2MainDB();

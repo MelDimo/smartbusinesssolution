@@ -10,14 +10,17 @@ using com.sbs.dll;
 using System.IO;
 using System.Security.Cryptography;
 using com.sbs.dll.utilites;
+using System.Diagnostics;
 
 namespace com.sbs.gui.gPwd
 {
     public partial class fMain : Form
     {
+        string fLog = @"C:\SBS\gPWD_log.txt";
+        string fLogText = string.Empty;
+
         byte[] bSourceFile;
         string strPwd;
-        byte[] rgbKey;
         long indexAE;
 
         StringBuilder sb = new StringBuilder();
@@ -38,8 +41,9 @@ namespace com.sbs.gui.gPwd
                 updateFileLogo();
             }
             catch (Exception exc) {
+                uMessage.Show("Неудалось создать файл", exc, SystemIcons.Information);
                 if (File.Exists(GValues.mdfPath)) File.Delete(GValues.mdfPath);
-                uMessage.Show("Неудалось создать файл", exc, SystemIcons.Information); 
+                return;
             }
 
             uMessage.Show("Файл конфигураций создан.", SystemIcons.Information); 
@@ -49,15 +53,15 @@ namespace com.sbs.gui.gPwd
         private void updateFileLogo()
         {
             string strPwd = textBox_key.Text;
-            strPwd = strPwd.PadRight(32, '0');
 
             try
             {
                 using (FileStream fs = File.Open(GValues.logoPath, FileMode.Open, FileAccess.ReadWrite))
                 {
+                    
                     fs.SetLength(indexAE + strPwd.Length);
                     fs.Seek(indexAE, SeekOrigin.Current);
-                    fs.Write(System.Text.Encoding.ASCII.GetBytes(strPwd), 0, strPwd.Length);
+                    fs.Write(System.Text.Encoding.UTF8.GetBytes(strPwd), 0, strPwd.Length);
                     fs.Flush();
                 }
             }
@@ -69,10 +73,12 @@ namespace com.sbs.gui.gPwd
 
         private void createFile()
         {
-            StreamWriter sWriter;
             string strError = "Заполнены не все обязательные поля:";
+            string strData;
 
             #region проверка данных
+
+            strPwd = textBox_key.Text.Trim();
 
             lServer.Server = textBox_localSQlServer.Text.Trim();
             lServer.BD = textBox_localDB.Text.Trim();
@@ -94,6 +100,8 @@ namespace com.sbs.gui.gPwd
             if (mServer.User.Length == 0) strError += Environment.NewLine + "- Головной сервер (Пользователь)";
             if (mServer.Pwd.Length == 0) strError += Environment.NewLine + "- Головной сервер (Пароль)";
 
+            if (strPwd.Length == 0) strError += Environment.NewLine + "- Ключ";
+
             if (!strError.Equals("Заполнены не все обязательные поля:"))
             {
                 MessageBox.Show(strError, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -103,44 +111,32 @@ namespace com.sbs.gui.gPwd
             #endregion
 
             if (File.Exists(GValues.mdfPath)) File.Delete(GValues.mdfPath);
+            File.Create(GValues.mdfPath).Dispose();
 
             try
             {
-                using (FileStream fs = File.Create(GValues.mdfPath))
+                sb.AppendLine(lServer.Server);
+                sb.AppendLine(lServer.BD);
+                sb.AppendLine(lServer.User);
+                sb.AppendLine(lServer.Pwd);
+
+                sb.AppendLine(mServer.Server);
+                sb.AppendLine(mServer.BD);
+                sb.AppendLine(mServer.User);
+                sb.AppendLine(mServer.Pwd);
+
+                strData = Crypto.Encrypt(sb.ToString(), strPwd.PadRight(16, '0'));
+                
+                using (StreamWriter outfile = new StreamWriter(GValues.mdfPath))
                 {
-                    Rijndael RijndaelAlg = Rijndael.Create();
-                    RijndaelAlg.KeySize = 256;
-                    RijndaelAlg.BlockSize = 128;
-                    RijndaelAlg.Mode = System.Security.Cryptography.CipherMode.CFB;
-                    RijndaelAlg.Padding = System.Security.Cryptography.PaddingMode.ISO10126;
-                    CryptoStream cStream = new CryptoStream(fs,
-                                                            RijndaelAlg.CreateEncryptor(rgbKey, GValues.rgbIV),
-                                                            CryptoStreamMode.Write);
-                    sWriter = new StreamWriter(cStream, Encoding.GetEncoding(1251));
-
-                    sb.AppendLine(lServer.Server);
-                    sb.AppendLine(lServer.BD);
-                    sb.AppendLine(lServer.User);
-                    sb.AppendLine(lServer.Pwd);
-
-                    sb.AppendLine(mServer.Server);
-                    sb.AppendLine(mServer.BD);
-                    sb.AppendLine(mServer.User);
-                    sb.AppendLine(mServer.Pwd);
-
-                    sWriter.WriteLine(sb.ToString());
-
-                    sWriter.Flush();
-
-                    sWriter.Close();
+                    outfile.Write(strData);
                 }
 
             }
-            catch (Exception exc)
+            catch(Exception exc)
             {
                 throw exc;
             }
-
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -150,17 +146,30 @@ namespace com.sbs.gui.gPwd
 
         private void fMain_Shown(object sender, EventArgs e)
         {
+            if (!File.Exists(GValues.logoPath))
+            {
+                MessageBox.Show("Отсутствует ключевой файл, работа приложения не возможна");
+                return;
+            }
+
+            if (!File.Exists(GValues.mdfPath))
+            {
+                bSourceFile = File.ReadAllBytes(GValues.logoPath);
+                indexAE = bSourceFile.Length;
+                return;
+            }
+
             try
             {
                 readFile();
             }
-            catch// (Exception exc)
+            catch (Exception exc)
             {
-                //uMessage.Show("Ошибка чтения", exc, SystemIcons.Information);
-                //groupBox1.Enabled = false;
-                //groupBox2.Enabled = false;
-                //groupBox3.Enabled = false;
-                //panel1.Enabled = false;
+                uMessage.Show("Ошибка чтения", exc, SystemIcons.Information);
+                groupBox1.Enabled = false;
+                groupBox2.Enabled = false;
+                groupBox3.Enabled = false;
+                panel1.Enabled = false;
             }
         }
 
@@ -172,17 +181,46 @@ namespace com.sbs.gui.gPwd
                 ........... I  E  N  D  ...........
             */
             indexAE = Array.LastIndexOf(bSourceFile, (byte)174) + 4; // 174 - "ae"
+            if (indexAE == 0) indexAE = bSourceFile.Length;
 
             for(long i = indexAE; i < bSourceFile.Length; i++)
             {
-                strPwd += Encoding.ASCII.GetString(new byte[] { (byte)bSourceFile.GetValue(i) });
+                strPwd += Encoding.UTF8.GetString(new byte[] { (byte)bSourceFile.GetValue(i) });
             }
 
-            strPwd = strPwd.PadRight(32, '0');
-
-            rgbKey = Encoding.ASCII.GetBytes(strPwd);
-
             textBox_key.Text = strPwd;
+
+            FileStream fs = new FileStream(GValues.mdfPath, FileMode.Open);
+
+            StreamReader sReader = new StreamReader(fs, Encoding.GetEncoding(1251));
+            string strData = sReader.ReadToEnd();
+
+            sReader.Close();
+            fs.Close();
+
+            strData = Crypto.Decrypt(strData, strPwd.PadRight(16, '0'));
+
+            string[] resultString = strData.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+            lServer.Server = resultString[0];
+            lServer.BD = resultString[1];
+            lServer.User = resultString[2];
+            lServer.Pwd = resultString[3];
+
+            mServer.Server = resultString[4];
+            mServer.BD = resultString[5];
+            mServer.User = resultString[6];
+            mServer.Pwd = resultString[7];
+
+            textBox_localSQlServer.Text = lServer.Server;
+            textBox_localDB.Text = lServer.BD;
+            textBox_localUser.Text = lServer.User;
+            textBox_localPWD.Text = lServer.Pwd;
+
+            textBox_mainSQLServer.Text = mServer.Server;
+            textBox_mainDB.Text = mServer.BD;
+            textBox_mainUser.Text = mServer.User;
+            textBox_mainPWD.Text = mServer.Pwd;
         }
 
         class localServer
@@ -200,5 +238,60 @@ namespace com.sbs.gui.gPwd
             public string User { get; set; }
             public string Pwd { get; set; }
         }
+
+        private void button_executeDB_Click(object sender, EventArgs e)
+        {
+            string sPath = string.Empty;
+
+            sPath = textBox_fileBD.Text;
+            if (sPath.Length == 0)
+            {
+                MessageBox.Show("Выберите файл для выпонтения.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (MessageBox.Show("Вы уверены что хотете выполнить сценарий создания БД?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                != DialogResult.Yes) return;
+
+            createDB(sPath);
+        }
+
+        private void createDB(string pPath)
+        {
+            if (File.Exists(fLog)) File.Delete(fLog);
+            File.Create(fLog).Dispose(); ;
+
+            string argument = string.Format(@" -S {0} -U {1} -P {2} -i ""{3}"" -o ""{4}""",
+                        lServer.Server, lServer.User, lServer.Pwd, pPath, fLog);
+            textBox_log.Text += argument;
+            Process process = new Process();
+            process.StartInfo.FileName = "sqlcmd.exe";
+            process.StartInfo.Arguments = argument;
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.CreateNoWindow = false;
+            process.Start();
+            process.WaitForExit();
+
+            fLogText = File.ReadAllText(fLog, Encoding.ASCII);
+            textBox_log.Text = fLogText;
+            textBox_log.Text += Environment.NewLine + argument;
+        }
+
+        private void button_browBD_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "*.sql|*.sql";
+            ofd.Multiselect = false;
+            ofd.InitialDirectory = Environment.CurrentDirectory;
+            if(ofd.ShowDialog() != DialogResult.OK) return;
+
+            textBox_fileBD.Text = ofd.FileName;
+        }
+
+        private void button_executeData_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

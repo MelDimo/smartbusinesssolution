@@ -31,6 +31,7 @@ namespace com.sbs.gui.main
             //Читаем файл конфигурации
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
 
             //Авторизуем пользователя, 
             fLogIn flogin = new fLogIn();
@@ -55,7 +56,11 @@ namespace com.sbs.gui.main
             {
                 loadProgramModules((List<string>)xResultSet[1]);
             }
-            catch (Exception exc) { uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); return; }
+            catch (Exception exc) 
+            { 
+                uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); 
+                return; 
+            }
 
             Application.Run(new fMain((DataTable)xResultSet[0]));
         }
@@ -92,9 +97,20 @@ namespace com.sbs.gui.main
                     methodInfo.Invoke(classInstance, null);
                 }
 
+                if (str == "synchData.dll")   // если проверка почты
+                {
+                    Type type = assembly.GetType("com.sbs.dll.synchdata.SynchData");
+                    MethodInfo methodInfo = type.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(type, null);
+                    methodInfo.Invoke(classInstance, null);
+                }
 #endif
             }
-            catch (Exception exc) { throw exc; }
+            catch (Exception exc) 
+            {
+                if (str == "synchData.dll") continue;
+                else throw exc;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Threading;
 using com.sbs.dll.utilites;
 using System.Drawing;
+using System.IO;
 
 namespace com.sbs.dll.synchdata
 {
@@ -23,15 +24,26 @@ namespace com.sbs.dll.synchdata
         DataTable dtBills;
         DataTable dtBillsInfo;
 
+        Thread chkBillThread;
+
+        public void run()
+        {
+            chkBillThread = new Thread(send2MainDB);
+            chkBillThread.IsBackground = true;
+            chkBillThread.Start();
+
+            return;
+        }
+
         public void send2MainDB()
         {
             if (GValues.DBMode.Equals("online")) return; // Мы уже работаем в режиме онлайн
 
-            //while (true)
-            //{
+            while (true)
+            {
                 sendSeasonData();
-                //Thread.Sleep(300000);
-            //}
+                Thread.Sleep(300000);
+            }
         }
 
         private void sendSeasonData()
@@ -178,19 +190,31 @@ namespace com.sbs.dll.synchdata
                 commandLocal.Connection = conLocal;
                 commandLocal.Transaction = txLocal;
 
-                //commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
-                //commandLocal.ExecuteNonQuery();
-                //commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
-                //commandLocal.ExecuteNonQuery();
+                commandLocal.CommandText = "DELETE FROM season WHERE ref_status != 16"; // Смена не открыта
+                commandLocal.ExecuteNonQuery();
+
+                if (!billsArray.Equals(string.Empty))
+                {
+                    commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
+                    commandLocal.ExecuteNonQuery();
+                    commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
+                    commandLocal.ExecuteNonQuery();
+                }
 
                 txLocal.Commit();
                 conLocal.Close();
 
                 txMain.Commit();
                 conMain.Close();
+
+                WriteLog.write("SynchData completed.");
                 
             }
-            catch (Exception exc) { }
+            catch (Exception exc) 
+            {
+                WriteLog.write(exc.Message + Environment.NewLine + exc.StackTrace);
+            }
+
             finally 
             {
                 if (conLocal.State == ConnectionState.Open)
@@ -203,8 +227,9 @@ namespace com.sbs.dll.synchdata
                     txMain.Rollback();
                     conMain.Close();
                 }
-
             }
+
+
 
             #endregion
         }

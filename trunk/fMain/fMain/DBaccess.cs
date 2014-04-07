@@ -31,12 +31,15 @@ namespace com.sbs.gui.main
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT mnu.id, mnu.id_parent, mnu.name, mnu.ref_menu_type, mnu.ref_modules, modules.fname, modules.assembly_name" +
-                                        " FROM users_menu umnu" +
-                                        " INNER JOIN menu mnu ON mnu.id = umnu.menu" +
-                                        " LEFT JOIN ref_modules modules ON modules.id = mnu.ref_modules" +
-                                        " WHERE umnu.users = @users AND mnu.ref_status = @ref_status" +
-                                        " ORDER BY mnu.id_parent";
+                command.CommandText = " SELECT mnu.id, mnu.id_parent, mnu.name, mnu.ref_menu_type, mnu.ref_modules, modules.fname, modules.assembly_name " +
+                                        "   FROM users_menu umnu " +
+                                        "   INNER JOIN menu mnu ON mnu.id = umnu.menu " +
+                                        "   LEFT JOIN ref_modules modules ON modules.id = mnu.ref_modules " +
+                                        " WHERE umnu.users = @users AND mnu.ref_status = @ref_status " +
+                                        " UNION " +
+                                        " SELECT 0, null, null, null, null, fname, NULL " +
+                                        "   FROM ref_modules WHERE isGUI = 0 " +
+                                        " ORDER BY mnu.id_parent ";
                 command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 

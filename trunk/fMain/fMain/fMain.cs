@@ -81,6 +81,8 @@ namespace com.sbs.gui.main
 
             foreach (DataRow dr in pDtMnu.Rows)
             {
+                if ((int)dr["id"] == 0) continue; // Элемент не имеет интерфейса
+
                 isChild = false;
 
                 mnuItem = new ToolStripMenuItem(dr["name"].ToString());
