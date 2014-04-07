@@ -7,30 +7,35 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.dashboard
 {
     public partial class fCloseSeason_Branch : Form
     {
         private DBaccess dbAccess = new DBaccess();
-        List<com.sbs.dll.DTO_DBoard.SeasonUser> lSeasonUser = new List<com.sbs.dll.DTO_DBoard.SeasonUser>();
-        com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser = new com.sbs.dll.DTO_DBoard.SeasonUser();
+        List<DTO_DBoard.SeasonUser> lSeasonUser = new List<DTO_DBoard.SeasonUser>();
+        List<DTO_DBoard.DishRefuse> lDRefuse = new List<DTO_DBoard.DishRefuse>();
+        DTO_DBoard.SeasonUser oSeasonUser = new DTO_DBoard.SeasonUser();
         ctrSeasonPerson ctrSUser;
 
         public fCloseSeason_Branch()
         {
             InitializeComponent();
-
-            getSeasonUser();
         }
 
+        // Процедура дополнена отображением "висяков"
         private void getSeasonUser()
         {
+            ctrDishesRefuse oCtrDishesRefuse;
+            
+            flowLayoutPanel_refuse.Controls.Clear();
             flowLayoutPanel_seasonPerson.Controls.Clear();
 
             try
             {
                 lSeasonUser = dbAccess.getSeasonUser("offline", null);
+                lDRefuse = dbAccess.getRefuse("offline");
             }
             catch (Exception exc)
             {
@@ -42,13 +47,21 @@ namespace com.sbs.gui.dashboard
             label_seasonFIO.Text = DashboardEnvironment.gSeasonBranch.userName;
             label_seasonPeriod.Text = DashboardEnvironment.gSeasonBranch.dateOpen.ToString();
 
-            foreach (com.sbs.dll.DTO_DBoard.SeasonUser oSeasonUser in lSeasonUser)
+            foreach (DTO_DBoard.DishRefuse oDRefuse in lDRefuse)    // Первым проверяю есть ли висяки, иначе размеры контролов не перечитать
+            {
+                flowLayoutPanel_refuse.Visible = true;
+                oCtrDishesRefuse = new ctrDishesRefuse(oDRefuse);
+                oCtrDishesRefuse.Width = flowLayoutPanel_refuse.Width - 25;
+                flowLayoutPanel_refuse.Controls.Add(oCtrDishesRefuse);
+            }
+
+            foreach (DTO_DBoard.SeasonUser oSeasonUser in lSeasonUser)
             {
                 ctrSUser = new ctrSeasonPerson();
                 ctrSUser.label_fio.Text = oSeasonUser.userOpenName;
-                ctrSUser.label_dateOpenClose.Text = oSeasonUser.dateOpen.ToString() + " / " 
+                ctrSUser.label_dateOpenClose.Text = oSeasonUser.dateOpen.ToString() + " / "
                                                     + oSeasonUser.dateClose == null ? "" : oSeasonUser.dateClose.ToString();
-                
+
                 ctrSUser.label_curStatus.Text = oSeasonUser.refStatusName;
                 switch (oSeasonUser.refStatus)
                 {
@@ -62,7 +75,7 @@ namespace com.sbs.gui.dashboard
                 }
 
                 ctrSUser.button_host.Click += new EventHandler(button_host_Click);
-                ctrSUser.Width = flowLayoutPanel_seasonPerson.Width - 10;
+                ctrSUser.Width = flowLayoutPanel_seasonPerson.Width - 25;
 
                 flowLayoutPanel_seasonPerson.Controls.Add(ctrSUser);
             }
@@ -76,7 +89,7 @@ namespace com.sbs.gui.dashboard
 
         private void fCloseSeason_Branch_Shown(object sender, EventArgs e)
         {
-
+            getSeasonUser();
         }
 
         private void fCloseSeason_Branch_KeyDown(object sender, KeyEventArgs e)
