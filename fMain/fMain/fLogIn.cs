@@ -45,6 +45,7 @@ namespace com.sbs.gui.main
                                         " INNER JOIN users_pwd up ON up.users = u.id WHERE u.login = @login AND up.pwd = @pwd";
                 command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
+
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dt.Load(dr);

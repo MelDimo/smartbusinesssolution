@@ -16,6 +16,7 @@ namespace com.sbs.dll
     {
         public static string prgNameFull = "SmartBusinessSolution";
         public static string prgNameShort = "SBS";
+        public static string prgLogFile = @"C:\SBS\errors.msg";
 
         public static string DBMode = string.Empty;
         public static string mainDB = string.Empty;
@@ -24,8 +25,6 @@ namespace com.sbs.dll
         public static int branchId;
         public static string branchName;
         public static string resourcePath;
-
-        public static byte[] rgbIV = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 
         public static int authortype;
 
@@ -136,7 +135,7 @@ namespace com.sbs.dll
             }
         }
 
-        private byte[] readKey()
+        private string readKey()
         {
             string strPwd = string.Empty;
             byte[] bSourceFile = File.ReadAllBytes(GValues.logoPath);
@@ -153,49 +152,43 @@ namespace com.sbs.dll
 
             if (strPwd.Length == 0) throw new Exception("ошибка инициализации, длина ноль");
 
-            strPwd = strPwd.PadRight(32, '0');
+            strPwd = strPwd.PadRight(16, '0');
 
-            return Encoding.ASCII.GetBytes(strPwd);
+            return strPwd;
 
         }
 
-        private void loadConString()
+        public bool loadConString()
         {
-            byte[] rgbKey;
+            string strPwd;
             string[] resultString;
-
 
             try
             {
-                rgbKey = readKey();
+                strPwd = readKey();
 
-                using (FileStream fStream = File.Open(GValues.mdfPath, FileMode.Open))
-                {
-                    Rijndael RijndaelAlg = Rijndael.Create();
-                    RijndaelAlg.KeySize = 256;
-                    RijndaelAlg.BlockSize = 128;
-                    RijndaelAlg.Mode = System.Security.Cryptography.CipherMode.CFB;
-                    RijndaelAlg.Padding = System.Security.Cryptography.PaddingMode.ISO10126;
-                    CryptoStream cStream = new CryptoStream(fStream,
-                                                            RijndaelAlg.CreateDecryptor(rgbKey, GValues.rgbIV),
-                                                            CryptoStreamMode.Read);
-                    StreamReader sReader = new StreamReader(cStream, Encoding.GetEncoding(1251));
+                FileStream fs = new FileStream(GValues.mdfPath, FileMode.Open);
 
-                    resultString = sReader.ReadToEnd().Split(new string[] { "\n" }, StringSplitOptions.None);
+                StreamReader sReader = new StreamReader(fs, Encoding.GetEncoding(1251));
+                string strData = sReader.ReadToEnd();
 
-                    GValues.localDBConStr = "Data Source=" + resultString[0] + ";Initial Catalog=" + resultString[1] + ";User ID=" + resultString[2] + ";Password=" + resultString[3];
-                    GValues.mainDBConStr = "Data Source=" + resultString[4] + ";Initial Catalog=" + resultString[5] + ";User ID=" + resultString[6] + ";Password=" + resultString[7];
+                sReader.Close();
+                fs.Close();
 
-                    sReader.Close();
-                    cStream.Close();
-                    fStream.Close();
-                }
+                strData = Crypto.Decrypt(strData, strPwd.PadRight(16, '0'));
 
+
+                resultString = strData.Split(new string[] { "\n" }, StringSplitOptions.None);
+
+                GValues.localDBConStr = "Data Source=" + resultString[0] + ";Initial Catalog=" + resultString[1] + ";User ID=" + resultString[2] + ";Password=" + resultString[3];
+                GValues.mainDBConStr = "Data Source=" + resultString[4] + ";Initial Catalog=" + resultString[5] + ";User ID=" + resultString[6] + ";Password=" + resultString[7];
             }
             catch (Exception exc)
             {
-                throw exc;
+                uMessage.Show("Неудалось установить параметры подключения.", exc, SystemIcons.Information);
+                return false;
             }
+            return true;
         }
 
         public bool loadConfig()
@@ -244,7 +237,7 @@ namespace com.sbs.dll
                     return false;
                 }
 
-                loadConString();
+                //loadConString();
             }
             catch (Exception exc) { uMessage.Show("Неудалось прочесть файл конфигураций", exc, SystemIcons.Information); return false; }
 
@@ -265,7 +258,7 @@ namespace com.sbs.dll
                                         " FROM branch b " +
                                         " WHERE b.id = @pBranch";
 
-                command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

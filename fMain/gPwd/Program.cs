@@ -15,7 +15,7 @@ namespace com.sbs.gui.gPwd
         static void Main()
         {
             Config conf = new Config();
-            //if (!conf.loadConfig()) return;
+            if (!conf.loadConfig()) return;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
