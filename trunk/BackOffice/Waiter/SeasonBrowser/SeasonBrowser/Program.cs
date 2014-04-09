@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using com.sbs.dll;
 
-namespace SeasonBrowser
+namespace com.sbs.gui.seasonbrowser
 {
     static class Program
     {
@@ -13,6 +14,12 @@ namespace SeasonBrowser
         [STAThread]
         static void Main()
         {
+#if DEBUG
+            Config conf = new Config();
+            if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
+            GValues.DBMode = "online";
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new fMain());
