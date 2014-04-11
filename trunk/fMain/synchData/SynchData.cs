@@ -67,8 +67,8 @@ namespace com.sbs.dll.synchdata
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtSeason.Load(dr); }
 
                 commandLocal.CommandText = " SELECT id, branch, season, numb, xTable, date_open, date_close, " +
-                                        "ref_payment_type, user_open, user_close, ref_notes, ref_status, sum " +
-                                        " FROM bills WHERE ref_status NOT IN(19, 20) ";
+                                        "ref_payment_type, user_open, user_close, ref_notes, ref_status, sum, discount " +
+                                        " FROM bills WHERE ref_status NOT IN(19, 20) AND isSynch = 0";
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBills.Load(dr); }
 
                 foreach(DataRow dr in dtBills.Rows)
@@ -109,8 +109,9 @@ namespace com.sbs.dll.synchdata
                 commandMain.Connection = conMain;
                 commandMain.Transaction = txMain;
 
-                commandMain.CommandText = "INSERT INTO season_all(season_id,    code,   branch,     date_open, date_close, user_open,   user_close, ref_status)" +
-                                                    "VALUES(@season_id,     @code,  @branch,    @date_open,@date_close,@user_open,  @user_close,@ref_status)";
+                commandMain.CommandType = CommandType.StoredProcedure;
+                commandMain.CommandText = "SynchData_Season";
+
                 foreach (DataRow dr in dtSeason.Rows)
                 {
                     commandMain.Parameters.Clear();
@@ -118,21 +119,22 @@ namespace com.sbs.dll.synchdata
                     commandMain.Parameters.Add("season_id", SqlDbType.Int).Value = (int)dr["id"];
                     commandMain.Parameters.Add("code", SqlDbType.Int).Value = (int)dr["code"];
                     commandMain.Parameters.Add("branch", SqlDbType.Int).Value = (int)dr["branch"];
-                    commandMain.Parameters.Add("date_open", SqlDbType.DateTime).Value = dr["date_open"];
-                    commandMain.Parameters.Add("date_close", SqlDbType.DateTime).Value = dr["date_close"];
-                    commandMain.Parameters.Add("user_open", SqlDbType.Int).Value = dr["user_open"];
-                    commandMain.Parameters.Add("user_close", SqlDbType.Int).Value = dr["user_close"];
-                    commandMain.Parameters.Add("ref_status", SqlDbType.Int).Value = dr["ref_status"];
+                    commandMain.Parameters.Add("dateOpen", SqlDbType.DateTime).Value = dr["date_open"];
+                    commandMain.Parameters.Add("dateClose", SqlDbType.DateTime).Value = dr["date_close"];
+                    commandMain.Parameters.Add("userOpen", SqlDbType.Int).Value = dr["user_open"];
+                    commandMain.Parameters.Add("userClose", SqlDbType.Int).Value = dr["user_close"];
+                    commandMain.Parameters.Add("refStatus", SqlDbType.Int).Value = dr["ref_status"];
 
                     commandMain.ExecuteNonQuery();
                 }
 
+                commandMain.CommandType = CommandType.Text;
                 commandMain.CommandText = "INSERT INTO bills_all(branch,        season,     bills_id,           numb,       xTable, " +
                                                                 "date_open,     date_close, ref_payment_type,   user_open,  user_close," +
-                                                                "ref_notes,     ref_status, [sum])" +
+                                                                "ref_notes,     ref_status, [sum],              discount)" +
                                                         "VALUES(@branch,        @season,    @bills_id,          @numb,      @xTable," +
                                                                "@date_open,     @date_close,@ref_payment_type,  @user_open, @user_close," +
-                                                                "@ref_notes,    @ref_status,@sum);";
+                                                                "@ref_notes,    @ref_status,@sum,               @discount);";
                 foreach(DataRow dr in dtBills.Rows)
                 {
                     commandMain.Parameters.Clear();
@@ -150,6 +152,7 @@ namespace com.sbs.dll.synchdata
                     commandMain.Parameters.Add("ref_notes", SqlDbType.Int).Value = dr["ref_notes"];
                     commandMain.Parameters.Add("ref_status", SqlDbType.Int).Value = (int)dr["ref_status"];
                     commandMain.Parameters.Add("sum", SqlDbType.Decimal).Value = (decimal)dr["sum"];
+                    commandMain.Parameters.Add("discount", SqlDbType.Int).Value = (int)dr["discount"];
 
 
                     commandMain.ExecuteNonQuery();
@@ -197,8 +200,8 @@ namespace com.sbs.dll.synchdata
                 {
                     commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
                     commandLocal.ExecuteNonQuery();
-                    commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
-                    commandLocal.ExecuteNonQuery();
+                    //commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
+                    //commandLocal.ExecuteNonQuery();
                 }
 
                 txLocal.Commit();
