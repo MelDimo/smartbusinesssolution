@@ -18,7 +18,8 @@ namespace com.sbs.gui.dashboard
             Config conf = new Config();
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
-            GValues.branchName = "Ла плачинте";
+            //GValues.branchName = "Ла плачинте";
+            //GValues.branchId = 2;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
