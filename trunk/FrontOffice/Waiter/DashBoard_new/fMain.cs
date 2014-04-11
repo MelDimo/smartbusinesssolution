@@ -711,6 +711,13 @@ namespace com.sbs.gui.dashboard
                     printBill();
                     break;
 
+                case Keys.F7:
+                    if (curGroupBox != groupBox.BILL)
+                    {
+                        button_searchDish_Click(null, null);
+                    }
+                    break;
+
                 case Keys.Escape:
                     if (curGroupBox != groupBox.BILL)
                         SendKeys.Send("{BACKSPACE}");
@@ -857,5 +864,67 @@ namespace com.sbs.gui.dashboard
         {
             printBill();
         }
+
+        #region ------------------------------------------------------------------------------ Поиск блюда
+        
+        private void button_searchDish_Click(object sender, EventArgs e)
+        {
+            int dishId;
+            int carteDishesGroupId;
+
+            fChooser fChose = new fChooser("DASHBOARD_DISH", "name", "id");
+            fChose.dataGridView_main.DataSource = dtDishes;
+
+            DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
+            col0.HeaderText = "id";
+            col0.Name = "id";
+            col0.DataPropertyName = "id";
+            col0.Visible = false;
+
+            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
+            col1.HeaderText = "Наименование";
+            col1.Name = "name";
+            col1.DataPropertyName = "name";
+            col1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+            col2.Name = "carte_dishes_group";
+            col2.DataPropertyName = "carte_dishes_group";
+            col2.Visible = false;
+
+            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2 });
+
+            fChose.Text = "Поиск блюда";
+
+            if (fChose.ShowDialog() == DialogResult.OK)
+            {
+                dishId = (int)fChose.xData[0];
+                carteDishesGroupId = (int)fChose.xData[1];
+
+                showDish(carteDishesGroupId, dishId);
+            }
+        }
+
+        private void showDish(int carteDishesGroupId, int dishId)
+        {
+            int i = 0;
+
+            ctrDishes oCtrDish;
+            TreeNode tn = treeView_CarteGroups.Nodes.Find("group" + carteDishesGroupId.ToString(), true)[0];
+            treeView_CarteGroups.SelectedNode = tn;
+            
+            foreach (Control ctr in flowLayoutPanel_dish.Controls)
+            {
+                oCtrDish = (ctrDishes)ctr;
+                if (oCtrDish.id == dishId)
+                {
+                    Dish_button_host_Click(oCtrDish.button_host, null);
+                    break;
+                }
+                i++;
+            }
+        }
+
+        #endregion
     }
 }
