@@ -13,6 +13,7 @@ namespace com.sbs.dll
             public int userID { get; set; }
             public string userName { get; set; }
             public DateTime dateOpen { get; set; }
+            public DateTime? dateClose { get; set; }
         }
 
         public class SeasonUser
@@ -50,8 +51,11 @@ namespace com.sbs.dll
             public int refStat { get; set; }
             public int refNotes { get; set; }
             public string refStatName { get; set; }
+            public decimal summFact { get; set; }
             public decimal summ { get; set; }
             public int paymentType { get; set; }
+            public int discount { get; set; }
+
         }
 
         public class Dish
