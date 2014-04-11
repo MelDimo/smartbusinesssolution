@@ -14,6 +14,7 @@ namespace com.sbs.gui.seasonbrowser
     public partial class fMain : Form
     {
         DBaccess dbAccess = new DBaccess();
+        getReference getRef = new getReference();
 
         Filter oFilter = new Filter();
         
@@ -26,11 +27,42 @@ namespace com.sbs.gui.seasonbrowser
         List<ctrDishes> lCtrDishes;
         List<DTO_DBoard.Dish> lDish;
 
+        DataTable dtPaymentType;
+        DataTable dtNotesBills;
+        DataTable dtNotesDish;
+        DataTable dtRefStatusBills;
+        DataTable dtRefStatusDish;
+
         public fMain()
         {
             InitializeComponent();
 
             button_filter.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.filter_26;
+
+            initRefer();
+        }
+
+        private void initRefer()
+        {
+            try
+            {
+                dtPaymentType = getRef.getPaymentType(GValues.DBMode);
+                dtNotesBills = getRef.getRefNotes(GValues.DBMode, 1);
+                dtNotesDish = getRef.getRefNotes(GValues.DBMode, 2);
+                dtRefStatusBills = getRef.getStatus(GValues.DBMode, 4);
+                dtRefStatusDish = getRef.getStatus(GValues.DBMode, 5);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Не удалось получить справичники", exc, SystemIcons.Information);
+                setEnabled(false);
+                return;
+            }
+        }
+
+        private void setEnabled(bool pEnabled)
+        {
+            foreach (Control ctr in this.Controls) ctr.Enabled = pEnabled;
         }
 
         private void button_branch_Click(object sender, EventArgs e)
@@ -69,6 +101,8 @@ namespace com.sbs.gui.seasonbrowser
             }
 
             flowLayoutPanel_season.Controls.Clear();
+            flowLayoutPanel_bills.Controls.Clear();
+            flowLayoutPanel_dishes.Controls.Clear();
 
             foreach (DTO_DBoard.SeasonBranch oSeasonBranch in lSeasonBranch)
             {
@@ -83,6 +117,10 @@ namespace com.sbs.gui.seasonbrowser
         {
             ctrSeasonBranch oCtrBSeason = (ctrSeasonBranch)((Button)sender).Parent;
             oFilter.season = int.Parse(oCtrBSeason.label_seasonNumb.Text);
+
+            flowLayoutPanel_bills.Controls.Clear();
+            flowLayoutPanel_dishes.Controls.Clear();
+
             getBills();
         }
 
@@ -101,26 +139,11 @@ namespace com.sbs.gui.seasonbrowser
 
             foreach (DTO_DBoard.Bill oBill in lBill)
             {
-                oCtrBill = new ctrBill();
-                oCtrBill.id = oBill.id;
-                oCtrBill.label_numbBill.Text = oBill.numb.ToString();
-                oCtrBill.label_summ.Text = oBill.summ.ToString("F2");
-                oCtrBill.label_refStatusName.Text = oBill.refStatName;
-                switch (oBill.refStat)
-                {
-                    case 20:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Red;
-                        break;
-                    case 21:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Green;
-                        break;
-                }
-                oCtrBill.label_numbTable.Text = oBill.table.ToString();
-                oCtrBill.label_dateOpenClose.Text = oBill.openDate.ToString() + " - " + oBill.closeDate.ToString();
+                oCtrBill = new ctrBill(oBill);
                 oCtrBill.button_host.Click += new EventHandler(oCtrBill_Click);
-                oCtrBill.label_summ.Text = oBill.summFact.ToString("F2");
 
-                oCtrBill.button_editMnu.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.edit_26;
+                oCtrBill.button_editMnu.Visible=true;
+                oCtrBill.button_editMnu.Click += new EventHandler(BillButton_editMnu_Click);
 
                 lCtrBill.Add(oCtrBill);
             }
@@ -132,17 +155,42 @@ namespace com.sbs.gui.seasonbrowser
             showBills();
         }
 
+        void BillButton_editMnu_Click(object sender, EventArgs e)
+        {
+            ctrBill oCtrBill = (ctrBill)((Button)sender).Parent;
+
+            fBillEdit fbillEdit = new fBillEdit(oFilter, oCtrBill.oBill);
+            
+            fbillEdit.comboBox_typePayment.DataSource = dtPaymentType;
+            fbillEdit.comboBox_typePayment.ValueMember = "id";
+            fbillEdit.comboBox_typePayment.DisplayMember = "name";
+
+            fbillEdit.comboBox_notes.DataSource = dtNotesBills;
+            fbillEdit.comboBox_notes.ValueMember = "id";
+            fbillEdit.comboBox_notes.DisplayMember = "note";
+
+            fbillEdit.comboBox_status.DataSource = dtRefStatusBills;
+            fbillEdit.comboBox_status.ValueMember = "id";
+            fbillEdit.comboBox_status.DisplayMember = "name";
+
+            if (fbillEdit.ShowDialog() != DialogResult.OK) return;
+
+            getBills();
+        }
+
         void oCtrBill_Click(object sender, EventArgs e)
         {
             ctrBill oCtrBill = (ctrBill)((Button)sender).Parent;
-            oFilter.bill = oCtrBill.id;
+            oFilter.bill = oCtrBill.oBill.id;
+
+            flowLayoutPanel_dishes.Controls.Clear();
 
             getDishes();
         }
 
         private void getDishes()
         {
-            ctrDishes oCtrDishes = new ctrDishes();
+            ctrDishes oCtrDishes;
 
             lDish = new List<DTO_DBoard.Dish>();
             lCtrDishes = new List<ctrDishes>();
@@ -153,22 +201,20 @@ namespace com.sbs.gui.seasonbrowser
             }
             catch (Exception exc) { uMessage.Show("Неудалось получить данные.", exc, SystemIcons.Information); return; }
 
+            flowLayoutPanel_dishes.Controls.Clear();
+
             foreach (DTO_DBoard.Dish oDish in lDish)
             {
-                oCtrDishes = new ctrDishes();
-                oCtrDishes.id = oDish.id;
-                oCtrDishes.label_name.Text = oDish.name;
-                oCtrDishes.label_price.Text = oDish.price.ToString("F2");
-                oCtrDishes.numericUpDown_count.Value = oDish.count;
-                oCtrDishes.numericUpDown_count.ReadOnly = true;
-                //oCtrDishes.comboBox_note.FlatStyle = FlatStyle.Standard;
-                //oCtrDishes.comboBox_note.Items.Add(oDish.refNotesName);
-                //oCtrDishes.comboBox_note.SelectedItem = oDish.refNotesName;
+                oCtrDishes = new ctrDishes(oDish);
 
                 oCtrDishes.TabStop = false;
 
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
+                oCtrDishes.comboBox_note.Visible = false;
+                
+                oCtrDishes.button_editMnu.Visible = true;
+                oCtrDishes.button_editMnu.Click += new EventHandler(DishButton_editMnu_Click);
 
                 oCtrDishes.Width = flowLayoutPanel_dishes.Width - 25;
 
@@ -176,7 +222,22 @@ namespace com.sbs.gui.seasonbrowser
             }
         }
 
-        #region ------------------------------------------------------------- Навигация поп счетам
+        void DishButton_editMnu_Click(object sender, EventArgs e)
+        {
+            DTO_DBoard.Dish oDish = ((ctrDishes)((Button)sender).Parent).oDish;
+
+            fDishEdit fdishEdit = new fDishEdit(oFilter, oDish);
+
+            fdishEdit.comboBox_status.DataSource = dtRefStatusDish;
+            fdishEdit.comboBox_status.ValueMember = "id";
+            fdishEdit.comboBox_status.DisplayMember = "name";
+
+            if (fdishEdit.ShowDialog() != DialogResult.OK) return;
+
+            getDishes();
+        }
+
+        #region ------------------------------------------------------------- Навигация по счетам
 
         private void button_gotoNext_Click(object sender, EventArgs e)
         {

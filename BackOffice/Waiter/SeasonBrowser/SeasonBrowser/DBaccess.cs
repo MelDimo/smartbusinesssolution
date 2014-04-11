@@ -14,7 +14,7 @@ namespace com.sbs.gui.seasonbrowser
 
         private SqlConnection con;
         private SqlCommand command = null;
-        private SqlTransaction tx = null;
+        //private SqlTransaction tx = null;
 
         internal List<DTO_DBoard.SeasonBranch> getSeason(Filter pFilter)
         {
@@ -94,7 +94,6 @@ namespace com.sbs.gui.seasonbrowser
             catch (Exception exc) { throw new Exception("", exc); }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
-            //for (int i = 0; i < 250; i++ )
             foreach (DataRow dr in dtResult.Rows)
             {
                 lBill.Add(new DTO_DBoard.Bill()
@@ -105,9 +104,11 @@ namespace com.sbs.gui.seasonbrowser
                     openDate = (DateTime)dr["date_open"],
                     closeDate = DBNull.Value.Equals(dr["date_close"]) ? (DateTime?)null : (DateTime)dr["date_close"],
                     paymentType = DBNull.Value.Equals(dr["ref_payment_type"]) ? 0 : (int)dr["ref_payment_type"],
+                    refNotes = DBNull.Value.Equals(dr["ref_notes"]) ? 0 : (int)dr["ref_notes"],
                     refStat = (int)dr["ref_status"],
                     refStatName = dr["ref_status_name"].ToString(),
-                    summFact = decimal.Parse(dr["bill_sum"].ToString())
+                    summFact = decimal.Parse(dr["sum"].ToString()),
+                    discount = (int)dr["discount"],
                 });
             }
 
@@ -162,9 +163,67 @@ namespace com.sbs.gui.seasonbrowser
 
             return lDish;
         }
+
+        internal void saveBill(Filter pFilter, DTO_DBoard.Bill pBill)
+        {
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "SeasonBrowser_SaveBill";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = pFilter.season;
+                command.Parameters.Add("pID", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pRefPaymentType", SqlDbType.Int).Value = pBill.paymentType;
+                command.Parameters.Add("pRefNotes", SqlDbType.Int).Value = pBill.refNotes;
+                command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBill.refStat;
+                command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBill.discount;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+
+            }
+            catch (Exception exc) { throw new Exception("", exc); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void saveDish(Filter pFilter, DTO_DBoard.Dish pDish)
+        {
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "SeasonBrowser_SaveDish";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = pFilter.season;
+                command.Parameters.Add("pBillsInfo", SqlDbType.Int).Value = pDish.id;
+                command.Parameters.Add("pCount", SqlDbType.Int).Value = pDish.count;
+                command.Parameters.Add("pStatus", SqlDbType.Int).Value = pDish.refStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+
+            }
+            catch (Exception exc) { throw new Exception("", exc); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
     }
 
-    class Filter
+    public class Filter
     {
         public int branch { get; set; }
         public int season { get; set; }

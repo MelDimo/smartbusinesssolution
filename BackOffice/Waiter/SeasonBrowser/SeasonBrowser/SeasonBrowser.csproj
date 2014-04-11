@@ -55,6 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBaccess.cs" />
+    <Compile Include="fBillEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fBillEdit.Designer.cs">
+      <DependentUpon>fBillEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fDishEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDishEdit.Designer.cs">
+      <DependentUpon>fDishEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fBillEdit.resx">
+      <DependentUpon>fBillEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDishEdit.resx">
+      <DependentUpon>fDishEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
     </EmbeddedResource>

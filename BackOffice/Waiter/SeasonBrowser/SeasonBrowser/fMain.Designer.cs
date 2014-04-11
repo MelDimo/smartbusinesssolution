@@ -375,6 +375,7 @@
             this.Controls.Add(this.toolStrip1);
             this.MinimizeBox = false;
             this.Name = "fMain";
+            this.ShowInTaskbar = false;
             this.Text = "Корректировка счетов";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
