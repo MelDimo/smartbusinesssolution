@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
+using com.sbs.gui.seasonbrowser.Properties;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -38,6 +39,7 @@ namespace com.sbs.gui.seasonbrowser
             InitializeComponent();
 
             button_filter.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.filter_26;
+            tSButton_export.Image = com.sbs.dll.utilites.Properties.Resources.download_26;
 
             initRefer();
         }
@@ -325,5 +327,17 @@ namespace com.sbs.gui.seasonbrowser
         }
 
         #endregion
+
+        private void tSButton_export_Click(object sender, EventArgs e)
+        {
+            exportSeason();
+        }
+
+        private void exportSeason()
+        {
+
+        }
     }
+
+    
 }
