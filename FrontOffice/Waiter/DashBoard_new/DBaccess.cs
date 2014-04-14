@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll;
+using System.Reflection;
 
 namespace com.sbs.gui.dashboard
 {
@@ -104,6 +105,8 @@ namespace com.sbs.gui.dashboard
             gSeasonBranch = null;
             gBillList = null;
         }
+
+        public static Assembly assTimeTrack { get; set; }
     }
 
     internal class DBaccess
