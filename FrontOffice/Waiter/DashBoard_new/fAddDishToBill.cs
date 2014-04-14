@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.dashboard
 {
@@ -42,10 +43,7 @@ namespace com.sbs.gui.dashboard
 
         private bool addDish2Bill()
         {
-            com.sbs.dll.DTO_DBoard.Dish oDish = new com.sbs.dll.DTO_DBoard.Dish();
-            oDish.id = oCtrDishes.id;
-            oDish.name = oCtrDishes.label_name.Text;
-            oDish.price = decimal.Parse(oCtrDishes.label_price.Text);
+            DTO_DBoard.Dish oDish = oCtrDishes.oDish;
             oDish.count = oCtrDishes.numericUpDown_count.Value;
             oDish.refNotes = (int)oCtrDishes.comboBox_note.SelectedValue;
 

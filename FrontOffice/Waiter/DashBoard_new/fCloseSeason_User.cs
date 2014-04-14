@@ -67,22 +67,22 @@ namespace com.sbs.gui.dashboard
 
             foreach (com.sbs.dll.DTO_DBoard.Bill xBill in lBills)
             {
-                oCtrBill = new ctrBill();
-                oCtrBill.label_numbBill.Text = xBill.numb.ToString();
-                oCtrBill.label_numbTable.Text = xBill.table.ToString();
-                oCtrBill.label_summ.Text = xBill.summ.ToString("F2");
-                oCtrBill.label_refStatusName.Text = xBill.refStatName;
-                switch (xBill.refStat)
-                {
-                    case 20:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Red;
-                        oCtrBill.label_dateOpenClose.Text = xBill.openDate.ToString();
-                        break;
-                    case 21:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Green;
-                        oCtrBill.label_dateOpenClose.Text = xBill.closeDate.ToString();
-                        break;
-                }
+                oCtrBill = new ctrBill(xBill);
+                //oCtrBill.label_numbBill.Text = xBill.numb.ToString();
+                //oCtrBill.label_numbTable.Text = xBill.table.ToString();
+                //oCtrBill.label_summ.Text = xBill.summ.ToString("F2");
+                //oCtrBill.label_refStatusName.Text = xBill.refStatName;
+                //switch (xBill.refStat)
+                //{
+                //    case 20:
+                //        oCtrBill.label_refStatusName.ForeColor = Color.Red;
+                //        oCtrBill.label_dateOpenClose.Text = xBill.openDate.ToString();
+                //        break;
+                //    case 21:
+                //        oCtrBill.label_refStatusName.ForeColor = Color.Green;
+                //        oCtrBill.label_dateOpenClose.Text = xBill.closeDate.ToString();
+                //        break;
+                //}
 
                 oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
