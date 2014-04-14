@@ -196,25 +196,10 @@ namespace com.sbs.gui.dashboard
 
             foreach(DTO_DBoard.Bill oBill in lBills)
             {
-                oCtrBill = new ctrBill();
-                oCtrBill.id = oBill.id;
-                oCtrBill.label_numbBill.Text = oBill.numb.ToString();
-                oCtrBill.label_numbTable.Text = oBill.table.ToString();
-                oCtrBill.label_refStatusName.Text = oBill.refStatName;
-                switch (oBill.refStat)
-                { 
-                    case 20:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Red;
-                        break;
-                    case 21:
-                        oCtrBill.label_refStatusName.ForeColor = Color.Green;
-                        break;
-                }
-                oCtrBill.label_dateOpenClose.Text = oBill.openDate.ToString();
-                oCtrBill.label_summ.Text = oBill.summ.ToString("F2");
+                oCtrBill = new ctrBill(oBill);
+
                 oCtrBill.button_host.GotFocus += new EventHandler(Bill_button_host_GotFocus);
                 oCtrBill.button_host.Click += new EventHandler(Bill_button_host_Click);
-                oCtrBill.Tag = oBill;
 
                 oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
@@ -224,7 +209,7 @@ namespace com.sbs.gui.dashboard
             if (flowLayoutPanel_bills.Controls.Count > 0)
             {
                 flowLayoutPanel_bills.Controls[0].Focus();
-                curBill = (DTO_DBoard.Bill)((ctrBill)flowLayoutPanel_bills.Controls[0]).Tag;
+                curBill = (DTO_DBoard.Bill)((ctrBill)flowLayoutPanel_bills.Controls[0]).oBill;
             }
             else
             {
@@ -241,7 +226,7 @@ namespace com.sbs.gui.dashboard
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
         {
-            DTO_DBoard.Bill curBill = (DTO_DBoard.Bill)((ctrBill)((Button)sender).Parent).Tag;
+            DTO_DBoard.Bill curBill = ((ctrBill)((Button)sender).Parent).oBill;
 
             if (!fillBillsInfo(curBill)) return;
 
@@ -250,13 +235,8 @@ namespace com.sbs.gui.dashboard
 
             foreach (DTO_DBoard.Dish oDish in lDishs)
             {
-                oCtrDishes = new ctrDishes();
-                oCtrDishes.id = oDish.id;
-                oCtrDishes.label_name.Text = oDish.name;
-                oCtrDishes.label_price.Text = oDish.price.ToString("F2");
-                oCtrDishes.numericUpDown_count.Value = oDish.count;
-                oCtrDishes.numericUpDown_count.ReadOnly = true;
-                oCtrDishes.comboBox_note.FlatStyle = FlatStyle.Standard;
+                oCtrDishes = new ctrDishes(oDish);
+
                 oCtrDishes.comboBox_note.Items.Add(oDish.refNotesName);
                 oCtrDishes.comboBox_note.SelectedItem = oDish.refNotesName;
 
@@ -273,7 +253,7 @@ namespace com.sbs.gui.dashboard
         
         void Bill_button_host_Click(object sender, EventArgs e)
         {
-            curBill = (DTO_DBoard.Bill)((ctrBill)((Button)sender).Parent).Tag;
+            curBill = ((ctrBill)((Button)sender).Parent).oBill;
             
             billEdit();
         }
@@ -344,25 +324,10 @@ namespace com.sbs.gui.dashboard
         {
             panel_billInfo.Controls.Clear();
 
-            ctrBill oCtrBill = new ctrBill();
+            ctrBill oCtrBill;// = new ctrBill();
 
-            oCtrBill = new ctrBill();
-            oCtrBill.id = curBill.id;
-            oCtrBill.label_numbBill.Text = curBill.numb.ToString();
-            oCtrBill.label_numbTable.Text = curBill.table.ToString();
-            oCtrBill.label_refStatusName.Text = curBill.refStatName;
-            oCtrBill.label_summ.Visible = false;
-            switch (curBill.refStat)
-            {
-                case 20:
-                    oCtrBill.label_refStatusName.ForeColor = Color.Red;
-                    break;
-                case 21:
-                    oCtrBill.label_refStatusName.ForeColor = Color.Green;
-                    break;
-            }
-            oCtrBill.label_dateOpenClose.Text = curBill.openDate.ToString();
-            oCtrBill.Tag = curBill;
+            oCtrBill = new ctrBill(curBill);
+
             oCtrBill.TabStop = false;
 
             oCtrBill.Width = panel_billInfo.Width - 10;
@@ -480,11 +445,14 @@ namespace com.sbs.gui.dashboard
 
             foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + idGroup))
             {
-                oCtrDishes = new ctrDishes();
-                oCtrDishes.id = (int)dr["id"];
-                oCtrDishes.maxStep = (decimal)dr["minStep"];
-                oCtrDishes.label_name.Text = dr["name"].ToString();
-                oCtrDishes.label_price.Text = dr["price"].ToString();
+                oCtrDishes = new ctrDishes(new DTO_DBoard.Dish() { 
+                    id = (int)dr["id"],
+                    minStep = (decimal)dr["minStep"],
+                    count = (decimal)dr["minStep"],
+                    name = dr["name"].ToString(),
+                    price = (decimal)dr["price"]
+
+                });
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
                 oCtrDishes.TabStop = false;
@@ -916,7 +884,7 @@ namespace com.sbs.gui.dashboard
             foreach (Control ctr in flowLayoutPanel_dish.Controls)
             {
                 oCtrDish = (ctrDishes)ctr;
-                if (oCtrDish.id == dishId)
+                if (oCtrDish.oDish.id == dishId)
                 {
                     Dish_button_host_Click(oCtrDish.button_host, null);
                     break;

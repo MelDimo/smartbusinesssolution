@@ -39,23 +39,23 @@ namespace com.sbs.gui.dashboard
 
             ctrDishesSmall oCtrDishesSmall;
 
-            oCtrBill = new ctrBill();
-            oCtrBill.id = oBill.id;
-            oCtrBill.label_numbBill.Text = oBill.numb.ToString();
-            oCtrBill.label_numbTable.Text = oBill.table.ToString();
-            oCtrBill.label_refStatusName.Text = oBill.refStatName;
-            oCtrBill.label_summ.Visible = false;
-            switch (oBill.refStat)
-            {
-                case 20:
-                    oCtrBill.label_refStatusName.ForeColor = Color.Red;
-                    break;
-                case 21:
-                    oCtrBill.label_refStatusName.ForeColor = Color.Green;
-                    break;
-            }
-            oCtrBill.label_dateOpenClose.Text = oBill.openDate.ToString();
-            oCtrBill.Tag = oBill;
+            oCtrBill = new ctrBill(oBill);
+            //oCtrBill.id = oBill.id;
+            //oCtrBill.label_numbBill.Text = oBill.numb.ToString();
+            //oCtrBill.label_numbTable.Text = oBill.table.ToString();
+            //oCtrBill.label_refStatusName.Text = oBill.refStatName;
+            //oCtrBill.label_summ.Visible = false;
+            //switch (oBill.refStat)
+            //{
+            //    case 20:
+            //        oCtrBill.label_refStatusName.ForeColor = Color.Red;
+            //        break;
+            //    case 21:
+            //        oCtrBill.label_refStatusName.ForeColor = Color.Green;
+            //        break;
+            //}
+            //oCtrBill.label_dateOpenClose.Text = oBill.openDate.ToString();
+            //oCtrBill.Tag = oBill;
             oCtrBill.TabStop = false;
             oCtrBill.label_summ.Visible = true;
 

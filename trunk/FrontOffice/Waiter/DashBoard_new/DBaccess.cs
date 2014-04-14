@@ -397,6 +397,7 @@ namespace com.sbs.gui.dashboard
                 oBill.refStatName = dtResult.Rows[i]["ref_status_name"].ToString();
                 oBill.table = (int)dtResult.Rows[i]["xTable"];
                 oBill.summ = (decimal)dtResult.Rows[i]["summa"];
+                oBill.summFact = (decimal)dtResult.Rows[i]["summa"];
                 oBillList.Add(oBill);
             }
 
