@@ -11,6 +11,7 @@ using com.sbs.dll.utilites;
 using System.Threading;
 using System.Diagnostics;
 using CrystalDecisions.CrystalReports.Engine;
+using System.Reflection;
 
 namespace com.sbs.gui.dashboard
 {
@@ -27,13 +28,26 @@ namespace com.sbs.gui.dashboard
         private int xPriv = 0;
         private string xErrMessage = string.Empty;
 
-        DataTable dtResult;
+        //DataTable dtResult;
 
         public fSplash()
         {
             trReadCard = new Thread(enterKey);
 
             InitializeComponent();
+
+            //com.sbs.gui.timetracking.fSplash fspl = new com.sbs.gui.timetracking.fSplash();
+
+            foreach(Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                
+                if (ass.GetModules()[0].Name.Equals("TimeTracking.dll"))
+                {
+                    DashboardEnvironment.assTimeTrack = ass;
+                    break;
+                }
+            }
+
 
             // Подгружаем общие справочиники
             try
@@ -45,7 +59,7 @@ namespace com.sbs.gui.dashboard
             { 
                 uMessage.Show("Неудалось заполнить справочники."+ Environment.NewLine + "Модуль будет закрыт принудительно.", exc, SystemIcons.Information);
                 Load += (s, e) => CloseForm();
-                return; 
+                return;
             }
 
             this.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.splash_1;
@@ -232,6 +246,20 @@ namespace com.sbs.gui.dashboard
                             repViewer.crystalReportViewer_main.ReportSource = repDoc;
                             repViewer.ShowDialog();
                         }
+                        break;
+
+                    case Keys.F5:   // Регистрация прихода/ухода
+                        if (DashboardEnvironment.assTimeTrack == null)
+                        {
+                            MessageBox.Show("Данная конфигурация не предусматривает учет прихода/ухода сотрудников");
+                            return;
+                        }
+
+                        Type type = DashboardEnvironment.assTimeTrack.GetType("com.sbs.gui.timetracking.fSplash", false, true);
+
+                        Form form = (Form)Activator.CreateInstance(type);
+                        form.ShowDialog();
+                        
                         break;
                 }
             }
