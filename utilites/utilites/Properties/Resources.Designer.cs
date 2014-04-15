@@ -168,6 +168,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap download_26 {
+            get {
+                object obj = ResourceManager.GetObject("download_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap edit_26 {
             get {
                 object obj = ResourceManager.GetObject("edit_26", resourceCulture);

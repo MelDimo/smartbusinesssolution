@@ -996,6 +996,37 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
+
+        public DataTable getRefNotes(string pDbType, int pNotesType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, ref_notes_type, note, ref_status FROM ref_notes " +
+                                        " WHERE ref_status = @ref_status AND ref_notes_type = @refNotesType";
+
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+                command.Parameters.Add("refNotesType", SqlDbType.Int).Value = pNotesType;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 
     public static class WriteLog
