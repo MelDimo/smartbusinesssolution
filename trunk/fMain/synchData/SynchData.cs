@@ -146,12 +146,12 @@ namespace com.sbs.dll.synchdata
                     commandMain.Parameters.Add("xTable", SqlDbType.Int).Value = (int)dr["xTable"];
                     commandMain.Parameters.Add("date_open", SqlDbType.DateTime).Value = dr["date_open"];
                     commandMain.Parameters.Add("date_close", SqlDbType.DateTime).Value = dr["date_close"];
-                    commandMain.Parameters.Add("ref_payment_type", SqlDbType.Int).Value = (int)dr["ref_payment_type"];
+                    commandMain.Parameters.Add("ref_payment_type", SqlDbType.Int).Value = DBNull.Value == dr["ref_payment_type"] ? 0 : (int)dr["ref_payment_type"];
                     commandMain.Parameters.Add("user_open", SqlDbType.Int).Value = (int)dr["user_open"];
-                    commandMain.Parameters.Add("user_close", SqlDbType.Int).Value = (int)dr["user_close"];
+                    commandMain.Parameters.Add("user_close", SqlDbType.Int).Value = DBNull.Value == dr["user_close"] ? 0 : (int)dr["user_close"];
                     commandMain.Parameters.Add("ref_notes", SqlDbType.Int).Value = dr["ref_notes"];
                     commandMain.Parameters.Add("ref_status", SqlDbType.Int).Value = (int)dr["ref_status"];
-                    commandMain.Parameters.Add("sum", SqlDbType.Decimal).Value = (decimal)dr["sum"];
+                    commandMain.Parameters.Add("sum", SqlDbType.Decimal).Value = DBNull.Value == dr["sum"] ? 0 : (decimal)dr["sum"];
                     commandMain.Parameters.Add("discount", SqlDbType.Int).Value = (int)dr["discount"];
 
 
@@ -193,9 +193,6 @@ namespace com.sbs.dll.synchdata
                 commandLocal.Connection = conLocal;
                 commandLocal.Transaction = txLocal;
 
-                commandLocal.CommandText = "DELETE FROM season WHERE ref_status != 16"; // Смена не открыта
-                commandLocal.ExecuteNonQuery();
-
                 if (!billsArray.Equals(string.Empty))
                 {
                     commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
@@ -203,6 +200,12 @@ namespace com.sbs.dll.synchdata
                     //commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
                     //commandLocal.ExecuteNonQuery();
                 }
+
+                commandLocal.CommandText = "DELETE FROM season_waiter WHERE ref_status != 16"; // Смена не открыта
+                commandLocal.ExecuteNonQuery();
+
+                commandLocal.CommandText = "DELETE FROM season WHERE ref_status != 16"; // Смена не открыта
+                commandLocal.ExecuteNonQuery();
 
                 txLocal.Commit();
                 conLocal.Close();
