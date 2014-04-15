@@ -31,6 +31,7 @@ namespace com.sbs.gui.dashboard
                 {
                     case groupBox.BILL:
                         groupBox_bills.BorderColor = Color.Blue;
+                        groupBox_bills.BackColor = Color.Blue;
                         groupBox_billDish.BorderColor = Color.Gray;
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
@@ -47,6 +48,7 @@ namespace com.sbs.gui.dashboard
                     case groupBox.BILLDISH:
                         groupBox_bills.BorderColor = Color.Gray;
                         groupBox_billDish.BorderColor = Color.Blue;
+                        groupBox_billDish.BackColor = Color.Blue;
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
@@ -63,6 +65,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_bills.BorderColor = Color.Gray;
                         groupBox_billDish.BorderColor = Color.Gray;
                         groupBox_billInfo.BorderColor = Color.Blue;
+                        groupBox_billInfo.BackColor = Color.Blue;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
                         groupBox_refuse.BorderColor = Color.Gray;
@@ -80,6 +83,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Blue;
+                        groupBox_dish.BackColor = Color.Blue;
                         groupBox_refuse.BorderColor = Color.Gray;
 
                         //groupBox_bills.Enabled = false;
@@ -94,6 +98,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_billDish.BorderColor = Color.Gray;
                         groupBox_billInfo.BorderColor = Color.Gray;
                         groupBox_groups.BorderColor = Color.Blue;
+                        groupBox_groups.BackColor = Color.Blue;
                         groupBox_dish.BorderColor = Color.Gray;
                         groupBox_refuse.BorderColor = Color.Gray;
 
@@ -111,6 +116,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_groups.BorderColor = Color.Gray;
                         groupBox_dish.BorderColor = Color.Gray;
                         groupBox_refuse.BorderColor = Color.Blue;
+                        groupBox_refuse.BackColor = Color.Blue;
 
                         //groupBox_bills.Enabled = false;
                         //groupBox_billDish.Enabled = false;

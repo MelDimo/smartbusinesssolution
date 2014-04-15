@@ -118,7 +118,7 @@ namespace com.sbs.gui.dashboard
             {
                 printBill();
             }
-            catch (Exception exc) { uMessage.Show("Не удалось закрыть счет.", exc, SystemIcons.Information); return; }
+            catch (Exception exc) { uMessage.Show("Не удалась печать счета.", exc, SystemIcons.Information); return; }
         }
 
         void printDish_DoWork(object sender, DoWorkEventArgs e)
