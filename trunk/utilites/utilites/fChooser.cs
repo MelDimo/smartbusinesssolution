@@ -56,8 +56,8 @@ namespace com.sbs.dll.utilites
             switch (e.KeyCode)
             { 
                 case Keys.Enter:
-                    e.SuppressKeyPress = true;
                     makeChoice();
+                    e.SuppressKeyPress = true;
                     break;
 
                 case Keys.Escape:
@@ -152,11 +152,26 @@ namespace com.sbs.dll.utilites
                 case "ACL":
                     returnACL();
                     break;
+
+                case "DASHBOARD_DISH":
+                    returnDASHBOARD_DISH();
+                    break;
             }
 
             isSelected = true;
 
             Close();
+        }
+
+        private void returnDASHBOARD_DISH()
+        {
+            int xId;
+            int xCarteDishGroupId;
+
+            xId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            xCarteDishGroupId = (int)dataGridView_main.SelectedRows[0].Cells["carte_dishes_group"].Value;
+
+            xData = new object[] { xId, xCarteDishGroupId };
         }
 
         private void returnACL()

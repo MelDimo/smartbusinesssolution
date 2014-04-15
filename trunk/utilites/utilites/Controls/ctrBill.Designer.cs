@@ -37,6 +37,7 @@
             this.label_dateOpenClose = new System.Windows.Forms.Label();
             this.label_summ = new System.Windows.Forms.Label();
             this.comboBox_note = new System.Windows.Forms.ComboBox();
+            this.button_editMnu = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_host
@@ -132,11 +133,24 @@
             this.comboBox_note.Name = "comboBox_note";
             this.comboBox_note.Size = new System.Drawing.Size(155, 21);
             this.comboBox_note.TabIndex = 8;
+            this.comboBox_note.Visible = false;
+            // 
+            // button_editMnu
+            // 
+            this.button_editMnu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_editMnu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_editMnu.Location = new System.Drawing.Point(396, 30);
+            this.button_editMnu.Name = "button_editMnu";
+            this.button_editMnu.Size = new System.Drawing.Size(26, 26);
+            this.button_editMnu.TabIndex = 9;
+            this.button_editMnu.UseVisualStyleBackColor = true;
+            this.button_editMnu.Visible = false;
             // 
             // ctrBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_editMnu);
             this.Controls.Add(this.comboBox_note);
             this.Controls.Add(this.label_summ);
             this.Controls.Add(this.label_dateOpenClose);
@@ -164,6 +178,7 @@
         public System.Windows.Forms.Label label_summ;
         public System.Windows.Forms.Label label_refStatusName;
         public System.Windows.Forms.ComboBox comboBox_note;
+        public System.Windows.Forms.Button button_editMnu;
 
     }
 }
