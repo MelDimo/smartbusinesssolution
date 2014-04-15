@@ -14,6 +14,8 @@ namespace com.sbs.dll
             public string userName { get; set; }
             public DateTime dateOpen { get; set; }
             public DateTime? dateClose { get; set; }
+            public int refStatus { get; set; }
+            public string refStatusName { get; set; }
         }
 
         public class SeasonUser
