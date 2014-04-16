@@ -54,6 +54,7 @@ namespace com.sbs.gui.dashboard
             {
                 DashboardEnvironment.initRefDataTables();
                 DashboardEnvironment.initPayment();
+                DashboardEnvironment.initPrintersType();
             }
             catch (Exception exc) 
             { 

@@ -6,17 +6,21 @@ using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll;
 using System.Reflection;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.dashboard
 {
     class DashboardEnvironment
     {
+        getReference getRefer = new getReference();
+
         public static com.sbs.dll.DTO_DBoard.User gUser;
         public static com.sbs.dll.DTO_DBoard.SeasonBranch gSeasonBranch;
         public static List<com.sbs.dll.DTO_DBoard.Bill> gBillList;
 
         public static DataTable dtNotes;
         public static DataTable dtPayment;
+        public static DataTable dtRefPrintersType;
 
         public static void initRefDataTables()
         {
@@ -98,6 +102,18 @@ namespace com.sbs.gui.dashboard
                 }
             }
         }
+
+        public static void initPrintersType()
+        {
+            getReference getRefer = new getReference();
+
+            try
+            {
+                dtRefPrintersType = getRefer.getRefPrintersType(GValues.DBMode);
+            }
+            catch (Exception exc) { throw exc; }
+        }
+
 
         public static void Clear()
         {
@@ -966,10 +982,44 @@ namespace com.sbs.gui.dashboard
                 oDishRefuse.refuseDate = (DateTime)dtResult.Rows[i]["date_refuse"];
                 oDishRefuse.refuseFio = dtResult.Rows[i]["fio"].ToString();
                 oDishRefuse.refPrintersType = (int)dtResult.Rows[i]["ref_printers_type"];
+                oDishRefuse.refStatus = (int)dtResult.Rows[i]["ref_status"];
                 lDishesRefuse.Add(oDishRefuse);
             }
 
             return lDishesRefuse;
+        }
+
+        internal void addRefuse2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_AddRefuse";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pId", SqlDbType.Int).Value = pDish.id;
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDish.carteDishes;
+                command.Parameters.Add("dishesName", SqlDbType.NVarChar).Value = pDish.name;
+                command.Parameters.Add("pCount", SqlDbType.Decimal).Value = pDish.count;
+                command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
+                command.Parameters.Add("pNote", SqlDbType.Int).Value = pDish.refNotes;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
         internal Report REP_xOrder(string pDbType)

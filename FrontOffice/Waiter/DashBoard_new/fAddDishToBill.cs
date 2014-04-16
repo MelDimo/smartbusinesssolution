@@ -15,7 +15,7 @@ namespace com.sbs.gui.dashboard
     {
         private DBaccess dbAccess = new DBaccess();
         ctrDishes oCtrDishes;
-        com.sbs.dll.DTO_DBoard.Bill oBill;
+        DTO_DBoard.Bill oBill;
 
         public fAddDishToBill(com.sbs.dll.DTO_DBoard.Bill pBill, ctrDishes pCtrDishes)
         {
@@ -36,9 +36,32 @@ namespace com.sbs.gui.dashboard
                     DialogResult = DialogResult.Cancel;
                     break;
                 case Keys.Enter:
-                    if (addDish2Bill()) DialogResult = DialogResult.OK;
+                    switch(oCtrDishes.oDish.refStatus)
+                    {
+                        case 0:             // Бонально новое блюдо добавляется в счет
+                            if (addDish2Bill()) DialogResult = DialogResult.OK;
+                            break;
+
+                        case 34:            // Висяк добавляемм в счет
+                            if (addRefuse2Bill()) DialogResult = DialogResult.OK;
+                            break;
+                    }
                     break;
             }
+        }
+        private bool addRefuse2Bill()
+        {
+            DTO_DBoard.Dish oDish = oCtrDishes.oDish;
+            oDish.count = oCtrDishes.numericUpDown_count.Value;
+            oDish.refNotes = (int)oCtrDishes.comboBox_note.SelectedValue;
+
+            try
+            {
+                dbAccess.addRefuse2Bill("offline", oBill, oDish);
+            }
+            catch (Exception exc) { uMessage.Show("Неудалось добавить \"висяк\" к счету.", exc, SystemIcons.Information); return false; }
+
+            return true;
         }
 
         private bool addDish2Bill()
@@ -51,7 +74,7 @@ namespace com.sbs.gui.dashboard
             {
                 dbAccess.addDish2Bill("offline", oBill, oDish);
             }
-            catch (Exception exc) { uMessage.Show("Неудалось сформировать меню.", exc, SystemIcons.Information); return false; }
+            catch (Exception exc) { uMessage.Show("Неудалось добавить блюдо к счету.", exc, SystemIcons.Information); return false; }
 
             return true;
         }
