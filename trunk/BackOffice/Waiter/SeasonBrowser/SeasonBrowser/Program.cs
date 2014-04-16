@@ -18,7 +18,7 @@ namespace com.sbs.gui.seasonbrowser
             Config conf = new Config();
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
-            GValues.DBMode = "online";
+            GValues.DBMode = "offline";
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
