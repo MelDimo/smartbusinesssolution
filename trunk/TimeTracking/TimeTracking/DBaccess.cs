@@ -62,7 +62,7 @@ namespace com.sbs.gui.timetracking
 
             cUser.id = (int)dtResult.Rows[0]["id"];
             cUser.fio = dtResult.Rows[0]["fio"].ToString();
-            cUser.tabn = (int)dtResult.Rows[0]["tabn"];
+            cUser.tabn = dtResult.Rows[0]["tabn"].ToString();
             cUser.branch = GValues.branchId;
             if (dtResult.Rows[0]["datetime_in"].ToString().Length == 0)
             {
@@ -136,6 +136,8 @@ namespace com.sbs.gui.timetracking
 
             dtResult = new DataTable();
 
+            int xId = 0; // id "рабочей" записи в dtResult
+
             con = new DBCon().getConnection(pDbType);
 
             try
@@ -147,7 +149,9 @@ namespace com.sbs.gui.timetracking
                                         " FROM users u " +
                                         " INNER JOIN users_pwd up ON up.users = u.id " +
                                         " LEFT JOIN timeTracking tt ON tt.users = u.id AND tt.branch = @branch " +
-                                        " WHERE up.pwd = @pwd AND u.login = @login";
+                                        " AND (DATEADD(dd, 0, DATEDIFF(dd, 0, datetime_in)) = DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) " +
+	                                            " OR DATEADD(dd, 0, DATEDIFF(dd, 0, datetime_out)) = DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())))" +
+                                        " WHERE up.pwd = @pwd AND u.login = @login ";
 
                 command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
@@ -172,31 +176,42 @@ namespace com.sbs.gui.timetracking
                     break;
 
                 default:
-                    throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
+                    for (int i = 0; i < dtResult.Rows.Count; i++)
+                    {
+                        if (dtResult.Rows[i]["datetime_in"].ToString().Length == 0
+                            || dtResult.Rows[i]["datetime_out"].ToString().Length == 0)
+                        {
+                            xId = i;
+                            break;
+                        }
+                    }
+                    break;
             }
 
-            cUser.id = (int)dtResult.Rows[0]["id"];
-            cUser.fio = dtResult.Rows[0]["fio"].ToString();
-            cUser.tabn = (int)dtResult.Rows[0]["tabn"];
+            cUser.id = (int)dtResult.Rows[xId]["id"];
+            cUser.fio = dtResult.Rows[xId]["fio"].ToString();
+            cUser.tabn = dtResult.Rows[xId]["tabn"].ToString();
             cUser.branch = GValues.branchId;
-            if (dtResult.Rows[0]["datetime_in"].ToString().Length == 0)
+
+            if (dtResult.Rows[xId]["datetime_in"].ToString().Length == 0)
             {
                 cUser.curState = 0;
                 cUser.ttId = 0;
             }
             else
             {
-                if (dtResult.Rows[0]["datetime_out"].ToString().Length == 0)
+                if (dtResult.Rows[xId]["datetime_out"].ToString().Length == 0)
                 {
                     cUser.curState = 1;
-                    cUser.ttId = (int)dtResult.Rows[0]["ttId"];
+                    cUser.ttId = (int)dtResult.Rows[xId]["ttId"];
                 }
-                else cUser.curState = 2;
+                else
+                    cUser.curState = 2;
             }
 
             if (cUser.curState == 2)
             {
-                if (MessageBox.Show("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[0]["datetime_out"].ToString()
+                if (MessageBox.Show("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[xId]["datetime_out"].ToString()
                     + Environment.NewLine + Environment.NewLine + "Зарегистрировать новый приход?",
                     GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
@@ -204,7 +219,7 @@ namespace com.sbs.gui.timetracking
                     cUser.ttId = 0;
                 }
                 else
-                    throw new Exception("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[0]["datetime_out"].ToString());
+                    throw new Exception("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[xId]["datetime_out"].ToString());
 
             }
 
@@ -222,7 +237,7 @@ namespace com.sbs.gui.timetracking
 
         public int id { get; set; }
         public int ttId { get; set; }
-        public int tabn { get; set; }
+        public string tabn { get; set; }
         public string fio { get; set; }
         public int branch { get; set; }
         /// <summary>
