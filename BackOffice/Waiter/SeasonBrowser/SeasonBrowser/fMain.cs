@@ -335,9 +335,21 @@ namespace com.sbs.gui.seasonbrowser
 
         private void exportSeason()
         {
+            if (oFilter.season == 0)
+            {
+                MessageBox.Show("Выберите выгружаемую смену.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            foreach(DTO_DBoard.SeasonBranch oSeasonBranch in lSeasonBranch)
+            {
+                if( oSeasonBranch.seasonID == oFilter.season)
+                {
+                    fExport41C fExport = new fExport41C(oSeasonBranch);
+                    fExport.ShowDialog();
+                }
+            }
+            
         }
     }
-
-    
 }
