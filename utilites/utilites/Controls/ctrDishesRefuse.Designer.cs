@@ -43,7 +43,6 @@
             this.button_host.Name = "button_host";
             this.button_host.Size = new System.Drawing.Size(358, 49);
             this.button_host.TabIndex = 0;
-            this.button_host.TabStop = false;
             this.button_host.UseVisualStyleBackColor = false;
             // 
             // label_name

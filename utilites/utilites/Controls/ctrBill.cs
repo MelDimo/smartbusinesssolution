@@ -20,6 +20,19 @@ namespace com.sbs.dll.utilites
             InitializeComponent();
 
             fillControls();
+
+            button_host.GotFocus += new EventHandler(button_host_GotFocus);
+            button_host.LostFocus += new EventHandler(button_host_LostFocus);
+        }
+
+        void button_host_LostFocus(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        void button_host_GotFocus(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
         }
 
         private void fillControls()
