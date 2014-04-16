@@ -94,6 +94,10 @@ namespace com.sbs.gui.dashboard
                 case Keys.Escape:
                     DialogResult = DialogResult.Cancel;
                     break;
+
+                case Keys.Enter:
+                    SendKeys.Send("{TAB}");
+                    break;
             }
         }
 

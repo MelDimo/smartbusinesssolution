@@ -31,98 +31,130 @@ namespace com.sbs.gui.dashboard
                 {
                     case groupBox.BILL:
                         groupBox_bills.BorderColor = Color.Blue;
-                        groupBox_bills.BackColor = Color.Blue;
-                        groupBox_billDish.BorderColor = Color.Gray;
-                        groupBox_billInfo.BorderColor = Color.Gray;
-                        groupBox_groups.BorderColor = Color.Gray;
-                        groupBox_dish.BorderColor = Color.Gray;
-                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_billsUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = true;
-                        //groupBox_billDish.Enabled = false;
-                        //groupBox_billInfo.Enabled = false;
-                        //groupBox_groups.Enabled = false;
-                        //groupBox_dish.Enabled = false;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
                         break;
 
                     case groupBox.BILLDISH:
                         groupBox_bills.BorderColor = Color.Gray;
-                        groupBox_billDish.BorderColor = Color.Blue;
-                        groupBox_billDish.BackColor = Color.Blue;
-                        groupBox_billInfo.BorderColor = Color.Gray;
-                        groupBox_groups.BorderColor = Color.Gray;
-                        groupBox_dish.BorderColor = Color.Gray;
-                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = false;
-                        //groupBox_billDish.Enabled = true;
-                        //groupBox_billInfo.Enabled = false;
-                        //groupBox_groups.Enabled = false;
-                        //groupBox_dish.Enabled = false;
+                        groupBox_billDish.BorderColor = Color.Blue;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_billDishUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
                         break;
 
                     case groupBox.BILLINFO:
                         groupBox_bills.BorderColor = Color.Gray;
-                        groupBox_billDish.BorderColor = Color.Gray;
-                        groupBox_billInfo.BorderColor = Color.Blue;
-                        groupBox_billInfo.BackColor = Color.Blue;
-                        groupBox_groups.BorderColor = Color.Gray;
-                        groupBox_dish.BorderColor = Color.Gray;
-                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = false;
-                        //groupBox_billDish.Enabled = false;
-                        //groupBox_billInfo.Enabled = true;
-                        //groupBox_groups.Enabled = false;
-                        //groupBox_dish.Enabled = false;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Blue;
+                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_billInfoUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
+                        
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
+
                         break;
 
                     case groupBox.DISHES:
                         groupBox_bills.BorderColor = Color.Gray;
-                        groupBox_billDish.BorderColor = Color.Gray;
-                        groupBox_billInfo.BorderColor = Color.Gray;
-                        groupBox_groups.BorderColor = Color.Gray;
-                        groupBox_dish.BorderColor = Color.Blue;
-                        groupBox_dish.BackColor = Color.Blue;
-                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = false;
-                        //groupBox_billDish.Enabled = false;
-                        //groupBox_billInfo.Enabled = false;
-                        //groupBox_groups.Enabled = false;
-                        //groupBox_dish.Enabled = true;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.Control);
+                        
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_dish.BorderColor = Color.Blue;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_dishUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
+                        
+                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
                         break;
 
                     case groupBox.GROUP:
                         groupBox_bills.BorderColor = Color.Gray;
-                        groupBox_billDish.BorderColor = Color.Gray;
-                        groupBox_billInfo.BorderColor = Color.Gray;
-                        groupBox_groups.BorderColor = Color.Blue;
-                        groupBox_groups.BackColor = Color.Blue;
-                        groupBox_dish.BorderColor = Color.Gray;
-                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = false;
-                        //groupBox_billDish.Enabled = false;
-                        //groupBox_billInfo.Enabled = false;
-                        //groupBox_groups.Enabled = true;
-                        //groupBox_dish.Enabled = false;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_groups.BorderColor = Color.Blue;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_groupsUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
+                        
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_refuse.BorderColor = Color.Gray;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
                         break;
 
                     case groupBox.REFUSE:
                         groupBox_bills.BorderColor = Color.Gray;
-                        groupBox_billDish.BorderColor = Color.Gray;
-                        groupBox_billInfo.BorderColor = Color.Gray;
-                        groupBox_groups.BorderColor = Color.Gray;
-                        groupBox_dish.BorderColor = Color.Gray;
-                        groupBox_refuse.BorderColor = Color.Blue;
-                        groupBox_refuse.BackColor = Color.Blue;
+                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
-                        //groupBox_bills.Enabled = false;
-                        //groupBox_billDish.Enabled = false;
-                        //groupBox_billInfo.Enabled = false;
-                        //groupBox_groups.Enabled = true;
-                        //groupBox_dish.Enabled = false;
+                        groupBox_billDish.BorderColor = Color.Gray;
+                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_billInfo.BorderColor = Color.Gray;
+                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_groups.BorderColor = Color.Gray;
+                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_dish.BorderColor = Color.Gray;
+                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        groupBox_refuse.BorderColor = Color.Blue;
+                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_refuseUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
+
                         break;
                 }
                 this.Refresh();
@@ -320,14 +352,38 @@ namespace com.sbs.gui.dashboard
 
         void CtrDishesRefuse_Click(object sender, EventArgs e)
         {
+            DTO_DBoard.Dish oDish = new DTO_DBoard.Dish();
+            DTO_DBoard.DishRefuse oDishRefuse;
+
             ctrDishesRefuse oCtrDishesRefuse = (ctrDishesRefuse)((Button)sender).Parent;
-            MessageBox.Show(oCtrDishesRefuse.label_name, GValues.prgNameFull);
+            oDishRefuse = oCtrDishesRefuse.oDishRefuse;
+
+            oDish.id = oDishRefuse.id;
+            oDish.carteDishes = oDishRefuse.carteDishes;
+            oDish.count = oDishRefuse.count;
+            oDish.minStep = oDishRefuse.minStep;
+            oDish.name = oDishRefuse.name;
+            oDish.price = oDishRefuse.price;
+            oDish.refPrintersType = oDishRefuse.refPrintersType;
+            oDish.refStatus = oDishRefuse.refStatus;
+
+            ctrDishes oCtrDishes = new ctrDishes(oDish);
+
+            DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0, 4 )";
+            oCtrDishes.comboBox_note.DataSource = DashboardEnvironment.dtNotes; // Выбераем только статусы доступные для висяков
+            oCtrDishes.comboBox_note.DisplayMember = "note";
+            oCtrDishes.comboBox_note.ValueMember = "id";
+
+            fAddDishToBill fDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
+            fDish2Bill.ShowDialog();
         }
 
         #region ----------------------------------------------------------------- Редактирование заказа
         
         private void showBillInfo()
         {
+            decimal xSumm = 0;
+
             panel_billInfo.Controls.Clear();
 
             ctrBill oCtrBill;// = new ctrBill();
@@ -354,7 +410,11 @@ namespace com.sbs.gui.dashboard
                 oCtrDishesSmall.Width = flowLayoutPanel_billEdit.Width - 25;
 
                 flowLayoutPanel_billEdit.Controls.Add(oCtrDishesSmall);
+
+                xSumm = xSumm + (oDish.count * oDish.price);
             }
+
+            oCtrBill.label_summ.Text = xSumm.ToString("F2");
 
             panel_dishes.Refresh();
         }
@@ -368,6 +428,7 @@ namespace com.sbs.gui.dashboard
                 fDishAction.Dispose();
                 return;
             }
+
             switch (fDishAction.returnCode)
             {
                 case "CLOSE_BILL":
@@ -379,6 +440,7 @@ namespace com.sbs.gui.dashboard
 
             fillBillsInfo(curBill);
             showBillInfo();
+            getRefuse();
 
             if (flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name] != null) flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name].Focus();
             else
@@ -602,15 +664,17 @@ namespace com.sbs.gui.dashboard
 
                             if (!flowLayoutPanel_refuse.Visible) return;
 
-                            if (flowLayoutPanel_refuse.Controls.Count > 0) flowLayoutPanel_refuse.Controls[0].Focus();
+                            if (flowLayoutPanel_refuse.Controls.Count > 0)
+                            {
+                                foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls) ctr.TabStop = true;
 
-                            foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls) ctr.TabStop = true;
+                                bufHeight = groupBox_refuse.Height;
+                                groupBox_refuse.Height = groupBox_groups.Height;
+                                groupBox_groups.Height = bufHeight;
 
-                            bufHeight = groupBox_refuse.Height;
-                            groupBox_refuse.Height = groupBox_groups.Height;
-                            groupBox_groups.Height = bufHeight;
-
-                            curGroupBox = groupBox.REFUSE;
+                                flowLayoutPanel_refuse.Controls[0].Focus();
+                                curGroupBox = groupBox.REFUSE;
+                            }
                             break;
                     }
                     break;
@@ -704,11 +768,24 @@ namespace com.sbs.gui.dashboard
                         if (!checkBillInfo()) return;
                     keysBackspace();
                     break;
+
+                case Keys.F12:
+                    FindFocusedControl(this);
+                    break;
+
             }
         }
 
         private void printBill()
         {
+            foreach (DTO_DBoard.Dish oDish in lDishs)
+                if (oDish.refStatus != 24) // Позиция обработана
+                {
+                    MessageBox.Show("В счете есть необработанные позиции." + Environment.NewLine + "Закрытие счета невозможно",
+                        GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
             fCloseBill fCB = new fCloseBill(curBill, lDishs);
             if (fCB.ShowDialog() != DialogResult.OK) return;
 
@@ -732,12 +809,8 @@ namespace com.sbs.gui.dashboard
         {
             fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
             fWait.ShowDialog();
-            //if (fWait.retflag)
-            //{
                 fillBillsInfo(curBill);
                 billEdit();
-            //}
-
         }
 
         private bool checkBillInfo()
@@ -774,7 +847,7 @@ namespace com.sbs.gui.dashboard
 
         private void keysBackspace()
         {
-            if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.GROUP)
+            if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.GROUP || curGroupBox == groupBox.REFUSE)
             {
                 fillBills();
                 showBill();
@@ -900,5 +973,11 @@ namespace com.sbs.gui.dashboard
         }
 
         #endregion
+
+        private void FindFocusedControl(Control control)
+        {
+            
+            
+        }
     }
 }
