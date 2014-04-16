@@ -11,8 +11,7 @@ namespace com.sbs.dll.utilites
 {
     public partial class ctrDishesRefuse : UserControl
     {
-        DTO_DBoard.DishRefuse oDishRefuse;
-        public int id;
+        public DTO_DBoard.DishRefuse oDishRefuse;
 
         public ctrDishesRefuse(DTO_DBoard.DishRefuse pDishRefuse)
         {
@@ -21,11 +20,23 @@ namespace com.sbs.dll.utilites
             InitializeComponent();
 
             fillData();
+
+            button_host.GotFocus += new EventHandler(button_host_GotFocus);
+            button_host.LostFocus += new EventHandler(button_host_LostFocus);
+        }
+
+        void button_host_LostFocus(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        void button_host_GotFocus(object sender, EventArgs e)
+        {
+            this.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
         }
 
         private void fillData()
         {
-            id = oDishRefuse.id;
             label_name.Text = oDishRefuse.name;
             label_price.Text = oDishRefuse.price.ToString("F2");
             label_count.Text = oDishRefuse.count.ToString("F2");
