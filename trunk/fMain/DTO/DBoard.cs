@@ -87,6 +87,7 @@ namespace com.sbs.dll
             public DateTime refuseDate { get; set; }
             public string refuseFio { get; set; }
             public int refPrintersType { get; set; }
+            public int refStatus { get; set; }
         }
     }
 }
