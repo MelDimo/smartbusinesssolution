@@ -793,12 +793,13 @@ namespace com.sbs.gui.dashboard
                                         " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logNmae" +
-                                        " WHERE bi.bills = @bills";
+                                        " WHERE bi.bills = @bills AND bi.ref_status = @ref_status";
 
             command.CommandType = CommandType.Text;
 
             command.Parameters.Clear();
             command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
+            command.Parameters.Add("ref_status", SqlDbType.Int).Value = 24;
             command.Parameters.Add("logNmae", SqlDbType.NVarChar).Value = "bill";
             command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
 
@@ -1050,6 +1051,7 @@ namespace com.sbs.gui.dashboard
                 {
                     dtResult.Load(dr);
                 }
+
                 dtResult.TableName = "xReport";
                 oReport = new Report() { repPath = command.Parameters["repPath"].Value.ToString(),
                                          printName = command.Parameters["printerName"].Value.ToString(),

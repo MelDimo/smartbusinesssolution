@@ -70,11 +70,14 @@ namespace com.sbs.gui.dashboard
             fref.trackBar_count.Value = int.Parse(oDish.count.ToString("F0"));
             if(fref.ShowDialog() == DialogResult.Cancel) return;
 
-            try
+            if (fref.trackBar_count.Value != oDish.count)
             {
-                refuseDish(fref.trackBar_count.Value);
+                try
+                {
+                    refuseDish(fref.trackBar_count.Value);
+                }
+                catch (Exception exc) { uMessage.Show("Неудалось поместить блюда в хранилище.", exc, SystemIcons.Information); return; }
             }
-            catch (Exception exc) { uMessage.Show("Неудалось поместить блюда в хранилище.", exc, SystemIcons.Information); return; }
 
             DialogResult = DialogResult.OK;
         }

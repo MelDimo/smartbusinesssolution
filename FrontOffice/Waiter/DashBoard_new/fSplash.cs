@@ -36,8 +36,6 @@ namespace com.sbs.gui.dashboard
 
             InitializeComponent();
 
-            //com.sbs.gui.timetracking.fSplash fspl = new com.sbs.gui.timetracking.fSplash();
-
             foreach(Assembly ass in AppDomain.CurrentDomain.GetAssemblies())
             {
                 
@@ -226,22 +224,22 @@ namespace com.sbs.gui.dashboard
                             #endregion
 
                             Report oReport = new Report();
+                            ReportDocument repDoc = new ReportDocument();
 
                             try
                             {
                                 oReport = dbAccess.REP_xOrder("offline");
+                            
+                                repDoc.Load(oReport.repPath);
+                                repDoc.SetDataSource(oReport.dtReport);
+                                repDoc.SetParameterValue("pBranchName", GValues.branchName);
+                                repDoc.PrintOptions.PrinterName = oReport.printName;
                             }
-                            catch(Exception exc)
+                            catch (Exception exc)
                             {
                                 uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
                                 return;
                             }
-
-                            ReportDocument repDoc = new ReportDocument();
-                            repDoc.Load(oReport.repPath);
-                            repDoc.SetDataSource(oReport.dtReport);
-                            repDoc.SetParameterValue("pBranchName", GValues.branchName);
-                            repDoc.PrintOptions.PrinterName = oReport.printName;
 
                             fRepViewer repViewer = new fRepViewer();
                             repViewer.crystalReportViewer_main.ReportSource = repDoc;

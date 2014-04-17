@@ -31,7 +31,7 @@ namespace com.sbs.gui.dashboard
                 {
                     case groupBox.BILL:
                         groupBox_bills.BorderColor = Color.Blue;
-                        groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_bills.BackColor = Color.FromArgb(185, 209, 234);//.FromKnownColor(KnownColor.GradientActiveCaption);
                         groupBox_billsUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_billDish.BorderColor = Color.Gray;
@@ -55,7 +55,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_bills.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_billDish.BorderColor = Color.Blue;
-                        groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_billDish.BackColor = Color.FromArgb(185, 209, 234);
                         groupBox_billDishUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_billInfo.BorderColor = Color.Gray;
@@ -79,7 +79,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_billDish.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_billInfo.BorderColor = Color.Blue;
-                        groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_billInfo.BackColor = Color.FromArgb(185, 209, 234);
                         groupBox_billInfoUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
                         
                         groupBox_groups.BorderColor = Color.Gray;
@@ -107,7 +107,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_dish.BorderColor = Color.Blue;
-                        groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_dish.BackColor = Color.FromArgb(185, 209, 234);
                         groupBox_dishUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
                         
                         groupBox_refuse.BorderColor = Color.Gray;
@@ -125,7 +125,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_billInfo.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_groups.BorderColor = Color.Blue;
-                        groupBox_groups.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_groups.BackColor = Color.FromArgb(185, 209, 234);
                         groupBox_groupsUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
                         
                         groupBox_dish.BorderColor = Color.Gray;
@@ -152,7 +152,7 @@ namespace com.sbs.gui.dashboard
                         groupBox_dish.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         groupBox_refuse.BorderColor = Color.Blue;
-                        groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+                        groupBox_refuse.BackColor = Color.FromArgb(185, 209, 234);
                         groupBox_refuseUpper.BackColor = Color.FromKnownColor(KnownColor.Control);
 
                         break;
@@ -342,6 +342,7 @@ namespace com.sbs.gui.dashboard
                     oCtrDishesRefuse = new ctrDishesRefuse(oDishRefuse);
                     oCtrDishesRefuse.button_host.Click += new EventHandler(CtrDishesRefuse_Click);
                     oCtrDishesRefuse.Width = flowLayoutPanel_refuse.Width - 25;
+                    oCtrDishesRefuse.TabStop = false;
                     flowLayoutPanel_refuse.Controls.Add(oCtrDishesRefuse);
                 }
             }
@@ -375,7 +376,11 @@ namespace com.sbs.gui.dashboard
             oCtrDishes.comboBox_note.ValueMember = "id";
 
             fAddDishToBill fDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
-            fDish2Bill.ShowDialog();
+            if (fDish2Bill.ShowDialog() == DialogResult.OK)
+            {
+                fillBillsInfo(curBill);
+                billEdit();
+            }
         }
 
         #region ----------------------------------------------------------------- Редактирование заказа
@@ -684,7 +689,13 @@ namespace com.sbs.gui.dashboard
                     {
                         case "UP":
                             treeView_CarteGroups.Focus();
+                            
+                            bufHeight = groupBox_groups.Height;
+                            groupBox_groups.Height = groupBox_refuse.Height;
+                            groupBox_refuse.Height = bufHeight;
+
                             curGroupBox = groupBox.GROUP;
+
                             break;
 
                         case "LEFT":
@@ -694,6 +705,11 @@ namespace com.sbs.gui.dashboard
                                 {
                                     ctr.TabStop = true;
                                 }
+
+                                bufHeight = groupBox_groups.Height;
+                                groupBox_groups.Height = groupBox_refuse.Height;
+                                groupBox_refuse.Height = bufHeight;
+
                                 curGroupBox = groupBox.BILLINFO;
                             }
                             break;
@@ -705,14 +721,19 @@ namespace com.sbs.gui.dashboard
                                 {
                                     ctr.TabStop = true;
                                 }
+
                                 flowLayoutPanel_dish.Controls[0].Focus();
+
+                                bufHeight = groupBox_groups.Height;
+                                groupBox_groups.Height = groupBox_refuse.Height;
+                                groupBox_refuse.Height = bufHeight;
+
                                 curGroupBox = groupBox.DISHES;
                             }
                             break;
                     }
-                    bufHeight = groupBox_groups.Height;
-                    groupBox_groups.Height = groupBox_refuse.Height;
-                    groupBox_refuse.Height = bufHeight;
+
+
 
                     foreach (ctrDishesRefuse ctr in flowLayoutPanel_refuse.Controls)
                     {
@@ -746,6 +767,7 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.F5:   // Печать чека
+                    if (curBill == null) return;
                     printBill();
                     break;
 
@@ -768,11 +790,6 @@ namespace com.sbs.gui.dashboard
                         if (!checkBillInfo()) return;
                     keysBackspace();
                     break;
-
-                case Keys.F12:
-                    FindFocusedControl(this);
-                    break;
-
             }
         }
 
@@ -792,7 +809,8 @@ namespace com.sbs.gui.dashboard
             curBill.paymentType = fCB.paymentType;
 
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
-            fWait.ShowDialog();
+
+            if (fWait.ShowDialog() == DialogResult.OK) curBill = null;
 
             if (curGroupBox != groupBox.BILL)
             {
@@ -974,10 +992,5 @@ namespace com.sbs.gui.dashboard
 
         #endregion
 
-        private void FindFocusedControl(Control control)
-        {
-            
-            
-        }
     }
 }
