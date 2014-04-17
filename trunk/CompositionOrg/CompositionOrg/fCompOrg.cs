@@ -294,33 +294,40 @@ namespace com.sbs.gui.compositionorg
 
         private void tSButton_unitEdit_Click(object sender, EventArgs e)
         {
-            if (dataGridView_unit.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (dataGridView_unit.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                DataGridViewRow dataRow = dataGridView_unit.SelectedRows[0];
+                CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
+
+                oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
+                oUnitDTO.Name = dataRow.Cells["unit_name"].Value.ToString();
+                oUnitDTO.RefStatus = (int)dataRow.Cells["unit_ref_status"].Value;
+                oUnitDTO.Branch = (int)dataRow.Cells["unit_branch"].Value;
+                oUnitDTO.RefPrinters = (dataRow.Cells["unit_ref_printers"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers"].Value;
+                oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
+                oUnitDTO.isDepot = (int)dataRow.Cells["unit_isDepot"].Value;
+
+                var unitInfo = from rec in dtUnit.AsEnumerable()
+                               where rec.Field<int>("id") == oUnitDTO.Id
+                               select rec;
+
+                oUnitDTO.Code = unitInfo.First().Field<int>("code");
+
+                fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
+                faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
+                if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
+            }
+            catch (Exception exc) 
+            {
+                uMessage.Show("Error", exc, SystemIcons.Information);
                 return;
             }
-
-            DataGridViewRow dataRow = dataGridView_unit.SelectedRows[0];
-            CompOrgDTO.UnitDTO oUnitDTO = new CompOrgDTO.UnitDTO();
-            
-            oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
-            oUnitDTO.Name = dataRow.Cells["unit_name"].Value.ToString();
-            oUnitDTO.RefStatus = (int)dataRow.Cells["unit_ref_status"].Value;
-            oUnitDTO.Branch = (int)dataRow.Cells["unit_branch"].Value;
-            oUnitDTO.RefPrinters = (dataRow.Cells["unit_ref_printers"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers"].Value;
-            oUnitDTO.RefPrintersType = (dataRow.Cells["unit_ref_printers_type"].Value == DBNull.Value) ? -1 : (int)dataRow.Cells["unit_ref_printers_type"].Value;
-            oUnitDTO.isDepot = (int)dataRow.Cells["unit_isDepot"].Value;
-            
-            var unitInfo = from rec in dtUnit.AsEnumerable()
-                             where rec.Field<int>("id") == oUnitDTO.Id
-                             select rec;
-
-            oUnitDTO.Code = unitInfo.First().Field<int>("code");
-
-            fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
-            faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";
-            if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
-
         }
 
         private void tSButton_unitDel_Click(object sender, EventArgs e)
