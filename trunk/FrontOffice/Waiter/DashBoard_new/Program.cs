@@ -19,7 +19,7 @@ namespace com.sbs.gui.dashboard
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
             //GValues.branchName = "Ла плачинте";
-            //GValues.branchId = 2;
+            //GValues.branchId = 10;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

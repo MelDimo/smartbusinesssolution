@@ -18,6 +18,7 @@ namespace com.sbs.gui.dashboard
         DTO_DBoard.Bill oBill;
 
         public string type;
+        private bool fOk = false;
 
         public fWaitProcess(string pType, DTO_DBoard.Bill pCurBill)
         {
@@ -100,8 +101,9 @@ namespace com.sbs.gui.dashboard
             try
             {
                 printBill();
+                fOk = true;
             }
-            catch (Exception exc) { uMessage.Show("Не удалась печать счета.", exc, SystemIcons.Information); return; }
+            catch (Exception exc) { uMessage.Show("Не удалась печать счета.", exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
         }
 
         void printDish_DoWork(object sender, DoWorkEventArgs e)
@@ -109,13 +111,15 @@ namespace com.sbs.gui.dashboard
             try
             {
                 printDish();
+                fOk = true;
             }
-            catch (Exception exc) { uMessage.Show("Не удалась печать бегунков.", exc, SystemIcons.Information); return; }
+            catch (Exception exc) { uMessage.Show("Не удалась печать бегунков.", exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
         }
 
         void runWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            Close();
+            if (fOk) DialogResult = DialogResult.OK;
+            else DialogResult = DialogResult.Cancel;
         }
     }
 }
