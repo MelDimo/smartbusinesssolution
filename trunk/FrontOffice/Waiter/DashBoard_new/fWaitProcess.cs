@@ -57,7 +57,7 @@ namespace com.sbs.gui.dashboard
             foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
             {
                 var results = from myRow in dtResult.AsEnumerable()
-                                where myRow.Field<int>("ref_printers_type") == (int)dr["id"] && myRow.Field<int>("ref_status") == 23
+                                where myRow.Field<int>("ref_printers_type") == (int)dr["id"]// && myRow.Field<int>("ref_status") == 23
                                 select myRow;
 
                 if (results.Count() > 0)
@@ -68,7 +68,7 @@ namespace com.sbs.gui.dashboard
                     repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
                     repDoc.SetParameterValue("curDate", DateTime.Now);
                     repDoc.SetParameterValue("billNumber", oBill.numb);
-                    repDoc.SetParameterValue("printersType", 1);
+                    repDoc.SetParameterValue("printersType", (int)dr["id"]);
                     repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
                     repDoc.PrintToPrinter(1, false, 0, 0);
                 }
