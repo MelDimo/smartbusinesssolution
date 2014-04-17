@@ -375,11 +375,14 @@ namespace com.sbs.gui.dashboard
             oCtrDishes.comboBox_note.DisplayMember = "note";
             oCtrDishes.comboBox_note.ValueMember = "id";
 
+            oCtrDishes.numericUpDown_count.Maximum = oDish.count;
+
             fAddDishToBill fDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
             if (fDish2Bill.ShowDialog() == DialogResult.OK)
             {
                 fillBillsInfo(curBill);
                 billEdit();
+                if (flowLayoutPanel_refuse.Controls.Count > 0) flowLayoutPanel_refuse.Controls[0].Focus();
             }
         }
 
@@ -545,7 +548,12 @@ namespace com.sbs.gui.dashboard
             DataTable dtNotesDish = new DataTable();
             ctrDishes oCtrDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
 
-            DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0,2)";
+            //----------------------------------------------------- Была ошибка с выставление начально кол-ва в послежнее указываемое... хз
+            oCtrDishes.oDish.count = oCtrDishes.oDish.minStep;
+            oCtrDishes.numericUpDown_count.Value = oCtrDishes.oDish.minStep;
+            //-----------------------------------------------------
+
+            DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0, 2)";
             oCtrDishes.comboBox_note.DataSource = DashboardEnvironment.dtNotes; // Выбераем только статусы доступные для блюд
             oCtrDishes.comboBox_note.DisplayMember = "note";
             oCtrDishes.comboBox_note.ValueMember = "id";

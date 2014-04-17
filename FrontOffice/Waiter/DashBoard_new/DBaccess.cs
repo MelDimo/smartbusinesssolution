@@ -730,11 +730,13 @@ namespace com.sbs.gui.dashboard
                                         " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type" +
-                                        " WHERE bi.bills = @bills";
+                                        " WHERE bi.bills = @bills AND bi.ref_status = @refStatus";
             
             command.CommandType = CommandType.Text;
 
             command.Parameters.Clear();
+
+            command.Parameters.Add("refStatus", SqlDbType.Int).Value = 23;
             command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
 
             using (SqlDataReader dr = command.ExecuteReader())
@@ -787,13 +789,14 @@ namespace com.sbs.gui.dashboard
         {
             dtResult = new DataTable();
 
-            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, bi.xcount,  rp.name AS printerName, rr.xpath AS reportPath" +
+            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount,  rp.name AS printerName, rr.xpath AS reportPath" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logNmae" +
-                                        " WHERE bi.bills = @bills AND bi.ref_status = @ref_status";
+                                        " WHERE bi.bills = @bills AND bi.ref_status = @ref_status "+
+                                        " GROUP BY bi.dishes_name, bi.dishes_price, rp.name, rr.xpath ";
 
             command.CommandType = CommandType.Text;
 
