@@ -382,7 +382,12 @@ namespace com.sbs.gui.dashboard
             {
                 fillBillsInfo(curBill);
                 billEdit();
-                if (flowLayoutPanel_refuse.Controls.Count > 0) flowLayoutPanel_refuse.Controls[0].Focus();
+
+                if (flowLayoutPanel_refuse.Controls.Count > 0)
+                {
+                    curGroupBox = groupBox.REFUSE;
+                    flowLayoutPanel_refuse.Controls[0].Focus();
+                }
             }
         }
 
@@ -453,7 +458,11 @@ namespace com.sbs.gui.dashboard
             if (flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name] != null) flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name].Focus();
             else
                 if (flowLayoutPanel_billEdit.Controls.Count > 0) flowLayoutPanel_billEdit.Controls[0].Focus();
-                else treeView_CarteGroups.Focus();
+                else
+                {
+                    curGroupBox = groupBox.GROUP;
+                    treeView_CarteGroups.Focus();
+                }
         }
 
         private void prepareCarteDishes()
