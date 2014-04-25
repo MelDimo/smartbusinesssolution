@@ -20,6 +20,8 @@ namespace com.sbs.dll.utilites
             textBox_message.Text = pMsgText;
             textBox_exception.Text = "Message: " + pExc.Message + Environment.NewLine + "StackTrace: " + pExc.StackTrace;
             textBox_message.Visible = true;
+
+            WriteLog.write(pMsgText + Environment.NewLine + "Message: " + pExc.Message + Environment.NewLine + "StackTrace: " + pExc.StackTrace);
         }
 
         private void button_ok_Click(object sender, EventArgs e)

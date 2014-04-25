@@ -87,7 +87,6 @@
             // 
             this.button_host.AutoSize = true;
             this.button_host.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_host.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_host.Location = new System.Drawing.Point(0, 0);
             this.button_host.Name = "button_host";
             this.button_host.Size = new System.Drawing.Size(447, 75);

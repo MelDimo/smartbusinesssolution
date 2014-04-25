@@ -32,7 +32,7 @@ namespace com.sbs.dll.utilites
 
         void button_host_GotFocus(object sender, EventArgs e)
         {
-            this.BackColor = Color.FromKnownColor(KnownColor.GradientActiveCaption);
+            this.BackColor = Color.FromArgb(185, 209, 234);
         }
 
         private void fillControls()
