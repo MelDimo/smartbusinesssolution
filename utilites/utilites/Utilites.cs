@@ -1083,4 +1083,27 @@ namespace com.sbs.dll.utilites
             return Encoding.UTF8.GetString(resultArray);
         }
     }
+
+    public class Suppurt
+    {
+        public bool checkPrivileges(com.sbs.dll.DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
+        {
+            foreach (com.sbs.dll.DTO_DBoard.UserACL uAcl in pUserACL)
+            {
+                if (uAcl.id == pUsersAclType) return true;
+            }
+
+            return false;
+        }
+
+        public bool checkPrivileges(List<int> pUserACL, int pUsersAclType)
+        {
+            foreach (int uAcl in pUserACL)
+            {
+                if (uAcl == pUsersAclType) return true;
+            }
+
+            return false;
+        }
+    }
 }
