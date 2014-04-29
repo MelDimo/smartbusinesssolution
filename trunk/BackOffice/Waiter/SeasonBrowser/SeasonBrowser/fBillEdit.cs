@@ -15,13 +15,16 @@ namespace com.sbs.gui.seasonbrowser
     {
         DBaccess dbAccess = new DBaccess();
 
+        DBaccess.Role curRole;
+
         private DTO_DBoard.Bill oBill;
         private Filter oFilter;
 
-        public fBillEdit(Filter pFilter, DTO_DBoard.Bill pBill)
+        public fBillEdit(Filter pFilter, DTO_DBoard.Bill pBill,  DBaccess.Role pCurRole)
         {
             oBill = pBill;
             oFilter = pFilter;
+            curRole = pCurRole;
 
             InitializeComponent();
         }
@@ -50,6 +53,21 @@ namespace com.sbs.gui.seasonbrowser
         private void fBillEdit_Shown(object sender, EventArgs e)
         {
             fillControls();
+
+            switch (curRole)
+            { 
+                case DBaccess.Role.BACKOFFICE:
+                    comboBox_typePayment.Enabled = false;
+                    comboBox_notes.Enabled = false;
+                    comboBox_status.Enabled = false;
+                    break;
+
+                case DBaccess.Role.FRONTOFFICE:
+                    comboBox_typePayment.Enabled = true;
+                    comboBox_notes.Enabled = false;
+                    comboBox_status.Enabled = false;
+                    break;
+            }
         }
 
         private void fillControls()

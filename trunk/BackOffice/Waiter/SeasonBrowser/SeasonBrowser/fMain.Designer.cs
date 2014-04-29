@@ -377,6 +377,7 @@
             this.MinimizeBox = false;
             this.Name = "fMain";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Обработка счетов";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

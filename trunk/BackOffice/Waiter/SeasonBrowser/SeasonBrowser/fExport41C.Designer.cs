@@ -172,6 +172,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "fExport41C";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Выгрузка файла для 1С";
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
