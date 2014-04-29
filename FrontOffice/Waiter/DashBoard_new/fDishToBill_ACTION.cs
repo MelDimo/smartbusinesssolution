@@ -17,6 +17,7 @@ namespace com.sbs.gui.dashboard
         private DTO_DBoard.Bill oBill;
 
         DBaccess dbAccess = new DBaccess();
+
         Suppurt Supp = new Suppurt();
 
         public string returnCode = string.Empty;
@@ -29,6 +30,32 @@ namespace com.sbs.gui.dashboard
             InitializeComponent();
 
             label_name.Text = oDish.name;
+
+            button_closeBill.GotFocus += new EventHandler(button_closeBill_GotFocus);
+            button_closeBill.LostFocus += new EventHandler(button_closeBill_LostFocus);
+
+            button_refuse.GotFocus += new EventHandler(button_refuse_GotFocus);
+            button_refuse.LostFocus += new EventHandler(button_refuse_LostFocus);
+        }
+
+        void button_refuse_LostFocus(object sender, EventArgs e)
+        {
+            button_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        void button_refuse_GotFocus(object sender, EventArgs e)
+        {
+            button_refuse.BackColor = Color.FromArgb(185, 209, 234);
+        }
+
+        void button_closeBill_LostFocus(object sender, EventArgs e)
+        {
+            button_closeBill.BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        void button_closeBill_GotFocus(object sender, EventArgs e)
+        {
+            button_closeBill.BackColor = Color.FromArgb(185, 209, 234);
         }
 
         private void fDishToBill_ACTION_KeyDown(object sender, KeyEventArgs e)

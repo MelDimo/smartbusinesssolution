@@ -20,6 +20,7 @@ namespace com.sbs.gui.dashboard
             if (!conf.loadConString()) return;
             //GValues.branchName = "Ла плачинте";
             //GValues.branchId = 10;
+            GValues.branchTable = 10;
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

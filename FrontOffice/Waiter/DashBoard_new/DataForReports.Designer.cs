@@ -660,6 +660,8 @@ namespace com.sbs.gui.dashboard {
             
             private global::System.Data.DataColumn columnprinterName;
             
+            private global::System.Data.DataColumn columnnote;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public preOrderDataTable() {
@@ -727,6 +729,14 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn noteColumn {
+                get {
+                    return this.columnnote;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -762,13 +772,14 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public preOrderRow AddpreOrderRow(string name, decimal xcount, decimal ref_printers_type, string printerName) {
+            public preOrderRow AddpreOrderRow(string name, decimal xcount, decimal ref_printers_type, string printerName, string note) {
                 preOrderRow rowpreOrderRow = ((preOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         name,
                         xcount,
                         ref_printers_type,
-                        printerName};
+                        printerName,
+                        note};
                 rowpreOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowpreOrderRow);
                 return rowpreOrderRow;
@@ -795,6 +806,7 @@ namespace com.sbs.gui.dashboard {
                 this.columnxcount = base.Columns["xcount"];
                 this.columnref_printers_type = base.Columns["ref_printers_type"];
                 this.columnprinterName = base.Columns["printerName"];
+                this.columnnote = base.Columns["note"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -808,6 +820,8 @@ namespace com.sbs.gui.dashboard {
                 base.Columns.Add(this.columnref_printers_type);
                 this.columnprinterName = new global::System.Data.DataColumn("printerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnprinterName);
+                this.columnnote = new global::System.Data.DataColumn("note", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnote);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1528,6 +1542,22 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string note {
+                get {
+                    if (this.IsnoteNull()) {
+                        return null;
+                    }
+                    else {
+                        return ((string)(this[this.tablepreOrder.noteColumn]));
+                    }
+                }
+                set {
+                    this[this.tablepreOrder.noteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsnameNull() {
                 return this.IsNull(this.tablepreOrder.nameColumn);
             }
@@ -1572,6 +1602,18 @@ namespace com.sbs.gui.dashboard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetprinterNameNull() {
                 this[this.tablepreOrder.printerNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsnoteNull() {
+                return this.IsNull(this.tablepreOrder.noteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetnoteNull() {
+                this[this.tablepreOrder.noteColumn] = global::System.Convert.DBNull;
             }
         }
         

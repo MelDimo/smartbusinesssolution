@@ -472,14 +472,14 @@ namespace com.sbs.gui.dashboard
             return oBillInfoList;
         }
 
-        internal DTO_DBoard.Bill BillOpen(string pDbType)
+        internal DTO_DBoard.Bill BillOpen(string pDbType, int pNumbTable)
         {
-            com.sbs.dll.DTO_DBoard.Bill oBill = new com.sbs.dll.DTO_DBoard.Bill();
+            DTO_DBoard.Bill oBill = new DTO_DBoard.Bill();
             dtResult = new DataTable();
 
             oBill.openDate = DateTime.Now;
             oBill.refStat = 19;
-            oBill.table = 0;
+            oBill.table = pNumbTable;
 
             con = new DBCon().getConnection(pDbType);
 
@@ -499,6 +499,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pxTable", SqlDbType.Int).Value = oBill.table;
                 command.Parameters.Add("pDateOpen", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
 
                 command.Parameters["pNumber"].Value = 0;
                 command.Parameters["pNumber"].Direction = ParameterDirection.InputOutput;
@@ -723,13 +724,14 @@ namespace com.sbs.gui.dashboard
         {
             dtResult = new DataTable();
 
-            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status" +
+            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status, rn.note" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type" +
+                                        " LEFT JOIN ref_notes rn ON rn.id = bi.ref_notes AND rn.ref_notes_type = 2" +
                                         " WHERE bi.bills = @bills AND bi.ref_status = @refStatus";
             
             command.CommandType = CommandType.Text;
@@ -1065,19 +1067,6 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) { con.Close(); } }
 
             return oReport;
-        }
-    }
-
-    internal class Suppurt
-    {
-        internal bool checkPrivileges(com.sbs.dll.DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
-        {
-            foreach (com.sbs.dll.DTO_DBoard.UserACL uAcl in pUserACL)
-            {
-                if (uAcl.id == pUsersAclType) return true;
-            }
-
-            return false;
         }
     }
 

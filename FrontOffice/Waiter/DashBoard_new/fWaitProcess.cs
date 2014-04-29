@@ -68,6 +68,7 @@ namespace com.sbs.gui.dashboard
                     repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
                     repDoc.SetParameterValue("curDate", DateTime.Now);
                     repDoc.SetParameterValue("billNumber", oBill.numb);
+                    repDoc.SetParameterValue("tableNumb", oBill.table);
                     repDoc.SetParameterValue("printersType", (int)dr["id"]);
                     repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
                     repDoc.PrintToPrinter(1, false, 0, 0);
