@@ -195,7 +195,10 @@ namespace com.sbs.gui.users
                 arrCurACL[i] = (int)dtCurACL.Rows[i]["acl_type"];
             }
 
-            dtACL = (from row in dtBuf.AsEnumerable().Where(r => !arrCurACL.Contains(r.Field<int>("id"))) select row).CopyToDataTable();
+            var vDT = from row in dtBuf.AsEnumerable().Where(r => !arrCurACL.Contains(r.Field<int>("id"))) select row;
+
+            if (vDT.Count() == 0) dtACL = new DataTable();
+            else dtACL = vDT.CopyToDataTable();
 
             fChooser fchoose = new fChooser("ACL");
 
@@ -254,7 +257,10 @@ namespace com.sbs.gui.users
                 arrCurACL[i] = (int)dtCurACL.Rows[i]["acl_type"];
             }
 
-            dtACL = (from row in dtBuf.AsEnumerable().Where(r => !arrCurACL.Contains(r.Field<int>("id"))) select row).CopyToDataTable();
+            var vDT = from row in dtBuf.AsEnumerable().Where(r => !arrCurACL.Contains(r.Field<int>("id"))) select row;
+
+            if (vDT.Count() == 0) dtACL = new DataTable();
+            else dtACL = vDT.CopyToDataTable();
 
             fChooser fchoose = new fChooser("ACL");
 
