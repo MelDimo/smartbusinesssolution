@@ -916,6 +916,8 @@ namespace com.sbs.gui.dashboard
             int xPriv = 0;
             string xErrMessage = string.Empty;
 
+            int tableNumb = 0;
+
             // Пытаемся создать счет
             xPriv = 3; xErrMessage = "У Вас отсутствуют привилегии на открытие счета.";
 
@@ -924,15 +926,32 @@ namespace com.sbs.gui.dashboard
                 MessageBox.Show(xErrMessage, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
             curBill = new DTO_DBoard.Bill();
+
+            if (GValues.branchTable > 0)
+            {
+                fTable ftable = new fTable();
+                ftable.tableNumber = GValues.branchTable;
+                if (ftable.ShowDialog() != DialogResult.OK)
+                {
+                    cancelBills();
+                    return;
+                }
+
+                tableNumb = ftable.tableNumber;
+            }
 
             try
             {
-                curBill = dbAccess.BillOpen("offline");
+                curBill = dbAccess.BillOpen("offline", tableNumb);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
             
             lDishs = new List<com.sbs.dll.DTO_DBoard.Dish>();
+
+            
+
 
             billEdit();
         }

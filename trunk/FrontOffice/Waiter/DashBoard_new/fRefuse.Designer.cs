@@ -66,6 +66,7 @@
             this.label_info.Size = new System.Drawing.Size(79, 17);
             this.label_info.TabIndex = 1;
             this.label_info.Text = "label_info";
+            this.label_info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fRefuse
             // 
