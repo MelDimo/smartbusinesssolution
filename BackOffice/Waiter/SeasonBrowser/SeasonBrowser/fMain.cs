@@ -14,8 +14,12 @@ namespace com.sbs.gui.seasonbrowser
 {
     public partial class fMain : Form
     {
+        DBaccess.Role curRole;
+
         DBaccess dbAccess = new DBaccess();
         getReference getRef = new getReference();
+        Suppurt Supp = new Suppurt();
+
 
         Filter oFilter = new Filter();
         
@@ -42,6 +46,24 @@ namespace com.sbs.gui.seasonbrowser
             tSButton_export.Image = com.sbs.dll.utilites.Properties.Resources.download_26;
 
             initRefer();
+
+            curRole = getRole();
+
+            if (curRole == DBaccess.Role.NONE)
+            {
+                MessageBox.Show("У декущего пользователя неустановлены привелегии для работы в данном модуле",
+                                GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                setEnabled(false);
+                return;
+            }
+        }
+
+        private DBaccess.Role getRole()
+        {
+            if (Supp.checkPrivileges(UsersInfo.Acl, 21)) return DBaccess.Role.FRONTOFFICE;
+            if (Supp.checkPrivileges(UsersInfo.Acl, 22)) return DBaccess.Role.BACKOFFICE;
+            return DBaccess.Role.NONE;
         }
 
         private void initRefer()
@@ -56,7 +78,7 @@ namespace com.sbs.gui.seasonbrowser
             }
             catch (Exception exc)
             {
-                uMessage.Show("Не удалось получить справичники", exc, SystemIcons.Information);
+                uMessage.Show("Не удалось получить справочники", exc, SystemIcons.Information);
                 setEnabled(false);
                 return;
             }
@@ -78,8 +100,8 @@ namespace com.sbs.gui.seasonbrowser
 
         private void button_filter_Click(object sender, EventArgs e)
         {
-            oFilter.dateStart = dateTimePicker_start.Value;
-            oFilter.dateEnd = dateTimePicker_end.Value;
+            oFilter.dateStart = DateTime.Parse(dateTimePicker_start.Value.ToShortDateString());
+            oFilter.dateEnd = DateTime.Parse(dateTimePicker_end.Value.ToShortDateString());
 
             getData_Season();
         }
@@ -111,8 +133,22 @@ namespace com.sbs.gui.seasonbrowser
                 oCtrSeasonBranch = new ctrSeasonBranch(oSeasonBranch);
                 oCtrSeasonBranch.Width = flowLayoutPanel_season.Width - 25;
                 oCtrSeasonBranch.button_host.Click += new EventHandler(oCtrSeasonBranch_Click);
+                oCtrSeasonBranch.button_host.LostFocus += new EventHandler(oCtrSeasonBranch_LostFocus);
+                oCtrSeasonBranch.button_host.GotFocus += new EventHandler(oCtrSeasonBranch_GotFocus);
                 flowLayoutPanel_season.Controls.Add(oCtrSeasonBranch);
             }
+        }
+
+        void oCtrSeasonBranch_GotFocus(object sender, EventArgs e)
+        {
+            foreach (Control ctr in flowLayoutPanel_season.Controls)
+                if (!((ctrSeasonBranch)ctr).Equals(((Button)sender).Parent))
+                    ((ctrSeasonBranch)ctr).BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
+        void oCtrSeasonBranch_LostFocus(object sender, EventArgs e)
+        {
+            ((ctrSeasonBranch)((Button)sender).Parent).BackColor = Color.FromArgb(185, 209, 234);
         }
 
         void oCtrSeasonBranch_Click(object sender, EventArgs e)
@@ -143,6 +179,8 @@ namespace com.sbs.gui.seasonbrowser
             {
                 oCtrBill = new ctrBill(oBill);
                 oCtrBill.button_host.Click += new EventHandler(oCtrBill_Click);
+                oCtrBill.button_host.GotFocus += new EventHandler(oCtrBill_GotFocus);
+                oCtrBill.button_host.LostFocus += new EventHandler(oCtrBill_LostFocus);
 
                 oCtrBill.button_editMnu.Visible=true;
                 oCtrBill.button_editMnu.Click += new EventHandler(BillButton_editMnu_Click);
@@ -157,11 +195,23 @@ namespace com.sbs.gui.seasonbrowser
             showBills();
         }
 
+        void oCtrBill_LostFocus(object sender, EventArgs e)
+        {
+            ((ctrBill)((Button)sender).Parent).BackColor = Color.FromArgb(185, 209, 234);
+        }
+
+        void oCtrBill_GotFocus(object sender, EventArgs e)
+        {
+            foreach (Control ctr in flowLayoutPanel_bills.Controls)
+                if (!((ctrBill)ctr).Equals(((Button)sender).Parent))
+                    ((ctrBill)ctr).BackColor = Color.FromKnownColor(KnownColor.Control);
+        }
+
         void BillButton_editMnu_Click(object sender, EventArgs e)
         {
             ctrBill oCtrBill = (ctrBill)((Button)sender).Parent;
 
-            fBillEdit fbillEdit = new fBillEdit(oFilter, oCtrBill.oBill);
+            fBillEdit fbillEdit = new fBillEdit(oFilter, oCtrBill.oBill, curRole);
             
             fbillEdit.comboBox_typePayment.DataSource = dtPaymentType;
             fbillEdit.comboBox_typePayment.ValueMember = "id";
@@ -228,7 +278,7 @@ namespace com.sbs.gui.seasonbrowser
         {
             DTO_DBoard.Dish oDish = ((ctrDishes)((Button)sender).Parent).oDish;
 
-            fDishEdit fdishEdit = new fDishEdit(oFilter, oDish);
+            fDishEdit fdishEdit = new fDishEdit(oFilter, oDish, curRole);
 
             fdishEdit.comboBox_status.DataSource = dtRefStatusDish;
             fdishEdit.comboBox_status.ValueMember = "id";
@@ -275,11 +325,12 @@ namespace com.sbs.gui.seasonbrowser
         private void showBills()
         {
             int countBills = 0;
-            int indexBills = oFilter.curLast ;
+            int indexBills = oFilter.curLast;
 
             label_billsFirstLast.Text = oFilter.curLast.ToString() + " - ";
 
             flowLayoutPanel_bills.Controls.Clear();
+            flowLayoutPanel_dishes.Controls.Clear();
 
             while (true)
             {
@@ -345,11 +396,13 @@ namespace com.sbs.gui.seasonbrowser
             {
                 if( oSeasonBranch.seasonID == oFilter.season)
                 {
-                    fExport41C fExport = new fExport41C(oSeasonBranch);
+                    fExport41C fExport = new fExport41C(oSeasonBranch, oFilter);
                     fExport.ShowDialog();
                 }
             }
             
         }
+
+
     }
 }

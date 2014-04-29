@@ -180,6 +180,7 @@
             // 
             // numericUpDown_discount
             // 
+            this.numericUpDown_discount.DecimalPlaces = 3;
             this.numericUpDown_discount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_discount.Location = new System.Drawing.Point(93, 78);
             this.numericUpDown_discount.Name = "numericUpDown_discount";

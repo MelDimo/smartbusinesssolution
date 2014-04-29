@@ -14,14 +14,17 @@ namespace com.sbs.gui.seasonbrowser
     public partial class fDishEdit : Form
     {
         DBaccess dbAccess = new DBaccess();
+
+        DBaccess.Role curRole;
         
         DTO_DBoard.Dish oDish;
         Filter oFilter;
 
-        public fDishEdit(Filter pFilter, DTO_DBoard.Dish pDish)
+        public fDishEdit(Filter pFilter, DTO_DBoard.Dish pDish, DBaccess.Role pCurRole)
         {
             oDish = pDish;
             oFilter = pFilter;
+            curRole = pCurRole;
 
             InitializeComponent();
         }
@@ -47,6 +50,17 @@ namespace com.sbs.gui.seasonbrowser
 
         private void fDishEdit_Shown(object sender, EventArgs e)
         {
+            switch (curRole)
+            {
+                case DBaccess.Role.BACKOFFICE:
+                    comboBox_status.Enabled = false;
+                    break;
+
+                case DBaccess.Role.FRONTOFFICE:
+                    comboBox_status.Enabled = false;
+                    break;
+            }
+
             fillControls();
         }
 
