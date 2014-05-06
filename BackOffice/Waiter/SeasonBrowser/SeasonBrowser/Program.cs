@@ -22,6 +22,7 @@ namespace com.sbs.gui.seasonbrowser
             GValues.DBMode = "online";
             UsersInfo.Acl = new List<int>();
             UsersInfo.Acl.Add(22);
+            GValues.branchName = "LP2";
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

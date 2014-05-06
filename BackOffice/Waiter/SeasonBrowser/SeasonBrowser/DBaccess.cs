@@ -232,6 +232,50 @@ namespace com.sbs.gui.seasonbrowser
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
+        internal Report REP_xOrder(Filter pFilter)
+        {
+            Report oReport = new Report();
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.Connection = con;
+
+                command.CommandText = "REP_xOrder";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = pFilter.season;
+                command.Parameters.Add("repPath", SqlDbType.NVarChar, 128);
+                command.Parameters["repPath"].Direction = ParameterDirection.Output;
+                command.Parameters.Add("printerName", SqlDbType.NVarChar, 128);
+                command.Parameters["printerName"].Direction = ParameterDirection.Output;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                dtResult.TableName = "xReport";
+                oReport = new Report()
+                {
+                    repPath = command.Parameters["repPath"].Value.ToString(),
+                    printName = command.Parameters["printerName"].Value.ToString(),
+                    dtReport = dtResult
+                };
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { con.Close(); } }
+
+            return oReport;
+        }
+
         internal DataSet exportFor1C(Filter pFilter)
         {
             DataSet dsResult = new DataSet();
@@ -345,5 +389,12 @@ namespace com.sbs.gui.seasonbrowser
         {
             countBill = 25;
         }
+    }
+
+    internal class Report
+    {
+        public string repPath;
+        public string printName;
+        public DataTable dtReport;
     }
 }

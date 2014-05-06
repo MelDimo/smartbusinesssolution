@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tSButton_export = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSSButton_report = new System.Windows.Forms.ToolStripSplitButton();
+            this.tSMItem_xOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button_filter = new System.Windows.Forms.Button();
             this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
@@ -72,11 +76,13 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSButton_export});
+            this.tSButton_export,
+            this.toolStripSeparator1,
+            this.tSSButton_report});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.toolStrip1.Size = new System.Drawing.Size(859, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(859, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -84,11 +90,34 @@
             // 
             this.tSButton_export.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_export.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tSButton_export.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_export.Name = "tSButton_export";
-            this.tSButton_export.Size = new System.Drawing.Size(23, 18);
+            this.tSButton_export.Size = new System.Drawing.Size(23, 20);
             this.tSButton_export.ToolTipText = "Выгрузка счетов";
             this.tSButton_export.Click += new System.EventHandler(this.tSButton_export_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 23);
+            // 
+            // tSSButton_report
+            // 
+            this.tSSButton_report.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSSButton_report.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSMItem_xOrder});
+            this.tSSButton_report.Image = ((System.Drawing.Image)(resources.GetObject("tSSButton_report.Image")));
+            this.tSSButton_report.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSSButton_report.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSSButton_report.Name = "tSSButton_report";
+            this.tSSButton_report.Size = new System.Drawing.Size(32, 20);
+            this.tSSButton_report.ToolTipText = "Отчеты";
+            // 
+            // tSMItem_xOrder
+            // 
+            this.tSMItem_xOrder.Name = "tSMItem_xOrder";
+            this.tSMItem_xOrder.Size = new System.Drawing.Size(160, 22);
+            this.tSMItem_xOrder.Text = "Отчет по смене";
+            this.tSMItem_xOrder.Click += new System.EventHandler(this.tSMItem_xOrder_Click);
             // 
             // groupBox1
             // 
@@ -101,7 +130,7 @@
             this.groupBox1.Controls.Add(this.textBox_branch);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 25);
+            this.groupBox1.Location = new System.Drawing.Point(0, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(859, 64);
             this.groupBox1.TabIndex = 1;
@@ -190,7 +219,7 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 89);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 91);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -200,7 +229,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(859, 447);
+            this.splitContainer1.Size = new System.Drawing.Size(859, 445);
             this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -210,7 +239,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 447);
+            this.groupBox2.Size = new System.Drawing.Size(250, 445);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Смены";
@@ -222,7 +251,7 @@
             this.flowLayoutPanel_season.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_season.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_season.Name = "flowLayoutPanel_season";
-            this.flowLayoutPanel_season.Size = new System.Drawing.Size(244, 428);
+            this.flowLayoutPanel_season.Size = new System.Drawing.Size(244, 426);
             this.flowLayoutPanel_season.TabIndex = 0;
             this.flowLayoutPanel_season.SizeChanged += new System.EventHandler(this.flowLayoutPanel_season_SizeChanged);
             // 
@@ -239,7 +268,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox4);
-            this.splitContainer2.Size = new System.Drawing.Size(605, 447);
+            this.splitContainer2.Size = new System.Drawing.Size(605, 445);
             this.splitContainer2.SplitterDistance = 270;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -250,7 +279,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(270, 447);
+            this.groupBox3.Size = new System.Drawing.Size(270, 445);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Счета";
@@ -261,7 +290,7 @@
             this.flowLayoutPanel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_bills.Location = new System.Drawing.Point(3, 55);
             this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
-            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(264, 389);
+            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(264, 387);
             this.flowLayoutPanel_bills.TabIndex = 0;
             this.flowLayoutPanel_bills.SizeChanged += new System.EventHandler(this.flowLayoutPanel_bills_SizeChanged);
             // 
@@ -351,7 +380,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(331, 447);
+            this.groupBox4.Size = new System.Drawing.Size(331, 445);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Блюда";
@@ -362,7 +391,7 @@
             this.flowLayoutPanel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_dishes.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_dishes.Name = "flowLayoutPanel_dishes";
-            this.flowLayoutPanel_dishes.Size = new System.Drawing.Size(325, 428);
+            this.flowLayoutPanel_dishes.Size = new System.Drawing.Size(325, 426);
             this.flowLayoutPanel_dishes.TabIndex = 0;
             this.flowLayoutPanel_dishes.SizeChanged += new System.EventHandler(this.flowLayoutPanel_dishes_SizeChanged);
             // 
@@ -379,6 +408,8 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Обработка счетов";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fMain_FormClosed);
+            this.Load += new System.EventHandler(this.fMain_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -427,6 +458,9 @@
         private System.Windows.Forms.Button button_gotoNext;
         private System.Windows.Forms.Button button_gotoBack;
         private System.Windows.Forms.Button button_gotoFirst;
+        private System.Windows.Forms.ToolStripSplitButton tSSButton_report;
+        private System.Windows.Forms.ToolStripMenuItem tSMItem_xOrder;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
