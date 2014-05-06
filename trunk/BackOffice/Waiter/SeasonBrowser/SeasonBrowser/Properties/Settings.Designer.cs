@@ -22,5 +22,41 @@ namespace com.sbs.gui.seasonbrowser.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("875, 574")]
+        public global::System.Drawing.Size formSize {
+            get {
+                return ((global::System.Drawing.Size)(this["formSize"]));
+            }
+            set {
+                this["formSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point formLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["formLocation"]));
+            }
+            set {
+                this["formLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
+        public global::System.Windows.Forms.FormWindowState formState {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["formState"]));
+            }
+            set {
+                this["formState"] = value;
+            }
+        }
     }
 }

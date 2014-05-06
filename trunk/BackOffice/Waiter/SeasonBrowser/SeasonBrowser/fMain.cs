@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
 using com.sbs.gui.seasonbrowser.Properties;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -38,11 +39,14 @@ namespace com.sbs.gui.seasonbrowser
         DataTable dtRefStatusBills;
         DataTable dtRefStatusDish;
 
+        int editBillId;
+
         public fMain()
         {
             InitializeComponent();
 
             button_filter.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.filter_26;
+            tSSButton_report.Image = com.sbs.dll.utilites.Properties.Resources.order_26;
             tSButton_export.Image = com.sbs.dll.utilites.Properties.Resources.download_26;
 
             initRefer();
@@ -210,6 +214,8 @@ namespace com.sbs.gui.seasonbrowser
         void BillButton_editMnu_Click(object sender, EventArgs e)
         {
             ctrBill oCtrBill = (ctrBill)((Button)sender).Parent;
+
+            editBillId = oCtrBill.oBill.id;
 
             fBillEdit fbillEdit = new fBillEdit(oFilter, oCtrBill.oBill, curRole);
             
@@ -403,6 +409,47 @@ namespace com.sbs.gui.seasonbrowser
             
         }
 
+        private void tSMItem_xOrder_Click(object sender, EventArgs e)
+        {
+            Report oReport = new Report();
+            ReportDocument repDoc = new ReportDocument();
 
+            try
+            {
+                oReport = dbAccess.REP_xOrder(oFilter);
+                repDoc.Load(oReport.repPath);
+                repDoc.SetDataSource(oReport.dtReport);
+                repDoc.SetParameterValue("pBranchName", textBox_branch.Text);
+                repDoc.PrintOptions.PrinterName = oReport.printName;
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
+                return;
+            }
+
+            fRepViewer repViewer = new fRepViewer();
+            repViewer.Text = "Х Отчет";
+            repViewer.crystalReportViewer_main.ReportSource = repDoc;
+            repViewer.ShowDialog();
+        }
+
+        private void fMain_Load(object sender, EventArgs e)
+        {
+            
+            Settings set = new Settings();
+            this.Size = set.formSize;
+            this.Location = set.formLocation;
+            this.WindowState = set.formState;
+        }
+
+        private void fMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings set = new Settings();
+            set.formSize = this.Size;
+            set.formLocation = this.Location;
+            set.formState = this.WindowState;
+            set.Save();
+        }
     }
 }
