@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="wsWaiter.asmx.cs" Class="com.sbs.ws.waiter.wsWaiter" %>
