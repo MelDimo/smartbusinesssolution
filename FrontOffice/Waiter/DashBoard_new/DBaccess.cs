@@ -489,6 +489,10 @@ namespace com.sbs.gui.dashboard
 
                 command = con.CreateCommand();
 
+                tx = con.BeginTransaction();
+
+                command.Transaction = tx;
+
                 command.CommandText = "BillOpen";
                 command.CommandType = CommandType.StoredProcedure;
 
@@ -511,10 +515,12 @@ namespace com.sbs.gui.dashboard
                 oBill.numb = (int)command.Parameters["pNumber"].Value;
                 oBill.id = (int)command.Parameters["pBillId"].Value;
 
+                tx.Commit();
+
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
 
             return oBill;
         }

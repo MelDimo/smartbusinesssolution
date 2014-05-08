@@ -31,7 +31,7 @@ namespace com.sbs.gui.dashboard
         private void fTable_Shown(object sender, EventArgs e)
         {
             Button btnTable;
-            for (int i = 1; i <= tableNumber; i++)
+            for (int i = 0; i <= tableNumber; i++)
             {
                 btnTable = new Button();
                 btnTable.Text = i.ToString();
