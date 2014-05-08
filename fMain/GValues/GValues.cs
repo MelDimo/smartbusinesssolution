@@ -26,6 +26,8 @@ namespace com.sbs.dll
         public static string branchName;
         public static string resourcePath;
 
+        public static int branchTable;
+
         public static int authortype;
 
         #region -------------------------------------------- Почта
@@ -167,7 +169,7 @@ namespace com.sbs.dll
             {
                 strPwd = readKey();
 
-                FileStream fs = new FileStream(GValues.mdfPath, FileMode.Open);
+                FileStream fs = new FileStream(GValues.mdfPath, FileMode.Open, FileAccess.Read);
 
                 StreamReader sReader = new StreamReader(fs, Encoding.GetEncoding(1251));
                 string strData = sReader.ReadToEnd();
@@ -254,8 +256,10 @@ namespace com.sbs.dll
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT b.name AS branchName " +
+                command.CommandText = "SELECT b.name AS branchName, " +
+                                        " bi.xtable AS xtable" +
                                         " FROM branch b " +
+                                        " INNER JOIN branch_info bi ON bi.branch = b.id" +
                                         " WHERE b.id = @pBranch";
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
@@ -273,6 +277,7 @@ namespace com.sbs.dll
             foreach(DataRow dr in dtResult.Rows)
             {
                 GValues.branchName = dr["branchName"].ToString();
+                GValues.branchTable = (int)dr["xtable"];
             }
         }
     }

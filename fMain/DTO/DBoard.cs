@@ -56,7 +56,7 @@ namespace com.sbs.dll
             public decimal summFact { get; set; }
             public decimal summ { get; set; }
             public int paymentType { get; set; }
-            public int discount { get; set; }
+            public decimal discount { get; set; }
         }
 
         public class Dish

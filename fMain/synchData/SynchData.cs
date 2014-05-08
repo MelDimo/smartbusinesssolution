@@ -197,8 +197,8 @@ namespace com.sbs.dll.synchdata
                 {
                     commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
                     commandLocal.ExecuteNonQuery();
-                    //commandLocal.CommandText = "DELETE FROM bills WHERE id in(" + billsArray + ")";
-                    //commandLocal.ExecuteNonQuery();
+                    commandLocal.CommandText = "UPDATE bills SET isSynch = 1 WHERE id in(" + billsArray + ")";
+                    commandLocal.ExecuteNonQuery();
                 }
 
                 commandLocal.CommandText = "DELETE FROM season_waiter WHERE ref_status != 16"; // Смена не открыта
