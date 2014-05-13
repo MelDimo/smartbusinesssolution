@@ -2,6 +2,8 @@
 using System;
 using System.Data.SqlClient;
 using System.Data;
+using com.sbs.dll;
+using System.Web.Services;
 
 [Serializable]
 public class DBAccess
@@ -12,6 +14,15 @@ public class DBAccess
 
     private DataTable dtResult;
 
+    public DBAccess()
+    {
+        Config conf = new Config();
+        if (!conf.loadConfig()) return;
+        if (!conf.loadConString()) return;
+
+        GValues.DBMode = "online";
+    }
+
     public List<DTO.Bill> getBills(int pWaiterId, int pSeasonId)
     {
         dtResult = new DataTable();
@@ -19,9 +30,49 @@ public class DBAccess
         //DTO.Bill oBill = new DTO.Bill();
 
         List<DTO.Bill> lBill = new List<DTO.Bill>();
+        /*
+        try
+        {
+            con.Open();
 
+            command = con.CreateCommand();
+
+
+            command.CommandText = "SeasonBrowser_GetSeason";
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+            command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = GValues.DBMode;
+            command.Parameters.Add("pDateOpen", SqlDbType.DateTime).Value = pFilter.dateStart;
+            command.Parameters.Add("pDateClose", SqlDbType.DateTime).Value = pFilter.dateEnd;
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                dtResult.Load(dr);
+            }
+
+            con.Close();
+
+        }
+        catch (Exception exc) { throw new Exception("", exc); }
+        finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+        foreach (DataRow dr in dtResult.Rows)
+        {
+            oSeasonBranch = new DTO_DBoard.SeasonBranch();
+            oSeasonBranch.seasonID = (int)dr["season_id"];
+            oSeasonBranch.dateOpen = (DateTime)dr["date_open"];
+            oSeasonBranch.dateClose = DBNull.Value.Equals(dr["date_close"]) ? (DateTime?)null : (DateTime)dr["date_close"];
+            oSeasonBranch.userID = (int)dr["user_open"];
+            oSeasonBranch.refStatus = (int)dr["ref_status"];
+            oSeasonBranch.refStatusName = dr["ref_status_name"].ToString();
+
+            lSeasonBranch.Add(oSeasonBranch);
+        }
+        
+        
         con = new DBCon().getConnection(GValues.DBMode);
-
+        */
 
         lBill.Add(new DTO.Bill() { id = 1, season = 1 });
         lBill.Add(new DTO.Bill() { id = 2, season = 1 });
@@ -43,7 +94,6 @@ public class DBAccess
         lBill.Add(new DTO.Bill() { id = 18, season = 1 });
         lBill.Add(new DTO.Bill() { id = 19, season = 1 });
         lBill.Add(new DTO.Bill() { id = 20, season = 1 });
-
 
         return lBill;
     }

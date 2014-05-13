@@ -17,7 +17,7 @@ namespace com.sbs.ws.waiter
     {
         DBAccess dbAccess = new DBAccess();
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public List<DTO.Bill> getBills(int pWaiterId, int pSeasonId)
         {
             List<DTO.Bill> lBill = new List<DTO.Bill>();
@@ -25,6 +25,15 @@ namespace com.sbs.ws.waiter
             lBill = dbAccess.getBills(pWaiterId, pSeasonId);
 
             return lBill;
+        }
+
+        [WebMethod(EnableSession = true)]
+        public string getCounter()
+        {
+            if (Session["HitCounter"] == null) Session["HitCounter"] = 1;
+            else Session["HitCounter"] = ((int)Session["HitCounter"]) + 1;
+
+            return Session["HitCounter"].ToString();
         }
     }
 }
