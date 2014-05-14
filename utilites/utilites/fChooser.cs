@@ -395,6 +395,7 @@ namespace com.sbs.dll.utilites
                     dataGridView_main.Focus();
                     panel_bottom.Visible = false;
                     break;
+
                 case Keys.Enter:
                     dataGridView_main.Focus();
                     panel_bottom.Visible = false;
