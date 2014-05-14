@@ -238,6 +238,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap order_26 {
+            get {
+                object obj = ResourceManager.GetObject("order_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap refresh_26 {
             get {
                 object obj = ResourceManager.GetObject("refresh_26", resourceCulture);

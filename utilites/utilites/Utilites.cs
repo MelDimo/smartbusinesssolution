@@ -1038,7 +1038,7 @@ namespace com.sbs.dll.utilites
 
             using (StreamWriter sw = new StreamWriter(GValues.prgLogFile, true))
             {
-                sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
+                sw.WriteLine("# " + DateTime.Now.ToString() + ": " + pString);
             }
         }
     }

@@ -17,7 +17,7 @@ namespace com.sbs.dll.utilites
 
             this.Icon = pMsgIcon;
             this.Text = GValues.prgNameFull;
-            textBox_message.Text = pMsgText;
+            textBox_message.Text = pMsgText + Environment.NewLine;
             textBox_exception.Text = "Message: " + pExc.Message + Environment.NewLine + "StackTrace: " + pExc.StackTrace;
             textBox_message.Visible = true;
 
