@@ -17,6 +17,12 @@ namespace com.sbs.gui.report.reptimesheets
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
+            if (!conf.loadConString()) return;
+            //GValues.DBMode = "offline";
+            GValues.DBMode = "online";
+            UsersInfo.Acl = new List<int>();
+            UsersInfo.Acl.Add(22);
+            GValues.branchName = "LP2";
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

@@ -22,5 +22,41 @@ namespace com.sbs.gui.report.reptimesheets.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.Forms.FormWindowState formState {
+            get {
+                return ((global::System.Windows.Forms.FormWindowState)(this["formState"]));
+            }
+            set {
+                this["formState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("455, 233")]
+        public global::System.Drawing.Size formSize {
+            get {
+                return ((global::System.Drawing.Size)(this["formSize"]));
+            }
+            set {
+                this["formSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point formLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["formLocation"]));
+            }
+            set {
+                this["formLocation"] = value;
+            }
+        }
     }
 }

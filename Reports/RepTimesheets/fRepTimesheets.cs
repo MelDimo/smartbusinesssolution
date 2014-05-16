@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using CrystalDecisions.CrystalReports.Engine;
+using com.sbs.gui.report.reptimesheets.Properties;
 
 namespace com.sbs.gui.report.reptimesheets
 {
@@ -183,6 +184,23 @@ namespace com.sbs.gui.report.reptimesheets
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void fRepTimesheets_Load(object sender, EventArgs e)
+        {
+            Settings set = new Settings();
+            this.Size = set.formSize;
+            this.Location = set.formLocation;
+            this.WindowState = set.formState;
+        }
+
+        private void fRepTimesheets_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings set = new Settings();
+            set.formSize = this.Size;
+            set.formLocation = this.Location;
+            set.formState = this.WindowState;
+            set.Save();
         }
     }
 }

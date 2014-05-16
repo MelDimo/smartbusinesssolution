@@ -41,23 +41,23 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button_getBranch = new System.Windows.Forms.Button();
             this.textBox_branchsNames = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.dateTimePicker_dayEnd = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dateTimePicker_dayStart = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_month = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_year = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker_year = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker_month = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker_dayStart = new System.Windows.Forms.DateTimePicker();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dateTimePicker_dayEnd = new System.Windows.Forms.DateTimePicker();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -217,6 +217,88 @@
             this.textBox_branchsNames.Size = new System.Drawing.Size(257, 20);
             this.textBox_branchsNames.TabIndex = 0;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.dateTimePicker_dayEnd);
+            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.dateTimePicker_dayStart);
+            this.panel4.Controls.Add(this.dateTimePicker_month);
+            this.panel4.Controls.Add(this.dateTimePicker_year);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(132, 15);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(301, 34);
+            this.panel4.TabIndex = 11;
+            // 
+            // dateTimePicker_dayEnd
+            // 
+            this.dateTimePicker_dayEnd.CustomFormat = "dd";
+            this.dateTimePicker_dayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_dayEnd.Location = new System.Drawing.Point(249, 7);
+            this.dateTimePicker_dayEnd.Name = "dateTimePicker_dayEnd";
+            this.dateTimePicker_dayEnd.ShowUpDown = true;
+            this.dateTimePicker_dayEnd.Size = new System.Drawing.Size(40, 20);
+            this.dateTimePicker_dayEnd.TabIndex = 6;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(233, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(10, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "-";
+            // 
+            // dateTimePicker_dayStart
+            // 
+            this.dateTimePicker_dayStart.CustomFormat = "dd";
+            this.dateTimePicker_dayStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_dayStart.Location = new System.Drawing.Point(191, 7);
+            this.dateTimePicker_dayStart.Name = "dateTimePicker_dayStart";
+            this.dateTimePicker_dayStart.ShowUpDown = true;
+            this.dateTimePicker_dayStart.Size = new System.Drawing.Size(40, 20);
+            this.dateTimePicker_dayStart.TabIndex = 4;
+            // 
+            // dateTimePicker_month
+            // 
+            this.dateTimePicker_month.CustomFormat = "MM";
+            this.dateTimePicker_month.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_month.Location = new System.Drawing.Point(91, 7);
+            this.dateTimePicker_month.Name = "dateTimePicker_month";
+            this.dateTimePicker_month.ShowUpDown = true;
+            this.dateTimePicker_month.Size = new System.Drawing.Size(48, 20);
+            this.dateTimePicker_month.TabIndex = 3;
+            // 
+            // dateTimePicker_year
+            // 
+            this.dateTimePicker_year.CustomFormat = "yyyy";
+            this.dateTimePicker_year.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_year.Location = new System.Drawing.Point(6, 7);
+            this.dateTimePicker_year.Name = "dateTimePicker_year";
+            this.dateTimePicker_year.ShowUpDown = true;
+            this.dateTimePicker_year.Size = new System.Drawing.Size(48, 20);
+            this.dateTimePicker_year.TabIndex = 2;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(60, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(25, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Год";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(145, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Месяц";
+            // 
             // panel8
             // 
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -249,88 +331,6 @@
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.dateTimePicker_dayEnd);
-            this.panel4.Controls.Add(this.label7);
-            this.panel4.Controls.Add(this.dateTimePicker_dayStart);
-            this.panel4.Controls.Add(this.dateTimePicker_month);
-            this.panel4.Controls.Add(this.dateTimePicker_year);
-            this.panel4.Controls.Add(this.label6);
-            this.panel4.Controls.Add(this.label1);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(132, 15);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(301, 34);
-            this.panel4.TabIndex = 11;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(145, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Месяц";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(60, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(25, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Год";
-            // 
-            // dateTimePicker_year
-            // 
-            this.dateTimePicker_year.CustomFormat = "yyyy";
-            this.dateTimePicker_year.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_year.Location = new System.Drawing.Point(6, 7);
-            this.dateTimePicker_year.Name = "dateTimePicker_year";
-            this.dateTimePicker_year.ShowUpDown = true;
-            this.dateTimePicker_year.Size = new System.Drawing.Size(48, 20);
-            this.dateTimePicker_year.TabIndex = 2;
-            // 
-            // dateTimePicker_month
-            // 
-            this.dateTimePicker_month.CustomFormat = "MM";
-            this.dateTimePicker_month.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_month.Location = new System.Drawing.Point(91, 7);
-            this.dateTimePicker_month.Name = "dateTimePicker_month";
-            this.dateTimePicker_month.ShowUpDown = true;
-            this.dateTimePicker_month.Size = new System.Drawing.Size(48, 20);
-            this.dateTimePicker_month.TabIndex = 3;
-            // 
-            // dateTimePicker_dayStart
-            // 
-            this.dateTimePicker_dayStart.CustomFormat = "dd";
-            this.dateTimePicker_dayStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_dayStart.Location = new System.Drawing.Point(191, 7);
-            this.dateTimePicker_dayStart.Name = "dateTimePicker_dayStart";
-            this.dateTimePicker_dayStart.ShowUpDown = true;
-            this.dateTimePicker_dayStart.Size = new System.Drawing.Size(40, 20);
-            this.dateTimePicker_dayStart.TabIndex = 4;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(233, 11);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(10, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "-";
-            // 
-            // dateTimePicker_dayEnd
-            // 
-            this.dateTimePicker_dayEnd.CustomFormat = "dd";
-            this.dateTimePicker_dayEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker_dayEnd.Location = new System.Drawing.Point(249, 7);
-            this.dateTimePicker_dayEnd.Name = "dateTimePicker_dayEnd";
-            this.dateTimePicker_dayEnd.ShowUpDown = true;
-            this.dateTimePicker_dayEnd.Size = new System.Drawing.Size(40, 20);
-            this.dateTimePicker_dayEnd.TabIndex = 6;
-            // 
             // fRepTimesheets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -341,6 +341,8 @@
             this.MinimumSize = new System.Drawing.Size(455, 233);
             this.Name = "fRepTimesheets";
             this.Text = "Табель учета раб. времени";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fRepTimesheets_FormClosed);
+            this.Load += new System.EventHandler(this.fRepTimesheets_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -349,9 +351,9 @@
             this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel8.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
