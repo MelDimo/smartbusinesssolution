@@ -89,6 +89,8 @@ namespace com.sbs.gui.main
                 Assembly assembly = Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
                     new Evidence( Assembly.GetExecutingAssembly().Evidence ));
 
+                #region ------------------------------------------------------ запуск демонов
+
                 if (str == "mailChecker.dll")   // если проверка почты
                 {
                     Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
@@ -97,18 +99,28 @@ namespace com.sbs.gui.main
                     methodInfo.Invoke(classInstance, null);
                 }
 
-                if (str == "synchData.dll")   // если проверка почты
+                if (str == "synchData.dll")   // если модуль синхронизации
                 {
-                    Type type = assembly.GetType("com.sbs.dll.synchdata.SynchData");
-                    MethodInfo methodInfo = type.GetMethod("run");
-                    object classInstance = Activator.CreateInstance(type, null);
-                    methodInfo.Invoke(classInstance, null);
+                    Type typeBill = assembly.GetType("com.sbs.dll.synchdata.SynchData");
+                    MethodInfo methodInfoBill = typeBill.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(typeBill, null);
+                    methodInfoBill.Invoke(classInstance, null);
+
+                    Type typeTime = assembly.GetType("com.sbs.dll.synchdata.SynchTimeTracking");
+                    MethodInfo methodInfoTime = typeTime.GetMethod("run");
+                    object classInstanceTime = Activator.CreateInstance(typeTime, null);
+                    methodInfoTime.Invoke(classInstanceTime, null);
                 }
+                #endregion
 #endif
             }
             catch (Exception exc) 
             {
-                if (str == "synchData.dll") continue;
+                if (str == "synchData.dll") 
+                {
+
+                    continue;
+                }
                 else throw exc;
             }
         }
