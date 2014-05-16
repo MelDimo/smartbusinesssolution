@@ -13,8 +13,11 @@ namespace com.sbs.dll.synchdata
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
 
-            SynchData synchData = new SynchData();
-            synchData.send2MainDB();
+            //SynchData synchData = new SynchData();
+            //synchData.send2MainDB();
+
+            SynchTimeTracking synchTime = new SynchTimeTracking();
+            synchTime.send2MainDB();
 
         }
     }

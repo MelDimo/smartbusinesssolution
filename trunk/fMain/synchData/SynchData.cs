@@ -37,7 +37,7 @@ namespace com.sbs.dll.synchdata
 
         public void send2MainDB()
         {
-            if (GValues.DBMode.Equals("online")) return; // Мы уже работаем в режиме онлайн
+            //if (GValues.DBMode.Equals("online")) return; // Мы уже работаем в режиме онлайн
 
             while (true)
             {
@@ -90,7 +90,7 @@ namespace com.sbs.dll.synchdata
                 conLocal.Close();
 
             }
-            catch (Exception exc) { uMessage.Show(exc.Message, SystemIcons.Information); }
+            catch (Exception exc) { WriteLog.write(exc.Message + Environment.NewLine + exc.StackTrace); return; }
             finally { if (conLocal.State == ConnectionState.Open) conLocal.Close(); }
 
             #endregion
