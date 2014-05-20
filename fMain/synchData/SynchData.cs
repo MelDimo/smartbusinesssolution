@@ -213,7 +213,7 @@ namespace com.sbs.dll.synchdata
                 txMain.Commit();
                 conMain.Close();
 
-                WriteLog.write("SynchData completed.");
+                WriteLog.write("SynchData: Ok.");
                 
             }
             catch (Exception exc) 

@@ -127,7 +127,7 @@ namespace com.sbs.dll.synchdata
                 txMain.Commit();
                 conMain.Close();
 
-                WriteLog.write("SynchTimeTracking completed.");
+                WriteLog.write("SynchTimeTracking: Ok.");
 
             }
             catch (Exception exc)
