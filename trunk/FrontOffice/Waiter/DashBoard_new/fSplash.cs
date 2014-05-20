@@ -246,7 +246,7 @@ namespace com.sbs.gui.dashboard
                         }
                         break;
 
-                    case Keys.F5:   // Регистрация прихода/ухода
+                    case Keys.F6:   // Регистрация прихода/ухода
                         if (DashboardEnvironment.assTimeTrack == null)
                         {
                             MessageBox.Show("Данная конфигурация не предусматривает учет прихода/ухода сотрудников");
@@ -258,6 +258,11 @@ namespace com.sbs.gui.dashboard
                         Form form = (Form)Activator.CreateInstance(type);
                         form.ShowDialog();
                         
+                        break;
+
+                    case Keys.F1:   // Помощь
+                        fHelp fHLP = new fHelp();
+                        fHLP.ShowDialog();
                         break;
                 }
             }

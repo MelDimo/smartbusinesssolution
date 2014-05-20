@@ -103,6 +103,12 @@
     <Compile Include="fDishToBill_ACTION.Designer.cs">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
     </Compile>
+    <Compile Include="fHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fHelp.Designer.cs">
+      <DependentUpon>fHelp.cs</DependentUpon>
+    </Compile>
     <Compile Include="fLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fDishToBill_ACTION.resx">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fHelp.resx">
+      <DependentUpon>fHelp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fLogin.resx">
       <DependentUpon>fLogin.cs</DependentUpon>

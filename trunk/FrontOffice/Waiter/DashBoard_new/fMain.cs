@@ -769,6 +769,11 @@ namespace com.sbs.gui.dashboard
         {
             switch(e.KeyCode)
             {
+                case Keys.F1:   // Помощь
+                    fHelp fHLP = new fHelp();
+                    fHLP.ShowDialog();
+                    break;
+
                 case Keys.F2:   //Новый заказ
                     if (curGroupBox == groupBox.BILL)
                     {
