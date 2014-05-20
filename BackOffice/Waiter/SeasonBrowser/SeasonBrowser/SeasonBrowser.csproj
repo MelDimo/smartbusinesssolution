@@ -216,6 +216,7 @@
   <ItemGroup>
     <Content Include="resource\export1C.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

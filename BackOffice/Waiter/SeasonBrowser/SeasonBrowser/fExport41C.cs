@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
 using System.Xml;
+using System.Diagnostics;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -57,6 +58,8 @@ namespace com.sbs.gui.seasonbrowser
 
         private void exportData()
         {
+            int curDep = 0;
+
             DataSet dsExport;
 
             string strXmlBill = "<XmlBill>" +
@@ -113,10 +116,11 @@ namespace com.sbs.gui.seasonbrowser
                                         "<DISCOUNTSUMMNDS></DISCOUNTSUMMNDS>" +
                                     "</XMLCEKLINES>";
 
-            XmlNode nodeBill;
-            XmlNode nodeBill_Bill;
-            XmlNode nodeBill_CEKS;
-            XmlNode nodeBill_CEKLINES;
+            XmlNode nodeBill = null;
+            XmlNode nodeBill_Bill = null;
+            XmlNode nodeBill_CEKS = null;
+            XmlNode nodeBill_CEKLINES = null;
+
             XmlDocument xmlDoc = new XmlDocument();
             XmlDocument xmlDocBill = new XmlDocument();
             XmlDocument xmlDocCEKS = new XmlDocument();
@@ -126,9 +130,8 @@ namespace com.sbs.gui.seasonbrowser
             xmlDocCEKS.LoadXml(strXMLCEKS);
             xmlDocCEKLINES.LoadXml(strXMLCEKLINES);
 
-            XmlDocumentFragment fragment;
-
             dsExport = dbAccess.exportFor1C(oFilter);
+            DataTable dtFilteringData;
             
             xmlDoc.Load(@".\resource\export1C.xml");
             
@@ -142,12 +145,11 @@ namespace com.sbs.gui.seasonbrowser
             nodeBill = xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0];
             foreach (DataRow dr in dsExport.Tables["XmlBill"].Rows)
             {
+                xmlDocBill.LoadXml(strXmlBill);
                 nodeBill_Bill = xmlDocBill.DocumentElement.SelectSingleNode("/XmlBill");
                 
-                nodeBill_CEKLINES = xmlDocCEKLINES.DocumentElement.SelectSingleNode("/XMLCEKLINES");
-
                 nodeBill_Bill.SelectNodes("ID")[0].InnerText = dr["ID"].ToString();
-                nodeBill_Bill.SelectNodes("D_Date")[0].InnerText = dr["D_Date"].ToString();
+                nodeBill_Bill.SelectNodes("D_Date")[0].InnerText = ((DateTime)dr["D_Date"]).ToString("o");
                 nodeBill_Bill.SelectNodes("OFI")[0].InnerText = dr["OFI"].ToString();
                 nodeBill_Bill.SelectNodes("DEPARTAMEN")[0].InnerText = dr["DEPARTAMEN"].ToString();
                 nodeBill_Bill.SelectNodes("D_SUMM")[0].InnerText = dr["D_SUMM"].ToString();
@@ -164,25 +166,62 @@ namespace com.sbs.gui.seasonbrowser
 
                 nodeBill_Bill.SelectNodes("BUXS_ARRAY/XMLBUXS/BUXS_ID")[0].InnerText = unitInfo.First().Field<int>("BUXS_ID").ToString();
 
-                foreach (DataRow dr1 in dsExport.Tables["XmlCeks"].Rows)
+                dsExport.Tables["XmlCeks"].DefaultView.RowFilter = "bills = " + dr["bills_id"].ToString();
+
+                curDep = 0;
+
+                foreach (DataRowView drw in dsExport.Tables["XmlCeks"].DefaultView)
                 {
-                    nodeBill_CEKS = xmlDocCEKS.DocumentElement.SelectSingleNode("/XMLCEKS");
+                    DataRow dr1 = drw.Row;
 
-                    nodeBill_CEKS.SelectNodes("DEPARTAMENT")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("DEPARTAMENT_TYPE")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("D_NDSSUMM")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("D_DISCOUNT_SUMM")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("D_DISCOUNT_NDSSUMM")[0].InnerText = "";
-                    nodeBill_CEKS.SelectNodes("D_ID")[0].InnerText = "";
+                    if ((int)dr1["DEPARTAMENT"] != curDep)
+                    {
+                        if (curDep != 0)
+                        {
+
+                            nodeBill_Bill.SelectNodes(@"CEKS_ARRAY")[0].AppendChild(xmlDocBill.ImportNode(nodeBill_CEKS, true));
+                        }
+                        
+                        xmlDocCEKS.LoadXml(strXMLCEKS);
+                        nodeBill_CEKS = xmlDocCEKS.DocumentElement.SelectSingleNode("/XMLCEKS");
+
+                        nodeBill_CEKS.SelectNodes("DEPARTAMENT")[0].InnerText = dr1["DEPARTAMENT"].ToString();
+                        nodeBill_CEKS.SelectNodes("DEPARTAMENT_TYPE")[0].InnerText = "0";
+                        nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = "0";
+                        nodeBill_CEKS.SelectNodes("D_NDSSUMM")[0].InnerText = "0";
+                        nodeBill_CEKS.SelectNodes("D_DISCOUNT_SUMM")[0].InnerText = "0";
+                        nodeBill_CEKS.SelectNodes("D_DISCOUNT_NDSSUMM")[0].InnerText = "0";
+                        nodeBill_CEKS.SelectNodes("D_ID")[0].InnerText = "0";
+                    }
+
+                    nodeBill_CEKLINES = xmlDocCEKLINES.DocumentElement.SelectSingleNode("/XMLCEKLINES");
+
+                    nodeBill_CEKLINES.SelectNodes("LineID")[0].InnerText = dr1["LineID"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("OwnerID")[0].InnerText = dr1["OwnerID"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("ASSID")[0].InnerText = dr1["ASSID"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("QTY")[0].InnerText = dr1["QTY"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("COEF_QTY")[0].InnerText = dr1["COEF_QTY"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("PRICE")[0].InnerText = dr1["PRICE"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("NODISK_PRICE")[0].InnerText = dr1["NODISK_PRICE"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("NDS_PROCENT")[0].InnerText = dr1["NDS_PROCENT"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("NDSID")[0].InnerText = dr1["NDSID"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("SUMM")[0].InnerText = dr1["SUMM"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("NDSSUMM")[0].InnerText = dr1["NDSSUMM"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMM")[0].InnerText = dr1["DISCOUNTSUMM"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMMNDS")[0].InnerText = dr1["DISCOUNTSUMMNDS"].ToString();
+
+                    nodeBill_CEKS.SelectNodes(@"CEKSLINE_ARRAY")[0].AppendChild(xmlDocCEKS.ImportNode(nodeBill_CEKLINES, true));
+
+                    nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = (decimal.Parse(nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText) + (decimal)dr1["SUMM"]).ToString();
+
+                    curDep = (int)dr1["DEPARTAMENT"];
                 }
-                
-                
 
-
-
+                if (nodeBill_CEKS != null)
+                    nodeBill_Bill.SelectNodes(@"CEKS_ARRAY")[0].AppendChild(xmlDocBill.ImportNode(nodeBill_CEKS, true));
 
                 xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0].AppendChild(xmlDoc.ImportNode(nodeBill_Bill, true));
+
             }
             
 
