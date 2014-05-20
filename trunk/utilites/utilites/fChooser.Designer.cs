@@ -69,6 +69,7 @@
             this.dataGridView_main.Size = new System.Drawing.Size(684, 399);
             this.dataGridView_main.TabIndex = 0;
             this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
+            this.dataGridView_main.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView_main_KeyPress);
             // 
             // panel_bottom
             // 
