@@ -333,26 +333,28 @@ namespace com.sbs.gui.seasonbrowser
 
                 dsResult.Tables.Add(dtXmlBuxs);
 
-                command.CommandText = " SELECT bia.bills, " +
-                                                " bia.id as LineID, " +
-                                                " 0 as OwnerID, " +
-                                                " rd.code as ASSID, " +
-                                                " bia.xcount as QTY, " +
-                                                " bia.xcount as COEF_QTY, " +
-                                                " bia.dishes_price as PRICE, " +
-                                                " bia.dishes_price as NODISK_PRICE, " +
-                                                " 0 as NDS_PROCENT, " +
-                                                " 3 as NDSID, " +
-                                                " bia.xcount * bia.dishes_price as SUMM, " +
-                                                " 0 as NDSSUMM, " +
-                                                " 0 as DISCOUNTSUMM, " +
-                                                " 0 as DISCOUNTSUMMNDS " +
-                                        " FROM bills_info_all bia " +
-                                        " INNER JOIN carte_dishes cd ON cd.id = bia.carte_dishes " +
-                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group " +
-                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes " +
-                                        " WHERE bia.branch = @branch AND bia.season = @season;";
-
+                command.CommandText = " SELECT bia.bills," +
+                                                " u.code as DEPARTAMENT," +
+                                                " bia.id as LineID," +
+                                                " 0 as OwnerID," +
+                                                " rd.code as ASSID," +
+                                                " bia.xcount as QTY," +
+                                                " 0 as COEF_QTY," +
+                                                " bia.dishes_price as PRICE," +
+                                                " 0 as NODISK_PRICE," +
+                                                " 0 as NDS_PROCENT," +
+                                                " 0 as NDSID," +
+                                                " bia.xcount * bia.dishes_price as SUMM," +
+                                                " 0 as NDSSUMM," +
+                                                " 0 as DISCOUNTSUMM," +
+                                                " 0 as DISCOUNTSUMMNDS" +
+                                        " FROM bills_info_all bia" +
+                                        " INNER JOIN carte_dishes cd ON cd.id = bia.carte_dishes" +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
+                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes" +
+                                        " INNER JOIN unit u ON u.ref_printers_type = rd.ref_printers_type AND u.branch = @branch" +
+                                        " WHERE bia.branch = @branch AND bia.season = @season" +
+                                        " ORDER BY bia.bills, u.code;";
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dtXmlCeks.Load(dr);
