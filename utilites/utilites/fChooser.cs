@@ -64,16 +64,6 @@ namespace com.sbs.dll.utilites
                     Close();
                     break;
             }
-
-            if (Char.IsLetter((char)e.KeyCode) && !field4QuickSearch.Equals(string.Empty))
-            {
-                if (!panel_bottom.Visible)
-                {
-                    panel_bottom.Visible = true;
-                    //textBox_search.Text = ((char)e.KeyCode).ToString();
-                    textBox_search.Focus();
-                }
-            }
         }
 
         private void showStrSearch(string pChar4Search)
@@ -400,6 +390,20 @@ namespace com.sbs.dll.utilites
                     dataGridView_main.Focus();
                     panel_bottom.Visible = false;
                     break;
+            }
+        }
+
+        private void dataGridView_main_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar) && !field4QuickSearch.Equals(string.Empty))
+            {
+                if (!panel_bottom.Visible)
+                {
+                    panel_bottom.Visible = true;
+                    textBox_search.Focus();
+                    textBox_search.Text = e.KeyChar.ToString();
+                    textBox_search.SelectionStart = textBox_search.Text.Length;
+                }
             }
         }
     }
