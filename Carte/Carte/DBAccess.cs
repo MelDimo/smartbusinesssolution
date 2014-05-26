@@ -236,14 +236,14 @@ namespace com.sbs.gui.carte
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "UPDATE carte_dishes SET carte_dishes_group = @carte_dishes_group, " + 
-                                                            " ref_dishes = @ref_dishes,"+
-                                                            " name = @name, "+
-                                                            " price = @price,"+
+                command.CommandText = "UPDATE carte_dishes SET carte_dishes_group = @carte_dishes_group, " +
+                                                            " ref_dishes = @ref_dishes," +
+                                                            " name = @name, " +
+                                                            " price = @price," +
                                                             " isvisible = @isvisible," +
-                                                            " ref_printers_type = @ref_printers_type,"+
-                                                            " ref_status = @ref_status" +
-                                                            " minStep = @minStep"+
+                                                            " ref_printers_type = @ref_printers_type," +
+                                                            " ref_status = @ref_status," +
+                                                            " minStep = @minStep" +
                                                         " WHERE id = @id";
 
                 command.Parameters.Add("id", SqlDbType.Int).Value = pCarteDishes.id;

@@ -445,6 +445,8 @@ namespace com.sbs.gui.carte
 
         private void toolStripButton_dishEdit_Click(object sender, EventArgs e)
         {
+            int selectedItemIndex;
+
             if (dataGridView_dishes.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -453,6 +455,8 @@ namespace com.sbs.gui.carte
 
             oCarteDishes = new DTO.CarteDishes();
             oCarteDishes.id = (int)dataGridView_dishes.SelectedRows[0].Cells["dishes_id"].Value;
+
+            selectedItemIndex = dataGridView_dishes.SelectedRows[0].Index;
 
             DataRow dishInfo = (from rec in dtCarteDishes.AsEnumerable()
                                  where rec.Field<int>("id") == oCarteDishes.id
@@ -488,6 +492,8 @@ namespace com.sbs.gui.carte
             if (faddedit.ShowDialog() != DialogResult.OK) return;
 
             updateDishes();
+
+            if (dataGridView_dishes.Rows.Count >= selectedItemIndex) dataGridView_dishes.Rows[selectedItemIndex].Selected = true;
         }
 
         private void toolStripButton_dishDel_Click(object sender, EventArgs e)

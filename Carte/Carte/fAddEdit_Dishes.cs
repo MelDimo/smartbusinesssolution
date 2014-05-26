@@ -51,7 +51,7 @@ namespace com.sbs.gui.carte
 
         private void button_getDishes_Click(object sender, EventArgs e)
         {
-            fChooser fChose = new fChooser("REFDISHES", "name", "id");
+            fChooser fChose = new fChooser("REFDISHES", "name", "id", textBox_refDishesName.Text);
 
             fChose.dataGridView_main.DataSource = dtDishes;
 
@@ -135,6 +135,8 @@ namespace com.sbs.gui.carte
         {
             string errMsg = "Зполнены не все обязательные поля:";
 
+            if (comboBox_group.SelectedIndex == -1) errMsg += Environment.NewLine + "- Группа;";
+            else oCarteDishes.carteDishesGroup = (int)comboBox_group.SelectedValue;
             if (oCarteDishes.name.Length == 0) errMsg += Environment.NewLine + "- Наименование;";
             if (oCarteDishes.refDishes == 0) errMsg += Environment.NewLine + "- Блюдо;";
             if (comboBox_refStatus.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
