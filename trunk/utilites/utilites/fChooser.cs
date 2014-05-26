@@ -20,6 +20,7 @@ namespace com.sbs.dll.utilites
         private string sourceName;  // Расматриваю значение и принимаю решение какие данные возвращать
         private string field4QuickSearch = string.Empty; // Поле по которому происходит быстрый поиск. если пусто быстрого поиска нет
         private string field4QuickIndex = string.Empty; // Поле по которому происходит быстрый поиск. если пусто быстрого поиска нет
+        private string field4QuickString = string.Empty; // Предварительно установленная искомая строка для быстрого поиска
 
         private bool isSelected = false;
 
@@ -40,11 +41,13 @@ namespace com.sbs.dll.utilites
             dataGridView_main.AutoGenerateColumns = false;
         }
 
-        public fChooser(string pSourceName, string pField4QuickSearch, string pField4QuickIndex)
+        public fChooser(string pSourceName, string pField4QuickSearch, string pField4QuickIndex, string pSearchString)
         {
             sourceName = pSourceName;
+
             field4QuickSearch = pField4QuickSearch;
             field4QuickIndex = pField4QuickIndex;
+            field4QuickString = pSearchString;
 
             InitializeComponent();
 
@@ -370,6 +373,15 @@ namespace com.sbs.dll.utilites
         private void fChooser_Shown(object sender, EventArgs e)
         {
             dtSource = (DataTable)dataGridView_main.DataSource;
+            
+            if (field4QuickString.Length > 0)
+            {
+                panel_bottom.Visible = true;
+                textBox_search.Text = field4QuickString;
+                showStrSearch(field4QuickString);
+                textBox_search.Focus();
+                textBox_search.SelectionStart = textBox_search.Text.Length;
+            }
         }
 
         private void textBox_search_TextChanged(object sender, EventArgs e)
