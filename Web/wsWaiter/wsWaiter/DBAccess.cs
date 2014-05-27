@@ -23,6 +23,11 @@ public class DBAccess
         GValues.DBMode = "online";
     }
 
+    public DTO.GValuesEx getGValuesEx()
+    {
+        return new DTO.GValuesEx() { branch = GValues.branchId };
+    }
+
     public List<DTO.Bill> getBills(int pWaiterId, int pSeasonId)
     {
         dtResult = new DataTable();
@@ -36,7 +41,6 @@ public class DBAccess
             con.Open();
 
             command = con.CreateCommand();
-
 
             command.CommandText = "SeasonBrowser_GetSeason";
             command.CommandType = CommandType.StoredProcedure;
@@ -70,30 +74,29 @@ public class DBAccess
             lSeasonBranch.Add(oSeasonBranch);
         }
         
-        
         con = new DBCon().getConnection(GValues.DBMode);
         */
 
-        lBill.Add(new DTO.Bill() { id = 1, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 2, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 3, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 4, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 5, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 6, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 7, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 8, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 9, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 10, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 11, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 12, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 13, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 14, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 15, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 16, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 17, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 18, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 19, season = 1 });
-        lBill.Add(new DTO.Bill() { id = 20, season = 1 });
+        lBill.Add(new DTO.Bill() { id = 1, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 1, table = 1, sum = new decimal(11.78) });
+        lBill.Add(new DTO.Bill() { id = 2, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 2, table = 2, sum = new decimal(20.5) });
+        lBill.Add(new DTO.Bill() { id = 3, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 3, table = 3, sum = new decimal(25.3) });
+        lBill.Add(new DTO.Bill() { id = 4, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 4, table = 4, sum = new decimal(9.5) });
+        lBill.Add(new DTO.Bill() { id = 5, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 5, table = 5, sum = new decimal(125.1) });
+        lBill.Add(new DTO.Bill() { id = 6, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 6, table = 6, sum = new decimal(250.3) });
+        lBill.Add(new DTO.Bill() { id = 7, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 7, table = 7, sum = new decimal(127.5) });
+        lBill.Add(new DTO.Bill() { id = 8, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 8, table = 8, sum = new decimal(128.57) });
+        lBill.Add(new DTO.Bill() { id = 9, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 9, table = 9, sum = new decimal(125.5) });
+        lBill.Add(new DTO.Bill() { id = 10, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 10, table = 10, sum = new decimal(167.5) });
+        lBill.Add(new DTO.Bill() { id = 11, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 11, table = 11, sum = new decimal(128.87) });
+        lBill.Add(new DTO.Bill() { id = 12, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 12, table = 12, sum = new decimal(1258.5) });
+        lBill.Add(new DTO.Bill() { id = 13, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 13, table = 13, sum = new decimal(854.5) });
+        lBill.Add(new DTO.Bill() { id = 14, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 14, table = 14, sum = new decimal(457.8) });
+        lBill.Add(new DTO.Bill() { id = 15, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 15, table = 15, sum = new decimal(589.5) });
+        lBill.Add(new DTO.Bill() { id = 16, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 16, table = 16, sum = new decimal(123.34) });
+        lBill.Add(new DTO.Bill() { id = 17, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 17, table = 17, sum = new decimal(1478.5) });
+        lBill.Add(new DTO.Bill() { id = 18, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 18, table = 18, sum = new decimal(324.2) });
+        lBill.Add(new DTO.Bill() { id = 19, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 19, table = 19, sum = new decimal(258.98) });
+        lBill.Add(new DTO.Bill() { id = 20, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 20, table = 20, sum = new decimal(110.5) });
 
         return lBill;
     }
