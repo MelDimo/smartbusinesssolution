@@ -152,7 +152,7 @@ namespace com.sbs.dll.synchdata
                     commandMain.Parameters.Add("ref_notes", SqlDbType.Int).Value = dr["ref_notes"];
                     commandMain.Parameters.Add("ref_status", SqlDbType.Int).Value = (int)dr["ref_status"];
                     commandMain.Parameters.Add("sum", SqlDbType.Decimal).Value = DBNull.Value == dr["sum"] ? 0 : (decimal)dr["sum"];
-                    commandMain.Parameters.Add("discount", SqlDbType.Int).Value = (int)dr["discount"];
+                    commandMain.Parameters.Add("discount", SqlDbType.Decimal).Value = DBNull.Value == dr["discount"] ? 0 : (decimal)dr["discount"];
 
 
                     commandMain.ExecuteNonQuery();

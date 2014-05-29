@@ -99,7 +99,7 @@ namespace com.sbs.gui.main
                     methodInfo.Invoke(classInstance, null);
                 }
 
-                if (str == "synchData.dll")   // если модуль синхронизации
+                if (str == "synchData.dll" && GValues.dbSynch)   // если модуль синхронизации и установлен признак синхронизации (settings.xml)
                 {
                     Type typeBill = assembly.GetType("com.sbs.dll.synchdata.SynchData");
                     MethodInfo methodInfoBill = typeBill.GetMethod("run");

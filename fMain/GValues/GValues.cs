@@ -29,6 +29,8 @@ namespace com.sbs.dll
         public static int branchTable;
 
         public static int authortype;
+        public static string billPrinter;
+        public static bool dbSynch;
 
         #region -------------------------------------------- Почта
 
@@ -72,14 +74,12 @@ namespace com.sbs.dll
         {
             get { return GValues.resourcePath + @"\logo.png"; }
             set { logoPath = value; }
-
         }
 
         public static string mdfPath
         {
             get { return GValues.resourcePath + @"\db.mdf"; }
             set { mdfPath = value; }
-
         }
 
         public static string modulesPath;
@@ -203,15 +203,19 @@ namespace com.sbs.dll
             XmlNode node_waiterConfig;
             XmlNode node_resourcePath;
             XmlNode node_modulesPath;
+            XmlNode node_billPrinter;
+            XmlNode node_dbSynch;
 
             try
             {
                 doc.Load(GValues.fileSettingsPath);
                 node_ref_branch = doc.GetElementsByTagName("ref_branch")[0];
                 node_dbmode = doc.GetElementsByTagName("dbmode")[0];
-                node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
                 node_resourcePath = doc.GetElementsByTagName("resourcePath")[0];
                 node_modulesPath = doc.GetElementsByTagName("modulesPath")[0];
+                node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
+                node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
+                node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -221,10 +225,6 @@ namespace com.sbs.dll
                 if (GValues.DBMode.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить режим взаисодействия с БД;";
 
-                if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
-                    msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
-                else GValues.authortype = xBranchId;
-
                 GValues.resourcePath = node_resourcePath.InnerText;
                 if (GValues.resourcePath.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить путь к ресурсам;";
@@ -232,6 +232,40 @@ namespace com.sbs.dll
                 GValues.modulesPath = node_modulesPath.InnerText;
                 if (GValues.modulesPath.Length == 0)
                     msgError += Environment.NewLine + "- Не удалось определить путь к модулям;";
+
+                if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
+                    msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
+                else GValues.authortype = xBranchId;
+
+                switch (node_billPrinter.InnerText)
+                {
+                    case "default":
+                        GValues.billPrinter = "default";
+                        break;
+
+                    case "branch":
+                        GValues.billPrinter = "branch";
+                        break;
+
+                    default:
+                        msgError += Environment.NewLine + "- Не удалось определить тип принтера счетов;";
+                        break;
+                }
+
+                switch (node_dbSynch.InnerText)
+                {
+                    case "true":
+                        GValues.dbSynch = true;
+                        break;
+
+                    case "false":
+                        GValues.dbSynch = false;
+                        break;
+
+                    default:
+                        msgError += Environment.NewLine + "- Не удалось определить тип синхронизации;";
+                        break;
+                }
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {
