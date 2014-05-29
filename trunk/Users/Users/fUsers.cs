@@ -10,6 +10,7 @@ using System.Diagnostics;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
 using System.Messaging;
+using com.sbs.gui.users.Properties;
 
 namespace com.sbs.gui.users
 {
@@ -230,20 +231,41 @@ namespace com.sbs.gui.users
             col3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridViewTextBoxColumn col4 = new DataGridViewTextBoxColumn();
-            col4.HeaderText = "Статус";
-            col4.Name = "user_status";
-            col4.DataPropertyName = "status_name";
+            col4.HeaderText = "Организация";
+            col4.Name = "org";
+            col4.DataPropertyName = "org";
             col4.Visible = true;
-            col4.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            col4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             DataGridViewTextBoxColumn col5 = new DataGridViewTextBoxColumn();
-            col5.HeaderText = "Должность";
-            col5.Name = "user_post";
-            col5.DataPropertyName = "post";
+            col5.HeaderText = "Заведение";
+            col5.Name = "branch";
+            col5.DataPropertyName = "branch";
             col5.Visible = true;
-            col5.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            col5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3, col5, col4 });
+            DataGridViewTextBoxColumn col6 = new DataGridViewTextBoxColumn();
+            col6.HeaderText = "Подразделение";
+            col6.Name = "unit";
+            col6.DataPropertyName = "unit";
+            col6.Visible = true;
+            col6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DataGridViewTextBoxColumn col7 = new DataGridViewTextBoxColumn();
+            col7.HeaderText = "Статус";
+            col7.Name = "user_status";
+            col7.DataPropertyName = "status_name";
+            col7.Visible = true;
+            col7.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            DataGridViewTextBoxColumn col8 = new DataGridViewTextBoxColumn();
+            col8.HeaderText = "Должность";
+            col8.Name = "user_post";
+            col8.DataPropertyName = "post";
+            col8.Visible = true;
+            col8.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col1, col2, col3, col4, col5, col6, col7, col8});
         }
 
         private void tSButton_add_Click(object sender, EventArgs e)
@@ -549,6 +571,23 @@ namespace com.sbs.gui.users
             fMail.userID = xUserGroupId;
             fMail.userName = xUserGroupName;
             fMail.ShowDialog();
+        }
+
+        private void fUsers_Load(object sender, EventArgs e)
+        {
+            Settings set = new Settings();
+            this.Size = set.formSize;
+            this.Location = set.formLocation;
+            this.WindowState = set.formState;
+        }
+
+        private void fUsers_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Settings set = new Settings();
+            set.formSize = this.Size;
+            set.formLocation = this.Location;
+            set.formState = this.WindowState;
+            set.Save();
         }
     }
 }
