@@ -41,6 +41,11 @@ namespace com.sbs.dll
 
         public class Dishes
         {
+            public Dishes()
+            {
+                minStep = 1;
+            }
+
             public int id { get; set; }
             public int code { get; set; }
             public string name { get; set; }
