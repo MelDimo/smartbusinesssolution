@@ -24,11 +24,11 @@ namespace com.sbs.ws.waiter
         }
 
         [WebMethod(EnableSession = true)]
-        public List<DTO.Bill> getBills(int pWaiterId, int pSeasonId)
+        public List<DTO.Bill> getBills(int pBranchId, int pSeasonId)
         {
             List<DTO.Bill> lBill = new List<DTO.Bill>();
 
-            lBill = dbAccess.getBills(pWaiterId, pSeasonId);
+            lBill = dbAccess.getBills(pBranchId, pSeasonId);
 
             return lBill;
         }
@@ -40,6 +40,12 @@ namespace com.sbs.ws.waiter
             else Session["HitCounter"] = ((int)Session["HitCounter"]) + 1;
 
             return Session["HitCounter"].ToString();
+        }
+
+        [WebMethod(EnableSession = true)]
+        public DTO.Bill createBill(DTO.Bill pBill)
+        {
+            return dbAccess.createBill(pBill);
         }
 
 

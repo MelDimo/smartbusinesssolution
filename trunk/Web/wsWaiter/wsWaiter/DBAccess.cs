@@ -28,7 +28,7 @@ public class DBAccess
         return new DTO.GValuesEx() { branch = GValues.branchId };
     }
 
-    public List<DTO.Bill> getBills(int pWaiterId, int pSeasonId)
+    public List<DTO.Bill> getBills(int pBranchId, int pSeasonId)
     {
         dtResult = new DataTable();
 
@@ -99,5 +99,19 @@ public class DBAccess
         lBill.Add(new DTO.Bill() { id = 20, season = 1, dateBill = DateTime.Now.ToString("dd.MM.yyyy hh:mm"), numBill = 20, table = 20, sum = new decimal(110.5) });
 
         return lBill;
+    }
+
+    public DTO.Bill createBill(DTO.Bill pBill)
+    { 
+        DTO.Bill oBill = pBill;
+
+        oBill.id = 1;
+        oBill.season = pBill.season;
+        oBill.dateBill = DateTime.Now.ToString();
+        oBill.numBill = 2;
+        oBill.table = pBill.table;
+        oBill.sum = 0;
+
+        return oBill;
     }
 }

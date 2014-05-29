@@ -2,6 +2,7 @@
 
 public class DTO
 {
+
     public class Bill
     {
         public int id { get; set; }
