@@ -129,10 +129,14 @@ namespace com.sbs.gui.users
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT u.id, u.tabn, u.lname + ' ' + u.fname + ' ' + u.sname AS fio, stat.name AS status_name, post.name AS post" +
-                                        " FROM users AS u INNER JOIN " +
-                                        " ref_status AS stat ON stat.id = u.ref_status INNER JOIN " +
-                                        " ref_post AS post ON post.id = u.ref_post ";
+                command.CommandText = " SELECT u.id, u.tabn, u.lname + ' ' + u.fname + ' ' + u.sname AS fio, stat.name AS status_name, post.name AS post," +
+                                        "       org.name AS org, b.name AS branch, un.name AS unit" +
+                                        " FROM users AS u" +
+                                        " INNER JOIN ref_status AS stat ON stat.id = u.ref_status" +
+                                        " INNER JOIN ref_post AS post ON post.id = u.ref_post" +
+                                        " INNER JOIN organization org ON org.id = u.org" +
+                                        " INNER JOIN branch b ON b.id = u.branch" +
+                                        " INNER JOIN unit un ON un.id = u.unit;";
 
                 if (pIdOrg != 0) where += " org = " + pIdOrg + " AND";
                 if(pIdBranch != 0) where += " branch = " + pIdBranch + " AND";

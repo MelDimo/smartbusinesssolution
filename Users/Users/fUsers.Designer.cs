@@ -348,6 +348,8 @@
             this.Name = "fUsers";
             this.ShowInTaskbar = false;
             this.Text = "Сотрудники";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fUsers_FormClosed);
+            this.Load += new System.EventHandler(this.fUsers_Load);
             this.Shown += new System.EventHandler(this.fUsers_Shown);
             this.statusStrip_bottom.ResumeLayout(false);
             this.statusStrip_bottom.PerformLayout();
