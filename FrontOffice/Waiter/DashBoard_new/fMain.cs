@@ -978,7 +978,7 @@ namespace com.sbs.gui.dashboard
             int dishId;
             int carteDishesGroupId;
 
-            fChooser fChose = new fChooser("DASHBOARD_DISH", "name", "id");
+            fChooser fChose = new fChooser("DASHBOARD_DISH", "name", "id", "");
             fChose.dataGridView_main.DataSource = dtDishes;
 
             DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();

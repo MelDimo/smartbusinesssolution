@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace com.sbs.gui.dashboard.reports {
+namespace com.sbs.gui.seasonbrowser.reports {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace com.sbs.gui.dashboard.reports {
         
         public override string FullResourceName {
             get {
-                return "com.sbs.gui.dashboard.reports.xReport_orderUser.rpt";
+                return "com.sbs.gui.seasonbrowser.reports.xReport_orderUser.rpt";
             }
             set {
                 // Do nothing
