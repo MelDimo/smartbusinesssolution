@@ -36,6 +36,12 @@ namespace com.sbs.gui.seasonbrowser
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            if (curRole == DBaccess.Role.BACKOFFICE && oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("Вы не можете вносить изменения в открытую смену.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             oDish.count = numericUpDown_count.Value;
             oDish.refStatus = (int)comboBox_status.SelectedValue;
 
@@ -50,16 +56,16 @@ namespace com.sbs.gui.seasonbrowser
 
         private void fDishEdit_Shown(object sender, EventArgs e)
         {
-            switch (curRole)
-            {
-                case DBaccess.Role.BACKOFFICE:
-                    comboBox_status.Enabled = false;
-                    break;
+            //switch (curRole)
+            //{
+            //    case DBaccess.Role.BACKOFFICE:
+            //        comboBox_status.Enabled = false;
+            //        break;
 
-                case DBaccess.Role.FRONTOFFICE:
-                    comboBox_status.Enabled = false;
-                    break;
-            }
+            //    case DBaccess.Role.FRONTOFFICE:
+            //        comboBox_status.Enabled = false;
+            //        break;
+            //}
 
             fillControls();
         }

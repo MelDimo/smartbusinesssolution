@@ -163,6 +163,7 @@ namespace com.sbs.gui.seasonbrowser
         {
             ctrSeasonBranch oCtrBSeason = (ctrSeasonBranch)((Button)sender).Parent;
             oFilter.season = int.Parse(oCtrBSeason.label_seasonNumb.Text);
+            oFilter.isSeasonOpen = oCtrBSeason.oSeasonBranch.refStatus == 16 ? true : false;
 
             flowLayoutPanel_bills.Controls.Clear();
             flowLayoutPanel_dishes.Controls.Clear();
@@ -412,7 +413,6 @@ namespace com.sbs.gui.seasonbrowser
                     fExport.ShowDialog();
                 }
             }
-            
         }
 
         private void tSMItem_xOrder_Click(object sender, EventArgs e)
@@ -456,6 +456,16 @@ namespace com.sbs.gui.seasonbrowser
             set.formLocation = this.Location;
             set.formState = this.WindowState;
             set.Save();
+        }
+
+        private void fMain_Shown(object sender, EventArgs e)
+        {
+            if (curRole == DBaccess.Role.FRONTOFFICE)
+            {
+                button_branch.Enabled = false;
+                oFilter.branch = GValues.branchId;
+                textBox_branch.Text = GValues.branchName;
+            }
         }
     }
 }

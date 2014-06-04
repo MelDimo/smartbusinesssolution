@@ -478,6 +478,7 @@ namespace com.sbs.gui.seasonbrowser
         public int bill { get; set; }
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }
+        public bool isSeasonOpen { get; set; }
         
         public int countBill { get; set; }
 
