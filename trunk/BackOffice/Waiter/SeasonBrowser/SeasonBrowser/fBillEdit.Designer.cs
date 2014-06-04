@@ -46,6 +46,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
+            this.button_history = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_discount)).BeginInit();
             this.panel1.SuspendLayout();
@@ -230,6 +231,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button_history);
             this.panel1.Controls.Add(this.button_cancel);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -259,6 +261,17 @@
             this.button_ok.Text = "Сохранить";
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
+            // 
+            // button_history
+            // 
+            this.button_history.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_history.Location = new System.Drawing.Point(6, 8);
+            this.button_history.Name = "button_history";
+            this.button_history.Size = new System.Drawing.Size(75, 23);
+            this.button_history.TabIndex = 2;
+            this.button_history.Text = "История";
+            this.button_history.UseVisualStyleBackColor = true;
+            this.button_history.Click += new System.EventHandler(this.button_history_Click);
             // 
             // fBillEdit
             // 
@@ -303,6 +316,7 @@
         internal System.Windows.Forms.TextBox textBox_id;
         private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.ComboBox comboBox_status;
+        private System.Windows.Forms.Button button_history;
 
     }
 }

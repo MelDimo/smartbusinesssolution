@@ -117,6 +117,10 @@ namespace com.sbs.gui.seasonbrowser
             lCtrSeasonBranch = new List<ctrSeasonBranch>();
             lSeasonBranch = new List<DTO_DBoard.SeasonBranch>();
 
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("oFilter.branch: " + oFilter.branch.ToString());
+            sb.AppendLine("GValues.DBMode: " + GValues.DBMode);
+            
             try
             {
                 lSeasonBranch = dbAccess.getSeason(oFilter);
@@ -217,7 +221,9 @@ namespace com.sbs.gui.seasonbrowser
 
             editBillId = oCtrBill.oBill.id;
 
-            fBillEdit fbillEdit = new fBillEdit(oFilter, oCtrBill.oBill, curRole);
+            DTO_DBoard.Bill oBill = (DTO_DBoard.Bill)oCtrBill.oBill.Clone();
+
+            fBillEdit fbillEdit = new fBillEdit(oFilter, oBill, curRole);
             
             fbillEdit.comboBox_typePayment.DataSource = dtPaymentType;
             fbillEdit.comboBox_typePayment.ValueMember = "id";
@@ -282,7 +288,7 @@ namespace com.sbs.gui.seasonbrowser
 
         void DishButton_editMnu_Click(object sender, EventArgs e)
         {
-            DTO_DBoard.Dish oDish = ((ctrDishes)((Button)sender).Parent).oDish;
+            DTO_DBoard.Dish oDish = (DTO_DBoard.Dish)((ctrDishes)((Button)sender).Parent).oDish.Clone();
 
             fDishEdit fdishEdit = new fDishEdit(oFilter, oDish, curRole);
 

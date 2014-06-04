@@ -40,7 +40,7 @@ namespace com.sbs.gui.seasonbrowser
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
-                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = GValues.DBMode;
+                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = "online";// GValues.DBMode;
                 command.Parameters.Add("pDateOpen", SqlDbType.DateTime).Value = pFilter.dateStart;
                 command.Parameters.Add("pDateClose", SqlDbType.DateTime).Value = pFilter.dateEnd;
 
@@ -89,7 +89,7 @@ namespace com.sbs.gui.seasonbrowser
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
                 command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = pFilter.season;
-                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = GValues.DBMode;
+                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = "online";// GValues.DBMode;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -142,7 +142,7 @@ namespace com.sbs.gui.seasonbrowser
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
                 command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = pFilter.season;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pFilter.bill;
-                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = GValues.DBMode;
+                command.Parameters.Add("pConType", SqlDbType.NVarChar).Value = "online";// GValues.DBMode;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -228,16 +228,28 @@ namespace com.sbs.gui.seasonbrowser
                 con.Close();
 
             }
-            catch (Exception exc) { throw new Exception("", exc); }
+            catch (Exception exc) { throw new Exception(exc.Message, exc); }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
         internal Report REP_xOrder(Filter pFilter)
         {
+            string conType = string.Empty;
             Report oReport = new Report();
             dtResult = new DataTable();
 
-            con = new DBCon().getConnection(GValues.DBMode);
+            //if (UsersInfo.Acl.Contains<int>(21)) // Постобработка счетов в ОТКРЫТОЙ смене
+            //    conType = "offline";
+
+            //if (UsersInfo.Acl.Contains<int>(22)) // Постобработка счетов в ЗАКРЫТОЙ смене
+            //    conType = "online";
+
+            conType = "online";
+
+            if (conType.Equals(String.Empty))
+                throw new Exception("Неудалось определить привилегии для Постобработки смены");
+
+            con = new DBCon().getConnection(conType);
 
             try
             {
@@ -255,6 +267,7 @@ namespace com.sbs.gui.seasonbrowser
                 command.Parameters["repPath"].Direction = ParameterDirection.Output;
                 command.Parameters.Add("printerName", SqlDbType.NVarChar, 128);
                 command.Parameters["printerName"].Direction = ParameterDirection.Output;
+                command.Parameters.Add("pConType", SqlDbType.NVarChar, 8).Value = conType;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -369,6 +382,92 @@ namespace com.sbs.gui.seasonbrowser
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return dsResult;
+        }
+
+        internal DataTable getBillsLog(Filter pFilter)
+        { 
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT ROW_NUMBER() OVER(ORDER BY xorder ASC) AS [п/п], " +
+                                      " [sum] AS Сумма, " +
+                                      "        discount AS Скидка, " +
+                                      "         rpt.name AS [Тип оплаты], " +
+                                      "         uopen.lname+' '+uopen.fname+' '+uopen.sname AS [Открыл], " +
+                                      "         uclose.lname+' '+uclose.fname+' '+uclose.sname AS [Закрыл], " +
+                                      "         uedit.lname+' '+uedit.fname+' '+uedit.sname AS [Редактировал], " +
+                                      "         bal.date_edit [Дата ред.]" +
+                                      " FROM bills_all_log bal " +
+                                      " INNER JOIN users uopen ON uopen.id = bal.user_open " +
+                                      " INNER JOIN users uclose ON uclose.id = bal.user_close " +
+                                      " LEFT JOIN users uedit ON uedit.id = bal.user_edit " +
+                                      " INNER JOIN ref_payment_type rpt ON rpt.id = bal.ref_payment_type " +
+                                      " WHERE bal.branch = @branch AND bal.season = @season AND bal.bills_id = @bills" +
+                                      " ORDER BY xorder ";
+                command.CommandType = CommandType.Text;
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("season", SqlDbType.Int).Value = pFilter.season;
+                command.Parameters.Add("bills", SqlDbType.Int).Value = pFilter.bill;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+            }
+            catch (Exception exc) { throw new Exception("", exc); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        internal DataTable getDishesLog(Filter pFilter, DTO_DBoard.Dish pDish)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY xorder ASC) AS [п/п], " +
+                                            " dishes_name AS Наименование, " +
+                                            " xcount AS [Кол-во], " +
+                                            " dishes_price AS Сумма, " +
+                                            " uopen.lname+' '+uopen.fname+' '+uopen.sname AS [Добавил], " +
+                                            " uedit.lname+' '+uedit.fname+' '+uedit.sname AS [Редактировал], " +
+                                            " bial.date_edit AS [Дата ред.] " +
+                                    " FROM bills_info_all_log bial " +
+                                    " INNER JOIN users uopen ON uopen.id = bial.user_add " +
+                                    " LEFT JOIN users uedit ON uedit.id = bial.user_edit " +
+                                    " WHERE bial.branch = @branch AND bial.season = @season AND bial.bills = @bills AND bial.bills_info = @bills_info" +
+                                    " ORDER BY bial.xorder ";
+                command.CommandType = CommandType.Text;
+
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("season", SqlDbType.Int).Value = pFilter.season;
+                command.Parameters.Add("bills", SqlDbType.Int).Value = pFilter.bill;
+                command.Parameters.Add("bills_info", SqlDbType.Int).Value = pDish.id;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+            }
+            catch (Exception exc) { throw new Exception("", exc); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
         }
     }
 

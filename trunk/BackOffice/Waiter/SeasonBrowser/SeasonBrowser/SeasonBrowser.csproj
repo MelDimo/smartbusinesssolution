@@ -91,6 +91,12 @@
     <Compile Include="fExport41C.Designer.cs">
       <DependentUpon>fExport41C.cs</DependentUpon>
     </Compile>
+    <Compile Include="fHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fHistory.Designer.cs">
+      <DependentUpon>fHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="fMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fExport41C.resx">
       <DependentUpon>fExport41C.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fHistory.resx">
+      <DependentUpon>fHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fMain.resx">
       <DependentUpon>fMain.cs</DependentUpon>
