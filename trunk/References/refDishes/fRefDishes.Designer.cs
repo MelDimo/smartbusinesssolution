@@ -30,21 +30,24 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fRefDishes));
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
-            this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tSButton_add = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_edit = new System.Windows.Forms.ToolStripButton();
-            this.tSButton_del = new System.Windows.Forms.ToolStripButton();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.minStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tSSLabel_recCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSButton_add = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_edit = new System.Windows.Forms.ToolStripButton();
+            this.tSButton_del = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.panel_bottom = new System.Windows.Forms.Panel();
+            this.textBox_search = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.panel_bottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView_main
@@ -69,6 +72,50 @@
             this.dataGridView_main.Size = new System.Drawing.Size(500, 334);
             this.dataGridView_main.TabIndex = 13;
             this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
+            this.dataGridView_main.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView_main_KeyPress);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // code
+            // 
+            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.code.HeaderText = "Ключ";
+            this.code.Name = "code";
+            this.code.ReadOnly = true;
+            this.code.Width = 58;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.HeaderText = "Наименование";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // price
+            // 
+            this.price.HeaderText = "Цена";
+            this.price.Name = "price";
+            this.price.ReadOnly = true;
+            // 
+            // ref_status_name
+            // 
+            this.ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.ref_status_name.HeaderText = "Статус";
+            this.ref_status_name.Name = "ref_status_name";
+            this.ref_status_name.ReadOnly = true;
+            this.ref_status_name.Width = 66;
+            // 
+            // minStep
+            // 
+            this.minStep.HeaderText = "minStep";
+            this.minStep.Name = "minStep";
+            this.minStep.ReadOnly = true;
+            this.minStep.Visible = false;
             // 
             // tSSLabel_recCount
             // 
@@ -132,54 +179,33 @@
             this.toolStrip1.TabIndex = 11;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // id
+            // panel_bottom
             // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
+            this.panel_bottom.Controls.Add(this.textBox_search);
+            this.panel_bottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_bottom.Location = new System.Drawing.Point(0, 335);
+            this.panel_bottom.Name = "panel_bottom";
+            this.panel_bottom.Size = new System.Drawing.Size(500, 24);
+            this.panel_bottom.TabIndex = 14;
+            this.panel_bottom.Visible = false;
             // 
-            // code
+            // textBox_search
             // 
-            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.code.HeaderText = "Ключ";
-            this.code.Name = "code";
-            this.code.ReadOnly = true;
-            this.code.Width = 58;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.HeaderText = "Наименование";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // price
-            // 
-            this.price.HeaderText = "Цена";
-            this.price.Name = "price";
-            this.price.ReadOnly = true;
-            // 
-            // ref_status_name
-            // 
-            this.ref_status_name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.ref_status_name.HeaderText = "Статус";
-            this.ref_status_name.Name = "ref_status_name";
-            this.ref_status_name.ReadOnly = true;
-            this.ref_status_name.Width = 66;
-            // 
-            // minStep
-            // 
-            this.minStep.HeaderText = "minStep";
-            this.minStep.Name = "minStep";
-            this.minStep.ReadOnly = true;
-            this.minStep.Visible = false;
+            this.textBox_search.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_search.Location = new System.Drawing.Point(3, 2);
+            this.textBox_search.Name = "textBox_search";
+            this.textBox_search.Size = new System.Drawing.Size(494, 20);
+            this.textBox_search.TabIndex = 0;
+            this.textBox_search.TextChanged += new System.EventHandler(this.textBox_search_TextChanged);
+            this.textBox_search.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_search_KeyDown);
             // 
             // fRefDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 381);
+            this.Controls.Add(this.panel_bottom);
             this.Controls.Add(this.dataGridView_main);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
@@ -190,6 +216,8 @@
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.panel_bottom.ResumeLayout(false);
+            this.panel_bottom.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,6 +238,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn price;
         private System.Windows.Forms.DataGridViewTextBoxColumn ref_status_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn minStep;
+        private System.Windows.Forms.Panel panel_bottom;
+        private System.Windows.Forms.TextBox textBox_search;
     }
 }
 

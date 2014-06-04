@@ -21,6 +21,7 @@ namespace com.sbs.gui.references.refdishes
         DTO.Dishes oDishes;
 
         fAddEdit faddedit;
+        private int intSearch;
 
         public fRefDishes()
         {
@@ -58,7 +59,7 @@ namespace com.sbs.gui.references.refdishes
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price, rd.minStep" +
+                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price, rd.minStep," +
                                             " rd.ref_printers_type," +
                                             " rd.ref_status, rs.name AS ref_status_name" +
                                         " FROM ref_dishes rd" +
@@ -154,7 +155,7 @@ namespace com.sbs.gui.references.refdishes
                 return;
             }
 
-            if (MessageBox.Show("Вы уверены что шотите удалить элемент '" +
+            if (MessageBox.Show("Вы уверены что хотите удалить элемент '" +
                 dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString().Trim() + "'?",
                 GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
             {
@@ -197,9 +198,60 @@ namespace com.sbs.gui.references.refdishes
                     tSButton_del_Click(null, new EventArgs());
                     break;
             }
-
-            e.SuppressKeyPress = true;
         }
 
+        private void dataGridView_main_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetter(e.KeyChar))
+            {
+                if (!panel_bottom.Visible)
+                {
+                    panel_bottom.Visible = true;
+                    textBox_search.Focus();
+                    textBox_search.Text = e.KeyChar.ToString();
+                    textBox_search.SelectionStart = textBox_search.Text.Length;
+                }
+            }
+        }
+
+        private void textBox_search_TextChanged(object sender, EventArgs e)
+        {
+            showStrSearch(textBox_search.Text);
+        }
+
+        private void showStrSearch(string pChar4Search)
+        {
+            var result = from row in dtItems.AsEnumerable()
+                         where row.Field<string>("name").ToUpper().StartsWith(pChar4Search.ToUpper())
+                         select row;
+
+            if (result.Count() == 0) return;
+
+            intSearch = result.First().Field<int>("id");
+
+            foreach (DataGridViewRow dr in dataGridView_main.Rows)
+            {
+                if ((int)dr.Cells["id"].Value == intSearch)
+                {
+                    dataGridView_main.CurrentCell = dr.Cells[1];
+                }
+            }
+        }
+
+        private void textBox_search_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.Escape:
+                    dataGridView_main.Focus();
+                    panel_bottom.Visible = false;
+                    break;
+
+                case Keys.Enter:
+                    dataGridView_main.Focus();
+                    panel_bottom.Visible = false;
+                    break;
+            }
+        }
     }
 }
