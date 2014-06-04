@@ -43,7 +43,9 @@ namespace com.sbs.gui.dashboard
             repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
             repDoc.SetDataSource(dtResult);
             repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-            repDoc.PrintOptions.PrinterName = dtResult.Rows[0]["printerName"].ToString();
+            repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ? 
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
+                                            dtResult.Rows[0]["printerName"].ToString();
             repDoc.PrintToPrinter(1, false, 0, 0);
         }
 

@@ -30,7 +30,7 @@
               <xs:element name="xcount" msprop:Generator_ColumnVarNameInTable="columnxcount" msprop:Generator_ColumnPropNameInRow="xcount" msprop:Generator_ColumnPropNameInTable="xcountColumn" msprop:Generator_UserColumnName="xcount" type="xs:decimal" minOccurs="0" />
               <xs:element name="ref_printers_type" msprop:Generator_ColumnVarNameInTable="columnref_printers_type" msprop:Generator_ColumnPropNameInRow="ref_printers_type" msprop:Generator_ColumnPropNameInTable="ref_printers_typeColumn" msprop:Generator_UserColumnName="ref_printers_type" type="xs:decimal" minOccurs="0" />
               <xs:element name="printerName" msprop:Generator_ColumnVarNameInTable="columnprinterName" msprop:Generator_ColumnPropNameInRow="printerName" msprop:Generator_ColumnPropNameInTable="printerNameColumn" msprop:Generator_UserColumnName="printerName" type="xs:string" minOccurs="0" />
-              <xs:element name="note" msprop:Generator_ColumnVarNameInTable="columnnote" msprop:Generator_ColumnPropNameInRow="note" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInTable="noteColumn" msprop:Generator_UserColumnName="note" type="xs:string" minOccurs="0" />
+              <xs:element name="note" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="note" msprop:Generator_ColumnVarNameInTable="columnnote" msprop:Generator_ColumnPropNameInTable="noteColumn" msprop:Generator_UserColumnName="note" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -46,6 +46,7 @@
               <xs:element name="dish_printer" msprop:Generator_ColumnVarNameInTable="columndish_printer" msprop:Generator_ColumnPropNameInRow="dish_printer" msprop:Generator_ColumnPropNameInTable="dish_printerColumn" msprop:Generator_UserColumnName="dish_printer" type="xs:string" minOccurs="0" />
               <xs:element name="dish_sum" msprop:Generator_ColumnVarNameInTable="columndish_sum" msprop:Generator_ColumnPropNameInRow="dish_sum" msprop:Generator_ColumnPropNameInTable="dish_sumColumn" msprop:Generator_UserColumnName="dish_sum" type="xs:decimal" minOccurs="0" />
               <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
+              <xs:element name="bill_sum" msprop:Generator_ColumnVarNameInTable="columnbill_sum" msprop:Generator_ColumnPropNameInRow="bill_sum" msprop:Generator_ColumnPropNameInTable="bill_sumColumn" msprop:Generator_UserColumnName="bill_sum" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
