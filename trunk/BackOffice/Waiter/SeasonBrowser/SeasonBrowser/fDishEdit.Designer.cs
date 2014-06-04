@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_history = new System.Windows.Forms.Button();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -42,7 +43,6 @@
             this.textBox_price = new System.Windows.Forms.TextBox();
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.textBox_id = new System.Windows.Forms.TextBox();
-            this.button_history = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
@@ -58,6 +58,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(395, 37);
             this.panel1.TabIndex = 2;
+            // 
+            // button_history
+            // 
+            this.button_history.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_history.Location = new System.Drawing.Point(6, 8);
+            this.button_history.Name = "button_history";
+            this.button_history.Size = new System.Drawing.Size(75, 23);
+            this.button_history.TabIndex = 3;
+            this.button_history.Text = "История";
+            this.button_history.UseVisualStyleBackColor = true;
+            this.button_history.Click += new System.EventHandler(this.button_history_Click);
             // 
             // button_cancel
             // 
@@ -208,17 +219,6 @@
             this.textBox_id.ReadOnly = true;
             this.textBox_id.Size = new System.Drawing.Size(297, 20);
             this.textBox_id.TabIndex = 9;
-            // 
-            // button_history
-            // 
-            this.button_history.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_history.Location = new System.Drawing.Point(6, 8);
-            this.button_history.Name = "button_history";
-            this.button_history.Size = new System.Drawing.Size(75, 23);
-            this.button_history.TabIndex = 3;
-            this.button_history.Text = "История";
-            this.button_history.UseVisualStyleBackColor = true;
-            this.button_history.Click += new System.EventHandler(this.button_history_Click);
             // 
             // fDishEdit
             // 
