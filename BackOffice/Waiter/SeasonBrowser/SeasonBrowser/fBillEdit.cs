@@ -81,5 +81,14 @@ namespace com.sbs.gui.seasonbrowser
             comboBox_notes.SelectedValue = oBill.refNotes;
             comboBox_status.SelectedValue = oBill.refStat;
         }
+
+        private void button_history_Click(object sender, EventArgs e)
+        {
+            DataTable dt = dbAccess.getBillsLog(oFilter);
+
+            fHistory fHis = new fHistory();
+            fHis.dataGridView_main.DataSource = dt;
+            fHis.ShowDialog();
+        }
     }
 }

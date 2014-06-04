@@ -74,5 +74,15 @@ namespace com.sbs.gui.seasonbrowser
             comboBox_status.SelectedValue = oDish.refStatus;
 
         }
+
+        private void button_history_Click(object sender, EventArgs e)
+        {
+            DataTable dt = dbAccess.getDishesLog(oFilter, oDish);
+
+            fHistory fHis = new fHistory();
+            fHis.dataGridView_main.DataSource = dt;
+            fHis.ShowDialog();
+            
+        }
     }
 }
