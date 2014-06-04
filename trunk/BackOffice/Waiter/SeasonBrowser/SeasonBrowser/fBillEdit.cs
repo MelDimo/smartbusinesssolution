@@ -31,6 +31,12 @@ namespace com.sbs.gui.seasonbrowser
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            if (curRole == DBaccess.Role.BACKOFFICE && oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("Вы не можете вносить изменения в открытую смену.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             oBill.discount = (int)numericUpDown_discount.Value;
             oBill.refNotes = (int)((comboBox_notes.SelectedValue == null) ? 0 : comboBox_notes.SelectedValue);
             oBill.refStat = (int)((comboBox_status.SelectedValue == null) ? 0 : comboBox_status.SelectedValue);
@@ -54,20 +60,20 @@ namespace com.sbs.gui.seasonbrowser
         {
             fillControls();
 
-            switch (curRole)
-            { 
-                case DBaccess.Role.BACKOFFICE:
-                    comboBox_typePayment.Enabled = false;
-                    comboBox_notes.Enabled = false;
-                    comboBox_status.Enabled = false;
-                    break;
+            //switch (curRole)
+            //{ 
+            //    case DBaccess.Role.BACKOFFICE:
+            //        comboBox_typePayment.Enabled = false;
+            //        comboBox_notes.Enabled = false;
+            //        comboBox_status.Enabled = false;
+            //        break;
 
-                case DBaccess.Role.FRONTOFFICE:
-                    comboBox_typePayment.Enabled = true;
-                    comboBox_notes.Enabled = false;
-                    comboBox_status.Enabled = false;
-                    break;
-            }
+            //    case DBaccess.Role.FRONTOFFICE:
+            //        comboBox_typePayment.Enabled = true;
+            //        comboBox_notes.Enabled = false;
+            //        comboBox_status.Enabled = false;
+            //        break;
+            //}
         }
 
         private void fillControls()
