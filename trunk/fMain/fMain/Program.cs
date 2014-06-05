@@ -79,10 +79,12 @@ namespace com.sbs.gui.main
 
                 if (str == "mailChecker.dll")   // если проверка почты
                 {
+                    /*
                     Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
                     MethodInfo methodInfo = type.GetMethod("run");
                     object classInstance = Activator.CreateInstance(type, null);
                     methodInfo.Invoke(classInstance, null);
+                    */
                 }
 
 #else
@@ -91,12 +93,15 @@ namespace com.sbs.gui.main
 
                 #region ------------------------------------------------------ запуск демонов
 
-                if (str == "mailChecker.dll")   // если проверка почты
+                if (str == "mailChecker.dll")   // если проверка почты. Временно закоментировал. Не доточил
                 {
+                    ;
+                    /*
                     Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
                     MethodInfo methodInfo = type.GetMethod("run");
                     object classInstance = Activator.CreateInstance(type, null);
                     methodInfo.Invoke(classInstance, null);
+                     * */
                 }
 
                 if (str == "synchData.dll" && GValues.dbSynch)   // если модуль синхронизации и установлен признак синхронизации (settings.xml)

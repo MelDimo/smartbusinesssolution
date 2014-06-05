@@ -67,8 +67,9 @@ namespace com.sbs.dll.synchdata
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtSeason.Load(dr); }
 
                 commandLocal.CommandText = " SELECT id, branch, season, numb, xTable, date_open, date_close, " +
-                                        "ref_payment_type, user_open, user_close, ref_notes, ref_status, sum, discount " +
-                                        " FROM bills WHERE ref_status NOT IN(19, 20) AND isSynch = 0";
+                                        " ref_payment_type, user_open, user_close, ref_notes, ref_status, sum, discount " +
+                                        " FROM bills WHERE ref_status NOT IN(19, 20) AND isSynch = 0 " +
+                                        " AND (date_close is null OR  DATEADD(minute, " + GValues.timeSynch + ", date_close) <= GETDATE())";
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBills.Load(dr); }
 
                 foreach(DataRow dr in dtBills.Rows)

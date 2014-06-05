@@ -250,7 +250,7 @@ namespace com.sbs.gui.gPwd
                 return;
             }
 
-            if (MessageBox.Show("Вы уверены что хотете выполнить сценарий создания БД?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            if (MessageBox.Show("Вы уверены что хотете выполнить сценарий создания локальной БД?", GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 != DialogResult.Yes) return;
 
             createDB(sPath);
@@ -260,6 +260,8 @@ namespace com.sbs.gui.gPwd
         {
             if (File.Exists(fLog)) File.Delete(fLog);
             File.Create(fLog).Dispose(); ;
+
+            if (!Directory.Exists(GValues.localDBPath)) Directory.CreateDirectory(GValues.localDBPath);
 
             string argument = string.Format(@" -S {0} -U {1} -P {2} -i ""{3}"" -o ""{4}""",
                         lServer.Server, lServer.User, lServer.Pwd, pPath, fLog);
