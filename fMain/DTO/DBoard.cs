@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace com.sbs.dll
 {
@@ -43,7 +44,7 @@ namespace com.sbs.dll
             public string name { get; set; }
         }
 
-        public class Bill
+        public class Bill : ICloneable
         {
             public int id { get; set; }
             public int numb { get; set; }
@@ -57,9 +58,28 @@ namespace com.sbs.dll
             public decimal summ { get; set; }
             public int paymentType { get; set; }
             public decimal discount { get; set; }
+
+            public object Clone()
+            {
+                return new Bill()
+                {
+                    id = this.id,
+                    numb = this.numb,
+                    table = this.table,
+                    openDate = this.openDate,
+                    closeDate = this.closeDate,
+                    refStat = this.refStat,
+                    refNotes = this.refNotes,
+                    refStatName = this.refStatName,
+                    summFact = this.summFact,
+                    summ = this.summ,
+                    paymentType = this.paymentType,
+                    discount = this.discount
+                };
+            }
         }
 
-        public class Dish
+        public class Dish : ICloneable
         {
             public int id { get; set; }
             public int carteDishes { get; set; }
@@ -74,6 +94,24 @@ namespace com.sbs.dll
             public string refNotesName { get; set; }
             public int refPrintersType { get; set; }
 
+
+            public object Clone()
+            {
+                return new Dish()
+                {
+                    id = this.id,
+                    carteDishes = this.carteDishes,
+                    name = this.name,
+                    price = this.price,
+                    minStep = this.minStep,
+                    count = this.count,
+                    dateStatus = this.dateStatus,
+                    refStatus = this.refStatus,
+                    refNotes = this.refNotes,
+                    refNotesName = this.refNotesName,
+                    refPrintersType = this.refPrintersType
+                };
+            }
         }
 
         public class DishRefuse

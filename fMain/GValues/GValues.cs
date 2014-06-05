@@ -18,6 +18,8 @@ namespace com.sbs.dll
         public static string prgNameShort = "SBS";
         public static string prgLogFile = @"C:\SBS\errors.msg";
 
+        public static string localDBPath = @"C:\SBS\DB";
+
         public static string DBMode = string.Empty;
         public static string mainDB = string.Empty;
 
@@ -31,6 +33,7 @@ namespace com.sbs.dll
         public static int authortype;
         public static string billPrinter;
         public static bool dbSynch;
+        public static int timeSynch;
 
         #region -------------------------------------------- Почта
 
@@ -205,6 +208,7 @@ namespace com.sbs.dll
             XmlNode node_modulesPath;
             XmlNode node_billPrinter;
             XmlNode node_dbSynch;
+            XmlNode node_timeSynch;
 
             try
             {
@@ -216,6 +220,7 @@ namespace com.sbs.dll
                 node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
                 node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
                 node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
+                node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -266,6 +271,10 @@ namespace com.sbs.dll
                         msgError += Environment.NewLine + "- Не удалось определить тип синхронизации;";
                         break;
                 }
+
+                if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
+                    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
+                else GValues.timeSynch = xBranchId;
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {
