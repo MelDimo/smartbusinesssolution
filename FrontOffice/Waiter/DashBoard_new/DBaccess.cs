@@ -1057,6 +1057,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters["repPath"].Direction = ParameterDirection.Output;
                 command.Parameters.Add("printerName", SqlDbType.NVarChar, 128);
                 command.Parameters["printerName"].Direction = ParameterDirection.Output;
+                command.Parameters.Add("pConType", SqlDbType.NVarChar, 8).Value = pDbType;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
