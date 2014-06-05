@@ -11,7 +11,7 @@ namespace com.sbs.dll.utilites
 {
     public partial class ctrSeasonBranch : UserControl
     {
-        DTO_DBoard.SeasonBranch oSeasonBranch;
+        public DTO_DBoard.SeasonBranch oSeasonBranch;
 
         public ctrSeasonBranch(DTO_DBoard.SeasonBranch pSeasonBranch)
         {

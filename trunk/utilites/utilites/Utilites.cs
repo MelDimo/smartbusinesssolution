@@ -1034,8 +1034,18 @@ namespace com.sbs.dll.utilites
         public static void write(string pString)
         {
             if (!Directory.Exists(Path.GetDirectoryName(GValues.prgLogFile))) Directory.CreateDirectory(Path.GetDirectoryName(GValues.prgLogFile));
-            if (!File.Exists(GValues.prgLogFile)) File.Create(GValues.prgLogFile).Dispose();
+            if (!File.Exists(GValues.prgLogFile))
+                File.Create(GValues.prgLogFile).Dispose();
+            else
+            {
+                FileInfo fi = new FileInfo(GValues.prgLogFile);
+                if (fi.Length >= 20000)
+                {
+                    File.Delete(GValues.prgLogFile);
+                    File.Create(GValues.prgLogFile).Dispose();
+                }
 
+            }
             using (StreamWriter sw = new StreamWriter(GValues.prgLogFile, true))
             {
                 sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
@@ -1086,7 +1096,7 @@ namespace com.sbs.dll.utilites
 
     public class Suppurt
     {
-        public bool checkPrivileges(com.sbs.dll.DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
+        public bool checkPrivileges(DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
         {
             foreach (com.sbs.dll.DTO_DBoard.UserACL uAcl in pUserACL)
             {
@@ -1104,6 +1114,100 @@ namespace com.sbs.dll.utilites
             }
 
             return false;
+        }
+    }
+
+    public class UserAuthorize
+    {
+        SqlConnection con;
+        SqlCommand command;
+        DataTable dtResult;
+
+        public bool checkLogin(string pLogIn, string pPwd)
+        {
+            dtResult = new DataTable();
+
+            try
+            {
+                con = new DBCon().getConnection(GValues.DBMode);
+
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "SELECT u.id, u.tabn, u.fname, u.sname, u.lname, u.org, u.branch, u.unit, u.ref_post, u.login " +
+                                        " FROM users u " +
+                                        " INNER JOIN users_pwd up ON up.users = u.id WHERE u.login = @login AND up.pwd = @pwd";
+                command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
+                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+                con.Close();
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка обращения к базе данных", exc, SystemIcons.Error);
+                return false;
+            }
+
+            if (dtResult.Rows.Count > 0)
+            {
+                UsersInfo.UserId = int.Parse(dtResult.Rows[0]["id"].ToString());
+                UsersInfo.UserTabn = dtResult.Rows[0]["tabn"].ToString();
+                UsersInfo.UserName = dtResult.Rows[0]["lname"].ToString() + " " + dtResult.Rows[0]["fname"].ToString() + " " + dtResult.Rows[0]["sname"].ToString();
+                UsersInfo.PostId = int.Parse(dtResult.Rows[0]["ref_post"].ToString());
+                UsersInfo.LogIn = dtResult.Rows[0]["login"].ToString();
+
+                getUserInfoACL();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private void getUserInfoACL()
+        {
+            dtResult = new DataTable();
+
+            try
+            {
+                con = new DBCon().getConnection(GValues.DBMode);
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT ua.user_acl_type, uat.name " +
+                                        " FROM users u " +
+                                        " INNER JOIN users_acl ua ON ua.users = u.id " +
+                                        " INNER JOIN users_acl_type uat ON uat.id = ua.user_acl_type " +
+                                        " WHERE u.id = @usersId " +
+                                        "       UNION " +
+                                        " SELECT ga.user_acl_type, uat.name " +
+                                        " FROM users_groups u " +
+                                        " INNER JOIN groups_acl ga ON ga.groups = u.groups " +
+                                        " INNER JOIN users_acl_type uat ON uat.id = ga.user_acl_type " +
+                                        " WHERE u.users = @usersId";
+
+                command.Parameters.Add("usersId", SqlDbType.Int).Value = UsersInfo.UserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            UsersInfo.Acl = new List<int>();
+
+            for (int i = 0; i < dtResult.Rows.Count; i++)
+            {
+                UsersInfo.Acl.Add((int)dtResult.Rows[i]["user_acl_type"]);
+            }
         }
     }
 }
