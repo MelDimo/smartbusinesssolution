@@ -82,7 +82,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(2);
-            this.toolStrip1.Size = new System.Drawing.Size(859, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1017, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -132,7 +132,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(859, 64);
+            this.groupBox1.Size = new System.Drawing.Size(1017, 64);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Фильтр";
@@ -141,7 +141,7 @@
             // 
             this.button_filter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_filter.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button_filter.Location = new System.Drawing.Point(602, 19);
+            this.button_filter.Location = new System.Drawing.Point(760, 19);
             this.button_filter.Name = "button_filter";
             this.button_filter.Size = new System.Drawing.Size(39, 39);
             this.button_filter.TabIndex = 7;
@@ -152,7 +152,7 @@
             // 
             this.dateTimePicker_end.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker_end.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_end.Location = new System.Drawing.Point(485, 35);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(643, 35);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.Size = new System.Drawing.Size(111, 20);
             this.dateTimePicker_end.TabIndex = 6;
@@ -161,7 +161,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(482, 19);
+            this.label3.Location = new System.Drawing.Point(640, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(89, 13);
             this.label3.TabIndex = 5;
@@ -171,7 +171,7 @@
             // 
             this.dateTimePicker_start.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker_start.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker_start.Location = new System.Drawing.Point(356, 35);
+            this.dateTimePicker_start.Location = new System.Drawing.Point(514, 35);
             this.dateTimePicker_start.Name = "dateTimePicker_start";
             this.dateTimePicker_start.Size = new System.Drawing.Size(113, 20);
             this.dateTimePicker_start.TabIndex = 4;
@@ -180,7 +180,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(353, 19);
+            this.label2.Location = new System.Drawing.Point(511, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 3;
@@ -189,7 +189,7 @@
             // button_branch
             // 
             this.button_branch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_branch.Location = new System.Drawing.Point(312, 33);
+            this.button_branch.Location = new System.Drawing.Point(470, 33);
             this.button_branch.Name = "button_branch";
             this.button_branch.Size = new System.Drawing.Size(29, 23);
             this.button_branch.TabIndex = 2;
@@ -204,7 +204,7 @@
             this.textBox_branch.Location = new System.Drawing.Point(10, 36);
             this.textBox_branch.Name = "textBox_branch";
             this.textBox_branch.ReadOnly = true;
-            this.textBox_branch.Size = new System.Drawing.Size(296, 20);
+            this.textBox_branch.Size = new System.Drawing.Size(454, 20);
             this.textBox_branch.TabIndex = 1;
             // 
             // label1
@@ -229,8 +229,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(859, 445);
-            this.splitContainer1.SplitterDistance = 250;
+            this.splitContainer1.Size = new System.Drawing.Size(1017, 483);
+            this.splitContainer1.SplitterDistance = 295;
             this.splitContainer1.TabIndex = 2;
             // 
             // groupBox2
@@ -239,7 +239,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(250, 445);
+            this.groupBox2.Size = new System.Drawing.Size(295, 483);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Смены";
@@ -251,7 +251,7 @@
             this.flowLayoutPanel_season.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_season.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_season.Name = "flowLayoutPanel_season";
-            this.flowLayoutPanel_season.Size = new System.Drawing.Size(244, 426);
+            this.flowLayoutPanel_season.Size = new System.Drawing.Size(289, 464);
             this.flowLayoutPanel_season.TabIndex = 0;
             this.flowLayoutPanel_season.SizeChanged += new System.EventHandler(this.flowLayoutPanel_season_SizeChanged);
             // 
@@ -268,8 +268,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox4);
-            this.splitContainer2.Size = new System.Drawing.Size(605, 445);
-            this.splitContainer2.SplitterDistance = 270;
+            this.splitContainer2.Size = new System.Drawing.Size(718, 483);
+            this.splitContainer2.SplitterDistance = 412;
             this.splitContainer2.TabIndex = 0;
             // 
             // groupBox3
@@ -279,7 +279,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(270, 445);
+            this.groupBox3.Size = new System.Drawing.Size(412, 483);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Счета";
@@ -290,7 +290,7 @@
             this.flowLayoutPanel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_bills.Location = new System.Drawing.Point(3, 55);
             this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
-            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(264, 387);
+            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(406, 425);
             this.flowLayoutPanel_bills.TabIndex = 0;
             this.flowLayoutPanel_bills.SizeChanged += new System.EventHandler(this.flowLayoutPanel_bills_SizeChanged);
             // 
@@ -305,7 +305,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(264, 39);
+            this.panel1.Size = new System.Drawing.Size(406, 39);
             this.panel1.TabIndex = 1;
             // 
             // label_billsCount
@@ -313,7 +313,7 @@
             this.label_billsCount.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_billsCount.AutoSize = true;
             this.label_billsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_billsCount.Location = new System.Drawing.Point(155, 13);
+            this.label_billsCount.Location = new System.Drawing.Point(226, 13);
             this.label_billsCount.Name = "label_billsCount";
             this.label_billsCount.Size = new System.Drawing.Size(14, 15);
             this.label_billsCount.TabIndex = 6;
@@ -324,7 +324,7 @@
             this.label_billsFirstLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label_billsFirstLast.AutoSize = true;
             this.label_billsFirstLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_billsFirstLast.Location = new System.Drawing.Point(94, 13);
+            this.label_billsFirstLast.Location = new System.Drawing.Point(165, 13);
             this.label_billsFirstLast.Name = "label_billsFirstLast";
             this.label_billsFirstLast.Size = new System.Drawing.Size(31, 15);
             this.label_billsFirstLast.TabIndex = 5;
@@ -333,7 +333,7 @@
             // button_gotoLast
             // 
             this.button_gotoLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button_gotoLast.Location = new System.Drawing.Point(230, 8);
+            this.button_gotoLast.Location = new System.Drawing.Point(301, 8);
             this.button_gotoLast.Name = "button_gotoLast";
             this.button_gotoLast.Size = new System.Drawing.Size(26, 23);
             this.button_gotoLast.TabIndex = 4;
@@ -344,7 +344,7 @@
             // button_gotoNext
             // 
             this.button_gotoNext.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button_gotoNext.Location = new System.Drawing.Point(189, 8);
+            this.button_gotoNext.Location = new System.Drawing.Point(260, 8);
             this.button_gotoNext.Name = "button_gotoNext";
             this.button_gotoNext.Size = new System.Drawing.Size(26, 23);
             this.button_gotoNext.TabIndex = 3;
@@ -355,7 +355,7 @@
             // button_gotoBack
             // 
             this.button_gotoBack.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button_gotoBack.Location = new System.Drawing.Point(48, 8);
+            this.button_gotoBack.Location = new System.Drawing.Point(119, 8);
             this.button_gotoBack.Name = "button_gotoBack";
             this.button_gotoBack.Size = new System.Drawing.Size(26, 23);
             this.button_gotoBack.TabIndex = 2;
@@ -366,7 +366,7 @@
             // button_gotoFirst
             // 
             this.button_gotoFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button_gotoFirst.Location = new System.Drawing.Point(7, 8);
+            this.button_gotoFirst.Location = new System.Drawing.Point(78, 8);
             this.button_gotoFirst.Name = "button_gotoFirst";
             this.button_gotoFirst.Size = new System.Drawing.Size(26, 23);
             this.button_gotoFirst.TabIndex = 1;
@@ -380,7 +380,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(331, 445);
+            this.groupBox4.Size = new System.Drawing.Size(302, 483);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Блюда";
@@ -391,7 +391,7 @@
             this.flowLayoutPanel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_dishes.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_dishes.Name = "flowLayoutPanel_dishes";
-            this.flowLayoutPanel_dishes.Size = new System.Drawing.Size(325, 426);
+            this.flowLayoutPanel_dishes.Size = new System.Drawing.Size(296, 464);
             this.flowLayoutPanel_dishes.TabIndex = 0;
             this.flowLayoutPanel_dishes.SizeChanged += new System.EventHandler(this.flowLayoutPanel_dishes_SizeChanged);
             // 
@@ -399,7 +399,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(859, 536);
+            this.ClientSize = new System.Drawing.Size(1017, 574);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.toolStrip1);
