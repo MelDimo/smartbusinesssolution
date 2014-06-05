@@ -5,6 +5,8 @@ using System.Text;
 using com.sbs.dll;
 using System.Data;
 using System.Data.SqlClient;
+using com.sbs.dll.utilites;
+using System.Drawing;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -116,7 +118,8 @@ namespace com.sbs.gui.seasonbrowser
                     refStat = (int)dr["ref_status"],
                     refStatName = dr["ref_status_name"].ToString(),
                     summFact = decimal.Parse(dr["sum"].ToString()),
-                    discount = decimal.Parse(dr["discount"].ToString())
+                    discount = decimal.Parse(dr["discount"].ToString()),
+                    fioClose = dr["fioClose"].ToString()
                 });
             }
 

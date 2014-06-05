@@ -106,6 +106,7 @@ namespace com.sbs.gui.seasonbrowser
         {
             oFilter.dateStart = DateTime.Parse(dateTimePicker_start.Value.ToShortDateString());
             oFilter.dateEnd = DateTime.Parse(dateTimePicker_end.Value.ToShortDateString());
+            oFilter.dateEnd.AddDays(1);
 
             getData_Season();
         }
