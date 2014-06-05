@@ -227,7 +227,7 @@ namespace com.sbs.gui.dashboard
 
                             try
                             {
-                                oReport = dbAccess.REP_xOrder("offline");
+                                oReport = dbAccess.REP_xOrder(GValues.DBMode);
                             
                                 repDoc.Load(oReport.repPath);
                                 repDoc.SetDataSource(oReport.dtReport);
