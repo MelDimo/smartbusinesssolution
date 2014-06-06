@@ -24,7 +24,7 @@ namespace com.sbs.gui.seasonbrowser
             //UsersInfo.Acl = new List<int>();
             //UsersInfo.Acl.Add(22);
             UserAuthorize uAuthor = new UserAuthorize();
-            uAuthor.checkLogin("albina", "1122");
+            uAuthor.checkLogin("Наталья Л", "145");
             GValues.branchName = "LP2";
 #endif
             Application.EnableVisualStyles();

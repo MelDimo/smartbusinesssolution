@@ -17,8 +17,14 @@ namespace com.sbs.gui.seasonbrowser
         private DataTable dtResult;
 
         private SqlConnection con;
+        private SqlConnection conMain;
+        private SqlConnection conLocal;
         private SqlCommand command = null;
-        //private SqlTransaction tx = null;
+        private SqlCommand commandMain = null;
+        private SqlCommand commandLocal = null;
+
+        private SqlTransaction txMain = null;
+        private SqlTransaction txLocal = null;
 
         DataTable dtXmlBill, dtXmlBuxs, dtXmlCeks;
 
@@ -177,33 +183,55 @@ namespace com.sbs.gui.seasonbrowser
 
         internal void saveBill(Filter pFilter, DTO_DBoard.Bill pBill)
         {
-            con = new DBCon().getConnection(GValues.DBMode);
-
             try
             {
-                con.Open();
+                conMain = new DBCon().getConnection(GValues.DBMode);
+                conMain.Open();
+                commandMain = conMain.CreateCommand();
 
-                command = con.CreateCommand();
+                txMain = conMain.BeginTransaction();
+                commandMain.Transaction = txMain;
 
-                command.CommandText = "SeasonBrowser_SaveBill";
-                command.CommandType = CommandType.StoredProcedure;
+                commandMain.CommandText = "SeasonBrowser_SaveBill";
+                commandMain.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
-                command.Parameters.Add("pSeason", SqlDbType.Int).Value = pFilter.season;
-                command.Parameters.Add("pID", SqlDbType.Int).Value = pBill.id;
-                command.Parameters.Add("pRefPaymentType", SqlDbType.Int).Value = pBill.paymentType;
-                command.Parameters.Add("pRefNotes", SqlDbType.Int).Value = pBill.refNotes;
-                command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBill.refStat;
-                command.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBill.discount;
-                command.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
+                commandMain.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                commandMain.Parameters.Add("pSeason", SqlDbType.Int).Value = pFilter.season;
+                commandMain.Parameters.Add("pID", SqlDbType.Int).Value = pBill.id;
+                commandMain.Parameters.Add("pRefPaymentType", SqlDbType.Int).Value = pBill.paymentType;
+                commandMain.Parameters.Add("pRefNotes", SqlDbType.Int).Value = pBill.refNotes;
+                commandMain.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBill.refStat;
+                commandMain.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBill.discount;
+                commandMain.Parameters.Add("pUserId", SqlDbType.Int).Value = UsersInfo.UserId;
 
-                command.ExecuteNonQuery();
+                commandMain.ExecuteNonQuery();
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                conLocal = new DBCon().getConnection("offline");
+                conLocal.Open();
+                commandLocal = conLocal.CreateCommand();
 
-                con.Close();
+                txLocal = conLocal.BeginTransaction();
+                commandLocal.Transaction = txLocal;
 
+                commandLocal.CommandText = "SeasonBrowser_SaveBill_localBill";
+                commandLocal.CommandType = CommandType.StoredProcedure;
+
+                commandLocal.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                commandLocal.Parameters.Add("pSeason", SqlDbType.Int).Value = pFilter.season;
+                commandLocal.Parameters.Add("pID", SqlDbType.Int).Value = pBill.id;
+                commandLocal.Parameters.Add("pDiscount", SqlDbType.Int).Value = pBill.discount;
+
+                commandLocal.ExecuteNonQuery();
+
+                txLocal.Commit();
+                txMain.Commit();
             }
-            catch (Exception exc) { throw new Exception("", exc); }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            catch (Exception exc) { txMain.Rollback(); txLocal.Rollback(); throw new Exception("", exc); }
+            finally 
+            { 
+                if (conMain.State == ConnectionState.Open) conMain.Close();
+                if (conLocal.State == ConnectionState.Open) conLocal.Close();
+            }
         }
 
         internal void saveDish(Filter pFilter, DTO_DBoard.Dish pDish)

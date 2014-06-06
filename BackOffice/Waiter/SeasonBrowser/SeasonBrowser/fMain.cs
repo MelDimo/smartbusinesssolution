@@ -225,6 +225,8 @@ namespace com.sbs.gui.seasonbrowser
 
             DTO_DBoard.Bill oBill = (DTO_DBoard.Bill)oCtrBill.oBill.Clone();
 
+            oFilter.bill = oBill.id;
+
             fBillEdit fbillEdit = new fBillEdit(oFilter, oBill, curRole);
             
             fbillEdit.comboBox_typePayment.DataSource = dtPaymentType;
