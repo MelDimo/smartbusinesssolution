@@ -955,9 +955,6 @@ namespace com.sbs.gui.dashboard
             
             lDishs = new List<com.sbs.dll.DTO_DBoard.Dish>();
 
-            
-
-
             billEdit();
         }
 
