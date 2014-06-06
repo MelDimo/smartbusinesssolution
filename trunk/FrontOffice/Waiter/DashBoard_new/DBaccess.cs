@@ -403,7 +403,7 @@ namespace com.sbs.gui.dashboard
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
@@ -451,7 +451,7 @@ namespace com.sbs.gui.dashboard
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) tx.Rollback(); con.Close(); }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
@@ -480,6 +480,7 @@ namespace com.sbs.gui.dashboard
             oBill.openDate = DateTime.Now;
             oBill.refStat = 19;
             oBill.table = pNumbTable;
+            
 
             con = new DBCon().getConnection(pDbType);
 
