@@ -56,16 +56,17 @@ namespace com.sbs.gui.seasonbrowser
 
         private void fDishEdit_Shown(object sender, EventArgs e)
         {
-            //switch (curRole)
-            //{
-            //    case DBaccess.Role.BACKOFFICE:
-            //        comboBox_status.Enabled = false;
-            //        break;
+            switch (curRole)
+            {
+                case DBaccess.Role.BACKOFFICE:
+                    comboBox_status.Enabled = false;
+                    break;
 
-            //    case DBaccess.Role.FRONTOFFICE:
-            //        comboBox_status.Enabled = false;
-            //        break;
-            //}
+                case DBaccess.Role.FRONTOFFICE:
+                    comboBox_status.Enabled = false;
+                    numericUpDown_count.Enabled = false;
+                    break;
+            }
 
             fillControls();
         }

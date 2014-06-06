@@ -46,7 +46,7 @@ namespace com.sbs.gui.seasonbrowser
             {
                 dbAccess.saveBill(oFilter, oBill);
             }
-            catch (Exception exc) { uMessage.Show("Неудалось сохранить счет.", exc, SystemIcons.Information); return; }
+            catch (Exception exc) { uMessage.Show("Неудалось сохранить счет.", exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; return; }
 
             DialogResult = DialogResult.OK;
         }
@@ -60,20 +60,20 @@ namespace com.sbs.gui.seasonbrowser
         {
             fillControls();
 
-            //switch (curRole)
-            //{ 
-            //    case DBaccess.Role.BACKOFFICE:
-            //        comboBox_typePayment.Enabled = false;
-            //        comboBox_notes.Enabled = false;
-            //        comboBox_status.Enabled = false;
-            //        break;
+            switch (curRole)
+            {
+                case DBaccess.Role.BACKOFFICE:
+                    comboBox_typePayment.Enabled = false;
+                    comboBox_notes.Enabled = false;
+                    comboBox_status.Enabled = false;
+                    break;
 
-            //    case DBaccess.Role.FRONTOFFICE:
-            //        comboBox_typePayment.Enabled = true;
-            //        comboBox_notes.Enabled = false;
-            //        comboBox_status.Enabled = false;
-            //        break;
-            //}
+                case DBaccess.Role.FRONTOFFICE:
+                    comboBox_typePayment.Enabled = true;
+                    comboBox_notes.Enabled = false;
+                    comboBox_status.Enabled = false;
+                    break;
+            }
         }
 
         private void fillControls()
@@ -81,7 +81,7 @@ namespace com.sbs.gui.seasonbrowser
             textBox_id.Text = oBill.id.ToString();
             textBox_numb.Text = oBill.numb.ToString();
             textBox_table.Text = oBill.table.ToString();
-            numericUpDown_discount.Value = oBill.discount;
+            numericUpDown_discount.Value = 0; //oBill.discount; Убрал скидку дабы не применялась вновь, при последующем редектировании
 
             comboBox_typePayment.SelectedValue = oBill.paymentType;
             comboBox_notes.SelectedValue = oBill.refNotes;
