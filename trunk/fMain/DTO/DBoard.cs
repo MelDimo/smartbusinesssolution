@@ -46,6 +46,11 @@ namespace com.sbs.dll
 
         public class Bill : ICloneable
         {
+            public Bill()
+            {
+                fioClose = string.Empty;
+            }
+
             public int id { get; set; }
             public int numb { get; set; }
             public int table { get; set; }
@@ -58,6 +63,7 @@ namespace com.sbs.dll
             public decimal summ { get; set; }
             public int paymentType { get; set; }
             public decimal discount { get; set; }
+            public string fioClose { get; set; }
 
             public object Clone()
             {
@@ -74,7 +80,8 @@ namespace com.sbs.dll
                     summFact = this.summFact,
                     summ = this.summ,
                     paymentType = this.paymentType,
-                    discount = this.discount
+                    discount = this.discount,
+                    fioClose = this.fioClose
                 };
             }
         }
