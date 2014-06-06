@@ -197,53 +197,56 @@ namespace com.sbs.gui.dashboard
                         break;
 
                     case Keys.Home:
-                        if (!trReadCard.IsAlive)
-                        {
-                            DashboardEnvironment.gUser = null;
+                        
+                        return; //   Убрал х отчет с места официанта
 
-                            trReadCard = new Thread(enterKey);
-                            trReadCard.Start();
+                        //if (!trReadCard.IsAlive)
+                        //{
+                        //    DashboardEnvironment.gUser = null;
 
-                            trReadCard.Join();
+                        //    trReadCard = new Thread(enterKey);
+                        //    trReadCard.Start();
 
-                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+                        //    trReadCard.Join();
 
-                            #region проверка привелегий
+                        //    if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
 
-                            xPriv = 20; xErrMessage = "У Вас отсутствуют привилегии на формирование Х Отчета.";
+                        //    #region проверка привелегий
+
+                        //    xPriv = 20; xErrMessage = "У Вас отсутствуют привилегии на формирование Х Отчета.";
 
 
-                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
-                            {
-                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                return;
-                            }
+                        //    if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                        //    {
+                        //        MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //        return;
+                        //    }
 
-                            #endregion
+                        //    #endregion
 
-                            Report oReport = new Report();
-                            ReportDocument repDoc = new ReportDocument();
+                        //    Report oReport = new Report();
+                        //    ReportDocument repDoc = new ReportDocument();
 
-                            try
-                            {
-                                oReport = dbAccess.REP_xOrder(GValues.DBMode);
+                        //    try
+                        //    {
+                        //        oReport = dbAccess.REP_xOrder("online"/*GValues.DBMode*/);
                             
-                                repDoc.Load(oReport.repPath);
-                                repDoc.SetDataSource(oReport.dtReport);
-                                repDoc.SetParameterValue("pBranchName", GValues.branchName);
-                                repDoc.PrintOptions.PrinterName = oReport.printName;
-                            }
-                            catch (Exception exc)
-                            {
-                                uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
-                                return;
-                            }
+                        //        repDoc.Load(oReport.repPath);
+                        //        repDoc.SetDataSource(oReport.dtReport);
+                        //        repDoc.SetParameterValue("pBranchName", GValues.branchName);
+                        //        repDoc.PrintOptions.PrinterName = oReport.printName;
+                        //    }
+                        //    catch (Exception exc)
+                        //    {
+                        //        uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
+                        //        return;
+                        //    }
 
-                            fRepViewer repViewer = new fRepViewer();
-                            repViewer.crystalReportViewer_main.ReportSource = repDoc;
-                            repViewer.ShowDialog();
-                        }
+                        //    fRepViewer repViewer = new fRepViewer();
+                        //    repViewer.crystalReportViewer_main.ReportSource = repDoc;
+                        //    repViewer.ShowDialog();
+                        //}
                         break;
 
                     case Keys.F6:   // Регистрация прихода/ухода
