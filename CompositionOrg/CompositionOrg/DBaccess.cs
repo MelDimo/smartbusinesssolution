@@ -230,8 +230,8 @@ namespace com.sbs.gui.compositionorg
                 if (pBranchDTO.RefCity != 0) ref_city = pBranchDTO.RefCity;
                 command.Parameters.Add("pRefCity", SqlDbType.Int).Value = ref_city;
                 command.Parameters.Add("pRefStatus", SqlDbType.Int).Value = pBranchDTO.RefStatus;
-                command.Parameters.Add("pOpen", SqlDbType.Time).Value = pBranchDTO.XOpen.ToString("HH:mm");
-                command.Parameters.Add("pClose", SqlDbType.Time).Value = pBranchDTO.XClose.ToString("HH:mm");
+                command.Parameters.Add("pOpen", SqlDbType.DateTime).Value = pBranchDTO.XOpen.ToString("HH:mm");
+                command.Parameters.Add("pClose", SqlDbType.DateTime).Value = pBranchDTO.XClose.ToString("HH:mm");
                 command.Parameters.Add("pDuration", SqlDbType.Int).Value = pBranchDTO.XDuration;
                 command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip;
                 command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
