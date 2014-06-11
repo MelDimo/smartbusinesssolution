@@ -94,6 +94,7 @@ namespace com.sbs.dll
             public decimal price { get; set; }
             public decimal minStep { get; set; }
             public decimal count { get; set; }
+            public decimal discount { get; set; }
             //public string portion { get; set; }
             public DateTime? dateStatus { get; set; }
             public int refStatus { get; set; }
@@ -112,6 +113,7 @@ namespace com.sbs.dll
                     price = this.price,
                     minStep = this.minStep,
                     count = this.count,
+                    discount = this.discount,
                     dateStatus = this.dateStatus,
                     refStatus = this.refStatus,
                     refNotes = this.refNotes,

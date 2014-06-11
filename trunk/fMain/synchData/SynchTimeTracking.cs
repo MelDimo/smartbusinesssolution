@@ -36,14 +36,14 @@ namespace com.sbs.dll.synchdata
         {
             //if (GValues.DBMode.Equals("online")) return; // Мы уже работаем в режиме онлайн
 
-            while (true)
+            while (GValues.isAlive)
             {
                 sendTimeTrackingData();
                 Thread.Sleep(300000);
             }
         }
 
-        private void sendTimeTrackingData()
+        public void sendTimeTrackingData()
         {
             dtTimeTracking = new DataTable();
 

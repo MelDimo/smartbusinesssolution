@@ -13,6 +13,7 @@ using System.ServiceModel;
 using System.Threading;
 using System.Messaging;
 using com.sbs.dll.utilites;
+using com.sbs.gui.main.Properties;
 
 namespace com.sbs.gui.main
 {
@@ -195,9 +196,34 @@ namespace com.sbs.gui.main
 
         private void fMain_FormClosed(object sender, FormClosedEventArgs e)
         {
+            MethodInfo methodInfoBill;
+            object classInstance;
+
+            Settings set = new Settings();
+            set.formSize = this.Size;
+            set.formLocation = this.Location;
+            set.formState = this.WindowState;
+            set.Save();
+
             threadFlag = false;
-            //if (msgListner != null)
-            //    if (msgListner.IsAlive) msgListner.Abort();
+
+            GValues.isAlive = false;
+
+            for(int i = 0; i < GValues.DicDemans.Count; i++) // Пробегаюсь по сохраненым деманам и запускаю их методы
+            {
+                methodInfoBill = GValues.DicDemans.ElementAt(i).Value.GetMethod(GValues.DicDemans.ElementAt(i).Key);
+                classInstance = Activator.CreateInstance(GValues.DicDemans.ElementAt(i).Value, null);
+                methodInfoBill.Invoke(classInstance, null);
+            }
+            
+        }
+
+        private void fMain_Load(object sender, EventArgs e)
+        {
+            Settings set = new Settings();
+            this.Size = set.formSize;
+            this.Location = set.formLocation;
+            this.WindowState = set.formState;
         }
     }
 }

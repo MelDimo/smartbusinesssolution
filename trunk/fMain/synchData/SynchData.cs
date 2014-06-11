@@ -39,14 +39,14 @@ namespace com.sbs.dll.synchdata
         {
             //if (GValues.DBMode.Equals("online")) return; // Мы уже работаем в режиме онлайн
 
-            while (true)
+            while (GValues.isAlive)
             {
                 sendSeasonData();
                 Thread.Sleep(300000);
             }
         }
 
-        private void sendSeasonData()
+        public void sendSeasonData()
         {
             dtSeason = new DataTable();
             dtBills = new DataTable();
@@ -77,13 +77,14 @@ namespace com.sbs.dll.synchdata
                     billsArray += dr["id"].ToString() + ",";
                 }
 
-                if (billsArray.Length > 0)  // Если есть подходящие счета берем по ним информацию.
+                if (billsArray.Length > 0)  // Если есть подходящие счета берем по ним информацию. 
                 {
                     billsArray = billsArray.Substring(0, billsArray.Length - 1);
 
                     commandLocal.CommandText = " SELECT id, branch, season, bills, carte_dishes, dishes_name, dishes_price, xcount, discount, " +
                                                     "user_add, date_status, ref_notes, ref_status " +
-                                            " FROM bills_info WHERE bills IN (" + billsArray + ")";
+                                            " FROM bills_info WHERE bills IN (" + billsArray + ") AND ref_status = 24"; // 24 Обработано - 
+                                                                                                                        //Позиция была отправлена на изготовление
 
                     using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBillsInfo.Load(dr); }
                 }

@@ -35,6 +35,12 @@ namespace com.sbs.dll
         public static bool dbSynch;
         public static int timeSynch;
 
+        public static bool isAlive = true;  // Флаг для потоков synch говорящий живо ли приложение и нужно ли работать
+
+        public static Dictionary<string, Type> DicDemans =      // Перечень типов и методов запущенных деманаф.
+            new Dictionary<string, Type>();                     // При закрытии основной формы вызываю для последней отработки
+                                                                // Ввел для синхронизации при завершении приложения, но может еще для чего понадобится
+
         #region -------------------------------------------- Почта
 
         public static string mailBox;
