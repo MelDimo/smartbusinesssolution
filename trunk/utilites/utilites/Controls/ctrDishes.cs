@@ -40,7 +40,7 @@ namespace com.sbs.dll.utilites
             button_editMnu.BackgroundImage = Properties.Resources.edit_26;
 
             label_name.Text = oDish.name;
-            label_price.Text = oDish.price.ToString("F2");
+            label_price.Text = oDish.price.ToString("F2") + (oDish.discount > 0 ? " (-" + oDish.discount.ToString("F3") + "%)" : "");
             numericUpDown_count.Minimum = oDish.minStep;
             numericUpDown_count.Increment = oDish.minStep;
             numericUpDown_count.Value = oDish.count;
