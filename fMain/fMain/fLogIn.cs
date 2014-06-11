@@ -10,6 +10,7 @@ using com.sbs.dll;
 using com.sbs.dll.utilites;
 using System.Data.SqlClient;
 using System.Data.Common;
+using com.sbs.gui.main.Properties;
 
 namespace com.sbs.gui.main
 {
@@ -19,6 +20,10 @@ namespace com.sbs.gui.main
         {
             InitializeComponent();
             this.Text = GValues.prgNameFull;
+            
+            Settings set = new Settings();
+
+            textBox_name.Text = set.lastLogin;
         }
 
         private void button_enter_Click(object sender, EventArgs e)
@@ -27,7 +32,14 @@ namespace com.sbs.gui.main
             string uPwd = textBox_pwd.Text.Trim();
 
             if (!checkLogin(uLogIn, uPwd)) { uMessage.Show("Неверное имя пользователя или пароль", SystemIcons.Information); }
-            else { DialogResult = DialogResult.OK; }
+            else
+            {
+                Settings set = new Settings();
+                set.lastLogin = uLogIn;
+                set.Save();
+
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private bool checkLogin(string pLogIn, string pPwd)

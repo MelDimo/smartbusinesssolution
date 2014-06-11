@@ -49,7 +49,7 @@
             // tSSLabel_info
             // 
             this.tSSLabel_info.Name = "tSSLabel_info";
-            this.tSSLabel_info.Size = new System.Drawing.Size(588, 17);
+            this.tSSLabel_info.Size = new System.Drawing.Size(717, 17);
             this.tSSLabel_info.Spring = true;
             this.tSSLabel_info.Text = "tSSLabel_info";
             this.tSSLabel_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -82,6 +82,7 @@
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fMain_FormClosed);
+            this.Load += new System.EventHandler(this.fMain_Load);
             this.Shown += new System.EventHandler(this.fMain_Shown);
             this.statusStrip_mainBottom.ResumeLayout(false);
             this.statusStrip_mainBottom.PerformLayout();

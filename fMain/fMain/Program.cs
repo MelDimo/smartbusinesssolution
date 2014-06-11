@@ -11,6 +11,7 @@ using System.Reflection;
 using System.IO;
 using System.Data.SqlClient;
 using System.Security.Policy;
+using System.Diagnostics;
 
 namespace com.sbs.gui.main
 {
@@ -22,6 +23,13 @@ namespace com.sbs.gui.main
         [STAThread]
         static void Main()
         {
+            //if (isRunning())
+            //{
+            //    MessageBox.Show("Данное приложение уже запущенно, либо завершаются потоки синхронизации.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    Application.Exit();
+            //    return;
+            //}
+
             object[] xResultSet;
             DBaccess dbAccess = new DBaccess();
 
@@ -63,6 +71,12 @@ namespace com.sbs.gui.main
             }
 
             Application.Run(new fMain((DataTable)xResultSet[0]));
+        }
+
+        private static bool isRunning()
+        {
+            Process[] proc = Process.GetProcessesByName("SBS");
+            return (proc.Length > 1);
         }
 
         private static void loadProgramModules(List<string> pArrayModules)
@@ -111,10 +125,14 @@ namespace com.sbs.gui.main
                     object classInstance = Activator.CreateInstance(typeBill, null);
                     methodInfoBill.Invoke(classInstance, null);
 
+                    GValues.DicDemans.Add("sendSeasonData", typeBill);
+
                     Type typeTime = assembly.GetType("com.sbs.dll.synchdata.SynchTimeTracking");
                     MethodInfo methodInfoTime = typeTime.GetMethod("run");
                     object classInstanceTime = Activator.CreateInstance(typeTime, null);
                     methodInfoTime.Invoke(classInstanceTime, null);
+
+                    GValues.DicDemans.Add("sendTimeTrackingData", typeTime);
                 }
                 #endregion
 #endif
