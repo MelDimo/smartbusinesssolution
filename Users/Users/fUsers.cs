@@ -104,7 +104,7 @@ namespace com.sbs.gui.users
             if (tSComboBox_branch.ComboBox.SelectedValue.ToString().Equals("0"))
                 filter = "";
             else
-                filter = string.Format("branch = '{0}'", tSComboBox_branch.ComboBox.SelectedValue.ToString());
+                filter = string.Format("branch = '{0}' OR branch = 0", tSComboBox_branch.ComboBox.SelectedValue.ToString());
 
             (tSComboBox_unit.ComboBox.DataSource as DataTable).DefaultView.RowFilter = filter;
 
@@ -122,15 +122,14 @@ namespace com.sbs.gui.users
 
             (tSComboBox_branch.ComboBox.DataSource as DataTable).DefaultView.RowFilter = filter;
 
-            Debug.Print("tSComboBox_organization_SelectedIndexChanged");
             tSComboBox_branch_SelectedIndexChanged(new object(), new EventArgs());
         }
 
         private void getReferences()
         {
-            dtOrg = DbAccess.getOrganipation("offline");
-            dtBranch = DbAccess.getBranch("offline");
-            dtUnit = DbAccess.getUnit("offline");
+            dtOrg = DbAccess.getOrganipation(GValues.DBMode);
+            dtBranch = DbAccess.getBranch(GValues.DBMode);
+            dtUnit = DbAccess.getUnit(GValues.DBMode);
         }
 
         private void tSButton_applyFilter_Click(object sender, EventArgs e)

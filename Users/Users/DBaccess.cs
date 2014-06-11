@@ -118,7 +118,7 @@ namespace com.sbs.gui.users
 
         public DataTable getUsers(string pDbType, int pIdOrg, int pIdBranch, int pIdUnit)
         {
-            string where = "WHERE";
+            string where = " WHERE";
 
             DataTable dtResult = new DataTable();
 
@@ -136,13 +136,13 @@ namespace com.sbs.gui.users
                                         " INNER JOIN ref_post AS post ON post.id = u.ref_post" +
                                         " INNER JOIN organization org ON org.id = u.org" +
                                         " INNER JOIN branch b ON b.id = u.branch" +
-                                        " INNER JOIN unit un ON un.id = u.unit;";
+                                        " INNER JOIN unit un ON un.id = u.unit ";
 
-                if (pIdOrg != 0) where += " org = " + pIdOrg + " AND";
-                if(pIdBranch != 0) where += " branch = " + pIdBranch + " AND";
-                if(pIdUnit != 0) where += " unit = " + pIdUnit + " AND";
+                if (pIdOrg != 0) where += " u.org = " + pIdOrg + " AND";
+                if (pIdBranch != 0) where += " u.branch = " + pIdBranch + " AND";
+                if (pIdUnit != 0) where += " u.unit = " + pIdUnit + " AND";
 
-                if (where.Equals("WHERE")) where = string.Empty;
+                if (where.Equals(" WHERE")) where = string.Empty;
                 else where = where.Substring(0, where.Length - 3);
 
                 command.CommandText += where;
