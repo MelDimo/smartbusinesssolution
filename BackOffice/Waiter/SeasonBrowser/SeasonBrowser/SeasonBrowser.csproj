@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="DataForReports.cs">
       <DependentUpon>DataForReports.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataForReports.Designer.cs">
       <AutoGen>True</AutoGen>

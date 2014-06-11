@@ -36,16 +36,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox_status = new System.Windows.Forms.ComboBox();
             this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
             this.textBox_price = new System.Windows.Forms.TextBox();
             this.textBox_name = new System.Windows.Forms.TextBox();
             this.textBox_id = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDown_discount = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox_status = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_discount)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -54,7 +57,7 @@
             this.panel1.Controls.Add(this.button_cancel);
             this.panel1.Controls.Add(this.button_ok);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 140);
+            this.panel1.Location = new System.Drawing.Point(3, 176);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(395, 37);
             this.panel1.TabIndex = 2;
@@ -100,24 +103,27 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox_status, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown_count, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.textBox_price, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.textBox_name, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBox_id, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.numericUpDown_discount, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.comboBox_status, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(395, 137);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(395, 173);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // label1
@@ -152,38 +158,6 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Цена";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 75);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 25);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Количество";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 100);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 25);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Статус";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // comboBox_status
-            // 
-            this.comboBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_status.FormattingEnabled = true;
-            this.comboBox_status.Location = new System.Drawing.Point(95, 103);
-            this.comboBox_status.Name = "comboBox_status";
-            this.comboBox_status.Size = new System.Drawing.Size(297, 21);
-            this.comboBox_status.TabIndex = 5;
             // 
             // numericUpDown_count
             // 
@@ -220,11 +194,63 @@
             this.textBox_id.Size = new System.Drawing.Size(297, 20);
             this.textBox_id.TabIndex = 9;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(3, 100);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(86, 25);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Скидка";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numericUpDown_discount
+            // 
+            this.numericUpDown_discount.DecimalPlaces = 3;
+            this.numericUpDown_discount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_discount.Location = new System.Drawing.Point(95, 103);
+            this.numericUpDown_discount.Name = "numericUpDown_discount";
+            this.numericUpDown_discount.Size = new System.Drawing.Size(297, 20);
+            this.numericUpDown_discount.TabIndex = 11;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(3, 75);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 25);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Количество";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(3, 125);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(86, 25);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Статус";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_status
+            // 
+            this.comboBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_status.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_status.FormattingEnabled = true;
+            this.comboBox_status.Location = new System.Drawing.Point(95, 128);
+            this.comboBox_status.Name = "comboBox_status";
+            this.comboBox_status.Size = new System.Drawing.Size(297, 21);
+            this.comboBox_status.TabIndex = 5;
+            // 
             // fDishEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(401, 180);
+            this.ClientSize = new System.Drawing.Size(401, 216);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.MaximizeBox = false;
@@ -239,6 +265,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_discount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -260,5 +287,7 @@
         private System.Windows.Forms.TextBox textBox_id;
         public System.Windows.Forms.ComboBox comboBox_status;
         private System.Windows.Forms.Button button_history;
+        private System.Windows.Forms.Label label6;
+        internal System.Windows.Forms.NumericUpDown numericUpDown_discount;
     }
 }

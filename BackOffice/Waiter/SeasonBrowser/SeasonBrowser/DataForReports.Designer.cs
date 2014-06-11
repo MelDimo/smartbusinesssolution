@@ -299,6 +299,10 @@ namespace com.sbs.gui.seasonbrowser {
             
             private global::System.Data.DataColumn columnbill_sum;
             
+            private global::System.Data.DataColumn columnbill_discount;
+            
+            private global::System.Data.DataColumn columndish_discount;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public xReportDataTable() {
@@ -414,6 +418,22 @@ namespace com.sbs.gui.seasonbrowser {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn bill_discountColumn {
+                get {
+                    return this.columnbill_discount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn dish_discountColumn {
+                get {
+                    return this.columndish_discount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -449,7 +469,7 @@ namespace com.sbs.gui.seasonbrowser {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public xReportRow AddxReportRow(int seasonId, string season_start, string season_end, string user_tabn, string user_fio, string bill, string dish_printer, decimal dish_sum, string bill_paymentType, decimal bill_sum) {
+            public xReportRow AddxReportRow(int seasonId, string season_start, string season_end, string user_tabn, string user_fio, string bill, string dish_printer, decimal dish_sum, string bill_paymentType, decimal bill_sum, decimal bill_discount, decimal dish_discount) {
                 xReportRow rowxReportRow = ((xReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         seasonId,
@@ -461,7 +481,9 @@ namespace com.sbs.gui.seasonbrowser {
                         dish_printer,
                         dish_sum,
                         bill_paymentType,
-                        bill_sum};
+                        bill_sum,
+                        bill_discount,
+                        dish_discount};
                 rowxReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowxReportRow);
                 return rowxReportRow;
@@ -494,6 +516,8 @@ namespace com.sbs.gui.seasonbrowser {
                 this.columndish_sum = base.Columns["dish_sum"];
                 this.columnbill_paymentType = base.Columns["bill_paymentType"];
                 this.columnbill_sum = base.Columns["bill_sum"];
+                this.columnbill_discount = base.Columns["bill_discount"];
+                this.columndish_discount = base.Columns["dish_discount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -519,6 +543,10 @@ namespace com.sbs.gui.seasonbrowser {
                 base.Columns.Add(this.columnbill_paymentType);
                 this.columnbill_sum = new global::System.Data.DataColumn("bill_sum", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbill_sum);
+                this.columnbill_discount = new global::System.Data.DataColumn("bill_discount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbill_discount);
+                this.columndish_discount = new global::System.Data.DataColumn("dish_discount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndish_discount);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -821,6 +849,38 @@ namespace com.sbs.gui.seasonbrowser {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal bill_discount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablexReport.bill_discountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'bill_discount\' in table \'xReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablexReport.bill_discountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal dish_discount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablexReport.dish_discountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'dish_discount\' in table \'xReport\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablexReport.dish_discountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsseasonIdNull() {
                 return this.IsNull(this.tablexReport.seasonIdColumn);
             }
@@ -937,6 +997,30 @@ namespace com.sbs.gui.seasonbrowser {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setbill_sumNull() {
                 this[this.tablexReport.bill_sumColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isbill_discountNull() {
+                return this.IsNull(this.tablexReport.bill_discountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setbill_discountNull() {
+                this[this.tablexReport.bill_discountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isdish_discountNull() {
+                return this.IsNull(this.tablexReport.dish_discountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setdish_discountNull() {
+                this[this.tablexReport.dish_discountColumn] = global::System.Convert.DBNull;
             }
         }
         
