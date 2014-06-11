@@ -21,7 +21,6 @@ namespace com.sbs.gui.seasonbrowser
         getReference getRef = new getReference();
         Suppurt Supp = new Suppurt();
 
-
         Filter oFilter = new Filter();
         
         List<ctrSeasonBranch> lCtrSeasonBranch;
@@ -40,6 +39,7 @@ namespace com.sbs.gui.seasonbrowser
         DataTable dtRefStatusDish;
 
         int editBillId;
+        int editBillOrder;
 
         public fMain()
         {
@@ -106,7 +106,7 @@ namespace com.sbs.gui.seasonbrowser
         {
             oFilter.dateStart = DateTime.Parse(dateTimePicker_start.Value.ToShortDateString());
             oFilter.dateEnd = DateTime.Parse(dateTimePicker_end.Value.ToShortDateString());
-            oFilter.dateEnd.AddDays(1);
+            oFilter.dateEnd = oFilter.dateEnd.AddDays(1);
 
             getData_Season();
         }
@@ -118,10 +118,6 @@ namespace com.sbs.gui.seasonbrowser
             lCtrSeasonBranch = new List<ctrSeasonBranch>();
             lSeasonBranch = new List<DTO_DBoard.SeasonBranch>();
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("oFilter.branch: " + oFilter.branch.ToString());
-            sb.AppendLine("GValues.DBMode: " + GValues.DBMode);
-            
             try
             {
                 lSeasonBranch = dbAccess.getSeason(oFilter);
@@ -146,6 +142,8 @@ namespace com.sbs.gui.seasonbrowser
                 oCtrSeasonBranch.button_host.GotFocus += new EventHandler(oCtrSeasonBranch_GotFocus);
                 flowLayoutPanel_season.Controls.Add(oCtrSeasonBranch);
             }
+
+            oFilter.curLast = 0;
         }
 
         void oCtrSeasonBranch_GotFocus(object sender, EventArgs e)
@@ -169,11 +167,18 @@ namespace com.sbs.gui.seasonbrowser
             flowLayoutPanel_bills.Controls.Clear();
             flowLayoutPanel_dishes.Controls.Clear();
 
+            if (curRole == DBaccess.Role.FRONTOFFICE && !oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("У Вас недостаточно привилегий для просмотра закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             getBills();
         }
 
         private void getBills()
         {
+            int i = 0;
             ctrBill oCtrBill;
 
             lBill = new List<DTO_DBoard.Bill>();
@@ -194,13 +199,16 @@ namespace com.sbs.gui.seasonbrowser
 
                 oCtrBill.button_editMnu.Visible=true;
                 oCtrBill.button_editMnu.Click += new EventHandler(BillButton_editMnu_Click);
+                
+                oCtrBill.Tag = i; // цепляю к контролу его порядок, при обновлении отображаю с это контрола
 
                 lCtrBill.Add(oCtrBill);
+                i++;
             }
 
             label_billsCount.Text = lCtrBill.Count.ToString();
 
-            oFilter.curLast = 0;
+            oFilter.curLast = oFilter.curLast == 0 ? 0 : oFilter.curLast;
             
             showBills();
         }
@@ -214,7 +222,11 @@ namespace com.sbs.gui.seasonbrowser
         {
             foreach (Control ctr in flowLayoutPanel_bills.Controls)
                 if (!((ctrBill)ctr).Equals(((Button)sender).Parent))
+                {
                     ((ctrBill)ctr).BackColor = Color.FromKnownColor(KnownColor.Control);
+                    editBillId = ((ctrBill)ctr).oBill.id;
+                    editBillOrder = (int)((ctrBill)ctr).Tag;
+                }
         }
 
         void BillButton_editMnu_Click(object sender, EventArgs e)
@@ -243,13 +255,20 @@ namespace com.sbs.gui.seasonbrowser
 
             if (fbillEdit.ShowDialog() != DialogResult.OK) return;
 
+            oFilter.curLast = editBillOrder;
+
             getBills();
+
+            flowLayoutPanel_bills.Controls[0].Focus();
         }
 
         void oCtrBill_Click(object sender, EventArgs e)
         {
             ctrBill oCtrBill = (ctrBill)((Button)sender).Parent;
             oFilter.bill = oCtrBill.oBill.id;
+
+            editBillId = oCtrBill.oBill.id;
+            editBillOrder = (int)oCtrBill.Tag;
 
             flowLayoutPanel_dishes.Controls.Clear();
 
@@ -302,7 +321,22 @@ namespace com.sbs.gui.seasonbrowser
 
             if (fdishEdit.ShowDialog() != DialogResult.OK) return;
 
-            getDishes();
+            oFilter.curLast = editBillOrder;
+
+            getBills();
+
+            flowLayoutPanel_bills.Controls[0].Focus();
+            oCtrBill_Click(((ctrBill)flowLayoutPanel_bills.Controls[0]).button_host, new EventArgs());
+
+            //for (int i = 0; i < flowLayoutPanel_bills.Controls.Count; i++)
+            //{
+            //    if ((flowLayoutPanel_bills.Controls[i] as ctrBill).oBill.id == editBillId)
+            //    {
+            //        flowLayoutPanel_bills.Controls[i].Focus();
+            //        oCtrBill_Click(((ctrBill)flowLayoutPanel_bills.Controls[i]).button_host, new EventArgs());
+            //        break;
+            //    }
+            //}
         }
 
         #region ------------------------------------------------------------- Навигация по счетам
@@ -445,7 +479,6 @@ namespace com.sbs.gui.seasonbrowser
 
         private void fMain_Load(object sender, EventArgs e)
         {
-            
             Settings set = new Settings();
             this.Size = set.formSize;
             this.Location = set.formLocation;

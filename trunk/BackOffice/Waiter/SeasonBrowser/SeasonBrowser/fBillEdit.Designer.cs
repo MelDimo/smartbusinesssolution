@@ -123,12 +123,14 @@
             // 
             this.label_discount.AutoSize = true;
             this.label_discount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_discount.Enabled = false;
             this.label_discount.Location = new System.Drawing.Point(3, 75);
             this.label_discount.Name = "label_discount";
             this.label_discount.Size = new System.Drawing.Size(84, 25);
             this.label_discount.TabIndex = 3;
             this.label_discount.Text = "Скидка";
             this.label_discount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_discount.Visible = false;
             // 
             // label_typePayment
             // 
@@ -183,10 +185,12 @@
             // 
             this.numericUpDown_discount.DecimalPlaces = 3;
             this.numericUpDown_discount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numericUpDown_discount.Enabled = false;
             this.numericUpDown_discount.Location = new System.Drawing.Point(93, 78);
             this.numericUpDown_discount.Name = "numericUpDown_discount";
             this.numericUpDown_discount.Size = new System.Drawing.Size(301, 20);
             this.numericUpDown_discount.TabIndex = 9;
+            this.numericUpDown_discount.Visible = false;
             // 
             // comboBox_typePayment
             // 

@@ -43,11 +43,12 @@ namespace com.sbs.gui.seasonbrowser
             }
 
             oDish.count = numericUpDown_count.Value;
+            oDish.discount = numericUpDown_discount.Value;
             oDish.refStatus = (int)comboBox_status.SelectedValue;
 
             try
             {
-                dbAccess.saveDish(oFilter, oDish);
+                dbAccess.saveDish(oFilter, oDish, curRole);
             }
             catch (Exception exc) { uMessage.Show("Неудалось сохранить блюдо.", exc, SystemIcons.Information); return; }
 
@@ -77,6 +78,7 @@ namespace com.sbs.gui.seasonbrowser
             textBox_name.Text = oDish.name;
             textBox_price.Text = oDish.price.ToString();
             numericUpDown_count.Value = oDish.count;
+            numericUpDown_discount.Value = oDish.discount;
 
             comboBox_status.SelectedValue = oDish.refStatus;
 

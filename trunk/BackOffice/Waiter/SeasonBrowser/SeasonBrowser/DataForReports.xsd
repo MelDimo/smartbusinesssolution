@@ -25,6 +25,8 @@
               <xs:element name="dish_sum" msprop:Generator_ColumnVarNameInTable="columndish_sum" msprop:Generator_ColumnPropNameInRow="dish_sum" msprop:Generator_ColumnPropNameInTable="dish_sumColumn" msprop:Generator_UserColumnName="dish_sum" type="xs:decimal" minOccurs="0" />
               <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
               <xs:element name="bill_sum" msprop:Generator_ColumnVarNameInTable="columnbill_sum" msprop:Generator_ColumnPropNameInRow="bill_sum" msprop:Generator_ColumnPropNameInTable="bill_sumColumn" msprop:Generator_UserColumnName="bill_sum" type="xs:decimal" minOccurs="0" />
+              <xs:element name="bill_discount" msprop:Generator_ColumnVarNameInTable="columnbill_discount" msprop:Generator_ColumnPropNameInRow="bill_discount" msprop:Generator_ColumnPropNameInTable="bill_discountColumn" msprop:Generator_UserColumnName="bill_discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="dish_discount" msprop:Generator_ColumnVarNameInTable="columndish_discount" msprop:Generator_ColumnPropNameInRow="dish_discount" msprop:Generator_ColumnPropNameInTable="dish_discountColumn" msprop:Generator_UserColumnName="dish_discount" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
