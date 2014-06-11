@@ -103,10 +103,10 @@
             // label_dateOpenClose
             // 
             this.label_dateOpenClose.AutoSize = true;
-            this.label_dateOpenClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_dateOpenClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_dateOpenClose.Location = new System.Drawing.Point(97, 58);
             this.label_dateOpenClose.Name = "label_dateOpenClose";
-            this.label_dateOpenClose.Size = new System.Drawing.Size(163, 17);
+            this.label_dateOpenClose.Size = new System.Drawing.Size(126, 15);
             this.label_dateOpenClose.TabIndex = 6;
             this.label_dateOpenClose.Text = "label_dateOpenClose";
             // 

@@ -40,11 +40,12 @@ namespace com.sbs.dll.utilites
             button_editMnu.BackgroundImage = Properties.Resources.edit_26;
 
             label_numbBill.Text = oBill.numb.ToString();
-            label_numbTable.Text = oBill.table.ToString();
+            label_numbTable.Text = oBill.table.ToString() + (oBill.fioClose.Equals(String.Empty) ? string.Empty : " ( " + oBill.fioClose + " )");
             label_dateOpenClose.Text = oBill.openDate + " - " + oBill.closeDate;
             comboBox_note.SelectedValue = oBill.refNotes;
             label_summ.Text = oBill.summFact.ToString("F2");
             label_refStatusName.Text = oBill.refStatName;
+            
             switch (oBill.refStat)
             {
                 case 20:
