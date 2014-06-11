@@ -23,12 +23,12 @@ namespace com.sbs.gui.main
         [STAThread]
         static void Main()
         {
-            //if (isRunning())
-            //{
-            //    MessageBox.Show("Данное приложение уже запущенно, либо завершаются потоки синхронизации.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    Application.Exit();
-            //    return;
-            //}
+            if (isRunning())
+            {
+                MessageBox.Show("Данное приложение уже запущенно, либо завершаются потоки синхронизации.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Exit();
+                return;
+            }
 
             object[] xResultSet;
             DBaccess dbAccess = new DBaccess();
