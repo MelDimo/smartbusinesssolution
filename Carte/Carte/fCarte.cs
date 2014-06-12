@@ -396,6 +396,7 @@ namespace com.sbs.gui.carte
 
             oCarteDishes = new DTO.CarteDishes();
             oCarteDishes.minStep = 1;
+            oCarteDishes.carte = (int)dataGridView_carte.SelectedRows[0].Cells["carte_id"].Value;
             oCarteDishes.carteDishesGroup = int.Parse(treeView_group.SelectedNode.Name);
             
             fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
@@ -455,6 +456,7 @@ namespace com.sbs.gui.carte
 
             oCarteDishes = new DTO.CarteDishes();
             oCarteDishes.id = (int)dataGridView_dishes.SelectedRows[0].Cells["dishes_id"].Value;
+            oCarteDishes.carte = (int)dataGridView_carte.SelectedRows[0].Cells["carte_id"].Value;
 
             selectedItemIndex = dataGridView_dishes.SelectedRows[0].Index;
 

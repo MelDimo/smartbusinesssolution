@@ -287,5 +287,109 @@ namespace com.sbs.gui.carte
         }
 
         #endregion
+
+        #region -------------------------------------------------------------- Топпинги_группы
+
+        public void topping_add(string pDbType, DTO.ToppingGroup pToppGroup)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO toppings_groups(id_parent, carte_dishes, name, ref_status) VALUES(@id_parent, @carte_dishes, @name, @ref_status)";
+                command.Parameters.Add("id_parent", SqlDbType.Int).Value = pToppGroup.id_parent;
+                command.Parameters.Add("carte_dishes", SqlDbType.Int).Value = pToppGroup.carteDishes;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pToppGroup.name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pToppGroup.refStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void topping_edit(string pDbType, DTO.ToppingGroup pToppGroup)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE toppings_groups SET id_parent = @id_parent, carte_dishes = @carte_dishes, name = @name, ref_status = @ref_status" +
+                                        " WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pToppGroup.id;
+                command.Parameters.Add("id_parent", SqlDbType.Int).Value = pToppGroup.id_parent;
+                command.Parameters.Add("carte_dishes", SqlDbType.Int).Value = pToppGroup.carteDishes;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pToppGroup.name;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pToppGroup.refStatus;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void topping_del(string pDbType, int pToppGroup_id)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM toppings_groups WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = pToppGroup_id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
+
+        #region -------------------------------------------------------------- Топпинги_позиции
+
+        public void toppingDishAll_get(string pDbType, DTO.ToppingGroup pToppGroup, int pCarteId)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT cd.id, cd.name, cd.price, isvisible " +
+                                        " FROM carte_dishes cd " +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group AND cdg.carte = @carteId " +
+                                        " ORDER BY cd.name";
+
+                command.Parameters.Add("carteId", SqlDbType.Int).Value = pCarteId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #endregion
     }
 }

@@ -173,6 +173,12 @@ namespace com.sbs.gui.carte
             DialogResult = DialogResult.Cancel;
         }
 
+        private void button_topping_Click(object sender, EventArgs e)
+        {
+            fTopping fTopp = new fTopping(oCarteDishes, (DataTable)comboBox_refStatus.DataSource);
+            fTopp.ShowDialog();
+        }
+
 
     }
 }

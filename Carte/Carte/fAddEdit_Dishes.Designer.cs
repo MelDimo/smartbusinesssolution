@@ -49,6 +49,9 @@
             this.button_getDishes = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDown_minStep = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button_topping = new System.Windows.Forms.Button();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minStep)).BeginInit();
@@ -98,7 +101,7 @@
             this.comboBox_group.FormattingEnabled = true;
             this.comboBox_group.Location = new System.Drawing.Point(134, 51);
             this.comboBox_group.Name = "comboBox_group";
-            this.comboBox_group.Size = new System.Drawing.Size(307, 21);
+            this.comboBox_group.Size = new System.Drawing.Size(330, 21);
             this.comboBox_group.TabIndex = 0;
             // 
             // panel8
@@ -106,15 +109,15 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 269);
+            this.panel8.Location = new System.Drawing.Point(0, 311);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(453, 35);
+            this.panel8.Size = new System.Drawing.Size(476, 35);
             this.panel8.TabIndex = 6;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(357, 6);
+            this.button_cancel.Location = new System.Drawing.Point(380, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
@@ -125,7 +128,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(276, 6);
+            this.button_ok.Location = new System.Drawing.Point(299, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -139,7 +142,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_name.Location = new System.Drawing.Point(134, 105);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(307, 20);
+            this.textBox_name.Size = new System.Drawing.Size(330, 20);
             this.textBox_name.TabIndex = 1;
             // 
             // numericUpDown_price
@@ -159,7 +162,7 @@
             0,
             0});
             this.numericUpDown_price.Name = "numericUpDown_price";
-            this.numericUpDown_price.Size = new System.Drawing.Size(307, 20);
+            this.numericUpDown_price.Size = new System.Drawing.Size(330, 20);
             this.numericUpDown_price.TabIndex = 2;
             // 
             // label4
@@ -179,7 +182,7 @@
             this.comboBox_refStatus.FormattingEnabled = true;
             this.comboBox_refStatus.Location = new System.Drawing.Point(134, 189);
             this.comboBox_refStatus.Name = "comboBox_refStatus";
-            this.comboBox_refStatus.Size = new System.Drawing.Size(307, 21);
+            this.comboBox_refStatus.Size = new System.Drawing.Size(330, 21);
             this.comboBox_refStatus.TabIndex = 3;
             // 
             // label5
@@ -219,7 +222,7 @@
             this.comboBox_refPrintersType.FormattingEnabled = true;
             this.comboBox_refPrintersType.Location = new System.Drawing.Point(134, 236);
             this.comboBox_refPrintersType.Name = "comboBox_refPrintersType";
-            this.comboBox_refPrintersType.Size = new System.Drawing.Size(307, 21);
+            this.comboBox_refPrintersType.Size = new System.Drawing.Size(330, 21);
             this.comboBox_refPrintersType.TabIndex = 5;
             // 
             // label7
@@ -238,13 +241,13 @@
             this.textBox_refDishesName.Location = new System.Drawing.Point(134, 78);
             this.textBox_refDishesName.Name = "textBox_refDishesName";
             this.textBox_refDishesName.ReadOnly = true;
-            this.textBox_refDishesName.Size = new System.Drawing.Size(273, 20);
+            this.textBox_refDishesName.Size = new System.Drawing.Size(296, 20);
             this.textBox_refDishesName.TabIndex = 62;
             // 
             // button_getDishes
             // 
             this.button_getDishes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_getDishes.Location = new System.Drawing.Point(413, 76);
+            this.button_getDishes.Location = new System.Drawing.Point(436, 76);
             this.button_getDishes.Name = "button_getDishes";
             this.button_getDishes.Size = new System.Drawing.Size(28, 23);
             this.button_getDishes.TabIndex = 63;
@@ -283,7 +286,7 @@
             0,
             131072});
             this.numericUpDown_minStep.Name = "numericUpDown_minStep";
-            this.numericUpDown_minStep.Size = new System.Drawing.Size(307, 20);
+            this.numericUpDown_minStep.Size = new System.Drawing.Size(330, 20);
             this.numericUpDown_minStep.TabIndex = 65;
             this.numericUpDown_minStep.Value = new decimal(new int[] {
             1,
@@ -291,11 +294,47 @@
             0,
             0});
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 271);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 13);
+            this.label9.TabIndex = 66;
+            this.label9.Text = "Топпинги";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(134, 271);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(160, 17);
+            this.checkBox1.TabIndex = 67;
+            this.checkBox1.Text = "Блюдо содержит топпинги";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button_topping
+            // 
+            this.button_topping.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_topping.Location = new System.Drawing.Point(300, 266);
+            this.button_topping.Name = "button_topping";
+            this.button_topping.Size = new System.Drawing.Size(165, 23);
+            this.button_topping.TabIndex = 68;
+            this.button_topping.Text = "структура топпинга";
+            this.button_topping.UseVisualStyleBackColor = true;
+            this.button_topping.Click += new System.EventHandler(this.button_topping_Click);
+            // 
             // fAddEdit_Dishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 304);
+            this.ClientSize = new System.Drawing.Size(476, 346);
+            this.Controls.Add(this.button_topping);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.numericUpDown_minStep);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.button_getDishes);
@@ -352,5 +391,8 @@
         private System.Windows.Forms.Button button_getDishes;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDown_minStep;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button_topping;
     }
 }
