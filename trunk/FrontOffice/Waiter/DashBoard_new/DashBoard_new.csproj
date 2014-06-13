@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D6EFC30B-F1A6-4E0F-8C7C-646694918686}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
     <AssemblyName>DashBoard</AssemblyName>

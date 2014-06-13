@@ -557,7 +557,7 @@ namespace com.sbs.gui.dashboard
             DataTable dtNotesDish = new DataTable();
             ctrDishes oCtrDishes = (ctrDishes)((ctrDishes)((Button)sender).Parent).Clone();
 
-            //----------------------------------------------------- Была ошибка с выставление начально кол-ва в послежнее указываемое... хз
+            //----------------------------------------------------- Была ошибка с выставление начально кол-ва в последнее указываемое... хз
             oCtrDishes.oDish.count = oCtrDishes.oDish.minStep;
             oCtrDishes.numericUpDown_count.Value = oCtrDishes.oDish.minStep;
             //-----------------------------------------------------

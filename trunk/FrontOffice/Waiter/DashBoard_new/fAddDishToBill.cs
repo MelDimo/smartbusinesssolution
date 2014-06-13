@@ -13,9 +13,13 @@ namespace com.sbs.gui.dashboard
 {
     public partial class fAddDishToBill : Form
     {
+        private getReference oReferences = new getReference();
         private DBaccess dbAccess = new DBaccess();
-        ctrDishes oCtrDishes;
-        DTO_DBoard.Bill oBill;
+        private ctrDishes oCtrDishes;
+        private DTO_DBoard.Bill oBill;
+
+        private DataTable dtGroup;
+        private DataTable dtToppings;
 
         public fAddDishToBill(com.sbs.dll.DTO_DBoard.Bill pBill, ctrDishes pCtrDishes)
         {
@@ -88,9 +92,6 @@ namespace com.sbs.gui.dashboard
                 ((ctrDishes)ctr).button_deals.TabStop = true;
                 ((ctrDishes)ctr).button_deals.Enabled = false;
                 
-                ((ctrDishes)ctr).button_topping.TabStop = true;
-                ((ctrDishes)ctr).button_topping.Enabled = false;
-
                 ((ctrDishes)ctr).comboBox_note.TabStop = true;
 
                 ((ctrDishes)ctr).numericUpDown_count.Focus();
