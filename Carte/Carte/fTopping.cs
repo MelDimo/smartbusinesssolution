@@ -18,11 +18,13 @@ namespace com.sbs.gui.carte
 
         DataTable dtGroup;
         DataTable dtToppings;
+        DataTable dtToppingsAll;
         DataTable dtGroupEx;
         DataTable dtStatus;
 
         DTO.CarteDishes oCarteDishes;
         DTO.ToppingGroup oToppingGroup;
+        DTO.Topping oTopping;
 
         public fTopping(DTO.CarteDishes pCarteDishes, DataTable pDtStatus)
         {
@@ -38,6 +40,14 @@ namespace com.sbs.gui.carte
             toolStripButton_toppingAdd.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             toolStripButton_toppingDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
 
+            dataGridView_topping.AutoGenerateColumns = false;
+
+            dataGridView_topping.Columns["id"].DataPropertyName = "id";
+            dataGridView_topping.Columns["toppings_groups"].DataPropertyName = "toppings_groups";
+            dataGridView_topping.Columns["carteDishes"].DataPropertyName = "carteDishes";
+            dataGridView_topping.Columns["name"].DataPropertyName = "name";
+            dataGridView_topping.Columns["price"].DataPropertyName = "price";
+
             intitData();
         }
 
@@ -46,9 +56,10 @@ namespace com.sbs.gui.carte
             try
             {
                 dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oCarteDishes.id);
-                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oCarteDishes.id);
 
-                dbAccess.toppingDishAll_get(GValues.DBMode, oToppingGroup, oCarteDishes.carte);
+                dtToppingsAll = dbAccess.toppingDishAll_get(GValues.DBMode, oToppingGroup, oCarteDishes.carte);
+
+                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oCarteDishes.id);
 
                 dtGroupEx = dtGroup.Copy();
                 dtGroupEx.Rows.Add(new object[] { 0, 0, oCarteDishes.id, "<Корневой элемент>", 1 });
@@ -162,6 +173,13 @@ namespace com.sbs.gui.carte
                 return;
             }
 
+            if (dataGridView_topping.Rows.Count > 0)
+            {
+                MessageBox.Show("Группа '" + oToppingGroup.name + "' содержит топпиги." + Environment.NewLine + "Сначала удалите топпинги.",
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             oToppingGroup = (DTO.ToppingGroup)treeView_toppGroup.SelectedNode.Tag;
 
             if (MessageBox.Show("Вы уверены, что хотите удалить группу '" + oToppingGroup.name + "'", GValues.prgNameFull,
@@ -181,13 +199,109 @@ namespace com.sbs.gui.carte
 
         private void toolStripButton_toppingAdd_Click(object sender, EventArgs e)
         {
+            if (treeView_toppGroup.SelectedNode == null)
+            {
+                MessageBox.Show("Укажите группу в которую добавляется топпинг.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            oToppingGroup = (DTO.ToppingGroup)treeView_toppGroup.SelectedNode.Tag;
+
+            chooseDish();
+        }
+
+        private void chooseDish()
+        {
+            fChooser fChose = new fChooser("TOPPING_DISH", "name", "id", "");
+
+            fChose.dataGridView_main.DataSource = dtToppingsAll;
+
+            DataGridViewTextBoxColumn col0 = new DataGridViewTextBoxColumn();
+            col0.HeaderText = "id";
+            col0.Name = "id";
+            col0.DataPropertyName = "id";
+            col0.Visible = false;
+
+            DataGridViewTextBoxColumn col1 = new DataGridViewTextBoxColumn();
+            col1.HeaderText = "Наименование";
+            col1.Name = "name";
+            col1.DataPropertyName = "name";
+            col1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            DataGridViewTextBoxColumn col2 = new DataGridViewTextBoxColumn();
+            col2.HeaderText = "Цена";
+            col2.Name = "price";
+            col2.DataPropertyName = "price";
+            col2.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            DataGridViewCheckBoxColumn col3 = new DataGridViewCheckBoxColumn();
+            col3.HeaderText = "В меню видно";
+            col3.Name = "isvisible";
+            col3.DataPropertyName = "isvisible";
+            col3.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+
+            fChose.dataGridView_main.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3 });
+
+            fChose.Text = "Выбор топпинга";
+
+            if (fChose.ShowDialog() != DialogResult.OK) return;
+            
+            oTopping = new DTO.Topping();
+
+            oTopping.toppingsGroups = oToppingGroup.id;
+
+            oTopping.carteDishes = (int)fChose.xData[0];
+            oTopping.price = (decimal)fChose.xData[1];
+            oTopping.name = fChose.xData[2].ToString();
+
+            addTopping(oTopping);
+        }
+
+        private void addTopping(DTO.Topping oTopping)
+        {
+            try
+            {
+                dbAccess.toppingDish_add(GValues.DBMode, oTopping);
+
+                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oCarteDishes.id);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось сохранить топпинг.", exc, SystemIcons.Information); return; }
+
+            dtToppings.DefaultView.RowFilter = string.Format("toppings_groups = {0}", treeView_toppGroup.SelectedNode.Name);
+            dataGridView_topping.DataSource = dtToppings;
 
         }
 
         private void toolStripButton_toppingDel_Click(object sender, EventArgs e)
         {
+            if (dataGridView_topping.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для удаления.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Question);
+                return;
+            }
 
+            if (MessageBox.Show("Вы деуствительно хотите удалить топинг '" + dataGridView_topping.SelectedRows[0].Cells["name"].Value.ToString() + "'?",
+                GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+            try
+            {
+                dbAccess.toppingDish_del(GValues.DBMode, (int)dataGridView_topping.SelectedRows[0].Cells["id"].Value);
+                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oCarteDishes.id);
+                treeView_toppGroup_AfterSelect(null, null);
+            }
+            catch (Exception exc) 
+            { 
+                uMessage.Show("Неудалось удалить элемент '" + dataGridView_topping.SelectedRows[0].Cells["name"].Value.ToString() + "'", exc, SystemIcons.Information);
+                return;
+            }
         }
+
         #endregion
+
+        private void treeView_toppGroup_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            dtToppings.DefaultView.RowFilter = string.Format("toppings_groups = {0}", treeView_toppGroup.SelectedNode.Name);
+            dataGridView_topping.DataSource = dtToppings;
+        }
     }
 }
