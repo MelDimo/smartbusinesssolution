@@ -11,7 +11,11 @@ namespace com.sbs.dll.utilites
 {
     public partial class ctrDishes : UserControl
     {
+        getReference oReferences = new getReference();
         public DTO_DBoard.Dish oDish;
+
+        private DataTable dtGroup;
+        public DataTable dtToppings;
 
         public ctrDishes(DTO_DBoard.Dish pDish)
         {
@@ -23,6 +27,25 @@ namespace com.sbs.dll.utilites
 
             button_host.GotFocus += new EventHandler(button_host_GotFocus);
             button_host.LostFocus += new EventHandler(button_host_LostFocus);
+
+            initData();
+        }
+
+        private void initData()
+        {
+            try
+            {
+                dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.id);
+                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oDish.id);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось получить данные по топпингам.", exc, SystemIcons.Information);
+                return;
+            }
+
+            if (dtToppings.Rows.Count > 0) button_topping.Enabled = true;
+            else button_topping.Enabled = false;
         }
 
         void button_host_LostFocus(object sender, EventArgs e)
@@ -58,6 +81,12 @@ namespace com.sbs.dll.utilites
         private void numericUpDown_count_KeyUp(object sender, KeyEventArgs e)
         {
             numericUpDown_count.Select(0, numericUpDown_count.Text.Length);
+        }
+
+        private void button_topping_Click(object sender, EventArgs e)
+        {
+            fAddDishToBill_topping fTopp = new fAddDishToBill_topping(dtGroup, dtToppings);
+            if (fTopp.ShowDialog() == DialogResult.Cancel) ((Form)this.Parent).DialogResult = DialogResult.Cancel;
         }
     }
 }

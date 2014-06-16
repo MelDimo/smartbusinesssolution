@@ -85,6 +85,12 @@
     <Compile Include="Controls\ctrSeasonPerson.Designer.cs">
       <DependentUpon>ctrSeasonPerson.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\fAddDishToBill_topping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\fAddDishToBill_topping.Designer.cs">
+      <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
+    </Compile>
     <Compile Include="fChooser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ctrSeasonPerson.resx">
       <DependentUpon>ctrSeasonPerson.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\fAddDishToBill_topping.resx">
+      <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fChooser.resx">
       <DependentUpon>fChooser.cs</DependentUpon>

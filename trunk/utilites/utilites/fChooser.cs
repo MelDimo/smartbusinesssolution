@@ -146,6 +146,10 @@ namespace com.sbs.dll.utilites
                     returnACL();
                     break;
 
+                case "TOPPING_DISH":
+                    returnTOPPING_DISH();
+                    break;
+
                 case "DASHBOARD_DISH":
                     returnDASHBOARD_DISH();
                     break;
@@ -154,6 +158,19 @@ namespace com.sbs.dll.utilites
             isSelected = true;
 
             Close();
+        }
+
+        private void returnTOPPING_DISH()
+        {
+            int xCarteDishId;
+            decimal xPrice;
+            string xName;
+
+            xCarteDishId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
+            xPrice = (decimal)dataGridView_main.SelectedRows[0].Cells["price"].Value;
+            xName = dataGridView_main.SelectedRows[0].Cells["name"].Value.ToString();
+
+            xData = new object[] { xCarteDishId, xPrice, xName };
         }
 
         private void returnDASHBOARD_DISH()

@@ -1027,6 +1027,88 @@ namespace com.sbs.dll.utilites
 
             return dtResult;
         }
+
+        /// <summary>
+        /// Возвращает структуру топингов для блюда
+        /// </summary>
+        /// <param name="pDbType">режим подключаемой БД</param>
+        /// <param name="pCarteDishes">id блюда</param>
+        /// <returns></returns>
+        public DataTable getToppingsGroups(string pDbType, int pCarteDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, id_parent, carte_dishes, name, ref_status " +
+                                        " FROM toppings_groups " +
+                                        " WHERE carte_dishes = @carte_dishes" +
+                                        " ORDER BY id, id_parent";
+
+                command.Parameters.Add("carte_dishes", SqlDbType.Int).Value = pCarteDishes;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        /// <summary>
+        /// Возвращает ВСЕ топинги которые доступны для блюда
+        /// </summary>
+        /// <param name="pDbType">режим подключаемой БД</param>
+        /// <param name="pCarteDishes">id блюда</param>
+        /// <returns></returns>
+        public DataTable getTopingsCarteDishes(string pDbType, int pCarteDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT tcd.id, tcd.toppings_groups, cd.id as carteDishes, cd.name, cd.price, tcd.isSelected" +
+                                        " FROM toppings_carte_dishes tcd" +
+                                        " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes" +
+                                        " INNER JOIN toppings_groups tg ON tg.id = tcd.toppings_groups" +
+                                        " WHERE tg.carte_dishes = @carteDishes";
+
+                command.Parameters.Add("carteDishes", SqlDbType.Int).Value = pCarteDishes;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 
     public static class WriteLog
