@@ -68,9 +68,9 @@
             this.button_topping.Name = "button_topping";
             this.button_topping.Size = new System.Drawing.Size(145, 23);
             this.button_topping.TabIndex = 1;
-            this.button_topping.TabStop = false;
             this.button_topping.Text = "Топпинги";
             this.button_topping.UseVisualStyleBackColor = true;
+            this.button_topping.Click += new System.EventHandler(this.button_topping_Click);
             // 
             // button_deals
             // 
