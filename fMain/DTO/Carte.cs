@@ -30,6 +30,7 @@ namespace com.sbs.dll
         {
             public int id { get; set; }
             public int carteDishesGroup { get; set; }
+            public int carte { get; set; }
             public int refDishes { get; set; }
             public string name { get; set; }
             public decimal price { get; set; }
@@ -52,6 +53,26 @@ namespace com.sbs.dll
             public decimal price { get; set; }
             public decimal minStep { get; set; }
             public int refPrintersType { get; set; }
+            public int refStatus { get; set; }
+        }
+
+        public class Topping
+        {
+            public int id { get; set; }
+            public int toppingsGroups { get; set; }
+            public int carteDishes { get; set; }
+            public string name { get; set; }
+            public decimal price { get; set; }
+            public int isSelected { get; set; }
+
+        }
+
+        public class ToppingGroup
+        {
+            public int id { get; set; }
+            public int id_parent { get; set; }
+            public int carteDishes { get; set; }
+            public string name { get; set; }
             public int refStatus { get; set; }
         }
     }
