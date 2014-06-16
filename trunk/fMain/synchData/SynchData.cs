@@ -23,6 +23,7 @@ namespace com.sbs.dll.synchdata
         DataTable dtSeason;
         DataTable dtBills;
         DataTable dtBillsInfo;
+        DataTable dtToppings;
 
         Thread chkBillThread;
 
@@ -51,8 +52,10 @@ namespace com.sbs.dll.synchdata
             dtSeason = new DataTable();
             dtBills = new DataTable();
             dtBillsInfo = new DataTable();
+            dtToppings = new DataTable();
 
             string billsArray = string.Empty;
+            string DishArray = string.Empty;
 
             #region -------------------------------------------------------- Сбор данных с локальных таблиц
 
@@ -87,6 +90,19 @@ namespace com.sbs.dll.synchdata
                                                                                                                         //Позиция была отправлена на изготовление
 
                     using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBillsInfo.Load(dr); }
+                }
+
+
+                if (dtBillsInfo.Rows.Count > 0) // Смотрим топпинги по блюдам
+                {
+                    foreach(DataRow dr in dtBillsInfo.AsEnumerable()) DishArray += dr["id"].ToString() + ",";
+
+                    DishArray = DishArray.Substring(0, billsArray.Length - 1);
+
+                    commandLocal.CommandText = " SELECT branch, season, bills, bills_info, toppings_carte_dishes, isSelected " +
+                                                " FROM bills_info_toppings WHERE bills_info in (" + DishArray + ");";
+
+                    using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtToppings.Load(dr); }
                 }
 
                 conLocal.Close();
@@ -185,6 +201,25 @@ namespace com.sbs.dll.synchdata
                     commandMain.ExecuteNonQuery();
                 }
 
+
+                commandMain.CommandText = "INSERT INTO bills_info_toppings_all(branch,  season,     bills,  bills_info,     toppings_carte_dishes,  isSelected," +
+                                                                    " VALUES( @branch,  @season,    @bills, @bills_info,    @toppings_carte_dishes, @isSelected)";
+
+                foreach (DataRow dr in dtToppings.Rows)
+                {
+                    commandMain.Parameters.Clear();
+
+                    commandMain.Parameters.Add("branch", SqlDbType.Int).Value = (int)dr["branch"];
+                    commandMain.Parameters.Add("season", SqlDbType.Int).Value = (int)dr["season"];
+                    commandMain.Parameters.Add("bills", SqlDbType.Int).Value = (int)dr["bills"];
+                    commandMain.Parameters.Add("bills_info", SqlDbType.Int).Value = (int)dr["bills_info"];
+                    commandMain.Parameters.Add("toppings_carte_dishes", SqlDbType.Int).Value = (int)dr["toppings_carte_dishes"];
+                    commandMain.Parameters.Add("isSelected", SqlDbType.Int).Value = (int)dr["isSelected"];
+
+                    commandMain.ExecuteNonQuery();
+                }
+                
+
                 conLocal = new SqlConnection(GValues.localDBConStr);
 
                 conLocal.Open();
@@ -198,6 +233,8 @@ namespace com.sbs.dll.synchdata
                 if (!billsArray.Equals(string.Empty))
                 {
                     commandLocal.CommandText = "DELETE FROM bills_info WHERE bills in(" + billsArray + ")";
+                    commandLocal.ExecuteNonQuery();
+                    commandLocal.CommandText = "DELETE FROM bills_info_toppings WHERE bills in(" + billsArray + ")";
                     commandLocal.ExecuteNonQuery();
                     commandLocal.CommandText = "UPDATE bills SET isSynch = 1 WHERE id in(" + billsArray + ")";
                     commandLocal.ExecuteNonQuery();
