@@ -37,17 +37,22 @@
             this.toolStripButton_groupEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_groupDel = new System.Windows.Forms.ToolStripButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_topping = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_toppingAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_toppingDel = new System.Windows.Forms.ToolStripButton();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toppings_groups = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cartedishes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_topping)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -89,6 +94,7 @@
             this.treeView_toppGroup.Name = "treeView_toppGroup";
             this.treeView_toppGroup.Size = new System.Drawing.Size(222, 407);
             this.treeView_toppGroup.TabIndex = 2;
+            this.treeView_toppGroup.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_toppGroup_AfterSelect);
             // 
             // toolStrip2
             // 
@@ -138,7 +144,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.dataGridView_topping);
             this.groupBox2.Controls.Add(this.toolStrip1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
@@ -148,14 +154,28 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Топпинги";
             // 
-            // dataGridView1
+            // dataGridView_topping
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 41);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(394, 407);
-            this.dataGridView1.TabIndex = 3;
+            this.dataGridView_topping.AllowUserToAddRows = false;
+            this.dataGridView_topping.AllowUserToDeleteRows = false;
+            this.dataGridView_topping.AllowUserToResizeColumns = false;
+            this.dataGridView_topping.AllowUserToResizeRows = false;
+            this.dataGridView_topping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_topping.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.toppings_groups,
+            this.cartedishes,
+            this.name,
+            this.price});
+            this.dataGridView_topping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_topping.Location = new System.Drawing.Point(3, 41);
+            this.dataGridView_topping.MultiSelect = false;
+            this.dataGridView_topping.Name = "dataGridView_topping";
+            this.dataGridView_topping.ReadOnly = true;
+            this.dataGridView_topping.RowHeadersVisible = false;
+            this.dataGridView_topping.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_topping.Size = new System.Drawing.Size(394, 407);
+            this.dataGridView_topping.TabIndex = 3;
             // 
             // toolStrip1
             // 
@@ -191,6 +211,42 @@
             this.toolStripButton_toppingDel.Text = "Удалить";
             this.toolStripButton_toppingDel.Click += new System.EventHandler(this.toolStripButton_toppingDel_Click);
             // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // toppings_groups
+            // 
+            this.toppings_groups.HeaderText = "toppings_groups";
+            this.toppings_groups.Name = "toppings_groups";
+            this.toppings_groups.ReadOnly = true;
+            this.toppings_groups.Visible = false;
+            // 
+            // cartedishes
+            // 
+            this.cartedishes.HeaderText = "cartedishes";
+            this.cartedishes.Name = "cartedishes";
+            this.cartedishes.ReadOnly = true;
+            this.cartedishes.Visible = false;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.HeaderText = "Блюдо";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // price
+            // 
+            this.price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.price.HeaderText = "Цена";
+            this.price.Name = "price";
+            this.price.ReadOnly = true;
+            this.price.Width = 58;
+            // 
             // fTopping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,7 +269,7 @@
             this.toolStrip2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_topping)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -230,10 +286,15 @@
         private System.Windows.Forms.ToolStripButton toolStripButton_groupEdit;
         private System.Windows.Forms.ToolStripButton toolStripButton_groupDel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_topping;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton_toppingAdd;
         private System.Windows.Forms.ToolStripButton toolStripButton_toppingDel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn toppings_groups;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cartedishes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn price;
 
     }
 }

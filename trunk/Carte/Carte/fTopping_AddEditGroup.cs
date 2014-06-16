@@ -70,7 +70,7 @@ namespace com.sbs.gui.carte
         private void fTopping_AddEditGroup_Shown(object sender, EventArgs e)
         {
             comboBox_parent.SelectedValue = oToppingGroup.id_parent;
-            comboBox_status.SelectedValue = oToppingGroup.refStatus;
+            comboBox_status.SelectedValue = oToppingGroup.refStatus == 0 ? 1 : oToppingGroup.refStatus;
             textBox_name.Text = oToppingGroup.name;
         }
     }

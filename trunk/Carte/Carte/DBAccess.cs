@@ -10,6 +10,8 @@ namespace com.sbs.gui.carte
 {
     public class DBAccess
     {
+        private DataTable dtResult;
+
         private SqlConnection con;
         private SqlCommand command;
         private SqlTransaction tx;
@@ -365,8 +367,17 @@ namespace com.sbs.gui.carte
 
         #region -------------------------------------------------------------- Топпинги_позиции
 
-        public void toppingDishAll_get(string pDbType, DTO.ToppingGroup pToppGroup, int pCarteId)
+        /// <summary>
+        /// Возвращает все возможные позиции из текущего меню
+        /// </summary>
+        /// <param name="pDbType"></param>
+        /// <param name="pToppGroup"></param>
+        /// <param name="pCarteId"></param>
+        /// <returns></returns>
+        public DataTable toppingDishAll_get(string pDbType, DTO.ToppingGroup pToppGroup, int pCarteId)
         {
+            dtResult = new DataTable();
+
             con = new DBCon().getConnection(pDbType);
             command = null;
 
@@ -381,6 +392,57 @@ namespace com.sbs.gui.carte
                                         " ORDER BY cd.name";
 
                 command.Parameters.Add("carteId", SqlDbType.Int).Value = pCarteId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public void toppingDish_add(string pDbType, DTO.Topping pTopping)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "INSERT INTO toppings_carte_dishes(toppings_groups, carte_dishes, price) VALUES(@toppingsGroups, @carteDishes, @price)";
+                
+                command.Parameters.Add("toppingsGroups", SqlDbType.Int).Value = pTopping.toppingsGroups;
+                command.Parameters.Add("carteDishes", SqlDbType.Int).Value = pTopping.carteDishes;
+                command.Parameters.Add("price", SqlDbType.Decimal).Value = pTopping.price;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        public void toppingDish_del(string pDbType, int pToppingId)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM toppings_carte_dishes WHERE id = @id";
+
+                command.Parameters.Add("id", SqlDbType.Int).Value = pToppingId;
 
                 command.ExecuteNonQuery();
 
