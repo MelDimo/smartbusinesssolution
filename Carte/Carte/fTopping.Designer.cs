@@ -38,14 +38,14 @@
             this.toolStripButton_groupDel = new System.Windows.Forms.ToolStripButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView_topping = new System.Windows.Forms.DataGridView();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton_toppingAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton_toppingDel = new System.Windows.Forms.ToolStripButton();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toppings_groups = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cartedishes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton_toppingAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_toppingDel = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -70,7 +70,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(632, 451);
-            this.splitContainer1.SplitterDistance = 228;
+            this.splitContainer1.SplitterDistance = 227;
             this.splitContainer1.TabIndex = 0;
             // 
             // groupBox1
@@ -80,7 +80,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(228, 451);
+            this.groupBox1.Size = new System.Drawing.Size(227, 451);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Группы";
@@ -92,7 +92,7 @@
             this.treeView_toppGroup.HideSelection = false;
             this.treeView_toppGroup.Location = new System.Drawing.Point(3, 41);
             this.treeView_toppGroup.Name = "treeView_toppGroup";
-            this.treeView_toppGroup.Size = new System.Drawing.Size(222, 407);
+            this.treeView_toppGroup.Size = new System.Drawing.Size(221, 407);
             this.treeView_toppGroup.TabIndex = 2;
             this.treeView_toppGroup.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_toppGroup_AfterSelect);
             // 
@@ -105,7 +105,7 @@
             this.toolStripButton_groupDel});
             this.toolStrip2.Location = new System.Drawing.Point(3, 16);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(222, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(221, 25);
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -149,7 +149,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(400, 451);
+            this.groupBox2.Size = new System.Drawing.Size(401, 451);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Топпинги";
@@ -174,42 +174,8 @@
             this.dataGridView_topping.ReadOnly = true;
             this.dataGridView_topping.RowHeadersVisible = false;
             this.dataGridView_topping.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_topping.Size = new System.Drawing.Size(394, 407);
+            this.dataGridView_topping.Size = new System.Drawing.Size(395, 407);
             this.dataGridView_topping.TabIndex = 3;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton_toppingAdd,
-            this.toolStripButton_toppingDel});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 16);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(394, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton_toppingAdd
-            // 
-            this.toolStripButton_toppingAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton_toppingAdd.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_toppingAdd.Image")));
-            this.toolStripButton_toppingAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton_toppingAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_toppingAdd.Name = "toolStripButton_toppingAdd";
-            this.toolStripButton_toppingAdd.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_toppingAdd.Text = "Добавить";
-            this.toolStripButton_toppingAdd.Click += new System.EventHandler(this.toolStripButton_toppingAdd_Click);
-            // 
-            // toolStripButton_toppingDel
-            // 
-            this.toolStripButton_toppingDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton_toppingDel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_toppingDel.Image")));
-            this.toolStripButton_toppingDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton_toppingDel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_toppingDel.Name = "toolStripButton_toppingDel";
-            this.toolStripButton_toppingDel.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_toppingDel.Text = "Удалить";
-            this.toolStripButton_toppingDel.Click += new System.EventHandler(this.toolStripButton_toppingDel_Click);
             // 
             // id
             // 
@@ -246,6 +212,40 @@
             this.price.Name = "price";
             this.price.ReadOnly = true;
             this.price.Width = 58;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton_toppingAdd,
+            this.toolStripButton_toppingDel});
+            this.toolStrip1.Location = new System.Drawing.Point(3, 16);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(395, 25);
+            this.toolStrip1.TabIndex = 2;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton_toppingAdd
+            // 
+            this.toolStripButton_toppingAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_toppingAdd.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_toppingAdd.Image")));
+            this.toolStripButton_toppingAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_toppingAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_toppingAdd.Name = "toolStripButton_toppingAdd";
+            this.toolStripButton_toppingAdd.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_toppingAdd.Text = "Добавить";
+            this.toolStripButton_toppingAdd.Click += new System.EventHandler(this.toolStripButton_toppingAdd_Click);
+            // 
+            // toolStripButton_toppingDel
+            // 
+            this.toolStripButton_toppingDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_toppingDel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_toppingDel.Image")));
+            this.toolStripButton_toppingDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_toppingDel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_toppingDel.Name = "toolStripButton_toppingDel";
+            this.toolStripButton_toppingDel.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_toppingDel.Text = "Удалить";
+            this.toolStripButton_toppingDel.Click += new System.EventHandler(this.toolStripButton_toppingDel_Click);
             // 
             // fTopping
             // 
