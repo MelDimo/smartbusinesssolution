@@ -31,6 +31,7 @@
               <xs:element name="ref_printers_type" msprop:Generator_ColumnVarNameInTable="columnref_printers_type" msprop:Generator_ColumnPropNameInRow="ref_printers_type" msprop:Generator_ColumnPropNameInTable="ref_printers_typeColumn" msprop:Generator_UserColumnName="ref_printers_type" type="xs:decimal" minOccurs="0" />
               <xs:element name="printerName" msprop:Generator_ColumnVarNameInTable="columnprinterName" msprop:Generator_ColumnPropNameInRow="printerName" msprop:Generator_ColumnPropNameInTable="printerNameColumn" msprop:Generator_UserColumnName="printerName" type="xs:string" minOccurs="0" />
               <xs:element name="note" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="note" msprop:Generator_ColumnVarNameInTable="columnnote" msprop:Generator_ColumnPropNameInTable="noteColumn" msprop:Generator_UserColumnName="note" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -47,6 +48,14 @@
               <xs:element name="dish_sum" msprop:Generator_ColumnVarNameInTable="columndish_sum" msprop:Generator_ColumnPropNameInRow="dish_sum" msprop:Generator_ColumnPropNameInTable="dish_sumColumn" msprop:Generator_UserColumnName="dish_sum" type="xs:decimal" minOccurs="0" />
               <xs:element name="bill_paymentType" msprop:Generator_ColumnVarNameInTable="columnbill_paymentType" msprop:Generator_ColumnPropNameInRow="bill_paymentType" msprop:Generator_ColumnPropNameInTable="bill_paymentTypeColumn" msprop:Generator_UserColumnName="bill_paymentType" type="xs:string" minOccurs="0" />
               <xs:element name="bill_sum" msprop:Generator_ColumnVarNameInTable="columnbill_sum" msprop:Generator_ColumnPropNameInRow="bill_sum" msprop:Generator_ColumnPropNameInTable="bill_sumColumn" msprop:Generator_UserColumnName="bill_sum" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="orderToppings" msprop:Generator_TableClassName="orderToppingsDataTable" msprop:Generator_TableVarName="tableorderToppings" msprop:Generator_TablePropName="orderToppings" msprop:Generator_RowDeletingName="orderToppingsRowDeleting" msprop:Generator_UserTableName="orderToppings" msprop:Generator_RowChangingName="orderToppingsRowChanging" msprop:Generator_RowEvHandlerName="orderToppingsRowChangeEventHandler" msprop:Generator_RowDeletedName="orderToppingsRowDeleted" msprop:Generator_RowEvArgName="orderToppingsRowChangeEvent" msprop:Generator_RowChangedName="orderToppingsRowChanged" msprop:Generator_RowClassName="orderToppingsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="billsInfo" msprop:Generator_ColumnVarNameInTable="columnbillsInfo" msprop:Generator_ColumnPropNameInRow="billsInfo" msprop:Generator_ColumnPropNameInTable="billsInfoColumn" msprop:Generator_UserColumnName="billsInfo" type="xs:int" minOccurs="0" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

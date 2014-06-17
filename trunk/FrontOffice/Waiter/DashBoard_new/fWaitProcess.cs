@@ -51,14 +51,14 @@ namespace com.sbs.gui.dashboard
 
         private void printDish()
         {
-            DataTable dtResult = new DataTable();
+            DataSet dsResult = new DataSet();
             ReportDocument repDoc;
 
-            dtResult = dbAccess.commitDish("offline", oBill);
+            dsResult = dbAccess.commitDish("offline", oBill);
 
             foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
             {
-                var results = from myRow in dtResult.AsEnumerable()
+                var results = from myRow in dsResult.Tables["preorder"].AsEnumerable()
                                 where myRow.Field<int>("ref_printers_type") == (int)dr["id"]// && myRow.Field<int>("ref_status") == 23
                                 select myRow;
 
@@ -66,7 +66,7 @@ namespace com.sbs.gui.dashboard
                 {
                     repDoc = new ReportDocument();
                     repDoc.Load(results.First().Field<string>("reportPath"));
-                    repDoc.SetDataSource(dtResult);
+                    repDoc.SetDataSource(dsResult);// dsResult.Tables["preorder"]);
                     repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
                     repDoc.SetParameterValue("curDate", DateTime.Now);
                     repDoc.SetParameterValue("billNumber", oBill.numb);

@@ -491,7 +491,6 @@ namespace com.sbs.gui.dashboard
                 command = con.CreateCommand();
 
                 tx = con.BeginTransaction();
-
                 command.Transaction = tx;
 
                 command.CommandText = "BillOpen";
@@ -606,14 +605,14 @@ namespace com.sbs.gui.dashboard
 
         }
 
-        internal void addDish2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
+        internal int addDish2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
         {
-            con = new DBCon().getConnection(pDbType);
+            int billInfoId;
 
             try
             {
+                con = new DBCon().getConnection(pDbType);
                 con.Open();
-
                 command = con.CreateCommand();
 
                 command.CommandText = "DishToBill_Add";
@@ -629,8 +628,66 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
                 command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("pNote", SqlDbType.Int).Value = pDish.refNotes;
+                command.Parameters.Add("pOutBillInfoId", SqlDbType.Int);
+                command.Parameters["pOutBillInfoId"].Direction = ParameterDirection.Output;
 
                 command.ExecuteNonQuery();
+
+                billInfoId = (int)command.Parameters["pOutBillInfoId"].Value;
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return billInfoId;
+        }
+
+        internal void addDish2Bill_remove(string pDbType, int pDishId)
+        {
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DELETE FROM biils_info WHERE id = @id";
+
+                command.Parameters.Add("dishId", SqlDbType.Int).Value = pDishId;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal void addDish2Bill_toppings(string pDbType, int dishId, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish, DataTable dtToppings)
+        {
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "DishToBill_AddToppings";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBills", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pBillsInfo", SqlDbType.Int).Value = dishId;
+                command.Parameters.Add("pToppingsCarteDishes", SqlDbType.Int);
+                command.Parameters.Add("isSelected", SqlDbType.Int);
+
+                foreach (DataRow dr in dtToppings.AsEnumerable())
+                {
+                    command.Parameters["pToppingsCarteDishes"].Value = dr["id"];
+                    command.Parameters["isSelected"].Value = dr["isSelected"];
+
+                    command.ExecuteNonQuery();
+                }
 
                 con.Close();
             }
@@ -687,14 +744,14 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal DataTable commitDish(string pDbType, DTO_DBoard.Bill pBill)
+        internal DataSet commitDish(string pDbType, DTO_DBoard.Bill pBill)
         {
-            dtResult = new DataTable();
-
-            con = new DBCon().getConnection(pDbType);
+            DataSet dsResult = new DataSet();
 
             try
             {
+                con = new DBCon().getConnection(pDbType);
+
                 con.Open();
                 command = con.CreateCommand();
 
@@ -702,7 +759,7 @@ namespace com.sbs.gui.dashboard
 
                 command.Transaction = tx;
 
-                dtResult = printRunners(command, pBill); // Возвращаем перечень блюд для бегунка
+                dsResult = printRunners(command, pBill); // Возвращаем перечень блюд для бегунка
 
                 command.CommandText = "DishToBill_changeStatus";
                 command.CommandType = CommandType.StoredProcedure;
@@ -724,14 +781,16 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) { tx.Rollback(); dtResult = null; con.Close(); } }
 
-            return dtResult;
+            return dsResult;
         }
 
-        private DataTable printRunners(SqlCommand command, DTO_DBoard.Bill pBill)
+        private DataSet printRunners(SqlCommand command, DTO_DBoard.Bill pBill)
         {
+            DataSet dsResult = new DataSet();
             dtResult = new DataTable();
+            dtResult.TableName = "preOrder";
 
-            command.CommandText = "SELECT d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status, rn.note" +
+            command.CommandText = "SELECT bi. id, d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status, rn.note" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
@@ -751,9 +810,26 @@ namespace com.sbs.gui.dashboard
             using (SqlDataReader dr = command.ExecuteReader())
             {
                 dtResult.Load(dr);
+                dsResult.Tables.Add(dtResult);
             }
 
-            return dtResult;
+            dtResult = new DataTable();
+            dtResult.TableName = "orderToppings";
+
+            command.CommandText = "SELECT bi.id AS billsInfo, cd.name " +
+                                    "FROM bills_info_toppings bitop " +
+                                    "INNER JOIN bills_info bi ON bi.id = bitop.bills_info " +
+                                    "INNER JOIN toppings_carte_dishes tcd ON tcd.id = bitop.toppings_carte_dishes " +
+                                    "INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
+                                    "WHERE bi.bills = @bills AND bi.ref_status = @refStatus AND bitop.isSelected = 1 " +
+                                    "ORDER BY bi.id";
+
+            using (SqlDataReader dr = command.ExecuteReader())
+            {
+                dtResult.Load(dr);
+                dsResult.Tables.Add(dtResult);
+            }
+            return dsResult;
         }
 
         internal DataTable billClose(string pDbType, DTO_DBoard.Bill pBill)
