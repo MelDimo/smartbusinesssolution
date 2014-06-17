@@ -14,6 +14,8 @@ using System.Threading;
 
 namespace com.sbs.gui.dashboard
 {
+    public delegate void dDishCallback(object pIdGroup);
+
     public partial class fMain : Form
     {
         DBaccess dbAccess = new DBaccess();
@@ -517,10 +519,11 @@ namespace com.sbs.gui.dashboard
             dtDishes = dsTables.Tables["dishes"];
         }
 
+        #region ----------------------------------------------------------------- Формирование и отоброжение блюд
+
         private void treeView_CarteGroups_AfterSelect(object sender, TreeViewEventArgs e)
         {
             int idGroup = 0;
-            ctrDishes oCtrDishes;
 
             flowLayoutPanel_dish.Controls.Clear();
 
@@ -528,15 +531,34 @@ namespace com.sbs.gui.dashboard
 
             if (!int.TryParse(treeView_CarteGroups.SelectedNode.Name.Replace("group", ""), out idGroup)) return;
 
-            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + idGroup))
+            Thread wThread = new Thread(waitSelectedConfirm);
+            wThread.Start(idGroup);
+        }
+
+        private void waitSelectedConfirm(object idGroup)
+        {
+            dDishCallback dCallBack = new dDishCallback(setDishes);
+            Thread.Sleep(400);
+            Invoke(dCallBack, new Object[] { idGroup });
+        }
+
+        public void setDishes(object pIdGroup)
+        {
+            ctrDishes oCtrDishes;
+
+            string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
+
+            if (!curId.Equals(pIdGroup.ToString())) return;
+
+            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + curId))
             {
-                oCtrDishes = new ctrDishes(new DTO_DBoard.Dish() { 
+                oCtrDishes = new ctrDishes(new DTO_DBoard.Dish()
+                {
                     id = (int)dr["id"],
                     minStep = (decimal)dr["minStep"],
                     count = (decimal)dr["minStep"],
                     name = dr["name"].ToString(),
                     price = (decimal)dr["price"]
-
                 });
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
@@ -551,6 +573,8 @@ namespace com.sbs.gui.dashboard
                 flowLayoutPanel_dish.Controls.Add(oCtrDishes);
             }
         }
+
+        #endregion
 
         private void Dish_button_host_Click(object sender, EventArgs e)
         {

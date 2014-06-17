@@ -18,9 +18,6 @@ namespace com.sbs.gui.dashboard
         private ctrDishes oCtrDishes;
         private DTO_DBoard.Bill oBill;
 
-        private DataTable dtGroup;
-        private DataTable dtToppings;
-
         public fAddDishToBill(com.sbs.dll.DTO_DBoard.Bill pBill, ctrDishes pCtrDishes)
         {
             oBill = pBill;
@@ -53,6 +50,7 @@ namespace com.sbs.gui.dashboard
                     break;
             }
         }
+
         private bool addRefuse2Bill()
         {
             DTO_DBoard.Dish oDish = oCtrDishes.oDish;
@@ -70,15 +68,30 @@ namespace com.sbs.gui.dashboard
 
         private bool addDish2Bill()
         {
+            int dishId = 0;
+
             DTO_DBoard.Dish oDish = oCtrDishes.oDish;
             oDish.count = oCtrDishes.numericUpDown_count.Value;
             oDish.refNotes = (int)oCtrDishes.comboBox_note.SelectedValue;
 
             try
             {
-                dbAccess.addDish2Bill("offline", oBill, oDish);
+                dishId = dbAccess.addDish2Bill(GValues.DBMode, oBill, oDish);
+                dbAccess.addDish2Bill_toppings(GValues.DBMode, dishId, oBill, oDish, oCtrDishes.dtToppings);
             }
-            catch (Exception exc) { uMessage.Show("Неудалось добавить блюдо к счету.", exc, SystemIcons.Information); return false; }
+            catch (Exception exc) 
+            {
+                if (dishId != 0) // Сторнируем добавление блюда
+                {
+                    try
+                    {
+                        dbAccess.addDish2Bill_remove(GValues.DBMode, dishId);
+                    }
+                    catch (Exception exc1) { uMessage.Show("Неудалось добавить блюдо к счету.", exc1, SystemIcons.Information); return false; }
+                }
+
+                uMessage.Show("Неудалось добавить блюдо к счету.", exc, SystemIcons.Information); return false; 
+            }
 
             return true;
         }
