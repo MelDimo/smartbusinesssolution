@@ -130,6 +130,18 @@ namespace com.sbs.dll.utilites
                     {
                         DialogResult = DialogResult.Cancel;
                     }
+
+                    if (splitContainer1.Panel2.BackColor.Equals(Color.FromArgb(185, 209, 234)))
+                    {
+                        curGroup = "RIGHT";
+                        dataGridView_topping.Focus();
+                    }
+                    else
+                    {
+                        curGroup = "LEFT";
+                        treeView_toppGroup.Focus();
+                    }
+
                     break;
             }
         }
