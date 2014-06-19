@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refAddCostsType", "refAddCo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refDishes", "refDishes\refDishes.csproj", "{A1745469-CB11-49D6-B635-2C1D91FE5296}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "refSpecialty", "refSpecialty\refSpecialty.csproj", "{3AA45A58-3014-4FB3-987F-95419A25B02B}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -89,6 +91,10 @@ Global
 		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Debug|x86.Build.0 = Debug|x86
 		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Release|x86.ActiveCfg = Release|x86
 		{A1745469-CB11-49D6-B635-2C1D91FE5296}.Release|x86.Build.0 = Release|x86
+		{3AA45A58-3014-4FB3-987F-95419A25B02B}.Debug|x86.ActiveCfg = Debug|x86
+		{3AA45A58-3014-4FB3-987F-95419A25B02B}.Debug|x86.Build.0 = Debug|x86
+		{3AA45A58-3014-4FB3-987F-95419A25B02B}.Release|x86.ActiveCfg = Release|x86
+		{3AA45A58-3014-4FB3-987F-95419A25B02B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
