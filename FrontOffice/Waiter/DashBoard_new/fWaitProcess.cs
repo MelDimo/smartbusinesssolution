@@ -34,8 +34,8 @@ namespace com.sbs.gui.dashboard
             ReportDocument repDoc;
 
             if (oBill == null) { return; }
-            
-            dtResult = dbAccess.billClose("offline", oBill);
+
+            dtResult = dbAccess.billClose(GValues.DBMode, oBill);
 
             if (dtResult.Rows.Count == 0) return;
 
@@ -54,7 +54,7 @@ namespace com.sbs.gui.dashboard
             DataSet dsResult = new DataSet();
             ReportDocument repDoc;
 
-            dsResult = dbAccess.commitDish("offline", oBill);
+            dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
 
             foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
             {

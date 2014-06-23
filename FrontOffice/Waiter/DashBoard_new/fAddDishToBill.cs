@@ -59,7 +59,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                dbAccess.addRefuse2Bill("offline", oBill, oDish);
+                dbAccess.addRefuse2Bill(GValues.DBMode, oBill, oDish);
             }
             catch (Exception exc) { uMessage.Show("Неудалось добавить \"висяк\" к счету.", exc, SystemIcons.Information); return false; }
 

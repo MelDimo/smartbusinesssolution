@@ -29,7 +29,7 @@ namespace com.sbs.gui.dashboard
 
             dtNotes = new DataTable();
 
-            con = new DBCon().getConnection("offline");
+            con = new DBCon().getConnection(GValues.DBMode);
 
             try
             {
@@ -70,7 +70,7 @@ namespace com.sbs.gui.dashboard
 
             dtPayment = new DataTable();
 
-            con = new DBCon().getConnection("offline");
+            con = new DBCon().getConnection(GValues.DBMode);
 
             try
             {

@@ -198,7 +198,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                lBills = dbAccess.getBills("offline", DashboardEnvironment.gUser);
+                lBills = dbAccess.getBills(GValues.DBMode, DashboardEnvironment.gUser);
             }
             catch (Exception exc)
             {
@@ -214,7 +214,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                lDishs = dbAccess.getBillInfo("offline", pBill);
+                lDishs = dbAccess.getBillInfo(GValues.DBMode, pBill);
             }
             catch (Exception exc)
             {
@@ -325,7 +325,7 @@ namespace com.sbs.gui.dashboard
             List<DTO_DBoard.DishRefuse> lDishesRefuse;
             try 
             {
-                lDishesRefuse = dbAccess.getRefuse("offline");
+                lDishesRefuse = dbAccess.getRefuse(GValues.DBMode);
             }
             catch (Exception exc)
             {
@@ -479,7 +479,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                dsTables = dbAccess.prepareCarteDishes("offline");
+                dsTables = dbAccess.prepareCarteDishes(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Неудалось сформировать меню.", exc, SystemIcons.Information); return; }
 
@@ -897,7 +897,7 @@ namespace com.sbs.gui.dashboard
             {
                 try
                 {
-                    dbAccess.BillInfoCancel("offline", curBill);
+                    dbAccess.BillInfoCancel(GValues.DBMode, curBill);
                 }
                 catch (Exception exc) { uMessage.Show("Не удалось исключить необработанные позиции.", exc, SystemIcons.Information); return false; }
 
@@ -933,7 +933,7 @@ namespace com.sbs.gui.dashboard
         {
             try
             {
-                dbAccess.BillCancel("offline");
+                dbAccess.BillCancel(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return false; }
 
@@ -973,7 +973,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                curBill = dbAccess.BillOpen("offline", tableNumb);
+                curBill = dbAccess.BillOpen(GValues.DBMode, tableNumb);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
             

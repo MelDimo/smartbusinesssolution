@@ -113,7 +113,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                dbAccess.openNewSeason("offline");
+                dbAccess.openNewSeason(GValues.DBMode);
             }
             catch (Exception exc)
             {

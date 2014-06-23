@@ -37,8 +37,8 @@ namespace com.sbs.gui.dashboard
         {
             try
             {
-                lSeasonUser = dbAccess.getSeasonUser("offline", oUser);
-                lBills = dbAccess.getBills("offline", oUser);
+                lSeasonUser = dbAccess.getSeasonUser(GValues.DBMode, oUser);
+                lBills = dbAccess.getBills(GValues.DBMode, oUser);
             }
             catch (Exception exc)
             {
@@ -101,7 +101,7 @@ namespace com.sbs.gui.dashboard
         {
             try
             {
-                dbAccess.seasonUser_Close("offline", oUser);
+                dbAccess.seasonUser_Close(GValues.DBMode, oUser);
             }
             catch (Exception exc)
             {
