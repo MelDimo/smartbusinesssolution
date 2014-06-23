@@ -223,9 +223,9 @@ namespace com.sbs.gui.seasonbrowser
                 xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0].AppendChild(xmlDoc.ImportNode(nodeBill_Bill, true));
 
             }
-            
 
-            xmlDoc.Save(@"C:\Temp\export1C.xml");
+
+            xmlDoc.Save(@"C:\Temp\Смена_N_1000.xml");
 
             //node.CloneNode(true);
         }
