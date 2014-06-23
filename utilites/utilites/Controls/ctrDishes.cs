@@ -11,11 +11,15 @@ namespace com.sbs.dll.utilites
 {
     public partial class ctrDishes : UserControl
     {
+        Suppurt oSupport = new Suppurt();
         getReference oReferences = new getReference();
         public DTO_DBoard.Dish oDish;
 
         private DataTable dtGroup;
         public DataTable dtToppings;
+
+        //private DataTable dtToppings_Selected;
+        //private int xBillsInfoId = 0;
 
         public ctrDishes(DTO_DBoard.Dish pDish)
         {
@@ -24,19 +28,45 @@ namespace com.sbs.dll.utilites
             InitializeComponent();
 
             fillControls();
-
+            
             button_host.GotFocus += new EventHandler(button_host_GotFocus);
             button_host.LostFocus += new EventHandler(button_host_LostFocus);
 
             initData();
         }
 
+        //// Метод актуален при постобработке
+        //public ctrDishes(DTO_DBoard.Dish pDish, int pBillsInfoId)
+        //{
+        //    oDish = pDish;
+        //    xBillsInfoId = pBillsInfoId;
+
+        //    InitializeComponent();
+
+        //    fillControls();
+
+        //    button_host.GotFocus += new EventHandler(button_host_GotFocus);
+        //    button_host.LostFocus += new EventHandler(button_host_LostFocus);
+
+        //    initData();
+        //}
+
         private void initData()
         {
             try
             {
-                dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.id);
-                dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oDish.id);
+                // Есть прививелгии пост обработки
+                if (oSupport.checkPrivileges(UsersInfo.Acl, 21) || oSupport.checkPrivileges(UsersInfo.Acl, 22))
+                {
+                    dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.carteDishes);
+                    dtToppings = oReferences.getTopingsCarteDishes_post(GValues.DBMode, oDish.carteDishes, oDish.id);
+
+                }
+                else
+                {
+                    dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.id);
+                    dtToppings = oReferences.getTopingsCarteDishes(GValues.DBMode, oDish.id);
+                }
             }
             catch (Exception exc)
             {
@@ -70,10 +100,8 @@ namespace com.sbs.dll.utilites
             comboBox_note.SelectedValue = oDish.refNotes;
         }
 
-
         public object Clone()
         {
-
             ctrDishes oCtr = new ctrDishes(oDish);
             return oCtr;
         }
@@ -86,7 +114,22 @@ namespace com.sbs.dll.utilites
         private void button_topping_Click(object sender, EventArgs e)
         {
             fAddDishToBill_topping fTopp = new fAddDishToBill_topping(dtGroup, dtToppings);
-            if (fTopp.ShowDialog() == DialogResult.Cancel) ((Form)this.Parent).DialogResult = DialogResult.Cancel;
+            if (oSupport.checkPrivileges(UsersInfo.Acl, 21) || oSupport.checkPrivileges(UsersInfo.Acl, 22))
+            {
+                fTopp.Text = "Топиинги";
+                fTopp.dataGridView_topping.Enabled = false;
+                fTopp.MinimizeBox = false;
+                fTopp.MaximizeBox = false;
+                fTopp.ControlBox = true;
+            }
+            if (fTopp.ShowDialog() == DialogResult.Cancel)
+            {
+                if (this.Parent.GetType().Equals(typeof(Form)))
+                {
+                    ((Form)this.Parent).DialogResult = DialogResult.Cancel;
+                }
+            }
+            numericUpDown_count.Focus();
         }
     }
 }
