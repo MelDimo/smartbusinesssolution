@@ -25,7 +25,7 @@ namespace com.sbs.gui.main.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("845, 582")]
         public global::System.Drawing.Size formSize {
             get {
                 return ((global::System.Drawing.Size)(this["formSize"]));
@@ -49,7 +49,7 @@ namespace com.sbs.gui.main.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Maximized")]
         public global::System.Windows.Forms.FormWindowState formState {
             get {
                 return ((global::System.Windows.Forms.FormWindowState)(this["formState"]));

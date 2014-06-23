@@ -92,12 +92,11 @@ namespace com.sbs.dll.synchdata
                     using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBillsInfo.Load(dr); }
                 }
 
-
                 if (dtBillsInfo.Rows.Count > 0) // Смотрим топпинги по блюдам
                 {
-                    foreach(DataRow dr in dtBillsInfo.AsEnumerable()) DishArray += dr["id"].ToString() + ",";
+                    foreach(DataRow dr in dtBillsInfo.Rows) DishArray += dr["id"].ToString() + ",";
 
-                    DishArray = DishArray.Substring(0, billsArray.Length - 1);
+                    DishArray = DishArray.Substring(0, DishArray.Length - 1);
 
                     commandLocal.CommandText = " SELECT branch, season, bills, bills_info, toppings_carte_dishes, isSelected " +
                                                 " FROM bills_info_toppings WHERE bills_info in (" + DishArray + ");";
@@ -202,7 +201,7 @@ namespace com.sbs.dll.synchdata
                 }
 
 
-                commandMain.CommandText = "INSERT INTO bills_info_toppings_all(branch,  season,     bills,  bills_info,     toppings_carte_dishes,  isSelected," +
+                commandMain.CommandText = "INSERT INTO bills_info_toppings_all(branch,  season,     bills,  bills_info,     toppings_carte_dishes,  isSelected) " +
                                                                     " VALUES( @branch,  @season,    @bills, @bills_info,    @toppings_carte_dishes, @isSelected)";
 
                 foreach (DataRow dr in dtToppings.Rows)

@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="formSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">845, 582</Value>
     </Setting>
     <Setting Name="formLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="formState" Type="System.Windows.Forms.FormWindowState" Scope="User">
-      <Value Profile="(Default)">Normal</Value>
+      <Value Profile="(Default)">Maximized</Value>
     </Setting>
     <Setting Name="lastLogin" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
