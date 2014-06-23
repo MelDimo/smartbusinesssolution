@@ -170,11 +170,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cartedishes;
         private System.Windows.Forms.SplitContainer splitContainer1;
         internal System.Windows.Forms.TreeView treeView_toppGroup;
-        private System.Windows.Forms.DataGridView dataGridView_topping;
         private System.Windows.Forms.DataGridViewCheckBoxColumn isSelected;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn toppings_groups;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
         private System.Windows.Forms.DataGridViewTextBoxColumn price;
+        internal System.Windows.Forms.DataGridView dataGridView_topping;
     }
 }

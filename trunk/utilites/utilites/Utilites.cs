@@ -43,12 +43,13 @@ namespace com.sbs.dll.utilites
                 switch(pRefStatusInfo)
                 {
                     case 0:
-                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status";
+                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status ORDER BY name";
                         break;
 
                     default:
                         strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status "+
-                                    " WHERE ref_status_info = " + pRefStatusInfo;
+                                    " WHERE ref_status_info = " + pRefStatusInfo + 
+                                    " ORDER BY name";
                         break;
                 }
 
@@ -854,10 +855,10 @@ namespace com.sbs.dll.utilites
 
                 command.CommandText = " SELECT id, name, ref_status" +
                                         " FROM ref_specialty" +
-                                        " WHERE ref_status = @ref_status" +
+                                        //" WHERE ref_status = @ref_status" +
                                         " ORDER BY name";
 
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+                //command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -1096,6 +1097,44 @@ namespace com.sbs.dll.utilites
                                         " WHERE tg.carte_dishes = @carteDishes";
 
                 command.Parameters.Add("carteDishes", SqlDbType.Int).Value = pCarteDishes;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getTopingsCarteDishes_post(string pDbType, int pCarteDishes, int pBillsInfoId)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT tcd.id, tcd.toppings_groups, cd.id as carteDishes, cd.name, cd.price, " +
+                                            " (SELECT isSelected FROM bills_info_toppings_all bita WHERE tcd.id = bita.toppings_carte_dishes AND bita.bills_info = @billsInfo ) AS isSelected " +
+                                        " FROM toppings_carte_dishes tcd " +
+                                        " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
+                                        " INNER JOIN toppings_groups tg ON tg.id = tcd.toppings_groups " +
+                                        " WHERE tg.carte_dishes = @carteDishes";
+
+                command.Parameters.Add("carteDishes", SqlDbType.Int).Value = pCarteDishes;
+                command.Parameters.Add("billsInfo", SqlDbType.Int).Value = pBillsInfoId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
