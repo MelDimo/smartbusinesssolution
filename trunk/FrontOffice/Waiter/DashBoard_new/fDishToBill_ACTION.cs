@@ -113,7 +113,7 @@ namespace com.sbs.gui.dashboard
 
         private void refuseDish(int pNewCount)  
         {
-            dbAccess.dishRefuse("offline", oBill, oDish, pNewCount);
+            dbAccess.dishRefuse(GValues.DBMode, oBill, oDish, pNewCount);
         }
 
         #endregion

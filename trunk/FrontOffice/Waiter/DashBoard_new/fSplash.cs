@@ -338,7 +338,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                DashboardEnvironment.gBillList = dbAccess.getBills("offline", DashboardEnvironment.gUser);
+                DashboardEnvironment.gBillList = dbAccess.getBills(GValues.DBMode, DashboardEnvironment.gUser);
             }
             catch (Exception exc)
             {
@@ -354,7 +354,7 @@ namespace com.sbs.gui.dashboard
         {
             try
             {
-                oSeasonBranchArray = dbAccess.getAvaliableSeason("offline");
+                oSeasonBranchArray = dbAccess.getAvaliableSeason(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return null; }
 
@@ -363,13 +363,13 @@ namespace com.sbs.gui.dashboard
 
         private DTO_DBoard.User getUserByKey(string pUserKey)
         {
-            oUser = dbAccess.getMifareUser("offline", pUserKey);
+            oUser = dbAccess.getMifareUser(GValues.DBMode, pUserKey);
             return oUser;
         }
 
         private DTO_DBoard.User getUserByPwd(string pPwd)
         {
-            oUser = dbAccess.getLoginUser("offline", pPwd);
+            oUser = dbAccess.getLoginUser(GValues.DBMode, pPwd);
             return oUser;
         }
     }
