@@ -296,7 +296,7 @@ namespace com.sbs.gui.seasonbrowser
 
                 oCtrDishes.TabStop = false;
 
-                oCtrDishes.button_topping.Visible = false;
+                //oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.comboBox_note.Visible = false;
                 
