@@ -69,7 +69,7 @@ namespace com.sbs.gui.main
             }
             catch (Exception exc) 
             { 
-                uMessage.Show("Ошибка в прослушивателе сообщений.", exc, SystemIcons.Information); 
+                //uMessage.Show("Ошибка в прослушивателе сообщений.", exc, SystemIcons.Information); 
                 return; 
             }
         }

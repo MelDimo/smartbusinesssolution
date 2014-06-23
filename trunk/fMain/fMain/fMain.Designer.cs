@@ -40,16 +40,16 @@
             this.statusStrip_mainBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_info,
             this.tSSLabel_mailChecker});
-            this.statusStrip_mainBottom.Location = new System.Drawing.Point(0, 413);
+            this.statusStrip_mainBottom.Location = new System.Drawing.Point(0, 522);
             this.statusStrip_mainBottom.Name = "statusStrip_mainBottom";
-            this.statusStrip_mainBottom.Size = new System.Drawing.Size(732, 22);
+            this.statusStrip_mainBottom.Size = new System.Drawing.Size(829, 22);
             this.statusStrip_mainBottom.TabIndex = 1;
             this.statusStrip_mainBottom.Text = "statusStrip1";
             // 
             // tSSLabel_info
             // 
             this.tSSLabel_info.Name = "tSSLabel_info";
-            this.tSSLabel_info.Size = new System.Drawing.Size(717, 17);
+            this.tSSLabel_info.Size = new System.Drawing.Size(814, 17);
             this.tSSLabel_info.Spring = true;
             this.tSSLabel_info.Text = "tSSLabel_info";
             this.tSSLabel_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -66,7 +66,7 @@
             this.tabControl_top.Location = new System.Drawing.Point(0, 0);
             this.tabControl_top.Name = "tabControl_top";
             this.tabControl_top.SelectedIndex = 0;
-            this.tabControl_top.Size = new System.Drawing.Size(732, 19);
+            this.tabControl_top.Size = new System.Drawing.Size(829, 19);
             this.tabControl_top.TabIndex = 3;
             this.tabControl_top.SelectedIndexChanged += new System.EventHandler(this.tabControl_top_SelectedIndexChanged);
             // 
@@ -74,7 +74,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 435);
+            this.ClientSize = new System.Drawing.Size(829, 544);
             this.Controls.Add(this.tabControl_top);
             this.Controls.Add(this.statusStrip_mainBottom);
             this.IsMdiContainer = true;
