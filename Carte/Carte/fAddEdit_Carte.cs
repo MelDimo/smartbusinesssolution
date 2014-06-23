@@ -44,6 +44,8 @@ namespace com.sbs.gui.carte
         {
             string errMsg = "Зполнены не все обязательные поля:";
 
+            oCarte.code = int.Parse(numericUpDown_code.Value.ToString());
+
             if (comboBox_refStatus.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
             else oCarte.refStatus = (int)comboBox_refStatus.SelectedValue;
 
@@ -70,7 +72,7 @@ namespace com.sbs.gui.carte
         private void fAddEdit_Carte_Shown(object sender, EventArgs e)
         {
             textBox_id.DataBindings.Add("Text", oCarte, "id");
-            numericUpDown_code.DataBindings.Add("Value", oCarte, "code");
+            numericUpDown_code.Value = oCarte.code;
             textBox_name.DataBindings.Add("Text", oCarte, "name");
             comboBox_branch.SelectedValue = oCarte.branch;
             comboBox_refStatus.SelectedValue = oCarte.refStatus;
