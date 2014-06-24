@@ -434,7 +434,7 @@ namespace com.sbs.gui.seasonbrowser
                                         " INNER JOIN carte_dishes cd ON cd.id = bia.carte_dishes" +
                                         " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
                                         " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes" +
-                                        " INNER JOIN unit u ON u.ref_printers_type = rd.ref_printers_type AND u.branch = @branch" +
+                                        " INNER JOIN unit u ON u.ref_printers_type = cd.ref_printers_type AND u.branch = @branch" +
                                         " WHERE bia.branch = @branch AND bia.season = @season" +
                                         //" ORDER BY bia.bills, u.code;" +
                                         " UNION " +
@@ -458,7 +458,7 @@ namespace com.sbs.gui.seasonbrowser
                                         " INNER JOIN toppings_carte_dishes tcd ON tcd.id = bita.toppings_carte_dishes " +
                                         " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
                                         " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes " +
-                                        " INNER JOIN unit u ON u.ref_printers_type = rd.ref_printers_type AND u.branch = @branch " +
+                                        " INNER JOIN unit u ON u.ref_printers_type = cd.ref_printers_type AND u.branch = @branch " +
                                         " WHERE bia.branch = @branch AND bia.season = @season AND bita.isSelected = 1 " +
                                         " ORDER BY bia.bills, u.code";
                 using (SqlDataReader dr = command.ExecuteReader())
