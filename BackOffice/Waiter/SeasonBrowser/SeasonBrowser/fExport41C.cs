@@ -38,10 +38,10 @@ namespace com.sbs.gui.seasonbrowser
 
         private void button_browse_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.OK)
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                textBox_path.Text = sfd.FileName;
+                textBox_path.Text = fbd.SelectedPath + @"\Смена_N_" + oFilter.season.ToString() + ".xml";
             }
         }
 
@@ -224,8 +224,18 @@ namespace com.sbs.gui.seasonbrowser
 
             }
 
+            //if (oFilter.isSeasonOpen)
+            //{
+            //    MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
 
-            xmlDoc.Save(@"C:\Temp\Смена_N_1000.xml");
+            if (textBox_path.Text.Length == 0)
+            {
+                MessageBox.Show("Укажите путь для выгружаемого файла.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            xmlDoc.Save(textBox_path.Text);
 
             //node.CloneNode(true);
         }
