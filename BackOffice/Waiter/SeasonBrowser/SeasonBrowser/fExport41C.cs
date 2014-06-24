@@ -221,23 +221,21 @@ namespace com.sbs.gui.seasonbrowser
                     nodeBill_Bill.SelectNodes(@"CEKS_ARRAY")[0].AppendChild(xmlDocBill.ImportNode(nodeBill_CEKS, true));
 
                 xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0].AppendChild(xmlDoc.ImportNode(nodeBill_Bill, true));
-
             }
 
-            //if (oFilter.isSeasonOpen)
-            //{
-            //    MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return;
-            //}
+            if (oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             if (textBox_path.Text.Length == 0)
             {
                 MessageBox.Show("Укажите путь для выгружаемого файла.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            xmlDoc.Save(textBox_path.Text);
 
-            //node.CloneNode(true);
+            xmlDoc.Save(textBox_path.Text);
         }
     }
 }
