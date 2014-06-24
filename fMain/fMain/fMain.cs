@@ -59,6 +59,10 @@ namespace com.sbs.gui.main
                             case "MESSAGE_UNSEEN": // Непрочитанные сообщения
                                 setMailInfo(oMessage);
                                 break;
+
+                            case "APPLICATION_CLOSE":// Необходимость закрыть приложение
+                                initCloseProtocol(oMessage);
+                                break;
                         }
                     }
                     // after all processing, delete all the messages
@@ -72,6 +76,17 @@ namespace com.sbs.gui.main
                 //uMessage.Show("Ошибка в прослушивателе сообщений.", exc, SystemIcons.Information); 
                 return; 
             }
+        }
+
+        private void initCloseProtocol(DTO.Message pMessage)
+        {
+            
+        }
+
+        public void setMailInfo(DTO.Message oMessage)
+        {
+            //Debug.Print("int.Parse(oMessage.Body) > 0 :" + (int.Parse(oMessage.Body) > 0));
+            tSSLabel_mailChecker.Text = int.Parse(oMessage.Body) > 0 ? oMessage.Header + oMessage.Body : "";
         }
 
         private void createMnu(DataTable pDtMnu)
@@ -186,12 +201,6 @@ namespace com.sbs.gui.main
                     form.Activate();
                 }
             }
-        }
-
-        public void setMailInfo(DTO.Message oMessage)
-        {
-            Debug.Print("int.Parse(oMessage.Body) > 0 :" + (int.Parse(oMessage.Body) > 0));
-            tSSLabel_mailChecker.Text = int.Parse(oMessage.Body) > 0 ? oMessage.Header + oMessage.Body : "";
         }
 
         private void fMain_FormClosed(object sender, FormClosedEventArgs e)
