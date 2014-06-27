@@ -394,6 +394,8 @@ namespace com.sbs.gui.dashboard {
             
             private global::System.Data.DataColumn columnreportPath;
             
+            private global::System.Data.DataColumn columndiscount;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public orderDataTable() {
@@ -469,6 +471,14 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn discountColumn {
+                get {
+                    return this.columndiscount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -504,14 +514,15 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public orderRow AddorderRow(string name, decimal price, decimal xcount, string printerName, string reportPath) {
+            public orderRow AddorderRow(string name, decimal price, decimal xcount, string printerName, string reportPath, decimal discount) {
                 orderRow roworderRow = ((orderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         name,
                         price,
                         xcount,
                         printerName,
-                        reportPath};
+                        reportPath,
+                        discount};
                 roworderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(roworderRow);
                 return roworderRow;
@@ -539,6 +550,7 @@ namespace com.sbs.gui.dashboard {
                 this.columnxcount = base.Columns["xcount"];
                 this.columnprinterName = base.Columns["printerName"];
                 this.columnreportPath = base.Columns["reportPath"];
+                this.columndiscount = base.Columns["discount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -554,6 +566,8 @@ namespace com.sbs.gui.dashboard {
                 base.Columns.Add(this.columnprinterName);
                 this.columnreportPath = new global::System.Data.DataColumn("reportPath", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnreportPath);
+                this.columndiscount = new global::System.Data.DataColumn("discount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndiscount);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1727,6 +1741,22 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal discount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableorder.discountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'discount\' in table \'order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableorder.discountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsnameNull() {
                 return this.IsNull(this.tableorder.nameColumn);
             }
@@ -1783,6 +1813,18 @@ namespace com.sbs.gui.dashboard {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetreportPathNull() {
                 this[this.tableorder.reportPathColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsdiscountNull() {
+                return this.IsNull(this.tableorder.discountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetdiscountNull() {
+                this[this.tableorder.discountColumn] = global::System.Convert.DBNull;
             }
         }
         

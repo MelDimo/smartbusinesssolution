@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using com.sbs.dll;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.dashboard
 {
@@ -18,6 +19,9 @@ namespace com.sbs.gui.dashboard
             Config conf = new Config();
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
+            
+            UserAuthorize uAuthor = new UserAuthorize();
+            uAuthor.checkLogin("dimon", "74563");
 
             GValues.branchTable = 10;
             GValues.branchName = "lp2";

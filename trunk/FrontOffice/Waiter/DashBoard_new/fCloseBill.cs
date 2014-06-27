@@ -8,17 +8,21 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using System.Threading;
 
 namespace com.sbs.gui.dashboard
 {
     public partial class fCloseBill : Form
     {
+        DBaccess dbAccess = new DBaccess();
+
         decimal sumBill = 0;
 
         private DTO_DBoard.Bill oBill;
         private List<DTO_DBoard.Dish> lDishs;
 
         public int paymentType;
+        public DTO.DiscountInfo oDiscountInfo;
 
         public fCloseBill()
         {
@@ -84,7 +88,55 @@ namespace com.sbs.gui.dashboard
         void closeType_click(object sender, EventArgs e)
         {
             paymentType = (int)((ToolStripMenuItem)sender).Tag;
-            DialogResult = DialogResult.OK;
+
+            if (paymentType == 5) // ref_payment_type.id - По дисконтной карте
+            {
+                try
+                {
+                    oDiscountInfo = new DTO.DiscountInfo();
+                    closeWithDiscount();
+                }
+                catch (Exception exc)
+                {
+                    uMessage.Show("Неудалось обаботать дисконтную карту.", exc, SystemIcons.Information);
+                    return;
+                }
+
+                if(oDiscountInfo.id != 0) confirmDiscountPayment();
+                else MessageBox.Show("Данная карта не найдена либо не активна.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                DialogResult = DialogResult.OK;
+        }
+
+        private void confirmDiscountPayment()
+        {
+            fConfDiscPay fcdp = new fConfDiscPay(oDiscountInfo);
+            if (fcdp.ShowDialog() != DialogResult.OK) return;
+
+            if(oDiscountInfo.refStatus == 1) DialogResult = DialogResult.OK;
+        }
+
+        private void closeWithDiscount()
+        {
+            fMIFare fMiFare = new fMIFare();
+            if (fMiFare.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    getUserByKey(fMiFare.keyId);
+                }
+                catch (Exception exc)
+                {
+                    uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                    return;
+                }
+            }
+        }
+
+        private void getUserByKey(string pUserKey)
+        {
+            oDiscountInfo = dbAccess.getMifareDiscountInfo(GValues.DBMode, pUserKey);
         }
 
         private void fCloseBill_KeyDown(object sender, KeyEventArgs e)

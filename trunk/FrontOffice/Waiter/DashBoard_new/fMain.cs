@@ -19,6 +19,7 @@ namespace com.sbs.gui.dashboard
     public partial class fMain : Form
     {
         DBaccess dbAccess = new DBaccess();
+
         Suppurt Supp = new Suppurt();
 
         enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES, REFUSE };
@@ -853,6 +854,7 @@ namespace com.sbs.gui.dashboard
             if (fCB.ShowDialog() != DialogResult.OK) return;
 
             curBill.paymentType = fCB.paymentType;
+            curBill.oDiscountInfo = fCB.oDiscountInfo;
 
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
 
