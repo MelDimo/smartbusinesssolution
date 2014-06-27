@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using com.sbs.dll;
 using System.Reflection;
 using com.sbs.dll.utilites;
+using System.Drawing;
+using System.IO;
 
 namespace com.sbs.gui.dashboard
 {
@@ -114,7 +116,6 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
         }
 
-
         public static void Clear()
         {
             gUser = null;
@@ -127,6 +128,8 @@ namespace com.sbs.gui.dashboard
 
     internal class DBaccess
     {
+        getReference getRefer = new getReference();
+
         private DataTable dtResult;
 
         private SqlConnection con;
@@ -848,8 +851,12 @@ namespace com.sbs.gui.dashboard
                 command.Connection = con;
                 command.Transaction = tx;
 
+                if (pBill.paymentType == 5) setDiscount(command, pBill);
+
                 command.CommandText = "BillClose";
                 command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Clear();
 
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
@@ -870,18 +877,35 @@ namespace com.sbs.gui.dashboard
             return dtResult;
         }
 
+        private void setDiscount(SqlCommand command, DTO_DBoard.Bill pBill)
+        {
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "BillClose_setDiscount";
+
+            command.Parameters.Clear();
+
+            command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+            command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+            command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+            command.Parameters.Add("pDiscount", SqlDbType.Decimal).Value = pBill.oDiscountInfo.discount;
+            command.Parameters.Add("pUsersDiscount", SqlDbType.Int).Value = pBill.oDiscountInfo.id;
+
+            command.ExecuteNonQuery();
+        }
+
         private DataTable printBill(SqlCommand command, DTO_DBoard.Bill pBill)
         {
             dtResult = new DataTable();
 
-            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount,  rp.name AS printerName, rr.xpath AS reportPath" +
+            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount, bi.discount,"+
+                                        " rp.name AS printerName, rr.xpath AS reportPath" +
                                         " FROM bills_info bi" +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
                                         " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logNmae" +
                                         " WHERE bi.bills = @bills AND bi.ref_status = @ref_status "+
-                                        " GROUP BY bi.dishes_name, bi.dishes_price, rp.name, rr.xpath ";
+                                        " GROUP BY bi.dishes_name, bi.dishes_price, rp.name, rr.xpath, bi.discount ";
 
             command.CommandType = CommandType.Text;
 
@@ -1151,6 +1175,38 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) { con.Close(); } }
 
             return oReport;
+        }
+
+        internal DTO.DiscountInfo getMifareDiscountInfo(string pDbType, string pKey)
+        {
+            DTO.DiscountInfo oDiscountInfo = new DTO.DiscountInfo();
+
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                dtResult = getRefer.getDiscountUsers(pDbType, pKey);
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            for (int i = 0; i < dtResult.Rows.Count; i++)
+            {
+                oDiscountInfo = new DTO.DiscountInfo();
+                oDiscountInfo.id = (int)dtResult.Rows[i]["id"];
+                oDiscountInfo.fio = dtResult.Rows[i]["fio"].ToString();
+                oDiscountInfo.xKey = dtResult.Rows[i]["xkey"].ToString();
+                oDiscountInfo.discount = (decimal)dtResult.Rows[i]["discount"];
+                oDiscountInfo.isExpDate = (int)dtResult.Rows[i]["isExpDate"];
+                oDiscountInfo.refStatus = (int)dtResult.Rows[i]["ref_status"];
+                oDiscountInfo.dateStart = (DateTime)dtResult.Rows[i]["date_start"];
+                if (oDiscountInfo.isExpDate == 1) oDiscountInfo.dateEnd = (DateTime)dtResult.Rows[i]["date_start"];
+                oDiscountInfo.photo = Image.FromStream(new MemoryStream((byte[])dtResult.Rows[i]["photo"]));
+            }
+
+            return oDiscountInfo;
         }
     }
 
