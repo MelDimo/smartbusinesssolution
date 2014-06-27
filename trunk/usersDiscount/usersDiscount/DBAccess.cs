@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using com.sbs.dll;
+using System.IO;
 
 namespace com.sbs.gui.usersdiscount
 {
@@ -23,8 +24,8 @@ namespace com.sbs.gui.usersdiscount
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO usersDiscount(fio, xkey, discount, ref_status, date_start, date_end, isExpDate) " +
-                                                    " VALUES(@fio, @xkey, @discount, @ref_status, @date_start, @date_end, @isExpDate)";
+                command.CommandText = "INSERT INTO usersDiscount(fio, xkey, discount, ref_status, date_start, date_end, isExpDate, photo) " +
+                                                    " VALUES(@fio, @xkey, @discount, @ref_status, @date_start, @date_end, @isExpDate, @photo)";
 
                 command.Parameters.Add("fio", SqlDbType.NVarChar).Value = pDiscountInfo.fio;
                 command.Parameters.Add("xkey", SqlDbType.NVarChar).Value = pDiscountInfo.xKey;
@@ -33,6 +34,11 @@ namespace com.sbs.gui.usersdiscount
                 command.Parameters.Add("date_start", SqlDbType.Date).Value = pDiscountInfo.dateStart;
                 command.Parameters.Add("date_end", SqlDbType.Date).Value = pDiscountInfo.isExpDate == 1 ? pDiscountInfo.dateEnd : (object)DBNull.Value;
                 command.Parameters.Add("isExpDate", SqlDbType.Int).Value = pDiscountInfo.isExpDate;
+                MemoryStream stream = new MemoryStream();
+                pDiscountInfo.photo.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                command.Parameters.AddWithValue("@photo", stream.ToArray());
+               
+                
 
                 command.ExecuteNonQuery();
 
@@ -52,14 +58,15 @@ namespace com.sbs.gui.usersdiscount
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "UPDATE usersDiscount "+
-                                        " SET fio = @fio, "+
-                                            " xkey = @xkey,"+
-                                            " discount = @discount,"+
-                                            " ref_status = @ref_status,"+
-                                            " date_start = @date_start, "+
-                                            " date_end = @date_end,"+
-                                            " isExpDate = @isExpDate"+
+                command.CommandText = "UPDATE usersDiscount " +
+                                        " SET fio = @fio, " +
+                                            " xkey = @xkey," +
+                                            " discount = @discount," +
+                                            " ref_status = @ref_status," +
+                                            " date_start = @date_start, " +
+                                            " date_end = @date_end," +
+                                            " isExpDate = @isExpDate," +
+                                            " photo = @photo" +
                                         " WHERE id = @id";
 
                 command.Parameters.Add("id", SqlDbType.NVarChar).Value = pDiscountInfo.id;
@@ -70,6 +77,9 @@ namespace com.sbs.gui.usersdiscount
                 command.Parameters.Add("date_start", SqlDbType.Date).Value = pDiscountInfo.dateStart;
                 command.Parameters.Add("date_end", SqlDbType.Date).Value = pDiscountInfo.isExpDate == 1 ? pDiscountInfo.dateEnd : (object)DBNull.Value;
                 command.Parameters.Add("isExpDate", SqlDbType.Int).Value = pDiscountInfo.isExpDate;
+                MemoryStream stream = new MemoryStream();
+                pDiscountInfo.photo.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                command.Parameters.AddWithValue("@photo", stream.ToArray());
 
                 command.ExecuteNonQuery();
 
