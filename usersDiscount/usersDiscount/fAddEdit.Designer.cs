@@ -51,12 +51,14 @@
             this.dateTimePicker_dateEnd = new System.Windows.Forms.DateTimePicker();
             this.checkBox_dateEnd = new System.Windows.Forms.CheckBox();
             this.comboBox_refStatus = new System.Windows.Forms.ComboBox();
+            this.pictureBox_user = new System.Windows.Forms.PictureBox();
             this.panel8.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_discount)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_user)).BeginInit();
             this.SuspendLayout();
             // 
             // panel8
@@ -64,15 +66,15 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 207);
+            this.panel8.Location = new System.Drawing.Point(0, 208);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(389, 35);
+            this.panel8.Size = new System.Drawing.Size(582, 35);
             this.panel8.TabIndex = 7;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(293, 6);
+            this.button_cancel.Location = new System.Drawing.Point(486, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
@@ -83,7 +85,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(212, 6);
+            this.button_ok.Location = new System.Drawing.Point(405, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -120,7 +122,7 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDown_discount, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.comboBox_refStatus, 1, 5);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 38);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(144, 38);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
@@ -130,7 +132,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(365, 164);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(426, 165);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // panel3
@@ -140,7 +142,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(103, 84);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(259, 21);
+            this.panel3.Size = new System.Drawing.Size(320, 21);
             this.panel3.TabIndex = 11;
             // 
             // dateTimePicker_dateStart
@@ -149,7 +151,7 @@
             this.dateTimePicker_dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateStart.Location = new System.Drawing.Point(15, 0);
             this.dateTimePicker_dateStart.Name = "dateTimePicker_dateStart";
-            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(244, 20);
+            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(305, 20);
             this.dateTimePicker_dateStart.TabIndex = 1;
             // 
             // checkBox_dateStart
@@ -236,7 +238,7 @@
             this.textBox_fio.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_fio.Location = new System.Drawing.Point(103, 3);
             this.textBox_fio.Name = "textBox_fio";
-            this.textBox_fio.Size = new System.Drawing.Size(259, 20);
+            this.textBox_fio.Size = new System.Drawing.Size(320, 20);
             this.textBox_fio.TabIndex = 6;
             // 
             // panel1
@@ -246,7 +248,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(103, 57);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(259, 21);
+            this.panel1.Size = new System.Drawing.Size(320, 21);
             this.panel1.TabIndex = 7;
             // 
             // textBox_key
@@ -254,18 +256,20 @@
             this.textBox_key.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_key.Location = new System.Drawing.Point(0, 0);
             this.textBox_key.Name = "textBox_key";
-            this.textBox_key.Size = new System.Drawing.Size(230, 20);
+            this.textBox_key.ReadOnly = true;
+            this.textBox_key.Size = new System.Drawing.Size(291, 20);
             this.textBox_key.TabIndex = 0;
             // 
             // button_getKey
             // 
             this.button_getKey.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button_getKey.Location = new System.Drawing.Point(230, 0);
+            this.button_getKey.Location = new System.Drawing.Point(291, 0);
             this.button_getKey.Name = "button_getKey";
             this.button_getKey.Size = new System.Drawing.Size(29, 21);
             this.button_getKey.TabIndex = 1;
             this.button_getKey.Text = "...";
             this.button_getKey.UseVisualStyleBackColor = true;
+            this.button_getKey.Click += new System.EventHandler(this.button_getKey_Click);
             // 
             // numericUpDown_discount
             // 
@@ -273,7 +277,7 @@
             this.numericUpDown_discount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numericUpDown_discount.Location = new System.Drawing.Point(103, 30);
             this.numericUpDown_discount.Name = "numericUpDown_discount";
-            this.numericUpDown_discount.Size = new System.Drawing.Size(259, 20);
+            this.numericUpDown_discount.Size = new System.Drawing.Size(320, 20);
             this.numericUpDown_discount.TabIndex = 8;
             // 
             // panel2
@@ -283,7 +287,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(103, 111);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(259, 21);
+            this.panel2.Size = new System.Drawing.Size(320, 21);
             this.panel2.TabIndex = 10;
             // 
             // dateTimePicker_dateEnd
@@ -293,7 +297,7 @@
             this.dateTimePicker_dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateEnd.Location = new System.Drawing.Point(15, 0);
             this.dateTimePicker_dateEnd.Name = "dateTimePicker_dateEnd";
-            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(244, 20);
+            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(305, 20);
             this.dateTimePicker_dateEnd.TabIndex = 1;
             // 
             // checkBox_dateEnd
@@ -314,14 +318,29 @@
             this.comboBox_refStatus.FormattingEnabled = true;
             this.comboBox_refStatus.Location = new System.Drawing.Point(103, 138);
             this.comboBox_refStatus.Name = "comboBox_refStatus";
-            this.comboBox_refStatus.Size = new System.Drawing.Size(259, 21);
+            this.comboBox_refStatus.Size = new System.Drawing.Size(320, 21);
             this.comboBox_refStatus.TabIndex = 12;
+            // 
+            // pictureBox_user
+            // 
+            this.pictureBox_user.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_user.Location = new System.Drawing.Point(12, 37);
+            this.pictureBox_user.Name = "pictureBox_user";
+            this.pictureBox_user.Size = new System.Drawing.Size(126, 168);
+            this.pictureBox_user.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_user.TabIndex = 10;
+            this.pictureBox_user.TabStop = false;
+            this.pictureBox_user.Click += new System.EventHandler(this.pictureBox_user_Click);
+            this.pictureBox_user.MouseEnter += new System.EventHandler(this.pictureBox_user_MouseEnter);
+            this.pictureBox_user.MouseLeave += new System.EventHandler(this.pictureBox_user_MouseLeave);
+            this.pictureBox_user.MouseHover += new System.EventHandler(this.pictureBox_user_MouseHover);
             // 
             // fAddEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 242);
+            this.ClientSize = new System.Drawing.Size(582, 243);
+            this.Controls.Add(this.pictureBox_user);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.textBox_id);
             this.Controls.Add(this.panel8);
@@ -342,6 +361,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_discount)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_user)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -372,5 +392,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_dateEnd;
         private System.Windows.Forms.CheckBox checkBox_dateEnd;
         internal System.Windows.Forms.ComboBox comboBox_refStatus;
+        private System.Windows.Forms.PictureBox pictureBox_user;
     }
 }

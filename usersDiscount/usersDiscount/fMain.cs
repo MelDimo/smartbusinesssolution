@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using com.sbs.dll;
+using System.IO;
 
 namespace com.sbs.gui.usersdiscount
 {
@@ -112,6 +113,13 @@ namespace com.sbs.gui.usersdiscount
             oDiscountInfo.dateEnd = dataGridView_main.SelectedRows[0].Cells["dateEnd"].Value == DBNull.Value ?
                 DateTime.Now : (DateTime)dataGridView_main.SelectedRows[0].Cells["dateEnd"].Value;
             oDiscountInfo.isExpDate = (int)dataGridView_main.SelectedRows[0].Cells["isExpDate"].Value;
+
+            DataRow dr = (from row in dtDUsers.AsEnumerable()
+                      where row.Field<int>("id") == oDiscountInfo.id
+                      select row).First();
+
+            oDiscountInfo.photo = Image.FromStream(new MemoryStream((byte[])dr["photo"]));
+
             
             fAddEdit fAE = new fAddEdit(oDiscountInfo);
             fAE.Text = string.Format("Редактирование '{0}'", oDiscountInfo.fio);
