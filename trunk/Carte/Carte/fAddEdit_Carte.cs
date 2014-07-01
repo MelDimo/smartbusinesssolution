@@ -45,7 +45,7 @@ namespace com.sbs.gui.carte
             string errMsg = "Зполнены не все обязательные поля:";
 
             oCarte.code = int.Parse(numericUpDown_code.Value.ToString());
-
+            ;
             if (comboBox_refStatus.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
             else oCarte.refStatus = (int)comboBox_refStatus.SelectedValue;
 
