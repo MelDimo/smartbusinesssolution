@@ -48,7 +48,7 @@ namespace com.sbs.gui.report.repchecktape
 
             try
             {
-                dt = dbAccess.REP_CheckType("offline", oRepParam);
+                dt = dbAccess.REP_CheckType(GValues.DBMode, oRepParam);
             }
             catch (Exception exc)
             {
