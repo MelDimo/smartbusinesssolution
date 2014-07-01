@@ -145,6 +145,8 @@ namespace com.sbs.gui.carte
             else oCarteDishes.refPrintersType = (int)comboBox_refPrintersType.SelectedValue;
 
             oCarteDishes.isVisible = checkBox_isVisible.Checked ? 1 : 0;
+            oCarteDishes.price = numericUpDown_price.Value;
+            oCarteDishes.minStep = numericUpDown_minStep.Value;
 
             if (!errMsg.Equals("Зполнены не все обязательные поля:"))
             {
