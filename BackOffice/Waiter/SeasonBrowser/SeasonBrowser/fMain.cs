@@ -108,6 +108,9 @@ namespace com.sbs.gui.seasonbrowser
             oFilter.dateEnd = DateTime.Parse(dateTimePicker_end.Value.ToShortDateString());
             oFilter.dateEnd = oFilter.dateEnd.AddDays(1);
 
+            label_billsCount.Text = "0";
+            label_billsFirstLast.Text = "0 - 0";
+
             getData_Season();
         }
 
@@ -172,6 +175,8 @@ namespace com.sbs.gui.seasonbrowser
                 MessageBox.Show("У Вас недостаточно привилегий для просмотра закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+            oFilter.curLast = 0;
 
             getBills();
         }
@@ -463,7 +468,9 @@ namespace com.sbs.gui.seasonbrowser
                 repDoc.Load(oReport.repPath);
                 repDoc.SetDataSource(oReport.dtReport);
                 repDoc.SetParameterValue("pBranchName", textBox_branch.Text);
-                repDoc.PrintOptions.PrinterName = oReport.printName;
+                repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                            oReport.printName;
             }
             catch (Exception exc)
             {
