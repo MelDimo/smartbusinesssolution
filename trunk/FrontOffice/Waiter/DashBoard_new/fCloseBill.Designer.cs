@@ -40,13 +40,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label_discount = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curSumm)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.label_discount);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.numericUpDown_curSumm);
             this.groupBox1.Controls.Add(this.label_diff);
@@ -66,7 +74,7 @@
             // 
             this.button1.ContextMenuStrip = this.cMStrip_closeType;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(6, 137);
+            this.button1.Location = new System.Drawing.Point(6, 204);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(236, 32);
             this.button1.TabIndex = 6;
@@ -83,7 +91,7 @@
             // 
             this.numericUpDown_curSumm.DecimalPlaces = 2;
             this.numericUpDown_curSumm.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_curSumm.Location = new System.Drawing.Point(130, 63);
+            this.numericUpDown_curSumm.Location = new System.Drawing.Point(127, 131);
             this.numericUpDown_curSumm.Maximum = new decimal(new int[] {
             9999999,
             0,
@@ -99,7 +107,7 @@
             // 
             this.label_diff.AutoSize = true;
             this.label_diff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_diff.Location = new System.Drawing.Point(127, 106);
+            this.label_diff.Location = new System.Drawing.Point(127, 173);
             this.label_diff.Name = "label_diff";
             this.label_diff.Size = new System.Drawing.Size(75, 17);
             this.label_diff.TabIndex = 5;
@@ -109,7 +117,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(6, 106);
+            this.label3.Location = new System.Drawing.Point(6, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 4;
@@ -119,7 +127,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(6, 65);
+            this.label2.Location = new System.Drawing.Point(6, 133);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(110, 17);
             this.label2.TabIndex = 2;
@@ -129,7 +137,7 @@
             // 
             this.label_billSum.AutoSize = true;
             this.label_billSum.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_billSum.Location = new System.Drawing.Point(127, 30);
+            this.label_billSum.Location = new System.Drawing.Point(127, 78);
             this.label_billSum.Name = "label_billSum";
             this.label_billSum.Size = new System.Drawing.Size(104, 17);
             this.label_billSum.TabIndex = 1;
@@ -139,7 +147,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(6, 30);
+            this.label1.Location = new System.Drawing.Point(6, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 17);
             this.label1.TabIndex = 0;
@@ -165,6 +173,44 @@
             this.flowLayoutPanel_bills.Size = new System.Drawing.Size(491, 462);
             this.flowLayoutPanel_bills.TabIndex = 0;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(6, 106);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Скидка";
+            // 
+            // label_discount
+            // 
+            this.label_discount.AutoSize = true;
+            this.label_discount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_discount.Location = new System.Drawing.Point(127, 106);
+            this.label_discount.Name = "label_discount";
+            this.label_discount.Size = new System.Drawing.Size(113, 17);
+            this.label_discount.TabIndex = 8;
+            this.label_discount.Text = "label_discount";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(3, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(242, 55);
+            this.panel1.TabIndex = 9;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(67, 48);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "F4 (скидка)";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // fCloseBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,6 +229,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_curSumm)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -200,5 +247,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDown_curSumm;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ContextMenuStrip cMStrip_closeType;
+        private System.Windows.Forms.Label label_discount;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button2;
     }
 }

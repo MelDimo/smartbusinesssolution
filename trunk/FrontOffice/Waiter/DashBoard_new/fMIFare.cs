@@ -27,7 +27,9 @@ namespace com.sbs.gui.dashboard
                 Mifire oMifare = new Mifire();
                 keyId = oMifare.readMifire();
             }
-            catch (Exception exc) { uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
+            catch (Exception exc) { 
+                throw exc; 
+            }
 
             if (keyId.Equals(string.Empty)) DialogResult = DialogResult.Cancel;
             else DialogResult = DialogResult.OK;
