@@ -49,6 +49,8 @@ namespace com.sbs.gui.dashboard
             oCtrBill.label_summ.Visible = true;
 
             oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
+
+            label_discount.Text = "-";
             
             flowLayoutPanel_bills.Controls.Add(oCtrBill);
 
@@ -88,33 +90,22 @@ namespace com.sbs.gui.dashboard
         void closeType_click(object sender, EventArgs e)
         {
             paymentType = (int)((ToolStripMenuItem)sender).Tag;
-
-            if (paymentType == 5) // ref_payment_type.id - По дисконтной карте
-            {
-                try
-                {
-                    oDiscountInfo = new DTO.DiscountInfo();
-                    closeWithDiscount();
-                }
-                catch (Exception exc)
-                {
-                    uMessage.Show("Неудалось обаботать дисконтную карту.", exc, SystemIcons.Information);
-                    return;
-                }
-
-                if(oDiscountInfo.id != 0) confirmDiscountPayment();
-                else MessageBox.Show("Данная карта не найдена либо не активна.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-                DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
 
         private void confirmDiscountPayment()
         {
             fConfDiscPay fcdp = new fConfDiscPay(oDiscountInfo);
-            if (fcdp.ShowDialog() != DialogResult.OK) return;
+            if (fcdp.ShowDialog() != DialogResult.OK)
+            {
+                oDiscountInfo = new DTO.DiscountInfo();
+                return;
+            }
 
-            if(oDiscountInfo.refStatus == 1) DialogResult = DialogResult.OK;
+            label_discount.Text = string.Format("{0:F0} %", oDiscountInfo.discount);
+            sumBill = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
+            numericUpDown_curSumm.Value = sumBill;
+            
         }
 
         private void closeWithDiscount()
@@ -149,6 +140,22 @@ namespace com.sbs.gui.dashboard
 
                 case Keys.Enter:
                     SendKeys.Send("{TAB}");
+                    break;
+
+                case Keys.F4:               //--------------------- Скидка ------------------------
+                    try
+                    {
+                        oDiscountInfo = new DTO.DiscountInfo();
+                        closeWithDiscount();
+                    }
+                    catch (Exception exc)
+                    {
+                        uMessage.Show("Неудалось обработать дисконтную карту.", exc, SystemIcons.Information);
+                        return;
+                    }
+
+                    if(oDiscountInfo.id != 0) confirmDiscountPayment();
+                    else MessageBox.Show("Данная карта не найдена либо не активна.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
         }

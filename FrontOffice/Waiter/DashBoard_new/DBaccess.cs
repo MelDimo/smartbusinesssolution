@@ -83,7 +83,8 @@ namespace com.sbs.gui.dashboard
                 command.CommandText = " SELECT rpt.id, rpt.name, rpt.color" +
                                         " FROM branch_payment bp " +
                                         " INNER JOIN ref_payment_type rpt ON rpt.id = bp.ref_payment_type" +
-                                        " WHERE bp.branch = @branch AND ref_status = @refStatus";
+                                        " WHERE bp.branch = @branch AND ref_status = @refStatus "+
+                                        " ORDER BY rpt.name";
 
                 command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
@@ -851,7 +852,7 @@ namespace com.sbs.gui.dashboard
                 command.Connection = con;
                 command.Transaction = tx;
 
-                if (pBill.paymentType == 5) setDiscount(command, pBill);
+                if (pBill.oDiscountInfo.id != 0) setDiscount(command, pBill); // есть оплата по карте
 
                 command.CommandText = "BillClose";
                 command.CommandType = CommandType.StoredProcedure;
