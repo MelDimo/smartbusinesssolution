@@ -17,6 +17,7 @@ namespace com.sbs.gui.main
 {
     static class Program
     {
+        private static string curModule = string.Empty;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -65,8 +66,8 @@ namespace com.sbs.gui.main
                 loadProgramModules((List<string>)xResultSet[1]);
             }
             catch (Exception exc) 
-            { 
-                uMessage.Show("Ошибка загрузки модулей", exc, SystemIcons.Error); 
+            {
+                uMessage.Show(string.Format("Ошибка загрузки модулей ({0})", curModule), exc, SystemIcons.Error); 
                 return; 
             }
 
@@ -75,7 +76,7 @@ namespace com.sbs.gui.main
 
         private static bool isRunning()
         {
-            Process[] proc = Process.GetProcessesByName("SBS");
+            Process[] proc = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName);
             return (proc.Length > 1);
         }
 
@@ -84,6 +85,7 @@ namespace com.sbs.gui.main
             foreach (string str in pArrayModules)
             try
             {
+                curModule = str;
 #if DEBUG
                 //Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
                 Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str);

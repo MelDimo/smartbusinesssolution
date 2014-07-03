@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Drawing;
 
 namespace com.sbs.dll
 {
@@ -63,6 +65,26 @@ namespace com.sbs.dll
             public int id;
             public string name;
             public int refStatus;
+        }
+
+        public class DiscountInfo
+        {
+            public DiscountInfo()
+            {
+                photo = com.sbs.dll.utilites.Properties.Resources.user_64;
+                dateEnd = DateTime.Now;
+                dateStart = DateTime.Now;
+            }
+
+            public int id { get; set; }
+            public string fio { get; set; }
+            public string xKey { get; set; }
+            public decimal discount { get; set; }
+            public int refStatus { get; set; }
+            public DateTime dateStart { get; set; }
+            public DateTime dateEnd { get; set; }
+            public int isExpDate { get; set; }
+            public Image photo { get; set; }
         }
     }
 }
