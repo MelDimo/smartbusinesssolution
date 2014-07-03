@@ -70,11 +70,23 @@
     <Compile Include="fAddEditUsers.Designer.cs">
       <DependentUpon>fAddEditUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="fMIFare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMIFare.designer.cs">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </Compile>
     <Compile Include="fPwd.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fPwd.Designer.cs">
       <DependentUpon>fPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSearch.Designer.cs">
+      <DependentUpon>fSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="fUserGroupACL.cs">
       <SubType>Form</SubType>
@@ -121,8 +133,14 @@
     <EmbeddedResource Include="fAddEditUsers.resx">
       <DependentUpon>fAddEditUsers.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fMIFare.resx">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fPwd.resx">
       <DependentUpon>fPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSearch.resx">
+      <DependentUpon>fSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fUserGroupACL.resx">
       <DependentUpon>fUserGroupACL.cs</DependentUpon>
