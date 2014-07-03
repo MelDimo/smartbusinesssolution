@@ -64,6 +64,7 @@ namespace com.sbs.dll
             public int paymentType { get; set; }
             public decimal discount { get; set; }
             public string fioClose { get; set; }
+            public DTO.DiscountInfo oDiscountInfo { get; set; }
 
             public object Clone()
             {
