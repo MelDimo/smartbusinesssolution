@@ -820,5 +820,38 @@ namespace com.sbs.gui.users
         }
 
         #endregion
+
+        public DataTable searchUsers(string pDbType, string pFio, string pLogin, string pKey)
+        {
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT u.id, u.lname + ' ' + u.fname + ' ' + u.sname AS fio, u.login, up.pwd AS xkey " +
+                                        " FROM users u " +
+                                        " LEFT JOIN users_pwd up ON up.users = u.id AND users_pwd_type = 2 " +
+                                        " WHERE u.lname like(@fio) AND u.login like(@login) AND up.pwd like(@key)";
+
+                command.Parameters.Add("fio", SqlDbType.NVarChar).Value = pFio;
+                command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogin;
+                command.Parameters.Add("key", SqlDbType.NVarChar).Value = pKey;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 }

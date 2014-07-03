@@ -51,6 +51,7 @@ namespace com.sbs.gui.users
             tSButton_applyFilter.Image = com.sbs.dll.utilites.Properties.Resources.filter_26;
             tSButton_acl.Image = com.sbs.dll.utilites.Properties.Resources.key_26;
             tSButton_mail.Image = com.sbs.dll.utilites.Properties.Resources.msg_black_26;
+            tSButton_search.Image = com.sbs.dll.utilites.Properties.Resources.search_26;
         }
 
         private void initReferences()
@@ -587,6 +588,12 @@ namespace com.sbs.gui.users
             set.formLocation = this.Location;
             set.formState = this.WindowState;
             set.Save();
+        }
+
+        private void tSButton_search_Click(object sender, EventArgs e)
+        {
+            fSearch fs = new fSearch();
+            if(fs.ShowDialog() != DialogResult.OK) return;
         }
     }
 }

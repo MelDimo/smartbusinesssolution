@@ -101,8 +101,6 @@ namespace com.sbs.gui.users
             comboBox_specialty2.ValueMember = "id";
             comboBox_specialty2.DisplayMember = "name";
             comboBox_specialty2.SelectedValue = oUsers.specialty2;
-
-
         }
 
         private void initRef()
@@ -221,6 +219,8 @@ namespace com.sbs.gui.users
 
         private void fAddEditUsers_Shown(object sender, EventArgs e)
         {
+            string filter;
+
             textBox_fname.Text = oUsers.fName;
             textBox_lname.Text = oUsers.lName;
             textBox_sname.Text = oUsers.sName;
@@ -248,6 +248,16 @@ namespace com.sbs.gui.users
             checkBox_reservist.CheckedChanged += new EventHandler(checkBox_reservist_CheckedChanged);
             checkBox_reservist.DataBindings.Add("Checked", oUsers, "reservist", false, DataSourceUpdateMode.Never, false);
 
+            if ("EDIT".Equals(formMode))
+            {
+                if (comboBox_branch.SelectedValue.ToString().Equals("0"))
+                    filter = "";
+                else
+                    filter = string.Format("branch = '{0}'", comboBox_branch.SelectedValue.ToString());
+
+                (comboBox_unit.DataSource as DataTable).DefaultView.RowFilter = filter;
+                comboBox_unit.SelectedValue = oUsers.unit;
+            }
         }
 
         void checkBox_reservist_CheckedChanged(object sender, EventArgs e)

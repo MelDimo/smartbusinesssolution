@@ -56,6 +56,8 @@
             this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
             this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSButton_search = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -91,7 +93,9 @@
             this.tSButton_doc,
             this.tSButton_pwd,
             this.tSButton_acl,
-            this.tSButton_mail});
+            this.tSButton_mail,
+            this.toolStripSeparator2,
+            this.tSButton_search});
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_top.Name = "toolStrip_top";
             this.toolStrip_top.Padding = new System.Windows.Forms.Padding(5);
@@ -334,6 +338,22 @@
             this.dataGridView_main.Size = new System.Drawing.Size(950, 414);
             this.dataGridView_main.TabIndex = 9;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
+            // 
+            // tSButton_search
+            // 
+            this.tSButton_search.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_search.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_search.Image")));
+            this.tSButton_search.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSButton_search.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_search.Name = "tSButton_search";
+            this.tSButton_search.Size = new System.Drawing.Size(23, 20);
+            this.tSButton_search.ToolTipText = "Поиск";
+            this.tSButton_search.Click += new System.EventHandler(this.tSButton_search_Click);
+            // 
             // fUsers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -389,6 +409,8 @@
         private System.Windows.Forms.ToolStripButton tSButton_pwd;
         private System.Windows.Forms.ToolStripButton tSButton_acl;
         private System.Windows.Forms.ToolStripButton tSButton_mail;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton tSButton_search;
 
     }
 }
