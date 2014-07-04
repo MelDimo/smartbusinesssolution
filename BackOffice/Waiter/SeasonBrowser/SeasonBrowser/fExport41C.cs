@@ -147,26 +147,26 @@ namespace com.sbs.gui.seasonbrowser
             {
                 xmlDocBill.LoadXml(strXmlBill);
                 nodeBill_Bill = xmlDocBill.DocumentElement.SelectSingleNode("/XmlBill");
-                
-                nodeBill_Bill.SelectNodes("ID")[0].InnerText = dr["ID"].ToString();
+
+                nodeBill_Bill.SelectNodes("ID")[0].InnerText = dr["ID"].ToString().Replace(",", ".");
                 nodeBill_Bill.SelectNodes("D_Date")[0].InnerText = ((DateTime)dr["D_Date"]).ToString("o");
-                nodeBill_Bill.SelectNodes("OFI")[0].InnerText = dr["OFI"].ToString();
-                nodeBill_Bill.SelectNodes("DEPARTAMEN")[0].InnerText = dr["DEPARTAMEN"].ToString();
-                nodeBill_Bill.SelectNodes("D_SUMM")[0].InnerText = dr["D_SUMM"].ToString();
-                nodeBill_Bill.SelectNodes("D_NDSSUMM")[0].InnerText = dr["D_NDSSUMM"].ToString();
-                nodeBill_Bill.SelectNodes("D_DISCOUNT_SUMM")[0].InnerText = dr["D_DISCOUNT_SUMM"].ToString();
-                nodeBill_Bill.SelectNodes("D_DISCOUNT_NDSSUMM")[0].InnerText = dr["D_DISCOUNT_NDSSUMM"].ToString();
-                nodeBill_Bill.SelectNodes("SMENID")[0].InnerText = dr["SMENID"].ToString();
-                nodeBill_Bill.SelectNodes("CASSID")[0].InnerText = dr["CASSID"].ToString(); // Внешний код заведения
-                nodeBill_Bill.SelectNodes("CLIENDID")[0].InnerText = dr["CLIENDID"].ToString();
+                nodeBill_Bill.SelectNodes("OFI")[0].InnerText = dr["OFI"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("DEPARTAMEN")[0].InnerText = dr["DEPARTAMEN"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("D_SUMM")[0].InnerText = dr["D_SUMM"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("D_NDSSUMM")[0].InnerText = dr["D_NDSSUMM"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("D_DISCOUNT_SUMM")[0].InnerText = dr["D_DISCOUNT_SUMM"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("D_DISCOUNT_NDSSUMM")[0].InnerText = dr["D_DISCOUNT_NDSSUMM"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("SMENID")[0].InnerText = dr["SMENID"].ToString().Replace(",", ".");
+                nodeBill_Bill.SelectNodes("CASSID")[0].InnerText = dr["CASSID"].ToString().Replace(",", "."); // Внешний код заведения
+                nodeBill_Bill.SelectNodes("CLIENDID")[0].InnerText = dr["CLIENDID"].ToString().Replace(",", ".");
 
                 var unitInfo = from rec in dsExport.Tables["XmlBuxs"].AsEnumerable()
                                where rec.Field<int>("bills_id") == (int)dr["bills_id"]
                                select rec;
 
-                nodeBill_Bill.SelectNodes("BUXS_ARRAY/XMLBUXS/BUXS_ID")[0].InnerText = unitInfo.First().Field<int>("BUXS_ID").ToString();
+                nodeBill_Bill.SelectNodes("BUXS_ARRAY/XMLBUXS/BUXS_ID")[0].InnerText = unitInfo.First().Field<int>("BUXS_ID").ToString().Replace(",", ".");
 
-                dsExport.Tables["XmlCeks"].DefaultView.RowFilter = "bills = " + dr["bills_id"].ToString();
+                dsExport.Tables["XmlCeks"].DefaultView.RowFilter = "bills = " + dr["bills_id"].ToString().Replace(",", ".");
 
                 curDep = 0;
 
@@ -185,7 +185,7 @@ namespace com.sbs.gui.seasonbrowser
                         xmlDocCEKS.LoadXml(strXMLCEKS);
                         nodeBill_CEKS = xmlDocCEKS.DocumentElement.SelectSingleNode("/XMLCEKS");
 
-                        nodeBill_CEKS.SelectNodes("DEPARTAMENT")[0].InnerText = dr1["DEPARTAMENT"].ToString();
+                        nodeBill_CEKS.SelectNodes("DEPARTAMENT")[0].InnerText = dr1["DEPARTAMENT"].ToString().Replace(",", ".");
                         nodeBill_CEKS.SelectNodes("DEPARTAMENT_TYPE")[0].InnerText = "0";
                         nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = "0";
                         nodeBill_CEKS.SelectNodes("D_NDSSUMM")[0].InnerText = "0";
@@ -196,23 +196,23 @@ namespace com.sbs.gui.seasonbrowser
 
                     nodeBill_CEKLINES = xmlDocCEKLINES.DocumentElement.SelectSingleNode("/XMLCEKLINES");
 
-                    nodeBill_CEKLINES.SelectNodes("LineID")[0].InnerText = dr1["LineID"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("OwnerID")[0].InnerText = dr1["OwnerID"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("ASSID")[0].InnerText = dr1["ASSID"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("QTY")[0].InnerText = dr1["QTY"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("COEF_QTY")[0].InnerText = dr1["COEF_QTY"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("PRICE")[0].InnerText = dr1["PRICE"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("NODISK_PRICE")[0].InnerText = dr1["NODISK_PRICE"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("NDS_PROCENT")[0].InnerText = dr1["NDS_PROCENT"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("NDSID")[0].InnerText = dr1["NDSID"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("SUMM")[0].InnerText = dr1["SUMM"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("NDSSUMM")[0].InnerText = dr1["NDSSUMM"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMM")[0].InnerText = dr1["DISCOUNTSUMM"].ToString();
-                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMMNDS")[0].InnerText = dr1["DISCOUNTSUMMNDS"].ToString();
+                    nodeBill_CEKLINES.SelectNodes("LineID")[0].InnerText = dr1["LineID"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("OwnerID")[0].InnerText = dr1["OwnerID"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("ASSID")[0].InnerText = dr1["ASSID"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("QTY")[0].InnerText = dr1["QTY"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("COEF_QTY")[0].InnerText = dr1["COEF_QTY"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("PRICE")[0].InnerText = dr1["PRICE"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("NODISK_PRICE")[0].InnerText = dr1["NODISK_PRICE"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("NDS_PROCENT")[0].InnerText = dr1["NDS_PROCENT"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("NDSID")[0].InnerText = dr1["NDSID"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("SUMM")[0].InnerText = dr1["SUMM"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("NDSSUMM")[0].InnerText = dr1["NDSSUMM"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMM")[0].InnerText = dr1["DISCOUNTSUMM"].ToString().Replace(",", ".");
+                    nodeBill_CEKLINES.SelectNodes("DISCOUNTSUMMNDS")[0].InnerText = dr1["DISCOUNTSUMMNDS"].ToString().Replace(",", ".");
 
                     nodeBill_CEKS.SelectNodes(@"CEKSLINE_ARRAY")[0].AppendChild(xmlDocCEKS.ImportNode(nodeBill_CEKLINES, true));
 
-                    nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = (decimal.Parse(nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText) + (decimal)dr1["SUMM"]).ToString();
+                    nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = (decimal.Parse(nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText.Replace(".", ",")) + (decimal)dr1["SUMM"]).ToString().Replace(",", ".");
 
                     curDep = (int)dr1["DEPARTAMENT"];
                 }
@@ -236,6 +236,9 @@ namespace com.sbs.gui.seasonbrowser
             }
 
             xmlDoc.Save(textBox_path.Text);
+
+            MessageBox.Show("Файл успешно сформирован.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
     }
 }
