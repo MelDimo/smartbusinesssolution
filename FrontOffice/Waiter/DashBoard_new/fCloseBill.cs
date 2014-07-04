@@ -22,7 +22,7 @@ namespace com.sbs.gui.dashboard
         private List<DTO_DBoard.Dish> lDishs;
 
         public int paymentType;
-        public DTO.DiscountInfo oDiscountInfo;
+        public DTO.DiscountInfo oDiscountInfo = new DTO.DiscountInfo();
 
         public fCloseBill()
         {

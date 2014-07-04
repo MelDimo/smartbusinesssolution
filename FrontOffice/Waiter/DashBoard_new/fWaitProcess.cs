@@ -14,6 +14,12 @@ namespace com.sbs.gui.dashboard
 {
     public partial class fWaitProcess : Form
     {
+        class ErrorInfo
+        {
+            internal string msg = string.Empty;
+        }
+
+        ErrorInfo oError = new ErrorInfo();
         DBaccess dbAccess = new DBaccess();
         DTO_DBoard.Bill oBill;
 
@@ -30,6 +36,7 @@ namespace com.sbs.gui.dashboard
 
         private void printBill()
         {
+            string printerName = string.Empty;
             DataTable dtResult = new DataTable();
             ReportDocument repDoc;
 
@@ -39,6 +46,12 @@ namespace com.sbs.gui.dashboard
 
             if (dtResult.Rows.Count == 0) return;
 
+            printerName = GValues.billPrinter.Equals("default") ? 
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
+                                            dtResult.Rows[0]["printerName"].ToString();
+
+            oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtResult.Rows[0]["reportPath"].ToString(), printerName);
+
             repDoc = new ReportDocument();
             repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
             repDoc.SetDataSource(dtResult);
@@ -47,6 +60,7 @@ namespace com.sbs.gui.dashboard
                                             (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
                                             dtResult.Rows[0]["printerName"].ToString();
             repDoc.PrintToPrinter(1, false, 0, 0);
+            repDoc.Close();
         }
 
         private void printDish()
@@ -64,6 +78,9 @@ namespace com.sbs.gui.dashboard
 
                 if (results.Count() > 0)
                 {
+                    oError = new ErrorInfo();
+                    oError.msg = string.Format("reportPath: {0}; printerName: {1}", results.First().Field<string>("reportPath"), results.First().Field<string>("printerName"));
+
                     repDoc = new ReportDocument();
                     repDoc.Load(results.First().Field<string>("reportPath"));
                     repDoc.SetDataSource(dsResult);// dsResult.Tables["preorder"]);
@@ -74,6 +91,7 @@ namespace com.sbs.gui.dashboard
                     repDoc.SetParameterValue("printersType", (int)dr["id"]);
                     repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
                     repDoc.PrintToPrinter(1, false, 0, 0);
+                    repDoc.Close();
                 }
             }
         }
@@ -106,7 +124,9 @@ namespace com.sbs.gui.dashboard
                 printBill();
                 fOk = true;
             }
-            catch (Exception exc) { uMessage.Show("Не удалась печать счета.", exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
+            catch (Exception exc) {
+                uMessage.Show(string.Format("Не удалась печать счета.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel;
+            }
         }
 
         void printDish_DoWork(object sender, DoWorkEventArgs e)
@@ -116,7 +136,7 @@ namespace com.sbs.gui.dashboard
                 printDish();
                 fOk = true;
             }
-            catch (Exception exc) { uMessage.Show("Не удалась печать бегунков.", exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
+            catch (Exception exc) { uMessage.Show(string.Format("Не удалась печать бегунков.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
         }
 
         void runWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
