@@ -471,6 +471,7 @@ namespace com.sbs.gui.seasonbrowser
                 repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
                                             (new System.Drawing.Printing.PrinterSettings()).PrinterName :
                                             oReport.printName;
+                repDoc.Close();
             }
             catch (Exception exc)
             {
