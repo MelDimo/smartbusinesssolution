@@ -35,7 +35,9 @@
             this.label_time = new System.Windows.Forms.Label();
             this.pictureBox_status = new System.Windows.Forms.PictureBox();
             this.label_note = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_name
@@ -50,24 +52,24 @@
             // 
             // label_count
             // 
-            this.label_count.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_count.AutoSize = true;
+            this.label_count.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_count.Location = new System.Drawing.Point(236, 21);
+            this.label_count.Location = new System.Drawing.Point(313, 0);
             this.label_count.Name = "label_count";
-            this.label_count.Size = new System.Drawing.Size(81, 17);
+            this.label_count.Size = new System.Drawing.Size(40, 21);
             this.label_count.TabIndex = 1;
             this.label_count.Text = "label_count";
             this.label_count.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label_summa
             // 
-            this.label_summa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_summa.AutoSize = true;
+            this.label_summa.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_summa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_summa.Location = new System.Drawing.Point(323, 21);
+            this.label_summa.Location = new System.Drawing.Point(359, 0);
             this.label_summa.Name = "label_summa";
-            this.label_summa.Size = new System.Drawing.Size(91, 17);
+            this.label_summa.Size = new System.Drawing.Size(49, 21);
             this.label_summa.TabIndex = 2;
             this.label_summa.Text = "label_summa";
             this.label_summa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -83,49 +85,69 @@
             // 
             // label_time
             // 
-            this.label_time.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label_time.AutoSize = true;
+            this.label_time.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_time.Location = new System.Drawing.Point(81, 21);
+            this.label_time.Location = new System.Drawing.Point(48, 0);
             this.label_time.Name = "label_time";
-            this.label_time.Size = new System.Drawing.Size(72, 17);
+            this.label_time.Size = new System.Drawing.Size(87, 21);
             this.label_time.TabIndex = 5;
             this.label_time.Text = "label_time";
             // 
             // pictureBox_status
             // 
-            this.pictureBox_status.Location = new System.Drawing.Point(7, 27);
+            this.pictureBox_status.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_status.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_status.Name = "pictureBox_status";
-            this.pictureBox_status.Size = new System.Drawing.Size(68, 11);
+            this.pictureBox_status.Size = new System.Drawing.Size(39, 15);
             this.pictureBox_status.TabIndex = 4;
             this.pictureBox_status.TabStop = false;
             // 
             // label_note
             // 
-            this.label_note.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.label_note.AutoSize = true;
+            this.label_note.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_note.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_note.Location = new System.Drawing.Point(156, 21);
+            this.label_note.Location = new System.Drawing.Point(141, 0);
             this.label_note.Name = "label_note";
-            this.label_note.Size = new System.Drawing.Size(74, 17);
+            this.label_note.Size = new System.Drawing.Size(166, 21);
             this.label_note.TabIndex = 6;
             this.label_note.Text = "label_note";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel1.Controls.Add(this.pictureBox_status, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label_summa, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label_note, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label_time, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label_count, 3, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 22);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(411, 21);
+            this.tableLayoutPanel1.TabIndex = 7;
             // 
             // ctrDishesSmall
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label_note);
-            this.Controls.Add(this.label_time);
-            this.Controls.Add(this.pictureBox_status);
-            this.Controls.Add(this.label_summa);
-            this.Controls.Add(this.label_count);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.label_name);
             this.Controls.Add(this.button_host);
             this.Name = "ctrDishesSmall";
             this.Size = new System.Drawing.Size(417, 46);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_status)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,5 +162,6 @@
         public System.Windows.Forms.PictureBox pictureBox_status;
         public System.Windows.Forms.Label label_time;
         private System.Windows.Forms.Label label_note;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

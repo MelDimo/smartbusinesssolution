@@ -259,6 +259,13 @@ namespace com.sbs.dll.utilites.Properties {
             }
         }
         
+        public static System.Drawing.Bitmap search_26 {
+            get {
+                object obj = ResourceManager.GetObject("search_26", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         public static System.Drawing.Bitmap selectedBC {
             get {
                 object obj = ResourceManager.GetObject("selectedBC", resourceCulture);
@@ -276,6 +283,13 @@ namespace com.sbs.dll.utilites.Properties {
         public static System.Drawing.Bitmap splash_1 {
             get {
                 object obj = ResourceManager.GetObject("splash_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        public static System.Drawing.Bitmap user_64 {
+            get {
+                object obj = ResourceManager.GetObject("user_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
