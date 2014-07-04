@@ -34,9 +34,10 @@ namespace com.sbs.gui.report.repchecktape
                 MessageBox.Show("Укажите заведение.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            oRepParam.dateStart = dateTimePicker_dateStart.Value;
-            oRepParam.dateEnd = dateTimePicker_dateEnd.Value;
+            
+            oRepParam.dateStart = DateTime.Parse(dateTimePicker_dateStart.Value.ToShortDateString());
+            oRepParam.dateEnd = DateTime.Parse(dateTimePicker_dateEnd.Value.ToShortDateString());
+            oRepParam.dateEnd = oRepParam.dateEnd.AddHours(23).AddMinutes(59).AddSeconds(59);
 
             prepareReport();
         }
