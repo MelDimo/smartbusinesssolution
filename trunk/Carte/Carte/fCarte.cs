@@ -132,6 +132,7 @@ namespace com.sbs.gui.carte
 
                 if (!isChild) treeView_group.Nodes.Add(nodes);
             }
+            tSSLabel_groupInfo.Text = string.Format("Записей: {0}", dtCarteDishesGroup.Rows.Count);
         }
 
         private void fillCarte()
@@ -147,6 +148,8 @@ namespace com.sbs.gui.carte
             dataGridView_carte.Columns["carte_id"].DataPropertyName = "id";
             dataGridView_carte.Columns["carte_name"].DataPropertyName = "name";
             dataGridView_carte.Columns["carte_ref_status_name"].DataPropertyName = "ref_status_name";
+
+            tSSLabel_carteInfo.Text = string.Format("Записей: {0}", dtCarte.Rows.Count);
         }
 
         private void clearDataGrids()
@@ -416,7 +419,6 @@ namespace com.sbs.gui.carte
             faddedit.Text = "Ввод новой позиции";
             if (faddedit.ShowDialog() != DialogResult.OK) return;
             updateDishes();
-
         }
 
         private void updateDishes()
@@ -442,6 +444,8 @@ namespace com.sbs.gui.carte
             dataGridView_dishes.Columns["dishes_price"].DataPropertyName = "price";
             dataGridView_dishes.Columns["dishes_ref_printers_type_name"].DataPropertyName = "ref_printers_type_name";
             dataGridView_dishes.Columns["dishes_ref_status_name"].DataPropertyName = "ref_status_name";
+
+            tSSLabel_dishesInfo.Text = string.Format("Записей: {0}", dtCarteDishes.Rows.Count);
         }
 
         private void toolStripButton_dishEdit_Click(object sender, EventArgs e)

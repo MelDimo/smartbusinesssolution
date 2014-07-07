@@ -89,7 +89,7 @@ namespace com.sbs.gui.carte
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public void carte_dublicate(string pDbType, int pCarteId, int pBranch, int pCode)
+        public void carte_dublicate(string pDbType, int pBranch, int pCode, int pCarteId)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -106,9 +106,9 @@ namespace com.sbs.gui.carte
                 command.CommandText = "CarteDublicate";
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pCarteId;
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pBranch;
                 command.Parameters.Add("pCarte", SqlDbType.Int).Value = pCarteId;
-                command.Parameters.Add("pCode", SqlDbType.Int).Value = pCarteId;
+                command.Parameters.Add("pCode", SqlDbType.Int).Value = pCode;
 
                 command.ExecuteNonQuery();
 
