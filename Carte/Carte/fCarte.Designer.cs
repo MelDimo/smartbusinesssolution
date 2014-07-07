@@ -32,7 +32,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSSLabel_carteInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView_carte = new System.Windows.Forms.DataGridView();
             this.carte_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.carte_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.treeView_group = new System.Windows.Forms.TreeView();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSSLabel_groupInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_groupAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_groupEdit = new System.Windows.Forms.ToolStripButton();
@@ -60,7 +60,7 @@
             this.dishes_ref_printers_type_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dishes_ref_status_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip3 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tSSLabel_dishesInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_dishAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_dishEdit = new System.Windows.Forms.ToolStripButton();
@@ -124,7 +124,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.tSSLabel_carteInfo});
             this.statusStrip1.Location = new System.Drawing.Point(3, 455);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(338, 22);
@@ -132,11 +132,11 @@
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tSSLabel_carteInfo
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(103, 17);
-            this.toolStripStatusLabel1.Text = "tSSLabel_carteInfo";
+            this.tSSLabel_carteInfo.Name = "tSSLabel_carteInfo";
+            this.tSSLabel_carteInfo.Size = new System.Drawing.Size(103, 17);
+            this.tSSLabel_carteInfo.Text = "tSSLabel_carteInfo";
             // 
             // dataGridView_carte
             // 
@@ -292,7 +292,7 @@
             // statusStrip2
             // 
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel2});
+            this.tSSLabel_groupInfo});
             this.statusStrip2.Location = new System.Drawing.Point(3, 451);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(240, 22);
@@ -300,11 +300,11 @@
             this.statusStrip2.TabIndex = 1;
             this.statusStrip2.Text = "statusStrip2";
             // 
-            // toolStripStatusLabel2
+            // tSSLabel_groupInfo
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
-            this.toolStripStatusLabel2.Text = "tSSLabel_groupInfo";
+            this.tSSLabel_groupInfo.Name = "tSSLabel_groupInfo";
+            this.tSSLabel_groupInfo.Size = new System.Drawing.Size(109, 17);
+            this.tSSLabel_groupInfo.Text = "tSSLabel_groupInfo";
             // 
             // toolStrip2
             // 
@@ -428,7 +428,7 @@
             // statusStrip3
             // 
             this.statusStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel3});
+            this.tSSLabel_dishesInfo});
             this.statusStrip3.Location = new System.Drawing.Point(3, 451);
             this.statusStrip3.Name = "statusStrip3";
             this.statusStrip3.Size = new System.Drawing.Size(319, 22);
@@ -436,11 +436,11 @@
             this.statusStrip3.TabIndex = 1;
             this.statusStrip3.Text = "statusStrip3";
             // 
-            // toolStripStatusLabel3
+            // tSSLabel_dishesInfo
             // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(110, 17);
-            this.toolStripStatusLabel3.Text = "tSSLabel_dishesInfo";
+            this.tSSLabel_dishesInfo.Name = "tSSLabel_dishesInfo";
+            this.tSSLabel_dishesInfo.Size = new System.Drawing.Size(110, 17);
+            this.tSSLabel_dishesInfo.Text = "tSSLabel_dishesInfo";
             // 
             // toolStrip3
             // 
@@ -515,7 +515,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(142, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(124, 29);
             // 
             // toolStripButton_branch
             // 
@@ -596,9 +596,9 @@
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.DataGridView dataGridView_dishes;
         private System.Windows.Forms.StatusStrip statusStrip3;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_carteInfo;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_groupInfo;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_dishesInfo;
         private System.Windows.Forms.ToolStrip toolStrip4;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox_branchName;
