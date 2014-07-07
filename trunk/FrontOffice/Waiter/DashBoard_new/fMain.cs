@@ -553,6 +553,8 @@ namespace com.sbs.gui.dashboard
 
             foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + curId))
             {
+                if ((int)dr["isvisible"] != 1) continue;
+
                 oCtrDishes = new ctrDishes(new DTO_DBoard.Dish()
                 {
                     id = (int)dr["id"],
