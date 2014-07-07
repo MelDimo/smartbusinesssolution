@@ -168,13 +168,14 @@ namespace com.sbs.gui.report.repempllog
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
-            repDoc.SetParameterValue("xDateTime_start", "15.01.2014");
-            repDoc.SetParameterValue("xDateTime_end", "15.01.2014");
+            repDoc.SetParameterValue("xDateTime_start", dateTimePicker_start.Value.ToShortDateString());
+            repDoc.SetParameterValue("xDateTime_end", dateTimePicker_start.Value.ToShortDateString());
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
             fviewer.crystalReportViewer_main.Refresh();
             fviewer.ShowDialog();
+            repDoc.Close();
 
         }
 
