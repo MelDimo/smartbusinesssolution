@@ -66,12 +66,13 @@ namespace com.sbs.gui.report.repempllist
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
-            repDoc.SetParameterValue("xDate", "15.01.2014");
+            repDoc.SetParameterValue("xDate", dateTimePicker_onDate.Value.ToShortDateString());
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
             fviewer.crystalReportViewer_main.Refresh();
             fviewer.ShowDialog();
+            repDoc.Close();
 
         }
     }

@@ -178,7 +178,7 @@ namespace com.sbs.gui.report.reptimesheets
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
             fviewer.crystalReportViewer_main.Refresh();
             fviewer.ShowDialog();
-
+            repDoc.Close();
         }
 
         private void button_cancel_Click(object sender, EventArgs e)

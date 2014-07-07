@@ -69,6 +69,8 @@ namespace com.sbs.gui.report.repchecktape
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
             fviewer.crystalReportViewer_main.Refresh();
             fviewer.ShowDialog();
+
+            repDoc.Close();
         }
 
         private void button_branch_Click(object sender, EventArgs e)
