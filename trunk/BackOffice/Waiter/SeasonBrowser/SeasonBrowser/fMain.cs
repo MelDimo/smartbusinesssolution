@@ -202,6 +202,11 @@ namespace com.sbs.gui.seasonbrowser
                 oCtrBill.button_host.GotFocus += new EventHandler(oCtrBill_GotFocus);
                 oCtrBill.button_host.LostFocus += new EventHandler(oCtrBill_LostFocus);
 
+                if (curRole == DBaccess.Role.FRONTOFFICE)
+                {
+                    oCtrBill.label_summ.Visible = false;
+                }
+
                 oCtrBill.button_editMnu.Visible=true;
                 oCtrBill.button_editMnu.Click += new EventHandler(BillButton_editMnu_Click);
                 
