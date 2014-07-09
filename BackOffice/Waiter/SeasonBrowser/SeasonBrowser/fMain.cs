@@ -65,8 +65,8 @@ namespace com.sbs.gui.seasonbrowser
 
         private DBaccess.Role getRole()
         {
-            if (Supp.checkPrivileges(UsersInfo.Acl, 22)) return DBaccess.Role.BACKOFFICE;
-            if (Supp.checkPrivileges(UsersInfo.Acl, 21)) return DBaccess.Role.FRONTOFFICE;
+            if (Supp.checkPrivileges(UsersInfo.Acl, 22)) return DBaccess.Role.BACKOFFICE;   // Постобработка счетов в ЗАКРЫТОЙ смене
+            if (Supp.checkPrivileges(UsersInfo.Acl, 21)) return DBaccess.Role.FRONTOFFICE;  // Постобработка счетов в ОТКРЫТОЙ смене
             return DBaccess.Role.NONE;
         }
 
