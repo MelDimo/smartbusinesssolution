@@ -126,12 +126,9 @@ namespace com.sbs.gui.seasonbrowser
             XmlDocument xmlDocCEKS = new XmlDocument();
             XmlDocument xmlDocCEKLINES = new XmlDocument();
 
-            xmlDocBill.LoadXml(strXmlBill);
-            xmlDocCEKS.LoadXml(strXMLCEKS);
             xmlDocCEKLINES.LoadXml(strXMLCEKLINES);
 
             dsExport = dbAccess.exportFor1C(oFilter);
-            DataTable dtFilteringData;
             
             xmlDoc.Load(@".\resource\export1C.xml");
             
@@ -145,7 +142,10 @@ namespace com.sbs.gui.seasonbrowser
             nodeBill = xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0];
             foreach (DataRow dr in dsExport.Tables["XmlBill"].Rows)
             {
+                if (string.Empty.Equals(dr["ID"].ToString())) continue;
+
                 xmlDocBill.LoadXml(strXmlBill);
+
                 nodeBill_Bill = xmlDocBill.DocumentElement.SelectSingleNode("/XmlBill");
 
                 nodeBill_Bill.SelectNodes("ID")[0].InnerText = dr["ID"].ToString().Replace(",", ".");
@@ -221,6 +221,8 @@ namespace com.sbs.gui.seasonbrowser
                     nodeBill_Bill.SelectNodes(@"CEKS_ARRAY")[0].AppendChild(xmlDocBill.ImportNode(nodeBill_CEKS, true));
 
                 xmlDoc.SelectNodes(@"XmlBills/Bill_Array")[0].AppendChild(xmlDoc.ImportNode(nodeBill_Bill, true));
+
+                xmlDocBill.LoadXml(strXmlBill);
             }
 
             if (oFilter.isSeasonOpen)

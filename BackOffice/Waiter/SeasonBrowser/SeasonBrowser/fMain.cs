@@ -65,8 +65,8 @@ namespace com.sbs.gui.seasonbrowser
 
         private DBaccess.Role getRole()
         {
-            if (Supp.checkPrivileges(UsersInfo.Acl, 21)) return DBaccess.Role.FRONTOFFICE;
             if (Supp.checkPrivileges(UsersInfo.Acl, 22)) return DBaccess.Role.BACKOFFICE;
+            if (Supp.checkPrivileges(UsersInfo.Acl, 21)) return DBaccess.Role.FRONTOFFICE;
             return DBaccess.Role.NONE;
         }
 
@@ -277,6 +277,12 @@ namespace com.sbs.gui.seasonbrowser
 
             flowLayoutPanel_dishes.Controls.Clear();
 
+            if (curRole == DBaccess.Role.FRONTOFFICE)
+            {
+                MessageBox.Show("У Вас недостаточно привилегий для просмотра позиций счета.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             getDishes();
         }
 
@@ -462,6 +468,13 @@ namespace com.sbs.gui.seasonbrowser
             Report oReport = new Report();
             ReportDocument repDoc = new ReportDocument();
 
+            if (curRole == DBaccess.Role.FRONTOFFICE && !oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("У Вас недостаточно привилегий для формирования отчета закрытой смены.", 
+                    GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
                 oReport = dbAccess.REP_xOrder(oFilter);
@@ -471,7 +484,6 @@ namespace com.sbs.gui.seasonbrowser
                 repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
                                             (new System.Drawing.Printing.PrinterSettings()).PrinterName :
                                             oReport.printName;
-                repDoc.Close();
             }
             catch (Exception exc)
             {
@@ -483,6 +495,8 @@ namespace com.sbs.gui.seasonbrowser
             repViewer.Text = "Х Отчет";
             repViewer.crystalReportViewer_main.ReportSource = repDoc;
             repViewer.ShowDialog();
+
+            repDoc.Close();
         }
 
         private void fMain_Load(object sender, EventArgs e)

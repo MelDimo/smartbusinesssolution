@@ -426,7 +426,7 @@ namespace com.sbs.gui.seasonbrowser
                                                 " 0 as NODISK_PRICE," +
                                                 " 0 as NDS_PROCENT," +
                                                 " 0 as NDSID," +
-                                                " bia.xcount * bia.dishes_price as SUMM," +
+                                                " (bia.xcount * bia.dishes_price)  - ((bia.xcount * bia.dishes_price) * bia.discount / 100) as SUMM," +
                                                 " 0 as NDSSUMM," +
                                                 " 0 as DISCOUNTSUMM," +
                                                 " 0 as DISCOUNTSUMMNDS" +
