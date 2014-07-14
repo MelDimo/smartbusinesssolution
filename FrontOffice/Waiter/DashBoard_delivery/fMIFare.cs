@@ -27,11 +27,8 @@ namespace com.sbs.gui.dashboard
                 Mifire oMifare = new Mifire();
                 keyId = oMifare.readMifire();
             }
-            catch (Exception exc) 
-            {
-                uMessage.Show("Ошибка оборудования", exc, SystemIcons.Information);
-                DialogResult = DialogResult.Cancel;
-                return;
+            catch (Exception exc) { 
+                throw exc; 
             }
 
             if (keyId.Equals(string.Empty)) DialogResult = DialogResult.Cancel;

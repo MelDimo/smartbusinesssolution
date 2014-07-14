@@ -59,8 +59,7 @@ namespace com.sbs.gui.dashboard
             repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ? 
                                             (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
                                             dtResult.Rows[0]["printerName"].ToString();
-            
-            for (int i = 0; i < GValues.branchBill; i++ ) repDoc.PrintToPrinter(1, false, 0, 0);
+            repDoc.PrintToPrinter(1, false, 0, 0);
             repDoc.Close();
         }
 

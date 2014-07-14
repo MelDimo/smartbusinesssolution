@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashBoard_new", "..\DashBoard_new\DashBoard_new.csproj", "{D6EFC30B-F1A6-4E0F-8C7C-646694918686}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashBoard_delivery", "..\DashBoard_delivery\DashBoard_delivery.csproj", "{98A17A69-B57A-497C-93CB-E8101547C767}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -17,6 +19,10 @@ Global
 		{D6EFC30B-F1A6-4E0F-8C7C-646694918686}.Debug|x86.Build.0 = Debug|x86
 		{D6EFC30B-F1A6-4E0F-8C7C-646694918686}.Release|x86.ActiveCfg = Release|x86
 		{D6EFC30B-F1A6-4E0F-8C7C-646694918686}.Release|x86.Build.0 = Release|x86
+		{98A17A69-B57A-497C-93CB-E8101547C767}.Debug|x86.ActiveCfg = Debug|x86
+		{98A17A69-B57A-497C-93CB-E8101547C767}.Debug|x86.Build.0 = Debug|x86
+		{98A17A69-B57A-497C-93CB-E8101547C767}.Release|x86.ActiveCfg = Release|x86
+		{98A17A69-B57A-497C-93CB-E8101547C767}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

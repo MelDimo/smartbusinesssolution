@@ -19,7 +19,6 @@ namespace com.sbs.gui.dashboard
             Config conf = new Config();
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
-            conf.initAdditionData(GValues.DBMode);
             
             UserAuthorize uAuthor = new UserAuthorize();
             uAuthor.checkLogin("dimon", "74563");

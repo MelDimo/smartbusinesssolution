@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{98A17A69-B57A-497C-93CB-E8101547C767}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
+    <AssemblyName>DashBoard_delivery</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="DTO">
+      <HintPath>..\..\..\..\..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="GValues">
+      <HintPath>..\..\..\..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="utilites">
+      <HintPath>..\..\..\..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataForReports.cs">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataForReports.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DBaccess.cs" />
+    <Compile Include="fAddDishToBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddDishToBill.Designer.cs">
+      <DependentUpon>fAddDishToBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fCloseBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCloseBill.Designer.cs">
+      <DependentUpon>fCloseBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fCloseSeason_Branch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCloseSeason_Branch.Designer.cs">
+      <DependentUpon>fCloseSeason_Branch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fCloseSeason_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCloseSeason_User.Designer.cs">
+      <DependentUpon>fCloseSeason_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fConfDiscPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fConfDiscPay.Designer.cs">
+      <DependentUpon>fConfDiscPay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fDishToBill_ACTION.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDishToBill_ACTION.Designer.cs">
+      <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fHelp.Designer.cs">
+      <DependentUpon>fHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fLogin.Designer.cs">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMain.Designer.cs">
+      <DependentUpon>fMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fMIFare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMIFare.Designer.cs">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fRefuse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fRefuse.Designer.cs">
+      <DependentUpon>fRefuse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fRepViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fRepViewer.Designer.cs">
+      <DependentUpon>fRepViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fSeason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSeason.Designer.cs">
+      <DependentUpon>fSeason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSplash.Designer.cs">
+      <DependentUpon>fSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fTable.Designer.cs">
+      <DependentUpon>fTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fWaitProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fWaitProcess.Designer.cs">
+      <DependentUpon>fWaitProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reports\order.cs">
+      <DependentUpon>order.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="reports\preOrder.cs">
+      <DependentUpon>preOrder.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="reports\xReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reports\xReport_header.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_header.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="reports\xReport_orderPayment.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderPayment.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reports\xReport_orderUnit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderUnit.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reports\xReport_orderUser.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_orderUser.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <EmbeddedResource Include="fAddDishToBill.resx">
+      <DependentUpon>fAddDishToBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCloseBill.resx">
+      <DependentUpon>fCloseBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCloseSeason_Branch.resx">
+      <DependentUpon>fCloseSeason_Branch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCloseSeason_User.resx">
+      <DependentUpon>fCloseSeason_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fConfDiscPay.resx">
+      <DependentUpon>fConfDiscPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDishToBill_ACTION.resx">
+      <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fHelp.resx">
+      <DependentUpon>fHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fLogin.resx">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMain.resx">
+      <DependentUpon>fMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMIFare.resx">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRefuse.resx">
+      <DependentUpon>fRefuse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fRepViewer.resx">
+      <DependentUpon>fRepViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSeason.resx">
+      <DependentUpon>fSeason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSplash.resx">
+      <DependentUpon>fSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTable.resx">
+      <DependentUpon>fTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fWaitProcess.resx">
+      <DependentUpon>fWaitProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="reports\order.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>order.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\preOrder.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>preOrder.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_header.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_header.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderPayment.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderPayment.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderUnit.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderUnit.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_orderUser.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_orderUser.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="DataForReports.xsc">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </None>
+    <None Include="DataForReports.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataForReports.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataForReports.xss">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -539,7 +539,7 @@ namespace com.sbs.gui.dashboard
         private void waitSelectedConfirm(object idGroup)
         {
             dDishCallback dCallBack = new dDishCallback(setDishes);
-            Thread.Sleep(270);
+            Thread.Sleep(400);
             Invoke(dCallBack, new Object[] { idGroup });
         }
 
@@ -847,12 +847,6 @@ namespace com.sbs.gui.dashboard
             foreach (DTO_DBoard.Dish oDish in lDishs)
                 if (oDish.refStatus != 24) // Позиция обработана
                 {
-                    if (GValues.printRunners == 0)  // Если не надо печатать бегунки просто комичу их
-                    {
-                        dbAccess.commitDish(GValues.DBMode, curBill);
-                        break;
-                    }
-
                     MessageBox.Show("В счете есть необработанные позиции." + Environment.NewLine + "Закрытие счета невозможно",
                         GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
