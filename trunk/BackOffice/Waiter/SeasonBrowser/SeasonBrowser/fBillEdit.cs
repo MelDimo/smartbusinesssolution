@@ -63,7 +63,7 @@ namespace com.sbs.gui.seasonbrowser
             switch (curRole)
             {
                 case DBaccess.Role.BACKOFFICE:
-                    comboBox_typePayment.Enabled = false;
+                    comboBox_typePayment.Enabled = true;
                     comboBox_notes.Enabled = false;
                     comboBox_status.Enabled = false;
                     break;

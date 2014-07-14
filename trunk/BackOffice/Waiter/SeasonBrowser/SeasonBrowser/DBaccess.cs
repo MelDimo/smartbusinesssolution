@@ -19,6 +19,7 @@ namespace com.sbs.gui.seasonbrowser
         private SqlConnection con = new SqlConnection();
         private SqlConnection conMain = new SqlConnection();
         private SqlConnection conLocal = new SqlConnection();
+
         private SqlCommand command = null;
         private SqlCommand commandMain = null;
         private SqlCommand commandLocal = null;
@@ -379,17 +380,19 @@ namespace com.sbs.gui.seasonbrowser
                 command.CommandText = "SELECT bills_id, " +
                                             " id as ID, " +
                                             " date_open as D_DATE, " +
-			                                " '000549' as OFI, " +
+                                            " '000549' as OFI, " +
                                             " branch as DEPARTAMEN, " +
                                             " [sum] as D_SUMM, " +
                                             " NULL as D_NDSSUMM, " +
                                             " NULL as D_DISCOUNT_SUMM, " +
                                             " NULL as D_DISCOUNT_NDSSUMM, " +
                                             " season as SMENID, " +
+
                                             " NULL as CASSID, " +
                                             " NULL as CLIENDID " +
-	                                    " FROM bills_all " +
-                                        " WHERE branch = @branch AND season = @season AND ref_status = 21;";
+                                        " FROM bills_all " +
+                                        " WHERE branch = @branch AND season = @season " +
+                                        " AND ref_status = 21 AND ref_payment_type != 9;"; //ref_payment_type != 9 - отказной счет
                 command.CommandType = CommandType.Text;
 
                 command.Parameters.Add("branch", SqlDbType.Int).Value = pFilter.branch;
@@ -406,7 +409,7 @@ namespace com.sbs.gui.seasonbrowser
                                             " bills_id, " +
                                             " ref_payment_type as BUXS_ID " +
                                             " FROM bills_all " +
-                                        " WHERE branch = @branch AND season = @season;";
+                                        " WHERE branch = @branch AND season = @season AND ref_payment_type != 9;";//ref_payment_type != 9 - отказной счет
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
