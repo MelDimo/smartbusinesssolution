@@ -63,7 +63,7 @@ namespace com.sbs.gui.timetracking
             {
                 try
                 {
-                    cUser = DbAccess.getUserByLogIn("offline", flogin.xLogIn, flogin.xPwd);
+                    cUser = DbAccess.getUserByLogIn(GValues.DBMode, flogin.xLogIn, flogin.xPwd);
                 }
                 catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
             }
@@ -80,9 +80,9 @@ namespace com.sbs.gui.timetracking
             {
                 try
                 {
-                    cUser = DbAccess.getUserByMifire("offline", fMifare.keyId);
+                    cUser = DbAccess.getUserByMifire(GValues.DBMode, fMifare.keyId);
                 }
-                catch (Exception exc) { uMessage.Show("Ошибка регистрации сотрудника." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
+                catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
             }
             else
                 return false;

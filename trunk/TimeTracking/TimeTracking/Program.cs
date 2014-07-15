@@ -22,7 +22,14 @@ namespace com.sbs.gui.timetracking
 #if DEBUG
             Config conf = new Config();
             if (!conf.loadConfig()) return;
-            UsersInfo.LogIn = "dimon";
+            if (!conf.loadConString()) return;
+            //GValues.DBMode = "offline";
+            //GValues.DBMode = "online";
+            //UsersInfo.Acl = new List<int>();
+            //UsersInfo.Acl.Add(22);
+            UserAuthorize uAuthor = new UserAuthorize();
+            uAuthor.checkLogin("dimon", "74563");
+            GValues.branchName = "LP2";
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
