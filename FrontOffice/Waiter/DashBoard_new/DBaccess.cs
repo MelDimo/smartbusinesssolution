@@ -609,7 +609,7 @@ namespace com.sbs.gui.dashboard
 
         }
 
-        internal int addDish2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish)
+        internal int addDish2Bill(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish, int pToppingsCount)
         {
             int billInfoId;
 
@@ -632,6 +632,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
                 command.Parameters.Add("pDateAdd", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("pNote", SqlDbType.Int).Value = pDish.refNotes;
+                command.Parameters.Add("pToppingsCount", SqlDbType.Int).Value = pToppingsCount;
                 command.Parameters.Add("pOutBillInfoId", SqlDbType.Int);
                 command.Parameters["pOutBillInfoId"].Direction = ParameterDirection.Output;
 
