@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.timetracking
 {
@@ -60,7 +61,7 @@ namespace com.sbs.gui.timetracking
         {
             try
             {
-                DbAccess.changeState("offline", cUser);
+                DbAccess.changeState(GValues.DBMode, cUser);
             }
             catch (Exception exc) { uMessage.Show("не удалось зарегистрировать." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
                         
