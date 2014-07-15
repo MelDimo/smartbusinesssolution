@@ -76,7 +76,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                dishId = dbAccess.addDish2Bill(GValues.DBMode, oBill, oDish);
+                dishId = dbAccess.addDish2Bill(GValues.DBMode, oBill, oDish, oCtrDishes.dtToppings.Rows.Count);
                 dbAccess.addDish2Bill_toppings(GValues.DBMode, dishId, oBill, oDish, oCtrDishes.dtToppings);
             }
             catch (Exception exc) 
