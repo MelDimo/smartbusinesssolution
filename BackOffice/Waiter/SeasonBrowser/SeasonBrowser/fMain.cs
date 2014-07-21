@@ -10,6 +10,8 @@ using com.sbs.dll.utilites;
 using com.sbs.dll;
 using com.sbs.gui.seasonbrowser.Properties;
 using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
+using System.Drawing.Printing;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -470,6 +472,102 @@ namespace com.sbs.gui.seasonbrowser
 
         private void tSMItem_xOrder_Click(object sender, EventArgs e)
         {
+            string eCentre = string.Empty + (char)27 + (char)97 + "1";
+            string eLeft = string.Empty + (char)27 + (char)97 + "0";
+            string eRight = string.Empty + (char)27 + (char)97 + "2";
+            string eCut = string.Empty + (char)27 + (char)105;
+            string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
+            string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
+
+            int rHeight = 50;
+            string oldFio = string.Empty;
+            decimal sumWaiter = 0;
+
+            StringBuilder sb = new StringBuilder();
+
+            char[] line = new char[76];
+
+            DataSet ds = new DataSet();
+
+            try
+            {
+                ds = dbAccess.REP_xOrder_RAW(oFilter);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
+                return;
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in ds.Tables["SEASON_HEADER"].Rows)
+            {
+                sb.AppendLine(string.Format("Контрольный счет по: {0}", textBox_branch.Text));
+                sb.AppendLine(string.Format("Смена: {0}", oFilter.season ));
+                sb.AppendLine(string.Format("Открыта: {0}", dr["season_start"]));
+                sb.AppendLine(string.Format("Закрыта: {0}", dr["season_end"]));
+                sb.AppendLine(string.Format("Итого за смену: {0}", ((decimal)dr["season_sum"]).ToString("F2")));
+                sb.AppendLine(string.Format("Всего обслужено гостей: {0}", dr["count_bill"]));
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine("По сотрудникам" + eCentre);
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in ds.Tables["SEASON_ORDER_EMPL"].Rows)
+            {
+                if (!dr["user_fio"].ToString().Equals(oldFio))
+                {
+                    if (!oldFio.Equals(string.Empty))
+                    {
+                        sb.AppendLine(eItalicOn + sumWaiter.ToString("F2").PadLeft(rHeight, ' ') + eItalicOff);
+                        sumWaiter = 0;
+                    }
+
+                    oldFio = dr["user_fio"].ToString();
+                    sb.AppendLine(oldFio);
+                }
+                sb.Append(dr["bill_paymentType"].ToString());
+                sumWaiter += (decimal)dr["summ"];
+                sb.AppendLine(((decimal)dr["summ"]).ToString("F2").PadLeft(rHeight - dr["bill_paymentType"].ToString().Length, ' '));
+            }
+            // Печатаю сумму по последнему сотруднику
+            if (ds.Tables["SEASON_ORDER_EMPL"].Rows.Count > 0) sb.AppendLine(eItalicOn + sumWaiter.ToString("F2").PadLeft(rHeight, ' ') + eItalicOff);
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine(eCentre + "По подразделениям");
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in ds.Tables["SEASON_ORDER_UNIT"].Rows)
+            {
+                sb.Append(dr["dish_printer"].ToString());
+                sb.AppendLine(((decimal)dr["summ"]).ToString("F2").PadLeft(rHeight - dr["dish_printer"].ToString().Length, ' '));
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine(eCentre + "По проводкам");
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in ds.Tables["SEASON_ORDER_PAYMENT"].Rows)
+            {
+                sb.Append(dr["bill_paymentType"].ToString());
+                sb.AppendLine(((decimal)dr["summ"]).ToString("F2").PadLeft(rHeight - dr["bill_paymentType"].ToString().Length, ' '));
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            sb.AppendLine(eCut);
+
+            String printerAddress = ds.Tables["PRINTER"].Rows[0]["printerName"].ToString();
+            String documentName = "My document";
+            String documentText = sb.ToString();
+
+            fXOrderViewer fxoviewer = new fXOrderViewer(printerAddress, documentText, documentName);
+            fxoviewer.ShowDialog();
+
+            return;
+
             Report oReport = new Report();
             ReportDocument repDoc = new ReportDocument();
 
