@@ -26,6 +26,7 @@ namespace com.sbs.gui.dashboard
             InitializeComponent();
 
             oCtrDishes.Dock = DockStyle.Fill;
+            if (oCtrDishes.oDish.refStatus == 34) oCtrDishes.comboBox_note.Enabled = false; // Висяк добавляемм в счет
             Controls.Add(oCtrDishes);
         }
 

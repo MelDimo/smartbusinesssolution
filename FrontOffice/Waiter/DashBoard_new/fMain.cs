@@ -267,9 +267,9 @@ namespace com.sbs.gui.dashboard
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
         {
-            DTO_DBoard.Bill curBill = ((ctrBill)((Button)sender).Parent).oBill;
+            curBill = ((ctrBill)((Button)sender).Parent).oBill;
 
-            if (!fillBillsInfo(curBill)) return;
+            fillBillsInfo(curBill);
 
             ctrDishes oCtrDishes;
             flowLayoutPanel_billInfo.Controls.Clear();
@@ -294,8 +294,6 @@ namespace com.sbs.gui.dashboard
         
         void Bill_button_host_Click(object sender, EventArgs e)
         {
-            curBill = ((ctrBill)((Button)sender).Parent).oBill;
-            
             billEdit();
         }
 
@@ -305,14 +303,14 @@ namespace com.sbs.gui.dashboard
 
             if (dtDishes == null) prepareCarteDishes();
 
-            foreach (ctrBill ctr in flowLayoutPanel_bills.Controls)
-            {
-                ctr.TabStop = false;
-            }
+            while (flowLayoutPanel_bills.Controls.Count > 0) flowLayoutPanel_bills.Controls[0].Dispose();
 
+            //flowLayoutPanel_bills.Controls.Clear(); Фокус перепрыгивал на первый контрол и заполнял лист блюд первым счетом(нетот счет печатался)
+            
             curGroupBox = groupBox.GROUP;
 
             treeView_CarteGroups.Focus();
+            treeView_CarteGroups.SelectedNode = treeView_CarteGroups.Nodes[0];
 
             // Подгружаем висяки
             getRefuse();
@@ -336,10 +334,11 @@ namespace com.sbs.gui.dashboard
 
             if (lDishesRefuse.Count > 0)
             {
-                groupBox_refuse.Visible = true;
-                
                 flowLayoutPanel_refuse.Controls.Clear();
 
+                groupBox_refuse.Height = 118;
+                groupBox_refuse.Visible = true;
+                
                 foreach (DTO_DBoard.DishRefuse oDishRefuse in lDishesRefuse)
                 {
                     oCtrDishesRefuse = new ctrDishesRefuse(oDishRefuse);
@@ -385,13 +384,9 @@ namespace com.sbs.gui.dashboard
             {
                 fillBillsInfo(curBill);
                 billEdit();
-
-                if (flowLayoutPanel_refuse.Controls.Count > 0)
-                {
-                    curGroupBox = groupBox.REFUSE;
-                    flowLayoutPanel_refuse.Controls[0].Focus();
-                }
             }
+
+            fDish2Bill.Dispose();
         }
 
         #region ----------------------------------------------------------------- Редактирование заказа
@@ -456,6 +451,7 @@ namespace com.sbs.gui.dashboard
 
             fillBillsInfo(curBill);
             showBillInfo();
+            foreach (Control ctr in flowLayoutPanel_billEdit.Controls) ctr.TabStop = true;
             getRefuse();
 
             if (flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name] != null) flowLayoutPanel_billEdit.Controls[oCtrDishesSmall.Name].Focus();
@@ -548,8 +544,10 @@ namespace com.sbs.gui.dashboard
             ctrDishes oCtrDishes;
 
             string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
-
+            
             if (!curId.Equals(pIdGroup.ToString())) return;
+            
+            List<ctrDishes> lctrDishes = new List<ctrDishes>();
 
             foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + curId))
             {
@@ -573,7 +571,12 @@ namespace com.sbs.gui.dashboard
 
                 oCtrDishes.Width = flowLayoutPanel_dish.Width - 25;
 
-                flowLayoutPanel_dish.Controls.Add(oCtrDishes);
+                lctrDishes.Add(oCtrDishes);
+            }
+
+            foreach (ctrDishes cDishes in lctrDishes)
+            {
+                flowLayoutPanel_dish.Controls.Add(cDishes);
             }
         }
 
@@ -599,6 +602,8 @@ namespace com.sbs.gui.dashboard
                 fillBillsInfo(curBill);
                 showBillInfo();
             }
+
+            faddDish2Bill.Dispose();
         }
 
         #endregion
@@ -750,6 +755,8 @@ namespace com.sbs.gui.dashboard
                                     ctr.TabStop = true;
                                 }
 
+                                flowLayoutPanel_billEdit.Controls[0].Focus();
+
                                 bufHeight = groupBox_groups.Height;
                                 groupBox_groups.Height = groupBox_refuse.Height;
                                 groupBox_refuse.Height = bufHeight;
@@ -799,6 +806,7 @@ namespace com.sbs.gui.dashboard
                 case Keys.F1:   // Помощь
                     fHelp fHLP = new fHelp();
                     fHLP.ShowDialog();
+                    fHLP.Dispose();
                     break;
 
                 case Keys.F2:   //Новый заказ
@@ -835,9 +843,11 @@ namespace com.sbs.gui.dashboard
                     break;
 
                 case Keys.Back:
-                    if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.GROUP || curGroupBox == groupBox.DISHES)
-                        if (!checkBillInfo()) return;
-                    keysBackspace();
+                    if (curGroupBox == groupBox.BILLINFO || curGroupBox == groupBox.GROUP || curGroupBox == groupBox.DISHES || curGroupBox == groupBox.REFUSE)
+                    {
+                        if(!checkBillInfo())return;
+                        keysBackspace();
+                    }
                     break;
             }
         }
@@ -864,9 +874,13 @@ namespace com.sbs.gui.dashboard
             curBill.paymentType = fCB.paymentType;
             curBill.oDiscountInfo = fCB.oDiscountInfo;
 
+            fCB.Dispose();
+
             fWaitProcess fWait = new fWaitProcess("PRINTBILL", curBill);
 
             if (fWait.ShowDialog() == DialogResult.OK) curBill = null;
+
+            fWait.Dispose();
 
             if (curGroupBox != groupBox.BILL)
             {
@@ -883,6 +897,7 @@ namespace com.sbs.gui.dashboard
         {
             fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
             fWait.ShowDialog();
+            fWait.Dispose();
                 fillBillsInfo(curBill);
                 billEdit();
         }
@@ -925,6 +940,10 @@ namespace com.sbs.gui.dashboard
             {
                 fillBills();
                 showBill();
+
+                flowLayoutPanel_dish.Controls.Clear();
+                flowLayoutPanel_billEdit.Controls.Clear();
+
                 curGroupBox = groupBox.BILL;
                 panel_bills.BringToFront();
             }
@@ -979,6 +998,8 @@ namespace com.sbs.gui.dashboard
                 }
 
                 tableNumb = ftable.tableNumber;
+
+                ftable.Dispose();
             }
 
             try
@@ -1040,6 +1061,8 @@ namespace com.sbs.gui.dashboard
 
                 showDish(carteDishesGroupId, dishId);
             }
+
+            fChose.Dispose();
         }
 
         private void showDish(int carteDishesGroupId, int dishId)
@@ -1063,6 +1086,15 @@ namespace com.sbs.gui.dashboard
         }
 
         #endregion
+
+        private void fMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            foreach (Control ctr in flowLayoutPanel_billEdit.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_billInfo.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_bills.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_dish.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_refuse.Controls) ctr.Dispose();
+        }
 
     }
 }

@@ -132,6 +132,7 @@
             this.button_closeBill.TabIndex = 8;
             this.button_closeBill.Text = "Закрыть счет";
             this.button_closeBill.UseVisualStyleBackColor = true;
+            this.button_closeBill.Visible = false;
             this.button_closeBill.Click += new System.EventHandler(this.button_closeBill_Click);
             // 
             // fDishToBill_ACTION

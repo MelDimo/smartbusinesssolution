@@ -103,8 +103,10 @@ namespace com.sbs.gui.dashboard
                 {
                     refuseDish(fref.trackBar_count.Value);
                 }
-                catch (Exception exc) { uMessage.Show("Неудалось поместить блюда в хранилище.", exc, SystemIcons.Information); return; }
+                catch (Exception exc) { uMessage.Show("Неудалось поместить блюдо в хранилище.", exc, SystemIcons.Information); return; }
             }
+
+            fref.Dispose();
 
             DialogResult = DialogResult.OK;
         }
