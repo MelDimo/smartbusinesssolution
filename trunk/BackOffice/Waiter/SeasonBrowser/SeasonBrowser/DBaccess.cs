@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll.utilites;
 using System.Drawing;
+using System.IO;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -357,6 +358,96 @@ namespace com.sbs.gui.seasonbrowser
             finally { if (con.State == ConnectionState.Open) { con.Close(); } }
 
             return oReport;
+        }
+
+        internal DataSet REP_xOrder_RAW(Filter pFilter)
+        {
+            DataSet dsData = new DataSet();
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(GValues.DBMode);
+
+            try
+            {
+                con.Open();
+
+                command = con.CreateCommand();
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = pFilter.season;
+
+                command.CommandText = " SELECT season_start, season_end, " +
+                                        " SUM(dish_sum) AS season_sum, " +
+                                        " count(distinct bill) AS count_bill "+
+                                        " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
+                                        " GROUP BY season_start, season_end;";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "SEASON_HEADER";
+                    dsData.Tables.Add(dtResult);
+                }
+
+                command.CommandText = " SELECT user_fio, bill_paymentType, SUM(dish_sum) AS summ " +
+                                        " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
+                                        " GROUP BY user_fio, bill_paymentType " +
+                                        " ORDER BY user_fio, bill_paymentType;";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "SEASON_ORDER_EMPL";
+                    dsData.Tables.Add(dtResult);
+                }
+
+                command.CommandText = " SELECT dish_printer, SUM(dish_sum) AS summ " +
+                                        " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
+                                        " GROUP BY dish_printer " +
+                                        " ORDER BY dish_printer;";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "SEASON_ORDER_UNIT";
+                    dsData.Tables.Add(dtResult);
+                }
+
+                command.CommandText = " SELECT bill_paymentType, SUM(dish_sum) AS summ " +
+                                        " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
+                                        " GROUP BY bill_paymentType " +
+                                        " ORDER BY bill_paymentType;";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "SEASON_ORDER_PAYMENT";
+                    dsData.Tables.Add(dtResult);
+                }
+
+                command.Parameters.Clear();
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
+                command.CommandText = " SELECT xpath, rp.name AS printerName " +
+                                        " FROM ref_reports rr " +
+                                        " INNER JOIN unit u ON u.branch = @pBranch AND u.ref_printers_type = rr.ref_printers_type " +
+                                        " INNER JOIN ref_printers rp ON rp.id = u.ref_printers " +
+                                        " WHERE rr.logName = 'xorder'";
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "PRINTER";
+                    dsData.Tables.Add(dtResult);
+                }
+
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dsData;
         }
 
         internal DataSet exportFor1C(Filter pFilter)

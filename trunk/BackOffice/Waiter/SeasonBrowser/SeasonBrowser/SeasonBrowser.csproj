@@ -110,6 +110,12 @@
     <Compile Include="fRepViewer.Designer.cs">
       <DependentUpon>fRepViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="fXOrderViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fXOrderViewer.Designer.cs">
+      <DependentUpon>fXOrderViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reports\xReport.cs">
@@ -125,6 +131,12 @@
       <DependentUpon>xReport_header.rpt</DependentUpon>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="reports\xReport_New.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xReport_New.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reports\xReport_orderPayment.cs">
       <AutoGen>True</AutoGen>
@@ -165,6 +177,9 @@
     <EmbeddedResource Include="fRepViewer.resx">
       <DependentUpon>fRepViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="fXOrderViewer.resx">
+      <DependentUpon>fXOrderViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -184,6 +199,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>xReport_header.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reports\xReport_New.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>xReport_New.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="reports\xReport_orderPayment.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
