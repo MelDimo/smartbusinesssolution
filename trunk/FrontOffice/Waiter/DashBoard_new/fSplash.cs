@@ -116,6 +116,7 @@ namespace com.sbs.gui.dashboard
                                 return;
                             }
                             fCSB.ShowDialog();
+                            fCSB.Dispose();
                         }
                         break;
                 }
@@ -125,19 +126,27 @@ namespace com.sbs.gui.dashboard
                 switch (e.KeyCode)
                 {
                     case Keys.Enter:
-                        if (!trReadCard.IsAlive)
+                        try
                         {
-                            DashboardEnvironment.gUser = null;
-
-                            trReadCard = new Thread(enterKey);
-                            trReadCard.Start();
-
-                            trReadCard.Join();
-
-                            if (DashboardEnvironment.gUser != null)
+                            if (!trReadCard.IsAlive)
                             {
-                                if (showSeasonForm()) showMainForm();
+                                DashboardEnvironment.gUser = null;
+
+                                trReadCard = new Thread(enterKey);
+                                trReadCard.Start();
+
+                                trReadCard.Join();
+
+                                if (DashboardEnvironment.gUser != null)
+                                {
+                                    if (showSeasonForm()) showMainForm();
+                                }
                             }
+                        }
+                        catch (Exception exc)
+                        {
+                            uMessage.Show("Ошибка!" + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                            return;
                         }
                         break;
 
@@ -191,63 +200,13 @@ namespace com.sbs.gui.dashboard
                             if (fCSB.ShowDialog() == DialogResult.OK)
                             {
                                 DashboardEnvironment.Clear();
-
                             }
+                            fCSB.Dispose();
                         }
                         break;
 
                     case Keys.Home:
-                        
-                        return; //   Убрал х отчет с места официанта
-
-                        //if (!trReadCard.IsAlive)
-                        //{
-                        //    DashboardEnvironment.gUser = null;
-
-                        //    trReadCard = new Thread(enterKey);
-                        //    trReadCard.Start();
-
-                        //    trReadCard.Join();
-
-                        //    if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
-
-                        //    #region проверка привелегий
-
-                        //    xPriv = 20; xErrMessage = "У Вас отсутствуют привилегии на формирование Х Отчета.";
-
-
-                        //    if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
-                        //    {
-                        //        MessageBox.Show(xErrMessage, GValues.prgNameFull,
-                        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //        return;
-                        //    }
-
-                        //    #endregion
-
-                        //    Report oReport = new Report();
-                        //    ReportDocument repDoc = new ReportDocument();
-
-                        //    try
-                        //    {
-                        //        oReport = dbAccess.REP_xOrder("online"/*GValues.DBMode*/);
-                            
-                        //        repDoc.Load(oReport.repPath);
-                        //        repDoc.SetDataSource(oReport.dtReport);
-                        //        repDoc.SetParameterValue("pBranchName", GValues.branchName);
-                        //        repDoc.PrintOptions.PrinterName = oReport.printName;
-                        //    }
-                        //    catch (Exception exc)
-                        //    {
-                        //        uMessage.Show("Неудалось сформировать отчет.", exc, SystemIcons.Information);
-                        //        return;
-                        //    }
-
-                        //    fRepViewer repViewer = new fRepViewer();
-                        //    repViewer.crystalReportViewer_main.ReportSource = repDoc;
-                        //    repViewer.ShowDialog();
-                        //}
-                        break;
+                        return;
 
                     case Keys.F6:   // Регистрация прихода/ухода
                         if (DashboardEnvironment.assTimeTrack == null)
@@ -260,12 +219,13 @@ namespace com.sbs.gui.dashboard
 
                         Form form = (Form)Activator.CreateInstance(type);
                         form.ShowDialog();
-                        
+                        form.Dispose();
                         break;
 
                     case Keys.F1:   // Помощь
                         fHelp fHLP = new fHelp();
                         fHLP.ShowDialog();
+                        fHLP.Dispose();
                         break;
                 }
             }
@@ -286,6 +246,7 @@ namespace com.sbs.gui.dashboard
                         try
                         {
                             DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
+                            fMiFare.Dispose();
                         }
                         catch (Exception exc)
                         {
@@ -294,6 +255,7 @@ namespace com.sbs.gui.dashboard
                         }
                     }
                     else
+                        fMiFare.Dispose();
                         return;
                     break;
 
@@ -304,15 +266,16 @@ namespace com.sbs.gui.dashboard
                     try
                     {
                         DashboardEnvironment.gUser = getUserByPwd(fl.pwd);
+                        fl.Dispose();
                     }
                     catch (Exception exc)
                     {
                         uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
                         return;
                     }
+                    fl.Dispose();
                     break;
             }
-
         }
 
         //--------------------------------------------------------------- Получаем информацию об открытых сменах
@@ -324,10 +287,16 @@ namespace com.sbs.gui.dashboard
 
                 fSeason fseason = new fSeason(oSeasonBranchArray);
                 if (fseason.ShowDialog() == DialogResult.OK) // Если определились со сменами, загружаю основное окно офиц части
+                {
+                    fseason.Dispose();
                     return true;
+                }
+                fseason.Dispose();
             }
             else
+            {
                 return true;
+            }
 
             return false;
         }
@@ -348,6 +317,8 @@ namespace com.sbs.gui.dashboard
 
             fMain fmain = new fMain();
             fmain.ShowDialog();
+            fmain.Dispose();
+            GC.Collect();
         }
 
         private DTO_DBoard.SeasonBranch[] getOpenSeason()

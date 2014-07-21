@@ -105,7 +105,8 @@ namespace com.sbs.gui.dashboard
             label_discount.Text = string.Format("{0:F0} %", oDiscountInfo.discount);
             sumBill = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
             numericUpDown_curSumm.Value = sumBill;
-            
+
+            fcdp.Dispose();
         }
 
         private void closeWithDiscount()
@@ -123,6 +124,8 @@ namespace com.sbs.gui.dashboard
                     return;
                 }
             }
+
+            fMiFare.Dispose();
         }
 
         private void getUserByKey(string pUserKey)

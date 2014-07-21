@@ -155,10 +155,10 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn" +
                                         " FROM users_pwd upwd" +
-                                        " INNER JOIN users u ON u.id = upwd.users AND u.branch = @branch" +
+                                        " INNER JOIN users u ON u.id = upwd.users "+ //AND u.branch = @branch" +
                                         " WHERE upwd.pwd = @pwd";
 
-                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                //command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -210,10 +210,10 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn" +
                                         " FROM users_pwd upwd" +
-                                        " INNER JOIN users u ON u.id = upwd.users AND u.branch = @branch" +
+                                        " INNER JOIN users u ON u.id = upwd.users" +// AND u.branch = @branch" +
                                         " WHERE upwd.pwd = @pwd";
 
-                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                //command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -435,27 +435,21 @@ namespace com.sbs.gui.dashboard
 
             con = new DBCon().getConnection(pDbType);
 
-            try
+            con.Open();
+
+            command = con.CreateCommand();
+
+            command.CommandText = "BillsInfo_get";
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.Add("pBills", SqlDbType.Int).Value = pBill.id;
+
+            using (SqlDataReader dr = command.ExecuteReader())
             {
-                con.Open();
-
-                command = con.CreateCommand();
-
-
-                command.CommandText = "BillsInfo_get";
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.Add("pBills", SqlDbType.Int).Value = pBill.id;
-
-                using (SqlDataReader dr = command.ExecuteReader())
-                {
-                    dtResult.Load(dr);
-                }
-
-                con.Close();
+                dtResult.Load(dr);
             }
-            catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            con.Close();
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
@@ -795,15 +789,15 @@ namespace com.sbs.gui.dashboard
             dtResult = new DataTable();
             dtResult.TableName = "preOrder";
 
-            command.CommandText = "SELECT bi. id, d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status, rn.note" +
-                                        " FROM bills_info bi" +
-                                        " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes" +
+            command.CommandText = "SELECT bi. id, d.name, bi.xcount, d.ref_printers_type, rp.name AS printerName, rr.xpath AS reportPath, bi.ref_status, rn.note " +
+                                        " FROM bills_info bi " +
+                                        " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes " +
                                         " INNER JOIN bills b ON b.id = bi.bills" +
-                                        " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type" +
-                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
-                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type" +
-                                        " LEFT JOIN ref_notes rn ON rn.id = bi.ref_notes AND rn.ref_notes_type = 2" +
-                                        " WHERE bi.bills = @bills AND bi.ref_status = @refStatus";
+                                        " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type " +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers " +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type " +
+                                        " LEFT JOIN ref_notes rn ON rn.id = bi.ref_notes AND rn.ref_notes_type = 2 " +
+                                        " WHERE bi.bills = @bills AND bi.ref_status = @refStatus ";
             
             command.CommandType = CommandType.Text;
 
