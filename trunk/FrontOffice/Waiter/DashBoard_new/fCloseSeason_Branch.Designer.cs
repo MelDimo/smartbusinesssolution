@@ -36,9 +36,9 @@
             this.label_seasonPeriod = new System.Windows.Forms.Label();
             this.panel_front = new System.Windows.Forms.Panel();
             this.flowLayoutPanel_seasonPerson = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel_refuse = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_bottom = new System.Windows.Forms.Panel();
             this.button_closeSeason = new System.Windows.Forms.Button();
-            this.flowLayoutPanel_refuse = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -148,6 +148,16 @@
             this.flowLayoutPanel_seasonPerson.Size = new System.Drawing.Size(342, 308);
             this.flowLayoutPanel_seasonPerson.TabIndex = 0;
             // 
+            // flowLayoutPanel_refuse
+            // 
+            this.flowLayoutPanel_refuse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel_refuse.Dock = System.Windows.Forms.DockStyle.Right;
+            this.flowLayoutPanel_refuse.Location = new System.Drawing.Point(342, 0);
+            this.flowLayoutPanel_refuse.Name = "flowLayoutPanel_refuse";
+            this.flowLayoutPanel_refuse.Size = new System.Drawing.Size(285, 308);
+            this.flowLayoutPanel_refuse.TabIndex = 1;
+            this.flowLayoutPanel_refuse.Visible = false;
+            // 
             // panel_bottom
             // 
             this.panel_bottom.Controls.Add(this.button_closeSeason);
@@ -170,16 +180,6 @@
             this.button_closeSeason.UseVisualStyleBackColor = true;
             this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
-            // flowLayoutPanel_refuse
-            // 
-            this.flowLayoutPanel_refuse.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel_refuse.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flowLayoutPanel_refuse.Location = new System.Drawing.Point(342, 0);
-            this.flowLayoutPanel_refuse.Name = "flowLayoutPanel_refuse";
-            this.flowLayoutPanel_refuse.Size = new System.Drawing.Size(285, 308);
-            this.flowLayoutPanel_refuse.TabIndex = 1;
-            this.flowLayoutPanel_refuse.Visible = false;
-            // 
             // fCloseSeason_Branch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,6 +191,7 @@
             this.Name = "fCloseSeason_Branch";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fCloseSeason_Branch_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fCloseSeason_Branch_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);

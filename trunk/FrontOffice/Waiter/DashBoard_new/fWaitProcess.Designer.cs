@@ -69,6 +69,7 @@
             this.Name = "fWaitProcess";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fWaitProcess_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

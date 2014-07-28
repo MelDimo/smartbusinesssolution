@@ -71,6 +71,9 @@ namespace com.sbs.gui.dashboard
 
             dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
 
+            rawPrint(dsResult);
+            return;
+
             foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
             {
                 var results = from myRow in dsResult.Tables["preorder"].AsEnumerable()
@@ -94,6 +97,65 @@ namespace com.sbs.gui.dashboard
                     repDoc.PrintToPrinter(1, false, 0, 0);
                     repDoc.Close();
                 }
+            }
+        }
+
+        private void rawPrint(DataSet pDSResult)
+        {
+            string eCentre = string.Empty + (char)27 + (char)97 + "1";
+            string eLeft = string.Empty + (char)27 + (char)97 + "0";
+            string eRight = string.Empty + (char)27 + (char)97 + "2";
+            string eCut = string.Empty + (char)27 + (char)105;
+            string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
+            string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
+
+            int rHeight = 50;
+            StringBuilder sb = new StringBuilder();
+            int intTable;
+            string sDish = string.Empty;
+            string printerAddress = string.Empty;
+            byte[] bText;
+            string sText;
+
+            foreach (DataTable dt in pDSResult.Tables)
+            {
+                if (!int.TryParse(dt.TableName, out intTable)) continue;    // Отсекаем таблцу топингов
+
+                sb = new StringBuilder();
+
+                sb.Append(string.Format("Счет {0}", oBill.numb));
+                sb.AppendLine(string.Format("Столик {0}", oBill.table).PadLeft(rHeight - string.Format("Счет {0}", oBill.numb).Length, ' '));
+                sb.AppendLine(string.Format("{0} ({1})", DashboardEnvironment.gUser.name, DateTime.Now));
+                sb.AppendLine("-".PadRight(rHeight, '-'));
+
+                foreach (DataRow dr in dt.Rows)
+                {
+
+                    sDish = dr["name"].ToString();
+                    if (dr["note"] != DBNull.Value)
+                    {
+                        sDish += "(" + dr["note"].ToString() + ")";
+                    }
+
+                    sb.AppendLine(sDish);
+                    sb.AppendLine(dr["xcount"].ToString().PadLeft(rHeight, ' '));
+                    pDSResult.Tables["toppings"].DefaultView.RowFilter = string.Format("billsInfo = {0}", dr["id"]);
+                    foreach (DataRow dr1 in pDSResult.Tables["toppings"].Rows)
+                    {
+                        sb.AppendLine(" * " + dr["name"].ToString().PadLeft(rHeight, ' '));
+                    }
+                    sb.AppendLine();
+                    printerAddress = dr["printerName"].ToString();
+                }
+                sb.AppendLine("-".PadRight(rHeight, '-'));
+                sb.AppendLine();
+                sb.AppendLine();
+                sb.AppendLine(eCut);
+
+                bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
+                sText = Encoding.GetEncoding(1251).GetString(bText);
+
+                RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
             }
         }
 

@@ -267,16 +267,18 @@ namespace com.sbs.gui.dashboard
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
         {
-            DTO_DBoard.Bill curBill = ((ctrBill)((Button)sender).Parent).oBill;
+            curBill = ((ctrBill)((Button)sender).Parent).oBill;
 
             if (!fillBillsInfo(curBill)) return;
 
             ctrDishes oCtrDishes;
+
+            foreach (Control ctr in flowLayoutPanel_billInfo.Controls) ctr.Dispose();
             flowLayoutPanel_billInfo.Controls.Clear();
 
             foreach (DTO_DBoard.Dish oDish in lDishs)
             {
-                oCtrDishes = new ctrDishes(oDish);
+                oCtrDishes = new ctrDishes(oDish, "dashboard");
 
                 oCtrDishes.comboBox_note.Items.Add(oDish.refNotesName);
                 oCtrDishes.comboBox_note.SelectedItem = oDish.refNotesName;
@@ -371,7 +373,7 @@ namespace com.sbs.gui.dashboard
             oDish.refPrintersType = oDishRefuse.refPrintersType;
             oDish.refStatus = oDishRefuse.refStatus;
 
-            ctrDishes oCtrDishes = new ctrDishes(oDish);
+            ctrDishes oCtrDishes = new ctrDishes(oDish, "");
 
             DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0, 4 )";
             oCtrDishes.comboBox_note.DataSource = DashboardEnvironment.dtNotes; // Выбераем только статусы доступные для висяков
@@ -562,7 +564,7 @@ namespace com.sbs.gui.dashboard
                     count = (decimal)dr["minStep"],
                     name = dr["name"].ToString(),
                     price = (decimal)dr["price"]
-                });
+                }, "");
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
                 oCtrDishes.TabStop = false;

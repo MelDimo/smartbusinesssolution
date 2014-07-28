@@ -153,7 +153,7 @@ namespace com.sbs.gui.dashboard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn" +
+                command.CommandText = " SELECT u.id, u.fname + ' ' + substring(u.lname, 1, 1)+ '.' AS fio, u.tabn" +
                                         " FROM users_pwd upwd" +
                                         " INNER JOIN users u ON u.id = upwd.users "+ //AND u.branch = @branch" +
                                         " WHERE upwd.pwd = @pwd";
@@ -208,7 +208,7 @@ namespace com.sbs.gui.dashboard
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT u.id, lname+' '+ substring(fname,1,1) +'. '+ substring(sname,1,1) + '.' AS fio, u.tabn" +
+                command.CommandText = " SELECT u.id, u.fname + ' ' + substring(u.lname, 1, 1)+ '.' AS fio, u.tabn" +
                                         " FROM users_pwd upwd" +
                                         " INNER JOIN users u ON u.id = upwd.users" +// AND u.branch = @branch" +
                                         " WHERE upwd.pwd = @pwd";
@@ -421,6 +421,7 @@ namespace com.sbs.gui.dashboard
                 oBill.table = (int)dtResult.Rows[i]["xTable"];
                 oBill.summ = (decimal)dtResult.Rows[i]["summa"];
                 oBill.summFact = (decimal)dtResult.Rows[i]["summa"];
+                oBill.dishCount = (int)dtResult.Rows[i]["itemCount"];
                 oBillList.Add(oBill);
             }
 
@@ -430,7 +431,7 @@ namespace com.sbs.gui.dashboard
         internal List<DTO_DBoard.Dish> getBillInfo(string pDbType, DTO_DBoard.Bill pBill)
         {
             List<DTO_DBoard.Dish> oBillInfoList = new List<DTO_DBoard.Dish>();
-            DTO_DBoard.Dish oDish;
+            DTO_DBoard.Dish oDish = new DTO_DBoard.Dish();
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
@@ -456,6 +457,7 @@ namespace com.sbs.gui.dashboard
                 oDish = new com.sbs.dll.DTO_DBoard.Dish();
                 oDish.id = (int)dtResult.Rows[i]["id"];
                 oDish.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
+                oDish.refDishes = (int)dtResult.Rows[i]["ref_dishes"];
                 oDish.name = dtResult.Rows[i]["dishes_name"].ToString();
                 oDish.price = (decimal)dtResult.Rows[i]["dishes_price"];
                 oDish.minStep = (decimal)dtResult.Rows[i]["minStep"];
@@ -620,6 +622,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
                 command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDish.id;
+                command.Parameters.Add("pRefDishes", SqlDbType.Int).Value = pDish.refDishes;
                 command.Parameters.Add("dishesName", SqlDbType.NVarChar).Value = pDish.name;
                 command.Parameters.Add("pCount", SqlDbType.Decimal).Value = pDish.count;
                 command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
@@ -784,6 +787,92 @@ namespace com.sbs.gui.dashboard
         }
 
         private DataSet printRunners(SqlCommand command, DTO_DBoard.Bill pBill)
+        {
+            DataSet dsResult = new DataSet();
+
+            DataTable tPrintersType = new DataTable();
+
+            command.CommandText = " SELECT d.ref_printers_type " +
+                                    " FROM bills_info bi " +
+                                    " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes " +
+                                    " WHERE bi.bills = @bills AND bi.ref_status = @refStatus " +
+                                    " GROUP BY d.ref_printers_type";
+
+            command.CommandType = CommandType.Text;
+
+            command.Parameters.Clear();
+
+            command.Parameters.Add("refStatus", SqlDbType.Int).Value = 23;
+            command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
+
+            using (SqlDataReader sdr = command.ExecuteReader()) //------------------------- типы принтеров
+            {
+                tPrintersType.Load(sdr);
+            }
+
+            command.Parameters.Clear();
+            command.CommandText = " SELECT bi.id," +
+                                            " d.name, " +
+                                            " b.numb, " +
+                                            " sum(bi.xcount) AS xcount,  " +
+                                            " rp.name AS printerName,  " +
+                                            " rn.note " +
+                                    " FROM bills_info bi " +
+                                    " INNER JOIN carte_dishes d ON d.id = bi.carte_dishes " +
+                                    " INNER JOIN bills b ON b.id = bi.bills " +
+                                    " LEFT JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = d.ref_printers_type " +
+                                    " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers " +
+                                    " LEFT JOIN ref_reports rr ON rr.ref_printers_type = d.ref_printers_type " +
+                                    " LEFT JOIN ref_notes rn ON rn.id = bi.ref_notes AND rn.ref_notes_type = 2 " +
+                                    " WHERE bi.bills = @bills AND bi.ref_status = @refStatus AND d.ref_printers_type = @printersType " +
+                                    " GROUP BY bi.id, d.name, b.numb, rp.name, rn.note";
+
+            command.Parameters.Add("refStatus", SqlDbType.Int);
+            command.Parameters.Add("printersType", SqlDbType.Int);
+            command.Parameters.Add("bills", SqlDbType.Int);
+
+            foreach (DataRow dr in tPrintersType.Rows)
+            {
+                command.Parameters["refStatus"].Value = 23;
+                command.Parameters["printersType"].Value = (int)dr["ref_printers_type"];
+                command.Parameters["bills"].Value = pBill.id;
+
+                dtResult = new DataTable();
+
+                using (SqlDataReader sdr = command.ExecuteReader()) //------------------------- Блюда
+                {
+                    dtResult.Load(sdr);
+                    dtResult.TableName = dr["ref_printers_type"].ToString();
+                    dsResult.Tables.Add(dtResult);
+                }
+            }
+
+            command.Parameters.Clear();
+            command.CommandText = " SELECT bi.id AS billsInfo," +
+                                            " cd.name " +
+                                    " FROM bills_info_toppings bitop " +
+                                    " INNER JOIN bills_info bi ON bi.id = bitop.bills_info " +
+                                    " INNER JOIN toppings_carte_dishes tcd ON tcd.id = bitop.toppings_carte_dishes " +
+                                    " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
+                                    " WHERE bi.bills = @bills AND bi.ref_status = @refStatus AND bitop.isSelected = 1 " +
+                                    " ORDER BY bi.id ";
+
+            command.Parameters.Add("refStatus", SqlDbType.Int).Value = 23;
+            command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
+
+            dtResult = new DataTable();
+
+            using (SqlDataReader sdr = command.ExecuteReader()) //------------------------- Топпинги
+            {
+                dtResult.Load(sdr);
+                dtResult.TableName = "toppings";
+                dsResult.Tables.Add(dtResult);
+            }
+
+            return dsResult;
+        }
+
+        private DataSet printRunners_crystal(SqlCommand command, DTO_DBoard.Bill pBill)
         {
             DataSet dsResult = new DataSet();
             dtResult = new DataTable();
@@ -1084,6 +1173,7 @@ namespace com.sbs.gui.dashboard
                 oDishRefuse = new DTO_DBoard.DishRefuse();
                 oDishRefuse.id = (int)dtResult.Rows[i]["id"];
                 oDishRefuse.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
+                oDishRefuse.refDishes = (int)dtResult.Rows[i]["ref_dishes"];
                 oDishRefuse.name = dtResult.Rows[i]["name"].ToString();
                 oDishRefuse.minStep = (decimal)dtResult.Rows[i]["minStep"];
                 oDishRefuse.count = (decimal)dtResult.Rows[i]["xcount"];
@@ -1116,6 +1206,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
                 command.Parameters.Add("pDishId", SqlDbType.Int).Value = pDish.carteDishes;
+                command.Parameters.Add("pRefDishes", SqlDbType.Int).Value = pDish.refDishes;
                 command.Parameters.Add("dishesName", SqlDbType.NVarChar).Value = pDish.name;
                 command.Parameters.Add("pCount", SqlDbType.Decimal).Value = pDish.count;
                 command.Parameters.Add("dishesPrice", SqlDbType.Decimal).Value = pDish.price;
