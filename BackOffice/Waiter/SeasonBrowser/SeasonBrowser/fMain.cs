@@ -310,7 +310,7 @@ namespace com.sbs.gui.seasonbrowser
 
             foreach (DTO_DBoard.Dish oDish in lDish)
             {
-                oCtrDishes = new ctrDishes(oDish);
+                oCtrDishes = new ctrDishes(oDish, "");
 
                 oCtrDishes.TabStop = false;
 
@@ -558,8 +558,13 @@ namespace com.sbs.gui.seasonbrowser
             sb.AppendLine("-".PadRight(rHeight, '-'));
 
             sb.AppendLine(eCut);
+            String printerAddress;
 
-            String printerAddress = ds.Tables["PRINTER"].Rows[0]["printerName"].ToString();
+            if (ds.Tables["PRINTER"].Rows.Count == 0) printerAddress = (new System.Drawing.Printing.PrinterSettings()).PrinterName;
+            else printerAddress = ds.Tables["PRINTER"].Rows[0]["printerName"].ToString();
+            printerAddress = GValues.billPrinter.Equals("default") ?
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                            printerAddress;
             String documentName = "My document";
             String documentText = sb.ToString();
 
