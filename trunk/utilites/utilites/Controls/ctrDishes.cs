@@ -6,24 +6,28 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace com.sbs.dll.utilites
 {
     public partial class ctrDishes : UserControl
     {
-        Suppurt oSupport = new Suppurt();
-        getReference oReferences = new getReference();
+        private Suppurt oSupport = new Suppurt();
+        private getReference oReferences = new getReference();
         public DTO_DBoard.Dish oDish;
 
-        private DataTable dtGroup;
-        public DataTable dtToppings;
+        private DataTable dtGroup = new DataTable();
+        public DataTable dtToppings = new DataTable();
+
+        private string sModule;
 
         //private DataTable dtToppings_Selected;
         //private int xBillsInfoId = 0;
 
-        public ctrDishes(DTO_DBoard.Dish pDish)
+        public ctrDishes(DTO_DBoard.Dish pDish, string pModule)
         {
             oDish = pDish;
+            sModule = pModule;
            
             InitializeComponent();
 
@@ -32,7 +36,7 @@ namespace com.sbs.dll.utilites
             button_host.GotFocus += new EventHandler(button_host_GotFocus);
             button_host.LostFocus += new EventHandler(button_host_LostFocus);
 
-            initData();
+            if (!sModule.Equals("dashboard")) initData();
         }
 
         //// Метод актуален при постобработке
@@ -60,7 +64,6 @@ namespace com.sbs.dll.utilites
                 {
                     dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.carteDishes);
                     dtToppings = oReferences.getTopingsCarteDishes_post(GValues.DBMode, oDish.carteDishes, oDish.id);
-
                 }
                 else
                 {
@@ -74,7 +77,10 @@ namespace com.sbs.dll.utilites
                 return;
             }
 
-            if (dtToppings.Rows.Count > 0) button_topping.Enabled = true;
+            if (dtToppings.Rows.Count > 0)
+            {
+                button_topping.Enabled = true;
+            }
             else button_topping.Enabled = false;
         }
 
@@ -98,11 +104,12 @@ namespace com.sbs.dll.utilites
             numericUpDown_count.Increment = oDish.minStep;
             numericUpDown_count.Value = oDish.count;
             comboBox_note.SelectedValue = oDish.refNotes;
+            label_count.Text = oDish.count.ToString("F2");
         }
 
         public object Clone()
         {
-            ctrDishes oCtr = new ctrDishes(oDish);
+            ctrDishes oCtr = new ctrDishes(oDish, sModule);
             return oCtr;
         }
 
@@ -130,6 +137,14 @@ namespace com.sbs.dll.utilites
                 }
             }
             numericUpDown_count.Focus();
+        }
+
+        public void DisposeAllCtr()
+        {
+            foreach (Control ctr in this.Controls)
+            {
+                ctr.Dispose();
+            }
         }
     }
 }

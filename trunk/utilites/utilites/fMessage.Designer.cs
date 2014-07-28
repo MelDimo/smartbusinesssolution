@@ -73,6 +73,8 @@
             this.ClientSize = new System.Drawing.Size(463, 182);
             this.Controls.Add(this.textBox_message);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fMessage";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.ShowInTaskbar = false;

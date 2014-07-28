@@ -36,16 +36,16 @@
             this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
             this.comboBox_note = new System.Windows.Forms.ComboBox();
             this.button_editMnu = new System.Windows.Forms.Button();
+            this.label_count = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
             this.SuspendLayout();
             // 
             // label_name
             // 
-            this.label_name.AutoSize = true;
             this.label_name.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_name.Location = new System.Drawing.Point(7, 6);
             this.label_name.Name = "label_name";
-            this.label_name.Size = new System.Drawing.Size(91, 20);
+            this.label_name.Size = new System.Drawing.Size(431, 20);
             this.label_name.TabIndex = 0;
             this.label_name.Text = "label_name";
             // 
@@ -64,24 +64,26 @@
             // button_topping
             // 
             this.button_topping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_topping.Enabled = false;
             this.button_topping.Location = new System.Drawing.Point(6, 47);
             this.button_topping.Name = "button_topping";
             this.button_topping.Size = new System.Drawing.Size(145, 23);
             this.button_topping.TabIndex = 1;
             this.button_topping.Text = "Топпинги";
-            this.button_topping.UseVisualStyleBackColor = true;
+            this.button_topping.UseVisualStyleBackColor = false;
             this.button_topping.Click += new System.EventHandler(this.button_topping_Click);
             // 
             // button_deals
             // 
             this.button_deals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_deals.Enabled = false;
             this.button_deals.Location = new System.Drawing.Point(158, 47);
             this.button_deals.Name = "button_deals";
             this.button_deals.Size = new System.Drawing.Size(138, 23);
             this.button_deals.TabIndex = 2;
             this.button_deals.TabStop = false;
             this.button_deals.Text = "Акционные позиции";
-            this.button_deals.UseVisualStyleBackColor = true;
+            this.button_deals.UseVisualStyleBackColor = false;
             // 
             // button_host
             // 
@@ -136,16 +138,27 @@
             this.button_editMnu.Name = "button_editMnu";
             this.button_editMnu.Size = new System.Drawing.Size(26, 26);
             this.button_editMnu.TabIndex = 10;
-            this.button_editMnu.UseVisualStyleBackColor = true;
+            this.button_editMnu.UseVisualStyleBackColor = false;
             this.button_editMnu.Visible = false;
+            // 
+            // label_count
+            // 
+            this.label_count.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_count.Location = new System.Drawing.Point(361, 4);
+            this.label_count.Name = "label_count";
+            this.label_count.Size = new System.Drawing.Size(77, 32);
+            this.label_count.TabIndex = 11;
+            this.label_count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ctrDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.numericUpDown_count);
+            this.Controls.Add(this.label_count);
             this.Controls.Add(this.comboBox_note);
             this.Controls.Add(this.button_editMnu);
-            this.Controls.Add(this.numericUpDown_count);
             this.Controls.Add(this.button_deals);
             this.Controls.Add(this.button_topping);
             this.Controls.Add(this.label_price);
@@ -167,8 +180,9 @@
         public System.Windows.Forms.Button button_deals;
         public System.Windows.Forms.Button button_host;
         public System.Windows.Forms.NumericUpDown numericUpDown_count;
-        public System.Windows.Forms.ComboBox comboBox_note;
         public System.Windows.Forms.Button button_editMnu;
+        public System.Windows.Forms.ComboBox comboBox_note;
+        public System.Windows.Forms.Label label_count;
 
     }
 }

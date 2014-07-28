@@ -38,6 +38,8 @@
             this.label_summ = new System.Windows.Forms.Label();
             this.comboBox_note = new System.Windows.Forms.ComboBox();
             this.button_editMnu = new System.Windows.Forms.Button();
+            this.label_after = new System.Windows.Forms.Label();
+            this.label_dishcount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_host
@@ -64,7 +66,7 @@
             // 
             this.label_numbBill.AutoSize = true;
             this.label_numbBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_numbBill.Location = new System.Drawing.Point(97, 10);
+            this.label_numbBill.Location = new System.Drawing.Point(88, 10);
             this.label_numbBill.Name = "label_numbBill";
             this.label_numbBill.Size = new System.Drawing.Size(113, 17);
             this.label_numbBill.TabIndex = 2;
@@ -84,7 +86,7 @@
             // 
             this.label_numbTable.AutoSize = true;
             this.label_numbTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_numbTable.Location = new System.Drawing.Point(97, 34);
+            this.label_numbTable.Location = new System.Drawing.Point(88, 34);
             this.label_numbTable.Name = "label_numbTable";
             this.label_numbTable.Size = new System.Drawing.Size(117, 17);
             this.label_numbTable.TabIndex = 4;
@@ -104,7 +106,7 @@
             // 
             this.label_dateOpenClose.AutoSize = true;
             this.label_dateOpenClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_dateOpenClose.Location = new System.Drawing.Point(97, 58);
+            this.label_dateOpenClose.Location = new System.Drawing.Point(88, 58);
             this.label_dateOpenClose.Name = "label_dateOpenClose";
             this.label_dateOpenClose.Size = new System.Drawing.Size(126, 15);
             this.label_dateOpenClose.TabIndex = 6;
@@ -113,12 +115,11 @@
             // label_summ
             // 
             this.label_summ.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_summ.AutoSize = true;
             this.label_summ.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label_summ.ForeColor = System.Drawing.Color.Blue;
-            this.label_summ.Location = new System.Drawing.Point(328, 12);
+            this.label_summ.Location = new System.Drawing.Point(266, 12);
             this.label_summ.Name = "label_summ";
-            this.label_summ.Size = new System.Drawing.Size(93, 17);
+            this.label_summ.Size = new System.Drawing.Size(155, 17);
             this.label_summ.TabIndex = 7;
             this.label_summ.Text = "label_summ";
             this.label_summ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -143,21 +144,46 @@
             this.button_editMnu.Name = "button_editMnu";
             this.button_editMnu.Size = new System.Drawing.Size(26, 26);
             this.button_editMnu.TabIndex = 9;
-            this.button_editMnu.UseVisualStyleBackColor = true;
+            this.button_editMnu.UseVisualStyleBackColor = false;
             this.button_editMnu.Visible = false;
+            // 
+            // label_after
+            // 
+            this.label_after.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_after.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_after.Location = new System.Drawing.Point(266, 34);
+            this.label_after.Name = "label_after";
+            this.label_after.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label_after.Size = new System.Drawing.Size(126, 17);
+            this.label_after.TabIndex = 10;
+            this.label_after.Text = "label_after";
+            this.label_after.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_dishcount
+            // 
+            this.label_dishcount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_dishcount.ForeColor = System.Drawing.Color.Green;
+            this.label_dishcount.Location = new System.Drawing.Point(162, 9);
+            this.label_dishcount.Name = "label_dishcount";
+            this.label_dishcount.Size = new System.Drawing.Size(52, 22);
+            this.label_dishcount.TabIndex = 11;
+            this.label_dishcount.Text = "label_dishcount";
+            this.label_dishcount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ctrBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button_editMnu);
-            this.Controls.Add(this.comboBox_note);
+            this.Controls.Add(this.label_dishcount);
+            this.Controls.Add(this.label_numbTable);
             this.Controls.Add(this.label_summ);
+            this.Controls.Add(this.label_numbBill);
+            this.Controls.Add(this.button_editMnu);
+            this.Controls.Add(this.label_after);
+            this.Controls.Add(this.comboBox_note);
             this.Controls.Add(this.label_dateOpenClose);
             this.Controls.Add(this.label_refStatusName);
-            this.Controls.Add(this.label_numbTable);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label_numbBill);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_host);
             this.Name = "ctrBill";
@@ -179,6 +205,8 @@
         public System.Windows.Forms.Label label_refStatusName;
         public System.Windows.Forms.ComboBox comboBox_note;
         public System.Windows.Forms.Button button_editMnu;
+        private System.Windows.Forms.Label label_after;
+        public System.Windows.Forms.Label label_dishcount;
 
     }
 }

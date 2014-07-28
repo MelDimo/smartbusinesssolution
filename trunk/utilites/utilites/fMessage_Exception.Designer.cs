@@ -124,10 +124,13 @@
             this.ClientSize = new System.Drawing.Size(463, 182);
             this.Controls.Add(this.tabControl_main);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "fMessage_Exception";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fMessage_Exception";
+            this.TopMost = true;
             this.panel1.ResumeLayout(false);
             this.tabControl_main.ResumeLayout(false);
             this.tabPage_desc.ResumeLayout(false);
