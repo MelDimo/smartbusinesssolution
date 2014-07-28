@@ -223,6 +223,7 @@
             this.Name = "fCloseBill";
             this.Padding = new System.Windows.Forms.Padding(2);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fCloseBill_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fCloseBill_KeyDown);
             this.groupBox1.ResumeLayout(false);

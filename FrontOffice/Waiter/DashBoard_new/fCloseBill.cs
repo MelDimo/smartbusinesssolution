@@ -16,7 +16,8 @@ namespace com.sbs.gui.dashboard
     {
         DBaccess dbAccess = new DBaccess();
 
-        decimal sumBill = 0;
+        private decimal sumBill = 0;
+        private decimal sumBillWithDiscount = 0;
 
         private DTO_DBoard.Bill oBill;
         private List<DTO_DBoard.Dish> lDishs;
@@ -51,7 +52,7 @@ namespace com.sbs.gui.dashboard
             oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
             label_discount.Text = "-";
-            
+
             flowLayoutPanel_bills.Controls.Add(oCtrBill);
 
             foreach (DTO_DBoard.Dish oDish in lDishs)
@@ -81,7 +82,7 @@ namespace com.sbs.gui.dashboard
                 tsmi = new ToolStripMenuItem(dr["name"].ToString());
                 tsmi.Tag = dr["id"];
                 tsmi.Font = new Font("Microsoft Sans Serif", 10);
-                tsmi.Click +=new EventHandler(closeType_click);
+                tsmi.Click += new EventHandler(closeType_click);
                 tsmi.ForeColor = Color.FromName(dr["color"].ToString());
                 cMStrip_closeType.Items.Add(tsmi);
             }
@@ -103,8 +104,9 @@ namespace com.sbs.gui.dashboard
             }
 
             label_discount.Text = string.Format("{0:F0} %", oDiscountInfo.discount);
-            sumBill = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
-            numericUpDown_curSumm.Value = sumBill;
+            sumBillWithDiscount = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
+            //sumBill = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
+            numericUpDown_curSumm.Value = sumBillWithDiscount;
 
             fcdp.Dispose();
         }
@@ -136,7 +138,7 @@ namespace com.sbs.gui.dashboard
         private void fCloseBill_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
-            { 
+            {
                 case Keys.Escape:
                     DialogResult = DialogResult.Cancel;
                     break;
@@ -157,7 +159,7 @@ namespace com.sbs.gui.dashboard
                         return;
                     }
 
-                    if(oDiscountInfo.id != 0) confirmDiscountPayment();
+                    if (oDiscountInfo.id != 0) confirmDiscountPayment();
                     else MessageBox.Show("Данная карта не найдена либо не активна.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }

@@ -443,6 +443,7 @@ namespace com.sbs.gui.dashboard
             this.KeyPreview = true;
             this.Name = "fMain";
             this.ShowInTaskbar = false;
+            this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fMain_FormClosing);
             this.Shown += new System.EventHandler(this.fMain_Shown);

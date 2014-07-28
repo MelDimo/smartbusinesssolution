@@ -29,7 +29,7 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) 
             {
-                uMessage.Show("Ошибка оборудования", exc, SystemIcons.Information);
+                uMessage.Show("Повторите пожалуйста попытку. Неудалось прочесть данные.", exc, SystemIcons.Information);
                 DialogResult = DialogResult.Cancel;
                 return;
             }

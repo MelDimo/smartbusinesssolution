@@ -35,6 +35,7 @@
             // 
             this.crystalReportViewer_main.ActiveViewIndex = -1;
             this.crystalReportViewer_main.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crystalReportViewer_main.CachedPageNumberPerDoc = 10;
             this.crystalReportViewer_main.Cursor = System.Windows.Forms.Cursors.Default;
             this.crystalReportViewer_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crystalReportViewer_main.Location = new System.Drawing.Point(0, 0);
@@ -48,14 +49,15 @@
             this.crystalReportViewer_main.TabIndex = 0;
             this.crystalReportViewer_main.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
-            // fRepViwer
+            // fRepViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(582, 574);
             this.Controls.Add(this.crystalReportViewer_main);
-            this.Name = "fRepViwer";
+            this.Name = "fRepViewer";
             this.Text = "fRepViwer";
+            this.TopMost = true;
             this.ResumeLayout(false);
 
         }

@@ -40,7 +40,7 @@ namespace com.sbs.gui.dashboard
                 case Keys.Enter:
                     switch(oCtrDishes.oDish.refStatus)
                     {
-                        case 0:             // Бонально новое блюдо добавляется в счет
+                        case 0:             // Банально новое блюдо добавляется в счет
                             if (addDish2Bill()) DialogResult = DialogResult.OK;
                             break;
 

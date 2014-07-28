@@ -35,6 +35,7 @@
             this.label_seasonFIO = new System.Windows.Forms.Label();
             this.label_seasonPeriod = new System.Windows.Forms.Label();
             this.panel_front = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
             this.numericUpDown_diff = new System.Windows.Forms.NumericUpDown();
             this.label_diff = new System.Windows.Forms.Label();
             this.numericUpDown_curr = new System.Windows.Forms.NumericUpDown();
@@ -43,7 +44,6 @@
             this.numericUpDown_season = new System.Windows.Forms.NumericUpDown();
             this.panel_bottom = new System.Windows.Forms.Panel();
             this.button_closeSeason = new System.Windows.Forms.Button();
-            this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_top.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -151,6 +151,18 @@
             this.panel_front.Name = "panel_front";
             this.panel_front.Size = new System.Drawing.Size(797, 314);
             this.panel_front.TabIndex = 0;
+            // 
+            // flowLayoutPanel_bills
+            // 
+            this.flowLayoutPanel_bills.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel_bills.AutoScroll = true;
+            this.flowLayoutPanel_bills.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel_bills.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
+            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(477, 314);
+            this.flowLayoutPanel_bills.TabIndex = 1;
             // 
             // numericUpDown_diff
             // 
@@ -284,18 +296,6 @@
             this.button_closeSeason.UseVisualStyleBackColor = true;
             this.button_closeSeason.Click += new System.EventHandler(this.button_closeSeason_Click);
             // 
-            // flowLayoutPanel_bills
-            // 
-            this.flowLayoutPanel_bills.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel_bills.AutoScroll = true;
-            this.flowLayoutPanel_bills.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel_bills.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel_bills.Name = "flowLayoutPanel_bills";
-            this.flowLayoutPanel_bills.Size = new System.Drawing.Size(477, 314);
-            this.flowLayoutPanel_bills.TabIndex = 1;
-            // 
             // fCloseSeason_User
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,6 +306,7 @@
             this.KeyPreview = true;
             this.Name = "fCloseSeason_User";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fCloseSeason_User_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel_top.ResumeLayout(false);

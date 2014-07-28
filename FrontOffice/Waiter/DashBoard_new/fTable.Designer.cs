@@ -68,6 +68,7 @@
             this.Name = "fTable";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fTable_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fTable_KeyDown);
             this.groupBox1.ResumeLayout(false);

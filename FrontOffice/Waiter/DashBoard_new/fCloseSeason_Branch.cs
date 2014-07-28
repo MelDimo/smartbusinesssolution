@@ -29,6 +29,8 @@ namespace com.sbs.gui.dashboard
         {
             ctrDishesRefuse oCtrDishesRefuse;
             
+            foreach (Control ctr in flowLayoutPanel_refuse.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_seasonPerson.Controls) ctr.Dispose();
             flowLayoutPanel_refuse.Controls.Clear();
             flowLayoutPanel_seasonPerson.Controls.Clear();
 

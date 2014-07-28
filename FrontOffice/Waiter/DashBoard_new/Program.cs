@@ -22,7 +22,7 @@ namespace com.sbs.gui.dashboard
             conf.initAdditionData(GValues.DBMode);
             
             UserAuthorize uAuthor = new UserAuthorize();
-            uAuthor.checkLogin("dimon", "74563");
+            uAuthor.checkLogin("ivan", "147");
 
             GValues.branchTable = 10;
             GValues.branchName = "lp2";

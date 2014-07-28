@@ -11,10 +11,13 @@ using System.Diagnostics;
 using com.sbs.dll;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Threading;
+using System.Security.Permissions;
 
 namespace com.sbs.gui.dashboard
 {
-    public delegate void dDishCallback(object pIdGroup);
+    public delegate void dDishCallback(object pIdGroup, List<ctrDishes> lctrDishes);
+    public delegate void dBillCallback(object pIdBill);
+    public delegate object dGroupIemCallback(object pIdGroup);
 
     public partial class fMain : Form
     {
@@ -22,6 +25,9 @@ namespace com.sbs.gui.dashboard
 
         Suppurt Supp = new Suppurt();
 
+        int xCurDish;
+        List<ctrDishes> oLctrDishes;
+        
         enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES, REFUSE };
         groupBox _curGroupBox;
         groupBox curGroupBox
@@ -115,6 +121,14 @@ namespace com.sbs.gui.dashboard
                         
                         groupBox_refuse.BorderColor = Color.Gray;
                         groupBox_refuse.BackColor = Color.FromKnownColor(KnownColor.Control);
+
+                        //---------------- Дописываем пункты меню, если надо
+                        for (int i = xCurDish; i < oLctrDishes.Count; i++)
+                        {
+                            oLctrDishes[i].TabStop = true;
+                            flowLayoutPanel_dish.Controls.Add(oLctrDishes[i]);
+                            flowLayoutPanel_dish.Refresh();
+                        }
                         break;
 
                     case groupBox.GROUP:
@@ -164,8 +178,8 @@ namespace com.sbs.gui.dashboard
             }
         }
 
-        List<DTO_DBoard.Bill> lBills;
-        List<DTO_DBoard.Dish> lDishs;
+        List<DTO_DBoard.Bill> lBills = new List<DTO_DBoard.Bill>();
+        List<DTO_DBoard.Dish> lDishs = new List<DTO_DBoard.Dish>();
 
         ctrDishesSmall oCtrDishesSmall;
 
@@ -229,9 +243,13 @@ namespace com.sbs.gui.dashboard
         #endregion
 
         private void showBill()
-        { 
+        {
+            curBill = new DTO_DBoard.Bill();
+
             ctrBill oCtrBill;
 
+            foreach (Control ctr in flowLayoutPanel_bills.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_billInfo.Controls) ctr.Dispose();
             flowLayoutPanel_bills.Controls.Clear();
             flowLayoutPanel_billInfo.Controls.Clear();
 
@@ -254,7 +272,7 @@ namespace com.sbs.gui.dashboard
             }
             else
             {
-                this.Focus();
+                button_newBill.Focus();
             }
 
             foreach (ctrBill ctr in flowLayoutPanel_bills.Controls)
@@ -267,26 +285,50 @@ namespace com.sbs.gui.dashboard
 
         void Bill_button_host_GotFocus(object sender, EventArgs e)
         {
+            if (((ctrBill)((Button)sender).Parent).oBill.Equals(curBill)) return;
+
+            foreach (Control ctr in flowLayoutPanel_billInfo.Controls)
+            {
+                ((ctrDishes)ctr).DisposeAllCtr();
+                ctr.Dispose();
+            }
+            flowLayoutPanel_billInfo.Controls.Clear();
+
             curBill = ((ctrBill)((Button)sender).Parent).oBill;
+
+            Thread wThread = new Thread(waitSelectedBillConfirm);
+            wThread.IsBackground = true;
+            wThread.Start(curBill.id);
+        }
+
+        private void waitSelectedBillConfirm(object idBill)
+        {
+            dBillCallback dCallBack = new dBillCallback(setBillInfo);
+            Thread.Sleep(270);
+            Invoke(dCallBack, new Object[] { idBill });
+        }
+
+        public void setBillInfo(object pIdBill)
+        {
+            if (curBill.id != (int)pIdBill) return;
 
             fillBillsInfo(curBill);
 
             ctrDishes oCtrDishes;
-            flowLayoutPanel_billInfo.Controls.Clear();
 
             foreach (DTO_DBoard.Dish oDish in lDishs)
             {
-                oCtrDishes = new ctrDishes(oDish);
+                oCtrDishes = new ctrDishes(oDish, "dashboard");
 
                 oCtrDishes.comboBox_note.Items.Add(oDish.refNotesName);
-                oCtrDishes.comboBox_note.SelectedItem = oDish.refNotesName;
+                oCtrDishes.comboBox_note.SelectedIndex = 0;
 
                 oCtrDishes.TabStop = false;
-
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
+                oCtrDishes.numericUpDown_count.Visible = false;
 
-                oCtrDishes.Width = flowLayoutPanel_billInfo.Width - 10;
+                oCtrDishes.Width = flowLayoutPanel_billInfo.Width - 25;
 
                 flowLayoutPanel_billInfo.Controls.Add(oCtrDishes);
             }
@@ -334,6 +376,8 @@ namespace com.sbs.gui.dashboard
 
             if (lDishesRefuse.Count > 0)
             {
+                
+                foreach (Control ctr in flowLayoutPanel_refuse.Controls) ctr.Dispose();
                 flowLayoutPanel_refuse.Controls.Clear();
 
                 groupBox_refuse.Height = 118;
@@ -363,6 +407,7 @@ namespace com.sbs.gui.dashboard
 
             oDish.id = oDishRefuse.id;
             oDish.carteDishes = oDishRefuse.carteDishes;
+            oDish.refDishes = oDishRefuse.refDishes;
             oDish.count = oDishRefuse.count;
             oDish.minStep = oDishRefuse.minStep;
             oDish.name = oDishRefuse.name;
@@ -370,7 +415,7 @@ namespace com.sbs.gui.dashboard
             oDish.refPrintersType = oDishRefuse.refPrintersType;
             oDish.refStatus = oDishRefuse.refStatus;
 
-            ctrDishes oCtrDishes = new ctrDishes(oDish);
+            ctrDishes oCtrDishes = new ctrDishes(oDish, "dashboard");
 
             DashboardEnvironment.dtNotes.DefaultView.RowFilter = "ref_notes_type IN (0, 4 )";
             oCtrDishes.comboBox_note.DataSource = DashboardEnvironment.dtNotes; // Выбераем только статусы доступные для висяков
@@ -394,7 +439,9 @@ namespace com.sbs.gui.dashboard
         private void showBillInfo()
         {
             decimal xSumm = 0;
-
+            int xDishCount = 0;
+            
+            foreach (Control ctr in panel_billInfo.Controls) ctr.Dispose();
             panel_billInfo.Controls.Clear();
 
             ctrBill oCtrBill;// = new ctrBill();
@@ -407,6 +454,7 @@ namespace com.sbs.gui.dashboard
 
             panel_billInfo.Controls.Add(oCtrBill);
 
+            foreach (Control ctr in flowLayoutPanel_billEdit.Controls) ctr.Dispose();
             flowLayoutPanel_billEdit.Controls.Clear();
 
             foreach (DTO_DBoard.Dish oDish in lDishs)
@@ -423,9 +471,11 @@ namespace com.sbs.gui.dashboard
                 flowLayoutPanel_billEdit.Controls.Add(oCtrDishesSmall);
 
                 xSumm = xSumm + (oDish.count * oDish.price);
+                xDishCount += 1;
             }
 
             oCtrBill.label_summ.Text = xSumm.ToString("F2");
+            oCtrBill.label_dishcount.Text = xDishCount.ToString();
 
             panel_dishes.Refresh();
         }
@@ -473,7 +523,7 @@ namespace com.sbs.gui.dashboard
             bool inPalce = false;
 
             treeView_CarteGroups.Nodes.Clear();
-
+            
             try
             {
                 dsTables = dbAccess.prepareCarteDishes(GValues.DBMode);
@@ -521,7 +571,8 @@ namespace com.sbs.gui.dashboard
         private void treeView_CarteGroups_AfterSelect(object sender, TreeViewEventArgs e)
         {
             int idGroup = 0;
-
+            
+            //foreach (Control ctr in flowLayoutPanel_dish.Controls) ctr.Dispose();
             flowLayoutPanel_dish.Controls.Clear();
 
             if (treeView_CarteGroups.SelectedNode.Nodes.Count > 0) return; // Отсекаем не конечные пункты
@@ -535,21 +586,13 @@ namespace com.sbs.gui.dashboard
         private void waitSelectedConfirm(object idGroup)
         {
             dDishCallback dCallBack = new dDishCallback(setDishes);
-            Thread.Sleep(270);
-            Invoke(dCallBack, new Object[] { idGroup });
-        }
+            dGroupIemCallback dCallBackGroup = new dGroupIemCallback(getGroup);
 
-        public void setDishes(object pIdGroup)
-        {
             ctrDishes oCtrDishes;
 
-            string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
-            
-            if (!curId.Equals(pIdGroup.ToString())) return;
-            
             List<ctrDishes> lctrDishes = new List<ctrDishes>();
 
-            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + curId))
+            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + idGroup))
             {
                 if ((int)dr["isvisible"] != 1) continue;
 
@@ -559,25 +602,52 @@ namespace com.sbs.gui.dashboard
                     minStep = (decimal)dr["minStep"],
                     count = (decimal)dr["minStep"],
                     name = dr["name"].ToString(),
-                    price = (decimal)dr["price"]
-                });
+                    price = (decimal)dr["price"],
+                    refDishes = (int)dr["ref_dishes"]
+                }, "dashboard");
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
                 oCtrDishes.TabStop = false;
                 oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.numericUpDown_count.Visible = false;
+                oCtrDishes.label_count.Visible = false;
                 oCtrDishes.comboBox_note.Visible = false;
 
                 oCtrDishes.Width = flowLayoutPanel_dish.Width - 25;
 
                 lctrDishes.Add(oCtrDishes);
             }
+            Thread.Sleep(270);
+            if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
 
-            foreach (ctrDishes cDishes in lctrDishes)
+            Invoke(dCallBack, new Object[] { idGroup, lctrDishes });
+        }
+
+        public object getGroup(object pIdGroup)
+        { 
+            string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
+            return pIdGroup.ToString().Equals(curId);
+        }
+
+        public void setDishes(object pIdGroup, List<ctrDishes> lctrDishes)
+        {
+            oLctrDishes = lctrDishes;
+
+            for (int i = 0; i < oLctrDishes.Count; i++)
             {
-                flowLayoutPanel_dish.Controls.Add(cDishes);
+                xCurDish = i;
+                flowLayoutPanel_dish.Controls.Add(oLctrDishes[i]);
+                flowLayoutPanel_dish.Refresh();
+                if (i == 10) break;
             }
+
+            //foreach (ctrDishes cDishes in lctrDishes)
+            //{
+            //    flowLayoutPanel_dish.Controls.Add(cDishes);
+            //    flowLayoutPanel_dish.Refresh();
+
+            //}
         }
 
         #endregion
@@ -940,7 +1010,9 @@ namespace com.sbs.gui.dashboard
             {
                 fillBills();
                 showBill();
-
+                
+                foreach (Control ctr in flowLayoutPanel_dish.Controls) ctr.Dispose();
+                foreach (Control ctr in flowLayoutPanel_billEdit.Controls) ctr.Dispose();
                 flowLayoutPanel_dish.Controls.Clear();
                 flowLayoutPanel_billEdit.Controls.Clear();
 
@@ -1096,5 +1168,6 @@ namespace com.sbs.gui.dashboard
             foreach (Control ctr in flowLayoutPanel_refuse.Controls) ctr.Dispose();
         }
 
+        public PreviewKeyDownEventHandler treeView_CarteGroups_PreviewKeyDown { get; set; }
     }
 }
