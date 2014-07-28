@@ -32,6 +32,7 @@
             this.tSSLabel_info = new System.Windows.Forms.ToolStripStatusLabel();
             this.tSSLabel_mailChecker = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl_top = new System.Windows.Forms.TabControl();
+            this.tSSLabel_basetype = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip_mainBottom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +40,8 @@
             // 
             this.statusStrip_mainBottom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_info,
-            this.tSSLabel_mailChecker});
+            this.tSSLabel_mailChecker,
+            this.tSSLabel_basetype});
             this.statusStrip_mainBottom.Location = new System.Drawing.Point(0, 522);
             this.statusStrip_mainBottom.Name = "statusStrip_mainBottom";
             this.statusStrip_mainBottom.Size = new System.Drawing.Size(829, 22);
@@ -49,7 +51,7 @@
             // tSSLabel_info
             // 
             this.tSSLabel_info.Name = "tSSLabel_info";
-            this.tSSLabel_info.Size = new System.Drawing.Size(814, 17);
+            this.tSSLabel_info.Size = new System.Drawing.Size(680, 17);
             this.tSSLabel_info.Spring = true;
             this.tSSLabel_info.Text = "tSSLabel_info";
             this.tSSLabel_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -69,6 +71,12 @@
             this.tabControl_top.Size = new System.Drawing.Size(829, 19);
             this.tabControl_top.TabIndex = 3;
             this.tabControl_top.SelectedIndexChanged += new System.EventHandler(this.tabControl_top_SelectedIndexChanged);
+            // 
+            // tSSLabel_basetype
+            // 
+            this.tSSLabel_basetype.Name = "tSSLabel_basetype";
+            this.tSSLabel_basetype.Size = new System.Drawing.Size(103, 17);
+            this.tSSLabel_basetype.Text = "tSSLabel_basetype";
             // 
             // fMain
             // 
@@ -97,6 +105,7 @@
         private System.Windows.Forms.ToolStripStatusLabel tSSLabel_info;
         private System.Windows.Forms.TabControl tabControl_top;
         private System.Windows.Forms.ToolStripStatusLabel tSSLabel_mailChecker;
+        private System.Windows.Forms.ToolStripStatusLabel tSSLabel_basetype;
     }
 }
 

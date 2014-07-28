@@ -55,10 +55,10 @@ namespace com.sbs.gui.main
             catch (Exception exc) { uMessage.Show("Ошибка формирования меню", exc, SystemIcons.Error); return; }
 
             // Читаем конфигурацию взаимодействия с почтой
-            conf.getMailConfig("offline");
+            conf.getMailConfig(GValues.DBMode);
 
             // Инициализируем дополнительные параметры
-            conf.initAdditionData("offline");
+            conf.initAdditionData(GValues.DBMode);
 
             // загрузка необходимых модулей
             try

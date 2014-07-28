@@ -64,6 +64,7 @@ namespace com.sbs.dll
             public int paymentType { get; set; }
             public decimal discount { get; set; }
             public string fioClose { get; set; }
+            public int dishCount { get; set; }
             public DTO.DiscountInfo oDiscountInfo { get; set; }
 
             public object Clone()
@@ -82,6 +83,7 @@ namespace com.sbs.dll
                     summ = this.summ,
                     paymentType = this.paymentType,
                     discount = this.discount,
+                    dishCount = this.dishCount,
                     fioClose = this.fioClose
                 };
             }
@@ -91,6 +93,7 @@ namespace com.sbs.dll
         {
             public int id { get; set; }
             public int carteDishes { get; set; }
+            public int refDishes { get; set; }
             public string name { get; set; }
             public decimal price { get; set; }
             public decimal minStep { get; set; }
@@ -110,6 +113,7 @@ namespace com.sbs.dll
                 {
                     id = this.id,
                     carteDishes = this.carteDishes,
+                    refDishes = this.refDishes,
                     name = this.name,
                     price = this.price,
                     minStep = this.minStep,
@@ -128,6 +132,7 @@ namespace com.sbs.dll
         {
             public int id { get; set; }
             public int carteDishes { get; set; }
+            public int refDishes { get; set; }
             public string name { get; set; }
             public decimal minStep { get; set; }
             public decimal count { get; set; }
