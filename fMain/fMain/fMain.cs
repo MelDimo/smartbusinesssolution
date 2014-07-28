@@ -186,6 +186,7 @@ namespace com.sbs.gui.main
         private void fMain_Shown(object sender, EventArgs e)
         {
             tSSLabel_info.Text = UsersInfo.UserName;
+            tSSLabel_basetype.Text = GValues.DBMode;
         }
 
         private void tabControl_top_SelectedIndexChanged(object sender, EventArgs e)

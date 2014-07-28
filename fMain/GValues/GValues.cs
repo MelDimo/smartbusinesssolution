@@ -29,6 +29,8 @@ namespace com.sbs.dll
         public static string resourcePath;
 
         public static int branchTable;
+        public static int branchBill;
+        public static int printRunners;
 
         public static int authortype;
         public static string billPrinter;
@@ -306,7 +308,9 @@ namespace com.sbs.dll
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT b.name AS branchName, " +
-                                        " bi.xtable AS xtable" +
+                                        " bi.xtable AS xtable," +
+                                        " bi.countBill AS countBill," +
+                                        " bi.printRunners AS printRunners" +
                                         " FROM branch b " +
                                         " INNER JOIN branch_info bi ON bi.branch = b.id" +
                                         " WHERE b.id = @pBranch";
@@ -327,6 +331,7 @@ namespace com.sbs.dll
             {
                 GValues.branchName = dr["branchName"].ToString();
                 GValues.branchTable = (int)dr["xtable"];
+                GValues.branchBill = (int)dr["countBill"];
             }
         }
     }

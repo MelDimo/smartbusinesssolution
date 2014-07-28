@@ -84,7 +84,7 @@ namespace com.sbs.dll.synchdata
                 {
                     billsArray = billsArray.Substring(0, billsArray.Length - 1);
 
-                    commandLocal.CommandText = " SELECT id, branch, season, bills, carte_dishes, dishes_name, dishes_price, xcount, discount, " +
+                    commandLocal.CommandText = " SELECT id, branch, season, bills, carte_dishes, ref_dishes, dishes_name, dishes_price, xcount, discount, " +
                                                     "user_add, date_status, ref_notes, ref_status, usersDiscount " +
                                             " FROM bills_info WHERE bills IN (" + billsArray + ") AND ref_status = 24"; // 24 Обработано - 
                                                                                                                         //Позиция была отправлена на изготовление
@@ -175,9 +175,9 @@ namespace com.sbs.dll.synchdata
                     commandMain.ExecuteNonQuery();
                 }
 
-                commandMain.CommandText = "INSERT INTO bills_info_all(bills_info,    branch,     season,     bills,          carte_dishes,   dishes_name,    dishes_price," +
+                commandMain.CommandText = "INSERT INTO bills_info_all(bills_info,    branch,     season,     bills,          carte_dishes,  ref_dishes,     dishes_name,    dishes_price," +
                                                                     "xcount,        discount,   user_add,   date_status,    ref_notes,      ref_status,     usersDiscount)" +
-                                                           " VALUES(@bills_info,    @branch,    @season,    @bills,         @carte_dishes,  @dishes_name,   @dishes_price," +
+                                                           " VALUES(@bills_info,    @branch,    @season,    @bills,         @carte_dishes,  @ref_dishes,    @dishes_name,   @dishes_price," +
                                                                     "@xcount,       @discount,  @user_add,  @date_status,   @ref_notes,     @ref_status,    @usersDiscount)";
                 foreach (DataRow dr in dtBillsInfo.Rows)
                 {
@@ -187,6 +187,7 @@ namespace com.sbs.dll.synchdata
                     commandMain.Parameters.Add("branch", SqlDbType.Int).Value = (int)dr["branch"];
                     commandMain.Parameters.Add("season", SqlDbType.Int).Value = (int)dr["season"];
                     commandMain.Parameters.Add("bills", SqlDbType.Int).Value = (int)dr["bills"];
+                    commandMain.Parameters.Add("ref_dishes", SqlDbType.Int).Value = (int)dr["ref_dishes"];
                     commandMain.Parameters.Add("carte_dishes", SqlDbType.Int).Value = (int)dr["carte_dishes"];
                     commandMain.Parameters.Add("dishes_name", SqlDbType.NVarChar).Value = dr["dishes_name"].ToString();
                     commandMain.Parameters.Add("dishes_price", SqlDbType.Decimal).Value = (decimal)dr["dishes_price"];
