@@ -106,7 +106,7 @@ namespace com.sbs.gui.report.repempllog
                                         " INNER JOIN unit un ON un.id = us.unit " +
                                         " INNER JOIN ref_post post ON post.id = us.ref_post " +
                                         " LEFT JOIN users_groups us_gr ON us_gr.users = us.id " +
-                                        " LEFT JOIN timeTracking tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
+                                        " LEFT JOIN timeTracking_all tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
                                         sWhere;
 
                 using (SqlDataReader dr = command.ExecuteReader())

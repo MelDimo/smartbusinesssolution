@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
 
-namespace com.sbs.gui.report.repempllog
+namespace com.sbs.gui.report.repsumbypaymenttype
 {
     static class Program
     {
@@ -26,7 +26,7 @@ namespace com.sbs.gui.report.repempllog
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fRepEmplLog());
+            Application.Run(new fRepSumByPaymentType());
         }
     }
 }
