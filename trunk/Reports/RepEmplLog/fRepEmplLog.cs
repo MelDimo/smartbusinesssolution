@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using CrystalDecisions.CrystalReports.Engine;
+using com.sbs.dll;
 
 namespace com.sbs.gui.report.repempllog
 {
@@ -155,7 +156,7 @@ namespace com.sbs.gui.report.repempllog
 
             try
             {
-                dt = dbAccess.prepareReport("offline", oRepParam);
+                dt = dbAccess.prepareReport(GValues.DBMode, oRepParam);
             }
             catch (Exception exc)
             {
@@ -169,7 +170,7 @@ namespace com.sbs.gui.report.repempllog
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
             repDoc.SetParameterValue("xDateTime_start", dateTimePicker_start.Value.ToShortDateString());
-            repDoc.SetParameterValue("xDateTime_end", dateTimePicker_start.Value.ToShortDateString());
+            repDoc.SetParameterValue("xDateTime_end", dateTimePicker_end.Value.ToShortDateString());
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;

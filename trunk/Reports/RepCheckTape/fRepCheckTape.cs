@@ -14,12 +14,39 @@ namespace com.sbs.gui.report.repchecktape
 {
     public partial class fRepCheckTape : Form
     {
+        DBaccess.Role curRole;
+
         private DBaccess dbAccess = new DBaccess();
         private RepParam oRepParam = new RepParam();
+
+        Suppurt Supp = new Suppurt();
 
         public fRepCheckTape()
         {
             InitializeComponent();
+
+            curRole = getRole();
+
+            if (curRole == DBaccess.Role.NONE)
+            {
+                MessageBox.Show("У декущего пользователя неустановлены привелегии для работы в данном модуле",
+                                GValues.prgNameFull,
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                setEnabled(false);
+                return;
+            }
+        }
+
+        private void setEnabled(bool pEnabled)
+        {
+            foreach (Control ctr in this.Controls) ctr.Enabled = pEnabled;
+        }
+
+        private DBaccess.Role getRole()
+        {
+            if (Supp.checkPrivileges(UsersInfo.Acl, 26)) return DBaccess.Role.BACKOFFICE;   // Просмотр чековой ленты ЛЮБОГО заведения
+            if (Supp.checkPrivileges(UsersInfo.Acl, 24)) return DBaccess.Role.FRONTOFFICE;  // Просмотр чековой ленты СВОЕГО заведения
+            return DBaccess.Role.NONE;
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -80,6 +107,16 @@ namespace com.sbs.gui.report.repchecktape
 
             oRepParam.branch = fChooseBranch.selectedId;
             textBox_branchsNames.Text = fChooseBranch.selectedName;
+        }
+
+        private void fRepCheckTape_Shown(object sender, EventArgs e)
+        {
+            if (curRole == DBaccess.Role.FRONTOFFICE)
+            {
+                button_branch.Enabled = false;
+                oRepParam.branch = GValues.branchId;
+                textBox_branchsNames.Text = GValues.branchName;
+            }
         }
     }
 }

@@ -157,6 +157,7 @@
             this.Controls.Add(this.dateTimePicker_dateEnd);
             this.Name = "fRepCheckTape";
             this.Text = "Чековая лента";
+            this.Shown += new System.EventHandler(this.fRepCheckTape_Shown);
             this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

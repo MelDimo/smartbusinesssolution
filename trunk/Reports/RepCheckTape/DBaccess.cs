@@ -10,6 +10,8 @@ namespace com.sbs.gui.report.repchecktape
 {
     class DBaccess
     {
+        public enum Role { FRONTOFFICE, BACKOFFICE, NONE };
+
         private DataTable dtResult = new DataTable();
 
         private SqlConnection con;
