@@ -107,8 +107,10 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "fChooserUnit";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fChooserUnit";
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fChooserUnit_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

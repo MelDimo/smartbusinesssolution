@@ -15,7 +15,7 @@ namespace com.sbs.dll.utilites
         public Mifire()
         {
             int indx, retCode, pcchReaders = 0;
-
+            
             retCode = ModWinsCard.SCardEstablishContext(ModWinsCard.SCARD_SCOPE_USER, 0, 0, ref hContext);
 
             if (retCode != ModWinsCard.SCARD_S_SUCCESS)

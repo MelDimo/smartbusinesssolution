@@ -33,7 +33,7 @@ namespace com.sbs.dll.utilites
             DataSet dsOrgTree;
             try
             {
-                dsOrgTree = oReference.getOrganizationTree("offline");
+                dsOrgTree = oReference.getOrganizationTree(GValues.DBMode);
             }
             catch (Exception exc)
             {
@@ -48,7 +48,7 @@ namespace com.sbs.dll.utilites
 
         private void createTree(DataSet pDsOrgTree)
         {
-            Debug.Print("checkLvl: " + checkLvl);
+            //Debug.Print("checkLvl: " + checkLvl);
             bool isChild = false;
             string parentId = string.Empty;
             TreeNode nodes;
