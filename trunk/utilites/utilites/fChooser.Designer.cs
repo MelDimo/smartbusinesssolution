@@ -126,6 +126,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fChooser";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fChooser_FormClosing);
             this.Shown += new System.EventHandler(this.fChooser_Shown);
             this.groupBox1.ResumeLayout(false);
