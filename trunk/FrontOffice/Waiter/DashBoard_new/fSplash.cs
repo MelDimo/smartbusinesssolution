@@ -126,27 +126,19 @@ namespace com.sbs.gui.dashboard
                 switch (e.KeyCode)
                 {
                     case Keys.Enter:
-                        try
+                        if (!trReadCard.IsAlive)
                         {
-                            if (!trReadCard.IsAlive)
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser != null)
                             {
-                                DashboardEnvironment.gUser = null;
-
-                                trReadCard = new Thread(enterKey);
-                                trReadCard.Start();
-
-                                trReadCard.Join();
-
-                                if (DashboardEnvironment.gUser != null)
-                                {
-                                    if (showSeasonForm()) showMainForm();
-                                }
+                                if (showSeasonForm()) showMainForm();
                             }
-                        }
-                        catch (Exception exc)
-                        {
-                            uMessage.Show("Ошибка!" + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
-                            return;
                         }
                         break;
 
@@ -236,45 +228,40 @@ namespace com.sbs.gui.dashboard
         /// </summary>
         private void enterKey()
         {
-            //--------------------------------------------------------------- Получаем информацию о пользователе
-            switch(GValues.authortype)
+            try
             {
-                case 1:
-                    fMIFare fMiFare = new fMIFare();
-                    if (fMiFare.ShowDialog() == DialogResult.OK)
-                    {
-                        try
+
+                //--------------------------------------------------------------- Получаем информацию о пользователе
+                switch (GValues.authortype)
+                {
+                    case 1:
+                        fMIFare fMiFare = new fMIFare();
+                        if (fMiFare.ShowDialog() == DialogResult.OK)
                         {
-                            DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
+
+                                DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
+                                fMiFare.Dispose();
+
+                        }
+                        else
                             fMiFare.Dispose();
-                        }
-                        catch (Exception exc)
-                        {
-                            uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
-                            return;
-                        }
-                    }
-                    else
-                        fMiFare.Dispose();
-                        return;
-                    break;
+                        break;
 
-                case 2:
-                    fLogin fl = new fLogin();
-                    if (fl.ShowDialog() != DialogResult.OK) return;
+                    case 2:
+                        fLogin fl = new fLogin();
+                        if (fl.ShowDialog() != DialogResult.OK) return;
 
-                    try
-                    {
                         DashboardEnvironment.gUser = getUserByPwd(fl.pwd);
                         fl.Dispose();
-                    }
-                    catch (Exception exc)
-                    {
-                        uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
-                        return;
-                    }
-                    fl.Dispose();
-                    break;
+
+                        break;
+                }
+            }
+            catch (Exception exc)
+            {
+                DashboardEnvironment.gUser = null;
+                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                return;
             }
         }
 
@@ -317,8 +304,6 @@ namespace com.sbs.gui.dashboard
 
             fMain fmain = new fMain();
             fmain.ShowDialog();
-            fmain.Dispose();
-            GC.Collect();
         }
 
         private DTO_DBoard.SeasonBranch[] getOpenSeason()

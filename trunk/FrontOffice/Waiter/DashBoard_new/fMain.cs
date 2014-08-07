@@ -296,9 +296,10 @@ namespace com.sbs.gui.dashboard
 
             curBill = ((ctrBill)((Button)sender).Parent).oBill;
 
-            Thread wThread = new Thread(waitSelectedBillConfirm);
-            wThread.IsBackground = true;
-            wThread.Start(curBill.id);
+            setBillInfo(curBill.id);
+            //Thread wThread = new Thread(waitSelectedBillConfirm);
+            //wThread.IsBackground = true;
+            //wThread.Start(curBill.id);
         }
 
         private void waitSelectedBillConfirm(object idBill)
@@ -310,7 +311,7 @@ namespace com.sbs.gui.dashboard
 
         public void setBillInfo(object pIdBill)
         {
-            if (curBill.id != (int)pIdBill) return;
+            //if (curBill.id != (int)pIdBill) return;
 
             fillBillsInfo(curBill);
 
@@ -932,10 +933,12 @@ namespace com.sbs.gui.dashboard
                         dbAccess.commitDish(GValues.DBMode, curBill);
                         break;
                     }
-
-                    MessageBox.Show("В счете есть необработанные позиции." + Environment.NewLine + "Закрытие счета невозможно",
-                        GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    else
+                    {
+                        MessageBox.Show("В счете есть необработанные позиции." + Environment.NewLine + "Закрытие счета невозможно",
+                            GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
                 }
 
             fCloseBill fCB = new fCloseBill(curBill, lDishs);
