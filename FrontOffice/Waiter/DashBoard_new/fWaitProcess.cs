@@ -22,6 +22,7 @@ namespace com.sbs.gui.dashboard
         ErrorInfo oError = new ErrorInfo();
         DBaccess dbAccess = new DBaccess();
         DTO_DBoard.Bill oBill;
+        DataSet dsResult = new DataSet();
 
         public string type;
         private bool fOk = false;
@@ -66,38 +67,36 @@ namespace com.sbs.gui.dashboard
 
         private void printDish()
         {
-            DataSet dsResult = new DataSet();
-            ReportDocument repDoc;
-
-            dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
+            
+            //ReportDocument repDoc;
 
             rawPrint(dsResult);
             return;
 
-            foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
-            {
-                var results = from myRow in dsResult.Tables["preorder"].AsEnumerable()
-                                where myRow.Field<int>("ref_printers_type") == (int)dr["id"]// && myRow.Field<int>("ref_status") == 23
-                                select myRow;
+            //foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
+            //{
+            //    var results = from myRow in dsResult.Tables["preorder"].AsEnumerable()
+            //                    where myRow.Field<int>("ref_printers_type") == (int)dr["id"]// && myRow.Field<int>("ref_status") == 23
+            //                    select myRow;
 
-                if (results.Count() > 0)
-                {
-                    oError = new ErrorInfo();
-                    oError.msg = string.Format("reportPath: {0}; printerName: {1}", results.First().Field<string>("reportPath"), results.First().Field<string>("printerName"));
+            //    if (results.Count() > 0)
+            //    {
+            //        oError = new ErrorInfo();
+            //        oError.msg = string.Format("reportPath: {0}; printerName: {1}", results.First().Field<string>("reportPath"), results.First().Field<string>("printerName"));
 
-                    repDoc = new ReportDocument();
-                    repDoc.Load(results.First().Field<string>("reportPath"));
-                    repDoc.SetDataSource(dsResult);// dsResult.Tables["preorder"]);
-                    repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-                    repDoc.SetParameterValue("curDate", DateTime.Now);
-                    repDoc.SetParameterValue("billNumber", oBill.numb);
-                    repDoc.SetParameterValue("tableNumb", oBill.table);
-                    repDoc.SetParameterValue("printersType", (int)dr["id"]);
-                    repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
-                    repDoc.PrintToPrinter(1, false, 0, 0);
-                    repDoc.Close();
-                }
-            }
+            //        repDoc = new ReportDocument();
+            //        repDoc.Load(results.First().Field<string>("reportPath"));
+            //        repDoc.SetDataSource(dsResult);// dsResult.Tables["preorder"]);
+            //        repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+            //        repDoc.SetParameterValue("curDate", DateTime.Now);
+            //        repDoc.SetParameterValue("billNumber", oBill.numb);
+            //        repDoc.SetParameterValue("tableNumb", oBill.table);
+            //        repDoc.SetParameterValue("printersType", (int)dr["id"]);
+            //        repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
+            //        repDoc.PrintToPrinter(1, false, 0, 0);
+            //        repDoc.Close();
+            //    }
+            //}
         }
 
         private void rawPrint(DataSet pDSResult)
@@ -148,8 +147,8 @@ namespace com.sbs.gui.dashboard
                     printerAddress = dr["printerName"].ToString();
                 }
                 sb.AppendLine("-".PadRight(rHeight, '-'));
-                sb.AppendLine();
-                sb.AppendLine();
+                sb.AppendLine(" ");
+                sb.AppendLine(" ");
                 sb.AppendLine(eCut);
 
                 bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
@@ -173,11 +172,16 @@ namespace com.sbs.gui.dashboard
 
                 case "PRINTDISH":
                     label_actionName.Text = "Печать бегунка, подождите...";
+
+                    dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
+
                     worThread.DoWork += new DoWorkEventHandler(printDish_DoWork);
                     break;
             }
 
             worThread.RunWorkerAsync();
+
+            DialogResult = DialogResult.OK; // не ожидаем печати бегунка
         }
 
         void printBill_DoWork(object sender, DoWorkEventArgs e)
@@ -199,13 +203,30 @@ namespace com.sbs.gui.dashboard
                 printDish();
                 fOk = true;
             }
-            catch (Exception exc) { uMessage.Show(string.Format("Не удалась печать бегунков.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
+            catch (Exception exc) 
+            {
+                return;
+                // Не ожидаем печети бегунка
+                //uMessage.Show(string.Format("Не удалась печать бегунков.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; 
+            }
         }
 
         void runWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (fOk) DialogResult = DialogResult.OK;
-            else DialogResult = DialogResult.Cancel;
+            switch (type)
+            {
+                case "PRINTBILL":
+                    if (fOk) DialogResult = DialogResult.OK;
+                    else DialogResult = DialogResult.Cancel;
+                    break;
+
+                case "PRINTDISH":
+                    break;
+            }
+
+            // Не ожидаем печети бегунка
+            //if (fOk) DialogResult = DialogResult.OK;
+            //else DialogResult = DialogResult.Cancel;
         }
     }
 }

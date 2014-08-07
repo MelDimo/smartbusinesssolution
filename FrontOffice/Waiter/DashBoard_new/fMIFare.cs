@@ -17,6 +17,7 @@ namespace com.sbs.gui.dashboard
         public fMIFare()
         {
             InitializeComponent();
+
             this.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.ACR122_logoNFC;
         }
 

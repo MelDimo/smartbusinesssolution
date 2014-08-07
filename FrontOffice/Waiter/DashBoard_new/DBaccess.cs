@@ -480,7 +480,6 @@ namespace com.sbs.gui.dashboard
             oBill.openDate = DateTime.Now;
             oBill.refStat = 19;
             oBill.table = pNumbTable;
-            
 
             con = new DBCon().getConnection(pDbType);
 
