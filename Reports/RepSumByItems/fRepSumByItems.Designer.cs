@@ -39,6 +39,10 @@
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.textBox_items = new System.Windows.Forms.TextBox();
+            this.button_items = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -47,18 +51,14 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBox_paymentType = new System.Windows.Forms.TextBox();
             this.button_paymentType = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.textBox_items = new System.Windows.Forms.TextBox();
-            this.button_items = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel8.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -191,6 +191,47 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(450, 79);
             this.tableLayoutPanel2.TabIndex = 60;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.textBox_items);
+            this.panel3.Controls.Add(this.button_items);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(93, 55);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(354, 21);
+            this.panel3.TabIndex = 5;
+            // 
+            // textBox_items
+            // 
+            this.textBox_items.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_items.Location = new System.Drawing.Point(0, 0);
+            this.textBox_items.Name = "textBox_items";
+            this.textBox_items.ReadOnly = true;
+            this.textBox_items.Size = new System.Drawing.Size(320, 20);
+            this.textBox_items.TabIndex = 1;
+            // 
+            // button_items
+            // 
+            this.button_items.Dock = System.Windows.Forms.DockStyle.Right;
+            this.button_items.Location = new System.Drawing.Point(320, 0);
+            this.button_items.Name = "button_items";
+            this.button_items.Size = new System.Drawing.Size(34, 21);
+            this.button_items.TabIndex = 2;
+            this.button_items.Text = "...";
+            this.button_items.UseVisualStyleBackColor = true;
+            this.button_items.Click += new System.EventHandler(this.button_items_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 27);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Товары*";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -273,47 +314,6 @@
             this.button_paymentType.UseVisualStyleBackColor = true;
             this.button_paymentType.Click += new System.EventHandler(this.button_paymentType_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 27);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Товары*";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.textBox_items);
-            this.panel3.Controls.Add(this.button_items);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(93, 55);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(354, 21);
-            this.panel3.TabIndex = 5;
-            // 
-            // textBox_items
-            // 
-            this.textBox_items.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_items.Location = new System.Drawing.Point(0, 0);
-            this.textBox_items.Name = "textBox_items";
-            this.textBox_items.ReadOnly = true;
-            this.textBox_items.Size = new System.Drawing.Size(320, 20);
-            this.textBox_items.TabIndex = 1;
-            // 
-            // button_items
-            // 
-            this.button_items.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button_items.Location = new System.Drawing.Point(320, 0);
-            this.button_items.Name = "button_items";
-            this.button_items.Size = new System.Drawing.Size(34, 21);
-            this.button_items.TabIndex = 2;
-            this.button_items.Text = "...";
-            this.button_items.UseVisualStyleBackColor = true;
-            this.button_items.Click += new System.EventHandler(this.button_items_Click);
-            // 
             // fRepSumByItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,12 +334,12 @@
             this.panel8.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }

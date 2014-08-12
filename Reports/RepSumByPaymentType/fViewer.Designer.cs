@@ -49,8 +49,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 407);
             this.Controls.Add(this.crystalReportViewer_main);
+            this.MinimizeBox = false;
             this.Name = "fViewer";
-            this.Text = "fViewer";
+            this.ShowInTaskbar = false;
+            this.Text = "Статистика по типам оплаты";
             this.ResumeLayout(false);
 
         }

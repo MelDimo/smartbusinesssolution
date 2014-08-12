@@ -54,7 +54,7 @@ namespace com.sbs.gui.report.repsumbywaiter
             oFilter.dateStart = new DateTime(dateTimePicker_dateStart.Value.Year, dateTimePicker_dateStart.Value.Month, dateTimePicker_dateStart.Value.Day,
                                              dateTimePicker_timeStart.Value.Hour, dateTimePicker_timeStart.Value.Minute, dateTimePicker_timeStart.Value.Second);
             oFilter.dateEnd = new DateTime(dateTimePicker_dateEnd.Value.Year, dateTimePicker_dateEnd.Value.Month, dateTimePicker_dateEnd.Value.Day,
-                                             dateTimePicker_dateEnd.Value.Hour, dateTimePicker_dateEnd.Value.Minute, dateTimePicker_dateEnd.Value.Second);
+                                             dateTimePicker_timeEnd.Value.Hour, dateTimePicker_timeEnd.Value.Minute, dateTimePicker_timeEnd.Value.Second);
 
             if (oFilter.lBranch.Count == 0) { errMsg += Environment.NewLine + "- Заведения;"; }
             if (oFilter.lPaymentType.Count == 0) { errMsg += Environment.NewLine + "- Типы оплаты;"; }
@@ -94,8 +94,14 @@ namespace com.sbs.gui.report.repsumbywaiter
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
             fviewer.crystalReportViewer_main.Refresh();
+#if DEBUG
             fviewer.ShowDialog();
             repDoc.Close();
+#else
+            fviewer.TopLevel = true;
+            fviewer.Show(this);
+            //repDoc.Close();
+#endif
         }
 
         private void button_cancel_Click(object sender, EventArgs e)

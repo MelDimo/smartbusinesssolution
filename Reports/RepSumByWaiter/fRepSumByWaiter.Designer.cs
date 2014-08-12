@@ -278,7 +278,7 @@
             this.Name = "fRepSumByWaiter";
             this.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ShowInTaskbar = false;
-            this.Text = "Form1";
+            this.Text = "Статистика по сотрудникам.";
             this.Shown += new System.EventHandler(this.fRepSumByWaiter_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
