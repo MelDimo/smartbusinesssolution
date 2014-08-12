@@ -50,7 +50,9 @@ namespace com.sbs.gui.report.repsumbypaymenttype
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT b.branch, br.name AS nameBranch, b.ref_payment_type, pt.name AS namePayment, count(b.numb) AS billsCount, sum(b.[sum]) AS summ" +
+                command.CommandText = " SELECT b.branch, br.name AS nameBranch, b.ref_payment_type, pt.name AS namePayment, "+
+                                            " count(b.numb) AS billsCount, " +
+                                            " sum(b.[sum]) AS summ " +
                                             " FROM bills_all b " +
                                             //" INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
                                             " INNER JOIN branch br ON br.id = b.branch " +

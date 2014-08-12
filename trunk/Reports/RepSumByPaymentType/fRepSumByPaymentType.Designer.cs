@@ -278,7 +278,7 @@
             this.Name = "fRepSumByPaymentType";
             this.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ShowInTaskbar = false;
-            this.Text = "Form1";
+            this.Text = "Статистика по типам оплаты.";
             this.Shown += new System.EventHandler(this.fRepSumByPaymentType_Shown);
             this.panel8.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

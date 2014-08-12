@@ -60,8 +60,8 @@ namespace com.sbs.gui.report.repsumbyitems
                                                 " bi.dishes_name AS dishesName, " +
                                                 " br.name AS nameBranch, " +
                                                 " bi.dishes_price AS dishesPrice, " +
-                                                " count(bi.ref_dishes) AS dishesCount, " +
-                                                " bi.dishes_price * sum(bi.xcount) AS dishesSumm " +
+                                                " SUM(bi.xcount) AS dishesCount, " +
+                                                " (bi.dishes_price - (bi.dishes_price * bi.discount / 100))  * sum(bi.xcount) AS dishesSumm " +
                                         " FROM bills_all b " +
                                         " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
                                         " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id " +
@@ -71,7 +71,7 @@ namespace com.sbs.gui.report.repsumbyitems
                                             " AND b.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
                                             " AND b.branch in (" + sBranch + ") AND b.ref_payment_type in (" + sPaymentType + ") " +
                                             " AND bi.ref_dishes in (" + sItems + ") " +
-                                        " GROUP BY bi.ref_dishes, rd.code, bi.dishes_name, br.name, bi.dishes_price";
+                                        " GROUP BY bi.ref_dishes, rd.code, bi.dishes_name, br.name, bi.dishes_price, bi.discount";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

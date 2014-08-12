@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepSumByPaymentType", "RepS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepSumByWaiter", "RepSumByWaiter\RepSumByWaiter.csproj", "{576CC558-8056-4056-B2E0-1C7554982DCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepSumByItems", "RepSumByItems\RepSumByItems.csproj", "{41708689-3058-4DD0-B798-6874517413AC}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -47,6 +49,10 @@ Global
 		{576CC558-8056-4056-B2E0-1C7554982DCE}.Debug|x86.Build.0 = Debug|x86
 		{576CC558-8056-4056-B2E0-1C7554982DCE}.Release|x86.ActiveCfg = Release|x86
 		{576CC558-8056-4056-B2E0-1C7554982DCE}.Release|x86.Build.0 = Release|x86
+		{41708689-3058-4DD0-B798-6874517413AC}.Debug|x86.ActiveCfg = Debug|x86
+		{41708689-3058-4DD0-B798-6874517413AC}.Debug|x86.Build.0 = Debug|x86
+		{41708689-3058-4DD0-B798-6874517413AC}.Release|x86.ActiveCfg = Release|x86
+		{41708689-3058-4DD0-B798-6874517413AC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

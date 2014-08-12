@@ -50,7 +50,7 @@
             this.ClientSize = new System.Drawing.Size(720, 433);
             this.Controls.Add(this.crystalReportViewer_main);
             this.Name = "fViewer";
-            this.Text = "fViewer";
+            this.Text = "Статистика по сотрудникам";
             this.ResumeLayout(false);
 
         }
