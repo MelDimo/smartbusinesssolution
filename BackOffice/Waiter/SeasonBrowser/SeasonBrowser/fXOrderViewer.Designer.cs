@@ -45,7 +45,7 @@
             this.textBox_report.Multiline = true;
             this.textBox_report.Name = "textBox_report";
             this.textBox_report.ReadOnly = true;
-            this.textBox_report.Size = new System.Drawing.Size(425, 504);
+            this.textBox_report.Size = new System.Drawing.Size(386, 471);
             this.textBox_report.TabIndex = 0;
             // 
             // toolStrip1
@@ -55,7 +55,7 @@
             this.tSButton_print});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(425, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(386, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -74,9 +74,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_printerName});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 529);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 496);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(425, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(386, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -90,7 +90,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(425, 551);
+            this.ClientSize = new System.Drawing.Size(386, 518);
             this.Controls.Add(this.textBox_report);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

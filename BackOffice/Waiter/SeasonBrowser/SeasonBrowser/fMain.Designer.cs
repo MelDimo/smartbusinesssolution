@@ -248,7 +248,6 @@
             // 
             this.flowLayoutPanel_season.AutoScroll = true;
             this.flowLayoutPanel_season.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_season.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_season.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_season.Name = "flowLayoutPanel_season";
             this.flowLayoutPanel_season.Size = new System.Drawing.Size(289, 464);

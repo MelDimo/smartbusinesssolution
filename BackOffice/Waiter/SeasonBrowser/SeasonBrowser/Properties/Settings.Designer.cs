@@ -58,5 +58,17 @@ namespace com.sbs.gui.seasonbrowser.Properties {
                 this["formState"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\")]
+        public string path2export1C {
+            get {
+                return ((string)(this["path2export1C"]));
+            }
+            set {
+                this["path2export1C"] = value;
+            }
+        }
     }
 }
