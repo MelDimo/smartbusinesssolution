@@ -376,7 +376,7 @@ namespace com.sbs.gui.seasonbrowser
                 command.Parameters.Add("pSeasonId", SqlDbType.Int).Value = pFilter.season;
 
                 command.CommandText = " SELECT season_start, season_end, " +
-                                        " SUM(dish_sum) AS season_sum, " +
+                                        " SUM(dish_sum - (dish_sum * dish_discount / 100)) AS season_sum, " +
                                         " count(distinct bill) AS count_bill "+
                                         " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
                                         " GROUP BY season_start, season_end;";
@@ -389,7 +389,7 @@ namespace com.sbs.gui.seasonbrowser
                     dsData.Tables.Add(dtResult);
                 }
 
-                command.CommandText = " SELECT user_fio, bill_paymentType, SUM(dish_sum) AS summ " +
+                command.CommandText = " SELECT user_fio, bill_paymentType, SUM(dish_sum - (dish_sum * dish_discount / 100)) AS summ " +
                                         " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
                                         " GROUP BY user_fio, bill_paymentType " +
                                         " ORDER BY user_fio, bill_paymentType;";
@@ -402,7 +402,7 @@ namespace com.sbs.gui.seasonbrowser
                     dsData.Tables.Add(dtResult);
                 }
 
-                command.CommandText = " SELECT dish_printer, SUM(dish_sum) AS summ " +
+                command.CommandText = " SELECT dish_printer, SUM(dish_sum - (dish_sum * dish_discount / 100)) AS summ " +
                                         " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
                                         " GROUP BY dish_printer " +
                                         " ORDER BY dish_printer;";
@@ -415,7 +415,7 @@ namespace com.sbs.gui.seasonbrowser
                     dsData.Tables.Add(dtResult);
                 }
 
-                command.CommandText = " SELECT bill_paymentType, SUM(dish_sum) AS summ " +
+                command.CommandText = " SELECT bill_paymentType, SUM(dish_sum - (dish_sum * dish_discount / 100)) AS summ " +
                                         " FROM vAllBills WHERE branch = @pBranch AND seasonId = @pSeasonId " +
                                         " GROUP BY bill_paymentType " +
                                         " ORDER BY bill_paymentType;";
@@ -509,51 +509,54 @@ namespace com.sbs.gui.seasonbrowser
 
                 dsResult.Tables.Add(dtXmlBuxs);
 
-                command.CommandText = " SELECT bia.bills," +
-                                                " u.code as DEPARTAMENT," +
-                                                " bia.id as LineID," +
-                                                " 0 as OwnerID," +
-                                                " rd.code as ASSID," +
-                                                " bia.xcount as QTY," +
-                                                " 0 as COEF_QTY," +
-                                                " bia.dishes_price as PRICE," +
-                                                " 0 as NODISK_PRICE," +
-                                                " 0 as NDS_PROCENT," +
-                                                " 0 as NDSID," +
-                                                " (bia.xcount * bia.dishes_price)  - ((bia.xcount * bia.dishes_price) * bia.discount / 100) as SUMM," +
-                                                " 0 as NDSSUMM," +
-                                                " 0 as DISCOUNTSUMM," +
-                                                " 0 as DISCOUNTSUMMNDS" +
-                                        " FROM bills_info_all bia" +
-                                        " INNER JOIN carte_dishes cd ON cd.id = bia.carte_dishes" +
-                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
-                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes" +
+                command.CommandText = " SELECT " +
+                                            " distinct bia.id as LineID," +
+                                            " bia.bills," +
+                                            " u.code as DEPARTAMENT," +
+                                            " 0 as OwnerID," +
+                                            " rd.code as ASSID," +
+                                            " bia.xcount as QTY," +
+                                            " 0 as COEF_QTY," +
+                                            " bia.dishes_price as PRICE," +
+                                            " 0 as NODISK_PRICE," +
+                                            " 0 as NDS_PROCENT," +
+                                            " 0 as NDSID," +
+                                            " (bia.xcount * bia.dishes_price)  - ((bia.xcount * bia.dishes_price) * bia.discount / 100) as SUMM," +
+                                            " 0 as NDSSUMM," +
+                                            " 0 as DISCOUNTSUMM," +
+                                            " 0 as DISCOUNTSUMMNDS" +
+                                        " FROM bills_all b" +
+                                        " INNER JOIN bills_info_all bia ON bia.bills = b.bills_id AND bia.branch = b.branch AND bia.season = b.season" +
+                                        " INNER JOIN carte c ON c.branch = b.branch AND c.ref_status = 1" +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.carte = c.id" +
+                                        " INNER JOIN carte_dishes cd ON cd.carte_dishes_group = cdg.id AND cd.ref_dishes = bia.ref_dishes" +
+                                        " INNER JOIN ref_dishes rd ON rd.id = bia.ref_dishes" +
                                         " INNER JOIN unit u ON u.ref_printers_type = cd.ref_printers_type AND u.branch = @branch" +
-                                        " WHERE bia.branch = @branch AND bia.season = @season" +
-                                        //" ORDER BY bia.bills, u.code;" +
-                                        " UNION " +
-                                        " SELECT bita.bills, " +
-                                            " u.code as DEPARTAMENT, " +
-                                            " bia.id as LineID, " +
-                                            " 0 as OwnerID, " +
-                                            " rd.code as ASSID, " +
-                                            " 1 as QTY, " +
-                                            " 0 as COEF_QTY, " +
-                                            " bia.dishes_price as PRICE, " +
-                                            " 0 as NODISK_PRICE, " +
-                                            " 0 as NDS_PROCENT, " +
-                                            " 0 as NDSID, " +
-                                            " 1 * bia.dishes_price as SUMM, " +
-                                            " 0 as NDSSUMM, " +
-                                            " 0 as DISCOUNTSUMM, " +
-                                            " 0 as DISCOUNTSUMMNDS " +
-                                        " FROM bills_info_toppings_all bita " +
-                                        " INNER JOIN bills_info_all bia ON bia.bills_info = bita.bills_info " +
-                                        " INNER JOIN toppings_carte_dishes tcd ON tcd.id = bita.toppings_carte_dishes " +
-                                        " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
-                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes " +
-                                        " INNER JOIN unit u ON u.ref_printers_type = cd.ref_printers_type AND u.branch = @branch " +
-                                        " WHERE bia.branch = @branch AND bia.season = @season AND bita.isSelected = 1 " +
+                                        " WHERE b.branch = @branch AND b.season = @season AND b.ref_payment_type != 9" +
+                    //" ORDER BY bia.bills, u.code;" +
+                    //" UNION " +
+                    //" SELECT bita.bills, " +
+                    //    " u.code as DEPARTAMENT, " +
+                    //    " bia.id as LineID, " +
+                    //    " 0 as OwnerID, " +
+                    //    " rd.code as ASSID, " +
+                    //    " 1 as QTY, " +
+                    //    " 0 as COEF_QTY, " +
+                    //    " bia.dishes_price as PRICE, " +
+                    //    " 0 as NODISK_PRICE, " +
+                    //    " 0 as NDS_PROCENT, " +
+                    //    " 0 as NDSID, " +
+                    //    " 1 * bia.dishes_price as SUMM, " +
+                    //    " 0 as NDSSUMM, " +
+                    //    " 0 as DISCOUNTSUMM, " +
+                    //    " 0 as DISCOUNTSUMMNDS " +
+                    //" FROM bills_info_toppings_all bita " +
+                    //" INNER JOIN bills_info_all bia ON bia.bills_info = bita.bills_info " +
+                    //" INNER JOIN toppings_carte_dishes tcd ON tcd.id = bita.toppings_carte_dishes " +
+                    //" INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
+                    //" INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes " +
+                    //" INNER JOIN unit u ON u.ref_printers_type = cd.ref_printers_type AND u.branch = @branch " +
+                    //" WHERE bia.branch = @branch AND bia.season = @season AND bita.isSelected = 1 " +
                                         " ORDER BY bia.bills, u.code";
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

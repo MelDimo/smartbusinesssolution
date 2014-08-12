@@ -10,6 +10,7 @@ using com.sbs.dll.utilites;
 using com.sbs.dll;
 using System.Xml;
 using System.Diagnostics;
+using com.sbs.gui.seasonbrowser.Properties;
 
 namespace com.sbs.gui.seasonbrowser
 {
@@ -39,10 +40,14 @@ namespace com.sbs.gui.seasonbrowser
         private void button_browse_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            Settings set = new Settings();
+            fbd.SelectedPath = set.path2export1C;
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                textBox_path.Text = fbd.SelectedPath + @"\Смена_N_" + oFilter.season.ToString() + ".xml";
+                textBox_path.Text = fbd.SelectedPath + @"\Смена_N_" + oFilter.branch.ToString() + "_" + oFilter.season.ToString() + ".xml";
             }
+            set.path2export1C = fbd.SelectedPath;
+            set.Save();
         }
 
         private void button_ok_Click(object sender, EventArgs e)
