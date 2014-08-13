@@ -97,6 +97,12 @@
     <Compile Include="Controls\fAddDishToBill_topping.Designer.cs">
       <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\fDelivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\fDelivery.Designer.cs">
+      <DependentUpon>fDelivery.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\textBoxNumeric.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\fAddDishToBill_topping.resx">
       <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\fDelivery.resx">
+      <DependentUpon>fDelivery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\textBoxNumeric.resx">
       <DependentUpon>textBoxNumeric.cs</DependentUpon>
@@ -319,6 +328,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\printer-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splash.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delivery-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delivery-26.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

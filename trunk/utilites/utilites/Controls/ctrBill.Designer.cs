@@ -40,6 +40,7 @@
             this.button_editMnu = new System.Windows.Forms.Button();
             this.label_after = new System.Windows.Forms.Label();
             this.label_dishcount = new System.Windows.Forms.Label();
+            this.button_delivery = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_host
@@ -151,7 +152,7 @@
             // 
             this.label_after.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_after.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_after.Location = new System.Drawing.Point(266, 34);
+            this.label_after.Location = new System.Drawing.Point(206, 34);
             this.label_after.Name = "label_after";
             this.label_after.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label_after.Size = new System.Drawing.Size(126, 17);
@@ -170,10 +171,22 @@
             this.label_dishcount.Text = "label_dishcount";
             this.label_dishcount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button_delivery
+            // 
+            this.button_delivery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_delivery.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_delivery.Location = new System.Drawing.Point(367, 30);
+            this.button_delivery.Name = "button_delivery";
+            this.button_delivery.Size = new System.Drawing.Size(26, 26);
+            this.button_delivery.TabIndex = 12;
+            this.button_delivery.UseVisualStyleBackColor = false;
+            this.button_delivery.Visible = false;
+            // 
             // ctrBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_delivery);
             this.Controls.Add(this.label_dishcount);
             this.Controls.Add(this.label_numbTable);
             this.Controls.Add(this.label_summ);
@@ -207,6 +220,7 @@
         public System.Windows.Forms.Button button_editMnu;
         private System.Windows.Forms.Label label_after;
         public System.Windows.Forms.Label label_dishcount;
+        public System.Windows.Forms.Button button_delivery;
 
     }
 }

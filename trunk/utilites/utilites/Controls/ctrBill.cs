@@ -43,6 +43,7 @@ namespace com.sbs.dll.utilites
             string timeAfter = string.Empty;
 
             button_editMnu.BackgroundImage = Properties.Resources.edit_26;
+            button_delivery.BackgroundImage = Properties.Resources.delivery_16;
 
             label_numbBill.Text = oBill.numb.ToString();
             label_numbTable.Text = oBill.table.ToString() + (oBill.fioClose.Equals(String.Empty) ? string.Empty : " ( " + oBill.fioClose + " )");

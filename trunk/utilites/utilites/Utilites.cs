@@ -71,6 +71,34 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getCity(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, ref_status FROM ref_city";
+                
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getOrganization(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -1197,6 +1225,100 @@ namespace com.sbs.dll.utilites
 
                 command.CommandText = " SELECT id, fio, xkey, discount, ref_status, date_start, date_end, isExpDate, photo FROM usersDiscount WHERE xkey = @xkey";
                 command.Parameters.Add("xkey", SqlDbType.NVarChar).Value = pKey;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDeliveryClients(string pDbType, string pPhoneNumber)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, phone, fio, ref_city, street, house, korp, app, porch, code, [floor] FROM [ref_delivery_clients]";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDeliveryDrivers(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, description, ref_status = @refStatus FROM ref_delivery_drivers";
+
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDeliveryTariff(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, name, xprice, xtime, ref_status = @refStatus FROM ref_delivery_tariff";
+
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

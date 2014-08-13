@@ -100,8 +100,8 @@ namespace com.sbs.dll.utilites
 
             label_name.Text = oDish.name;
             label_price.Text = oDish.price.ToString("F2") + (oDish.discount > 0 ? " (-" + oDish.discount.ToString("F3") + "%)" : "");
-            numericUpDown_count.Minimum = oDish.minStep;
-            numericUpDown_count.Increment = oDish.minStep;
+            numericUpDown_count.minValue = oDish.minStep;
+            numericUpDown_count.stepValue = oDish.minStep;
             numericUpDown_count.Value = oDish.count;
             comboBox_note.SelectedValue = oDish.refNotes;
             label_count.Text = oDish.count.ToString("F2");
@@ -115,7 +115,7 @@ namespace com.sbs.dll.utilites
 
         private void numericUpDown_count_KeyUp(object sender, KeyEventArgs e)
         {
-            numericUpDown_count.Select(0, numericUpDown_count.Text.Length);
+            //numericUpDown_count.Select(0, numericUpDown_count.Text.Length);
         }
 
         private void button_topping_Click(object sender, EventArgs e)
