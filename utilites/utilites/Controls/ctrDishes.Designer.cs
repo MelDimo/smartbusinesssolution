@@ -33,11 +33,10 @@
             this.button_topping = new System.Windows.Forms.Button();
             this.button_deals = new System.Windows.Forms.Button();
             this.button_host = new System.Windows.Forms.Button();
-            this.numericUpDown_count = new System.Windows.Forms.NumericUpDown();
             this.comboBox_note = new System.Windows.Forms.ComboBox();
             this.button_editMnu = new System.Windows.Forms.Button();
             this.label_count = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).BeginInit();
+            this.numericUpDown_count = new com.sbs.dll.utilites.Controls.textBoxNumeric();
             this.SuspendLayout();
             // 
             // label_name
@@ -95,28 +94,6 @@
             this.button_host.TabIndex = 0;
             this.button_host.UseVisualStyleBackColor = false;
             // 
-            // numericUpDown_count
-            // 
-            this.numericUpDown_count.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown_count.DecimalPlaces = 2;
-            this.numericUpDown_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.numericUpDown_count.Location = new System.Drawing.Point(361, 7);
-            this.numericUpDown_count.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown_count.Name = "numericUpDown_count";
-            this.numericUpDown_count.ReadOnly = true;
-            this.numericUpDown_count.Size = new System.Drawing.Size(77, 29);
-            this.numericUpDown_count.TabIndex = 0;
-            this.numericUpDown_count.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown_count.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numericUpDown_count_KeyUp);
-            // 
             // comboBox_note
             // 
             this.comboBox_note.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
@@ -151,6 +128,15 @@
             this.label_count.TabIndex = 11;
             this.label_count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // numericUpDown_count
+            // 
+            this.numericUpDown_count.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDown_count.AutoSize = true;
+            this.numericUpDown_count.Location = new System.Drawing.Point(361, 6);
+            this.numericUpDown_count.Name = "numericUpDown_count";
+            this.numericUpDown_count.Size = new System.Drawing.Size(77, 26);
+            this.numericUpDown_count.TabIndex = 0;
+            // 
             // ctrDishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,7 +152,6 @@
             this.Controls.Add(this.button_host);
             this.Name = "ctrDishes";
             this.Size = new System.Drawing.Size(447, 75);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_count)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,10 +164,10 @@
         public System.Windows.Forms.Button button_topping;
         public System.Windows.Forms.Button button_deals;
         public System.Windows.Forms.Button button_host;
-        public System.Windows.Forms.NumericUpDown numericUpDown_count;
         public System.Windows.Forms.Button button_editMnu;
         public System.Windows.Forms.ComboBox comboBox_note;
         public System.Windows.Forms.Label label_count;
+        public Controls.textBoxNumeric numericUpDown_count;
 
     }
 }

@@ -155,6 +155,7 @@
             this.Name = "fAddDishToBill_topping";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.TopMost = true;
             this.Shown += new System.EventHandler(this.fAddDishToBill_topping_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fAddDishToBill_topping_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
