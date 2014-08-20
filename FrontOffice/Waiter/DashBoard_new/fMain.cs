@@ -12,6 +12,7 @@ using com.sbs.dll;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Threading;
 using System.Security.Permissions;
+using System.Collections;
 
 namespace com.sbs.gui.dashboard
 {
@@ -21,6 +22,8 @@ namespace com.sbs.gui.dashboard
 
     public partial class fMain : Form
     {
+        DTO_DBoard.Delivery oDelivery;
+
         DBaccess dbAccess = new DBaccess();
 
         Suppurt Supp = new Suppurt();
@@ -186,6 +189,7 @@ namespace com.sbs.gui.dashboard
         DTO_DBoard.Bill curBill;
 
         DataTable dtDishes;
+        string dtDishesFilter; // С помощью это фильтра разруиваю какие блюда показывать в доставке а кикие в меню зала
         
         bool errorOnInit = false;
 
@@ -209,7 +213,7 @@ namespace com.sbs.gui.dashboard
 
         private bool fillBills()
         {
-            lBills = new List<com.sbs.dll.DTO_DBoard.Bill>();
+            lBills = new List<DTO_DBoard.Bill>();
 
             try
             {
@@ -297,16 +301,6 @@ namespace com.sbs.gui.dashboard
             curBill = ((ctrBill)((Button)sender).Parent).oBill;
 
             setBillInfo(curBill.id);
-            //Thread wThread = new Thread(waitSelectedBillConfirm);
-            //wThread.IsBackground = true;
-            //wThread.Start(curBill.id);
-        }
-
-        private void waitSelectedBillConfirm(object idBill)
-        {
-            dBillCallback dCallBack = new dBillCallback(setBillInfo);
-            Thread.Sleep(270);
-            Invoke(dCallBack, new Object[] { idBill });
         }
 
         public void setBillInfo(object pIdBill)
@@ -337,6 +331,17 @@ namespace com.sbs.gui.dashboard
         
         void Bill_button_host_Click(object sender, EventArgs e)
         {
+            switch(curBill.oDelivery.bills)
+            {
+                case 0:
+                    dtDishesFilter = "avalHall = 1";
+                    break;
+
+                default:
+                    dtDishesFilter = "avalDelivery = 1";
+                    break;
+            }
+
             billEdit();
         }
 
@@ -367,7 +372,7 @@ namespace com.sbs.gui.dashboard
             List<DTO_DBoard.DishRefuse> lDishesRefuse;
             try 
             {
-                lDishesRefuse = dbAccess.getRefuse(GValues.DBMode);
+                lDishesRefuse = dbAccess.getRefuse(GValues.DBMode, dtDishesFilter);
             }
             catch (Exception exc)
             {
@@ -423,7 +428,7 @@ namespace com.sbs.gui.dashboard
             oCtrDishes.comboBox_note.DisplayMember = "note";
             oCtrDishes.comboBox_note.ValueMember = "id";
 
-            oCtrDishes.numericUpDown_count.Maximum = oDish.count;
+            oCtrDishes.numericUpDown_count.maxValue = oDish.count;
 
             fAddDishToBill fDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
             if (fDish2Bill.ShowDialog() == DialogResult.OK)
@@ -582,6 +587,7 @@ namespace com.sbs.gui.dashboard
 
             Thread wThread = new Thread(waitSelectedConfirm);
             wThread.Start(idGroup);
+
         }
 
         private void waitSelectedConfirm(object idGroup)
@@ -593,7 +599,7 @@ namespace com.sbs.gui.dashboard
 
             List<ctrDishes> lctrDishes = new List<ctrDishes>();
 
-            foreach (DataRow dr in dtDishes.Select("carte_dishes_group = " + idGroup))
+            foreach (DataRow dr in dtDishes.Select(string.Format("carte_dishes_group = {0} AND {1}", idGroup, dtDishesFilter)))
             {
                 if ((int)dr["isvisible"] != 1) continue;
 
@@ -619,7 +625,8 @@ namespace com.sbs.gui.dashboard
 
                 lctrDishes.Add(oCtrDishes);
             }
-            Thread.Sleep(270);
+
+            Thread.Sleep(150);
             if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
 
             Invoke(dCallBack, new Object[] { idGroup, lctrDishes });
@@ -642,17 +649,10 @@ namespace com.sbs.gui.dashboard
                 flowLayoutPanel_dish.Refresh();
                 if (i == 10) break;
             }
-
-            //foreach (ctrDishes cDishes in lctrDishes)
-            //{
-            //    flowLayoutPanel_dish.Controls.Add(cDishes);
-            //    flowLayoutPanel_dish.Refresh();
-
-            //}
         }
 
         #endregion
-
+        
         private void Dish_button_host_Click(object sender, EventArgs e)
         {
             DataTable dtNotesDish = new DataTable();
@@ -872,6 +872,23 @@ namespace com.sbs.gui.dashboard
 
         private void fMain_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Alt)
+            {
+                switch (e.KeyCode)
+                { 
+                    case Keys.F2:
+                        openDelivery();
+                        break;
+
+                    case Keys.D:
+                        if (curBill.oDelivery.bills == 0) return; // У выбранного счета нет доставки
+
+                        fDelivery fDeliv = new fDelivery(curBill.oDelivery, Suppurt.FormOpenModes.Edit);
+                        fDeliv.ShowDialog();
+                        break;
+                }
+            }
+            else
             switch(e.KeyCode)
             {
                 case Keys.F1:   // Помощь
@@ -1062,7 +1079,7 @@ namespace com.sbs.gui.dashboard
 
             curBill = new DTO_DBoard.Bill();
 
-            if (GValues.branchTable > 0)
+            if (GValues.branchTable > 0) 
             {
                 fTable ftable = new fTable();
                 ftable.tableNumber = GValues.branchTable;
@@ -1084,6 +1101,57 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
             
             lDishs = new List<com.sbs.dll.DTO_DBoard.Dish>();
+
+            dtDishesFilter = "avalHall = 1";
+
+            billEdit();
+        }
+
+        private void openDelivery()
+        {
+            int xPriv = 0;
+            string xErrMessage = string.Empty;
+
+            // Пытаемся создать счет
+            xPriv = 27; xErrMessage = "У Вас отсутствуют привилегии на открытие счета доставки.";
+
+            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+            {
+                MessageBox.Show(xErrMessage, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                curBill = dbAccess.BillOpen(GValues.DBMode, 0);
+            }
+            catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
+
+            lDishs = new List<com.sbs.dll.DTO_DBoard.Dish>();
+
+            Stack stack = new Stack(2);
+            stack.Push(curBill);
+            stack.Push(lDishs);
+
+            oDelivery = new DTO_DBoard.Delivery();
+            oDelivery.bills = curBill.id;
+            oDelivery.branch = GValues.branchId;
+            oDelivery.season = DashboardEnvironment.gSeasonBranch.seasonID;
+
+            fDelivery fDeliv = new fDelivery(oDelivery, Suppurt.FormOpenModes.New);
+            if (fDeliv.ShowDialog() != DialogResult.OK)
+            {
+                stack.Clear();
+                cancelBills();
+                return;
+            }
+
+            oDelivery = fDeliv.oDelivery;
+
+            lDishs = (List<DTO_DBoard.Dish>)stack.Pop();
+            curBill = (DTO_DBoard.Bill)stack.Pop();
+
+            dtDishesFilter = "avalDelivery = 1";
 
             billEdit();
         }

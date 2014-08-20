@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using com.sbs.dll.utilites.Controls;
 
 namespace com.sbs.gui.dashboard
 {
@@ -13,9 +14,17 @@ namespace com.sbs.gui.dashboard
     {
         internal int tableNumber;
 
+        textBoxNumeric numericUpDown_table;
+
         public fTable()
         {
             InitializeComponent();
+
+            numericUpDown_table = new textBoxNumeric();
+            numericUpDown_table.Dock = DockStyle.Fill;
+            numericUpDown_table.fontSize = 20;
+
+            groupBox1.Controls.Add(numericUpDown_table);
         }
 
         private void fTable_KeyDown(object sender, KeyEventArgs e)
@@ -35,8 +44,8 @@ namespace com.sbs.gui.dashboard
 
         private void fTable_Shown(object sender, EventArgs e)
         {
-            numericUpDown_table.Minimum = 0;
-            numericUpDown_table.Maximum = tableNumber;
+            numericUpDown_table.minValue = 0;
+            numericUpDown_table.maxValue = tableNumber;
         }
 
         void btnTable_Click(object sender, EventArgs e)

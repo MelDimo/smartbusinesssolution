@@ -411,7 +411,7 @@ namespace com.sbs.gui.dashboard
 
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                oBill = new com.sbs.dll.DTO_DBoard.Bill();
+                oBill = new DTO_DBoard.Bill();
                 oBill.id = (int)dtResult.Rows[i]["id"];
                 oBill.numb = (int)dtResult.Rows[i]["numb"];
                 oBill.openDate = (DateTime)dtResult.Rows[i]["date_open"];
@@ -422,6 +422,24 @@ namespace com.sbs.gui.dashboard
                 oBill.summ = (decimal)dtResult.Rows[i]["summa"];
                 oBill.summFact = (decimal)dtResult.Rows[i]["summa"];
                 oBill.dishCount = (int)dtResult.Rows[i]["itemCount"];
+                oBill.oDelivery.bills = (int)dtResult.Rows[i]["bid_bills"];
+                oBill.oDelivery.branch = (int)dtResult.Rows[i]["bid_branch"];
+                oBill.oDelivery.season = (int)dtResult.Rows[i]["bid_season"];
+                oBill.oDelivery.cardNumber = dtResult.Rows[i]["bid_discountNumber"].ToString();
+                oBill.oDelivery.comment = dtResult.Rows[i]["bid_xcomment"].ToString();
+                oBill.oDelivery.driverId = (int)dtResult.Rows[i]["bid_driver"];
+                oBill.oDelivery.tariff = (int)dtResult.Rows[i]["bid_tariff"];
+                oBill.oDelivery.deliveryClient.telNumb = dtResult.Rows[i]["rdc_phone"].ToString();
+                oBill.oDelivery.deliveryClient.fio = dtResult.Rows[i]["rdc_fio"].ToString();
+                oBill.oDelivery.deliveryClient.addr_city = (int)dtResult.Rows[i]["rdc_refCity"];
+                oBill.oDelivery.deliveryClient.addr_str = dtResult.Rows[i]["rdc_street"].ToString();
+                oBill.oDelivery.deliveryClient.addr_korp = dtResult.Rows[i]["rdc_korp"].ToString();
+                oBill.oDelivery.deliveryClient.addr_app = dtResult.Rows[i]["rdc_app"].ToString();
+                oBill.oDelivery.deliveryClient.addr_porch = dtResult.Rows[i]["rdc_porch"].ToString();
+                oBill.oDelivery.deliveryClient.addr_code = dtResult.Rows[i]["rdc_code"].ToString();
+                oBill.oDelivery.deliveryClient.addr_floor = dtResult.Rows[i]["rdc_floor"].ToString();
+
+
                 oBillList.Add(oBill);
             }
 
@@ -585,7 +603,7 @@ namespace com.sbs.gui.dashboard
 
                 #region carte_dishes
 
-                command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, ref_printers_type " +
+                command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, avalHall, avalDelivery, ref_printers_type " +
                                         " FROM carte_dishes " +
                                         (sGroup.Equals(string.Empty) ? string.Empty : " WHERE carte_dishes_group in (" + sGroup + ") "+
                                         " ORDER BY name"); 
@@ -919,9 +937,9 @@ namespace com.sbs.gui.dashboard
             return dsResult;
         }
 
-        internal DataTable billClose(string pDbType, DTO_DBoard.Bill pBill)
+        internal DataSet billClose(string pDbType, DTO_DBoard.Bill pBill)
         {
-            dtResult = new DataTable();
+            DataSet dsResult = new DataSet();
 
             con = new DBCon().getConnection(pDbType);
 
@@ -950,7 +968,7 @@ namespace com.sbs.gui.dashboard
 
                 command.ExecuteNonQuery();
 
-                dtResult = printBill(command, pBill);
+                dsResult = printBill(command, pBill);
 
                 tx.Commit();
                 con.Close();
@@ -958,7 +976,7 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
 
-            return dtResult;
+            return dsResult;
         }
 
         private void setDiscount(SqlCommand command, DTO_DBoard.Bill pBill)
@@ -977,34 +995,87 @@ namespace com.sbs.gui.dashboard
             command.ExecuteNonQuery();
         }
 
-        private DataTable printBill(SqlCommand command, DTO_DBoard.Bill pBill)
+        private DataSet printBill(SqlCommand command, DTO_DBoard.Bill pBill)
         {
-            dtResult = new DataTable();
+            DataSet dsResult = new DataSet();
 
-            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount, bi.discount,"+
-                                        " rp.name AS printerName, rr.xpath AS reportPath" +
-                                        " FROM bills_info bi" +
-                                        " INNER JOIN bills b ON b.id = bi.bills" +
-                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type" +
-                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers" +
-                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logNmae" +
-                                        " WHERE bi.bills = @bills AND bi.ref_status = @ref_status "+
+            dsResult.Tables.Add(new DataTable("order"));
+            dsResult.Tables.Add(new DataTable("deliveryOrder"));
+
+            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount, bi.discount, " +
+                                        " rp.name AS printerName, rr.xpath AS reportPath " +
+                                        " FROM bills_info bi " +
+                                        " INNER JOIN bills b ON b.id = bi.bills " +
+                                        " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type " +
+                                        " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers " +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logName " +
+                                        " WHERE bi.bills = @bills AND bi.ref_status = @ref_status AND bi.branch = @branch AND bi.season = @season " +
                                         " GROUP BY bi.dishes_name, bi.dishes_price, rp.name, rr.xpath, bi.discount ";
 
             command.CommandType = CommandType.Text;
 
             command.Parameters.Clear();
+            command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+            command.Parameters.Add("season", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
             command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
             command.Parameters.Add("ref_status", SqlDbType.Int).Value = 24;
-            command.Parameters.Add("logNmae", SqlDbType.NVarChar).Value = "bill";
+            command.Parameters.Add("logName", SqlDbType.NVarChar).Value = "bill";
             command.Parameters.Add("bills", SqlDbType.Int).Value = pBill.id;
 
             using (SqlDataReader dr = command.ExecuteReader())
             {
-                dtResult.Load(dr);
+                dsResult.Tables["order"].Load(dr);
             }
 
-            return dtResult;
+            
+            dsResult.Tables.Add(dtResult);
+
+            if (pBill.oDelivery.bills != 0) // есть доставка
+            {
+                dtResult = new DataTable();
+
+                command.CommandText = "SELECT rdd.name AS driverName, " +
+                                                " u.lname + ' ' +u.fname + ' ' + u.sname AS userName, " +
+                                                " rdc.phone AS xphone, " +
+                                                " 'г.' + rc.name +  " +
+                                                " ' ул.' + rdc.street + " +
+                                                " ' д.' + rdc.house + " +
+                                                " CASE WHEN rdc.korp = '' THEN '' ELSE ' кор.' + rdc.korp END + " +
+                                                " CASE WHEN rdc.app = '' THEN '' ELSE ' кв.' + rdc.app END + " +
+                                                " CASE WHEN rdc.porch = '' THEN '' ELSE ' п.' + rdc.porch END + " +
+                                                " CASE WHEN rdc.code = '' THEN '' ELSE ' код' + rdc.code END + " +
+                                                " CASE WHEN rdc.[floor] = '' THEN '' ELSE ' эт.' + rdc.[floor] END AS xaddr, " +
+                                                " b.[sum] billSum, " +
+                                                " rdt.xprice xtariff " +
+                                                " rp.name AS printerName, " +
+		                                        " 'reports\\deliveryOrder.rpt' AS reportPath " +
+                                        " FROM bills b " +
+                                        " INNER JOIN users u ON u.id = b.user_open " +
+                                        " INNER JOIN bills_info_delivery bid ON bid.bills = b.id " +
+                                        " INNER JOIN ref_delivery_drivers rdd ON rdd.id = bid.ref_driver " +
+                                        " INNER JOIN ref_delivery_tariff rdt ON rdt.id = bid.ref_delivery_tariff " +
+                                        " INNER JOIN ref_delivery_clients rdc ON rdc.id = bid.ref_delivery_client " +
+                                        " INNER JOIN ref_city rc ON rc.id = rdc.ref_city " +
+                                        " LEFT JOIN unit un ON un.branch = b.branch AND un.ref_printers_type = @ref_printers_type " +
+                                        " LEFT JOIN ref_printers rp ON rp.id = un.ref_printers " +
+                                        " LEFT JOIN ref_reports rr ON rr.ref_printers_type = un.ref_printers_type AND rr.logName = 'bill' " +
+                                        " WHERE b.id = @bId AND b.branch = @branch AND b.season = @season ";
+
+                command.CommandType = CommandType.Text;
+
+                command.Parameters.Clear();
+                command.Parameters.Add("bId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = 3;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("season", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dsResult.Tables["deliveryOrder"].Load(dr);
+                }
+            }
+
+            return dsResult;
         }
 
         internal List<DTO_DBoard.SeasonUser> getSeasonUser(string pDbType, DTO_DBoard.User pUser)
@@ -1137,7 +1208,7 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal List<DTO_DBoard.DishRefuse> getRefuse(string pDbType)
+        internal List<DTO_DBoard.DishRefuse> getRefuse(string pDbType, string pDishesFilter)
         {
             DTO_DBoard.DishRefuse oDishRefuse;
             List<DTO_DBoard.DishRefuse> lDishesRefuse = new List<DTO_DBoard.DishRefuse>();
@@ -1167,8 +1238,10 @@ namespace com.sbs.gui.dashboard
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
+            dtResult.DefaultView.RowFilter = pDishesFilter;
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
+                if ((int)dtResult.Rows[i][pDishesFilter.Substring(0, pDishesFilter.IndexOf(' '))] != 1) continue;
                 oDishRefuse = new DTO_DBoard.DishRefuse();
                 oDishRefuse.id = (int)dtResult.Rows[i]["id"];
                 oDishRefuse.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
