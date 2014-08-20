@@ -31,13 +31,6 @@ namespace com.sbs.gui.dashboard
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel_bills = new System.Windows.Forms.Panel();
-            this.panel_dishes = new System.Windows.Forms.Panel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tSSLabel_fio = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox_bills = new com.sbs.gui.dashboard.extGroupBox();
             this.groupBox_billsUpper = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_bills = new System.Windows.Forms.FlowLayoutPanel();
@@ -47,12 +40,15 @@ namespace com.sbs.gui.dashboard
             this.groupBox_billDish = new com.sbs.gui.dashboard.extGroupBox();
             this.groupBox_billDishUpper = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_billInfo = new System.Windows.Forms.FlowLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_billInfo = new com.sbs.gui.dashboard.extGroupBox();
             this.groupBox_billInfoUpper = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_billEdit = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_billInfo = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button_searchDish = new System.Windows.Forms.Button();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox_groups = new com.sbs.gui.dashboard.extGroupBox();
             this.groupBox_groupsUpper = new System.Windows.Forms.GroupBox();
             this.treeView_CarteGroups = new System.Windows.Forms.TreeView();
@@ -62,27 +58,32 @@ namespace com.sbs.gui.dashboard
             this.groupBox_dish = new com.sbs.gui.dashboard.extGroupBox();
             this.groupBox_dishUpper = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel_dish = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_bills = new System.Windows.Forms.Panel();
+            this.panel_dishes = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tSSLabel_fio = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel_bills.SuspendLayout();
-            this.panel_dishes.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.groupBox_bills.SuspendLayout();
             this.groupBox_billsUpper.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox_billDish.SuspendLayout();
             this.groupBox_billDishUpper.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.groupBox_billInfo.SuspendLayout();
             this.groupBox_billInfoUpper.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.groupBox_groups.SuspendLayout();
             this.groupBox_groupsUpper.SuspendLayout();
             this.groupBox_refuse.SuspendLayout();
             this.groupBox_refuseUpper.SuspendLayout();
             this.groupBox_dish.SuspendLayout();
             this.groupBox_dishUpper.SuspendLayout();
+            this.panel_bills.SuspendLayout();
+            this.panel_dishes.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -100,80 +101,6 @@ namespace com.sbs.gui.dashboard
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1127, 672);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.TabStop = true;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel2.Controls.Add(this.groupBox_billInfo, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1127, 672);
-            this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.groupBox_dish, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(397, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 666);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.groupBox_groups);
-            this.panel2.Controls.Add(this.groupBox_refuse);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(284, 660);
-            this.panel2.TabIndex = 0;
-            // 
-            // panel_bills
-            // 
-            this.panel_bills.Controls.Add(this.tableLayoutPanel1);
-            this.panel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_bills.Location = new System.Drawing.Point(0, 0);
-            this.panel_bills.Name = "panel_bills";
-            this.panel_bills.Size = new System.Drawing.Size(1127, 672);
-            this.panel_bills.TabIndex = 1;
-            // 
-            // panel_dishes
-            // 
-            this.panel_dishes.Controls.Add(this.tableLayoutPanel2);
-            this.panel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_dishes.Location = new System.Drawing.Point(0, 0);
-            this.panel_dishes.Name = "panel_dishes";
-            this.panel_dishes.Size = new System.Drawing.Size(1127, 672);
-            this.panel_dishes.TabIndex = 2;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSSLabel_fio});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 672);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1127, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // tSSLabel_fio
-            // 
-            this.tSSLabel_fio.Name = "tSSLabel_fio";
-            this.tSSLabel_fio.Size = new System.Drawing.Size(70, 17);
-            this.tSSLabel_fio.Text = "tSSLabel_fio";
             // 
             // groupBox_bills
             // 
@@ -244,6 +171,7 @@ namespace com.sbs.gui.dashboard
             // 
             this.groupBox_billDish.BorderColor = System.Drawing.Color.Empty;
             this.groupBox_billDish.Controls.Add(this.groupBox_billDishUpper);
+            this.groupBox_billDish.Controls.Add(this.panel4);
             this.groupBox_billDish.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_billDish.Location = new System.Drawing.Point(397, 3);
             this.groupBox_billDish.Name = "groupBox_billDish";
@@ -258,7 +186,7 @@ namespace com.sbs.gui.dashboard
             this.groupBox_billDishUpper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_billDishUpper.Location = new System.Drawing.Point(6, 19);
             this.groupBox_billDishUpper.Name = "groupBox_billDishUpper";
-            this.groupBox_billDishUpper.Size = new System.Drawing.Size(715, 641);
+            this.groupBox_billDishUpper.Size = new System.Drawing.Size(715, 363);
             this.groupBox_billDishUpper.TabIndex = 0;
             this.groupBox_billDishUpper.TabStop = false;
             // 
@@ -268,8 +196,23 @@ namespace com.sbs.gui.dashboard
             this.flowLayoutPanel_billInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_billInfo.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_billInfo.Name = "flowLayoutPanel_billInfo";
-            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(709, 622);
+            this.flowLayoutPanel_billInfo.Size = new System.Drawing.Size(709, 344);
             this.flowLayoutPanel_billInfo.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel2.Controls.Add(this.groupBox_billInfo, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1127, 672);
+            this.tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBox_billInfo
             // 
@@ -332,6 +275,31 @@ namespace com.sbs.gui.dashboard
             this.button_searchDish.Text = "F7";
             this.button_searchDish.UseVisualStyleBackColor = true;
             this.button_searchDish.Click += new System.EventHandler(this.button_searchDish_Click);
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel3.Controls.Add(this.panel2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox_dish, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(397, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(727, 666);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBox_groups);
+            this.panel2.Controls.Add(this.groupBox_refuse);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(284, 660);
+            this.panel2.TabIndex = 0;
             // 
             // groupBox_groups
             // 
@@ -431,6 +399,48 @@ namespace com.sbs.gui.dashboard
             this.flowLayoutPanel_dish.Size = new System.Drawing.Size(413, 616);
             this.flowLayoutPanel_dish.TabIndex = 1;
             // 
+            // panel_bills
+            // 
+            this.panel_bills.Controls.Add(this.tableLayoutPanel1);
+            this.panel_bills.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_bills.Location = new System.Drawing.Point(0, 0);
+            this.panel_bills.Name = "panel_bills";
+            this.panel_bills.Size = new System.Drawing.Size(1127, 672);
+            this.panel_bills.TabIndex = 1;
+            // 
+            // panel_dishes
+            // 
+            this.panel_dishes.Controls.Add(this.tableLayoutPanel2);
+            this.panel_dishes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel_dishes.Location = new System.Drawing.Point(0, 0);
+            this.panel_dishes.Name = "panel_dishes";
+            this.panel_dishes.Size = new System.Drawing.Size(1127, 672);
+            this.panel_dishes.TabIndex = 2;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSSLabel_fio});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 672);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1127, 22);
+            this.statusStrip1.TabIndex = 0;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tSSLabel_fio
+            // 
+            this.tSSLabel_fio.Name = "tSSLabel_fio";
+            this.tSSLabel_fio.Size = new System.Drawing.Size(70, 17);
+            this.tSSLabel_fio.Text = "tSSLabel_fio";
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(6, 382);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(715, 278);
+            this.panel4.TabIndex = 0;
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -449,27 +459,27 @@ namespace com.sbs.gui.dashboard
             this.Shown += new System.EventHandler(this.fMain_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel_bills.ResumeLayout(false);
-            this.panel_dishes.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.groupBox_bills.ResumeLayout(false);
             this.groupBox_billsUpper.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox_billDish.ResumeLayout(false);
             this.groupBox_billDishUpper.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox_billInfo.ResumeLayout(false);
             this.groupBox_billInfoUpper.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.groupBox_groups.ResumeLayout(false);
             this.groupBox_groupsUpper.ResumeLayout(false);
             this.groupBox_refuse.ResumeLayout(false);
             this.groupBox_refuseUpper.ResumeLayout(false);
             this.groupBox_dish.ResumeLayout(false);
             this.groupBox_dishUpper.ResumeLayout(false);
+            this.panel_bills.ResumeLayout(false);
+            this.panel_dishes.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,6 +524,7 @@ namespace com.sbs.gui.dashboard
         private GroupBox groupBox_groupsUpper;
         private GroupBox groupBox_refuseUpper;
         private GroupBox groupBox_dishUpper;
+        private Panel panel4;
     }
 
     public class extGroupBox : GroupBox

@@ -37,7 +37,7 @@ namespace com.sbs.gui.dashboard
             try
             {
                 lSeasonUser = dbAccess.getSeasonUser(GValues.DBMode, null);
-                lDRefuse = dbAccess.getRefuse(GValues.DBMode);
+                lDRefuse = dbAccess.getRefuse(GValues.DBMode, "");
             }
             catch (Exception exc)
             {

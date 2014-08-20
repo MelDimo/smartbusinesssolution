@@ -38,31 +38,59 @@ namespace com.sbs.gui.dashboard
         private void printBill()
         {
             string printerName = string.Empty;
-            DataTable dtResult = new DataTable();
+            DataSet dsResult = new DataSet();
+            DataTable dtOrder = new DataTable();
+            DataTable dtDeliveryOrder = new DataTable();
             ReportDocument repDoc;
 
             if (oBill == null) { return; }
 
-            dtResult = dbAccess.billClose(GValues.DBMode, oBill);
+            dsResult = dbAccess.billClose(GValues.DBMode, oBill);
 
-            if (dtResult.Rows.Count == 0) return;
+            if (dsResult.Tables["order"].Rows.Count == 0)
+            {
 
-            printerName = GValues.billPrinter.Equals("default") ? 
-                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
-                                            dtResult.Rows[0]["printerName"].ToString();
+                dtOrder = dsResult.Tables["order"];
 
-            oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtResult.Rows[0]["reportPath"].ToString(), printerName);
+                printerName = GValues.billPrinter.Equals("default") ?
+                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                                dtOrder.Rows[0]["printerName"].ToString();
 
-            repDoc = new ReportDocument();
-            repDoc.Load(dtResult.Rows[0]["reportPath"].ToString());
-            repDoc.SetDataSource(dtResult);
-            repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-            repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ? 
-                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName : 
-                                            dtResult.Rows[0]["printerName"].ToString();
-            
-            for (int i = 0; i < GValues.branchBill; i++ ) repDoc.PrintToPrinter(1, false, 0, 0);
-            repDoc.Close();
+                oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtOrder.Rows[0]["reportPath"].ToString(), printerName);
+
+                repDoc = new ReportDocument();
+                repDoc.Load(dtOrder.Rows[0]["reportPath"].ToString());
+                repDoc.SetDataSource(dtOrder);
+                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
+                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                                dtOrder.Rows[0]["printerName"].ToString();
+
+                for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(1, false, 0, 0);
+                repDoc.Close();
+            }
+
+            if (dsResult.Tables["deliveryOrder"].Rows.Count == 0)
+            {
+                dtDeliveryOrder = dsResult.Tables["deliveryOrder"];
+
+                printerName = GValues.billPrinter.Equals("default") ?
+                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                                dtDeliveryOrder.Rows[0]["printerName"].ToString();
+
+                oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtDeliveryOrder.Rows[0]["reportPath"].ToString(), printerName);
+
+                repDoc = new ReportDocument();
+                repDoc.Load(dtDeliveryOrder.Rows[0]["reportPath"].ToString());
+                repDoc.SetDataSource(dtDeliveryOrder);
+                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
+                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                                dtDeliveryOrder.Rows[0]["printerName"].ToString();
+
+                for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(1, false, 0, 0);
+                repDoc.Close();
+            }
         }
 
         private void printDish()
@@ -181,7 +209,8 @@ namespace com.sbs.gui.dashboard
 
             worThread.RunWorkerAsync();
 
-            DialogResult = DialogResult.OK; // не ожидаем печати бегунка
+            if ("PRINTDISH".Equals(type))
+                DialogResult = DialogResult.OK; // не ожидаем печати бегунка
         }
 
         void printBill_DoWork(object sender, DoWorkEventArgs e)
