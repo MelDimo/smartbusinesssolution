@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using CrystalDecisions.CrystalReports.Engine;
 using com.sbs.gui.report.reptimesheets.Properties;
+using com.sbs.dll;
 
 namespace com.sbs.gui.report.reptimesheets
 {
@@ -31,7 +32,7 @@ namespace com.sbs.gui.report.reptimesheets
         {
             try
             {
-                dtUserGroups = oReferences.getAllUserGroups("offline");
+                dtUserGroups = oReferences.getAllUserGroups(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Не удалось получить справочники.", exc, SystemIcons.Error); return; }
 
@@ -94,7 +95,7 @@ namespace com.sbs.gui.report.reptimesheets
         {
             try
             {
-                dtUsers = dbAccess.getUsers("offline", oRepParam);
+                dtUsers = dbAccess.getUsers(GValues.DBMode, oRepParam);
             }
             catch (Exception exc) { uMessage.Show("Не удалось получить список сотрудников.", exc, SystemIcons.Error); return; }
 
@@ -158,7 +159,7 @@ namespace com.sbs.gui.report.reptimesheets
             
             try
             {
-                dt = dbAccess.prepareReport("offline", oRepParam);
+                dt = dbAccess.prepareReport(GValues.DBMode, oRepParam);
             }
             catch (Exception exc)
             {

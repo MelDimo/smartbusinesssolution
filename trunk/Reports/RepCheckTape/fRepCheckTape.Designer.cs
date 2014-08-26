@@ -38,6 +38,9 @@
             this.textBox_branchsNames = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button_branch = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox_paymentType = new System.Windows.Forms.TextBox();
+            this.button_paymentType = new System.Windows.Forms.Button();
             this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +51,7 @@
             this.dateTimePicker_dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateEnd.Location = new System.Drawing.Point(95, 36);
             this.dateTimePicker_dateEnd.Name = "dateTimePicker_dateEnd";
-            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(250, 20);
+            this.dateTimePicker_dateEnd.Size = new System.Drawing.Size(350, 20);
             this.dateTimePicker_dateEnd.TabIndex = 1;
             // 
             // label1
@@ -76,7 +79,7 @@
             this.dateTimePicker_dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_dateStart.Location = new System.Drawing.Point(95, 12);
             this.dateTimePicker_dateStart.Name = "dateTimePicker_dateStart";
-            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(250, 20);
+            this.dateTimePicker_dateStart.Size = new System.Drawing.Size(350, 20);
             this.dateTimePicker_dateStart.TabIndex = 0;
             // 
             // panel8
@@ -84,15 +87,15 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 101);
+            this.panel8.Location = new System.Drawing.Point(0, 154);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(358, 35);
+            this.panel8.Size = new System.Drawing.Size(458, 35);
             this.panel8.TabIndex = 3;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(262, 6);
+            this.button_cancel.Location = new System.Drawing.Point(362, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
@@ -103,7 +106,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(181, 6);
+            this.button_ok.Location = new System.Drawing.Point(281, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -118,7 +121,7 @@
             this.textBox_branchsNames.Location = new System.Drawing.Point(95, 63);
             this.textBox_branchsNames.Name = "textBox_branchsNames";
             this.textBox_branchsNames.ReadOnly = true;
-            this.textBox_branchsNames.Size = new System.Drawing.Size(221, 20);
+            this.textBox_branchsNames.Size = new System.Drawing.Size(321, 20);
             this.textBox_branchsNames.TabIndex = 2;
             this.textBox_branchsNames.TabStop = false;
             // 
@@ -134,7 +137,7 @@
             // button_branch
             // 
             this.button_branch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_branch.Location = new System.Drawing.Point(321, 62);
+            this.button_branch.Location = new System.Drawing.Point(421, 62);
             this.button_branch.Name = "button_branch";
             this.button_branch.Size = new System.Drawing.Size(24, 23);
             this.button_branch.TabIndex = 2;
@@ -142,11 +145,42 @@
             this.button_branch.UseVisualStyleBackColor = true;
             this.button_branch.Click += new System.EventHandler(this.button_branch_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 92);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 51;
+            this.label4.Text = "Тип оплаты";
+            // 
+            // textBox_paymentType
+            // 
+            this.textBox_paymentType.Location = new System.Drawing.Point(95, 89);
+            this.textBox_paymentType.Name = "textBox_paymentType";
+            this.textBox_paymentType.ReadOnly = true;
+            this.textBox_paymentType.Size = new System.Drawing.Size(321, 20);
+            this.textBox_paymentType.TabIndex = 52;
+            // 
+            // button_paymentType
+            // 
+            this.button_paymentType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_paymentType.Location = new System.Drawing.Point(421, 87);
+            this.button_paymentType.Name = "button_paymentType";
+            this.button_paymentType.Size = new System.Drawing.Size(24, 23);
+            this.button_paymentType.TabIndex = 53;
+            this.button_paymentType.Text = "...";
+            this.button_paymentType.UseVisualStyleBackColor = true;
+            this.button_paymentType.Click += new System.EventHandler(this.button_paymentType_Click);
+            // 
             // fRepCheckTape
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 136);
+            this.ClientSize = new System.Drawing.Size(458, 189);
+            this.Controls.Add(this.button_paymentType);
+            this.Controls.Add(this.textBox_paymentType);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.button_branch);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox_branchsNames);
@@ -176,6 +210,9 @@
         private System.Windows.Forms.TextBox textBox_branchsNames;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button_branch;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox_paymentType;
+        private System.Windows.Forms.Button button_paymentType;
     }
 }
 
