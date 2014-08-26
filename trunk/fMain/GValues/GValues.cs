@@ -36,6 +36,7 @@ namespace com.sbs.dll
         public static string billPrinter;
         public static bool dbSynch;
         public static int timeSynch;
+        //public static bool isDelivery;
 
         public static bool isAlive = true;  // Флаг для потоков synch говорящий живо ли приложение и нужно ли работать
 
@@ -198,7 +199,7 @@ namespace com.sbs.dll
             }
             catch (Exception exc)
             {
-                uMessage.Show("Неудалось установить параметры подключения.", exc, SystemIcons.Information);
+                //uMessage.Show("Неудалось установить параметры подключения.", exc, SystemIcons.Information);
                 return false;
             }
             return true;
@@ -217,6 +218,8 @@ namespace com.sbs.dll
             XmlNode node_billPrinter;
             XmlNode node_dbSynch;
             XmlNode node_timeSynch;
+            //XmlNode node_isDelivery;
+
 
             try
             {
@@ -229,6 +232,7 @@ namespace com.sbs.dll
                 node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
                 node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
                 node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
+                //node_isDelivery = doc.GetElementsByTagName("isDelivery")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -279,6 +283,21 @@ namespace com.sbs.dll
                         msgError += Environment.NewLine + "- Не удалось определить тип синхронизации;";
                         break;
                 }
+
+                //switch (node_isDelivery.InnerText)
+                //{
+                //    case "true":
+                //        GValues.isDelivery = true;
+                //        break;
+
+                //    case "false":
+                //        GValues.isDelivery = false;
+                //        break;
+
+                //    default:
+                //        msgError += Environment.NewLine + "- Не удалось определить является ли рабочее место доставкой;";
+                //        break;
+                //}                
 
                 if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
@@ -332,6 +351,7 @@ namespace com.sbs.dll
                 GValues.branchName = dr["branchName"].ToString();
                 GValues.branchTable = (int)dr["xtable"];
                 GValues.branchBill = (int)dr["countBill"];
+                GValues.printRunners = (int)dr["printRunners"];
             }
         }
     }

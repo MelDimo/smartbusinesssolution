@@ -37,6 +37,8 @@ namespace com.sbs.dll
             public decimal minStep { get; set; }
             public int refStatus { get; set; }
             public int isVisible { get; set; }
+            public int avalHall { get; set; }
+            public int avalDelivery { get; set; }
             public int refPrintersType { get; set; }
         }
 

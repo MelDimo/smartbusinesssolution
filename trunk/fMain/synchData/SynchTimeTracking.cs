@@ -5,8 +5,9 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Threading;
-using com.sbs.dll.utilites;
+//using com.sbs.dll.utilites;
 using System.Drawing;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.dll.synchdata
 {

@@ -24,6 +24,8 @@ namespace com.sbs.dll.synchdata
         DataTable dtBills;
         DataTable dtBillsInfo;
         DataTable dtToppings;
+        DataTable dtBillsInfoDeliVery;
+        DataTable dtRefDeliveryClients;
 
         Thread chkBillThread;
 
@@ -53,9 +55,12 @@ namespace com.sbs.dll.synchdata
             dtBills = new DataTable();
             dtBillsInfo = new DataTable();
             dtToppings = new DataTable();
+            dtBillsInfoDeliVery = new DataTable();
+            dtRefDeliveryClients = new DataTable();
 
             string billsArray = string.Empty;
             string DishArray = string.Empty;
+            string refDeliveryClients = string.Empty;
 
             #region -------------------------------------------------------- Сбор данных с локальных таблиц
 
@@ -66,13 +71,15 @@ namespace com.sbs.dll.synchdata
                 conLocal.Open();
                 commandLocal = conLocal.CreateCommand();
 
+                commandLocal.CommandText = " SELECT id, phone, fio, ref_city, street, house, korp, app, porch, code, [floor], isSynch FROM ref_delivery_clients WHERE isSynch = 0";
+                using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtRefDeliveryClients.Load(dr); }
+
                 commandLocal.CommandText = " SELECT id, code, branch, date_open, date_close, user_open, user_close, ref_status FROM season";
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtSeason.Load(dr); }
 
                 commandLocal.CommandText = " SELECT id, branch, season, numb, xTable, date_open, date_close, " +
                                         " ref_payment_type, user_open, user_close, ref_notes, ref_status, sum, discount " +
-                                        " FROM bills WHERE ref_status NOT IN(19, 20) AND isSynch = 0 " +
-                                        " AND (date_close is null OR  DATEADD(minute, " + GValues.timeSynch + ", date_close) <= GETDATE())";
+                                        " FROM bills WHERE ref_status NOT IN(19, 20) AND isSynch = 0 ";
                 using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBills.Load(dr); }
 
                 foreach(DataRow dr in dtBills.Rows)
@@ -88,8 +95,11 @@ namespace com.sbs.dll.synchdata
                                                     "user_add, date_status, ref_notes, ref_status, usersDiscount " +
                                             " FROM bills_info WHERE bills IN (" + billsArray + ") AND ref_status = 24"; // 24 Обработано - 
                                                                                                                         //Позиция была отправлена на изготовление
-
                     using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBillsInfo.Load(dr); }
+
+                    commandLocal.CommandText = " SELECT id, branch, season, bills, ref_delivery_client, ref_driver, ref_delivery_tariff, discountNumber, xcomment " +
+                                            " FROM bills_info_delivery WHERE bills IN (" + billsArray + ")";
+                    using (SqlDataReader dr = commandLocal.ExecuteReader()) { dtBillsInfoDeliVery.Load(dr); }
                 }
 
                 if (dtBillsInfo.Rows.Count > 0) // Смотрим топпинги по блюдам
@@ -202,6 +212,46 @@ namespace com.sbs.dll.synchdata
                     commandMain.ExecuteNonQuery();
                 }
 
+                commandMain.CommandText = "INSERT INTO bills_info_delivery_all(bills_info_delivery, branch,     season,     bills,  ref_delivery_client,    ref_driver,     ref_delivery_tariff,    discountNumber, xcomment) " +
+                                                                "       VALUES (@id,                @branch,    @season,    @bills, @ref_delivery_client,   @ref_driver,    @ref_delivery_tariff,   @discountNumber, @xcomment)";
+
+                foreach (DataRow dr in dtBillsInfoDeliVery.Rows)
+                {
+                    commandMain.Parameters.Clear();
+
+                    commandMain.Parameters.Add("id", SqlDbType.Int).Value = (int)dr["id"];
+                    commandMain.Parameters.Add("branch", SqlDbType.Int).Value = (int)dr["branch"];
+                    commandMain.Parameters.Add("season", SqlDbType.Int).Value = (int)dr["season"];
+                    commandMain.Parameters.Add("bills", SqlDbType.Int).Value = (int)dr["bills"];
+                    commandMain.Parameters.Add("ref_delivery_client", SqlDbType.NVarChar).Value = dr["ref_delivery_client"].ToString();
+                    commandMain.Parameters.Add("ref_driver", SqlDbType.Int).Value = (int)dr["ref_driver"];
+                    commandMain.Parameters.Add("ref_delivery_tariff", SqlDbType.Int).Value = (int)dr["ref_delivery_tariff"];
+                    commandMain.Parameters.Add("discountNumber", SqlDbType.NVarChar).Value = dr["discountNumber"].ToString();
+                    commandMain.Parameters.Add("xcomment", SqlDbType.NVarChar).Value = dr["xcomment"].ToString();
+
+                    commandMain.ExecuteNonQuery();
+                }
+
+                commandMain.CommandText = "INSERT INTO ref_delivery_clients_all(id,  phone,  fio,    ref_city,   street,     house,  korp,   app,    porch,  code,   [floor])" +
+                                               "                         VALUES(@id, @phone, @fio,   @ref_city,  @street,    @house, @korp,  @app,   @porch, @code,  @floor)";
+                foreach (DataRow dr in dtRefDeliveryClients.Rows)
+                {
+                    commandMain.Parameters.Clear();
+
+                    commandMain.Parameters.Add("id", SqlDbType.NVarChar).Value = dr["id"].ToString();
+                    commandMain.Parameters.Add("phone", SqlDbType.NVarChar).Value = dr["phone"].ToString();
+                    commandMain.Parameters.Add("fio", SqlDbType.NVarChar).Value = dr["fio"].ToString();
+                    commandMain.Parameters.Add("ref_city", SqlDbType.Int).Value = (int)dr["ref_city"];
+                    commandMain.Parameters.Add("street", SqlDbType.NVarChar).Value = dr["street"].ToString();
+                    commandMain.Parameters.Add("house", SqlDbType.NVarChar).Value = dr["house"].ToString();
+                    commandMain.Parameters.Add("korp", SqlDbType.NVarChar).Value = dr["korp"].ToString();
+                    commandMain.Parameters.Add("app", SqlDbType.NVarChar).Value = dr["app"].ToString();
+                    commandMain.Parameters.Add("porch", SqlDbType.NVarChar).Value = dr["porch"].ToString();
+                    commandMain.Parameters.Add("code", SqlDbType.NVarChar).Value = dr["code"].ToString();
+                    commandMain.Parameters.Add("floor", SqlDbType.NVarChar).Value = dr["floor"].ToString();
+
+                    commandMain.ExecuteNonQuery();
+                }
 
                 commandMain.CommandText = "INSERT INTO bills_info_toppings_all(branch,  season,     bills,  bills_info,     toppings_carte_dishes,  isSelected) " +
                                                                     " VALUES( @branch,  @season,    @bills, @bills_info,    @toppings_carte_dishes, @isSelected)";
@@ -219,7 +269,6 @@ namespace com.sbs.dll.synchdata
 
                     commandMain.ExecuteNonQuery();
                 }
-                
 
                 conLocal = new SqlConnection(GValues.localDBConStr);
 
@@ -240,6 +289,15 @@ namespace com.sbs.dll.synchdata
                     commandLocal.CommandText = "UPDATE bills SET isSynch = 1 WHERE id in(" + billsArray + ")";
                     commandLocal.ExecuteNonQuery();
                 }
+
+                commandLocal.CommandText = "UPDATE ref_delivery_clients SET isSynch = 1 WHERE id = @id";
+                foreach (DataRow dr in dtRefDeliveryClients.Rows)
+                {
+                    commandLocal.Parameters.Clear();
+                    commandLocal.Parameters.Add("id", SqlDbType.NVarChar).Value = dr["id"].ToString();
+                    commandLocal.ExecuteNonQuery();
+                }
+                commandLocal.Parameters.Clear();
 
                 commandLocal.CommandText = "DELETE FROM season_waiter WHERE ref_status != 16"; // Смена не открыта
                 commandLocal.ExecuteNonQuery();
