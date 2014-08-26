@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using com.sbs.dll;
 using System.IO;
 using System.Security.Cryptography;
-using com.sbs.dll.utilites;
+//using com.sbs.dll.utilites;
 using System.Diagnostics;
+using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.gPwd
 {

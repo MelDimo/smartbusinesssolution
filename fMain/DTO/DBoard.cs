@@ -49,6 +49,7 @@ namespace com.sbs.dll
             public Bill()
             {
                 fioClose = string.Empty;
+                oDelivery = new Delivery();
             }
 
             public int id { get; set; }
@@ -66,6 +67,7 @@ namespace com.sbs.dll
             public string fioClose { get; set; }
             public int dishCount { get; set; }
             public DTO.DiscountInfo oDiscountInfo { get; set; }
+            public Delivery oDelivery { get; set; }
 
             public object Clone()
             {
@@ -141,6 +143,56 @@ namespace com.sbs.dll
             public string refuseFio { get; set; }
             public int refPrintersType { get; set; }
             public int refStatus { get; set; }
+        }
+
+        public class Delivery
+        {
+            public Delivery()
+            {
+                deliveryClient = new DeliveryClient();
+                cardNumber = string.Empty;
+                comment = string.Empty;
+            }
+
+            public DeliveryClient deliveryClient;
+
+            public int branch { get; set; }
+            public int season { get; set; }
+            public int bills { get; set; }
+            public int driverId { get; set; }
+            public int tariff { get; set; }
+
+            public string cardNumber { get; set; }
+            public string comment { get; set; }
+        }
+
+        public class DeliveryClient
+        {
+            public DeliveryClient()
+            {
+                id = string.Empty;
+                telNumb = string.Empty;
+                fio = string.Empty;
+                addr_str = string.Empty;
+                addr_house = string.Empty;
+                addr_korp = string.Empty;
+                addr_app = string.Empty;
+                addr_porch = string.Empty;
+                addr_code = string.Empty;
+                addr_floor = string.Empty;
+            }
+            
+            public string id { get; set; }
+            public string telNumb { get; set; }
+            public string fio { get; set; }
+            public int addr_city { get; set; }
+            public string addr_str { get; set; }
+            public string addr_house { get; set; }
+            public string addr_korp { get; set; }
+            public string addr_app { get; set; }
+            public string addr_porch { get; set; }
+            public string addr_code { get; set; }
+            public string addr_floor { get; set; }
         }
     }
 }
