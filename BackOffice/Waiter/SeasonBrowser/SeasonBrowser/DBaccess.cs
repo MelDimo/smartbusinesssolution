@@ -84,6 +84,7 @@ namespace com.sbs.gui.seasonbrowser
         internal List<DTO_DBoard.Bill> getBill(Filter pFilter)
         {
             dtResult = new DataTable();
+            DTO_DBoard.Bill oBill = new DTO_DBoard.Bill();
             List<DTO_DBoard.Bill> lBill = new List<DTO_DBoard.Bill>();
 
             con = new DBCon().getConnection(GValues.DBMode);
@@ -105,30 +106,44 @@ namespace com.sbs.gui.seasonbrowser
                 {
                     dtResult.Load(dr);
                 }
-
                 con.Close();
-
             }
             catch (Exception exc) { throw new Exception("", exc); }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             foreach (DataRow dr in dtResult.Rows)
             {
-                lBill.Add(new DTO_DBoard.Bill()
-                {
-                    id = (int)dr["bills_id"],
-                    numb = (int)dr["numb"],
-                    table = (int)dr["xTable"],
-                    openDate = (DateTime)dr["date_open"],
-                    closeDate = DBNull.Value.Equals(dr["date_close"]) ? (DateTime?)null : (DateTime)dr["date_close"],
-                    paymentType = DBNull.Value.Equals(dr["ref_payment_type"]) ? 0 : (int)dr["ref_payment_type"],
-                    refNotes = DBNull.Value.Equals(dr["ref_notes"]) ? 0 : (int)dr["ref_notes"],
-                    refStat = (int)dr["ref_status"],
-                    refStatName = dr["ref_status_name"].ToString(),
-                    summFact = decimal.Parse(dr["sum"].ToString()),
-                    discount = decimal.Parse(dr["discount"].ToString()),
-                    fioClose = dr["fioClose"].ToString()
-                });
+                oBill = new DTO_DBoard.Bill();
+                oBill.id = (int)dr["bills_id"];
+                oBill.numb = (int)dr["numb"];
+                oBill.table = (int)dr["xTable"];
+                oBill.openDate = (DateTime)dr["date_open"];
+                oBill.closeDate = DBNull.Value.Equals(dr["date_close"]) ? (DateTime?)null : (DateTime)dr["date_close"];
+                oBill.paymentType = DBNull.Value.Equals(dr["ref_payment_type"]) ? 0 : (int)dr["ref_payment_type"];
+                oBill.refNotes = DBNull.Value.Equals(dr["ref_notes"]) ? 0 : (int)dr["ref_notes"];
+                oBill.refStat = (int)dr["ref_status"];
+                oBill.refStatName = dr["ref_status_name"].ToString();
+                oBill.summFact = decimal.Parse(dr["sum"].ToString());
+                oBill.discount = decimal.Parse(dr["discount"].ToString());
+                oBill.fioClose = dr["fioClose"].ToString();
+                oBill.oDelivery.bills = (int)dr["bid_bills"];
+                oBill.oDelivery.branch = (int)dr["bid_branch"];
+                oBill.oDelivery.season = (int)dr["bid_season"];
+                oBill.oDelivery.cardNumber = dr["bid_discountNumber"].ToString();
+                oBill.oDelivery.comment = dr["bid_xcomment"].ToString();
+                oBill.oDelivery.driverId = (int)dr["bid_driver"];
+                oBill.oDelivery.tariff = (int)dr["bid_tariff"];
+                oBill.oDelivery.deliveryClient.telNumb = dr["rdc_phone"].ToString();
+                oBill.oDelivery.deliveryClient.fio = dr["rdc_fio"].ToString();
+                oBill.oDelivery.deliveryClient.addr_city = (int)dr["rdc_refCity"];
+                oBill.oDelivery.deliveryClient.addr_str = dr["rdc_street"].ToString();
+                oBill.oDelivery.deliveryClient.addr_korp = dr["rdc_korp"].ToString();
+                oBill.oDelivery.deliveryClient.addr_app = dr["rdc_app"].ToString();
+                oBill.oDelivery.deliveryClient.addr_porch = dr["rdc_porch"].ToString();
+                oBill.oDelivery.deliveryClient.addr_code = dr["rdc_code"].ToString();
+                oBill.oDelivery.deliveryClient.addr_floor = dr["rdc_floor"].ToString();
+
+                lBill.Add(oBill);
             }
 
             return lBill;
