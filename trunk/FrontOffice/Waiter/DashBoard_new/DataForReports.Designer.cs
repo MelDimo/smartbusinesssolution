@@ -1837,7 +1837,7 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public deliveryOrderRow AdddeliveryOrderRow(string driverName, string userName, string xphone, string xaddr, string billSum, string xtariff, string printerName, string reportPath) {
+            public deliveryOrderRow AdddeliveryOrderRow(string driverName, string userName, string xphone, string xaddr, decimal billSum, decimal xtariff, string printerName, string reportPath) {
                 deliveryOrderRow rowdeliveryOrderRow = ((deliveryOrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         driverName,
@@ -1891,9 +1891,9 @@ namespace com.sbs.gui.dashboard {
                 base.Columns.Add(this.columnxphone);
                 this.columnxaddr = new global::System.Data.DataColumn("xaddr", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnxaddr);
-                this.columnbillSum = new global::System.Data.DataColumn("billSum", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnbillSum = new global::System.Data.DataColumn("billSum", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnbillSum);
-                this.columnxtariff = new global::System.Data.DataColumn("xtariff", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnxtariff = new global::System.Data.DataColumn("xtariff", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnxtariff);
                 this.columnprinterName = new global::System.Data.DataColumn("printerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnprinterName);
@@ -2837,10 +2837,10 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string billSum {
+            public decimal billSum {
                 get {
                     try {
-                        return ((string)(this[this.tabledeliveryOrder.billSumColumn]));
+                        return ((decimal)(this[this.tabledeliveryOrder.billSumColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'billSum\' in table \'deliveryOrder\' is DBNull.", e);
@@ -2853,10 +2853,10 @@ namespace com.sbs.gui.dashboard {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string xtariff {
+            public decimal xtariff {
                 get {
                     try {
-                        return ((string)(this[this.tabledeliveryOrder.xtariffColumn]));
+                        return ((decimal)(this[this.tabledeliveryOrder.xtariffColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'xtariff\' in table \'deliveryOrder\' is DBNull.", e);

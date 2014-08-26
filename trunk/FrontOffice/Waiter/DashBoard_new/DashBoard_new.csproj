@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D6EFC30B-F1A6-4E0F-8C7C-646694918686}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
     <AssemblyName>DashBoard</AssemblyName>
@@ -176,6 +176,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>deliveryOrder.rpt</DependentUpon>
       <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="reports\order.cs">
       <DependentUpon>order.rpt</DependentUpon>
@@ -252,6 +253,7 @@
     <EmbeddedResource Include="reports\deliveryOrder.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>deliveryOrder.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="reports\order.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

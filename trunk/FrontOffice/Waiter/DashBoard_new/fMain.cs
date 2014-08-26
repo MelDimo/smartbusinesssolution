@@ -22,14 +22,14 @@ namespace com.sbs.gui.dashboard
 
     public partial class fMain : Form
     {
-        DTO_DBoard.Delivery oDelivery;
+        DTO_DBoard.Delivery oDelivery = new DTO_DBoard.Delivery();
 
         DBaccess dbAccess = new DBaccess();
 
         Suppurt Supp = new Suppurt();
 
-        int xCurDish;
-        List<ctrDishes> oLctrDishes;
+        int xCurDish = 0;
+        List<ctrDishes> oLctrDishes = new List<ctrDishes>();
         
         enum groupBox { BILL, BILLDISH, BILLINFO, GROUP, DISHES, REFUSE };
         groupBox _curGroupBox;
@@ -578,7 +578,7 @@ namespace com.sbs.gui.dashboard
         {
             int idGroup = 0;
             
-            //foreach (Control ctr in flowLayoutPanel_dish.Controls) ctr.Dispose();
+            foreach (Control ctr in flowLayoutPanel_dish.Controls) ctr.Dispose();
             flowLayoutPanel_dish.Controls.Clear();
 
             if (treeView_CarteGroups.SelectedNode.Nodes.Count > 0) return; // Отсекаем не конечные пункты
@@ -593,7 +593,7 @@ namespace com.sbs.gui.dashboard
         private void waitSelectedConfirm(object idGroup)
         {
             dDishCallback dCallBack = new dDishCallback(setDishes);
-            dGroupIemCallback dCallBackGroup = new dGroupIemCallback(getGroup);
+            //dGroupIemCallback dCallBackGroup = new dGroupIemCallback(getGroup);
 
             ctrDishes oCtrDishes;
 
@@ -627,19 +627,24 @@ namespace com.sbs.gui.dashboard
             }
 
             Thread.Sleep(150);
-            if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
 
-            Invoke(dCallBack, new Object[] { idGroup, lctrDishes });
+            //if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
+            //else 
+                Invoke(dCallBack, new Object[] { idGroup, lctrDishes });
+
         }
 
-        public object getGroup(object pIdGroup)
-        { 
-            string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
-            return pIdGroup.ToString().Equals(curId);
-        }
+        //public object getGroup(object pIdGroup)
+        //{ 
+        //    string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
+        //    return pIdGroup.ToString().Equals(curId);
+        //}
 
         public void setDishes(object pIdGroup, List<ctrDishes> lctrDishes)
         {
+            string curId = treeView_CarteGroups.SelectedNode.Name.Replace("group", "");
+            if (!pIdGroup.ToString().Equals(curId)) return;
+
             oLctrDishes = lctrDishes;
 
             for (int i = 0; i < oLctrDishes.Count; i++)
@@ -649,6 +654,9 @@ namespace com.sbs.gui.dashboard
                 flowLayoutPanel_dish.Refresh();
                 if (i == 10) break;
             }
+
+            lctrDishes = null;
+
         }
 
         #endregion
@@ -1152,6 +1160,7 @@ namespace com.sbs.gui.dashboard
             curBill = (DTO_DBoard.Bill)stack.Pop();
 
             dtDishesFilter = "avalDelivery = 1";
+            curBill.oDelivery = oDelivery;
 
             billEdit();
         }
