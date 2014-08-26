@@ -47,7 +47,7 @@ namespace com.sbs.gui.dashboard
 
             dsResult = dbAccess.billClose(GValues.DBMode, oBill);
 
-            if (dsResult.Tables["order"].Rows.Count == 0)
+            if (dsResult.Tables["order"].Rows.Count > 0)
             {
 
                 dtOrder = dsResult.Tables["order"];
@@ -70,7 +70,7 @@ namespace com.sbs.gui.dashboard
                 repDoc.Close();
             }
 
-            if (dsResult.Tables["deliveryOrder"].Rows.Count == 0)
+            if (dsResult.Tables["deliveryOrder"].Rows.Count > 0)
             {
                 dtDeliveryOrder = dsResult.Tables["deliveryOrder"];
 
@@ -83,7 +83,8 @@ namespace com.sbs.gui.dashboard
                 repDoc = new ReportDocument();
                 repDoc.Load(dtDeliveryOrder.Rows[0]["reportPath"].ToString());
                 repDoc.SetDataSource(dtDeliveryOrder);
-                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                repDoc.SetParameterValue("billNumber", oBill.numb);
+                repDoc.SetParameterValue("billDateTime", DateTime.Now.ToString());
                 repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
                                                 (new System.Drawing.Printing.PrinterSettings()).PrinterName :
                                                 dtDeliveryOrder.Rows[0]["printerName"].ToString();

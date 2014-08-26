@@ -433,6 +433,7 @@ namespace com.sbs.gui.dashboard
                 oBill.oDelivery.deliveryClient.fio = dtResult.Rows[i]["rdc_fio"].ToString();
                 oBill.oDelivery.deliveryClient.addr_city = (int)dtResult.Rows[i]["rdc_refCity"];
                 oBill.oDelivery.deliveryClient.addr_str = dtResult.Rows[i]["rdc_street"].ToString();
+                oBill.oDelivery.deliveryClient.addr_house = dtResult.Rows[i]["rdc_house"].ToString();
                 oBill.oDelivery.deliveryClient.addr_korp = dtResult.Rows[i]["rdc_korp"].ToString();
                 oBill.oDelivery.deliveryClient.addr_app = dtResult.Rows[i]["rdc_app"].ToString();
                 oBill.oDelivery.deliveryClient.addr_porch = dtResult.Rows[i]["rdc_porch"].ToString();
@@ -1028,8 +1029,6 @@ namespace com.sbs.gui.dashboard
             }
 
             
-            dsResult.Tables.Add(dtResult);
-
             if (pBill.oDelivery.bills != 0) // есть доставка
             {
                 dtResult = new DataTable();
@@ -1046,7 +1045,7 @@ namespace com.sbs.gui.dashboard
                                                 " CASE WHEN rdc.code = '' THEN '' ELSE ' код' + rdc.code END + " +
                                                 " CASE WHEN rdc.[floor] = '' THEN '' ELSE ' эт.' + rdc.[floor] END AS xaddr, " +
                                                 " b.[sum] billSum, " +
-                                                " rdt.xprice xtariff " +
+                                                " rdt.xprice xtariff, " +
                                                 " rp.name AS printerName, " +
 		                                        " 'reports\\deliveryOrder.rpt' AS reportPath " +
                                         " FROM bills b " +
