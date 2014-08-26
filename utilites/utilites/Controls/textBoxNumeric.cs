@@ -15,6 +15,7 @@ namespace com.sbs.dll.utilites.Controls
         public decimal maxValue = 100;
         public decimal stepValue = 1;
         public decimal Value = 0;
+        public float fontSize = 12;
 
         private decimal nextVal = 0;
 
@@ -54,6 +55,12 @@ namespace com.sbs.dll.utilites.Controls
         private void textBoxNumeric_Load(object sender, EventArgs e)
         {
             textBox_numb.Text = Value.ToString("F2");
+            textBox_numb.Font = new Font("Microsoft Sans Serif", fontSize, FontStyle.Bold);
+        }
+
+        private void textBox_numb_KeyUp(object sender, KeyEventArgs e)
+        {
+            textBox_numb.Select(0, textBox_numb.Text.Length);
         }
 
 
