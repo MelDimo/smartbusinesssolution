@@ -118,5 +118,15 @@ namespace com.sbs.gui.report.repchecktape
                 textBox_branchsNames.Text = GValues.branchName;
             }
         }
+
+        private void button_paymentType_Click(object sender, EventArgs e)
+        {
+            fChooserPaymentType fCpt = new fChooserPaymentType(oRepParam.lPaymentType);
+            if (fCpt.ShowDialog() == DialogResult.OK)
+            {
+                textBox_paymentType.Text = fCpt.choosenName;
+                oRepParam.lPaymentType = fCpt.isChoosen;
+            }
+        }
     }
 }
