@@ -72,6 +72,16 @@ namespace com.sbs.dll.utilites
                     label_refStatusName.ForeColor = Color.Green;
                     break;
             }
+
+            if (oBill.oDelivery.bills != 0) button_delivery.Visible = true;
+            if (oBill.refStat != 20) button_delivery.Enabled = true;
+        }
+
+        private void button_delivery_Click(object sender, EventArgs e)
+        {
+            // Пока счет открыт можно редактировать данные по доставке
+            fDelivery fDeliv = new fDelivery(oBill.oDelivery, oBill.refStat == 20 ? Suppurt.FormOpenModes.Edit : Suppurt.FormOpenModes.ReadOnly);
+            fDeliv.ShowDialog();
         }
 
     }

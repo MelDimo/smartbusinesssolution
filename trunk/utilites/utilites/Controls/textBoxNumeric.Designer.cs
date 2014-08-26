@@ -42,7 +42,9 @@
             this.textBox_numb.ReadOnly = true;
             this.textBox_numb.Size = new System.Drawing.Size(77, 26);
             this.textBox_numb.TabIndex = 0;
+            this.textBox_numb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_numb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_numb_KeyDown);
+            this.textBox_numb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_numb_KeyUp);
             // 
             // textBoxNumeric
             // 
@@ -61,5 +63,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox textBox_numb;
+
+
     }
 }

@@ -65,6 +65,8 @@
             this.groupBox_clients = new System.Windows.Forms.GroupBox();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.city = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.street = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
@@ -127,6 +129,7 @@
             // comboBox_city
             // 
             this.comboBox_city.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_city.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_city.FormattingEnabled = true;
             this.comboBox_city.Location = new System.Drawing.Point(66, 31);
             this.comboBox_city.Name = "comboBox_city";
@@ -463,6 +466,7 @@
             this.groupBox_clients.TabIndex = 7;
             this.groupBox_clients.TabStop = false;
             this.groupBox_clients.Text = "Найденные совпадения";
+            this.groupBox_clients.Visible = false;
             // 
             // dataGridView_main
             // 
@@ -471,6 +475,8 @@
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
+            this.cityName,
+            this.city,
             this.fio,
             this.street});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -491,6 +497,21 @@
             this.id.Name = "id";
             this.id.ReadOnly = true;
             this.id.Visible = false;
+            // 
+            // cityName
+            // 
+            this.cityName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.cityName.HeaderText = "Город";
+            this.cityName.Name = "cityName";
+            this.cityName.ReadOnly = true;
+            this.cityName.Width = 62;
+            // 
+            // city
+            // 
+            this.city.HeaderText = "city";
+            this.city.Name = "city";
+            this.city.ReadOnly = true;
+            this.city.Visible = false;
             // 
             // fio
             // 
@@ -580,6 +601,8 @@
         private System.Windows.Forms.GroupBox groupBox_clients;
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cityName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn city;
         private System.Windows.Forms.DataGridViewTextBoxColumn fio;
         private System.Windows.Forms.DataGridViewTextBoxColumn street;
 

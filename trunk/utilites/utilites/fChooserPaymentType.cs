@@ -76,7 +76,7 @@ namespace com.sbs.dll.utilites
                 }
             }
 
-            Close();
+            DialogResult = DialogResult.OK;
         }
 
         private void fChooserPaymentType_Shown(object sender, EventArgs e)

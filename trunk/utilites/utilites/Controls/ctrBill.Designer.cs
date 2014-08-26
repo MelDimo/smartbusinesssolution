@@ -145,6 +145,7 @@
             this.button_editMnu.Name = "button_editMnu";
             this.button_editMnu.Size = new System.Drawing.Size(26, 26);
             this.button_editMnu.TabIndex = 9;
+            this.button_editMnu.TabStop = false;
             this.button_editMnu.UseVisualStyleBackColor = false;
             this.button_editMnu.Visible = false;
             // 
@@ -175,12 +176,15 @@
             // 
             this.button_delivery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button_delivery.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_delivery.Enabled = false;
             this.button_delivery.Location = new System.Drawing.Point(367, 30);
             this.button_delivery.Name = "button_delivery";
             this.button_delivery.Size = new System.Drawing.Size(26, 26);
             this.button_delivery.TabIndex = 12;
+            this.button_delivery.TabStop = false;
             this.button_delivery.UseVisualStyleBackColor = false;
             this.button_delivery.Visible = false;
+            this.button_delivery.Click += new System.EventHandler(this.button_delivery_Click);
             // 
             // ctrBill
             // 

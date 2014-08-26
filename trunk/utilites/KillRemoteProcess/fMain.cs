@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Management;
 using System.Management.Instrumentation;
+using com.sbs.dll;
 
 namespace KillRemoteProcess
 {
@@ -50,6 +51,14 @@ namespace KillRemoteProcess
             {
                 managementObject.InvokeMethod("Terminate", null);
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DTO_DBoard.Delivery oDelivery = new DTO_DBoard.Delivery();
+
+            oDelivery.deliveryClient.addr_korp.Equals(textBox_host.Text.Trim());
 
         }
     }

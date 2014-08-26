@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_procName = new System.Windows.Forms.TextBox();
             this.textBox_UpDown = new com.sbs.dll.utilites.Controls.textBoxNumeric();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_terminate
@@ -86,11 +87,22 @@
             this.textBox_UpDown.Size = new System.Drawing.Size(77, 26);
             this.textBox_UpDown.TabIndex = 4;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(186, 117);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 42);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 76);
+            this.ClientSize = new System.Drawing.Size(648, 222);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox_UpDown);
             this.Controls.Add(this.textBox_procName);
             this.Controls.Add(this.label2);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox_procName;
         private com.sbs.dll.utilites.Controls.textBoxNumeric textBox_UpDown;
+        private System.Windows.Forms.Button button1;
     }
 }
 

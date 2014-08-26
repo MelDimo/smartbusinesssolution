@@ -714,7 +714,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT cd.id, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, " +
+                command.CommandText = " SELECT cd.id, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, cd.avalHall, cd.avalDelivery," +
                                             " cd.ref_printers_type, rpt.name as ref_printers_type_name," +
                                             " cd.ref_status, stat.name as ref_status_name, cd.minStep" +
                                         " FROM carte_dishes cd" +
@@ -1254,7 +1254,12 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, phone, fio, ref_city, street, house, korp, app, porch, code, [floor] FROM [ref_delivery_clients]";
+                command.CommandText = " SELECT rdc.id, rdc.phone, rdc.fio, rdc.ref_city, rc.name as cityName, rdc.street, rdc.house, rdc.korp, rdc.app, rdc.porch, rdc.code, rdc.[floor] " + 
+                                        " FROM ref_delivery_clients rdc" +
+                                        " INNER JOIN ref_city rc ON rc.id = rdc.ref_city " +
+                                        " WHERE rdc.phone = @pPhoneNumber";
+
+                command.Parameters.Add("pPhoneNumber", SqlDbType.NVarChar).Value = pPhoneNumber;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -1317,6 +1322,38 @@ namespace com.sbs.dll.utilites
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT id, name, xprice, xtime, ref_status = @refStatus FROM ref_delivery_tariff";
+
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDishesGroup(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT id, id_parent, name, ref_status FROM ref_dishes_group WHERE ref_status = @refStatus";
 
                 command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
 
@@ -1401,6 +1438,8 @@ namespace com.sbs.dll.utilites
 
     public class Suppurt
     {
+        public enum FormOpenModes { New, Edit, ReadOnly };
+
         public bool checkPrivileges(DTO_DBoard.UserACL[] pUserACL, int pUsersAclType)
         {
             foreach (com.sbs.dll.DTO_DBoard.UserACL uAcl in pUserACL)
