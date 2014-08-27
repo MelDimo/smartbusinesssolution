@@ -137,7 +137,11 @@ namespace com.sbs.gui.dashboard
 
                             if (DashboardEnvironment.gUser != null)
                             {
-                                if (showSeasonForm()) showMainForm();
+                                if (showSeasonForm())
+                                {
+                                    showMainForm();
+                                    GC.Collect();
+                                }
                             }
                         }
                         break;
