@@ -615,7 +615,7 @@ namespace com.sbs.gui.dashboard
                 oCtrDishes.button_host.Click += new EventHandler(Dish_button_host_Click);
 
                 oCtrDishes.TabStop = false;
-                oCtrDishes.button_topping.Visible = false;
+                //oCtrDishes.button_topping.Visible = false;
                 oCtrDishes.button_deals.Visible = false;
                 oCtrDishes.numericUpDown_count.Visible = false;
                 oCtrDishes.label_count.Visible = false;
