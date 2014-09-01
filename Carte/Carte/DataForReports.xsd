@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataForReports" targetNamespace="http://tempuri.org/DataForReports.xsd" xmlns:mstns="http://tempuri.org/DataForReports.xsd" xmlns="http://tempuri.org/DataForReports.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataForReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataForReports" msprop:Generator_UserDSName="DataForReports">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="carte" msprop:Generator_TableClassName="carteDataTable" msprop:Generator_TableVarName="tablecarte" msprop:Generator_TablePropName="carte" msprop:Generator_RowDeletingName="carteRowDeleting" msprop:Generator_UserTableName="carte" msprop:Generator_RowChangingName="carteRowChanging" msprop:Generator_RowEvHandlerName="carteRowChangeEventHandler" msprop:Generator_RowDeletedName="carteRowDeleted" msprop:Generator_RowEvArgName="carteRowChangeEvent" msprop:Generator_RowChangedName="carteRowChanged" msprop:Generator_RowClassName="carteRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="carteName" msprop:Generator_ColumnVarNameInTable="columncarteName" msprop:Generator_ColumnPropNameInRow="carteName" msprop:Generator_ColumnPropNameInTable="carteNameColumn" msprop:Generator_UserColumnName="carteName" type="xs:string" minOccurs="0" />
+              <xs:element name="carte_dishes_group" msprop:Generator_ColumnVarNameInTable="columncarte_dishes_group" msprop:Generator_ColumnPropNameInRow="carte_dishes_group" msprop:Generator_ColumnPropNameInTable="carte_dishes_groupColumn" msprop:Generator_UserColumnName="carte_dishes_group" type="xs:string" minOccurs="0" />
+              <xs:element name="cdgName" msprop:Generator_ColumnVarNameInTable="columncdgName" msprop:Generator_ColumnPropNameInRow="cdgName" msprop:Generator_ColumnPropNameInTable="cdgNameColumn" msprop:Generator_UserColumnName="cdgName" type="xs:string" minOccurs="0" />
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
+              <xs:element name="ref_dishes" msprop:Generator_ColumnVarNameInTable="columnref_dishes" msprop:Generator_ColumnPropNameInRow="ref_dishes" msprop:Generator_ColumnPropNameInTable="ref_dishesColumn" msprop:Generator_UserColumnName="ref_dishes" type="xs:string" minOccurs="0" />
+              <xs:element name="carteDishesName" msprop:Generator_ColumnVarNameInTable="columncarteDishesName" msprop:Generator_ColumnPropNameInRow="carteDishesName" msprop:Generator_ColumnPropNameInTable="carteDishesNameColumn" msprop:Generator_UserColumnName="carteDishesName" type="xs:string" minOccurs="0" />
+              <xs:element name="price" msprop:Generator_ColumnVarNameInTable="columnprice" msprop:Generator_ColumnPropNameInRow="price" msprop:Generator_ColumnPropNameInTable="priceColumn" msprop:Generator_UserColumnName="price" type="xs:string" minOccurs="0" />
+              <xs:element name="isvisible" msprop:Generator_ColumnVarNameInTable="columnisvisible" msprop:Generator_ColumnPropNameInRow="isvisible" msprop:Generator_ColumnPropNameInTable="isvisibleColumn" msprop:Generator_UserColumnName="isvisible" type="xs:string" minOccurs="0" />
+              <xs:element name="avalHall" msprop:Generator_ColumnVarNameInTable="columnavalHall" msprop:Generator_ColumnPropNameInRow="avalHall" msprop:Generator_ColumnPropNameInTable="avalHallColumn" msprop:Generator_UserColumnName="avalHall" type="xs:string" minOccurs="0" />
+              <xs:element name="avalDelivery" msprop:Generator_ColumnVarNameInTable="columnavalDelivery" msprop:Generator_ColumnPropNameInRow="avalDelivery" msprop:Generator_ColumnPropNameInTable="avalDeliveryColumn" msprop:Generator_UserColumnName="avalDelivery" type="xs:string" minOccurs="0" />
+              <xs:element name="ref_printers_type" msprop:Generator_ColumnVarNameInTable="columnref_printers_type" msprop:Generator_ColumnPropNameInRow="ref_printers_type" msprop:Generator_ColumnPropNameInTable="ref_printers_typeColumn" msprop:Generator_UserColumnName="ref_printers_type" type="xs:string" minOccurs="0" />
+              <xs:element name="refPrintersTypeName" msprop:Generator_ColumnVarNameInTable="columnrefPrintersTypeName" msprop:Generator_ColumnPropNameInRow="refPrintersTypeName" msprop:Generator_ColumnPropNameInTable="refPrintersTypeNameColumn" msprop:Generator_UserColumnName="refPrintersTypeName" type="xs:string" minOccurs="0" />
+              <xs:element name="ref_status" msprop:Generator_ColumnVarNameInTable="columnref_status" msprop:Generator_ColumnPropNameInRow="ref_status" msprop:Generator_ColumnPropNameInTable="ref_statusColumn" msprop:Generator_UserColumnName="ref_status" type="xs:string" minOccurs="0" />
+              <xs:element name="minStep" msprop:Generator_ColumnVarNameInTable="columnminStep" msprop:Generator_ColumnPropNameInRow="minStep" msprop:Generator_ColumnPropNameInTable="minStepColumn" msprop:Generator_UserColumnName="minStep" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

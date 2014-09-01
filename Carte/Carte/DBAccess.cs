@@ -198,7 +198,7 @@ namespace com.sbs.gui.carte
 
         #region -------------------------------------------------------------- Блюда
 
-        public void dishes_add(string pDbType, DTO.CarteDishes pCarteDishes)
+        public void dishes_add(string pDbType, DTO.CarteDishes pCarteDishes, int branchId)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -208,8 +208,9 @@ namespace com.sbs.gui.carte
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO carte_dishes(carte_dishes_group,     ref_dishes,     name,   price,  minStep,    isvisible,  ref_printers_type,  ref_status)"+
-                                                        " VALUES(@carte_dishes_group,   @ref_dishes,    @name,  @price, @minStep,   @isvisible, @ref_printers_type, @ref_status)";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.CommandText = "CarteDishes_add";
 
                 command.Parameters.Add("carte_dishes_group", SqlDbType.Int).Value = pCarteDishes.carteDishesGroup;
                 command.Parameters.Add("ref_dishes", SqlDbType.Int).Value = pCarteDishes.refDishes;
@@ -217,8 +218,12 @@ namespace com.sbs.gui.carte
                 command.Parameters.Add("price", SqlDbType.Decimal).Value = pCarteDishes.price;
                 command.Parameters.Add("minStep", SqlDbType.Decimal).Value = pCarteDishes.minStep;
                 command.Parameters.Add("isvisible", SqlDbType.Int).Value = pCarteDishes.isVisible;
+                command.Parameters.Add("avalHall", SqlDbType.Int).Value = pCarteDishes.avalHall;
+                command.Parameters.Add("avalDelivery", SqlDbType.Int).Value = pCarteDishes.avalDelivery;
                 command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pCarteDishes.refPrintersType;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarteDishes.refStatus;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = branchId;
+                command.Parameters.Add("carte", SqlDbType.Int).Value = pCarteDishes.carte;
 
                 command.ExecuteNonQuery();
 
@@ -228,7 +233,7 @@ namespace com.sbs.gui.carte
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public void dishes_edit(string pDbType, DTO.CarteDishes pCarteDishes)
+        public void dishes_edit(string pDbType, DTO.CarteDishes pCarteDishes, int branchId, int checkRefDish)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -238,15 +243,9 @@ namespace com.sbs.gui.carte
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "UPDATE carte_dishes SET carte_dishes_group = @carte_dishes_group, " +
-                                                            " ref_dishes = @ref_dishes," +
-                                                            " name = @name, " +
-                                                            " price = @price," +
-                                                            " isvisible = @isvisible," +
-                                                            " ref_printers_type = @ref_printers_type," +
-                                                            " ref_status = @ref_status," +
-                                                            " minStep = @minStep" +
-                                                        " WHERE id = @id";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.CommandText = "CarteDishes_edit";
 
                 command.Parameters.Add("id", SqlDbType.Int).Value = pCarteDishes.id;
                 command.Parameters.Add("carte_dishes_group", SqlDbType.Int).Value = pCarteDishes.carteDishesGroup;
@@ -255,10 +254,14 @@ namespace com.sbs.gui.carte
                 command.Parameters.Add("price", SqlDbType.Decimal).Value = pCarteDishes.price;
                 command.Parameters.Add("minStep", SqlDbType.Decimal).Value = pCarteDishes.minStep;
                 command.Parameters.Add("isvisible", SqlDbType.Int).Value = pCarteDishes.isVisible;
+                command.Parameters.Add("avalHall", SqlDbType.Int).Value = pCarteDishes.avalHall;
+                command.Parameters.Add("avalDelivery", SqlDbType.Int).Value = pCarteDishes.avalDelivery;
                 command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pCarteDishes.refPrintersType;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarteDishes.refStatus;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = branchId;
+                command.Parameters.Add("carte", SqlDbType.Int).Value = pCarteDishes.carte;
+                command.Parameters.Add("checkRefDish", SqlDbType.Int).Value = checkRefDish;
                 
-
                 command.ExecuteNonQuery();
 
                 con.Close();
@@ -453,5 +456,19 @@ namespace com.sbs.gui.carte
         }
 
         #endregion
+    }
+
+    public class advFilter
+    {
+        public advFilter()
+        {
+            carteRefStatus = 1;
+            carteGroupRefStatus = 1;
+            carteDishesRefStatus = 1;
+        }
+
+        public int carteRefStatus { get; set; }
+        public int carteGroupRefStatus { get; set; }
+        public int carteDishesRefStatus { get; set; }
     }
 }

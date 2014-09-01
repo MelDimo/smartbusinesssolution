@@ -76,7 +76,7 @@ namespace com.sbs.gui.carte
         {
             try
             {
-                dbAccess.carte_dublicate("offline", pBranchId, pCarteCode, pCarteId);
+                dbAccess.carte_dublicate(GValues.DBMode, pBranchId, pCarteCode, pCarteId);
             }
             catch (Exception exc)
             {

@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{854EA57A-550C-4FA7-B3FD-293B2EAD5C58}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.carte</RootNamespace>
     <AssemblyName>Carte</AssemblyName>
@@ -57,6 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataForReports.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DBAccess.cs" />
     <Compile Include="fAddEdit_Carte.cs">
       <SubType>Form</SubType>
@@ -133,6 +138,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="DataForReports.xsc">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </None>
+    <None Include="DataForReports.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataForReports.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataForReports.xss">
+      <DependentUpon>DataForReports.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -15,6 +15,7 @@ namespace com.sbs.gui.carte
     public partial class fCarte : Form
     {
         DBAccess bdAccess = new DBAccess();
+        advFilter oAdvFilter = new advFilter();
 
         DTO.Carte oCarte;
         DTO.CarteDishesGroup oCarteGroup;
@@ -28,6 +29,10 @@ namespace com.sbs.gui.carte
         DataTable dtPrintersType;
         DataTable dtBranch;
         DataTable dtRefDishes;
+
+        DataTable dtFilterCarteRefStatus;
+        DataTable dtFilterCarteDishesGroupRefStatus;
+        DataTable dtFilterCarteDishesRefStatus;
 
         int branchId = 0;
         string branchName = string.Empty;
@@ -55,8 +60,13 @@ namespace com.sbs.gui.carte
             toolStripButton_dishDel.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
 
             toolStripButton_branch.Image = com.sbs.dll.utilites.Properties.Resources.filter_26;
+            toolStripButton_addFilter.Image = com.sbs.dll.utilites.Properties.Resources.config_26;
+
+            toolStripButton_printMenu.Image = com.sbs.dll.utilites.Properties.Resources.printer_26;
 
             initData();
+
+            groupBox_advFilter.DataBindings.Add("Visible", toolStripButton_addFilter, "Checked");
         }
 
         private void initData()
@@ -67,8 +77,13 @@ namespace com.sbs.gui.carte
                 dtPrintersType = oReferences.getRefPrintersType("offline");
                 dtBranch = oReferences.getBranch("offline");
                 dtRefDishes = oReferences.getRefDishes("offline");
+
+                dtFilterCarteRefStatus = dtStatus.Copy();
+                dtFilterCarteDishesGroupRefStatus = dtStatus.Copy();
+                dtFilterCarteDishesRefStatus = dtStatus.Copy();
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+
         }
 
         private void toolStripButton_branch_Click(object sender, EventArgs e)
@@ -140,7 +155,8 @@ namespace com.sbs.gui.carte
             dtCarte = new DataTable();
             try
             {
-                dtCarte = oReferences.getCarte("offline", branchId);
+                DataRow[] dr = oReferences.getCarte(GValues.DBMode, branchId).Select(string.Format("ref_status = {0}", oAdvFilter.carteRefStatus));
+                if (dr.Count() > 0) dtCarte = dr.CopyToDataTable();
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
 
@@ -402,7 +418,7 @@ namespace com.sbs.gui.carte
             oCarteDishes.carte = (int)dataGridView_carte.SelectedRows[0].Cells["carte_id"].Value;
             oCarteDishes.carteDishesGroup = int.Parse(treeView_group.SelectedNode.Name);
             
-            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
+            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes, branchId);
             faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
             faddedit.comboBox_group.DisplayMember = "name";
             faddedit.comboBox_group.ValueMember = "id";
@@ -470,6 +486,8 @@ namespace com.sbs.gui.carte
 
             oCarteDishes.carteDishesGroup = dishInfo.Field<int>("carte_dishes_group");
             oCarteDishes.isVisible = dishInfo.Field<int>("isvisible");
+            oCarteDishes.avalHall = dishInfo.Field<int>("avalHall");
+            oCarteDishes.avalDelivery = dishInfo.Field<int>("avalDelivery");
             oCarteDishes.name = dishInfo.Field<string>("name");
             oCarteDishes.price = dishInfo.Field<decimal>("price");
             oCarteDishes.refDishes = dishInfo.Field<int>("ref_dishes");
@@ -477,7 +495,7 @@ namespace com.sbs.gui.carte
             oCarteDishes.refStatus = dishInfo.Field<int>("ref_status");
             oCarteDishes.minStep = dishInfo.Field<decimal>("minStep");
 
-            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes);
+            fAddEdit_Dishes faddedit = new fAddEdit_Dishes(oCarteDishes, branchId);
             faddedit.comboBox_group.DataSource = dtCarteDishesGroup;
             faddedit.comboBox_group.DisplayMember = "name";
             faddedit.comboBox_group.ValueMember = "id";
@@ -499,7 +517,11 @@ namespace com.sbs.gui.carte
 
             updateDishes();
 
-            if (dataGridView_dishes.Rows.Count >= selectedItemIndex) dataGridView_dishes.Rows[selectedItemIndex].Selected = true;
+            try
+            {
+                if (dataGridView_dishes.Rows.Count >= selectedItemIndex) dataGridView_dishes.Rows[selectedItemIndex].Selected = true;
+            }
+            catch (Exception) { }
         }
 
         private void toolStripButton_dishDel_Click(object sender, EventArgs e)
@@ -569,5 +591,47 @@ namespace com.sbs.gui.carte
 
         }
 
+        private void toolStripButton_addFilter_Click(object sender, EventArgs e)
+        {
+            toolStripButton_addFilter.Checked = !toolStripButton_addFilter.Checked;
+        }
+
+        private void fCarte_Shown(object sender, EventArgs e)
+        {
+            comboBox_filterCarteRefStatus.DataSource = dtFilterCarteRefStatus;
+            comboBox_filterCarteRefStatus.DisplayMember = "name";
+            comboBox_filterCarteRefStatus.ValueMember = "id";
+            comboBox_filterCarteRefStatus.SelectedValueChanged += new EventHandler(comboBox_filterCarteRefStatus_SelectedValueChanged);
+
+            comboBox_filterCarteDishesGroupRefStatus.DataSource = dtFilterCarteDishesGroupRefStatus;
+            comboBox_filterCarteDishesGroupRefStatus.DisplayMember = "name";
+            comboBox_filterCarteDishesGroupRefStatus.ValueMember = "id";
+            comboBox_filterCarteDishesGroupRefStatus.SelectedValueChanged += new EventHandler(comboBox_filterCarteDishesGroupRefStatus_SelectedValueChanged);
+
+            comboBox_filterCarteDishesRefStatus.DataSource = dtFilterCarteDishesRefStatus;
+            comboBox_filterCarteDishesRefStatus.DisplayMember = "name";
+            comboBox_filterCarteDishesRefStatus.ValueMember = "id";
+            comboBox_filterCarteDishesRefStatus.SelectedValueChanged += new EventHandler(comboBox_filterCarteDishesRefStatus_SelectedValueChanged);
+        }
+
+        void comboBox_filterCarteDishesRefStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            oAdvFilter.carteDishesRefStatus = (int)comboBox_filterCarteDishesRefStatus.SelectedValue;
+        }
+
+        void comboBox_filterCarteDishesGroupRefStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            oAdvFilter.carteGroupRefStatus = (int)comboBox_filterCarteDishesGroupRefStatus.SelectedValue;
+        }
+
+        void comboBox_filterCarteRefStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            oAdvFilter.carteRefStatus = (int)comboBox_filterCarteRefStatus.SelectedValue;
+        }
+
+        private void toolStripButton_printMenu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
