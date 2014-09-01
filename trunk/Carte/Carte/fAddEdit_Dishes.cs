@@ -18,11 +18,14 @@ namespace com.sbs.gui.carte
         DTO.CarteDishes oCarteDishes;
         public DataTable dtDishes;
 
+        private int branchId;
         private string formMode; // В каком режиме диалог "EDIT"/"ADD"
+        private int checkRefDish = 0; // 1 - есть необходимость проверять блюдо, 0 - нет необходимости.
 
-        public fAddEdit_Dishes(DTO.CarteDishes pCarteDishes)
+        public fAddEdit_Dishes(DTO.CarteDishes pCarteDishes, int pBranchId)
         {
             oCarteDishes = pCarteDishes;
+            branchId = pBranchId;
 
             if (oCarteDishes.id == 0) formMode = "ADD";
             else formMode = "EDIT";
@@ -32,11 +35,19 @@ namespace com.sbs.gui.carte
 
         private void initRefDishes()
         {
-            DataRow dishInfo = (from rec in dtDishes.AsEnumerable()
-                                where rec.Field<int>("id") == oCarteDishes.refDishes
-                                select rec).First();
+            var dishInfo = from rec in dtDishes.AsEnumerable()
+                           where rec.Field<int>("id") == oCarteDishes.refDishes
+                           select rec.Field<string>("name");
 
-            textBox_refDishesName.Text = dishInfo.Field<string>("name");
+            if(dishInfo.Count() != 1)
+            {
+                MessageBox.Show("С данной позицией нет связанного блюда либо связей больше одной!" + Environment.NewLine +
+                    "Данное отклонение является критическим, обратитесь к разработчику!"
+                    , GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            textBox_refDishesName.Text = dishInfo.First<string>();
         }
 
         private void fAddEdit_Dishes_Shown(object sender, EventArgs e)
@@ -46,6 +57,8 @@ namespace com.sbs.gui.carte
             numericUpDown_price.DataBindings.Add("Value", oCarteDishes, "price");
             numericUpDown_minStep.DataBindings.Add("Value", oCarteDishes, "minStep");
             if (formMode.Equals("EDIT")) checkBox_isVisible.Checked = oCarteDishes.isVisible == 1 ? true : false;
+            if (formMode.Equals("EDIT")) checkBox_AvalHall.Checked = oCarteDishes.avalHall == 1 ? true : false;
+            if (formMode.Equals("EDIT")) checkBox_AvalDelivery.Checked = oCarteDishes.avalDelivery == 1 ? true : false;
             if (formMode.Equals("EDIT")) initRefDishes();
         }
 
@@ -110,6 +123,8 @@ namespace com.sbs.gui.carte
             fChose.Text = "Выбор блюда";
             if (fChose.ShowDialog() == DialogResult.OK)
             {
+                if (oCarteDishes.refDishes != (int)fChose.xData[0] && formMode.Equals("EDIT")) checkRefDish = 1;
+
                 oCarteDishes.refDishes = (int)fChose.xData[0];
                 textBox_refDishesName.Text = fChose.xData[1].ToString();
                 oCarteDishes.price = (decimal)fChose.xData[2];
@@ -140,11 +155,20 @@ namespace com.sbs.gui.carte
             if (oCarteDishes.name.Length == 0) errMsg += Environment.NewLine + "- Наименование;";
             if (oCarteDishes.refDishes == 0) errMsg += Environment.NewLine + "- Блюдо;";
             if (comboBox_refStatus.SelectedIndex == -1) errMsg += Environment.NewLine + "- Статус;";
-            else oCarteDishes.refStatus = (int)comboBox_refStatus.SelectedValue;
+            else
+            {
+                if (oCarteDishes.refStatus != (int)comboBox_refStatus.SelectedValue) checkRefDish = 1;
+                oCarteDishes.refStatus = (int)comboBox_refStatus.SelectedValue;
+            }
             if (comboBox_refPrintersType.SelectedIndex == -1) errMsg += Environment.NewLine + "- Тип принтера;";
             else oCarteDishes.refPrintersType = (int)comboBox_refPrintersType.SelectedValue;
 
             oCarteDishes.isVisible = checkBox_isVisible.Checked ? 1 : 0;
+            oCarteDishes.avalHall = checkBox_AvalHall.Checked ? 1 : 0;
+            oCarteDishes.avalDelivery = checkBox_AvalDelivery.Checked ? 1 : 0;
+
+            if (oCarteDishes.avalHall + oCarteDishes.avalDelivery == 0) errMsg += Environment.NewLine + "- Позиция не привязана к меню;";
+
             oCarteDishes.price = numericUpDown_price.Value;
             oCarteDishes.minStep = numericUpDown_minStep.Value;
 
@@ -157,9 +181,9 @@ namespace com.sbs.gui.carte
             try
             {
                 if (formMode.Equals("ADD"))
-                    bdAccess.dishes_add("offline", oCarteDishes);
+                    bdAccess.dishes_add("offline", oCarteDishes, branchId);
                 else
-                    bdAccess.dishes_edit("offline", oCarteDishes);
+                    bdAccess.dishes_edit("offline", oCarteDishes, branchId, checkRefDish);
             }
             catch (Exception exc)
             {

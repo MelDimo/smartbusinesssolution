@@ -69,6 +69,22 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox_branchName = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton_branch = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_addFilter = new System.Windows.Forms.ToolStripButton();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox_filterCarteDishesRefStatus = new System.Windows.Forms.ComboBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox_filterCarteDishesGroupRefStatus = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox_filterCarteRefStatus = new System.Windows.Forms.ComboBox();
+            this.groupBox_advFilter = new System.Windows.Forms.GroupBox();
+            this.toolStripButton_printMenu = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -87,12 +103,20 @@
             this.statusStrip3.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip4.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.groupBox_advFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 29);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 106);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -104,8 +128,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(2);
-            this.splitContainer1.Size = new System.Drawing.Size(939, 484);
-            this.splitContainer1.SplitterDistance = 348;
+            this.splitContainer1.Size = new System.Drawing.Size(939, 407);
+            this.splitContainer1.SplitterDistance = 365;
             this.splitContainer1.TabIndex = 0;
             // 
             // groupBox1
@@ -116,7 +140,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(344, 480);
+            this.groupBox1.Size = new System.Drawing.Size(361, 403);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Меню";
@@ -125,9 +149,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_carteInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(3, 455);
+            this.statusStrip1.Location = new System.Drawing.Point(3, 378);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(338, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(355, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
@@ -155,7 +179,7 @@
             this.dataGridView_carte.ReadOnly = true;
             this.dataGridView_carte.RowHeadersVisible = false;
             this.dataGridView_carte.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_carte.Size = new System.Drawing.Size(338, 436);
+            this.dataGridView_carte.Size = new System.Drawing.Size(355, 359);
             this.dataGridView_carte.TabIndex = 1;
             this.dataGridView_carte.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_carte_KeyDown);
             // 
@@ -189,10 +213,11 @@
             this.toolStripButton_carteEdit,
             this.toolStripButton_carteDel,
             this.toolStripSeparator1,
-            this.toolStripButton_carteDublicate});
+            this.toolStripButton_carteDublicate,
+            this.toolStripButton_printMenu});
             this.toolStrip1.Location = new System.Drawing.Point(3, 16);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(338, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(355, 25);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -261,7 +286,7 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox3);
             this.splitContainer2.Panel2.Padding = new System.Windows.Forms.Padding(2);
-            this.splitContainer2.Size = new System.Drawing.Size(583, 480);
+            this.splitContainer2.Size = new System.Drawing.Size(566, 403);
             this.splitContainer2.SplitterDistance = 250;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -273,7 +298,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(246, 476);
+            this.groupBox2.Size = new System.Drawing.Size(246, 399);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Структура меню";
@@ -285,7 +310,7 @@
             this.treeView_group.HideSelection = false;
             this.treeView_group.Location = new System.Drawing.Point(3, 41);
             this.treeView_group.Name = "treeView_group";
-            this.treeView_group.Size = new System.Drawing.Size(240, 410);
+            this.treeView_group.Size = new System.Drawing.Size(240, 333);
             this.treeView_group.TabIndex = 2;
             this.treeView_group.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_group_AfterSelect);
             // 
@@ -293,7 +318,7 @@
             // 
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_groupInfo});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 451);
+            this.statusStrip2.Location = new System.Drawing.Point(3, 374);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(240, 22);
             this.statusStrip2.SizingGrip = false;
@@ -360,7 +385,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(2, 2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(325, 476);
+            this.groupBox3.Size = new System.Drawing.Size(308, 399);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Ассортимент";
@@ -384,7 +409,7 @@
             this.dataGridView_dishes.ReadOnly = true;
             this.dataGridView_dishes.RowHeadersVisible = false;
             this.dataGridView_dishes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_dishes.Size = new System.Drawing.Size(319, 410);
+            this.dataGridView_dishes.Size = new System.Drawing.Size(302, 333);
             this.dataGridView_dishes.TabIndex = 2;
             // 
             // dishes_id
@@ -429,9 +454,9 @@
             // 
             this.statusStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSSLabel_dishesInfo});
-            this.statusStrip3.Location = new System.Drawing.Point(3, 451);
+            this.statusStrip3.Location = new System.Drawing.Point(3, 374);
             this.statusStrip3.Name = "statusStrip3";
-            this.statusStrip3.Size = new System.Drawing.Size(319, 22);
+            this.statusStrip3.Size = new System.Drawing.Size(302, 22);
             this.statusStrip3.SizingGrip = false;
             this.statusStrip3.TabIndex = 1;
             this.statusStrip3.Text = "statusStrip3";
@@ -451,7 +476,7 @@
             this.toolStripButton_dishDel});
             this.toolStrip3.Location = new System.Drawing.Point(3, 16);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(319, 25);
+            this.toolStrip3.Size = new System.Drawing.Size(302, 25);
             this.toolStrip3.TabIndex = 0;
             this.toolStrip3.Text = "toolStrip3";
             // 
@@ -480,6 +505,7 @@
             // toolStripButton_dishDel
             // 
             this.toolStripButton_dishDel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_dishDel.Enabled = false;
             this.toolStripButton_dishDel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_dishDel.Image")));
             this.toolStripButton_dishDel.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton_dishDel.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -494,10 +520,12 @@
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
             this.toolStripTextBox_branchName,
-            this.toolStripButton_branch});
+            this.toolStripButton_branch,
+            this.toolStripButton_addFilter});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(939, 29);
+            this.toolStrip4.Padding = new System.Windows.Forms.Padding(2);
+            this.toolStrip4.Size = new System.Drawing.Size(939, 33);
             this.toolStrip4.TabIndex = 3;
             this.toolStrip4.Text = "toolStrip4";
             // 
@@ -515,7 +543,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(124, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(204, 29);
             // 
             // toolStripButton_branch
             // 
@@ -528,17 +556,220 @@
             this.toolStripButton_branch.Text = "Выбрать";
             this.toolStripButton_branch.Click += new System.EventHandler(this.toolStripButton_branch_Click);
             // 
+            // toolStripButton_addFilter
+            // 
+            this.toolStripButton_addFilter.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton_addFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_addFilter.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_addFilter.Image")));
+            this.toolStripButton_addFilter.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_addFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_addFilter.Name = "toolStripButton_addFilter";
+            this.toolStripButton_addFilter.Size = new System.Drawing.Size(23, 26);
+            this.toolStripButton_addFilter.Text = "Настройки фильтра";
+            this.toolStripButton_addFilter.ToolTipText = "Настройки фильтра";
+            this.toolStripButton_addFilter.Click += new System.EventHandler(this.toolStripButton_addFilter_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.9485F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.68241F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.3691F));
+            this.tableLayoutPanel1.Controls.Add(this.groupBox6, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox5, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(933, 54);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.tableLayoutPanel4);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox6.Location = new System.Drawing.Point(624, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(306, 48);
+            this.groupBox6.TabIndex = 2;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Ассортимент";
+            this.groupBox6.Visible = false;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.95442F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 84.04558F));
+            this.tableLayoutPanel4.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.comboBox_filterCarteDishesRefStatus, 1, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(300, 29);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(41, 25);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Статус";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_filterCarteDishesRefStatus
+            // 
+            this.comboBox_filterCarteDishesRefStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_filterCarteDishesRefStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_filterCarteDishesRefStatus.FormattingEnabled = true;
+            this.comboBox_filterCarteDishesRefStatus.Location = new System.Drawing.Point(50, 3);
+            this.comboBox_filterCarteDishesRefStatus.Name = "comboBox_filterCarteDishesRefStatus";
+            this.comboBox_filterCarteDishesRefStatus.Size = new System.Drawing.Size(247, 21);
+            this.comboBox_filterCarteDishesRefStatus.TabIndex = 1;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.tableLayoutPanel3);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox5.Location = new System.Drawing.Point(366, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(252, 48);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Структура меню";
+            this.groupBox5.Visible = false;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.comboBox_filterCarteDishesGroupRefStatus, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(246, 29);
+            this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 25);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Статус";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_filterCarteDishesGroupRefStatus
+            // 
+            this.comboBox_filterCarteDishesGroupRefStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_filterCarteDishesGroupRefStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_filterCarteDishesGroupRefStatus.FormattingEnabled = true;
+            this.comboBox_filterCarteDishesGroupRefStatus.Location = new System.Drawing.Point(53, 3);
+            this.comboBox_filterCarteDishesGroupRefStatus.Name = "comboBox_filterCarteDishesGroupRefStatus";
+            this.comboBox_filterCarteDishesGroupRefStatus.Size = new System.Drawing.Size(190, 21);
+            this.comboBox_filterCarteDishesGroupRefStatus.TabIndex = 1;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(3, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(357, 48);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Меню";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.comboBox_filterCarteRefStatus, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(351, 29);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Статус";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_filterCarteRefStatus
+            // 
+            this.comboBox_filterCarteRefStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_filterCarteRefStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_filterCarteRefStatus.FormattingEnabled = true;
+            this.comboBox_filterCarteRefStatus.Location = new System.Drawing.Point(56, 3);
+            this.comboBox_filterCarteRefStatus.Name = "comboBox_filterCarteRefStatus";
+            this.comboBox_filterCarteRefStatus.Size = new System.Drawing.Size(292, 21);
+            this.comboBox_filterCarteRefStatus.TabIndex = 1;
+            // 
+            // groupBox_advFilter
+            // 
+            this.groupBox_advFilter.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox_advFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox_advFilter.Location = new System.Drawing.Point(0, 33);
+            this.groupBox_advFilter.Name = "groupBox_advFilter";
+            this.groupBox_advFilter.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.groupBox_advFilter.Size = new System.Drawing.Size(939, 73);
+            this.groupBox_advFilter.TabIndex = 0;
+            this.groupBox_advFilter.TabStop = false;
+            this.groupBox_advFilter.Text = "Настройки фильтра";
+            // 
+            // toolStripButton_printMenu
+            // 
+            this.toolStripButton_printMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_printMenu.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_printMenu.Image")));
+            this.toolStripButton_printMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_printMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_printMenu.Name = "toolStripButton_printMenu";
+            this.toolStripButton_printMenu.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_printMenu.Text = "Печать меню";
+            this.toolStripButton_printMenu.Click += new System.EventHandler(this.toolStripButton_printMenu_Click);
+            // 
             // fCarte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(939, 513);
             this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.groupBox_advFilter);
             this.Controls.Add(this.toolStrip4);
             this.MinimizeBox = false;
             this.Name = "fCarte";
             this.ShowInTaskbar = false;
             this.Text = "Меню";
+            this.Shown += new System.EventHandler(this.fCarte_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
@@ -567,6 +798,17 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.groupBox_advFilter.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -614,6 +856,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dishes_ref_status_name;
         private System.Windows.Forms.ToolStripButton toolStripButton_carteDublicate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_addFilter;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox_advFilter;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox_filterCarteRefStatus;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox_filterCarteDishesRefStatus;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox_filterCarteDishesGroupRefStatus;
+        private System.Windows.Forms.ToolStripButton toolStripButton_printMenu;
     }
 }
 
