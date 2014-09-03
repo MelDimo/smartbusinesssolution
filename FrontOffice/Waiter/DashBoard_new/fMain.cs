@@ -267,6 +267,8 @@ namespace com.sbs.gui.dashboard
                 oCtrBill.Width = flowLayoutPanel_bills.Width - 10;
 
                 flowLayoutPanel_bills.Controls.Add(oCtrBill);
+
+                //oCtrBill.Dispose();
             }
 
             if (flowLayoutPanel_bills.Controls.Count > 0)
@@ -626,7 +628,7 @@ namespace com.sbs.gui.dashboard
                 lctrDishes.Add(oCtrDishes);
             }
 
-            Thread.Sleep(150);
+            Thread.Sleep(GValues.waitingNodes);
 
             //if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
             //else 
