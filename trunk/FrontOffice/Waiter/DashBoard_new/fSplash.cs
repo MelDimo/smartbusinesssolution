@@ -308,6 +308,7 @@ namespace com.sbs.gui.dashboard
 
             fMain fmain = new fMain();
             fmain.ShowDialog();
+            fmain.Dispose();
         }
 
         private DTO_DBoard.SeasonBranch[] getOpenSeason()
