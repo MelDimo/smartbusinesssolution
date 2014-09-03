@@ -8,8 +8,8 @@
     <ProjectGuid>{83F83A0C-448F-4EF1-953C-5A6729DD0221}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DashBoard_lite</RootNamespace>
-    <AssemblyName>DashBoard_lite</AssemblyName>
+    <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
+    <AssemblyName>DashBoard</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DTO">
+      <HintPath>..\..\..\..\..\..\..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="GValues">
+      <HintPath>..\..\..\..\..\..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,16 +48,86 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="utilites">
+      <HintPath>..\..\..\..\..\..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="DBAccess.cs" />
+    <Compile Include="fCloseSeason_Branch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="fCloseSeason_Branch.designer.cs">
+      <DependentUpon>fCloseSeason_Branch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fCloseSeason_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fCloseSeason_User.designer.cs">
+      <DependentUpon>fCloseSeason_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fHelp.designer.cs">
+      <DependentUpon>fHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fLogin.designer.cs">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMain.Designer.cs">
+      <DependentUpon>fMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fMIFare.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fMIFare.designer.cs">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fSeason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSeason.designer.cs">
+      <DependentUpon>fSeason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fSplash.designer.cs">
+      <DependentUpon>fSplash.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fCloseSeason_Branch.resx">
+      <DependentUpon>fCloseSeason_Branch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fCloseSeason_User.resx">
+      <DependentUpon>fCloseSeason_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fHelp.resx">
+      <DependentUpon>fHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fLogin.resx">
+      <DependentUpon>fLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMain.resx">
+      <DependentUpon>fMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fMIFare.resx">
+      <DependentUpon>fMIFare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSeason.resx">
+      <DependentUpon>fSeason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSplash.resx">
+      <DependentUpon>fSplash.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -60,6 +136,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
