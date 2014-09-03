@@ -7,13 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DashBoard_lite
+namespace com.sbs.gui.dashboard
 {
-    public partial class Form1 : Form
+    public partial class fHelp : Form
     {
-        public Form1()
+        public fHelp()
         {
             InitializeComponent();
+        }
+
+        private void fHelp_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) Close();
         }
     }
 }
