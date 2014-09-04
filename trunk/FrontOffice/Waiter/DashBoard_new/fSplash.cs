@@ -307,6 +307,7 @@ namespace com.sbs.gui.dashboard
             }
 
             fMain fmain = new fMain();
+            //fMain_lite fmain = new fMain_lite();
             fmain.ShowDialog();
             fmain.Dispose();
         }
