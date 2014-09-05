@@ -279,13 +279,17 @@ namespace com.sbs.gui.carte {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class carteDataTable : global::System.Data.TypedTableBase<carteRow> {
             
+            private global::System.Data.DataColumn columncarteId;
+            
             private global::System.Data.DataColumn columncarteName;
             
-            private global::System.Data.DataColumn columncarte_dishes_group;
+            private global::System.Data.DataColumn columnid;
+            
+            private global::System.Data.DataColumn columnid_parent;
             
             private global::System.Data.DataColumn columncdgName;
             
-            private global::System.Data.DataColumn columnid;
+            private global::System.Data.DataColumn columncarteDishesId;
             
             private global::System.Data.DataColumn columnref_dishes;
             
@@ -342,6 +346,14 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn carteIdColumn {
+                get {
+                    return this.columncarteId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn carteNameColumn {
                 get {
                     return this.columncarteName;
@@ -350,9 +362,17 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn carte_dishes_groupColumn {
+            public global::System.Data.DataColumn idColumn {
                 get {
-                    return this.columncarte_dishes_group;
+                    return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn id_parentColumn {
+                get {
+                    return this.columnid_parent;
                 }
             }
             
@@ -366,9 +386,9 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn idColumn {
+            public global::System.Data.DataColumn carteDishesIdColumn {
                 get {
-                    return this.columnid;
+                    return this.columncarteDishesId;
                 }
             }
             
@@ -489,13 +509,31 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public carteRow AddcarteRow(string carteName, string carte_dishes_group, string cdgName, string id, string ref_dishes, string carteDishesName, string price, string isvisible, string avalHall, string avalDelivery, string ref_printers_type, string refPrintersTypeName, string ref_status, string minStep) {
+            public carteRow AddcarteRow(
+                        int carteId, 
+                        string carteName, 
+                        int id, 
+                        int id_parent, 
+                        string cdgName, 
+                        string carteDishesId, 
+                        string ref_dishes, 
+                        string carteDishesName, 
+                        string price, 
+                        string isvisible, 
+                        string avalHall, 
+                        string avalDelivery, 
+                        string ref_printers_type, 
+                        string refPrintersTypeName, 
+                        string ref_status, 
+                        string minStep) {
                 carteRow rowcarteRow = ((carteRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        carteId,
                         carteName,
-                        carte_dishes_group,
-                        cdgName,
                         id,
+                        id_parent,
+                        cdgName,
+                        carteDishesId,
                         ref_dishes,
                         carteDishesName,
                         price,
@@ -528,10 +566,12 @@ namespace com.sbs.gui.carte {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columncarteId = base.Columns["carteId"];
                 this.columncarteName = base.Columns["carteName"];
-                this.columncarte_dishes_group = base.Columns["carte_dishes_group"];
-                this.columncdgName = base.Columns["cdgName"];
                 this.columnid = base.Columns["id"];
+                this.columnid_parent = base.Columns["id_parent"];
+                this.columncdgName = base.Columns["cdgName"];
+                this.columncarteDishesId = base.Columns["carteDishesId"];
                 this.columnref_dishes = base.Columns["ref_dishes"];
                 this.columncarteDishesName = base.Columns["carteDishesName"];
                 this.columnprice = base.Columns["price"];
@@ -547,14 +587,18 @@ namespace com.sbs.gui.carte {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columncarteId = new global::System.Data.DataColumn("carteId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncarteId);
                 this.columncarteName = new global::System.Data.DataColumn("carteName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncarteName);
-                this.columncarte_dishes_group = new global::System.Data.DataColumn("carte_dishes_group", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columncarte_dishes_group);
+                this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
+                this.columnid_parent = new global::System.Data.DataColumn("id_parent", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid_parent);
                 this.columncdgName = new global::System.Data.DataColumn("cdgName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncdgName);
-                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnid);
+                this.columncarteDishesId = new global::System.Data.DataColumn("carteDishesId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncarteDishesId);
                 this.columnref_dishes = new global::System.Data.DataColumn("ref_dishes", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnref_dishes);
                 this.columncarteDishesName = new global::System.Data.DataColumn("carteDishesName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -717,6 +761,22 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int carteId {
+                get {
+                    try {
+                        return ((int)(this[this.tablecarte.carteIdColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'carteId\' in table \'carte\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablecarte.carteIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string carteName {
                 get {
                     try {
@@ -733,17 +793,33 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string carte_dishes_group {
+            public int id {
                 get {
                     try {
-                        return ((string)(this[this.tablecarte.carte_dishes_groupColumn]));
+                        return ((int)(this[this.tablecarte.idColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'carte_dishes_group\' in table \'carte\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'carte\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablecarte.carte_dishes_groupColumn] = value;
+                    this[this.tablecarte.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int id_parent {
+                get {
+                    try {
+                        return ((int)(this[this.tablecarte.id_parentColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'id_parent\' in table \'carte\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablecarte.id_parentColumn] = value;
                 }
             }
             
@@ -765,17 +841,17 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string id {
+            public string carteDishesId {
                 get {
                     try {
-                        return ((string)(this[this.tablecarte.idColumn]));
+                        return ((string)(this[this.tablecarte.carteDishesIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'carte\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'carteDishesId\' in table \'carte\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablecarte.idColumn] = value;
+                    this[this.tablecarte.carteDishesIdColumn] = value;
                 }
             }
             
@@ -941,6 +1017,18 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IscarteIdNull() {
+                return this.IsNull(this.tablecarte.carteIdColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetcarteIdNull() {
+                this[this.tablecarte.carteIdColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscarteNameNull() {
                 return this.IsNull(this.tablecarte.carteNameColumn);
             }
@@ -953,14 +1041,26 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Iscarte_dishes_groupNull() {
-                return this.IsNull(this.tablecarte.carte_dishes_groupColumn);
+            public bool IsidNull() {
+                return this.IsNull(this.tablecarte.idColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setcarte_dishes_groupNull() {
-                this[this.tablecarte.carte_dishes_groupColumn] = global::System.Convert.DBNull;
+            public void SetidNull() {
+                this[this.tablecarte.idColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isid_parentNull() {
+                return this.IsNull(this.tablecarte.id_parentColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setid_parentNull() {
+                this[this.tablecarte.id_parentColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -977,14 +1077,14 @@ namespace com.sbs.gui.carte {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsidNull() {
-                return this.IsNull(this.tablecarte.idColumn);
+            public bool IscarteDishesIdNull() {
+                return this.IsNull(this.tablecarte.carteDishesIdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetidNull() {
-                this[this.tablecarte.idColumn] = global::System.Convert.DBNull;
+            public void SetcarteDishesIdNull() {
+                this[this.tablecarte.carteDishesIdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

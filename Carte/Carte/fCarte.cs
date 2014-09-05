@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
 using System.Diagnostics;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace com.sbs.gui.carte
 {
@@ -35,6 +36,7 @@ namespace com.sbs.gui.carte
         DataTable dtFilterCarteDishesRefStatus;
 
         int branchId = 0;
+        int xCarte = 0;
         string branchName = string.Empty;
 
         getReference oReferences = new getReference();
@@ -111,7 +113,7 @@ namespace com.sbs.gui.carte
         {
             if (dataGridView_carte.SelectedRows.Count == 0) return;
 
-            int xCarte = (int)dataGridView_carte.SelectedRows[0].Cells["carte_id"].Value;
+            xCarte = (int)dataGridView_carte.SelectedRows[0].Cells["carte_id"].Value;
             fillCarteDishesGroup(xCarte);
         }
 
@@ -631,7 +633,38 @@ namespace com.sbs.gui.carte
 
         private void toolStripButton_printMenu_Click(object sender, EventArgs e)
         {
+            string pathForReport = "";
+            DataTable dtResult;
 
+            try
+            {
+                dtResult = bdAccess.reportsCarte(GValues.DBMode, branchId, xCarte);
+            }
+            catch (Exception exc) { 
+                uMessage.Show("Не удалось подготовить данные для отчета", exc, SystemIcons.Information); return;
+            }
+
+
+            pathForReport = Environment.CurrentDirectory + @"\reports\carte.rpt";
+
+            ReportDocument repDoc = new ReportDocument();
+            repDoc.Load(pathForReport);
+            repDoc.SetDataSource(dtResult);
+            repDoc.SetParameterValue("pBranchName", branchName);
+            repDoc.SetParameterValue("pMenuName", dataGridView_carte.SelectedRows[0].Cells["carte_name"].Value.ToString());
+            
+
+            fViewer fviewer = new fViewer();
+            fviewer.crystalReportViewer_main.ReportSource = repDoc;
+            fviewer.crystalReportViewer_main.Refresh();
+#if DEBUG
+            fviewer.ShowDialog();
+            repDoc.Close();
+#else
+            fviewer.TopLevel = true;
+            fviewer.Show(this);
+            //repDoc.Close();
+#endif
         }
     }
 }

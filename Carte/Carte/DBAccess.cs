@@ -456,6 +456,37 @@ namespace com.sbs.gui.carte
         }
 
         #endregion
+
+        public DataTable reportsCarte(string pDbType, int pBranchId, int pCarteId)
+        {
+            dtResult = new DataTable() { TableName = "carte" };
+            
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "REP_Carte";
+
+                command.Parameters.Add("pBranchId", SqlDbType.Int).Value = pBranchId;
+                command.Parameters.Add("pCarteId", SqlDbType.Int).Value = pCarteId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
     }
 
     public class advFilter

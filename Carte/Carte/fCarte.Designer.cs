@@ -43,6 +43,7 @@
             this.toolStripButton_carteDel = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_carteDublicate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_printMenu = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.treeView_group = new System.Windows.Forms.TreeView();
@@ -84,7 +85,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox_filterCarteRefStatus = new System.Windows.Forms.ComboBox();
             this.groupBox_advFilter = new System.Windows.Forms.GroupBox();
-            this.toolStripButton_printMenu = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -270,6 +270,17 @@
             this.toolStripButton_carteDublicate.Text = "Дублировать";
             this.toolStripButton_carteDublicate.ToolTipText = "Дублировать";
             this.toolStripButton_carteDublicate.Click += new System.EventHandler(this.toolStripButton_carteDublicate_Click);
+            // 
+            // toolStripButton_printMenu
+            // 
+            this.toolStripButton_printMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_printMenu.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_printMenu.Image")));
+            this.toolStripButton_printMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton_printMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_printMenu.Name = "toolStripButton_printMenu";
+            this.toolStripButton_printMenu.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_printMenu.Text = "Печать меню";
+            this.toolStripButton_printMenu.Click += new System.EventHandler(this.toolStripButton_printMenu_Click);
             // 
             // splitContainer2
             // 
@@ -543,7 +554,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(204, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(186, 29);
             // 
             // toolStripButton_branch
             // 
@@ -745,17 +756,6 @@
             this.groupBox_advFilter.TabIndex = 0;
             this.groupBox_advFilter.TabStop = false;
             this.groupBox_advFilter.Text = "Настройки фильтра";
-            // 
-            // toolStripButton_printMenu
-            // 
-            this.toolStripButton_printMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton_printMenu.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_printMenu.Image")));
-            this.toolStripButton_printMenu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButton_printMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_printMenu.Name = "toolStripButton_printMenu";
-            this.toolStripButton_printMenu.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_printMenu.Text = "Печать меню";
-            this.toolStripButton_printMenu.Click += new System.EventHandler(this.toolStripButton_printMenu_Click);
             // 
             // fCarte
             // 
