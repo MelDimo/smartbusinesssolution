@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{41708689-3058-4DD0-B798-6874517413AC}</ProjectGuid>
+    <ProjectGuid>{D9E7511C-97D2-41C1-B48D-D90287D46A65}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>com.sbs.gui.report.repsumbyitems</RootNamespace>
-    <AssemblyName>RepSumByItems</AssemblyName>
+    <RootNamespace>com.sbs.gui.report.repbillsrefuse</RootNamespace>
+    <AssemblyName>RepBillsRefuse</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -37,8 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="GValues">
@@ -55,9 +55,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="utilites, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+    <Reference Include="utilites">
+      <HintPath>..\..\utilites\utilites\utilites\bin\Release\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -67,11 +66,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsReports.xsd</DependentUpon>
     </Compile>
-    <Compile Include="fRepSumByItems.cs">
+    <Compile Include="fRepBillsRefuse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fRepSumByItems.Designer.cs">
-      <DependentUpon>fRepSumByItems.cs</DependentUpon>
+    <Compile Include="fRepBillsRefuse.Designer.cs">
+      <DependentUpon>fRepBillsRefuse.cs</DependentUpon>
     </Compile>
     <Compile Include="fViewer.cs">
       <SubType>Form</SubType>
@@ -81,22 +80,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="reports\byItemSum.cs">
+    <Compile Include="reports\billsRefuse.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>byItemSum.rpt</DependentUpon>
+      <DependentUpon>billsRefuse.rpt</DependentUpon>
       <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="reports\byItemSum_branch.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>byItemSum_branch.rpt</DependentUpon>
-      <SubType>Component</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
-    <EmbeddedResource Include="fRepSumByItems.resx">
-      <DependentUpon>fRepSumByItems.cs</DependentUpon>
+    <EmbeddedResource Include="fRepBillsRefuse.resx">
+      <DependentUpon>fRepBillsRefuse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fViewer.resx">
       <DependentUpon>fViewer.cs</DependentUpon>
@@ -111,14 +103,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="reports\byItemSum.rpt">
+    <EmbeddedResource Include="reports\billsRefuse.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>byItemSum.cs</LastGenOutput>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="reports\byItemSum_branch.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>byItemSum_branch.cs</LastGenOutput>
+      <LastGenOutput>billsRefuse.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="dsReports.xsc">

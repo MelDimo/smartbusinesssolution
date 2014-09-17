@@ -146,6 +146,11 @@ namespace com.sbs.gui.report.repempllog
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            oRepParam.dateStart = new DateTime(dateTimePicker_start.Value.Year, dateTimePicker_start.Value.Month, dateTimePicker_start.Value.Day,
+                0, 0, 0);
+            oRepParam.dateEnd = new DateTime(dateTimePicker_end.Value.Year, dateTimePicker_end.Value.Month, dateTimePicker_end.Value.Day,
+                23, 59, 59);
+
             prepareReport();
         }
 
@@ -183,6 +188,12 @@ namespace com.sbs.gui.report.repempllog
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void fRepEmplLog_Shown(object sender, EventArgs e)
+        {
+            //dateTimePicker_start.Value = DateTime.Now;
+            //dateTimePicker_end.Value = DateTime.Now;
         }
 
     }
