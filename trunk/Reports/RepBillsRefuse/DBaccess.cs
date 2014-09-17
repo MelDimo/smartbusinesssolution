@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using com.sbs.dll;
 
-namespace com.sbs.gui.report.repsumbyitems
+namespace com.sbs.gui.report.repbillsrefuse
 {
     class DBaccess
     {
@@ -17,8 +17,6 @@ namespace com.sbs.gui.report.repsumbyitems
         {
             string sBranch = string.Empty;
             string sPaymentType = string.Empty;
-            string sItems = string.Empty;
-
             string sDateStart = string.Empty;
             string sDateEnd = string.Empty;
 
@@ -27,12 +25,6 @@ namespace com.sbs.gui.report.repsumbyitems
 
             foreach (int i in pFilter.lPaymentType.ToArray()) sPaymentType += i.ToString() + ",";
             sPaymentType = sPaymentType.TrimEnd(',');
-
-            foreach (int i in pFilter.lItems.ToArray()) sItems += i.ToString() + ",";
-            sItems = sItems.TrimEnd(',');
-
-            if(sItems.Length == 0) sItems = "";
-            else  sItems = " AND bi.ref_dishes in (" + sItems + ") ";
 
             sDateStart = pFilter.dateStart.Year.ToString() + "-" +
                         pFilter.dateStart.Month.ToString() + "-" +
@@ -58,23 +50,23 @@ namespace com.sbs.gui.report.repsumbyitems
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT rd.code, " +
-                                                " bi.ref_dishes, " +
-                                                " bi.dishes_name AS dishesName, " +
-                                                " br.name AS nameBranch, " +
-                                                " bi.dishes_price AS dishesPrice, " +
-                                                " SUM(bi.xcount) AS dishesCount, " +
-                                                " (bi.dishes_price - (bi.dishes_price * bi.discount / 100))  * sum(bi.xcount) AS dishesSumm " +
-                                        " FROM bills_all b " +
-                                        " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
-                                        " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id AND bi.branch = b.branch" +
-                                        " LEFT JOIN ref_dishes rd ON rd.id = bi.ref_dishes " +
-                                        " INNER JOIN branch br ON br.id = b.branch " +
-                                        " WHERE b.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
-                                            " AND b.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
-                                            " AND b.branch in (" + sBranch + ") AND b.ref_payment_type in (" + sPaymentType + ") " +
-                                            sItems +
-                                        " GROUP BY bi.ref_dishes, rd.code, bi.dishes_name, br.name, bi.dishes_price, bi.discount";
+                command.CommandText = " SELECT b.name AS branch, " +
+                                      "      season,  " +
+                                      "      date_open, " +
+                                      "      date_close, " +
+                                      "      numb,  " +
+                                      "      u.lname + ' ' + u.fname + ' ' + u.sname AS fio, " +
+                                      "      [sum] AS summa, " +
+                                      "      rpt.name AS ref_payment_type_name " +
+                                      "  FROM bills_all ba " +
+                                      "  INNER JOIN users u ON u.id = ba.user_open " +
+                                      "  INNER JOIN branch b ON b.id = ba.branch " +
+                                      "  INNER JOIN ref_payment_type rpt ON rpt.id = ba.ref_payment_type  " +
+                                      "  WHERE ba.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
+                                      "     AND ba.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
+                                      "     AND ba.ref_payment_type in (" + sPaymentType + ") " +
+                                      "     AND ba.branch in (" + sBranch + ") " +
+                                      "  ORDER BY b.name, season, numb";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -95,16 +87,11 @@ namespace com.sbs.gui.report.repsumbyitems
         {
             lBranch = new List<int>();
             lPaymentType = new List<int>();
-            lItems = new List<int>();
-            lItemsTree = new List<int>();
         }
 
         public DateTime dateStart { get; set; }
         public DateTime dateEnd { get; set; }
         public List<int> lBranch { get; set; }
-        public string branchNames { get; set; }
         public List<int> lPaymentType { get; set; }
-        public List<int> lItems { get; set; }
-        public List<int> lItemsTree { get; set; }
     }
 }

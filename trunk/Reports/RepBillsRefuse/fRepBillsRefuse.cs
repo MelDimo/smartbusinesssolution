@@ -7,23 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
-using com.sbs.gui.report.repsumbyitems;
 using com.sbs.dll;
 using CrystalDecisions.CrystalReports.Engine;
 
-namespace com.sbs.gui.report.repsumbyitems
+namespace com.sbs.gui.report.repbillsrefuse
 {
-    public partial class fRepSumByItems : Form
+    public partial class fRepBillsRefuse : Form
     {
         DBaccess dbAccess = new DBaccess();
         Filter oFilter = new Filter();
 
-        public fRepSumByItems()
+        public fRepBillsRefuse()
         {
             InitializeComponent();
         }
 
-        private void fRepSumByItems_Shown(object sender, EventArgs e)
+        private void fRepBillsRefuse_Shown(object sender, EventArgs e)
         {
             dateTimePicker_timeStart.Value = new DateTime(1999, 1, 1, 0, 0, 0);
             dateTimePicker_timeEnd.Value = new DateTime(1999, 1, 1, 23, 59, 59);
@@ -36,29 +35,7 @@ namespace com.sbs.gui.report.repsumbyitems
             fCut.ShowDialog();
 
             textBox_branch.Text = fCut.checkedBranchName;
-            oFilter.branchNames = textBox_branch.Text;
             oFilter.lBranch = fCut.checkedBranch;
-        }
-
-        private void button_paymentType_Click(object sender, EventArgs e)
-        {
-            fChooserPaymentType fCpt = new fChooserPaymentType(oFilter.lPaymentType);
-            fCpt.ShowDialog();
-
-            textBox_paymentType.Text = fCpt.choosenName;
-            oFilter.lPaymentType = fCpt.isChoosen;
-        }
-
-        private void button_items_Click(object sender, EventArgs e)
-        {
-            fChooserItems fItems = new fChooserItems(oFilter.lItems, oFilter.lItemsTree);
-            fItems.choosenName = textBox_items.Text;
-            fItems.Text = "Выбор наименований";
-            fItems.ShowDialog();
-
-            textBox_items.Text = fItems.choosenName;
-            oFilter.lItems = fItems.isChoosen;
-            oFilter.lItemsTree = fItems.isChoosenTree;
         }
 
         private void button_ok_Click(object sender, EventArgs e)
@@ -71,7 +48,6 @@ namespace com.sbs.gui.report.repsumbyitems
                                              dateTimePicker_timeEnd.Value.Hour, dateTimePicker_timeEnd.Value.Minute, dateTimePicker_timeEnd.Value.Second);
 
             if (oFilter.lBranch.Count == 0) { errMsg += Environment.NewLine + "- Заведения;"; }
-            if (oFilter.lPaymentType.Count == 0) { errMsg += Environment.NewLine + "- Типы оплаты;"; }
 
             if (!errMsg.Equals("Заполнены не все обязательные поля:"))
             {
@@ -97,15 +73,13 @@ namespace com.sbs.gui.report.repsumbyitems
                 return;
             }
 
-            if (checkBox_branchGroup.Checked) pathForReport = Environment.CurrentDirectory + @"\reports\byItemSum.rpt";
-            else pathForReport = Environment.CurrentDirectory + @"\reports\byItemSum_branch.rpt";
+            pathForReport = Environment.CurrentDirectory + @"\reports\billsRefuse.rpt";
 
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
             repDoc.SetParameterValue("dateStart", oFilter.dateStart.ToString());
             repDoc.SetParameterValue("dateEnd", oFilter.dateEnd.ToString());
-            if (!checkBox_branchGroup.Checked) repDoc.SetParameterValue("branchName", oFilter.branchNames);
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
@@ -125,5 +99,13 @@ namespace com.sbs.gui.report.repsumbyitems
             Close();
         }
 
+        private void button_paymentType_Click(object sender, EventArgs e)
+        {
+            fChooserPaymentType fCpt = new fChooserPaymentType(oFilter.lPaymentType);
+            fCpt.ShowDialog();
+
+            textBox_paymentType.Text = fCpt.choosenName;
+            oFilter.lPaymentType = fCpt.isChoosen;
+        }
     }
 }

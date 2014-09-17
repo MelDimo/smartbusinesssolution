@@ -289,6 +289,7 @@
             this.MinimumSize = new System.Drawing.Size(455, 233);
             this.Name = "fRepEmplLog";
             this.Text = "Журнал регистрации сотрудников";
+            this.Shown += new System.EventHandler(this.fRepEmplLog_Shown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
