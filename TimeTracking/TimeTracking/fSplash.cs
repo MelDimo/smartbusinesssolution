@@ -58,6 +58,8 @@ namespace com.sbs.gui.timetracking
 
         private bool logInAccess()
         {
+            cUser = new curUser();
+
             fLoginPWD flogin = new fLoginPWD();
             if (flogin.ShowDialog() == DialogResult.OK)
             {
@@ -75,6 +77,8 @@ namespace com.sbs.gui.timetracking
 
         private bool mifareAccess()
         {
+            cUser = new curUser();
+
             fMIFare fMifare = new fMIFare();
             if (fMifare.ShowDialog() == DialogResult.OK)
             {

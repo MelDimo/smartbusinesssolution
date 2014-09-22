@@ -26,8 +26,13 @@ namespace com.sbs.gui.timetracking
             {
                 Mifire oMifare = new Mifire();
                 keyId = oMifare.readMifire();
+                if (keyId.Trim().Length == 0) throw new Exception("Не удалось прочесть данные.");
             }
-            catch (Exception exc) { uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; }
+            catch (Exception exc) 
+            { 
+                uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information); 
+                DialogResult = DialogResult.Cancel; 
+            }
 
             DialogResult = DialogResult.OK;
         }

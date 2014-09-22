@@ -35,7 +35,8 @@ namespace com.sbs.gui.timetracking
                                         " FROM users u " +
                                         " INNER JOIN users_pwd up ON up.users = u.id " +
                                         " LEFT JOIN timeTracking tt ON tt.users = u.id AND tt.branch = @branch " +
-                                        " WHERE up.pwd = @pwd";
+                                        " WHERE up.pwd = @pwd " +
+                                        " ORDER BY tt.id ";
 
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
@@ -163,8 +164,9 @@ namespace com.sbs.gui.timetracking
                                         " INNER JOIN users_pwd up ON up.users = u.id " +
                                         " LEFT JOIN timeTracking tt ON tt.users = u.id AND tt.branch = @branch " +
                                         " AND (DATEADD(dd, 0, DATEDIFF(dd, 0, datetime_in)) = DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) " +
-	                                            " OR DATEADD(dd, 0, DATEDIFF(dd, 0, datetime_out)) = DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())))" +
-                                        " WHERE up.pwd = @pwd AND u.login = @login ";
+                                                " OR DATEADD(dd, 0, DATEDIFF(dd, 0, datetime_out)) = DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())))" +
+                                        " WHERE up.pwd = @pwd AND u.login = @login " +
+                                        " ORDER BY tt.id;";
 
                 command.Parameters.Add("login", SqlDbType.NVarChar).Value = pLogIn;
                 command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pPwd;
