@@ -66,7 +66,10 @@ namespace com.sbs.gui.dashboard
                                                 (new System.Drawing.Printing.PrinterSettings()).PrinterName :
                                                 dtOrder.Rows[0]["printerName"].ToString();
 
-                for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(1, false, 0, 0);
+                for (int i = 0; i < GValues.branchBill; i++)
+                    if (dtOrder.Rows.Count > 30) rawPrintBill(dtOrder);
+                    else repDoc.PrintToPrinter(0, false, 0, 0);
+
                 repDoc.Close();
             }
 
@@ -92,6 +95,52 @@ namespace com.sbs.gui.dashboard
                 for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(1, false, 0, 0);
                 repDoc.Close();
             }
+        }
+
+        private void rawPrintBill(DataTable dtOrder)
+        {
+            string eCentre = string.Empty + (char)27 + (char)97 + "1";
+            string eLeft = string.Empty + (char)27 + (char)97 + "0";
+            string eRight = string.Empty + (char)27 + (char)97 + "2";
+            string eCut = string.Empty + (char)27 + (char)105;
+            string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
+            string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
+
+            int rHeight = 48;
+            StringBuilder sb = new StringBuilder();
+            decimal totalSum = 0;
+            string sDish = string.Empty;
+            string printerAddress = string.Empty;
+            byte[] bText;
+            string sText;
+
+            sb = new StringBuilder();
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine("Счет на оплату");
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine(string.Format("Официант: {0}", DashboardEnvironment.gUser.name));
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in dtOrder.Rows)
+            {
+                sb.AppendLine(((string)dr["name"]).Trim());
+                sb.AppendLine(string.Format("{0} x {1}", dr["xcount"], dr["price"]).PadLeft(rHeight, ' '));
+
+                totalSum += decimal.Parse(dr["xcount"].ToString()) * decimal.Parse(dr["price"].ToString());
+
+                printerAddress = dr["printerName"].ToString();
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine(string.Format("Итого: {0}", totalSum).PadLeft(rHeight, ' '));
+
+            sb.AppendLine(eCut);
+
+            bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
+            sText = Encoding.GetEncoding(1251).GetString(bText);
+
+            RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
         }
 
         private void printDish()
@@ -137,7 +186,7 @@ namespace com.sbs.gui.dashboard
             string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
             string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
 
-            int rHeight = 50;
+            int rHeight = 48;
             StringBuilder sb = new StringBuilder();
             int intTable;
             string sDish = string.Empty;
