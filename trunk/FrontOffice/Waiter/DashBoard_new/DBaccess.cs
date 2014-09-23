@@ -606,7 +606,7 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, avalHall, avalDelivery, ref_printers_type " +
                                         " FROM carte_dishes " +
-                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE carte_dishes_group in (" + sGroup + ") "+
+                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE isVisible = 1 AND carte_dishes_group in (" + sGroup + ") "+
                                         " ORDER BY name"); 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

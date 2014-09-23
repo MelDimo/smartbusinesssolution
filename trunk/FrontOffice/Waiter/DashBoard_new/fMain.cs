@@ -656,9 +656,7 @@ namespace com.sbs.gui.dashboard
                 flowLayoutPanel_dish.Refresh();
                 if (i == 10) break;
             }
-
             lctrDishes = null;
-
         }
 
         #endregion

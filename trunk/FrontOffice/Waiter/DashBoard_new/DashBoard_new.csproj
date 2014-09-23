@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D6EFC30B-F1A6-4E0F-8C7C-646694918686}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
     <AssemblyName>DashBoard</AssemblyName>
@@ -127,7 +127,9 @@
     <Compile Include="fMain.Designer.cs">
       <DependentUpon>fMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="fMain_lite.cs" />
+    <Compile Include="fMain_lite.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="fMain_lite.designer.cs">
       <DependentUpon>fMain_lite.cs</DependentUpon>
     </Compile>
@@ -185,9 +187,9 @@
     <Compile Include="reports\order.cs">
       <DependentUpon>order.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="reports\preOrder.cs">
       <DependentUpon>preOrder.rpt</DependentUpon>
