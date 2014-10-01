@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Management;
 using System.Management.Instrumentation;
 using com.sbs.dll;
+using com.sbs.dll.utilites;
 
 namespace KillRemoteProcess
 {
@@ -56,10 +57,30 @@ namespace KillRemoteProcess
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DTO_DBoard.Delivery oDelivery = new DTO_DBoard.Delivery();
+            //DTO_DBoard.Delivery oDelivery = new DTO_DBoard.Delivery();
 
-            oDelivery.deliveryClient.addr_korp.Equals(textBox_host.Text.Trim());
+            //oDelivery.deliveryClient.addr_korp.Equals(textBox_host.Text.Trim());
 
+            fChooserItems fItems = new fChooserItems(new List<int>(), new List<int>());
+            fItems.ShowDialog();
+            return;
+
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+
+            switch (keyData)
+            {
+                case Keys.Left:
+                    break;
+
+                case Keys.Right:
+                    SendKeys.Send("+{TAB}");
+                    break;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

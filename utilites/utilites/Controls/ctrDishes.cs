@@ -21,9 +21,6 @@ namespace com.sbs.dll.utilites
 
         private string sModule;
 
-        //private DataTable dtToppings_Selected;
-        //private int xBillsInfoId = 0;
-
         public ctrDishes(DTO_DBoard.Dish pDish, string pModule)
         {
             oDish = pDish;
@@ -36,34 +33,19 @@ namespace com.sbs.dll.utilites
             button_host.GotFocus += new EventHandler(button_host_GotFocus);
             button_host.LostFocus += new EventHandler(button_host_LostFocus);
 
-            if (!sModule.Equals("dashboard")) initData();
+            if (sModule.Equals("dashboard")) initData();
+
         }
-
-        //// Метод актуален при постобработке
-        //public ctrDishes(DTO_DBoard.Dish pDish, int pBillsInfoId)
-        //{
-        //    oDish = pDish;
-        //    xBillsInfoId = pBillsInfoId;
-
-        //    InitializeComponent();
-
-        //    fillControls();
-
-        //    button_host.GotFocus += new EventHandler(button_host_GotFocus);
-        //    button_host.LostFocus += new EventHandler(button_host_LostFocus);
-
-        //    initData();
-        //}
 
         private void initData()
         {
             try
             {
-                // Есть прививелгии пост обработки
-                if (oSupport.checkPrivileges(UsersInfo.Acl, 21) || oSupport.checkPrivileges(UsersInfo.Acl, 22))
+                if (oDish.refStatus == 34) //Присваивается позиции попавшей в season_refuse
                 {
                     dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.carteDishes);
-                    dtToppings = oReferences.getTopingsCarteDishes_post(GValues.DBMode, oDish.carteDishes, oDish.id);
+                    MessageBox.Show(string.Format("oDish.carteDishes:{0}; oDish.id{1}", oDish.carteDishes, oDish.id));
+                    dtToppings = oReferences.getTopingsCarteDishes_refuse(GValues.DBMode, oDish.carteDishes, oDish.id);
                 }
                 else
                 {
@@ -77,10 +59,7 @@ namespace com.sbs.dll.utilites
                 return;
             }
 
-            if (dtToppings.Rows.Count > 0)
-            {
-                button_topping.Enabled = true;
-            }
+            if (dtToppings.Rows.Count > 0) button_topping.Enabled = true;
             else button_topping.Enabled = false;
         }
 
@@ -113,29 +92,26 @@ namespace com.sbs.dll.utilites
             return oCtr;
         }
 
-        private void numericUpDown_count_KeyUp(object sender, KeyEventArgs e)
-        {
-            //numericUpDown_count.Select(0, numericUpDown_count.Text.Length);
-        }
-
         private void button_topping_Click(object sender, EventArgs e)
         {
             fAddDishToBill_topping fTopp = new fAddDishToBill_topping(dtGroup, dtToppings);
-            if (oSupport.checkPrivileges(UsersInfo.Acl, 21) || oSupport.checkPrivileges(UsersInfo.Acl, 22))
-            {
+            //if (oSupport.checkPrivileges(UsersInfo.Acl, 21) || oSupport.checkPrivileges(UsersInfo.Acl, 22))
+            //{
                 fTopp.Text = "Топиинги";
-                fTopp.dataGridView_topping.Enabled = false;
                 fTopp.MinimizeBox = false;
                 fTopp.MaximizeBox = false;
-                fTopp.ControlBox = true;
-            }
+                fTopp.ControlBox = false;
+            //}
+
             if (fTopp.ShowDialog() == DialogResult.Cancel)
             {
                 if (this.Parent.GetType().Equals(typeof(Form)))
                 {
                     ((Form)this.Parent).DialogResult = DialogResult.Cancel;
+                    ((Form)this.Parent).Close();
                 }
             }
+
             numericUpDown_count.Focus();
         }
 

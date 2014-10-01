@@ -13,17 +13,21 @@ namespace com.sbs.dll.utilites
     public partial class fChooserItems : Form
     {
         public List<int> isChoosen;
+        public List<int> isChoosenTree;
         public string choosenName;
 
         DataTable dtItems;
+        DataTable dtGroupTree;
+
         getReference oReference = new getReference();
 
         private string field4QuickSearch = "name";
         private int field4QuickIndex = 1;
 
-        public fChooserItems(List<int> pIsChoosen)
+        public fChooserItems(List<int> pIsChoosen, List<int> pIsChoosenTree)
         {
             isChoosen = pIsChoosen;
+            isChoosenTree = pIsChoosenTree;
 
             InitializeComponent();
 
@@ -64,6 +68,47 @@ namespace com.sbs.dll.utilites
             }
 
             dataGridView_main.DataSource = dtItems;
+
+            createTree();
+
+            treeView_main.ExpandAll();
+        }
+
+        private void createTree()
+        {
+            TreeNode nodes;
+            bool inPalce = false;
+
+            getReference oReferences = new getReference();
+
+            treeView_main.Nodes.Clear();
+
+            try
+            {
+                dtGroupTree = oReferences.getDishesGroup(GValues.DBMode);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+
+            foreach (DataRow dr in dtGroupTree.Rows)
+            {
+                inPalce = false;
+                nodes = new TreeNode();
+                nodes.Text = dr["name"].ToString();
+                nodes.Name = dr["id"].ToString();
+                nodes.Tag = dr["id_parent"].ToString();
+                if (isChoosenTree.Contains((int)dr["id"])) nodes.Checked = true;
+
+                foreach (TreeNode tn in treeView_main.Nodes.Find(dr["id_parent"].ToString(), true))
+                {
+                    tn.Nodes.Add(nodes);
+                    inPalce = true;
+                }
+
+                if (!inPalce)
+                {
+                    treeView_main.Nodes.Add(nodes);
+                }
+            }
         }
 
         private void dataGridView_main_KeyPress(object sender, KeyPressEventArgs e)
@@ -150,15 +195,80 @@ namespace com.sbs.dll.utilites
             isChoosen = new List<int>();
 
             foreach (DataRow dr in dtItems.Rows)
-            {
                 if ((bool)dr["isSelected"])
                 {
-                    choosenName += dr["name"].ToString() + ";";
+                    choosenName = "[ ... ]";
                     isChoosen.Add((int)dr["id"]);
+                }
+
+            isChoosenTree = new List<int>();
+            
+            treeView_main.ExpandAll();
+
+            getCheckedNodes(treeView_main.Nodes[0]);
+
+            foreach (TreeNode tn in treeView_main.Nodes) 
+                if ((bool)tn.Checked) isChoosenTree.Add(int.Parse(tn.Name));
+
+            DialogResult = DialogResult.OK;
+        }
+
+        private void getCheckedNodes(TreeNode pTreeNode)
+        {
+            foreach (TreeNode node in pTreeNode.Nodes)
+            {
+                if (node.Checked) isChoosenTree.Add(int.Parse(node.Name));
+
+                if (node.Nodes.Count > 0) this.getCheckedNodes(node);
+            }
+        }
+
+        private void treeView_main_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            treeView_main.SelectedNode = e.Node;
+
+            checkedNode(e.Node, e.Node.Checked);
+        }
+
+        private void checkedNode(TreeNode pNodes, bool nodeChecked)
+        {
+            foreach (TreeNode node in pNodes.Nodes)
+            {
+                foreach (DataRow dr in dtItems.Rows)
+                {
+                    if (dr["ref_dishes_group"].ToString().Equals(pNodes.Name))
+                    {
+                        dr["isSelected"] = node.Checked;
+                    }
+                }
+
+                node.Checked = nodeChecked;
+
+                if (node.Nodes.Count > 0)
+                {
+                    this.checkedNode(node, nodeChecked);
                 }
             }
 
-            DialogResult = DialogResult.OK;
+            foreach (DataRow dr in dtItems.Rows)
+            {
+                if (dr["ref_dishes_group"].ToString().Equals(pNodes.Name))
+                {
+                    dr["isSelected"] = pNodes.Checked;
+                }
+            }
+
+            dataGridView_main.DataSource = dtItems;
+        }
+
+        private void reselectItems(string pGroupId)
+        {
+            dtItems.DefaultView.RowFilter = "ref_dishes_group = " + pGroupId;
+        }
+
+        private void treeView_main_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            reselectItems(e.Node.Name);
         }
     }
 }

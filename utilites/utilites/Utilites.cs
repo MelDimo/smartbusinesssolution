@@ -750,7 +750,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price," +
+                command.CommandText = " SELECT rd.id, rd.code, rd.ref_dishes_group, rd.name, rd.price," +
                                             " rd.ref_printers_type, rpt.name as ref_printers_type_name," +
                                             " rd.ref_status, rs.name as ref_status_name, rd.minStep" +
                                         " FROM ref_dishes rd" +
@@ -1140,6 +1140,45 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getTopingsCarteDishes_refuse(string pDbType, int pCarteDishes, int pBillsInfoId)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT tcd.id, tcd.toppings_groups, cd.id as carteDishes, cd.name, cd.price, [bit].isSelected " +
+                                        " FROM toppings_carte_dishes tcd " +
+                                        " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
+                                        " INNER JOIN toppings_groups tg ON tg.id = tcd.toppings_groups " +
+                                        " INNER JOIN bills_info_toppings [bit] ON [bit].toppings_carte_dishes = tcd.id " +
+                                        " INNER JOIN season_refuse sr ON sr.bills_info = [bit].bills_info " +
+                                        " WHERE tg.carte_dishes = @carteDishes AND sr.id = @billsInfo";
+
+                command.Parameters.Add("carteDishes", SqlDbType.Int).Value = pCarteDishes;
+                command.Parameters.Add("billsInfo", SqlDbType.Int).Value = pBillsInfoId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getTopingsCarteDishes_post(string pDbType, int pCarteDishes, int pBillsInfoId)
         {
             DataTable dtResult = new DataTable();
@@ -1156,7 +1195,7 @@ namespace com.sbs.dll.utilites
                 command = con.CreateCommand();
 
                 command.CommandText = " SELECT tcd.id, tcd.toppings_groups, cd.id as carteDishes, cd.name, cd.price, " +
-                                            " (SELECT isSelected FROM bills_info_toppings_all bita WHERE tcd.id = bita.toppings_carte_dishes AND bita.bills_info = @billsInfo ) AS isSelected " +
+                                            " (SELECT isSelected FROM bills_info_toppings bita WHERE tcd.id = bita.toppings_carte_dishes AND bita.bills_info = @billsInfo ) AS isSelected " +
                                         " FROM toppings_carte_dishes tcd " +
                                         " INNER JOIN carte_dishes cd ON cd.id = tcd.carte_dishes " +
                                         " INNER JOIN toppings_groups tg ON tg.id = tcd.toppings_groups " +
@@ -1375,23 +1414,27 @@ namespace com.sbs.dll.utilites
     {
         public static void write(string pString)
         {
-            if (!Directory.Exists(Path.GetDirectoryName(GValues.prgLogFile))) Directory.CreateDirectory(Path.GetDirectoryName(GValues.prgLogFile));
-            if (!File.Exists(GValues.prgLogFile))
-                File.Create(GValues.prgLogFile).Dispose();
-            else
+            try
             {
-                FileInfo fi = new FileInfo(GValues.prgLogFile);
-                if (fi.Length >= 20000)
-                {
-                    File.Delete(GValues.prgLogFile);
+                if (!Directory.Exists(Path.GetDirectoryName(GValues.prgLogFile))) Directory.CreateDirectory(Path.GetDirectoryName(GValues.prgLogFile));
+                if (!File.Exists(GValues.prgLogFile))
                     File.Create(GValues.prgLogFile).Dispose();
-                }
+                else
+                {
+                    FileInfo fi = new FileInfo(GValues.prgLogFile);
+                    if (fi.Length >= 200000)
+                    {
+                        File.Delete(GValues.prgLogFile);
+                        File.Create(GValues.prgLogFile).Dispose();
+                    }
 
+                }
+                using (StreamWriter sw = new StreamWriter(GValues.prgLogFile, true))
+                {
+                    sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
+                }
             }
-            using (StreamWriter sw = new StreamWriter(GValues.prgLogFile, true))
-            {
-                sw.WriteLine(DateTime.Now.ToString() + ": " + pString);
-            }
+            catch (Exception exc) { ;}
         }
     }
 

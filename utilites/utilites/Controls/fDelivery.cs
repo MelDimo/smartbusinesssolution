@@ -129,13 +129,20 @@ namespace com.sbs.dll.utilites
 
         private void button_save_Click(object sender, EventArgs e)
         {
-            saveData();
-            DialogResult = DialogResult.OK;
+            try
+            {
+                if (saveData()) DialogResult = DialogResult.OK;
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Information);
+                return;
+            }
         }
 
-        private void saveData()
+        private bool saveData()
         {
-            if (!checkData()) return;
+            if (!checkData()) return false;
             else
             {
                 switch (eFormOpensModes)
@@ -151,7 +158,7 @@ namespace com.sbs.dll.utilites
                     default:
                         break;
                 }
-                
+                return true;
             }
         }
 

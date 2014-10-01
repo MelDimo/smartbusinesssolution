@@ -38,49 +38,9 @@ namespace com.sbs.dll.utilites
             fillToppingGroup(pDtGroup);
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            switch (keyData)
-            {
-                case Keys.Left | Keys.Control:
-                    changeGroup("LEFT");
-                    break;
-
-                case Keys.Right | Keys.Control:
-                    changeGroup("RIGHT");
-                    break;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void changeGroup(string pDirection)
-        {
-
-            if (curGroup == pDirection) return;
-
-            switch (pDirection)
-            {
-                case "LEFT":
-                    splitContainer1.Panel1.BackColor = Color.FromArgb(185, 209, 234);
-                    splitContainer1.Panel2.BackColor = Color.FromKnownColor(KnownColor.Control);
-                    treeView_toppGroup.Focus();
-                    curGroup = "LEFT";
-                    break;
-
-                case "RIGHT":
-                    splitContainer1.Panel2.BackColor = Color.FromArgb(185, 209, 234);
-                    splitContainer1.Panel1.BackColor = Color.FromKnownColor(KnownColor.Control);
-                    dataGridView_topping.Focus();
-                    curGroup = "RIGHT";
-                    break;
-            }
-        }
-
         private void fillToppingDish()
         {
             dataGridView_topping.DataSource = dtToppings;
-
         }
 
         private void fillToppingGroup(DataTable dtGroup)
@@ -112,6 +72,7 @@ namespace com.sbs.dll.utilites
         {
             dtToppings.DefaultView.RowFilter = string.Format("toppings_groups = {0}", treeView_toppGroup.SelectedNode.Name);
             dataGridView_topping.DataSource = dtToppings;
+            dataGridView_topping.ClearSelection();
         }
 
         private void fAddDishToBill_topping_KeyDown(object sender, KeyEventArgs e)
@@ -130,18 +91,6 @@ namespace com.sbs.dll.utilites
                     {
                         DialogResult = DialogResult.Cancel;
                     }
-
-                    if (splitContainer1.Panel2.BackColor.Equals(Color.FromArgb(185, 209, 234)))
-                    {
-                        curGroup = "RIGHT";
-                        dataGridView_topping.Focus();
-                    }
-                    else
-                    {
-                        curGroup = "LEFT";
-                        treeView_toppGroup.Focus();
-                    }
-
                     break;
             }
         }
@@ -157,12 +106,13 @@ namespace com.sbs.dll.utilites
 
         private void fAddDishToBill_topping_Shown(object sender, EventArgs e)
         {
-            splitContainer1.Panel2.BackColor = Color.FromArgb(185, 209, 234);
-            splitContainer1.Panel1.BackColor = Color.FromKnownColor(KnownColor.Control);
-            curGroup = "RIGHT";
-
             treeView_toppGroup.SelectedNode = treeView_toppGroup.Nodes[0];
-            dataGridView_topping.Focus();
+            if (dataGridView_topping.Rows.Count > 0)
+            {
+                dataGridView_topping.CurrentCell = dataGridView_topping.Rows[0].Cells["isSelected"];
+                dataGridView_topping.Rows[0].Selected = true;
+                dataGridView_topping.Focus();
+            }
         }
 
         private void dataGridView_topping_KeyDown(object sender, KeyEventArgs e)
@@ -183,6 +133,26 @@ namespace com.sbs.dll.utilites
                     e.Handled = true;
                     break;
 
+                case Keys.Back:
+                    dataGridView_topping.ClearSelection();
+                    treeView_toppGroup.Focus();
+                    break;
+
+            }
+        }
+
+        private void treeView_toppGroup_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (dataGridView_topping.RowCount > 0)
+                    {
+                        dataGridView_topping.CurrentCell = dataGridView_topping.Rows[0].Cells["isSelected"];
+                        dataGridView_topping.Rows[0].Selected = true;
+                        dataGridView_topping.Focus();
+                    }
+                    break;
             }
         }
     }
