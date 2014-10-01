@@ -126,12 +126,14 @@ namespace com.sbs.dll.utilites
             switch (checkLvl) 
             {
                 case "branch":
+                    if (checkedBranchName.Length == 0) return;
                     checkedBranchName = checkedBranchName.Substring(0, checkedBranchName.Length - 2);
                     if (checkedBranch.Count == 0) DialogResult = DialogResult.Cancel;
                     
                     break;
 
                 case "unit":
+                    if (checkedUnitName.Length == 0) return;
                     checkedUnitName = checkedUnitName.Substring(0, checkedUnitName.Length - 2);
                     if (checkedUnit.Count == 0) DialogResult = DialogResult.Cancel;
                     break;
@@ -151,28 +153,6 @@ namespace com.sbs.dll.utilites
             {
                 foreach (TreeNode tn in pTn.Nodes)
                 {
-                    //curWord = regOnlyLetter.Replace(pTn.Name, "");
-                    //switch (curWord)
-                    //{
-                    //    case "organization":
-                    //        break;
-
-                    //    case "branch":
-                    //        if (pTn.Checked)
-                    //        {
-                    //            checkedBranch.Add(int.Parse(regOnlyNumber.Replace(pTn.Name, "")));
-                    //            checkedBranchName += pTn.Text + "; ";
-                    //        }
-                    //        break;
-
-                    //    case "unit":
-                    //        if (pTn.Checked)
-                    //        {
-                    //            checkedUnit.Add(int.Parse(regOnlyNumber.Replace(pTn.Name, "")));
-                    //            checkedUnitName += pTn.Text + "; ";
-                    //        }
-                    //        break;
-                    //}
                     getCheckedId(tn);
                 }
                 

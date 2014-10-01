@@ -80,6 +80,7 @@
             this.treeView_toppGroup.TabIndex = 0;
             this.treeView_toppGroup.TabStop = false;
             this.treeView_toppGroup.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_toppGroup_AfterSelect);
+            this.treeView_toppGroup.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView_toppGroup_KeyDown);
             // 
             // dataGridView_topping
             // 

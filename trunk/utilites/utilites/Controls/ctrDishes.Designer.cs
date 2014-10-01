@@ -63,7 +63,6 @@
             // button_topping
             // 
             this.button_topping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_topping.Enabled = false;
             this.button_topping.Location = new System.Drawing.Point(6, 47);
             this.button_topping.Name = "button_topping";
             this.button_topping.Size = new System.Drawing.Size(145, 23);
@@ -75,12 +74,10 @@
             // button_deals
             // 
             this.button_deals.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_deals.Enabled = false;
             this.button_deals.Location = new System.Drawing.Point(158, 47);
             this.button_deals.Name = "button_deals";
             this.button_deals.Size = new System.Drawing.Size(138, 23);
             this.button_deals.TabIndex = 2;
-            this.button_deals.TabStop = false;
             this.button_deals.Text = "Акционные позиции";
             this.button_deals.UseVisualStyleBackColor = false;
             // 
@@ -92,6 +89,7 @@
             this.button_host.Name = "button_host";
             this.button_host.Size = new System.Drawing.Size(447, 75);
             this.button_host.TabIndex = 0;
+            this.button_host.TabStop = false;
             this.button_host.UseVisualStyleBackColor = false;
             // 
             // comboBox_note
@@ -99,13 +97,11 @@
             this.comboBox_note.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox_note.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_note.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox_note.FormattingEnabled = true;
+            this.comboBox_note.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.comboBox_note.Location = new System.Drawing.Point(302, 47);
             this.comboBox_note.Name = "comboBox_note";
             this.comboBox_note.Size = new System.Drawing.Size(104, 21);
             this.comboBox_note.TabIndex = 3;
-            this.comboBox_note.TabStop = false;
             // 
             // button_editMnu
             // 
@@ -125,7 +121,7 @@
             this.label_count.Location = new System.Drawing.Point(361, 4);
             this.label_count.Name = "label_count";
             this.label_count.Size = new System.Drawing.Size(77, 32);
-            this.label_count.TabIndex = 11;
+            this.label_count.TabIndex = 0;
             this.label_count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numericUpDown_count

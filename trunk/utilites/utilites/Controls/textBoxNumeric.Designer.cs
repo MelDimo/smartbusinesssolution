@@ -40,7 +40,7 @@
             this.textBox_numb.Location = new System.Drawing.Point(0, 0);
             this.textBox_numb.Name = "textBox_numb";
             this.textBox_numb.ReadOnly = true;
-            this.textBox_numb.Size = new System.Drawing.Size(77, 26);
+            this.textBox_numb.Size = new System.Drawing.Size(150, 26);
             this.textBox_numb.TabIndex = 0;
             this.textBox_numb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox_numb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_numb_KeyDown);
@@ -53,7 +53,6 @@
             this.AutoSize = true;
             this.Controls.Add(this.textBox_numb);
             this.Name = "textBoxNumeric";
-            this.Size = new System.Drawing.Size(77, 26);
             this.Load += new System.EventHandler(this.textBoxNumeric_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -62,7 +61,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox_numb;
+        public System.Windows.Forms.TextBox textBox_numb;
+
+
+
 
 
     }

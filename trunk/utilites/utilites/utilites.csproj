@@ -121,6 +121,12 @@
     <Compile Include="fChooserItems.Designer.cs">
       <DependentUpon>fChooserItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="fChooserItemsGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fChooserItemsGroups.Designer.cs">
+      <DependentUpon>fChooserItemsGroups.cs</DependentUpon>
+    </Compile>
     <Compile Include="fChooserPaymentType.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fChooserItems.resx">
       <DependentUpon>fChooserItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fChooserItemsGroups.resx">
+      <DependentUpon>fChooserItemsGroups.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fChooserPaymentType.resx">
       <DependentUpon>fChooserPaymentType.cs</DependentUpon>
