@@ -60,6 +60,7 @@ namespace com.sbs.gui.report.repsumbyitems
 
                 command.CommandText = " SELECT rd.code, " +
                                                 " bi.ref_dishes, " +
+                                                " rdg.name AS dishesGroupName, " +
                                                 " bi.dishes_name AS dishesName, " +
                                                 " br.name AS nameBranch, " +
                                                 " bi.dishes_price AS dishesPrice, " +
@@ -69,12 +70,14 @@ namespace com.sbs.gui.report.repsumbyitems
                                         " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
                                         " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id AND bi.branch = b.branch" +
                                         " LEFT JOIN ref_dishes rd ON rd.id = bi.ref_dishes " +
+                                        " LEFT JOIN ref_dishes_group rdg ON rdg.id = rd.ref_dishes_group " +
                                         " INNER JOIN branch br ON br.id = b.branch " +
                                         " WHERE b.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
                                             " AND b.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
                                             " AND b.branch in (" + sBranch + ") AND b.ref_payment_type in (" + sPaymentType + ") " +
                                             sItems +
-                                        " GROUP BY bi.ref_dishes, rd.code, bi.dishes_name, br.name, bi.dishes_price, bi.discount";
+                                        " GROUP BY bi.ref_dishes, rd.code, rdg.name, bi.dishes_name, br.name, bi.dishes_price, bi.discount " +
+                                        " ORDER BY rdg.name, bi.dishes_name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {

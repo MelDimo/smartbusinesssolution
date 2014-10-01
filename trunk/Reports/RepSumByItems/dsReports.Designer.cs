@@ -293,6 +293,8 @@ namespace com.sbs.gui.report.repsumbyitems {
             
             private global::System.Data.DataColumn columndishesSumm;
             
+            private global::System.Data.DataColumn columndishesGroupName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public table1DataTable() {
@@ -384,6 +386,14 @@ namespace com.sbs.gui.report.repsumbyitems {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn dishesGroupNameColumn {
+                get {
+                    return this.columndishesGroupName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,7 +429,7 @@ namespace com.sbs.gui.report.repsumbyitems {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public table1Row Addtable1Row(int code, int ref_dishes, string dishesName, string nameBranch, decimal dishesPrice, int dishesCount, decimal dishesSumm) {
+            public table1Row Addtable1Row(int code, int ref_dishes, string dishesName, string nameBranch, decimal dishesPrice, int dishesCount, decimal dishesSumm, string dishesGroupName) {
                 table1Row rowtable1Row = ((table1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         code,
@@ -428,7 +438,8 @@ namespace com.sbs.gui.report.repsumbyitems {
                         nameBranch,
                         dishesPrice,
                         dishesCount,
-                        dishesSumm};
+                        dishesSumm,
+                        dishesGroupName};
                 rowtable1Row.ItemArray = columnValuesArray;
                 this.Rows.Add(rowtable1Row);
                 return rowtable1Row;
@@ -458,6 +469,7 @@ namespace com.sbs.gui.report.repsumbyitems {
                 this.columndishesPrice = base.Columns["dishesPrice"];
                 this.columndishesCount = base.Columns["dishesCount"];
                 this.columndishesSumm = base.Columns["dishesSumm"];
+                this.columndishesGroupName = base.Columns["dishesGroupName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -477,6 +489,8 @@ namespace com.sbs.gui.report.repsumbyitems {
                 base.Columns.Add(this.columndishesCount);
                 this.columndishesSumm = new global::System.Data.DataColumn("dishesSumm", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndishesSumm);
+                this.columndishesGroupName = new global::System.Data.DataColumn("dishesGroupName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndishesGroupName);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -731,6 +745,22 @@ namespace com.sbs.gui.report.repsumbyitems {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string dishesGroupName {
+                get {
+                    try {
+                        return ((string)(this[this.tabletable1.dishesGroupNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'dishesGroupName\' in table \'table1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabletable1.dishesGroupNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IscodeNull() {
                 return this.IsNull(this.tabletable1.codeColumn);
             }
@@ -811,6 +841,18 @@ namespace com.sbs.gui.report.repsumbyitems {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetdishesSummNull() {
                 this[this.tabletable1.dishesSummColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsdishesGroupNameNull() {
+                return this.IsNull(this.tabletable1.dishesGroupNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetdishesGroupNameNull() {
+                this[this.tabletable1.dishesGroupNameColumn] = global::System.Convert.DBNull;
             }
         }
         

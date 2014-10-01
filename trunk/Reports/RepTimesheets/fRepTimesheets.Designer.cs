@@ -52,12 +52,21 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBox_season = new System.Windows.Forms.ComboBox();
+            this.comboBox_week = new System.Windows.Forms.ComboBox();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -105,17 +114,21 @@
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 5);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 9F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 154);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 188);
             this.tableLayoutPanel1.TabIndex = 50;
             // 
             // panel3
@@ -270,6 +283,7 @@
             this.dateTimePicker_month.ShowUpDown = true;
             this.dateTimePicker_month.Size = new System.Drawing.Size(48, 20);
             this.dateTimePicker_month.TabIndex = 3;
+            this.dateTimePicker_month.ValueChanged += new System.EventHandler(this.dateTimePicker_month_ValueChanged);
             // 
             // dateTimePicker_year
             // 
@@ -301,12 +315,10 @@
             // 
             // panel8
             // 
-            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
-            this.panel8.Location = new System.Drawing.Point(0, 160);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel8.Location = new System.Drawing.Point(0, 188);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(439, 35);
             this.panel8.TabIndex = 51;
@@ -331,14 +343,101 @@
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(6, 153);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 33);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Смена/неделя на начало месяца";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.tableLayoutPanel2);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(132, 156);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(301, 27);
+            this.panel5.TabIndex = 13;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.comboBox_season, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.comboBox_week, 3, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(301, 27);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 27);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Смена:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Location = new System.Drawing.Point(151, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(48, 27);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Неделя:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBox_season
+            // 
+            this.comboBox_season.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_season.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_season.FormattingEnabled = true;
+            this.comboBox_season.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.comboBox_season.Location = new System.Drawing.Point(53, 3);
+            this.comboBox_season.Name = "comboBox_season";
+            this.comboBox_season.Size = new System.Drawing.Size(92, 21);
+            this.comboBox_season.TabIndex = 2;
+            // 
+            // comboBox_week
+            // 
+            this.comboBox_week.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_week.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_week.FormattingEnabled = true;
+            this.comboBox_week.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.comboBox_week.Location = new System.Drawing.Point(205, 3);
+            this.comboBox_week.Name = "comboBox_week";
+            this.comboBox_week.Size = new System.Drawing.Size(93, 21);
+            this.comboBox_week.TabIndex = 3;
+            // 
             // fRepTimesheets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(439, 195);
+            this.ClientSize = new System.Drawing.Size(439, 223);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel8);
-            this.MinimumSize = new System.Drawing.Size(455, 233);
+            this.MinimumSize = new System.Drawing.Size(455, 261);
             this.Name = "fRepTimesheets";
             this.Text = "Табель учета раб. времени";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fRepTimesheets_FormClosed);
@@ -354,6 +453,9 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel8.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -384,6 +486,13 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_year;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox_season;
+        private System.Windows.Forms.ComboBox comboBox_week;
     }
 }
 

@@ -96,10 +96,10 @@ namespace com.sbs.gui.report.repempllog
             foreach (int id in pRepParam.checkedBranch) branch += id + ",";
             foreach (int id in pRepParam.checkedUsersGroup) groups += id + ",";
 
-            if (!branch.Equals(string.Empty))
-            {
-                sWhere += " br.id in (" + branch.TrimEnd(',') + ") AND";
-            }
+            //if (!branch.Equals(string.Empty))
+            //{
+            //    sWhere += " b.id in (" + branch.TrimEnd(',') + ") AND";
+            //}
             if (!groups.Equals(string.Empty))
             {
                 sWhere += " us_gr.groups in(" + groups.TrimEnd(',') + ") AND";
@@ -116,32 +116,39 @@ namespace com.sbs.gui.report.repempllog
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT us.lname +' '+ us.fname +' '+ us.sname as fio, " +
-                                            " org.name as org, br.name as branch, un.name as unit, post.name as post, " +
-                                            " tt.datetime_in, tt.datetime_out " +
-                                        " FROM users us " +
-                                        " INNER JOIN organization org ON org.id = us.org " +
-                                        " INNER JOIN branch br ON br.id = us.branch " +
-                                        " INNER JOIN unit un ON un.id = us.unit " +
-                                        " INNER JOIN ref_post post ON post.id = us.ref_post " +
-                                        " LEFT JOIN users_groups us_gr ON us_gr.users = us.id " +
-                                        " LEFT JOIN timeTracking_all tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
-                                        " WHERE tt.datetime_in >= CONVERT(datetime,'" + sDateStart + "',120) " +
+                command.CommandText = " SELECT u.lname +' '+ u.fname +' '+ u.sname as fio, " +
+	                                    "   org.name as org,    " +
+	                                    "   b.name as branch,   " +
+	                                    "   un.name as unit,    " +
+	                                    "   post.name as post,  " +  
+	                                    "   tt.datetime_in, tt.datetime_out   " +
+                                        " FROM timeTracking_all tt " +
+                                        " INNER JOIN users u ON u.id = tt.users " +
+                                        " INNER JOIN organization org ON org.id = u.org " +
+                                        " INNER JOIN branch b ON b.id = u.branch " +
+                                        " INNER JOIN unit un ON un.id = u.unit " +
+                                        " INNER JOIN ref_post post ON post.id = u.ref_post  " +
+                                        " LEFT JOIN users_groups us_gr ON us_gr.users = u.id " +
+                                        " WHERE " + (branch.Equals(string.Empty) ? "" : " tt.branch in (" + branch.TrimEnd(',') + ") AND ")  +" tt.datetime_in >= CONVERT(datetime,'" + sDateStart + "',120) " +
                                             " AND tt.datetime_out <= CONVERT(datetime,'" + sDateEnd + "',120) " + 
                                             sWhere +
                                         " UNION "+
-                                        "SELECT us.lname +' '+ us.fname +' '+ us.sname as fio, " +
-                                            " org.name as org, br.name as branch, un.name as unit, post.name as post, " +
-                                            " tt.datetime_in, tt.datetime_out " +
-                                        " FROM users us " +
-                                        " INNER JOIN organization org ON org.id = us.org " +
-                                        " INNER JOIN branch br ON br.id = us.branch " +
-                                        " INNER JOIN unit un ON un.id = us.unit " +
-                                        " INNER JOIN ref_post post ON post.id = us.ref_post " +
-                                        " LEFT JOIN users_groups us_gr ON us_gr.users = us.id " +
-                                        " LEFT JOIN timeTracking_all tt ON tt.users = us.id " + (branch.Equals(string.Empty) ? "" : " AND tt.branch in (" + branch.TrimEnd(',') + ") ") +
-                                        " WHERE tt.datetime_in >= CONVERT(datetime,'" + sDateStart + "',120) AND tt.datetime_out is NULL " +
+                                        " SELECT u.lname +' '+ u.fname +' '+ u.sname as fio, " +
+                                        "   org.name as org,    " +
+                                        "   b.name as branch,   " +
+                                        "   un.name as unit,    " +
+                                        "   post.name as post,  " +
+                                        "   tt.datetime_in, tt.datetime_out   " +
+                                        " FROM timeTracking_all tt " +
+                                        " INNER JOIN users u ON u.id = tt.users " +
+                                        " INNER JOIN organization org ON org.id = u.org " +
+                                        " INNER JOIN branch b ON b.id = u.branch " +
+                                        " INNER JOIN unit un ON un.id = u.unit " +
+                                        " INNER JOIN ref_post post ON post.id = u.ref_post  " +
+                                        " LEFT JOIN users_groups us_gr ON us_gr.users = u.id " +
+                                        " WHERE " + (branch.Equals(string.Empty) ? "" : " tt.branch in (" + branch.TrimEnd(',') + ") AND ") + " tt.datetime_in >= CONVERT(datetime,'" + sDateStart + "',120) AND tt.datetime_out is NULL " +
                                         sWhere +
+                                        " GROUP BY u.lname +' '+ u.fname +' '+ u.sname, org.name, b.name, un.name, post.name, tt.datetime_in, tt.datetime_out " +
                                         " ORDER BY fio";
 
                 using (SqlDataReader dr = command.ExecuteReader())

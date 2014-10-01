@@ -22,6 +22,7 @@
               <xs:element name="dishesPrice" msprop:Generator_ColumnVarNameInTable="columndishesPrice" msprop:Generator_ColumnPropNameInRow="dishesPrice" msprop:Generator_ColumnPropNameInTable="dishesPriceColumn" msprop:Generator_UserColumnName="dishesPrice" type="xs:decimal" minOccurs="0" />
               <xs:element name="dishesCount" msprop:Generator_ColumnVarNameInTable="columndishesCount" msprop:Generator_ColumnPropNameInRow="dishesCount" msprop:Generator_ColumnPropNameInTable="dishesCountColumn" msprop:Generator_UserColumnName="dishesCount" type="xs:int" minOccurs="0" />
               <xs:element name="dishesSumm" msprop:Generator_ColumnVarNameInTable="columndishesSumm" msprop:Generator_ColumnPropNameInRow="dishesSumm" msprop:Generator_ColumnPropNameInTable="dishesSummColumn" msprop:Generator_UserColumnName="dishesSumm" type="xs:decimal" minOccurs="0" />
+              <xs:element name="dishesGroupName" msprop:Generator_ColumnVarNameInTable="columndishesGroupName" msprop:Generator_ColumnPropNameInRow="dishesGroupName" msprop:Generator_ColumnPropNameInTable="dishesGroupNameColumn" msprop:Generator_UserColumnName="dishesGroupName" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -26,6 +26,9 @@ namespace com.sbs.gui.report.reptimesheets
             InitializeComponent();
 
             initReferences();
+
+            comboBox_season.SelectedIndex = 0;
+            comboBox_week.SelectedIndex = 0;
         }
 
         private void initReferences()
@@ -149,6 +152,12 @@ namespace com.sbs.gui.report.reptimesheets
 
         private void prepareReport()
         {
+            int xSeason = int.Parse(comboBox_season.SelectedItem.ToString());
+            int xWeak = int.Parse(comboBox_week.SelectedItem.ToString());
+            int xCurSeason = xSeason;
+            int xCurWeak = xWeak;
+            string arrSeason = string.Empty;
+
             string pathForReport = string.Empty;
             DataTable dt = new DataTable();
 
@@ -169,11 +178,44 @@ namespace com.sbs.gui.report.reptimesheets
 
             pathForReport = Environment.CurrentDirectory + @"\reports\personnel\timesheets.rpt";
 
+            for (int i = 1; i <= 31; i++)
+            {
+                if (xCurSeason == 1) arrSeason += string.Format("{0},", i);
+
+                if (xCurWeak + 1 > 2)
+                {
+                    xCurWeak = 1;
+                    if (xCurSeason + 1 > 2)
+                    {
+                        xCurSeason = 1;
+                    }
+                    else
+                    {
+                        xCurSeason = xCurSeason + 1;
+                    }
+                }
+                else
+                {
+                    xCurWeak = xCurWeak + 1;
+                }
+            }
+
+            arrSeason = arrSeason.TrimEnd(',');
+
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
             repDoc.SetParameterValue("xDateTime_start", oRepParam.xDayStart.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
             repDoc.SetParameterValue("xDateTime_end",oRepParam.xDayEnd.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
+            repDoc.SetParameterValue("arrSeason", arrSeason);
+
+            for(int i = 1; i <= 31; i = i+ 2)
+            {
+                xSeason = xSeason + i;
+                xSeason = xSeason + i+1;
+            }
+
+
 
             fViewer fviewer = new fViewer();
             fviewer.crystalReportViewer_main.ReportSource = repDoc;
@@ -202,6 +244,13 @@ namespace com.sbs.gui.report.reptimesheets
             set.formLocation = this.Location;
             set.formState = this.WindowState;
             set.Save();
+        }
+
+        private void dateTimePicker_month_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePicker_dayEnd.Value = new DateTime(dateTimePicker_month.Value.Year,
+                                                            dateTimePicker_month.Value.Month,
+                        DateTime.DaysInMonth(dateTimePicker_month.Value.Year, dateTimePicker_month.Value.Month));
         }
     }
 }
