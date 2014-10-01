@@ -181,9 +181,9 @@ namespace com.sbs.gui.carte
             try
             {
                 if (formMode.Equals("ADD"))
-                    bdAccess.dishes_add("offline", oCarteDishes, branchId);
+                    bdAccess.dishes_add(GValues.DBMode, oCarteDishes, branchId);
                 else
-                    bdAccess.dishes_edit("offline", oCarteDishes, branchId, checkRefDish);
+                    bdAccess.dishes_edit(GValues.DBMode, oCarteDishes, branchId, checkRefDish);
             }
             catch (Exception exc)
             {
