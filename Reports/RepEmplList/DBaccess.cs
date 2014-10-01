@@ -57,6 +57,7 @@ namespace com.sbs.gui.report
             con = new DBCon().getConnection(pDbType);
 
             if (pRepParam.checkedUnit == null) pRepParam.checkedUnit = new List<int>();
+            
 
             foreach (int id in pRepParam.checkedUnit)
             {
@@ -64,6 +65,9 @@ namespace com.sbs.gui.report
             }
 
             if (sId.Length > 0)sWhere = " WHERE us.unit in (" + sId.TrimEnd(',') + ") ";
+
+            if (pRepParam.checkUvol == 1) sWhere += " AND us.ref_status IN (12, 13, 15)";
+            else sWhere += " AND us.ref_status IN (12, 13 )";
 
             try
             {
@@ -96,5 +100,6 @@ namespace com.sbs.gui.report
     class RepParam
     {
         public List<int> checkedUnit { get; set; }
+        public int checkUvol { get; set; }
     }
 }

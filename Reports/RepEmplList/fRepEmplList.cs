@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.utilites;
 using CrystalDecisions.CrystalReports.Engine;
+using com.sbs.dll;
 
 namespace com.sbs.gui.report.repempllist
 {
@@ -51,9 +52,11 @@ namespace com.sbs.gui.report.repempllist
             string pathForReport = string.Empty;
             DataTable dt = new DataTable();
 
+            oRepParam.checkUvol = checkBox1.Checked ? 1 : 0;
+
             try
             {
-                dt = dbAccess.prepareReport("offline", oRepParam);
+                dt = dbAccess.prepareReport(GValues.DBMode, oRepParam);
             }
             catch (Exception exc)
             {
