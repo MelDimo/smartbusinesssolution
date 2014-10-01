@@ -31,8 +31,8 @@
             this.statusStrip_mainBottom = new System.Windows.Forms.StatusStrip();
             this.tSSLabel_info = new System.Windows.Forms.ToolStripStatusLabel();
             this.tSSLabel_mailChecker = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabControl_top = new System.Windows.Forms.TabControl();
             this.tSSLabel_basetype = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tabControl_top = new System.Windows.Forms.TabControl();
             this.statusStrip_mainBottom.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             // tSSLabel_info
             // 
             this.tSSLabel_info.Name = "tSSLabel_info";
-            this.tSSLabel_info.Size = new System.Drawing.Size(680, 17);
+            this.tSSLabel_info.Size = new System.Drawing.Size(711, 17);
             this.tSSLabel_info.Spring = true;
             this.tSSLabel_info.Text = "tSSLabel_info";
             this.tSSLabel_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -62,6 +62,12 @@
             this.tSSLabel_mailChecker.Name = "tSSLabel_mailChecker";
             this.tSSLabel_mailChecker.Size = new System.Drawing.Size(0, 17);
             // 
+            // tSSLabel_basetype
+            // 
+            this.tSSLabel_basetype.Name = "tSSLabel_basetype";
+            this.tSSLabel_basetype.Size = new System.Drawing.Size(103, 17);
+            this.tSSLabel_basetype.Text = "tSSLabel_basetype";
+            // 
             // tabControl_top
             // 
             this.tabControl_top.Dock = System.Windows.Forms.DockStyle.Top;
@@ -71,12 +77,6 @@
             this.tabControl_top.Size = new System.Drawing.Size(829, 19);
             this.tabControl_top.TabIndex = 3;
             this.tabControl_top.SelectedIndexChanged += new System.EventHandler(this.tabControl_top_SelectedIndexChanged);
-            // 
-            // tSSLabel_basetype
-            // 
-            this.tSSLabel_basetype.Name = "tSSLabel_basetype";
-            this.tSSLabel_basetype.Size = new System.Drawing.Size(103, 17);
-            this.tSSLabel_basetype.Text = "tSSLabel_basetype";
             // 
             // fMain
             // 
@@ -89,6 +89,7 @@
             this.Name = "fMain";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.fMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fMain_FormClosed);
             this.Load += new System.EventHandler(this.fMain_Load);
             this.Shown += new System.EventHandler(this.fMain_Shown);

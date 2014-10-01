@@ -36,7 +36,7 @@ namespace com.sbs.dll
         public static string billPrinter;
         public static bool dbSynch;
         public static int timeSynch;
-        //public static bool isDelivery;
+        public static int waitingNodes;
 
         public static bool isAlive = true;  // Флаг для потоков synch говорящий живо ли приложение и нужно ли работать
 
@@ -218,8 +218,7 @@ namespace com.sbs.dll
             XmlNode node_billPrinter;
             XmlNode node_dbSynch;
             XmlNode node_timeSynch;
-            //XmlNode node_isDelivery;
-
+            XmlNode node_waitingNodes;
 
             try
             {
@@ -232,7 +231,7 @@ namespace com.sbs.dll
                 node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
                 node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
                 node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
-                //node_isDelivery = doc.GetElementsByTagName("isDelivery")[0];
+                node_waitingNodes = doc.SelectNodes("settings/waiter/waitingNodes")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -253,6 +252,8 @@ namespace com.sbs.dll
                 if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
                 else GValues.authortype = xBranchId;
+
+                
 
                 switch (node_billPrinter.InnerText)
                 {
@@ -302,6 +303,10 @@ namespace com.sbs.dll
                 if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
                 else GValues.timeSynch = xBranchId;
+
+                if (!int.TryParse(node_waitingNodes.InnerText, out xBranchId))
+                    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
+                else GValues.waitingNodes = xBranchId;
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {

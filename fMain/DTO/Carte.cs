@@ -56,6 +56,7 @@ namespace com.sbs.dll
             public decimal minStep { get; set; }
             public int refPrintersType { get; set; }
             public int refStatus { get; set; }
+            public int dishesGroup { get; set; }
         }
 
         public class Topping

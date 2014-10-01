@@ -22,11 +22,12 @@ namespace com.sbs.gui.main
         DTO.Message oMessage = new DTO.Message();
         Thread msgListner;
 
+        fInfo infoForm = new fInfo();
+
         static bool threadFlag = true;
 
         public fMain(DataTable pDtMnu)
         {
-            
             InitializeComponent();
 
             this.Text = GValues.prgNameFull;
@@ -35,7 +36,6 @@ namespace com.sbs.gui.main
 
             msgListner = new Thread(monitorMessage);
             msgListner.Start();
-
         }
 
         private void monitorMessage()
@@ -206,6 +206,8 @@ namespace com.sbs.gui.main
 
         private void fMain_FormClosed(object sender, FormClosedEventArgs e)
         {
+
+
             MethodInfo methodInfoBill;
             object classInstance;
 
@@ -225,7 +227,8 @@ namespace com.sbs.gui.main
                 classInstance = Activator.CreateInstance(GValues.DicDemans.ElementAt(i).Value, null);
                 methodInfoBill.Invoke(classInstance, null);
             }
-            
+
+            infoForm.Close();
         }
 
         private void fMain_Load(object sender, EventArgs e)
@@ -234,6 +237,18 @@ namespace com.sbs.gui.main
             this.Size = set.formSize;
             this.Location = set.formLocation;
             this.WindowState = set.formState;
+        }
+
+        private void fMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Thread wndTread = new Thread(fInfo_show);
+            wndTread.IsBackground = true;
+            wndTread.Start();
+        }
+
+        public void fInfo_show()
+        {
+            infoForm.ShowDialog();
         }
     }
 }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Security.Policy;
 using System.Diagnostics;
+using System.Threading;
 
 namespace com.sbs.gui.main
 {
@@ -22,8 +23,12 @@ namespace com.sbs.gui.main
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            string[] sPwd = new string[]{string.Empty,string.Empty};
+
+            fLogIn flogin;
+
             if (isRunning())
             {
                 MessageBox.Show("Данное приложение уже запущенно, либо завершаются потоки синхронизации.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -42,15 +47,51 @@ namespace com.sbs.gui.main
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
 
-            //Авторизуем пользователя, 
-            fLogIn flogin = new fLogIn();
-            flogin.Text = GValues.prgNameFull;
-            if (flogin.ShowDialog() != DialogResult.OK) return; //авторизация прошла не успешно - выходим из приложения
+            switch(GValues.authortype)
+            {
+                case 2:
+                    //Авторизуем пользователя, 
+                    flogin = new fLogIn(args);
+                    flogin.Text = GValues.prgNameFull;
+                    if (flogin.ShowDialog() != DialogResult.OK) return; //авторизация прошла не успешно - выходим из приложения
+                    break;
+
+                case 1:
+                    if (args.Length != 0)
+                    {
+                        //Авторизуем пользователя, 
+                        flogin = new fLogIn(args);
+                        flogin.Text = GValues.prgNameFull;
+                        if (flogin.ShowDialog() != DialogResult.OK) return; //авторизация прошла не успешно - выходим из приложения
+                    }
+                    else
+                    {
+                        fMIFare fMiFare = new fMIFare();
+                        fMiFare.Text = GValues.prgNameFull;
+                        if (fMiFare.ShowDialog() == DialogResult.OK)
+                        {
+                            try
+                            {
+                                sPwd = dbAccess.getUserPwd(GValues.DBMode, fMiFare.keyId);
+                                UserAuthorize uAuth = new UserAuthorize();
+                                if (!uAuth.checkLogin(sPwd[0], sPwd[1])) return;
+                            }
+                            catch (Exception exc) { uMessage.Show("Ошибка!", exc, SystemIcons.Information); return; }
+                        }
+                        else
+                        {
+                            uMessage.Show("Не удалось определить пользователя. " + Environment.NewLine + "Приложение будет закрыто.", 
+                                SystemIcons.Information);
+                            return;
+                        }
+                    }
+                    break;
+            }
 
             // Формируем меню пользователя
             try
             {
-                xResultSet = dbAccess.createMenuLoadModules("offline");
+                xResultSet = dbAccess.createMenuLoadModules(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Ошибка формирования меню", exc, SystemIcons.Error); return; }
 
@@ -71,7 +112,15 @@ namespace com.sbs.gui.main
                 return; 
             }
 
-            Application.Run(new fMain((DataTable)xResultSet[0]));
+            try
+            {
+                Application.Run(new fMain((DataTable)xResultSet[0]));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+                return;
+            }
         }
 
         private static bool isRunning()

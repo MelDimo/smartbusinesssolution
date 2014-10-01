@@ -65,5 +65,53 @@ namespace com.sbs.gui.main
             return new object[] { dtResult, modules };
         }
 
+        public string[] getUserPwd(string pDbType, string pKey)
+        {
+            string[] sReturn = new string[] { string.Empty, string.Empty };
+
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT u.login, upwd_pwd.pwd " +
+                                        " FROM users_pwd upwd " +
+                                        " INNER JOIN users u ON u.id = upwd.users " +
+                                        " INNER JOIN users_pwd upwd_pwd ON upwd_pwd.users = upwd.users AND upwd_pwd.users_pwd_type = 1 " +
+                                        " WHERE upwd.pwd = @pwd ";
+
+                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKey;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            switch (dtResult.Rows.Count)
+            {
+                case 0:
+                    throw new Exception("Сотрудник не найден");
+
+                case 1:
+                    break;
+
+                default:
+                    throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
+            }
+
+            sReturn[0] = dtResult.Rows[0]["login"].ToString();
+            sReturn[1] = dtResult.Rows[0]["pwd"].ToString();
+
+            return sReturn;
+        }
     }
 }
