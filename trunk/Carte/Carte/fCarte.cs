@@ -92,6 +92,7 @@ namespace com.sbs.gui.carte
         {
             branchId = 0;
             branchName = string.Empty;
+
             fChooserUnit fchooseUnit = new fChooserUnit(0, 2);
             if(fchooseUnit.ShowDialog() != DialogResult.OK) return;
 
