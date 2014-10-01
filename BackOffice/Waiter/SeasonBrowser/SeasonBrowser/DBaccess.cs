@@ -18,7 +18,7 @@ namespace com.sbs.gui.seasonbrowser
         private DataTable dtResult;
 
         private SqlConnection con = new SqlConnection();
-        private SqlConnection conMain = new SqlConnection();
+        private SqlConnection conMain = new SqlConnection();    
         private SqlConnection conLocal = new SqlConnection();
 
         private SqlCommand command = null;

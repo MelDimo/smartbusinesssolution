@@ -30,7 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fMain));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tSButton_export = new System.Windows.Forms.ToolStripButton();
+            this.tlSSButton_export = new System.Windows.Forms.ToolStripSplitButton();
+            this.TSMenuItem_exportOne = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMenuItem_exportAll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tSSButton_report = new System.Windows.Forms.ToolStripSplitButton();
             this.tSMItem_xOrder = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +78,7 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tSButton_export,
+            this.tlSSButton_export,
             this.toolStripSeparator1,
             this.tSSButton_report});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -86,14 +88,33 @@
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tSButton_export
+            // tlSSButton_export
             // 
-            this.tSButton_export.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tSButton_export.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tSButton_export.Name = "tSButton_export";
-            this.tSButton_export.Size = new System.Drawing.Size(23, 20);
-            this.tSButton_export.ToolTipText = "Выгрузка счетов";
-            this.tSButton_export.Click += new System.EventHandler(this.tSButton_export_Click);
+            this.tlSSButton_export.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tlSSButton_export.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TSMenuItem_exportOne,
+            this.TSMenuItem_exportAll});
+            this.tlSSButton_export.Image = ((System.Drawing.Image)(resources.GetObject("tlSSButton_export.Image")));
+            this.tlSSButton_export.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tlSSButton_export.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tlSSButton_export.Name = "tlSSButton_export";
+            this.tlSSButton_export.Size = new System.Drawing.Size(32, 20);
+            this.tlSSButton_export.Text = "Способ выгрузки";
+            this.tlSSButton_export.ButtonClick += new System.EventHandler(this.tlSSButton_export_ButtonClick);
+            // 
+            // TSMenuItem_exportOne
+            // 
+            this.TSMenuItem_exportOne.Name = "TSMenuItem_exportOne";
+            this.TSMenuItem_exportOne.Size = new System.Drawing.Size(254, 22);
+            this.TSMenuItem_exportOne.Text = "Выгрузить выбранную смену";
+            this.TSMenuItem_exportOne.Click += new System.EventHandler(this.TSMenuItem_exportOne_Click);
+            // 
+            // TSMenuItem_exportAll
+            // 
+            this.TSMenuItem_exportAll.Name = "TSMenuItem_exportAll";
+            this.TSMenuItem_exportAll.Size = new System.Drawing.Size(254, 22);
+            this.TSMenuItem_exportAll.Text = "Выгрузить все доступные смены";
+            this.TSMenuItem_exportAll.Click += new System.EventHandler(this.TSMenuItem_exportAll_Click);
             // 
             // toolStripSeparator1
             // 
@@ -111,6 +132,7 @@
             this.tSSButton_report.Name = "tSSButton_report";
             this.tSSButton_report.Size = new System.Drawing.Size(32, 20);
             this.tSSButton_report.ToolTipText = "Отчеты";
+            this.tSSButton_report.ButtonClick += new System.EventHandler(this.tSSButton_report_ButtonClick);
             // 
             // tSMItem_xOrder
             // 
@@ -433,7 +455,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton tSButton_export;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker_end;
         private System.Windows.Forms.Label label3;
@@ -461,6 +482,9 @@
         private System.Windows.Forms.ToolStripSplitButton tSSButton_report;
         private System.Windows.Forms.ToolStripMenuItem tSMItem_xOrder;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSplitButton tlSSButton_export;
+        private System.Windows.Forms.ToolStripMenuItem TSMenuItem_exportOne;
+        private System.Windows.Forms.ToolStripMenuItem TSMenuItem_exportAll;
     }
 }
 

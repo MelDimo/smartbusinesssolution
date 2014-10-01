@@ -49,7 +49,7 @@ namespace com.sbs.gui.seasonbrowser
 
             button_filter.BackgroundImage = com.sbs.dll.utilites.Properties.Resources.filter_26;
             tSSButton_report.Image = com.sbs.dll.utilites.Properties.Resources.order_26;
-            tSButton_export.Image = com.sbs.dll.utilites.Properties.Resources.download_26;
+            tlSSButton_export.Image = com.sbs.dll.utilites.Properties.Resources.download_26;
 
             initRefer();
 
@@ -454,13 +454,10 @@ namespace com.sbs.gui.seasonbrowser
 
         #endregion
 
-        private void tSButton_export_Click(object sender, EventArgs e)
-        {
-            exportSeason();
-        }
-
         private void exportSeason()
         {
+            List<DTO_DBoard.SeasonBranch> lpSeasonBranch = new List<DTO_DBoard.SeasonBranch>();
+
             if (oFilter.season == 0)
             {
                 MessageBox.Show("Выберите выгружаемую смену.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -471,7 +468,8 @@ namespace com.sbs.gui.seasonbrowser
             {
                 if( oSeasonBranch.seasonID == oFilter.season)
                 {
-                    fExport41C fExport = new fExport41C(oSeasonBranch, oFilter);
+                    lpSeasonBranch.Add(oSeasonBranch);
+                    fExport41C fExport = new fExport41C(lpSeasonBranch, oFilter);
                     fExport.ShowDialog();
                 }
             }
@@ -639,6 +637,57 @@ namespace com.sbs.gui.seasonbrowser
                 oFilter.branch = GValues.branchId;
                 textBox_branch.Text = GValues.branchName;
             }
+        }
+
+        private void TSMenuItem_exportOne_Click(object sender, EventArgs e)
+        {
+            if (oFilter.isSeasonOpen)
+            {
+                MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            exportSeason();
+        }
+
+        private void TSMenuItem_exportAll_Click(object sender, EventArgs e)
+        {
+            List<DTO_DBoard.SeasonBranch> lpSeasonBranch = new List<DTO_DBoard.SeasonBranch>();
+
+            switch (lSeasonBranch.Count)
+            { 
+                case 0:
+                    return;
+
+                case 1:
+                    if (lSeasonBranch[0].refStatus == 16)
+                    {
+                        MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    break;
+            }
+
+            foreach (DTO_DBoard.SeasonBranch iSeasonBranch in lSeasonBranch)
+            {
+                if (iSeasonBranch.refStatus == 16) continue; // смена открыта
+
+                lpSeasonBranch.Add(iSeasonBranch);
+            }
+
+            fExport41C fExport = new fExport41C(lpSeasonBranch, oFilter);
+            fExport.ShowDialog();
+
+        }
+
+        private void tlSSButton_export_ButtonClick(object sender, EventArgs e)
+        {
+            tlSSButton_export.ShowDropDown();
+        }
+
+        private void tSSButton_report_ButtonClick(object sender, EventArgs e)
+        {
+            tSSButton_report.ShowDropDown();
         }
     }
 }

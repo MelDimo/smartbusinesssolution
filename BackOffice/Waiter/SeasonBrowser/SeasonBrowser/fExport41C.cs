@@ -16,20 +16,36 @@ namespace com.sbs.gui.seasonbrowser
 {
     public partial class fExport41C : Form
     {
-        DTO_DBoard.SeasonBranch oSeasonBranch;
+        delegate void UpdateExportInfo();
+
+        List<DTO_DBoard.SeasonBranch> lSeasonBranch = null;
+        DTO_DBoard.SeasonBranch oSeasonBranch = null;
         Filter oFilter;
 
         DBaccess dbAccess = new DBaccess();
  
-        public fExport41C(DTO_DBoard.SeasonBranch pSeason, Filter pFilter)
+        public fExport41C(List<DTO_DBoard.SeasonBranch> pSeason, Filter pFilter)
         {
-            oSeasonBranch = pSeason;
+            
+            lSeasonBranch = pSeason;
             oFilter = pFilter;
 
             InitializeComponent();
 
-            textBox_seasonNumber.Text = oSeasonBranch.seasonID.ToString();
-            textBox_seasonDate.Text = oSeasonBranch.dateOpen + " - " + oSeasonBranch.dateClose;
+            progressBar_exportInfo.Minimum = 0;
+            progressBar_exportInfo.Maximum = lSeasonBranch.Count;
+            progressBar_exportInfo.Value = 0;
+
+            foreach (DTO_DBoard.SeasonBranch oSeason in lSeasonBranch)
+            {
+                textBox_seasonNumber.Text += oSeason.seasonID.ToString() + "; ";
+                textBox_seasonDate.Text += oSeason.dateOpen + " - " + oSeason.dateClose + "; ";
+            }
+        }
+
+        public void updateExportInfo()
+        {
+            progressBar_exportInfo.Value += 1;
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -44,7 +60,7 @@ namespace com.sbs.gui.seasonbrowser
             fbd.SelectedPath = set.path2export1C;
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                textBox_path.Text = fbd.SelectedPath + @"\Смена_N_" + oFilter.branch.ToString() + "_" + oFilter.season.ToString() + ".xml";
+                textBox_path.Text = fbd.SelectedPath + @"\Смена_N_" + oFilter.branch.ToString() + "_{0}.xml";
             }
             set.path2export1C = fbd.SelectedPath;
             set.Save();
@@ -52,16 +68,30 @@ namespace com.sbs.gui.seasonbrowser
 
         private void button_ok_Click(object sender, EventArgs e)
         {
+            if (textBox_path.Text.Length == 0)
+            {
+                MessageBox.Show("Не указан путь для выгружаемого файла.", GValues.prgNameFull,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
-                exportData();
+                for (int i = 0; i < lSeasonBranch.Count; i++)
+                {
+                    oSeasonBranch = lSeasonBranch[i];
+                    oFilter.season = oSeasonBranch.seasonID;
+                    exportData();
+                }
             }
             catch (Exception exc) { uMessage.Show("Неудалось экспортировать данные", exc, SystemIcons.Information); return; }
+
+            MessageBox.Show("Выгрузка завершена.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             DialogResult = DialogResult.OK;
         }
 
-        private void exportData()
+        public void exportData()
         {
             int curDep = 0;
 
@@ -230,22 +260,9 @@ namespace com.sbs.gui.seasonbrowser
                 xmlDocBill.LoadXml(strXmlBill);
             }
 
-            if (oFilter.isSeasonOpen)
-            {
-                MessageBox.Show("Возможна выгрузка только закрытой смены.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            xmlDoc.Save(string.Format(textBox_path.Text, oSeasonBranch.seasonID));
 
-            if (textBox_path.Text.Length == 0)
-            {
-                MessageBox.Show("Укажите путь для выгружаемого файла.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            xmlDoc.Save(textBox_path.Text);
-
-            MessageBox.Show("Файл успешно сформирован.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            progressBar_exportInfo.Invoke(new UpdateExportInfo(updateExportInfo));
         }
     }
 }
