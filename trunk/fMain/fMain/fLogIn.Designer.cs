@@ -110,6 +110,7 @@
             this.Name = "fLogIn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fLogIn";
+            this.Shown += new System.EventHandler(this.fLogIn_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fLogIn_KeyUp);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

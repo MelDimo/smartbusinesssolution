@@ -16,8 +16,12 @@ namespace com.sbs.gui.main
 {
     public partial class fLogIn : Form
     {
-        public fLogIn()
+        string[] xArg;
+
+        public fLogIn(string[] arg)
         {
+            xArg = arg;
+
             InitializeComponent();
             this.Text = GValues.prgNameFull;
             
@@ -98,6 +102,16 @@ namespace com.sbs.gui.main
                 Control ctl;
                 ctl = (Control)sender;
                 ctl.SelectNextControl(ActiveControl, true, true, true, true);
+            }
+        }
+
+        private void fLogIn_Shown(object sender, EventArgs e)
+        {
+            if (xArg.Count() == 2)
+            {
+                textBox_name.Text = xArg[0];
+                textBox_pwd.Text = xArg[1];
+                button_enter_Click(null, new EventArgs());
             }
         }
     }
