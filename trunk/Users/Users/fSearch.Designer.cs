@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView_main = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,8 +38,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBox_key = new System.Windows.Forms.TextBox();
             this.button_key = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.button_find = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.login = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,11 +49,11 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -74,37 +74,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(550, 208);
             this.splitContainer1.SplitterDistance = 111;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // dataGridView_main
-            // 
-            this.dataGridView_main.AllowUserToAddRows = false;
-            this.dataGridView_main.AllowUserToDeleteRows = false;
-            this.dataGridView_main.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView_main.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.fio,
-            this.login,
-            this.xkey});
-            this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_main.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView_main.MultiSelect = false;
-            this.dataGridView_main.Name = "dataGridView_main";
-            this.dataGridView_main.ReadOnly = true;
-            this.dataGridView_main.RowHeadersVisible = false;
-            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(544, 74);
-            this.dataGridView_main.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button_find);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 77);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(550, 34);
-            this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -207,6 +176,15 @@
             this.button_key.UseVisualStyleBackColor = true;
             this.button_key.Click += new System.EventHandler(this.button_key_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button_find);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 77);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(550, 34);
+            this.panel1.TabIndex = 0;
+            // 
             // button_find
             // 
             this.button_find.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -228,6 +206,28 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Результаты поиска";
+            // 
+            // dataGridView_main
+            // 
+            this.dataGridView_main.AllowUserToAddRows = false;
+            this.dataGridView_main.AllowUserToDeleteRows = false;
+            this.dataGridView_main.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridView_main.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.fio,
+            this.login,
+            this.xkey});
+            this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_main.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_main.MultiSelect = false;
+            this.dataGridView_main.Name = "dataGridView_main";
+            this.dataGridView_main.ReadOnly = true;
+            this.dataGridView_main.RowHeadersVisible = false;
+            this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_main.Size = new System.Drawing.Size(544, 74);
+            this.dataGridView_main.TabIndex = 0;
             // 
             // id
             // 
@@ -274,13 +274,13 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();
-            this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();
             this.ResumeLayout(false);
 
         }
