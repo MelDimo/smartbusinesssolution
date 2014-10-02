@@ -45,6 +45,8 @@
             this.tSButton_pwd = new System.Windows.Forms.ToolStripButton();
             this.tSButton_acl = new System.Windows.Forms.ToolStripButton();
             this.tSButton_mail = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSButton_search = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tSComboBox_RecType = new System.Windows.Forms.ToolStripComboBox();
@@ -56,8 +58,6 @@
             this.tSComboBox_unit = new System.Windows.Forms.ToolStripComboBox();
             this.tSButton_applyFilter = new System.Windows.Forms.ToolStripButton();
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tSButton_search = new System.Windows.Forms.ToolStripButton();
             this.statusStrip_bottom.SuspendLayout();
             this.toolStrip_top.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -106,6 +106,7 @@
             // tSButton_add
             // 
             this.tSButton_add.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_add.Enabled = false;
             this.tSButton_add.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_add.Image")));
             this.tSButton_add.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_add.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -117,6 +118,7 @@
             // tSButton_edit
             // 
             this.tSButton_edit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_edit.Enabled = false;
             this.tSButton_edit.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_edit.Image")));
             this.tSButton_edit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_edit.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -128,6 +130,7 @@
             // tSButton_del
             // 
             this.tSButton_del.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_del.Enabled = false;
             this.tSButton_del.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_del.Image")));
             this.tSButton_del.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_del.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -144,6 +147,7 @@
             // tSButton_group
             // 
             this.tSButton_group.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_group.Enabled = false;
             this.tSButton_group.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_group.Image")));
             this.tSButton_group.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_group.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -156,6 +160,7 @@
             // tSButton_menu
             // 
             this.tSButton_menu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_menu.Enabled = false;
             this.tSButton_menu.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_menu.Image")));
             this.tSButton_menu.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_menu.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -168,6 +173,7 @@
             // tSButton_doc
             // 
             this.tSButton_doc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_doc.Enabled = false;
             this.tSButton_doc.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_doc.Image")));
             this.tSButton_doc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_doc.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -179,6 +185,7 @@
             // tSButton_pwd
             // 
             this.tSButton_pwd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_pwd.Enabled = false;
             this.tSButton_pwd.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_pwd.Image")));
             this.tSButton_pwd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_pwd.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -191,6 +198,7 @@
             // tSButton_acl
             // 
             this.tSButton_acl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_acl.Enabled = false;
             this.tSButton_acl.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_acl.Image")));
             this.tSButton_acl.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_acl.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -203,6 +211,7 @@
             // tSButton_mail
             // 
             this.tSButton_mail.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_mail.Enabled = false;
             this.tSButton_mail.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_mail.Image")));
             this.tSButton_mail.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_mail.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -211,6 +220,22 @@
             this.tSButton_mail.Text = "tSButton_mail";
             this.tSButton_mail.ToolTipText = "Почта";
             this.tSButton_mail.Click += new System.EventHandler(this.tSButton_mail_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
+            // 
+            // tSButton_search
+            // 
+            this.tSButton_search.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tSButton_search.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_search.Image")));
+            this.tSButton_search.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tSButton_search.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSButton_search.Name = "tSButton_search";
+            this.tSButton_search.Size = new System.Drawing.Size(23, 20);
+            this.tSButton_search.ToolTipText = "Поиск";
+            this.tSButton_search.Click += new System.EventHandler(this.tSButton_search_Click);
             // 
             // toolStrip1
             // 
@@ -337,22 +362,6 @@
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_main.Size = new System.Drawing.Size(950, 414);
             this.dataGridView_main.TabIndex = 9;
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 23);
-            // 
-            // tSButton_search
-            // 
-            this.tSButton_search.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tSButton_search.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_search.Image")));
-            this.tSButton_search.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.tSButton_search.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSButton_search.Name = "tSButton_search";
-            this.tSButton_search.Size = new System.Drawing.Size(23, 20);
-            this.tSButton_search.ToolTipText = "Поиск";
-            this.tSButton_search.Click += new System.EventHandler(this.tSButton_search_Click);
             // 
             // fUsers
             // 

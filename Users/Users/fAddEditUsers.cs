@@ -101,6 +101,8 @@ namespace com.sbs.gui.users
             comboBox_specialty2.ValueMember = "id";
             comboBox_specialty2.DisplayMember = "name";
             comboBox_specialty2.SelectedValue = oUsers.specialty2;
+
+
         }
 
         private void initRef()
@@ -151,9 +153,10 @@ namespace com.sbs.gui.users
             oUsers.specialty1 = comboBox_specialty1.SelectedValue == null ? 0 : (int)comboBox_specialty1.SelectedValue;
             oUsers.specialty2 = comboBox_specialty2.SelectedValue == null ? 0 : (int)comboBox_specialty2.SelectedValue;
 
-            if (dateTimePicker_started.Checked) oUsers.dateStarted = dateTimePicker_started.Value;
-            if (dateTimePicker_fired.Checked) oUsers.dateFired = dateTimePicker_fired.Value;
-            if (dateTimePicker_statusEND.Checked) oUsers.dateFired = dateTimePicker_statusEND.Value;
+            if (dateTimePicker_started.Checked) oUsers.dateStarted = dateTimePicker_started.Value; else oUsers.dateStarted = null;
+            if (dateTimePicker_fired.Checked) oUsers.dateFired = dateTimePicker_fired.Value; else oUsers.dateFired = null;
+            if (dateTimePicker_statusEND.Checked) oUsers.refStatusDate = dateTimePicker_statusEND.Value; else oUsers.refStatusDate = null;
+            oUsers.dateAdopted = dateTimePicker_adopted.Value;
 
             if (oUsers.fName.Length == 0) errMessage += System.Environment.NewLine + "- Имя;";
             if (oUsers.lName.Length == 0) errMessage += System.Environment.NewLine + "- Фамилия;";
@@ -178,7 +181,7 @@ namespace com.sbs.gui.users
                 case "ADD":
                     try
                     {
-                        DbAccess.addEditUser("offline", oUsers);
+                        DbAccess.addEditUser(GValues.DBMode, oUsers);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); return false; }
                     break;
@@ -186,7 +189,7 @@ namespace com.sbs.gui.users
                 case "EDIT":
                     try
                     {
-                        DbAccess.addEditUser("offline", oUsers);
+                        DbAccess.addEditUser(GValues.DBMode, oUsers);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); return false; }
                     break;
@@ -233,7 +236,32 @@ namespace com.sbs.gui.users
             textBox_bpalce.Text = oUsers.bPlace;
             textBox_passSeriya.Text = oUsers.passSeriy;
             textBox_passNumber.Text = oUsers.passNumber;
-            dateTimePicker_PassWhen.Value = (DateTime)(oUsers.passDateIssued == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
+            if(oUsers.passDateIssued.Value.ToShortDateString().Equals(DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null).ToShortDateString()))
+                dateTimePicker_PassWhen.Checked = false;
+            else 
+                dateTimePicker_PassWhen.Value = (DateTime)oUsers.passDateIssued;// == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
+            if (oUsers.dateAdopted.Value.ToShortDateString().Equals(DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null).ToShortDateString()))
+                dateTimePicker_adopted.Checked = false;
+            else
+                dateTimePicker_adopted.Value = (DateTime)oUsers.dateAdopted;// == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
+            if (oUsers.dateFired.Value.ToShortDateString().Equals(DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null).ToShortDateString()))
+                dateTimePicker_fired.Checked = false;
+            else
+                dateTimePicker_fired.Value = (DateTime)oUsers.dateFired;// == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
+            if (oUsers.dateStarted.Value.ToShortDateString().Equals(DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null).ToShortDateString()))
+                dateTimePicker_started.Checked = false;
+            else
+                dateTimePicker_started.Value = (DateTime)oUsers.dateStarted;// == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
+            if (oUsers.refStatusDate.Value.ToShortDateString().Equals(DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null).ToShortDateString()))
+                dateTimePicker_statusEND.Checked = false;
+            else
+                dateTimePicker_statusEND.Value = (DateTime)oUsers.refStatusDate;// == null ? DateTime.ParseExact("01.01.1900", "dd.MM.yyyy", null) : oUsers.passDateIssued);
+
             textBox_passWho.Text = oUsers.passWhoIssued;
             textBox_passAddress.Text = oUsers.passAddress;
 

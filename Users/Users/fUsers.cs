@@ -17,6 +17,8 @@ namespace com.sbs.gui.users
     public partial class fUsers : Form
     {
         DBaccess DbAccess = new DBaccess();
+        
+        Suppurt Supp = new Suppurt();
 
         DataTable dtOrg = new DataTable();
         DataTable dtBranch = new DataTable();
@@ -74,9 +76,37 @@ namespace com.sbs.gui.users
 
         private void fUsers_Shown(object sender, EventArgs e)
         {
+            int xPriv;
+
             tSComboBox_unit.ComboBox.SelectedIndexChanged += new EventHandler(tSComboBox_unit_SelectedIndexChanged);
             tSComboBox_branch.ComboBox.SelectedIndexChanged += new EventHandler(tSComboBox_branch_SelectedIndexChanged);
             tSComboBox_organization.ComboBox.SelectedIndexChanged += new EventHandler(tSComboBox_organization_SelectedIndexChanged);
+
+
+            #region проверка привелегий
+
+
+            if (Supp.checkPrivileges(UsersInfo.Acl, 28))   // Позволяет добавлять и редактировать сотрудников
+            {
+                tSButton_add.Enabled = true;
+                tSButton_del.Enabled = true;
+                tSButton_edit.Enabled = true;
+            }
+
+            if (Supp.checkPrivileges(UsersInfo.Acl, 29))   // Позволяет сотрудникам задавать привилегии, указывать группы
+            {
+                tSButton_group.Enabled = true;
+                tSButton_menu.Enabled = true;
+                tSButton_doc.Enabled = true;
+            }
+
+            if (Supp.checkPrivileges(UsersInfo.Acl, 30))   // Позволяет назначать сотруднику пароль
+            {
+                tSButton_pwd.Enabled = true;
+                tSButton_acl.Enabled = true;
+            }
+
+            #endregion
         }
 
         private void tSComboBox_unit_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,7 +119,10 @@ namespace com.sbs.gui.users
             switch (tSComboBox_RecType.ComboBox.Text)
             {
                 case "Пользователь":
-                    tSButton_group.Enabled = true;
+                    if (Supp.checkPrivileges(UsersInfo.Acl, 29))   // Позволяет сотрудникам задавать привилегии, указывать группы
+                    {
+                        tSButton_group.Enabled = true;
+                    }
                     break;
 
                 case "Группа":
@@ -203,7 +236,7 @@ namespace com.sbs.gui.users
 
             try
             {
-                dtUsers = DbAccess.getUsers("offline", idOrg, idBranch, idUnit);
+                dtUsers = DbAccess.getUsers(GValues.DBMode, idOrg, idBranch, idUnit);
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения списка сотрудников", exc, SystemIcons.Error); return; }
 
@@ -311,7 +344,7 @@ namespace com.sbs.gui.users
                     xId = (int)dataGridView_main.SelectedRows[0].Index;
                     try
                     {
-                        xUsersDTO = DbAccess.getUser("offline", (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
+                        xUsersDTO = DbAccess.getUser(GValues.DBMode, (int)dataGridView_main.SelectedRows[0].Cells["user_id"].Value);
                     }
                     catch (Exception exc)
                     {

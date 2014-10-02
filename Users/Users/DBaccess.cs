@@ -145,7 +145,7 @@ namespace com.sbs.gui.users
                 if (where.Equals(" WHERE")) where = string.Empty;
                 else where = where.Substring(0, where.Length - 3);
 
-                command.CommandText += where;
+                command.CommandText += (where + " ORDER BY u.lname + ' ' + u.fname + ' ' + u.sname ");
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
