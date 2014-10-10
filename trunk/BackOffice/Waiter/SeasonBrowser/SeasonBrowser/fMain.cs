@@ -561,6 +561,16 @@ namespace com.sbs.gui.seasonbrowser
             }
 
             sb.AppendLine("-".PadRight(rHeight, '-'));
+            sb.AppendLine(eCentre + "Доставка");
+            sb.AppendLine("-".PadRight(rHeight, '-'));
+
+            foreach (DataRow dr in ds.Tables["SEASON_ORDER_DELIVERY"].Rows)
+            {
+                sb.Append("Итого по доставке");
+                sb.AppendLine(((decimal)dr["delivery_sum"]).ToString("F2").PadLeft(rHeight - "Итого по доставке".Length, ' '));
+            }
+
+            sb.AppendLine("-".PadRight(rHeight, '-'));
 
             sb.AppendLine(eCut);
             String printerAddress;

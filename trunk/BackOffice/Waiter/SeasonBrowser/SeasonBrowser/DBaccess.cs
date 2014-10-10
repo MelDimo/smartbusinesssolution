@@ -443,6 +443,19 @@ namespace com.sbs.gui.seasonbrowser
                     dsData.Tables.Add(dtResult);
                 }
 
+                command.CommandText = " SELECT isnull(SUM(ba.sum), 0) AS delivery_sum" +
+                                        " FROM bills_info_delivery_all biad " +
+                                        " INNER JOIN bills_all ba ON ba.bills_id = biad.bills " +
+                                        " WHERE biad.season = @pSeasonId AND biad.branch = @pBranch;";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult = new DataTable();
+                    dtResult.Load(dr);
+                    dtResult.TableName = "SEASON_ORDER_DELIVERY";
+                    dsData.Tables.Add(dtResult);
+                }
+
                 command.Parameters.Clear();
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = pFilter.branch;
                 command.CommandText = " SELECT xpath, rp.name AS printerName " +
@@ -457,7 +470,6 @@ namespace com.sbs.gui.seasonbrowser
                     dtResult.TableName = "PRINTER";
                     dsData.Tables.Add(dtResult);
                 }
-
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
