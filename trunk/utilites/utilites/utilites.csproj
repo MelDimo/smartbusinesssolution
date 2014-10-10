@@ -158,6 +158,7 @@
       <DependentUpon>fMessage_Exception.cs</DependentUpon>
     </Compile>
     <Compile Include="Mifire.cs" />
+    <Compile Include="MiniFP6.cs" />
     <Compile Include="ModWinsCard.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

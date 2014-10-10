@@ -190,12 +190,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_editMnu);
             this.Controls.Add(this.button_delivery);
             this.Controls.Add(this.label_dishcount);
             this.Controls.Add(this.label_numbTable);
             this.Controls.Add(this.label_summ);
             this.Controls.Add(this.label_numbBill);
-            this.Controls.Add(this.button_editMnu);
             this.Controls.Add(this.label_after);
             this.Controls.Add(this.comboBox_note);
             this.Controls.Add(this.label_dateOpenClose);

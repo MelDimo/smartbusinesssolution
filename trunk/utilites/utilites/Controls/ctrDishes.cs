@@ -44,7 +44,7 @@ namespace com.sbs.dll.utilites
                 if (oDish.refStatus == 34) //Присваивается позиции попавшей в season_refuse
                 {
                     dtGroup = oReferences.getToppingsGroups(GValues.DBMode, oDish.carteDishes);
-                    MessageBox.Show(string.Format("oDish.carteDishes:{0}; oDish.id{1}", oDish.carteDishes, oDish.id));
+                    numericUpDown_count.maxValue = oDish.count;
                     dtToppings = oReferences.getTopingsCarteDishes_refuse(GValues.DBMode, oDish.carteDishes, oDish.id);
                 }
                 else

@@ -22,6 +22,8 @@ namespace KillRemoteProcess
 
         private decimal nextVal = 0;
 
+        MiniFP6 miniFP6 = null;
+
         public fMain()
         {
             InitializeComponent();
@@ -81,6 +83,38 @@ namespace KillRemoteProcess
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void button_fiscalPrinter_Click(object sender, EventArgs e)
+        {
+            if (miniFP6.Sale_(2, "0", "Тестовый продукт", 2.5, 25.50, 6, true))
+                MessageBox.Show("true");
+            else
+                MessageBox.Show("false");
+        }
+
+        private void button_Pay_Click(object sender, EventArgs e)
+        {
+            double xRemainder;
+
+            if (miniFP6.Pay_(2, 51, 3, true, out xRemainder))
+                MessageBox.Show("true");
+            else
+                MessageBox.Show("false");
+        }
+
+        private void button_Init_Click(object sender, EventArgs e)
+        {
+            miniFP6 = new MiniFP6();
+        }
+
+        private void button_PrinterState_Click(object sender, EventArgs e)
+        {
+            miniFP6 = new MiniFP6();
+
+            miniFP6.PrinterState_(2, out miniFP6.State_);
+
+            propertyGrid1.SelectedObject = miniFP6.State_;
         }
     }
 }
