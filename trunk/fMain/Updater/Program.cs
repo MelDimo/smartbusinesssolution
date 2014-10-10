@@ -29,14 +29,12 @@ namespace com.sbs.gui.launcher
             UpdateParam.destPath = arg[1];
             UpdateParam.mainAppName = arg[2];
 
-            if (!checkPath())
+            if (checkPath())
             {
-                return;
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new fLauncher());
             }
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fLauncher());
 
             Process secondProc = new Process();
             secondProc.StartInfo.FileName = UpdateParam.mainAppName;
@@ -57,7 +55,7 @@ namespace com.sbs.gui.launcher
                 return true;
             else
             {
-                MessageBox.Show("Ошибка при проверке параметров" + errMsg, "SmartBusinessSolution", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format("Ошибка при проверке параметров {0}" + Environment.NewLine + "Приложение будет запущено без обновления.", errMsg), "SmartBusinessSolution", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
         }
