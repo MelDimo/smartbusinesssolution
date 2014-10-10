@@ -26,6 +26,8 @@ namespace com.sbs.gui.dashboard
             InitializeComponent();
 
             oCtrDishes.Dock = DockStyle.Fill;
+            oCtrDishes.button_host.TabStop = false;
+
             if (oCtrDishes.oDish.refStatus == 34) oCtrDishes.comboBox_note.Enabled = false; // Висяк добавляемм в счет
             Controls.Add(oCtrDishes);
         }
@@ -38,6 +40,7 @@ namespace com.sbs.gui.dashboard
                     DialogResult = DialogResult.Cancel;
                     break;
                 case Keys.Enter:
+
                     switch(oCtrDishes.oDish.refStatus)
                     {
                         case 0:             // Банально новое блюдо добавляется в счет
@@ -103,7 +106,7 @@ namespace com.sbs.gui.dashboard
             {
                 ((ctrDishes)ctr).button_host.TabStop = false;
                 
-                ((ctrDishes)ctr).button_deals.TabStop = true;
+                ((ctrDishes)ctr).button_deals.TabStop = false;
                 ((ctrDishes)ctr).button_deals.Enabled = false;
                 
                 ((ctrDishes)ctr).comboBox_note.TabStop = true;

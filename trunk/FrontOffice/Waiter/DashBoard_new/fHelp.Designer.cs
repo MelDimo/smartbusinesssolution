@@ -63,7 +63,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 292F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 294F));
             this.tableLayoutPanel1.Controls.Add(this.label12, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -268,7 +268,7 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.Location = new System.Drawing.Point(483, 54);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(286, 50);
+            this.label14.Size = new System.Drawing.Size(288, 50);
             this.label14.TabIndex = 13;
             this.label14.Text = "Создать заказ доставки";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -328,7 +328,7 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label18.Location = new System.Drawing.Point(483, 314);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(286, 50);
+            this.label18.Size = new System.Drawing.Size(288, 50);
             this.label18.TabIndex = 17;
             this.label18.Text = "Закрытие индивидуальной смены";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -340,7 +340,7 @@
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label20.Location = new System.Drawing.Point(483, 366);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(286, 50);
+            this.label20.Size = new System.Drawing.Size(288, 50);
             this.label20.TabIndex = 19;
             this.label20.Text = "Информация по доставке";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
