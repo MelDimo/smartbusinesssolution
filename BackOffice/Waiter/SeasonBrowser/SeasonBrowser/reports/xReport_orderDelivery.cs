@@ -16,14 +16,14 @@ namespace com.sbs.gui.seasonbrowser.reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class xReport : ReportClass {
+    public class xReport_orderDelivery : ReportClass {
         
-        public xReport() {
+        public xReport_orderDelivery() {
         }
         
         public override string ResourceName {
             get {
-                return "xReport.rpt";
+                return "xReport_orderDelivery.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         public override string FullResourceName {
             get {
-                return "com.sbs.gui.seasonbrowser.reports.xReport.rpt";
+                return "com.sbs.gui.seasonbrowser.reports.xReport_orderDelivery.rpt";
             }
             set {
                 // Do nothing
@@ -66,7 +66,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection4 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupHeaderSection1 {
             get {
                 return this.ReportDefinition.Sections[2];
             }
@@ -74,7 +74,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section3 {
             get {
                 return this.ReportDefinition.Sections[3];
             }
@@ -82,7 +82,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section PageHeaderSection2 {
+        public CrystalDecisions.CrystalReports.Engine.Section GroupFooterSection1 {
             get {
                 return this.ReportDefinition.Sections[4];
             }
@@ -90,7 +90,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section DetailSection3 {
+        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
             get {
                 return this.ReportDefinition.Sections[5];
             }
@@ -98,33 +98,17 @@ namespace com.sbs.gui.seasonbrowser.reports {
         
         [Browsable(false)]
         [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.CrystalReports.Engine.Section Section4 {
-            get {
-                return this.ReportDefinition.Sections[6];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
-                return this.ReportDefinition.Sections[7];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_pBranchName {
-            get {
-                return this.DataDefinition.ParameterFields[0];
+                return this.ReportDefinition.Sections[6];
             }
         }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedxReport : Component, ICachedReport {
+    public class CachedxReport_orderDelivery : Component, ICachedReport {
         
-        public CachedxReport() {
+        public CachedxReport_orderDelivery() {
         }
         
         [Browsable(false)]
@@ -161,7 +145,7 @@ namespace com.sbs.gui.seasonbrowser.reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            xReport rpt = new xReport();
+            xReport_orderDelivery rpt = new xReport_orderDelivery();
             rpt.Site = this.Site;
             return rpt;
         }
