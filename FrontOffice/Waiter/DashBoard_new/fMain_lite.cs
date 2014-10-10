@@ -764,16 +764,15 @@ namespace com.sbs.gui.dashboard
         private void addDish2Bill(DTO_DBoard.Dish oDish)
         {
             DataTable dtNotesDish = new DataTable();
-            ctrDishes oCtrDishes =
+            ctrDishes oCtrDishes = null;
 
             oCtrDishes = new ctrDishes(oDish, "dashboard");
 
-            oCtrDishes.TabStop = false;
-            //oCtrDishes.button_topping.Visible = false;
+            oCtrDishes.TabStop = true;
             oCtrDishes.button_deals.Visible = false;
-            oCtrDishes.numericUpDown_count.Visible = false;
+            
             oCtrDishes.label_count.Visible = false;
-            oCtrDishes.comboBox_note.Visible = false;
+            oCtrDishes.comboBox_note.Visible = true;
 
             //----------------------------------------------------- Была ошибка с выставление начально кол-ва в последнее указываемое... хз
             oCtrDishes.oDish.count = oCtrDishes.oDish.minStep;
@@ -787,6 +786,9 @@ namespace com.sbs.gui.dashboard
             oCtrDishes.comboBox_note.DisplayMember = "note";
             oCtrDishes.comboBox_note.ValueMember = "id";
             oCtrDishes.comboBox_note.Visible = true;
+
+            oCtrDishes.button_host.Enabled = false;
+
             fAddDishToBill faddDish2Bill = new fAddDishToBill(curBill, oCtrDishes);
             if (faddDish2Bill.ShowDialog() == DialogResult.OK)
             {
