@@ -33,8 +33,13 @@
             this.textBox_host = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_procName = new System.Windows.Forms.TextBox();
-            this.textBox_UpDown = new com.sbs.dll.utilites.Controls.textBoxNumeric();
             this.button1 = new System.Windows.Forms.Button();
+            this.button_fiscalPrinter = new System.Windows.Forms.Button();
+            this.button_Pay = new System.Windows.Forms.Button();
+            this.button_Init = new System.Windows.Forms.Button();
+            this.textBox_UpDown = new com.sbs.dll.utilites.Controls.textBoxNumeric();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.button_PrinterState = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_terminate
@@ -79,6 +84,46 @@
             this.textBox_procName.Size = new System.Drawing.Size(125, 20);
             this.textBox_procName.TabIndex = 2;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 85);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(178, 42);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button_fiscalPrinter
+            // 
+            this.button_fiscalPrinter.Location = new System.Drawing.Point(15, 311);
+            this.button_fiscalPrinter.Name = "button_fiscalPrinter";
+            this.button_fiscalPrinter.Size = new System.Drawing.Size(174, 24);
+            this.button_fiscalPrinter.TabIndex = 6;
+            this.button_fiscalPrinter.Text = "fiscalPrinter (Sale_)";
+            this.button_fiscalPrinter.UseVisualStyleBackColor = true;
+            this.button_fiscalPrinter.Click += new System.EventHandler(this.button_fiscalPrinter_Click);
+            // 
+            // button_Pay
+            // 
+            this.button_Pay.Location = new System.Drawing.Point(15, 341);
+            this.button_Pay.Name = "button_Pay";
+            this.button_Pay.Size = new System.Drawing.Size(174, 24);
+            this.button_Pay.TabIndex = 7;
+            this.button_Pay.Text = "fiscalPrinter (Pay_)";
+            this.button_Pay.UseVisualStyleBackColor = true;
+            this.button_Pay.Click += new System.EventHandler(this.button_Pay_Click);
+            // 
+            // button_Init
+            // 
+            this.button_Init.Location = new System.Drawing.Point(15, 183);
+            this.button_Init.Name = "button_Init";
+            this.button_Init.Size = new System.Drawing.Size(174, 23);
+            this.button_Init.TabIndex = 9;
+            this.button_Init.Text = "fiscalPrinter (Init)";
+            this.button_Init.UseVisualStyleBackColor = true;
+            this.button_Init.Click += new System.EventHandler(this.button_Init_Click);
+            // 
             // textBox_UpDown
             // 
             this.textBox_UpDown.AutoSize = true;
@@ -87,21 +132,36 @@
             this.textBox_UpDown.Size = new System.Drawing.Size(77, 26);
             this.textBox_UpDown.TabIndex = 4;
             // 
-            // button1
+            // propertyGrid1
             // 
-            this.button1.Location = new System.Drawing.Point(186, 117);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 42);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid1.Location = new System.Drawing.Point(242, 85);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(394, 407);
+            this.propertyGrid1.TabIndex = 10;
+            // 
+            // button_PrinterState
+            // 
+            this.button_PrinterState.Location = new System.Drawing.Point(15, 245);
+            this.button_PrinterState.Name = "button_PrinterState";
+            this.button_PrinterState.Size = new System.Drawing.Size(174, 23);
+            this.button_PrinterState.TabIndex = 11;
+            this.button_PrinterState.Text = "fiscalPrinter (PrinterState_)";
+            this.button_PrinterState.UseVisualStyleBackColor = true;
+            this.button_PrinterState.Click += new System.EventHandler(this.button_PrinterState_Click);
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(648, 222);
+            this.ClientSize = new System.Drawing.Size(648, 504);
+            this.Controls.Add(this.button_PrinterState);
+            this.Controls.Add(this.propertyGrid1);
+            this.Controls.Add(this.button_Init);
+            this.Controls.Add(this.button_Pay);
+            this.Controls.Add(this.button_fiscalPrinter);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox_UpDown);
             this.Controls.Add(this.textBox_procName);
@@ -125,6 +185,11 @@
         private System.Windows.Forms.TextBox textBox_procName;
         private com.sbs.dll.utilites.Controls.textBoxNumeric textBox_UpDown;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_fiscalPrinter;
+        private System.Windows.Forms.Button button_Pay;
+        private System.Windows.Forms.Button button_Init;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.Button button_PrinterState;
     }
 }
 
