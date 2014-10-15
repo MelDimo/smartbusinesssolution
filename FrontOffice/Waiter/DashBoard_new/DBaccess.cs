@@ -144,6 +144,8 @@ namespace com.sbs.gui.dashboard
 
         internal DTO_DBoard.User getMifareUser(string pDbType, string pKeyId)
         {
+            oUser = new com.sbs.dll.DTO_DBoard.User();
+
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
@@ -183,7 +185,6 @@ namespace com.sbs.gui.dashboard
                     throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
             }
 
-            oUser = new com.sbs.dll.DTO_DBoard.User();
             oUser.id = (int)dtResult.Rows[0]["id"];
             oUser.name = dtResult.Rows[0]["fio"].ToString();
             oUser.tabn = dtResult.Rows[0]["tabn"].ToString();
@@ -199,6 +200,8 @@ namespace com.sbs.gui.dashboard
 
         internal DTO_DBoard.User getLoginUser(string pDbType, string pPwd)
         {
+            oUser = new com.sbs.dll.DTO_DBoard.User();
+
             dtResult = new DataTable();
 
             con = new DBCon().getConnection(pDbType);
@@ -237,8 +240,7 @@ namespace com.sbs.gui.dashboard
                 default:
                     throw new Exception("Найдено больше одного сотрудника удовлетворяющего параметрам.");
             }
-
-            oUser = new com.sbs.dll.DTO_DBoard.User();
+            
             oUser.id = (int)dtResult.Rows[0]["id"];
             oUser.name = dtResult.Rows[0]["fio"].ToString();
             oUser.tabn = dtResult.Rows[0]["tabn"].ToString();
@@ -565,7 +567,8 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, code, name " +
                                         " FROM carte " +
-                                        " WHERE branch = @branch AND ref_status = @refStatus";
+                                        " WHERE branch = @branch AND ref_status = @refStatus " +
+                                        " ORDER BY name ";
 
                 command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
@@ -587,7 +590,8 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, id_parent, carte, name " +
                                         " FROM carte_dishes_group " +
-                                        (sCarte.Equals(string.Empty) ? string.Empty : " WHERE carte in (" + sCarte + ")");
+                                        (sCarte.Equals(string.Empty) ? string.Empty : " WHERE carte in (" + sCarte + ") ") +
+                                        " ORDER BY id_parent, name ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -606,8 +610,8 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, avalHall, avalDelivery, ref_printers_type " +
                                         " FROM carte_dishes " +
-                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE isVisible = 1 AND carte_dishes_group in (" + sGroup + ") "+
-                                        " ORDER BY name"); 
+                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE ref_status = 1 AND isVisible = 1 AND carte_dishes_group in (" + sGroup + ") "+
+                                        " ORDER BY name "); 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dtDishes.Load(dr);
