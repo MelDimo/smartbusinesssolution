@@ -9,6 +9,9 @@ using System.Windows.Forms;
 using CrystalDecisions.CrystalReports.Engine;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using System.Threading;
+using System.Diagnostics;
+using System.Printing;
 
 namespace com.sbs.gui.dashboard
 {
@@ -67,7 +70,7 @@ namespace com.sbs.gui.dashboard
                                                 dtOrder.Rows[0]["printerName"].ToString();
 
                 for (int i = 0; i < GValues.branchBill; i++)
-                    if (dtOrder.Rows.Count > 30) rawPrintBill(dtOrder);
+                    if (dtOrder.Rows.Count > 25) rawPrintBill(dtOrder);
                     else repDoc.PrintToPrinter(0, false, 0, 0);
 
                 repDoc.Close();
@@ -145,36 +148,7 @@ namespace com.sbs.gui.dashboard
 
         private void printDish()
         {
-            
-            //ReportDocument repDoc;
-
             rawPrint(dsResult);
-            return;
-
-            //foreach (DataRow dr in DashboardEnvironment.dtRefPrintersType.Rows)
-            //{
-            //    var results = from myRow in dsResult.Tables["preorder"].AsEnumerable()
-            //                    where myRow.Field<int>("ref_printers_type") == (int)dr["id"]// && myRow.Field<int>("ref_status") == 23
-            //                    select myRow;
-
-            //    if (results.Count() > 0)
-            //    {
-            //        oError = new ErrorInfo();
-            //        oError.msg = string.Format("reportPath: {0}; printerName: {1}", results.First().Field<string>("reportPath"), results.First().Field<string>("printerName"));
-
-            //        repDoc = new ReportDocument();
-            //        repDoc.Load(results.First().Field<string>("reportPath"));
-            //        repDoc.SetDataSource(dsResult);// dsResult.Tables["preorder"]);
-            //        repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-            //        repDoc.SetParameterValue("curDate", DateTime.Now);
-            //        repDoc.SetParameterValue("billNumber", oBill.numb);
-            //        repDoc.SetParameterValue("tableNumb", oBill.table);
-            //        repDoc.SetParameterValue("printersType", (int)dr["id"]);
-            //        repDoc.PrintOptions.PrinterName = results.First().Field<string>("printerName");
-            //        repDoc.PrintToPrinter(1, false, 0, 0);
-            //        repDoc.Close();
-            //    }
-            //}
         }
 
         private void rawPrint(DataSet pDSResult)
@@ -193,6 +167,8 @@ namespace com.sbs.gui.dashboard
             string printerAddress = string.Empty;
             byte[] bText;
             string sText;
+
+            int xCount = 10; // число попыток печати;
 
             foreach (DataTable dt in pDSResult.Tables)
             {
@@ -232,7 +208,40 @@ namespace com.sbs.gui.dashboard
                 bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
                 sText = Encoding.GetEncoding(1251).GetString(bText);
 
-                RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+
+                PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
+                PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
+                while (pq.IsBusy)
+                {
+                    Thread.Sleep(500);
+                    pq.Refresh();
+                    xCount = xCount - 1;
+                }
+
+                if (xCount != 0) RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+
+                #region Проверка печати
+                //while (true) //Проверяем как завершилась печать. Если ошибочно повторям xCount раз.
+                //{
+                //    if ((RawPrinterHelper.dwError != 0 || RawPrinterHelper.dwWritten == 0) && xCount > 0)
+                //    {
+                //        Thread.Sleep(500);
+                //        RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+                //        xCount = xCount - 1;
+                //    }
+                //    else
+                //    {
+                //        if (xCount == 0) // так и не удалось распечатать 
+                //        {
+                //            WriteLog.write(string.Format("RawPrinterHelper.dwError: {0}" + Environment.NewLine +
+                //                                            "RawPrinterHelper.dwWritten: {1}" + Environment.NewLine +
+                //                                            "xCount: {2} ", RawPrinterHelper.dwError, RawPrinterHelper.dwWritten, xCount));
+                //        }
+                //        break;
+                //    }
+                //}
+                #endregion
+
             }
         }
 
