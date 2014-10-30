@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{854EA57A-550C-4FA7-B3FD-293B2EAD5C58}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.carte</RootNamespace>
     <AssemblyName>Carte</AssemblyName>
@@ -94,6 +94,12 @@
     <Compile Include="fCarte.Designer.cs">
       <DependentUpon>fCarte.cs</DependentUpon>
     </Compile>
+    <Compile Include="fDeals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fDeals.Designer.cs">
+      <DependentUpon>fDeals.cs</DependentUpon>
+    </Compile>
     <Compile Include="fDublicate_Carte.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fCarte.resx">
       <DependentUpon>fCarte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fDeals.resx">
+      <DependentUpon>fDeals.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fDublicate_Carte.resx">
       <DependentUpon>fDublicate_Carte.cs</DependentUpon>
