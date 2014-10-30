@@ -5,6 +5,8 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using com.sbs.dll;
+using com.sbs.dll.utilites;
+using System.Drawing;
 
 namespace com.sbs.gui.updatereference
 {
@@ -94,6 +96,8 @@ namespace com.sbs.gui.updatereference
             {
                 con.Open();
                 command = con.CreateCommand();
+
+                command.CommandTimeout = 3000;
 
                 command.CommandText = pScript;
 

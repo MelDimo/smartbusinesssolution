@@ -131,6 +131,7 @@ namespace com.sbs.gui.updatereference
         private void button_export_Click(object sender, EventArgs e)
         {
             ctrBranchUpdate ctrBranch = null;
+
             foreach (Control ctr in flowLayoutPanel_branch.Controls)
             {
                 BackgroundWorker worker = new BackgroundWorker();
@@ -162,7 +163,7 @@ namespace com.sbs.gui.updatereference
                 Exception xExc = null;
                 try
                 {
-                    executeScript(((DTO_Updater.Category)itemChecked).script, ctrBranch.oBranch);
+                    executeScript(((DTO_Updater.Category)itemChecked), ctrBranch.oBranch);
                 }
                 catch (Exception exc) { xExc = exc; }
 
@@ -204,11 +205,23 @@ namespace com.sbs.gui.updatereference
             if (countActiveThread == 0) button_export.Enabled = true;
         }
 
-        private void executeScript(string pScript, DTO_Updater.Branch pBranch)
+        private void executeScript(DTO_Updater.Category pCategory, DTO_Updater.Branch pBranch)
         {
-            pScript = string.Format(pScript, pBranch.getPath());
+            DBAccess dbAccessThread = new DBAccess();
+            string xScript = string.Empty;
 
-            dbAccess.executeScript(GValues.DBMode, pScript);
+            switch (pCategory.name)
+            {
+                case "Сотрудники":
+                    xScript = string.Format(pCategory.script, pBranch.getPath());
+                    break;
+
+                case  "Меню":
+                    xScript = string.Format(pCategory.script, pBranch.id, pBranch.getPath());
+                    break;
+            }
+
+            dbAccessThread.executeScript(GValues.DBMode, xScript);
         }
     }
 }
