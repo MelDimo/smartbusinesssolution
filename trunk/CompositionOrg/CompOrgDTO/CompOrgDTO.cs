@@ -132,9 +132,9 @@ namespace com.sbs.dll.dto
             private int _refPrinters;
             private int _refPrintersType;
             private int _isDepot;
-            private int _code;
+            private string _code;
 
-            public int Code
+            public string Code
             {
                 get { return _code; }
                 set { _code = value; }

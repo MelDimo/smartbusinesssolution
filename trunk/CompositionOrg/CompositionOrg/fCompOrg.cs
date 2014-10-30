@@ -317,7 +317,7 @@ namespace com.sbs.gui.compositionorg
                                where rec.Field<int>("id") == oUnitDTO.Id
                                select rec;
 
-                oUnitDTO.Code = unitInfo.First().Field<int>("code");
+                oUnitDTO.Code = unitInfo.First().Field<string>("code");
 
                 fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
                 faddeditunit.Text = "Редактирование '" + oUnitDTO.Name + "'";

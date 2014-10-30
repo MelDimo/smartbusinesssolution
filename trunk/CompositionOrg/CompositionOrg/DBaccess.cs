@@ -374,7 +374,7 @@ namespace com.sbs.gui.compositionorg
                 if (pUnitDTO.RefPrinters == 0) command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = DBNull.Value;
                 else command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
                 command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
-                command.Parameters.Add("pCode", SqlDbType.Int).Value = pUnitDTO.Code;
+                command.Parameters.Add("pCode", SqlDbType.NVarChar).Value = pUnitDTO.Code;
 
                 command.ExecuteNonQuery();
 
@@ -404,7 +404,7 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("ref_printers", SqlDbType.Int).Value = pUnitDTO.RefPrinters;
                 command.Parameters.Add("ref_printers_type", SqlDbType.Int).Value = pUnitDTO.RefPrintersType;
                 command.Parameters.Add("isDepot", SqlDbType.Int).Value = pUnitDTO.isDepot;
-                command.Parameters.Add("pCode", SqlDbType.Int).Value = pUnitDTO.Code;
+                command.Parameters.Add("pCode", SqlDbType.NVarChar).Value = pUnitDTO.Code;
 
                 command.ExecuteNonQuery();
 
