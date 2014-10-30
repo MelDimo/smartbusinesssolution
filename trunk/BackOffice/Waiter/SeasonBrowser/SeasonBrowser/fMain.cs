@@ -481,10 +481,10 @@ namespace com.sbs.gui.seasonbrowser
             string eLeft = string.Empty + (char)27 + (char)97 + "0";
             string eRight = string.Empty + (char)27 + (char)97 + "2";
             string eCut = string.Empty + (char)27 + (char)105;
-            string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
-            string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
+            //string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
+            //string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
 
-            int rHeight = 50;
+            int rHeight = 46;
             string oldFio = string.Empty;
             decimal sumWaiter = 0;
 
@@ -526,7 +526,7 @@ namespace com.sbs.gui.seasonbrowser
                 {
                     if (!oldFio.Equals(string.Empty))
                     {
-                        sb.AppendLine(eItalicOn + sumWaiter.ToString("F2").PadLeft(rHeight, ' ') + eItalicOff);
+                        sb.AppendLine(sumWaiter.ToString("F2").PadLeft(rHeight, ' '));
                         sumWaiter = 0;
                     }
 
@@ -538,7 +538,7 @@ namespace com.sbs.gui.seasonbrowser
                 sb.AppendLine(((decimal)dr["summ"]).ToString("F2").PadLeft(rHeight - dr["bill_paymentType"].ToString().Length, ' '));
             }
             // Печатаю сумму по последнему сотруднику
-            if (ds.Tables["SEASON_ORDER_EMPL"].Rows.Count > 0) sb.AppendLine(eItalicOn + sumWaiter.ToString("F2").PadLeft(rHeight, ' ') + eItalicOff);
+            if (ds.Tables["SEASON_ORDER_EMPL"].Rows.Count > 0) sb.AppendLine(sumWaiter.ToString("F2").PadLeft(rHeight, ' '));
 
             sb.AppendLine("-".PadRight(rHeight, '-'));
             sb.AppendLine(eCentre + "По подразделениям");

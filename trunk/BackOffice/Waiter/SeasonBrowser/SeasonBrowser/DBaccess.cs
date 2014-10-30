@@ -74,6 +74,7 @@ namespace com.sbs.gui.seasonbrowser
                 oSeasonBranch.userID = (int)dr["user_open"];
                 oSeasonBranch.refStatus = (int)dr["ref_status"];
                 oSeasonBranch.refStatusName = dr["ref_status_name"].ToString();
+                oSeasonBranch.timeUpdate = DBNull.Value.Equals(dr["timeUpdate"]) ? (DateTime?)null : (DateTime)dr["timeUpdate"];
                 
                 lSeasonBranch.Add(oSeasonBranch);
             }
