@@ -54,11 +54,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.maskedTextBox_IP = new System.Windows.Forms.MaskedTextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.tabPage_payment = new System.Windows.Forms.TabPage();
+            this.checkedListBox_payment = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numericUpDown_code = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.tabPage_payment = new System.Windows.Forms.TabPage();
-            this.checkedListBox_payment = new System.Windows.Forms.CheckedListBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -66,9 +66,9 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_duration)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.tabPage_payment.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
-            this.tabPage_payment.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_id
@@ -320,7 +320,7 @@
             // maskedTextBox_IP
             // 
             this.maskedTextBox_IP.Location = new System.Drawing.Point(70, 12);
-            this.maskedTextBox_IP.Mask = "000.000.000.000";
+            this.maskedTextBox_IP.Mask = "009.009.009.900";
             this.maskedTextBox_IP.Name = "maskedTextBox_IP";
             this.maskedTextBox_IP.Size = new System.Drawing.Size(91, 20);
             this.maskedTextBox_IP.TabIndex = 1;
@@ -333,6 +333,26 @@
             this.label8.Size = new System.Drawing.Size(58, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "IP Address";
+            // 
+            // tabPage_payment
+            // 
+            this.tabPage_payment.Controls.Add(this.checkedListBox_payment);
+            this.tabPage_payment.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_payment.Name = "tabPage_payment";
+            this.tabPage_payment.Padding = new System.Windows.Forms.Padding(5);
+            this.tabPage_payment.Size = new System.Drawing.Size(438, 141);
+            this.tabPage_payment.TabIndex = 2;
+            this.tabPage_payment.Text = "Платежи";
+            this.tabPage_payment.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBox_payment
+            // 
+            this.checkedListBox_payment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_payment.FormattingEnabled = true;
+            this.checkedListBox_payment.Location = new System.Drawing.Point(5, 5);
+            this.checkedListBox_payment.Name = "checkedListBox_payment";
+            this.checkedListBox_payment.Size = new System.Drawing.Size(428, 131);
+            this.checkedListBox_payment.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -368,26 +388,6 @@
             this.label10.TabIndex = 27;
             this.label10.Text = "Внешний ключ";
             // 
-            // tabPage_payment
-            // 
-            this.tabPage_payment.Controls.Add(this.checkedListBox_payment);
-            this.tabPage_payment.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_payment.Name = "tabPage_payment";
-            this.tabPage_payment.Padding = new System.Windows.Forms.Padding(5);
-            this.tabPage_payment.Size = new System.Drawing.Size(438, 141);
-            this.tabPage_payment.TabIndex = 2;
-            this.tabPage_payment.Text = "Платежи";
-            this.tabPage_payment.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox_payment
-            // 
-            this.checkedListBox_payment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox_payment.FormattingEnabled = true;
-            this.checkedListBox_payment.Location = new System.Drawing.Point(5, 5);
-            this.checkedListBox_payment.Name = "checkedListBox_payment";
-            this.checkedListBox_payment.Size = new System.Drawing.Size(428, 131);
-            this.checkedListBox_payment.TabIndex = 0;
-            // 
             // fAddEdit_branch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,9 +421,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_duration)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage_payment.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).EndInit();
-            this.tabPage_payment.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
