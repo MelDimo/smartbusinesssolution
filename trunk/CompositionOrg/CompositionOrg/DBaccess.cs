@@ -182,7 +182,7 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("pOpen", SqlDbType.Time).Value = pBranchDTO.XOpen.ToString("HH:mm");
                 command.Parameters.Add("pClose", SqlDbType.Time).Value = pBranchDTO.XClose.ToString("HH:mm");
                 command.Parameters.Add("pDuration", SqlDbType.Int).Value = pBranchDTO.XDuration;
-                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip;
+                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip.Replace(",", ".").Replace(" ","");;
                 command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
                 command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
@@ -233,7 +233,7 @@ namespace com.sbs.gui.compositionorg
                 command.Parameters.Add("pOpen", SqlDbType.DateTime).Value = pBranchDTO.XOpen.ToString("HH:mm");
                 command.Parameters.Add("pClose", SqlDbType.DateTime).Value = pBranchDTO.XClose.ToString("HH:mm");
                 command.Parameters.Add("pDuration", SqlDbType.Int).Value = pBranchDTO.XDuration;
-                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip.Replace(",", ".");
+                command.Parameters.Add("pIP", SqlDbType.NVarChar).Value = pBranchDTO.Xip.Replace(",", ".").Replace(" ","");
                 command.Parameters.Add("pTable", SqlDbType.Int).Value = pBranchDTO.XTable;
                 command.Parameters.Add("pCode", SqlDbType.Int).Value = pBranchDTO.Code;
 
