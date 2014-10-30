@@ -51,7 +51,7 @@ namespace com.sbs.gui.compositionorg
             comboBox_refPrintersType.SelectedValue = oUnitDTO.RefPrintersType;
 
             checkBox_isDepot.DataBindings.Add("Checked", oUnitDTO, "isDepot");
-            numericUpDown_code.DataBindings.Add("Value", oUnitDTO, "Code");
+            textBox_code.DataBindings.Add("Text", oUnitDTO, "Code");
         }
 
         private void button_ok_Click(object sender, EventArgs e)
