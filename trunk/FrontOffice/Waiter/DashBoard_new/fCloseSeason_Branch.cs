@@ -123,7 +123,5 @@ namespace com.sbs.gui.dashboard
 
             return true;
         }
-
-
     }
 }

@@ -300,6 +300,13 @@ namespace com.sbs.gui.dashboard
             return oUserACL;
         }
 
+        private List<int> getUserCarte(string pDbType, int pUserId)
+        {
+            List<int> lCarte = new List<int>();
+
+            return lCarte;
+        }
+
         internal DTO_DBoard.SeasonBranch[] getAvaliableSeason(string pDbType)
         {
             dtResult = new DataTable();
@@ -1244,7 +1251,8 @@ namespace com.sbs.gui.dashboard
             dtResult.DefaultView.RowFilter = pDishesFilter;
             for (int i = 0; i < dtResult.Rows.Count; i++)
             {
-                if ((int)dtResult.Rows[i][pDishesFilter.Substring(0, pDishesFilter.IndexOf(' '))] != 1) continue;
+                if (!pDishesFilter.Equals(string.Empty))
+                    if ((int)dtResult.Rows[i][pDishesFilter.Substring(0, pDishesFilter.IndexOf(' '))] != 1) continue;
                 oDishRefuse = new DTO_DBoard.DishRefuse();
                 oDishRefuse.id = (int)dtResult.Rows[i]["id"];
                 oDishRefuse.carteDishes = (int)dtResult.Rows[i]["carte_dishes"];
@@ -1369,6 +1377,26 @@ namespace com.sbs.gui.dashboard
             }
 
             return oDiscountInfo;
+        }
+
+        internal DataTable getDeals(string pDbType, int pCarteId, string pRefDishes)
+        {
+            return getRefer.getDeals(pDbType, pCarteId, pRefDishes);
+        }
+
+        internal DataTable getDealsDishes(string pDbType, int pDealsId, string pRefDishes)
+        {
+            return getRefer.getDealsDishes(pDbType, pDealsId, pRefDishes);
+        }
+
+        internal DataTable getBonusDishes(string pDbType, int pDealsId, string pRefDishes)
+        {
+            return getRefer.getBonusDishes(pDbType, pDealsId, pRefDishes);
+        }
+
+        internal List<DTO_DBoard.Dish> getBonusDishes(string pDbType, int pDealsId)
+        {
+            return getRefer.getBonusDishes(pDbType, pDealsId);
         }
     }
 
