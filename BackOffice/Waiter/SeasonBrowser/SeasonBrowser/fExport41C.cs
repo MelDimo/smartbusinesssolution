@@ -209,7 +209,7 @@ namespace com.sbs.gui.seasonbrowser
                 {
                     DataRow dr1 = drw.Row;
 
-                    if ((int)dr1["DEPARTAMENT"] != curDep)
+                    if (int.Parse(dr1["DEPARTAMENT"].ToString()) != curDep)
                     {
                         if (curDep != 0)
                         {
@@ -249,7 +249,7 @@ namespace com.sbs.gui.seasonbrowser
 
                     nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText = (decimal.Parse(nodeBill_CEKS.SelectNodes("D_SUMM")[0].InnerText.Replace(".", ",")) + (decimal)dr1["SUMM"]).ToString().Replace(",", ".");
 
-                    curDep = (int)dr1["DEPARTAMENT"];
+                    curDep = int.Parse(dr1["DEPARTAMENT"].ToString());
                 }
 
                 if (nodeBill_CEKS != null)
