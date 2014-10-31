@@ -995,9 +995,8 @@ namespace com.sbs.gui.dashboard
         {
             fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
             fWait.ShowDialog();
-            fWait.Dispose();
-                fillBillsInfo(curBill);
-                billEdit();
+            fillBillsInfo(curBill);
+            billEdit();
         }
 
         private bool checkBillInfo()

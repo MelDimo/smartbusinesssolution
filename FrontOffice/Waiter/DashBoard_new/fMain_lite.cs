@@ -126,6 +126,7 @@ namespace com.sbs.gui.dashboard
         private DataTable dtDishes;
 
         private int curEditBillId = 0;
+        private int idCarte = 0; // Использую для акционных позиций
 
         private string dtDishesFilter; // С помощью это фильтра разруиваю какие блюда показывать в доставке а кикие в меню зала
 
@@ -249,9 +250,9 @@ namespace com.sbs.gui.dashboard
 
         private void commitDish()
         {
+            checkDeals();
             fWaitProcess fWait = new fWaitProcess("PRINTDISH", curBill);
             fWait.ShowDialog();
-            fWait.Dispose();
             fillBillsInfo(curBill);
             editBill(curBill);
         }
@@ -532,6 +533,90 @@ namespace com.sbs.gui.dashboard
             }
         }
 
+        private void checkDeals()
+        {
+            DataTable dtDeals = new DataTable();
+            DataTable dtDealsDishes = new DataTable();
+            DataTable dtBonusDishes = new DataTable();
+
+            string refDishes = string.Empty;
+            Dictionary<int, decimal> refDishesCount = new Dictionary<int, decimal>();
+            decimal xDealsDishes = 0;
+            decimal xBonusDishes = 0;
+
+            foreach (DTO_DBoard.Dish dish in lDishes)
+            {
+                refDishes = refDishes + string.Format("{0},", dish.refDishes);
+
+                if (refDishesCount.Keys.Contains(dish.refDishes)) refDishesCount[dish.refDishes] = refDishesCount[dish.refDishes] + dish.count;
+                else refDishesCount.Add(dish.refDishes, dish.count);
+
+            }
+            refDishes.TrimEnd(',');
+
+            try
+            {
+                dtDeals = dbAccess.getDeals(GValues.DBMode, idCarte, refDishes.TrimEnd(','));
+            }
+            catch(Exception exc)
+            {
+                uMessage.Show("Неудалось прогрузить акции." + Environment.NewLine + 
+                            "Это ошибка не является критической, можете продолжить работу.", exc, SystemIcons.Information);
+                return;
+            }
+
+            if (dtDeals.Rows.Count == 0) return;
+
+            foreach (DataRow dr in dtDeals.Rows)
+            {
+                dtDealsDishes = dbAccess.getDealsDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
+                dtBonusDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
+
+                xDealsDishes = selectDealsDishes(dtDealsDishes, refDishes, refDishesCount);
+                xBonusDishes = selectBonusDishes(dtBonusDishes, refDishes, refDishesCount);
+
+                if ((xDealsDishes / (int)dr["xcount"]) <= xBonusDishes)
+                {
+                    continue;
+                }
+
+                xBonusDishes = (xDealsDishes / (int)dr["xcount"]) - xBonusDishes;
+
+                List<DTO_DBoard.Dish> olDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"]);
+
+                fDealsDishes fdeals = new fDealsDishes(olDishes, dr["name"].ToString());
+                if (fdeals.ShowDialog() != DialogResult.OK) return;
+
+                addDish2Bill(fdeals.oDish);
+            }
+
+            return;
+        }
+
+        private decimal selectBonusDishes(DataTable dtBonusDishes, string refDishes, Dictionary<int, decimal> refDishesCount)
+        {
+            decimal xCountDishes = 0;
+
+            foreach (DataRow dr in dtBonusDishes.Rows)
+            {
+                xCountDishes += xCountDishes + refDishesCount[(int)dr["ref_dishes"]];
+            }
+
+            return xCountDishes;
+        }
+
+        private decimal selectDealsDishes(DataTable dtDealsDishes, string refDishes, Dictionary<int, decimal> refDishesCount)
+        {
+            decimal xCountDishes = 0;
+
+            foreach (DataRow dr in dtDealsDishes.Rows)
+            {
+                xCountDishes += xCountDishes + refDishesCount[(int)dr["ref_dishes"]];
+            }
+
+            return xCountDishes;
+        }
+
         private void dataGridView_bills_KeyDown(object sender, KeyEventArgs e)
         {
             switch(e.KeyCode)
@@ -707,8 +792,11 @@ namespace com.sbs.gui.dashboard
         private void treeView_CarteGroups_AfterSelect(object sender, TreeViewEventArgs e)
         {
             int idGroup = 0;
+            int xidCarte;
 
             //if (treeView_CarteGroups.SelectedNode.Nodes.Count > 0) return; // Отсекаем не конечные пункты
+
+            if (int.TryParse(treeView_CarteGroups.SelectedNode.Name.Replace("carte", ""), out xidCarte)) { idCarte = xidCarte; }
 
             if (!int.TryParse(treeView_CarteGroups.SelectedNode.Name.Replace("group", ""), out idGroup))
             {

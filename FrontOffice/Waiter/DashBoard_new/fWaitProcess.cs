@@ -148,6 +148,7 @@ namespace com.sbs.gui.dashboard
 
         private void printDish()
         {
+            if (GValues.printRunners == 0) return; 
             rawPrint(dsResult);
         }
 

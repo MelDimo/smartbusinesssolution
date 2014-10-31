@@ -242,10 +242,8 @@ namespace com.sbs.gui.dashboard
                         fMIFare fMiFare = new fMIFare();
                         if (fMiFare.ShowDialog() == DialogResult.OK)
                         {
-
-                                DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
-                                fMiFare.Dispose();
-
+                            DashboardEnvironment.gUser = getUserByKey(fMiFare.keyId);
+                            fMiFare.Dispose();
                         }
                         else
                             fMiFare.Dispose();
