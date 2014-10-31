@@ -17,6 +17,7 @@ namespace com.sbs.dll
             public DateTime? dateClose { get; set; }
             public int refStatus { get; set; }
             public string refStatusName { get; set; }
+            public DateTime? timeUpdate { get; set; }
         }
 
         public class SeasonUser
@@ -36,6 +37,7 @@ namespace com.sbs.dll
             public string name { get; set; }
             public string tabn { get; set; }
             public UserACL[] oUserACL { get; set; }
+            public List<int> carte { get; set; }
         }
 
         public class UserACL
