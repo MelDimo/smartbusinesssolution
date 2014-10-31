@@ -78,5 +78,24 @@ namespace com.sbs.dll
             public string name { get; set; }
             public int refStatus { get; set; }
         }
+
+        public class Deals
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public int carte { get; set; }
+            public int refStatus { get; set; }
+            public List<CarteDishes> lCarteDishes { get; set; }
+            public List<CarteDishes> lCarteDishesBonus { get; set; }
+            public int sumCount { get; set; }
+            public DateTime dateStart { get; set; }
+            public DateTime? dateEnd { get; set; }
+
+            public Deals()
+            {
+                lCarteDishes = new List<CarteDishes>();
+                lCarteDishesBonus = new List<CarteDishes>();
+            }
+        }
     }
 }

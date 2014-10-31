@@ -62,6 +62,8 @@ namespace com.sbs.dll.synchdata
             string DishArray = string.Empty;
             string refDeliveryClients = string.Empty;
 
+            int xBranch = 0;
+
             #region -------------------------------------------------------- Сбор данных с локальных таблиц
 
             try
@@ -145,7 +147,8 @@ namespace com.sbs.dll.synchdata
 
                     commandMain.Parameters.Add("season_id", SqlDbType.Int).Value = (int)dr["id"];
                     commandMain.Parameters.Add("code", SqlDbType.Int).Value = (int)dr["code"];
-                    commandMain.Parameters.Add("branch", SqlDbType.Int).Value = (int)dr["branch"];
+                    xBranch = (int)dr["branch"];
+                    commandMain.Parameters.Add("branch", SqlDbType.Int).Value = xBranch;
                     commandMain.Parameters.Add("dateOpen", SqlDbType.DateTime).Value = dr["date_open"];
                     commandMain.Parameters.Add("dateClose", SqlDbType.DateTime).Value = dr["date_close"];
                     commandMain.Parameters.Add("userOpen", SqlDbType.Int).Value = dr["user_open"];
@@ -305,6 +308,11 @@ namespace com.sbs.dll.synchdata
                 commandLocal.CommandText = "DELETE FROM season WHERE ref_status != 16"; // Смена не открыта
                 commandLocal.ExecuteNonQuery();
 
+                commandMain.CommandText = "INSERT INTO SynchData_log(branch) VALUES (@branch)";
+                commandMain.Parameters.Clear();
+                commandMain.Parameters.Add("branch", SqlDbType.Int).Value = xBranch;
+                commandMain.ExecuteNonQuery();
+
                 txLocal.Commit();
                 conLocal.Close();
 
@@ -312,7 +320,6 @@ namespace com.sbs.dll.synchdata
                 conMain.Close();
 
                 WriteLog.write("SynchData: Ok.");
-                
             }
             catch (Exception exc) 
             {

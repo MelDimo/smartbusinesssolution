@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "synchData", "synchData\sync
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher", "Updater\Launcher.csproj", "{2987C2DE-0C26-4FDC-A647-2055B50A6AC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "restartSpooler", "restartSpooler\restartSpooler.csproj", "{D72220F8-08D0-4643-B29C-2954F5376B14}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -92,6 +94,16 @@ Global
 		{2987C2DE-0C26-4FDC-A647-2055B50A6AC8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2987C2DE-0C26-4FDC-A647-2055B50A6AC8}.Release|x86.ActiveCfg = Release|x86
 		{2987C2DE-0C26-4FDC-A647-2055B50A6AC8}.Release|x86.Build.0 = Release|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Debug|x86.ActiveCfg = Debug|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Debug|x86.Build.0 = Debug|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Release|Any CPU.ActiveCfg = Release|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Release|x86.ActiveCfg = Release|x86
+		{D72220F8-08D0-4643-B29C-2954F5376B14}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

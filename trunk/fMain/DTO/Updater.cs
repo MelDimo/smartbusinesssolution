@@ -5,16 +5,39 @@ using System.Text;
 
 namespace com.sbs.dll
 {
-    public partial class DTO
+    /// <summary>
+    /// Использую в модуле обновления заведений
+    /// </summary>
+    public partial class DTO_Updater
     {
-        /// <summary>
-        /// Использую в модуле обновления заведений
-        /// </summary>
         public class Branch
         {
-            public int id { get; set; }
-            public string Name { get; set; }
-            public string IpAddr { get; set; }
+            public string id { get; set; }
+            public string name { get; set; }
+            public string ip { get; set; }
+            public string srvName { get; set; }
+            public string dbName { get; set; }
+            /// <summary>
+            /// 0 - не обработан; 1 - в процессе обработки; 2 - обработан;
+            /// </summary>
+            public int updateStatus { get; set; }
+
+            public string getPath()
+            {
+                return string.Format(@"[{0}\{1}].[{2}].[dbo]", ip, srvName, dbName);
+            }
+        }
+
+        public class Category
+        {
+            public string name;
+            public string script;
+
+            public override string ToString()
+            {
+                return name;
+            }
+
         }
     }
 }
