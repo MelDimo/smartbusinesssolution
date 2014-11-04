@@ -59,17 +59,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox_AvalDelivery = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label12 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minStep)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox_id
@@ -422,8 +417,6 @@
             this.tableLayoutPanel1.Controls.Add(this.comboBox_refStatus, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.checkBox_AvalDelivery, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 11);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 38);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 13;
@@ -473,48 +466,6 @@
             this.panel2.Size = new System.Drawing.Size(318, 25);
             this.panel2.TabIndex = 73;
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label12.Location = new System.Drawing.Point(3, 291);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(146, 31);
-            this.label12.TabIndex = 74;
-            this.label12.Text = "Акции";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button1);
-            this.panel3.Controls.Add(this.checkBox1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(155, 294);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(318, 25);
-            this.panel3.TabIndex = 75;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(153, 25);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Блюдо участвует в акции";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(153, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(165, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "акции";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // fAddEdit_Dishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,8 +490,6 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -579,9 +528,5 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox_AvalDelivery;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

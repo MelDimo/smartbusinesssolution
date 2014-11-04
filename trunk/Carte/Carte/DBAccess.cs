@@ -8,6 +8,13 @@ using com.sbs.dll;
 
 namespace com.sbs.gui.carte
 {
+    internal static class ReferData
+    {
+        internal static DataTable dtUnit;
+        internal static DataTable dtCheckedUnit;
+
+    }
+
     public class DBAccess
     {
         private DataTable dtResult;
@@ -16,10 +23,10 @@ namespace com.sbs.gui.carte
         private SqlCommand command;
         private SqlTransaction tx;
 
-        #region -------------------------------------------------------------- Меню
-
-        public void carte_add(string pDbType, DTO.Carte pCarte)
+        internal void setDtUnit(string pDbType)
         {
+            ReferData.dtUnit = new DataTable();
+
             con = new DBCon().getConnection(pDbType);
             command = null;
 
@@ -28,18 +35,97 @@ namespace com.sbs.gui.carte
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "INSERT INTO carte(code, name, branch, ref_status) VALUES(@code, @name, @branch, @ref_status)";
-                command.Parameters.Add("code", SqlDbType.Int).Value = pCarte.code;
-                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pCarte.name;
-                command.Parameters.Add("branch", SqlDbType.Int).Value = pCarte.branch;
-                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarte.refStatus;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT u.branch, " +
+                                      "         u.id AS unit, " +
+                                      "         u.name " +
+                                      " FROM unit u " +
+                                      " WHERE u.ref_status = 1";
 
-                command.ExecuteNonQuery();
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    ReferData.dtUnit.Load(dr);
+                }
 
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+        
+        internal void setDtCheckedUnit(string pDbType)
+        {
+            ReferData.dtCheckedUnit = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT carte, unit FROM carte_unit ";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    ReferData.dtCheckedUnit.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        #region -------------------------------------------------------------- Меню
+
+        public void carte_add(string pDbType, DTO.Carte pCarte)
+        {
+            int carteId = 0;
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandText = "INSERT INTO carte(code, name, branch, ref_status) VALUES(@code, @name, @branch, @ref_status); " +
+                                        " SELECT CAST(scope_identity() AS int)";
+                command.Parameters.Add("code", SqlDbType.Int).Value = pCarte.code;
+                command.Parameters.Add("name", SqlDbType.NVarChar).Value = pCarte.name;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pCarte.branch;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarte.refStatus;
+
+                carteId = (Int32)command.ExecuteScalar();
+
+                command.Parameters.Clear();
+                command.CommandText = "INSERT INTO carte_unit(carte, unit) VALUES(@carte, @unit)";
+                command.Parameters.Add("@carte", SqlDbType.Int);
+                command.Parameters.Add("@unit", SqlDbType.Int);
+                foreach (int i in pCarte.unit)
+                {
+                    command.Parameters["@carte"].Value = carteId;
+                    command.Parameters["@unit"].Value = i;
+
+                    command.ExecuteNonQuery();
+                }
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
         }
 
         public void carte_edit(string pDbType, DTO.Carte pCarte)
@@ -52,6 +138,11 @@ namespace com.sbs.gui.carte
                 con.Open();
                 command = con.CreateCommand();
 
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
                 command.CommandText = "UPDATE carte SET code = @code, name = @name, branch = @branch, ref_status = @ref_status" +
                                         " WHERE id = @id";
                 command.Parameters.Add("id", SqlDbType.Int).Value = pCarte.id;
@@ -62,10 +153,29 @@ namespace com.sbs.gui.carte
 
                 command.ExecuteNonQuery();
 
+                command.Parameters.Clear();
+                command.CommandText = "DELETE FROM carte_unit WHERE carte = @carte";
+                command.Parameters.Add("@carte", SqlDbType.Int).Value = pCarte.id;
+
+                command.ExecuteNonQuery();
+
+                command.Parameters.Clear();
+                command.CommandText = "INSERT INTO carte_unit(carte, unit) VALUES(@carte, @unit)";
+                command.Parameters.Add("@carte", SqlDbType.Int);
+                command.Parameters.Add("@unit", SqlDbType.Int);
+                foreach (int i in pCarte.unit)
+                {
+                    command.Parameters["@carte"].Value = pCarte.id;
+                    command.Parameters["@unit"].Value = i;
+
+                    command.ExecuteNonQuery();
+                }
+
+                tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
         }
 
         public void carte_delete(string pDbType, int pCarteId)

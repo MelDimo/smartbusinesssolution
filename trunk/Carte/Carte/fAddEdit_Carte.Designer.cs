@@ -40,8 +40,11 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.button_cancel = new System.Windows.Forms.Button();
             this.button_ok = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox_branch = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).BeginInit();
             this.panel8.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label10
@@ -107,7 +110,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_name.Location = new System.Drawing.Point(98, 49);
             this.textBox_name.Name = "textBox_name";
-            this.textBox_name.Size = new System.Drawing.Size(323, 20);
+            this.textBox_name.Size = new System.Drawing.Size(398, 20);
             this.textBox_name.TabIndex = 48;
             // 
             // comboBox_branch
@@ -118,7 +121,7 @@
             this.comboBox_branch.FormattingEnabled = true;
             this.comboBox_branch.Location = new System.Drawing.Point(98, 75);
             this.comboBox_branch.Name = "comboBox_branch";
-            this.comboBox_branch.Size = new System.Drawing.Size(323, 21);
+            this.comboBox_branch.Size = new System.Drawing.Size(398, 21);
             this.comboBox_branch.TabIndex = 49;
             // 
             // comboBox_refStatus
@@ -129,7 +132,7 @@
             this.comboBox_refStatus.FormattingEnabled = true;
             this.comboBox_refStatus.Location = new System.Drawing.Point(98, 102);
             this.comboBox_refStatus.Name = "comboBox_refStatus";
-            this.comboBox_refStatus.Size = new System.Drawing.Size(323, 21);
+            this.comboBox_refStatus.Size = new System.Drawing.Size(398, 21);
             this.comboBox_refStatus.TabIndex = 50;
             // 
             // panel8
@@ -137,15 +140,15 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 137);
+            this.panel8.Location = new System.Drawing.Point(0, 271);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(433, 35);
+            this.panel8.Size = new System.Drawing.Size(508, 35);
             this.panel8.TabIndex = 51;
             // 
             // button_cancel
             // 
             this.button_cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancel.Location = new System.Drawing.Point(337, 6);
+            this.button_cancel.Location = new System.Drawing.Point(412, 6);
             this.button_cancel.Name = "button_cancel";
             this.button_cancel.Size = new System.Drawing.Size(75, 23);
             this.button_cancel.TabIndex = 1;
@@ -156,7 +159,7 @@
             // button_ok
             // 
             this.button_ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ok.Location = new System.Drawing.Point(256, 6);
+            this.button_ok.Location = new System.Drawing.Point(331, 6);
             this.button_ok.Name = "button_ok";
             this.button_ok.Size = new System.Drawing.Size(75, 23);
             this.button_ok.TabIndex = 0;
@@ -164,11 +167,31 @@
             this.button_ok.UseVisualStyleBackColor = true;
             this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkedListBox_branch);
+            this.groupBox1.Location = new System.Drawing.Point(12, 129);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(484, 136);
+            this.groupBox1.TabIndex = 52;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Доступно для подразделений";
+            // 
+            // checkedListBox_branch
+            // 
+            this.checkedListBox_branch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_branch.FormattingEnabled = true;
+            this.checkedListBox_branch.Location = new System.Drawing.Point(3, 16);
+            this.checkedListBox_branch.Name = "checkedListBox_branch";
+            this.checkedListBox_branch.Size = new System.Drawing.Size(478, 117);
+            this.checkedListBox_branch.TabIndex = 0;
+            // 
             // fAddEdit_Carte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(433, 172);
+            this.ClientSize = new System.Drawing.Size(508, 306);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.comboBox_refStatus);
             this.Controls.Add(this.comboBox_branch);
@@ -187,6 +210,7 @@
             this.Shown += new System.EventHandler(this.fAddEdit_Carte_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_code)).EndInit();
             this.panel8.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +230,7 @@
         private System.Windows.Forms.Button button_ok;
         internal System.Windows.Forms.ComboBox comboBox_branch;
         internal System.Windows.Forms.ComboBox comboBox_refStatus;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckedListBox checkedListBox_branch;
     }
 }

@@ -15,7 +15,7 @@ namespace com.sbs.gui.carte
 {
     public partial class fCarte : Form
     {
-        DBAccess bdAccess = new DBAccess();
+        DBAccess dbAccess = new DBAccess();
         advFilter oAdvFilter = new advFilter();
 
         DTO.Carte oCarte;
@@ -75,10 +75,12 @@ namespace com.sbs.gui.carte
         {
             try
             {
-                dtStatus = oReferences.getStatus("offline", 1);
-                dtPrintersType = oReferences.getRefPrintersType("offline");
-                dtBranch = oReferences.getBranch("offline");
-                dtRefDishes = oReferences.getRefDishes("offline");
+                dbAccess.setDtUnit(GValues.DBMode);
+                dbAccess.setDtCheckedUnit(GValues.DBMode);
+                dtStatus = oReferences.getStatus(GValues.DBMode, 1);
+                dtPrintersType = oReferences.getRefPrintersType(GValues.DBMode);
+                dtBranch = oReferences.getBranch(GValues.DBMode);
+                dtRefDishes = oReferences.getRefDishes(GValues.DBMode);
 
                 dtFilterCarteRefStatus = dtStatus.Copy();
                 dtFilterCarteDishesGroupRefStatus = dtStatus.Copy();
@@ -281,7 +283,7 @@ namespace com.sbs.gui.carte
 
             try
             {
-                bdAccess.carte_delete("offline", carteId);
+                dbAccess.carte_delete("offline", carteId);
             }
             catch (Exception exc)
             {
@@ -393,7 +395,7 @@ namespace com.sbs.gui.carte
 
             try
             {
-                bdAccess.group_delete("offline", groupId);
+                dbAccess.group_delete("offline", groupId);
             }
             catch (Exception exc)
             {
@@ -546,7 +548,7 @@ namespace com.sbs.gui.carte
 
             try
             {
-                bdAccess.dishes_delete("offline", dishId);
+                dbAccess.dishes_delete("offline", dishId);
             }
             catch (Exception exc)
             {
@@ -639,7 +641,7 @@ namespace com.sbs.gui.carte
 
             try
             {
-                dtResult = bdAccess.reportsCarte(GValues.DBMode, branchId, xCarte);
+                dtResult = dbAccess.reportsCarte(GValues.DBMode, branchId, xCarte);
             }
             catch (Exception exc) { 
                 uMessage.Show("Не удалось подготовить данные для отчета", exc, SystemIcons.Information); return;
