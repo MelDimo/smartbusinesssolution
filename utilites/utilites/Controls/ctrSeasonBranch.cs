@@ -41,6 +41,7 @@ namespace com.sbs.dll.utilites
             label_fio.Text = oSeasonBranch.userName;
             label_dateOpenClose.Text = oSeasonBranch.dateOpen.ToString() + " - " + oSeasonBranch.dateClose.ToString();
             label_status.Text = oSeasonBranch.refStatusName;
+            label_timeUpdate.Text = oSeasonBranch.timeUpdate.ToString();
 
             switch (oSeasonBranch.refStatus)
             {

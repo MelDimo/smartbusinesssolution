@@ -97,6 +97,12 @@
     <Compile Include="Controls\fAddDishToBill_topping.Designer.cs">
       <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\fBranchUpdateError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\fBranchUpdateError.Designer.cs">
+      <DependentUpon>fBranchUpdateError.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\fDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\fAddDishToBill_topping.resx">
       <DependentUpon>fAddDishToBill_topping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\fBranchUpdateError.resx">
+      <DependentUpon>fBranchUpdateError.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\fDelivery.resx">
       <DependentUpon>fDelivery.cs</DependentUpon>

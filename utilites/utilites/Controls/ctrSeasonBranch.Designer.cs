@@ -34,6 +34,7 @@
             this.label_fio = new System.Windows.Forms.Label();
             this.label_dateOpenClose = new System.Windows.Forms.Label();
             this.label_status = new System.Windows.Forms.Label();
+            this.label_timeUpdate = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_host
@@ -51,9 +52,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(6, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 17);
+            this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Смена№";
+            this.label1.Text = "Смена №";
             // 
             // label_seasonNumb
             // 
@@ -96,10 +97,24 @@
             this.label_status.TabIndex = 6;
             this.label_status.Text = "label_status";
             // 
+            // label_timeUpdate
+            // 
+            this.label_timeUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_timeUpdate.AutoSize = true;
+            this.label_timeUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_timeUpdate.ForeColor = System.Drawing.Color.Blue;
+            this.label_timeUpdate.Location = new System.Drawing.Point(183, 8);
+            this.label_timeUpdate.Name = "label_timeUpdate";
+            this.label_timeUpdate.Size = new System.Drawing.Size(118, 17);
+            this.label_timeUpdate.TabIndex = 7;
+            this.label_timeUpdate.Text = "label_timeUpdate";
+            this.label_timeUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // ctrSeasonBranch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_timeUpdate);
             this.Controls.Add(this.label_status);
             this.Controls.Add(this.label_dateOpenClose);
             this.Controls.Add(this.label_fio);
@@ -121,5 +136,6 @@
         public System.Windows.Forms.Label label_fio;
         public System.Windows.Forms.Label label_dateOpenClose;
         public System.Windows.Forms.Label label_status;
+        private System.Windows.Forms.Label label_timeUpdate;
     }
 }
