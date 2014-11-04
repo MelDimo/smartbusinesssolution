@@ -554,7 +554,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(400, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(346, 29);
             // 
             // toolStripButton_branch
             // 
