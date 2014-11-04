@@ -41,15 +41,15 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                switch(pRefStatusInfo)
+                switch (pRefStatusInfo)
                 {
                     case 0:
                         strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status ORDER BY name";
                         break;
 
                     default:
-                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status "+
-                                    " WHERE ref_status_info = " + pRefStatusInfo + 
+                        strSQL = "SELECT id, name, textcolor, backcolor, ref_status_info FROM ref_status " +
+                                    " WHERE ref_status_info = " + pRefStatusInfo +
                                     " ORDER BY name";
                         break;
                 }
@@ -83,7 +83,7 @@ namespace com.sbs.dll.utilites
                 command = con.CreateCommand();
 
                 command.CommandText = "SELECT id, name, ref_status FROM ref_city";
-                
+
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -136,7 +136,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, organization, name, ref_status FROM branch";
+                command.CommandText = "SELECT id, organization, name, ref_status FROM branch ORDER BY name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -192,7 +192,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT id, branch, name, ref_status FROM unit"+
+                command.CommandText = "SELECT id, branch, name, ref_status FROM unit" +
                                         " WHERE isDepot = 1";
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -241,7 +241,7 @@ namespace com.sbs.dll.utilites
         public DataTable getRefDocsParam(string pDbType)
         {
             DataTable dtResult = new DataTable();
-            
+
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
 
@@ -251,14 +251,14 @@ namespace com.sbs.dll.utilites
                 command = con.CreateCommand();
 
                 command.CommandText = " SELECT id, name, description" +
-                                        " FROM ref_docs_param"+
+                                        " FROM ref_docs_param" +
                                         " ORDER BY name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dtResult.Load(dr);
                 }
-                
+
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
@@ -670,6 +670,35 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getCarte(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT c.id, c.code, c.name, c.branch, c.ref_status, stat.name as ref_status_name" +
+                                        " FROM carte c" +
+                                        " INNER JOIN ref_status stat ON stat.id = c.ref_status";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getCarteDishesGroup(string pDbType, int pCarte)
         {
             DataTable dtResult = new DataTable();
@@ -724,6 +753,81 @@ namespace com.sbs.dll.utilites
                                         " WHERE cd.carte_dishes_group = @pCarteDishesGroup";
 
                 command.Parameters.Add("pCarteDishesGroup", SqlDbType.NVarChar).Value = pCarteDishesGroup;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCarteDishes_Carte(string pDbType, int pCarte)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT cd.id, rd.code, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, cd.avalHall, cd.avalDelivery," +
+                                            " cd.ref_printers_type, rpt.name as ref_printers_type_name," +
+                                            " cd.ref_status, stat.name as ref_status_name, cd.minStep" +
+                                        " FROM carte_dishes cd" +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
+                                        " INNER JOIN ref_status stat ON stat.id = cd.ref_status" +
+                                        " INNER JOIN ref_printers_type rpt ON rpt.id = cd.ref_printers_type" +
+                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes" +
+                                        " WHERE cdg.carte = @pCarte";
+
+                command.Parameters.Add("pCarte", SqlDbType.NVarChar).Value = pCarte;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getCarteDishes_Carte_RefDishes(string pDbType, int pCarte, int pRefDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT cd.id, rd.code, cd.carte_dishes_group, cd.ref_dishes, cd.name, cd.price, cd.isvisible, cd.avalHall, cd.avalDelivery," +
+                                            " cd.ref_printers_type, rpt.name as ref_printers_type_name," +
+                                            " cd.ref_status, stat.name as ref_status_name, cd.minStep" +
+                                        " FROM carte_dishes cd" +
+                                        " INNER JOIN carte_dishes_group cdg ON cdg.id = cd.carte_dishes_group" +
+                                        " INNER JOIN ref_status stat ON stat.id = cd.ref_status" +
+                                        " INNER JOIN ref_printers_type rpt ON rpt.id = cd.ref_printers_type" +
+                                        " INNER JOIN ref_dishes rd ON rd.id = cd.ref_dishes" +
+                                        " WHERE cdg.carte = @pCarte AND cd.ref_dishes = @pRefDishes";
+
+                command.Parameters.Add("pCarte", SqlDbType.NVarChar).Value = pCarte;
+                command.Parameters.Add("pRefDishes", SqlDbType.NVarChar).Value = pRefDishes;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -884,7 +988,7 @@ namespace com.sbs.dll.utilites
 
                 command.CommandText = " SELECT id, name, ref_status" +
                                         " FROM ref_specialty" +
-                                        //" WHERE ref_status = @ref_status" +
+                    //" WHERE ref_status = @ref_status" +
                                         " ORDER BY name";
 
                 //command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;
@@ -969,7 +1073,7 @@ namespace com.sbs.dll.utilites
         public DataTable getEmailUser(string pDbType, int pUserId)
         {
             DataTable dtResult = new DataTable();
-            
+
             SqlConnection con = new DBCon().getConnection(pDbType);
             SqlCommand command = null;
 
@@ -1293,7 +1397,7 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT rdc.id, rdc.phone, rdc.fio, rdc.ref_city, rc.name as cityName, rdc.street, rdc.house, rdc.korp, rdc.app, rdc.porch, rdc.code, rdc.[floor] " + 
+                command.CommandText = " SELECT rdc.id, rdc.phone, rdc.fio, rdc.ref_city, rc.name as cityName, rdc.street, rdc.house, rdc.korp, rdc.app, rdc.porch, rdc.code, rdc.[floor] " +
                                         " FROM ref_delivery_clients rdc" +
                                         " INNER JOIN ref_city rc ON rc.id = rdc.ref_city " +
                                         " WHERE rdc.phone = @pPhoneNumber";
@@ -1407,6 +1511,159 @@ namespace com.sbs.dll.utilites
             finally { if (con.State == ConnectionState.Open) con.Close(); }
 
             return dtResult;
+        }
+
+        public DataTable getDeals(string pDbType, int pCarteId, string pRefDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT DISTINCT d.id, d.xcount, d.name " +
+                                        " FROM deals d " +
+                                        " INNER JOIN deals_dishes dd ON dd.deals = d.id " +
+                                        " WHERE ref_status = @refStatus AND (date_end <= GETDATE() OR date_end is NULL)" +
+                                        " AND ref_dishes in ( " + pRefDishes + ") AND carte = @carte";
+
+                command.Parameters.Add("refStatus", SqlDbType.Int).Value = 1;
+                command.Parameters.Add("carte", SqlDbType.Int).Value = pCarteId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getDealsDishes(string pDbType, int pDealsId, string pRefDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT ref_dishes FROM deals_dishes " +
+                                        " WHERE ref_dishes in ( " + pRefDishes + ") AND deals = @deals";
+
+                command.Parameters.Add("deals", SqlDbType.Int).Value = pDealsId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public DataTable getBonusDishes(string pDbType, int pDealsId, string pRefDishes)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "SELECT ref_dishes FROM deals_bonus " +
+                                        " WHERE ref_dishes in ( " + pRefDishes + ") AND deals = @deals";
+
+                command.Parameters.Add("deals", SqlDbType.Int).Value = pDealsId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
+        public List<DTO_DBoard.Dish> getBonusDishes(string pDbType, int pDealsId)
+        {
+            List<DTO_DBoard.Dish> lDishes = new List<DTO_DBoard.Dish>();
+
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT cd.id, cd.minstep, cd.name, cd.price, cd.ref_dishes " +
+                                        " FROM deals_bonus db " +
+                                        " INNER JOIN carte_dishes cd ON cd.ref_dishes = db.ref_dishes " +
+                                        " WHERE db.deals = @deals";
+
+                command.Parameters.Add("deals", SqlDbType.Int).Value = pDealsId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            foreach (DataRow dr in dtResult.Rows)
+            {
+                lDishes.Add(new DTO_DBoard.Dish()
+                {
+                    id = (int)dr["id"],
+                    minStep = (decimal)dr["minstep"],
+                    count = (decimal)dr["minstep"],
+                    name = dr["name"].ToString(),
+                    price = (decimal)dr["price"],
+                    refDishes = (int)dr["ref_dishes"]
+                });
+            }
+
+            return lDishes;
         }
     }
 
@@ -1597,7 +1854,7 @@ namespace com.sbs.dll.utilites
             }
         }
     }
-    
+
     #region Печать RAW
 
     public class RawPrinterHelper
