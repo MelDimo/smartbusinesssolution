@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DEC45560-8BB2-47D9-BDE0-3FE48039CB46}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.usersdiscount</RootNamespace>
     <AssemblyName>usersDiscount</AssemblyName>
@@ -37,10 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DTO">
-      <HintPath>..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
+      <HintPath>..\..\..\fMain\fMain\DTO\bin\Release\DTO.dll</HintPath>
     </Reference>
     <Reference Include="GValues">
-      <HintPath>..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
+      <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +52,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="utilites">
-      <HintPath>..\..\utilites\utilites\utilites\bin\Release\utilites.dll</HintPath>
+      <HintPath>..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
