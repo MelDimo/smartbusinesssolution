@@ -580,14 +580,17 @@ namespace com.sbs.gui.dashboard
                     continue;
                 }
 
-                xBonusDishes = (xDealsDishes / (int)dr["xcount"]) - xBonusDishes;
+                xBonusDishes = Math.Truncate((xDealsDishes / (int)dr["xcount"]) - xBonusDishes);
 
-                List<DTO_DBoard.Dish> olDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"]);
+                if (xBonusDishes != 0)
+                {
+                    List<DTO_DBoard.Dish> olDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"]);
 
-                fDealsDishes fdeals = new fDealsDishes(olDishes, dr["name"].ToString());
-                if (fdeals.ShowDialog() != DialogResult.OK) return;
+                    fDealsDishes fdeals = new fDealsDishes(olDishes, dr["name"].ToString(), xBonusDishes);
+                    if (fdeals.ShowDialog() != DialogResult.OK) return;
 
-                addDish2Bill(fdeals.oDish);
+                    addDish2Bill(fdeals.oDish, "deals");
+                }
             }
 
             return;
@@ -813,6 +816,7 @@ namespace com.sbs.gui.dashboard
             switch(e.KeyCode)
             {
                 case Keys.Enter:
+                    if (treeView_CarteGroups.Nodes.Count == 0) return;
                     if (treeView_CarteGroups.SelectedNode.Nodes.Count > 0)
                     {
                         treeView_CarteGroups.SelectedNode.Expand();
@@ -831,7 +835,7 @@ namespace com.sbs.gui.dashboard
                     e.SuppressKeyPress = true;
                     if (dataGridView_dishes.SelectedRows.Count == 0) return;
                     DTO_DBoard.Dish oDish = fillDish((int)dataGridView_dishes.SelectedRows[0].Cells["dishes_id"].Value);
-                    addDish2Bill(oDish);
+                    addDish2Bill(oDish,"dish");
                     break;
             }
         }
@@ -844,12 +848,12 @@ namespace com.sbs.gui.dashboard
                     e.SuppressKeyPress = true;
                     if (dataGridView_refuse.SelectedRows.Count == 0) return;
                     DTO_DBoard.Dish oDish = fillDishRefuse(dataGridView_refuse.SelectedRows[0].Index);
-                    addDish2Bill(oDish);
+                    addDish2Bill(oDish,"refuse");
                     break;
             }
         }
 
-        private void addDish2Bill(DTO_DBoard.Dish oDish)
+        private void addDish2Bill(DTO_DBoard.Dish oDish, string pDishType)
         {
             DataTable dtNotesDish = new DataTable();
             ctrDishes oCtrDishes = null;
@@ -864,6 +868,12 @@ namespace com.sbs.gui.dashboard
 
             //----------------------------------------------------- Была ошибка с выставление начально кол-ва в последнее указываемое... хз
             oCtrDishes.oDish.count = oCtrDishes.oDish.minStep;
+            switch (pDishType)
+            { 
+                case "deals":
+                    oCtrDishes.numericUpDown_count.maxValue = oCtrDishes.oDish.count;
+                    break;
+            }
             oCtrDishes.numericUpDown_count.Value = oCtrDishes.oDish.minStep;
             oCtrDishes.numericUpDown_count.Visible = true;
             oCtrDishes.numericUpDown_count.TabStop = true;

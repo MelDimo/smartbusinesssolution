@@ -27,8 +27,11 @@ namespace com.sbs.gui.dashboard
         DTO_DBoard.Bill oBill;
         DataSet dsResult = new DataSet();
 
-        public string type;
+        BackgroundWorker worThread;
+
+        private string type;
         private bool fOk = false;
+        
 
         public fWaitProcess(string pType, DTO_DBoard.Bill pCurBill)
         {
@@ -55,25 +58,35 @@ namespace com.sbs.gui.dashboard
 
                 dtOrder = dsResult.Tables["order"];
 
-                printerName = GValues.billPrinter.Equals("default") ?
-                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
-                                                dtOrder.Rows[0]["printerName"].ToString();
 
-                oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtOrder.Rows[0]["reportPath"].ToString(), printerName);
+                switch (GValues.isFiscal)
+                {
+                    case 1:
+                        printBill_MiniFP6(dtOrder);
+                        break;
 
-                repDoc = new ReportDocument();
-                repDoc.Load(dtOrder.Rows[0]["reportPath"].ToString());
-                repDoc.SetDataSource(dtOrder);
-                repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
-                repDoc.PrintOptions.PrinterName = GValues.billPrinter.Equals("default") ?
-                                                (new System.Drawing.Printing.PrinterSettings()).PrinterName :
-                                                dtOrder.Rows[0]["printerName"].ToString();
+                    default:
+                        if (dtOrder.Rows.Count > 25) rawPrintBill(dtOrder);
+                        else
+                        {
+                            printerName = GValues.billPrinter.Equals("default") ?
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                            dtOrder.Rows[0]["printerName"].ToString();
 
-                for (int i = 0; i < GValues.branchBill; i++)
-                    if (dtOrder.Rows.Count > 25) rawPrintBill(dtOrder);
-                    else repDoc.PrintToPrinter(0, false, 0, 0);
+                            oError.msg = string.Format("reportPath: {0}; printerName: {1}", dtOrder.Rows[0]["reportPath"].ToString(), printerName);
 
-                repDoc.Close();
+                            repDoc = new ReportDocument();
+                            repDoc.Load(dtOrder.Rows[0]["reportPath"].ToString());
+                            repDoc.SetDataSource(dtOrder);
+                            repDoc.PrintOptions.PrinterName = printerName;
+                            repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                            for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(0, false, 0, 0);
+                            repDoc.Close();
+                        }
+                        break;
+                }
+
+                
             }
 
             if (dsResult.Tables["deliveryOrder"].Rows.Count > 0)
@@ -97,6 +110,75 @@ namespace com.sbs.gui.dashboard
 
                 for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(1, false, 0, 0);
                 repDoc.Close();
+            }
+        }
+
+        private void printBill_MiniFP6(DataTable dtOrder)
+        {
+            double totalSum = 0;
+            bool retVal = false;
+
+            MiniFP6 miniFP6 = new MiniFP6();
+
+            foreach (DataRow dr in dtOrder.Rows)
+            {
+                retVal = miniFP6.Sale_(2, dr["carte_dishes"].ToString(), ((string)dr["name"]).Trim(), double.Parse(dr["xcount"].ToString()), double.Parse(dr["price"].ToString()), 6, true);
+                if (!retVal)
+                {
+                    printBill_MiniFP6_Error();
+                    return;
+                }
+
+                totalSum += double.Parse(dr["xcount"].ToString()) * double.Parse(dr["price"].ToString());
+            }
+
+            double xRemainder;
+
+            if (totalSum <= 0)
+            {
+                printBill_MiniFP6_Error();
+                return;
+            }
+
+            retVal = miniFP6.Pay_(2, totalSum, 3, true, out xRemainder);
+            if (!retVal)
+            {
+                printBill_MiniFP6_Error();
+                return;
+            }
+            for (int i = 1; i < GValues.branchBill; i++)
+            {
+                retVal = miniFP6.PrintCopy_(2);
+                if (!retVal)
+                {
+                    printBill_MiniFP6_Error();
+                    return;
+                }
+            }
+        }
+
+        private void printBill_MiniFP6_Error()
+        {
+            MiniFP6 miniFP6 = new MiniFP6();
+            if (miniFP6.AnnulCheck_(2))
+            {
+                MessageBox.Show("Системе не удалось распечатать счет. Счет анулирован в фискальном регистраторе.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                uMessage.Show("Системе не удалось распечатать счет. Счет не удалось анулировть. " + Environment.NewLine +
+                    "Проверьте соединения фискального регистратора и повторите попытку." + Environment.NewLine + Environment.NewLine +
+                    "В случае повторного возникновения данного сообщения обратитесь к администратору.", SystemIcons.Information);
+            }
+            
+            try
+            {
+                dbAccess.billCloseRollBack(GValues.DBMode, oBill);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show(string.Format("Не удалось откатить счет № {0}", oBill.numb), exc, SystemIcons.Information);
+                return;
             }
         }
 
@@ -154,12 +236,13 @@ namespace com.sbs.gui.dashboard
 
         private void rawPrint(DataSet pDSResult)
         {
-            string eCentre = string.Empty + (char)27 + (char)97 + "1";
-            string eLeft = string.Empty + (char)27 + (char)97 + "0";
-            string eRight = string.Empty + (char)27 + (char)97 + "2";
+            string eCentre = string.Empty + (char)27 + (char)97 + '1';
+            string eLeft = string.Empty + (char)27 + (char)97 + '0';
+            string eRight = string.Empty + (char)27 + (char)97 + '2';
             string eCut = string.Empty + (char)27 + (char)105;
-            string eItalicOn = string.Empty + (char)27 + (char)73 + "1";
-            string eItalicOff = string.Empty + (char)27 + (char)73 + "0";
+            string eItalicOn = string.Empty + (char)27 + (char)73 + '1';
+            string eItalicOff = string.Empty + (char)27 + (char)73 + '0';
+            string eClearBuffer = string.Empty + (char)27 + '@';
 
             int rHeight = 48;
             StringBuilder sb = new StringBuilder();
@@ -169,25 +252,23 @@ namespace com.sbs.gui.dashboard
             byte[] bText;
             string sText;
 
-            int xCount = 10; // число попыток печати;
-
             foreach (DataTable dt in pDSResult.Tables)
             {
                 if (!int.TryParse(dt.TableName, out intTable)) continue;    // Отсекаем таблцу топингов
 
                 sb = new StringBuilder();
 
-                sb.Append(string.Format("Счет {0}", oBill.numb));
+                sb.Append(eClearBuffer);
+
+                sb.AppendLine(string.Format("Счет {0}", oBill.numb));
                 sb.AppendLine(string.Format("Столик {0}", oBill.table).PadLeft(rHeight - string.Format("Счет {0}", oBill.numb).Length, ' '));
                 sb.AppendLine(string.Format("{0} ({1})", DashboardEnvironment.gUser.name, DateTime.Now));
                 sb.AppendLine("-".PadRight(rHeight, '-'));
 
                 foreach (DataRow dr in dt.Rows)
                 {
-
                     sDish = dr["name"].ToString();
-                    if (dr["note"] != DBNull.Value)
-                    {
+                    if (dr["note"] != DBNull.Value){
                         sDish += "(" + dr["note"].ToString() + ")";
                     }
 
@@ -214,12 +295,11 @@ namespace com.sbs.gui.dashboard
                 PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
                 while (pq.IsBusy)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep(700);
                     pq.Refresh();
-                    xCount = xCount - 1;
                 }
 
-                if (xCount != 0) RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+                RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
 
                 #region Проверка печати
                 //while (true) //Проверяем как завершилась печать. Если ошибочно повторям xCount раз.
@@ -248,7 +328,7 @@ namespace com.sbs.gui.dashboard
 
         private void fWaitProcess_Shown(object sender, EventArgs e)
         {
-            BackgroundWorker worThread = new BackgroundWorker();
+            worThread = new BackgroundWorker();
             worThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(runWorkerCompleted);
 
             switch (type)

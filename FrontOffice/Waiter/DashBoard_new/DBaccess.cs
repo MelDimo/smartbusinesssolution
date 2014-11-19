@@ -192,6 +192,7 @@ namespace com.sbs.gui.dashboard
             try
             {
                 oUser.oUserACL = getUserACL(pDbType, oUser.id);
+                oUser.carte = getUserCarte(pDbType, oUser.id);
             }
             catch (Exception exc) { throw exc; }
 
@@ -248,6 +249,7 @@ namespace com.sbs.gui.dashboard
             try
             {
                 oUser.oUserACL = getUserACL(pDbType, oUser.id);
+                oUser.carte = getUserCarte(pDbType, oUser.id);
             }
             catch (Exception exc) { throw exc; }
 
@@ -303,6 +305,35 @@ namespace com.sbs.gui.dashboard
         private List<int> getUserCarte(string pDbType, int pUserId)
         {
             List<int> lCarte = new List<int>();
+
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT carte " +
+                                        " FROM users u " +
+                                        " INNER JOIN carte_unit cu ON cu.unit = u.unit " +
+                                        " WHERE id = @pUserId";
+
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = pUserId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            foreach (DataRow dr in dtResult.Rows)
+                lCarte.Add((int)dr["carte"]);
 
             return lCarte;
         }
@@ -564,6 +595,8 @@ namespace com.sbs.gui.dashboard
 
             con = new DBCon().getConnection(pDbType);
 
+            //sCarte = string.Join(",", DashboardEnvironment.gUser.carte.Select(x => x.ToString()).ToArray());
+
             try
             {
                 con.Open();
@@ -574,7 +607,7 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, code, name " +
                                         " FROM carte " +
-                                        " WHERE branch = @branch AND ref_status = @refStatus " +
+                                        " WHERE branch = @branch AND ref_status = @refStatus " +  (sCarte.Equals(string.Empty) ? string.Empty : " AND id in(" + sCarte + ")") +
                                         " ORDER BY name ";
 
                 command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
@@ -597,7 +630,7 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, id_parent, carte, name " +
                                         " FROM carte_dishes_group " +
-                                        (sCarte.Equals(string.Empty) ? string.Empty : " WHERE carte in (" + sCarte + ") ") +
+                                        (sCarte.Equals(string.Empty) ? " WHERE carte = 0 " : " WHERE carte in (" + sCarte + ") ") +
                                         " ORDER BY id_parent, name ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -617,7 +650,7 @@ namespace com.sbs.gui.dashboard
 
                 command.CommandText = " SELECT id, carte_dishes_group, ref_dishes, name, price, minStep, isvisible, avalHall, avalDelivery, ref_printers_type " +
                                         " FROM carte_dishes " +
-                                        (sGroup.Equals(string.Empty) ? string.Empty : " WHERE ref_status = 1 AND isVisible = 1 AND carte_dishes_group in (" + sGroup + ") "+
+                                        (sGroup.Equals(string.Empty) ? " WHERE carte_dishes_group = 0 " : " WHERE ref_status = 1 AND isVisible = 1 AND carte_dishes_group in (" + sGroup + ") " +
                                         " ORDER BY name "); 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -991,6 +1024,40 @@ namespace com.sbs.gui.dashboard
             return dsResult;
         }
 
+        internal void billCloseRollBack(string pDbType, DTO_DBoard.Bill pBill)
+        {
+            con = new DBCon().getConnection(pDbType);
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandText = "BillClose_RollBack";
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Clear();
+
+                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                command.Parameters.Add("pPaymentType", SqlDbType.Int).Value = pBill.paymentType;
+                command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
+        }
+
         private void setDiscount(SqlCommand command, DTO_DBoard.Bill pBill)
         {
             command.CommandType = CommandType.StoredProcedure;
@@ -1014,15 +1081,15 @@ namespace com.sbs.gui.dashboard
             dsResult.Tables.Add(new DataTable("order"));
             dsResult.Tables.Add(new DataTable("deliveryOrder"));
 
-            command.CommandText = "SELECT bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount, bi.discount, " +
-                                        " rp.name AS printerName, rr.xpath AS reportPath " +
+            command.CommandText = "SELECT bi.carte_dishes, bi.dishes_name AS name, bi.dishes_price AS price, sum(bi.xcount) as xcount, bi.discount, " +
+                                        " rp.name AS printerName, rp.brand, rr.xpath AS reportPath " +
                                         " FROM bills_info bi " +
                                         " INNER JOIN bills b ON b.id = bi.bills " +
                                         " INNER JOIN unit u ON u.branch = b.branch AND u.ref_printers_type = @ref_printers_type " +
                                         " LEFT JOIN ref_printers rp ON rp.id = u.ref_printers " +
                                         " LEFT JOIN ref_reports rr ON rr.ref_printers_type = u.ref_printers_type AND logName = @logName " +
                                         " WHERE bi.bills = @bills AND bi.ref_status = @ref_status AND bi.branch = @branch AND bi.season = @season " +
-                                        " GROUP BY bi.dishes_name, bi.dishes_price, rp.name, rr.xpath, bi.discount ";
+                                        " GROUP BY bi.carte_dishes, bi.dishes_name, bi.dishes_price, rp.name, rp.brand, rr.xpath, bi.discount ";
 
             command.CommandType = CommandType.Text;
 
@@ -1190,7 +1257,7 @@ namespace com.sbs.gui.dashboard
 
         #endregion
 
-        internal void dishRefuse(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish, int pNewCount)
+        internal void dishRefuse(string pDbType, DTO_DBoard.Bill pBill, DTO_DBoard.Dish pDish, decimal pNewCount)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -1207,7 +1274,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
                 command.Parameters.Add("pDish2BillId", SqlDbType.Int).Value = pDish.id;
                 command.Parameters.Add("pUser", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
-                command.Parameters.Add("pNewCount", SqlDbType.Int).Value = pNewCount;
+                command.Parameters.Add("pNewCount", SqlDbType.Decimal).Value = pNewCount;
                 command.Parameters.Add("pDateTime", SqlDbType.DateTime).Value = DateTime.Now;
 
                 command.ExecuteNonQuery();

@@ -28,26 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.trackBar_count = new System.Windows.Forms.TrackBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label_info = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_count)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // trackBar_count
-            // 
-            this.trackBar_count.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar_count.Location = new System.Drawing.Point(3, 19);
-            this.trackBar_count.Name = "trackBar_count";
-            this.trackBar_count.Size = new System.Drawing.Size(303, 45);
-            this.trackBar_count.TabIndex = 0;
-            this.trackBar_count.Scroll += new System.EventHandler(this.trackBar_count_Scroll);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label_info);
-            this.groupBox1.Controls.Add(this.trackBar_count);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -56,17 +41,6 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Новое количество:";
-            // 
-            // label_info
-            // 
-            this.label_info.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label_info.AutoSize = true;
-            this.label_info.Location = new System.Drawing.Point(115, 46);
-            this.label_info.Name = "label_info";
-            this.label_info.Size = new System.Drawing.Size(79, 17);
-            this.label_info.TabIndex = 1;
-            this.label_info.Text = "label_info";
-            this.label_info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fRefuse
             // 
@@ -83,9 +57,6 @@
             this.TopMost = true;
             this.Shown += new System.EventHandler(this.fRefuse_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fRefuse_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_count)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -93,7 +64,5 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label_info;
-        public System.Windows.Forms.TrackBar trackBar_count;
     }
 }
