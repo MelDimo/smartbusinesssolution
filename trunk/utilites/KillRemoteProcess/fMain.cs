@@ -97,7 +97,7 @@ namespace KillRemoteProcess
         {
             double xRemainder;
 
-            if (miniFP6.Pay_(2, 51, 3, true, out xRemainder))
+            if (miniFP6.Pay_(2, 63.75, 3, true, out xRemainder))
                 MessageBox.Show("true");
             else
                 MessageBox.Show("false");
@@ -112,9 +112,19 @@ namespace KillRemoteProcess
         {
             miniFP6 = new MiniFP6();
 
-            miniFP6.PrinterState_(2, out miniFP6.State_);
+            if (miniFP6.PrinterState_(2, out miniFP6.State_)) MessageBox.Show(miniFP6.GetLastErr_());
 
             propertyGrid1.SelectedObject = miniFP6.State_;
+        }
+
+        private void button_GetLastErr_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(miniFP6.GetLastErr_());
+        }
+
+        private void button_setConfug_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

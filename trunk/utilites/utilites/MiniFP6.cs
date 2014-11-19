@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.IO.Ports;
 
 namespace com.sbs.dll.utilites
 {
@@ -67,7 +68,7 @@ namespace com.sbs.dll.utilites
         ///                     (True – отображать во 2-й строке индикатора сумму сдачи или доплаты; False – не отображать)</param>
         /// <param name="pRemainder">Если > 0 - сумма сдачи; Если < 0 - сумма недоплаты.</param>
         /// <returns>Истина – операция выполнена; Ложь – операция не выполнена.</returns>
-        public bool Pay_(int pNcom, decimal pSum, int pKind, bool pShow, out double pRemainder)
+        public bool Pay_(int pNcom, double pSum, int pKind, bool pShow, out double pRemainder)
         {
             pRemainder = 0;
 
@@ -78,9 +79,103 @@ namespace com.sbs.dll.utilites
             return true;
         }
 
-        public bool PrinterState_(int pNcom, out State pState)
+        public bool AnnulCheck_(int pNcom)
         {
+            object retVal = null;
+
+            if (fiscalDeviceInst == null) return false;
+
+            retVal = fiscalDevice.InvokeMember("AnnulCheck_", BindingFlags.InvokeMethod, null, fiscalDeviceInst, new object[] { pNcom });
+
+            return true.Equals(retVal);
+        }
+
+        public string GetLastErr_()
+        {
+            string retval = string.Empty;
+
+            retval = (string)fiscalDevice.InvokeMember("GetLastErr_", BindingFlags.InvokeMethod, null, fiscalDeviceInst, new object[] { });
+
+            return retval;
+        }
+
+        public bool DiscountMarkUp_(int pNcom, int pType1, int pType2, string pType3, double pValue, bool pShow, string pComment)
+        {
+            if (fiscalDeviceInst == null) return false;
+
+            fiscalDevice.InvokeMember("DiscountMarkUp_", BindingFlags.InvokeMethod, null, fiscalDeviceInst,
+                new object[] { pNcom, pType1, pType2, pType3, pValue, pShow, pComment });
+
+            return true;
+        }
+
+        public bool DayReport_(int pNcom)
+        {
+            object retVal = null;
+
+            if (fiscalDeviceInst == null) return false;
+
+            retVal = fiscalDevice.InvokeMember("DayReport_", BindingFlags.InvokeMethod, null, fiscalDeviceInst, new object[] { pNcom });
+
+            return true.Equals(retVal);
+        }
+
+        public bool DayClrReport_(int pNcom)
+        {
+            object retVal = null;
+
+            if (fiscalDeviceInst == null) return false;
+
+            retVal = fiscalDevice.InvokeMember("DayClrReport_", BindingFlags.InvokeMethod, null, fiscalDeviceInst, new object[] { pNcom });
+
+            return true.Equals(retVal);
+        }
+
+        public bool PrintCopy_(int pNcom)
+        {
+            object retVal = null;
+
+            if (fiscalDeviceInst == null) return false;
+
+            retVal = fiscalDevice.InvokeMember("PrintCopy_", BindingFlags.InvokeMethod, null, fiscalDeviceInst, new object[] { pNcom });
+
+            return true.Equals(retVal);
+        }
+
+        public bool PrinterState_(int pNcom, out State pState )
+        {
+            object retVal = null;
+
             pState = new State();
+
+            int AbortLastCommang = 0;
+            int Fiscal = 0;
+            int NewTax = 0;
+            int OpenCheck = 0;
+            int SaleYes = 0;
+            int TypeTax = 0;
+            int LastCheck = 0;
+            int OnLine = 0;
+            int ExtInd = 0;
+            string SerialNumber = string.Empty;
+            string DateSerialNumber = string.Empty;
+            string RegNumber = string.Empty;
+            string DateFiscal = string.Empty;
+            string TimeFiscal = string.Empty;
+            string Str1 = string.Empty;
+            string Str2 = string.Empty;
+            string Str3 = string.Empty;
+            string Str4 = string.Empty;
+            string Vers = string.Empty;
+            int Dh1 = 0;
+            int Dh2 = 0;
+            int Dh3 = 0;
+            int Dh4 = 0;
+            int Dw1 = 0;
+            int Dw2 = 0;
+            int Dw3 = 0;
+            int Dw4 = 0;
+
  
             if (fiscalDeviceInst == null) return false;
 
@@ -103,6 +198,7 @@ namespace com.sbs.dll.utilites
                             pState.Str1,
                             pState.Str2,
                             pState.Str3,
+                            pState.Str4,
                             pState.Vers,
                             pState.Dh1,
                             pState.Dh2,
@@ -112,7 +208,8 @@ namespace com.sbs.dll.utilites
                             pState.Dw2,
                             pState.Dw3,
                             pState.Dw4});
-            return true;
+
+            return true.Equals(retVal);
         }
 
         public class State
@@ -121,55 +218,55 @@ namespace com.sbs.dll.utilites
             /// True – аварийное завершение последней команды
             /// False – нормальное завершение последней команды
             /// </summary>
-            public bool AbortLastCommang { get; set; }
+            public int AbortLastCommang { get; set; }
 
             /// <summary>
             /// True – фискальный принтер фискализирован
             /// False – фискальный принтер не фискализирован
             /// </summary>
-            public bool Fiscal { get; set; }
+            public int Fiscal { get; set; }
 
             /// <summary>
             /// True – введены новые налоговые ставки
             /// False – налоговые ставки прежние
             /// </summary>
-            public bool NewTax { get; set; }
+            public int NewTax { get; set; }
 
             /// <summary>
             /// True – есть открытый чек; 
             /// False – нет открытого чека;
             /// </summary>
-            public bool OpenCheck { get; set; }
+            public int OpenCheck { get; set; }
 
             /// <summary>
             /// True – после выдачи Z-отчета были продажи/выплаты
             /// False – после выдачи Z-отчета не было продаж/выплат
             /// </summary>
-            public bool SaleYes { get; set; }
+            public int SaleYes { get; set; }
 
             /// <summary>
             /// True – вид налога ~ НДС наложенный;
             /// False – вид налога ~ НДС вложенный;
             /// </summary>
-            public bool TypeTax { get; set; }
+            public int TypeTax { get; set; }
 
             /// <summary>
             /// True – последний чек – выплата;
             /// False – последний чек - продажи;
             /// </summary>
-            public bool LastCheck { get; set; }
+            public int LastCheck { get; set; }
 
             /// <summary>
             /// True – OnLine режим печати чека (печать чека осуществляется при регистрации товара (методы Sale_ и Disburse_) и при оплате чека (метод Pay_) )
             /// False – OffLine режим печати чека (распечатка всего чека осуществляется при оплате чека (метод Pay_)
             /// </summary>
-            public bool OnLine { get; set; }
+            public int OnLine { get; set; }
 
             /// <summary>
             /// True – Подключен внешний индикатор клиента; 
             /// False – не подключен;
             /// </summary>
-            public bool ExtInd { get; set; }
+            public int ExtInd { get; set; }
             
             /// <summary>
             /// Серийный номер принтера (10 символов)
@@ -225,49 +322,49 @@ namespace com.sbs.dll.utilites
             /// Тип шрифта 1 строк заголовка чека  (True – двойная высота шрифта;  
             ///                                     False – одинарная высота)
             /// </summary>
-            public bool Dh1 { get; set; }
+            public int Dh1 { get; set; }
 
             /// <summary>
             /// Тип шрифта 2 строк заголовка чека  (True – двойная высота шрифта;  
             ///                                     False – одинарная высота)
             /// </summary>
-            public bool Dh2 { get; set; }
+            public int Dh2 { get; set; }
 
             /// <summary>
             /// Тип шрифта 3 строк заголовка чека  (True – двойная высота шрифта;  
             ///                                     False – одинарная высота)
             /// </summary>
-            public bool Dh3 { get; set; }
+            public int Dh3 { get; set; }
 
             /// <summary>
             /// Тип шрифта 4-й строк заголовка чека  (True – двойная высота шрифта;  
             ///                                       False – одинарная высота)
             /// </summary>
-            public bool Dh4 { get; set; }
+            public int Dh4 { get; set; }
             
             /// <summary>
             /// Тип шрифта 1 строк заголовка чека  (True – двойная ширина шрифта; 
             ///                                     False – одинарная ширина)
             /// </summary>
-            public bool Dw1 { get; set; }
+            public int Dw1 { get; set; }
 
             /// <summary>
             /// Тип шрифта 2 строк заголовка чека  (True – двойная ширина шрифта; 
             ///                                     False – одинарная ширина)
             /// </summary>
-            public bool Dw2 { get; set; }
+            public int Dw2 { get; set; }
 
             /// <summary>
             /// Тип шрифта 3 строк заголовка чека  (True – двойная ширина шрифта; 
             ///                                     False – одинарная ширина)
             /// </summary>
-            public bool Dw3 { get; set; }
+            public int Dw3 { get; set; }
 
             /// <summary>
             /// Тип шрифта 4-й строк заголовка чека  (True – двойная ширина шрифта; 
             ///                                       False – одинарная ширина)
             /// </summary>
-            public bool Dw4 { get; set; }
+            public int Dw4 { get; set; }
         }
     }
 }
