@@ -37,9 +37,11 @@
             this.button_fiscalPrinter = new System.Windows.Forms.Button();
             this.button_Pay = new System.Windows.Forms.Button();
             this.button_Init = new System.Windows.Forms.Button();
-            this.textBox_UpDown = new com.sbs.dll.utilites.Controls.textBoxNumeric();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.button_PrinterState = new System.Windows.Forms.Button();
+            this.button_GetLastErr = new System.Windows.Forms.Button();
+            this.textBox_UpDown = new com.sbs.dll.utilites.Controls.textBoxNumeric();
+            this.button_setConfug = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_terminate
@@ -96,7 +98,7 @@
             // 
             // button_fiscalPrinter
             // 
-            this.button_fiscalPrinter.Location = new System.Drawing.Point(15, 311);
+            this.button_fiscalPrinter.Location = new System.Drawing.Point(15, 352);
             this.button_fiscalPrinter.Name = "button_fiscalPrinter";
             this.button_fiscalPrinter.Size = new System.Drawing.Size(174, 24);
             this.button_fiscalPrinter.TabIndex = 6;
@@ -106,7 +108,7 @@
             // 
             // button_Pay
             // 
-            this.button_Pay.Location = new System.Drawing.Point(15, 341);
+            this.button_Pay.Location = new System.Drawing.Point(15, 382);
             this.button_Pay.Name = "button_Pay";
             this.button_Pay.Size = new System.Drawing.Size(174, 24);
             this.button_Pay.TabIndex = 7;
@@ -116,13 +118,43 @@
             // 
             // button_Init
             // 
-            this.button_Init.Location = new System.Drawing.Point(15, 183);
+            this.button_Init.Location = new System.Drawing.Point(15, 156);
             this.button_Init.Name = "button_Init";
             this.button_Init.Size = new System.Drawing.Size(174, 23);
             this.button_Init.TabIndex = 9;
             this.button_Init.Text = "fiscalPrinter (Init)";
             this.button_Init.UseVisualStyleBackColor = true;
             this.button_Init.Click += new System.EventHandler(this.button_Init_Click);
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid1.Location = new System.Drawing.Point(442, 124);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(194, 368);
+            this.propertyGrid1.TabIndex = 10;
+            // 
+            // button_PrinterState
+            // 
+            this.button_PrinterState.Location = new System.Drawing.Point(442, 95);
+            this.button_PrinterState.Name = "button_PrinterState";
+            this.button_PrinterState.Size = new System.Drawing.Size(194, 23);
+            this.button_PrinterState.TabIndex = 11;
+            this.button_PrinterState.Text = "fiscalPrinter (PrinterState_)";
+            this.button_PrinterState.UseVisualStyleBackColor = true;
+            this.button_PrinterState.Click += new System.EventHandler(this.button_PrinterState_Click);
+            // 
+            // button_GetLastErr
+            // 
+            this.button_GetLastErr.Location = new System.Drawing.Point(246, 156);
+            this.button_GetLastErr.Name = "button_GetLastErr";
+            this.button_GetLastErr.Size = new System.Drawing.Size(174, 23);
+            this.button_GetLastErr.TabIndex = 12;
+            this.button_GetLastErr.Text = "fiscalPrinter (GetLastErr_)";
+            this.button_GetLastErr.UseVisualStyleBackColor = true;
+            this.button_GetLastErr.Click += new System.EventHandler(this.button_GetLastErr_Click);
             // 
             // textBox_UpDown
             // 
@@ -132,31 +164,23 @@
             this.textBox_UpDown.Size = new System.Drawing.Size(77, 26);
             this.textBox_UpDown.TabIndex = 4;
             // 
-            // propertyGrid1
+            // button_setConfug
             // 
-            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.propertyGrid1.Location = new System.Drawing.Point(242, 85);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(394, 407);
-            this.propertyGrid1.TabIndex = 10;
-            // 
-            // button_PrinterState
-            // 
-            this.button_PrinterState.Location = new System.Drawing.Point(15, 245);
-            this.button_PrinterState.Name = "button_PrinterState";
-            this.button_PrinterState.Size = new System.Drawing.Size(174, 23);
-            this.button_PrinterState.TabIndex = 11;
-            this.button_PrinterState.Text = "fiscalPrinter (PrinterState_)";
-            this.button_PrinterState.UseVisualStyleBackColor = true;
-            this.button_PrinterState.Click += new System.EventHandler(this.button_PrinterState_Click);
+            this.button_setConfug.Location = new System.Drawing.Point(15, 219);
+            this.button_setConfug.Name = "button_setConfug";
+            this.button_setConfug.Size = new System.Drawing.Size(174, 23);
+            this.button_setConfug.TabIndex = 13;
+            this.button_setConfug.Text = "fiscalPrinter (SetConfig)";
+            this.button_setConfug.UseVisualStyleBackColor = true;
+            this.button_setConfug.Click += new System.EventHandler(this.button_setConfug_Click);
             // 
             // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 504);
+            this.Controls.Add(this.button_setConfug);
+            this.Controls.Add(this.button_GetLastErr);
             this.Controls.Add(this.button_PrinterState);
             this.Controls.Add(this.propertyGrid1);
             this.Controls.Add(this.button_Init);
@@ -190,6 +214,8 @@
         private System.Windows.Forms.Button button_Init;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.Button button_PrinterState;
+        private System.Windows.Forms.Button button_GetLastErr;
+        private System.Windows.Forms.Button button_setConfug;
     }
 }
 

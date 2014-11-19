@@ -166,8 +166,8 @@ namespace com.sbs.dll.utilites
         {
             string errMsg = "Следующие обязательные поля не заполнены: ";
 
-            if (eFormOpensModes == Suppurt.FormOpenModes.Edit)
-            {
+            //if (eFormOpensModes == Suppurt.FormOpenModes.Edit)
+            //{
                 if (!oDelivery.deliveryClient.telNumb.Equals(textBox_tel.Text.Trim())) isNewClient = true;
                 if (!oDelivery.deliveryClient.fio.Equals(textBox_fio.Text.Trim())) isNewClient = true;
                 if (!oDelivery.deliveryClient.addr_city.Equals((int)comboBox_city.SelectedValue)) isNewClient = true;
@@ -185,7 +185,7 @@ namespace com.sbs.dll.utilites
                     if (count == 0) isNewStreet = true;
                 }
                 
-            }
+            //}
 
             oDelivery.deliveryClient.telNumb = textBox_tel.Text.Trim();
             oDelivery.deliveryClient.fio = textBox_fio.Text.Trim();
