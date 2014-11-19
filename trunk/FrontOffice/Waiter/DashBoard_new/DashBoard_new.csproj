@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D6EFC30B-F1A6-4E0F-8C7C-646694918686}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.sbs.gui.dashboard</RootNamespace>
     <AssemblyName>DashBoard</AssemblyName>
@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="utilites, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\References\utilites\utilites\bin\Debug\utilites.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\utilites\utilites\utilites\bin\Debug\utilites.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +116,12 @@
     </Compile>
     <Compile Include="fDishToBill_ACTION.Designer.cs">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fFiscalDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fFiscalDevice.Designer.cs">
+      <DependentUpon>fFiscalDevice.cs</DependentUpon>
     </Compile>
     <Compile Include="fHelp.cs">
       <SubType>Form</SubType>
@@ -226,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fDishToBill_ACTION.resx">
       <DependentUpon>fDishToBill_ACTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fFiscalDevice.resx">
+      <DependentUpon>fFiscalDevice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fHelp.resx">
       <DependentUpon>fHelp.cs</DependentUpon>

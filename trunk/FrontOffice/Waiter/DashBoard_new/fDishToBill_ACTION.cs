@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll;
 using com.sbs.dll.utilites;
+using com.sbs.dll.utilites.Controls;
 
 namespace com.sbs.gui.dashboard
 {
@@ -91,17 +92,23 @@ namespace com.sbs.gui.dashboard
                 return;
             }
 
+            
+            textBoxNumeric tbNimeric = new textBoxNumeric();
+            tbNimeric.minValue = 0;
+            tbNimeric.maxValue = oDish.count;
+            tbNimeric.stepValue = oDish.minStep;
+            tbNimeric.Value = oDish.count;
+            
             fRefuse fref = new fRefuse();
-            fref.trackBar_count.Minimum = 0;
-            fref.trackBar_count.Maximum = int.Parse(oDish.count.ToString("F0"));
-            fref.trackBar_count.Value = int.Parse(oDish.count.ToString("F0"));
+            fref.tbNumeric = tbNimeric;
+
             if(fref.ShowDialog() == DialogResult.Cancel) return;
 
-            if (fref.trackBar_count.Value != oDish.count)
+            if (fref.tbNumeric.Value != oDish.count)
             {
                 try
                 {
-                    refuseDish(fref.trackBar_count.Value);
+                    refuseDish(fref.tbNumeric.Value);
                 }
                 catch (Exception exc) { uMessage.Show("Неудалось поместить блюдо в хранилище.", exc, SystemIcons.Information); return; }
             }
@@ -113,7 +120,7 @@ namespace com.sbs.gui.dashboard
 
         #region --------------------------------------------------------------------- Отказы ---------------------------------------------
 
-        private void refuseDish(int pNewCount)  
+        private void refuseDish(decimal pNewCount)  
         {
             dbAccess.dishRefuse(GValues.DBMode, oBill, oDish, pNewCount);
         }

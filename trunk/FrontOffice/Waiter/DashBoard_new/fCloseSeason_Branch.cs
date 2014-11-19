@@ -106,7 +106,10 @@ namespace com.sbs.gui.dashboard
 
         private void button_closeSeason_Click(object sender, EventArgs e)
         {
-            if (closeSeason()) DialogResult = DialogResult.OK;
+            if (closeSeason())
+            {
+                DialogResult = DialogResult.OK;
+            }
         }
 
         private bool closeSeason()

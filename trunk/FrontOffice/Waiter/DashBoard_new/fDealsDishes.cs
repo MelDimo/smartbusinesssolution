@@ -14,10 +14,12 @@ namespace com.sbs.gui.dashboard
     {
         public DTO_DBoard.Dish oDish;
         private List<DTO_DBoard.Dish> oLDishes;
+        private decimal xBonusDishes;
 
-        public fDealsDishes(List<DTO_DBoard.Dish> pLDishes, string pDealsName)
+        public fDealsDishes(List<DTO_DBoard.Dish> pLDishes, string pDealsName, decimal pBonusDishes)
         {
             oLDishes = pLDishes;
+            xBonusDishes = pBonusDishes;
 
             InitializeComponent();
 
@@ -38,6 +40,8 @@ namespace com.sbs.gui.dashboard
                     e.SuppressKeyPress = true;
                     if (dataGridView_main.SelectedRows.Count == 0) return;
                     oDish = oLDishes[dataGridView_main.SelectedRows[0].Index];
+                    oDish.count = xBonusDishes;
+                    oDish.minStep = xBonusDishes;
                     DialogResult = DialogResult.OK;
                     break;
             }

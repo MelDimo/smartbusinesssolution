@@ -223,6 +223,36 @@ namespace com.sbs.gui.dashboard
                         fHLP.ShowDialog();
                         fHLP.Dispose();
                         break;
+
+                    case Keys.F11:  // Операции с фискальным принтером
+                        if (!trReadCard.IsAlive)
+                        {
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                            #region проверка привелегий
+
+                            xPriv = 31; xErrMessage = "У Вас отсутствуют привилегии на совершение операций с фискальным принтером.";
+
+                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                            {
+                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            #endregion
+
+                            fFiscalDevice fFiscal = new fFiscalDevice();
+                            fFiscal.ShowDialog();
+                        } 
+                        break;
                 }
             }
         }
