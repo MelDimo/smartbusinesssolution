@@ -55,6 +55,8 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,7 +67,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 123F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 298F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel1.Controls.Add(this.label12, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.label11, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
@@ -92,6 +94,8 @@
             this.tableLayoutPanel1.Controls.Add(this.label24, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label25, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label26, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.label27, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label28, 3, 8);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -273,7 +277,7 @@
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label14.Location = new System.Drawing.Point(483, 54);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(292, 50);
+            this.label14.Size = new System.Drawing.Size(294, 50);
             this.label14.TabIndex = 13;
             this.label14.Text = "Создать заказ доставки";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -333,7 +337,7 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label18.Location = new System.Drawing.Point(483, 314);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(292, 50);
+            this.label18.Size = new System.Drawing.Size(294, 50);
             this.label18.TabIndex = 17;
             this.label18.Text = "Закрытие индивидуальной смены";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -345,7 +349,7 @@
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label20.Location = new System.Drawing.Point(483, 366);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(292, 50);
+            this.label20.Size = new System.Drawing.Size(294, 50);
             this.label20.TabIndex = 19;
             this.label20.Text = "Информация по доставке";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -422,6 +426,30 @@
             this.label26.Text = "Операции с фискальным принтером";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
+            this.label27.Location = new System.Drawing.Point(358, 418);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(117, 50);
+            this.label27.TabIndex = 26;
+            this.label27.Text = "Alt + C";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label28.Location = new System.Drawing.Point(483, 418);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(294, 50);
+            this.label28.TabIndex = 27;
+            this.label28.Text = "Эмиссия дисконтных карт";
+            this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // fHelp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +498,8 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
 
 
     }

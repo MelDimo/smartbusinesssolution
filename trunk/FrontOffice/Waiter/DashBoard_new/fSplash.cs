@@ -119,6 +119,39 @@ namespace com.sbs.gui.dashboard
                             fCSB.Dispose();
                         }
                         break;
+
+                    case Keys.C:
+                        if (!trReadCard.IsAlive)
+                        {
+                            DashboardEnvironment.gUser = null;
+
+                            trReadCard = new Thread(enterKey);
+                            trReadCard.Start();
+
+                            trReadCard.Join();
+
+                            if (DashboardEnvironment.gUser == null) return; // Пользователь не авторизовался
+
+                            #region проверка привелегий
+
+                            xPriv = 32; xErrMessage = "У Вас отсутствует привилегия на эмиссию карты.";
+
+                            if (!Supp.checkPrivileges(DashboardEnvironment.gUser.oUserACL, xPriv))
+                            {
+                                MessageBox.Show(xErrMessage, GValues.prgNameFull,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            #endregion
+
+                            com.sbs.gui.usersdiscount.fAddEdit fDiscount = 
+                                new com.sbs.gui.usersdiscount.fAddEdit(new DTO.DiscountInfo(), "frontoffice", DashboardEnvironment.gUser.id);
+                            fDiscount.Text = "Эмиссия карты";
+                            fDiscount.StartPosition = FormStartPosition.CenterParent;
+                            fDiscount.ShowDialog();
+                        }
+                        break;
                 }
             }
             else

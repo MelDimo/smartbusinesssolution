@@ -22,12 +22,16 @@ namespace com.sbs.gui.dashboard
             internal string msg = string.Empty;
         }
 
-        ErrorInfo oError = new ErrorInfo();
-        DBaccess dbAccess = new DBaccess();
-        DTO_DBoard.Bill oBill;
-        DataSet dsResult = new DataSet();
+        private ErrorInfo oError = new ErrorInfo();
+        private DBaccess dbAccess = new DBaccess();
+        private DTO_DBoard.Bill oBill;
+        
+        private string uname = DashboardEnvironment.gUser.name;
+        RawPrinterHelper rawHelper = new RawPrinterHelper();
 
-        BackgroundWorker worThread;
+        private DataSet dsResult = new DataSet();
+
+        private BackgroundWorker worThread;
 
         private string type;
         private bool fOk = false;
@@ -36,6 +40,7 @@ namespace com.sbs.gui.dashboard
         public fWaitProcess(string pType, DTO_DBoard.Bill pCurBill)
         {
             oBill = pCurBill;
+
             type = pType;
 
             InitializeComponent();
@@ -79,14 +84,12 @@ namespace com.sbs.gui.dashboard
                             repDoc.Load(dtOrder.Rows[0]["reportPath"].ToString());
                             repDoc.SetDataSource(dtOrder);
                             repDoc.PrintOptions.PrinterName = printerName;
-                            repDoc.SetParameterValue("waiterName", DashboardEnvironment.gUser.name);
+                            repDoc.SetParameterValue("waiterName", uname);
                             for (int i = 0; i < GValues.branchBill; i++) repDoc.PrintToPrinter(0, false, 0, 0);
                             repDoc.Close();
                         }
                         break;
                 }
-
-                
             }
 
             if (dsResult.Tables["deliveryOrder"].Rows.Count > 0)
@@ -162,11 +165,11 @@ namespace com.sbs.gui.dashboard
             MiniFP6 miniFP6 = new MiniFP6();
             if (miniFP6.AnnulCheck_(2))
             {
-                MessageBox.Show("Системе не удалось распечатать счет. Счет анулирован в фискальном регистраторе.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Системе не удалось распечатать счет. Счет аннулирован в фискальном регистраторе.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                uMessage.Show("Системе не удалось распечатать счет. Счет не удалось анулировть. " + Environment.NewLine +
+                uMessage.Show("Системе не удалось распечатать счет. Счет не удалось аннулировть. " + Environment.NewLine +
                     "Проверьте соединения фискального регистратора и повторите попытку." + Environment.NewLine + Environment.NewLine +
                     "В случае повторного возникновения данного сообщения обратитесь к администратору.", SystemIcons.Information);
             }
@@ -204,7 +207,7 @@ namespace com.sbs.gui.dashboard
             sb.AppendLine("-".PadRight(rHeight, '-'));
             sb.AppendLine("Счет на оплату");
             sb.AppendLine("-".PadRight(rHeight, '-'));
-            sb.AppendLine(string.Format("Официант: {0}", DashboardEnvironment.gUser.name));
+            sb.AppendLine(string.Format("Официант: {0}", uname));
             sb.AppendLine("-".PadRight(rHeight, '-'));
 
             foreach (DataRow dr in dtOrder.Rows)
@@ -225,7 +228,8 @@ namespace com.sbs.gui.dashboard
             bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
             sText = Encoding.GetEncoding(1251).GetString(bText);
 
-            RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+            //RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+            rawHelper.SendStringToPrinter(printerAddress, sText);
         }
 
         private void printDish()
@@ -262,7 +266,7 @@ namespace com.sbs.gui.dashboard
 
                 sb.AppendLine(string.Format("Счет {0}", oBill.numb));
                 sb.AppendLine(string.Format("Столик {0}", oBill.table).PadLeft(rHeight - string.Format("Счет {0}", oBill.numb).Length, ' '));
-                sb.AppendLine(string.Format("{0} ({1})", DashboardEnvironment.gUser.name, DateTime.Now));
+                sb.AppendLine(string.Format("{0} ({1})", uname, DateTime.Now));
                 sb.AppendLine("-".PadRight(rHeight, '-'));
 
                 foreach (DataRow dr in dt.Rows)
@@ -290,7 +294,6 @@ namespace com.sbs.gui.dashboard
                 bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
                 sText = Encoding.GetEncoding(1251).GetString(bText);
 
-
                 PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
                 PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
                 while (pq.IsBusy)
@@ -299,30 +302,7 @@ namespace com.sbs.gui.dashboard
                     pq.Refresh();
                 }
 
-                RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
-
-                #region Проверка печати
-                //while (true) //Проверяем как завершилась печать. Если ошибочно повторям xCount раз.
-                //{
-                //    if ((RawPrinterHelper.dwError != 0 || RawPrinterHelper.dwWritten == 0) && xCount > 0)
-                //    {
-                //        Thread.Sleep(500);
-                //        RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
-                //        xCount = xCount - 1;
-                //    }
-                //    else
-                //    {
-                //        if (xCount == 0) // так и не удалось распечатать 
-                //        {
-                //            WriteLog.write(string.Format("RawPrinterHelper.dwError: {0}" + Environment.NewLine +
-                //                                            "RawPrinterHelper.dwWritten: {1}" + Environment.NewLine +
-                //                                            "xCount: {2} ", RawPrinterHelper.dwError, RawPrinterHelper.dwWritten, xCount));
-                //        }
-                //        break;
-                //    }
-                //}
-                #endregion
-
+                rawHelper.SendStringToPrinter(printerAddress, sText);
             }
         }
 
@@ -374,9 +354,8 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) 
             {
+                WriteLog.write(string.Format("Не удалась печать бегунков.{0} \n StackTrace:{1}", exc.Message, exc.StackTrace));
                 return;
-                // Не ожидаем печети бегунка
-                //uMessage.Show(string.Format("Не удалась печать бегунков.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel; 
             }
         }
 
