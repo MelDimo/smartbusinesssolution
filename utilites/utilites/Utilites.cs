@@ -1321,6 +1321,36 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getDiscountTypes(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new SqlConnection();
+            SqlCommand command = null;
+
+            try
+            {
+                con = new DBCon().getConnection(pDbType);
+                command = null;
+
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT id, name, ref_status, notes, discount, stepDiscount, maxDiscount FROM ref_discount_type";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getDiscountUsers(string pDbType)
         {
             DataTable dtResult = new DataTable();
@@ -1336,7 +1366,9 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT id, fio, xkey, discount, ref_status, date_start, date_end, isExpDate, photo FROM usersDiscount";
+                command.CommandText = " SELECT ud.id, ud.GUID, ud.FIO, ud.bdate, ud.phone, ud.email, ud.photo, ud.ref_discount_type, rdt.name AS ref_discount_type_name, ud.discount, ud.stepDiscount, ud.maxDiscount, ud.xkey, ud.xnumber, " +
+                                    " ud.date_start, ud.date_end, ud.isExpDate, ud.ref_status, isConfirmed " +
+                                        " FROM usersDiscount ud INNER JOIN ref_discount_type rdt ON rdt.id = ud.ref_discount_type";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -1366,7 +1398,9 @@ namespace com.sbs.dll.utilites
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = " SELECT id, fio, xkey, discount, ref_status, date_start, date_end, isExpDate, photo FROM usersDiscount WHERE xkey = @xkey";
+                command.CommandText = " SELECT ud.id, ud.GUID, ud.FIO, ud.phone, ud.email, ud.photo, ud.ref_discount_type, rdt.name AS ref_discount_type_name, ud.discount, ud.stepDiscount, ud.maxDiscount, ud.xkey, ud.xnumber," +
+                                    " ud.date_start, ud.date_end, ud.isExpDate, ud.ref_status, isConfirmed " +
+                                        " FROM usersDiscount ud INNER JOIN ref_discount_type rdt ON rdt.id = ud.ref_discount_type WHERE ud.xkey = @xkey";
                 command.Parameters.Add("xkey", SqlDbType.NVarChar).Value = pKey;
 
                 using (SqlDataReader dr = command.ExecuteReader())
@@ -1871,31 +1905,31 @@ namespace com.sbs.dll.utilites
             public string pDataType;
         }
         [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, IntPtr pd);
+        private static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, IntPtr pd);
 
         [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool ClosePrinter(IntPtr hPrinter);
+        private static extern bool ClosePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool StartDocPrinter(IntPtr hPrinter, Int32 level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
+        private static extern bool StartDocPrinter(IntPtr hPrinter, Int32 level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
 
         [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool EndDocPrinter(IntPtr hPrinter);
+        private static extern bool EndDocPrinter(IntPtr hPrinter);
 
         [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool StartPagePrinter(IntPtr hPrinter);
+        private static extern bool StartPagePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool EndPagePrinter(IntPtr hPrinter);
+        private static extern bool EndPagePrinter(IntPtr hPrinter);
 
         [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
-        public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, Int32 dwCount, out Int32 dwWritten);
+        private static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, Int32 dwCount, out Int32 dwWritten);
 
         // SendBytesToPrinter()
         // When the function is given a printer name and an unmanaged array
         // of bytes, the function sends those bytes to the print queue.
         // Returns true on success, false on failure.
-        public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+        public bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
         {
             Int32 dwError = 0, dwWritten = 0;
             IntPtr hPrinter = new IntPtr(0);
@@ -1931,7 +1965,7 @@ namespace com.sbs.dll.utilites
             return bSuccess;
         }
 
-        public static bool SendFileToPrinter(string szPrinterName, string szFileName)
+        public bool SendFileToPrinter(string szPrinterName, string szFileName)
         {
             // Open the file.
             FileStream fs = new FileStream(szFileName, FileMode.Open);
@@ -1957,7 +1991,7 @@ namespace com.sbs.dll.utilites
             Marshal.FreeCoTaskMem(pUnmanagedBytes);
             return bSuccess;
         }
-        public static bool SendStringToPrinter(string szPrinterName, string szString)
+        public bool SendStringToPrinter(string szPrinterName, string szString)
         {
             IntPtr pBytes;
             Int32 dwCount;
