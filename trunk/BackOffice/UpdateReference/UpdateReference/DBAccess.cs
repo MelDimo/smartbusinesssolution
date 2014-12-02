@@ -97,7 +97,7 @@ namespace com.sbs.gui.updatereference
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandTimeout = 3000;
+                command.CommandTimeout = 6000;
 
                 command.CommandText = pScript;
 
