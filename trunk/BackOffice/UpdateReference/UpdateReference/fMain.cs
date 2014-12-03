@@ -46,6 +46,7 @@ namespace com.sbs.gui.updatereference
             {
                 checkedListBox_type.Items.Add(new DTO_Updater.Category() 
                 { 
+                    id = (int)dr["id"],
                     name = dr["name"].ToString(), 
                     script = dr["script"].ToString() 
                 });
@@ -222,6 +223,23 @@ namespace com.sbs.gui.updatereference
             }
 
             dbAccessThread.executeScript(GValues.DBMode, xScript);
+        }
+
+        private void tSButton_script_Click(object sender, EventArgs e)
+        {
+            if (checkedListBox_type.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Укажите категорию для редактирования", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DTO_Updater.Category oCategory = (DTO_Updater.Category)checkedListBox_type.SelectedItem;
+
+            fEditScript fScript = new fEditScript();
+            fScript.oCategory = oCategory;
+            if (fScript.ShowDialog() != DialogResult.OK) return;
+
+
         }
     }
 }
