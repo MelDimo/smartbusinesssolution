@@ -34,24 +34,27 @@
             this.button_export = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel_branch = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkedListBox_type = new System.Windows.Forms.CheckedListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_add = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_remove = new System.Windows.Forms.ToolStripButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.flowLayoutPanel_branch = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkedListBox_type = new System.Windows.Forms.CheckedListBox();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -106,6 +109,65 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Online обновление";
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(26, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer1.Size = new System.Drawing.Size(600, 354);
+            this.splitContainer1.SplitterDistance = 326;
+            this.splitContainer1.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.flowLayoutPanel_branch);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(326, 354);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Заведения";
+            // 
+            // flowLayoutPanel_branch
+            // 
+            this.flowLayoutPanel_branch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel_branch.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel_branch.Name = "flowLayoutPanel_branch";
+            this.flowLayoutPanel_branch.Size = new System.Drawing.Size(320, 335);
+            this.flowLayoutPanel_branch.TabIndex = 0;
+            this.flowLayoutPanel_branch.SizeChanged += new System.EventHandler(this.flowLayoutPanel_branch_SizeChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkedListBox_type);
+            this.groupBox2.Controls.Add(this.toolStrip2);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(270, 354);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Категории";
+            // 
+            // checkedListBox_type
+            // 
+            this.checkedListBox_type.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkedListBox_type.FormattingEnabled = true;
+            this.checkedListBox_type.Location = new System.Drawing.Point(3, 41);
+            this.checkedListBox_type.Name = "checkedListBox_type";
+            this.checkedListBox_type.Size = new System.Drawing.Size(264, 310);
+            this.checkedListBox_type.TabIndex = 0;
+            // 
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -139,7 +201,7 @@
             this.toolStripButton_remove.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButton_remove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_remove.Name = "toolStripButton_remove";
-            this.toolStripButton_remove.Size = new System.Drawing.Size(30, 20);
+            this.toolStripButton_remove.Size = new System.Drawing.Size(22, 20);
             this.toolStripButton_remove.ToolTipText = "Удалить заведение";
             this.toolStripButton_remove.Click += new System.EventHandler(this.toolStripButton_remove_Click);
             // 
@@ -148,67 +210,30 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(634, 322);
+            this.tabPage2.Size = new System.Drawing.Size(629, 360);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Выгрузить в файл";
             // 
-            // splitContainer1
+            // toolStrip2
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(26, 3);
-            this.splitContainer1.Name = "splitContainer1";
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip2.Location = new System.Drawing.Point(3, 16);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStrip2.Size = new System.Drawing.Size(264, 25);
+            this.toolStrip2.TabIndex = 1;
+            this.toolStrip2.Text = "toolStrip2";
             // 
-            // splitContainer1.Panel1
+            // toolStripButton1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(600, 354);
-            this.splitContainer1.SplitterDistance = 326;
-            this.splitContainer1.TabIndex = 1;
-            // 
-            // flowLayoutPanel_branch
-            // 
-            this.flowLayoutPanel_branch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel_branch.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel_branch.Name = "flowLayoutPanel_branch";
-            this.flowLayoutPanel_branch.Size = new System.Drawing.Size(320, 335);
-            this.flowLayoutPanel_branch.TabIndex = 0;
-            this.flowLayoutPanel_branch.SizeChanged += new System.EventHandler(this.flowLayoutPanel_branch_SizeChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.flowLayoutPanel_branch);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(326, 354);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Заведения";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.checkedListBox_type);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(270, 354);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Категории";
-            // 
-            // checkedListBox_type
-            // 
-            this.checkedListBox_type.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox_type.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkedListBox_type.FormattingEnabled = true;
-            this.checkedListBox_type.Location = new System.Drawing.Point(3, 16);
-            this.checkedListBox_type.Name = "checkedListBox_type";
-            this.checkedListBox_type.Size = new System.Drawing.Size(264, 335);
-            this.checkedListBox_type.TabIndex = 0;
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.ToolTipText = "Сценарий";
             // 
             // fMain
             // 
@@ -220,18 +245,21 @@
             this.Controls.Add(this.statusStrip1);
             this.Name = "fMain";
             this.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.Text = "Form1";
+            this.Text = "Обновление данных";
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,6 +281,8 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_branch;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckedListBox checkedListBox_type;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 
