@@ -108,5 +108,27 @@ namespace com.sbs.gui.updatereference
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
+
+        internal void saveScript(string pDbType, DTO_Updater.Category oCategory)
+        {
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = "UPDATE updateCategory SET script = @script WHERE id = @id";
+                command.Parameters.Add("script", SqlDbType.NVarChar).Value = oCategory.script;
+                command.Parameters.Add("id", SqlDbType.Int).Value = oCategory.id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
     }
 }
