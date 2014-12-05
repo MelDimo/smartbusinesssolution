@@ -5,7 +5,7 @@ using System.Text;
 
 namespace printServer
 {
-    public class Class1
+    public class CMain
     {
     }
 }
