@@ -74,17 +74,40 @@ namespace com.sbs.dll
                 photo = com.sbs.dll.utilites.Properties.Resources.user_64;
                 dateEnd = DateTime.Now;
                 dateStart = DateTime.Now;
+                bdate = DateTime.Now;
+                refStatus = 1;
             }
 
             public int id { get; set; }
+            public Guid guid { get; set; }
             public string fio { get; set; }
+            public DateTime? bdate { get; set; }
+            public string email { get; set; }
+            public string phone { get; set; }
+            public string xNumber { get; set; }
             public string xKey { get; set; }
+            public int ref_discount_type { get; set; }
+            public string ref_discount_type_name { get; set; }
             public decimal discount { get; set; }
+            public decimal stepDiscount { get; set; }
+            public decimal maxDiscount { get; set; }
             public int refStatus { get; set; }
             public DateTime dateStart { get; set; }
             public DateTime dateEnd { get; set; }
             public int isExpDate { get; set; }
             public Image photo { get; set; }
+            public int isConfirmed { get; set; }
+        }
+
+        public class DiscountType
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public int ref_status { get; set; }
+            public string notes { get; set; }
+            public decimal discount { get; set; }
+            public decimal stepDiscount { get; set; }
+            public decimal maxDiscount { get; set; }
         }
     }
 }

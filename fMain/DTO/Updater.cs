@@ -30,6 +30,7 @@ namespace com.sbs.dll
 
         public class Category
         {
+            public int id;
             public string name;
             public string script;
 
