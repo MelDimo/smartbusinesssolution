@@ -31,12 +31,13 @@ namespace com.sbs.dll
         public static int branchTable;
         public static int branchBill;
         public static int printRunners;
+        public static int isFiscal;
 
         public static int authortype;
         public static string billPrinter;
         public static bool dbSynch;
-        public static int timeSynch;
-        public static int waitingNodes;
+        //public static int timeSynch;
+        //public static int waitingNodes;
 
         public static bool isAlive = true;  // Флаг для потоков synch говорящий живо ли приложение и нужно ли работать
 
@@ -217,8 +218,8 @@ namespace com.sbs.dll
             XmlNode node_modulesPath;
             XmlNode node_billPrinter;
             XmlNode node_dbSynch;
-            XmlNode node_timeSynch;
-            XmlNode node_waitingNodes;
+            //XmlNode node_timeSynch;
+            //XmlNode node_waitingNodes;
 
             try
             {
@@ -230,8 +231,8 @@ namespace com.sbs.dll
                 node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
                 node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
                 node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
-                node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
-                node_waitingNodes = doc.SelectNodes("settings/waiter/waitingNodes")[0];
+                //node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
+                //node_waitingNodes = doc.SelectNodes("settings/waiter/waitingNodes")[0];
 
                 if (!int.TryParse(node_ref_branch.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить заведение;";
@@ -300,13 +301,13 @@ namespace com.sbs.dll
                 //        break;
                 //}                
 
-                if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
-                    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
-                else GValues.timeSynch = xBranchId;
+                //if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
+                //    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
+                //else GValues.timeSynch = xBranchId;
 
-                if (!int.TryParse(node_waitingNodes.InnerText, out xBranchId))
-                    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
-                else GValues.waitingNodes = xBranchId;
+                //if (!int.TryParse(node_waitingNodes.InnerText, out xBranchId))
+                //    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";
+                //else GValues.waitingNodes = xBranchId;
 
                 if (!msgError.Equals("В ходе разбора файла конфигурации произошли следующие ошибки:"))
                 {
@@ -334,7 +335,8 @@ namespace com.sbs.dll
                 command.CommandText = "SELECT b.name AS branchName, " +
                                         " bi.xtable AS xtable," +
                                         " bi.countBill AS countBill," +
-                                        " bi.printRunners AS printRunners" +
+                                        " bi.printRunners AS printRunners," +
+                                        " bi.isFiscal AS isFiscal" +
                                         " FROM branch b " +
                                         " INNER JOIN branch_info bi ON bi.branch = b.id" +
                                         " WHERE b.id = @pBranch";
@@ -357,6 +359,7 @@ namespace com.sbs.dll
                 GValues.branchTable = (int)dr["xtable"];
                 GValues.branchBill = (int)dr["countBill"];
                 GValues.printRunners = (int)dr["printRunners"];
+                GValues.isFiscal = (int)dr["isFiscal"];
             }
         }
     }
@@ -375,33 +378,35 @@ namespace com.sbs.dll
             switch (pDBMode)
             {
                 case "offline":
-                    switch (GValues.DBMode)
-                    {
-                        case "offline":
-                            return new SqlConnection(GValues.localDBConStr);
+                    return new SqlConnection(GValues.localDBConStr);
+                    //switch (GValues.DBMode)
+                    //{
+                    //    case "offline":
+                    //        return new SqlConnection(GValues.localDBConStr);
 
-                        case "online":
-                            return new SqlConnection(GValues.mainDBConStr);
+                    //    case "online":
+                    //        return new SqlConnection(GValues.mainDBConStr);
 
-                        case "mixed":
-                            return new SqlConnection(GValues.localDBConStr);
+                    //    case "mixed":
+                    //        return new SqlConnection(GValues.localDBConStr);
 
-                    }
-                    break;
+                    //}
+                    //break;
 
                 case "online":
-                    switch(GValues.DBMode)
-                    {
-                        case "offline":
-                            return new SqlConnection(GValues.localDBConStr);
+                    return new SqlConnection(GValues.mainDBConStr);
+                    //switch(GValues.DBMode)
+                    //{
+                    //    case "offline":
+                    //        return new SqlConnection(GValues.localDBConStr);
 
-                        case "online":
-                            return new SqlConnection(GValues.mainDBConStr);
+                    //    case "online":
+                    //        return new SqlConnection(GValues.mainDBConStr);
 
-                        case "mixed":
-                            return new SqlConnection(GValues.mainDBConStr);
-                    }
-                    break;
+                    //    case "mixed":
+                    //        return new SqlConnection(GValues.mainDBConStr);
+                    //}
+                    //break;
 
                 default:
                     throw new Exception("Неудалось определить режи работы заведения.");

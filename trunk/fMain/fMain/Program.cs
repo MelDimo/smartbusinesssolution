@@ -131,6 +131,13 @@ namespace com.sbs.gui.main
 
         private static void loadProgramModules(List<string> pArrayModules)
         {
+            //try
+            //{
+            //    MessageBox.Show(string.Format("Assembly.LoadFile({0})", GValues.modulesPath + Path.DirectorySeparatorChar + "usersDiscount.dll"));
+            //    Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + "usersDiscount.dll"); // В официантской программе использую для предоставления скидочных карт
+            //}
+            //catch (Exception exc) { MessageBox.Show(exc.Message); }
+
             foreach (string str in pArrayModules)
             try
             {

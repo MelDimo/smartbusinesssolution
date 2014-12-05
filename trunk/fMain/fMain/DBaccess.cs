@@ -39,6 +39,9 @@ namespace com.sbs.gui.main
                                         " UNION " +
                                         " SELECT 0, null, null, null, null, fname, NULL " +
                                         "   FROM ref_modules WHERE isGUI = 0 " +
+                                        " UNION " +
+                                        " SELECT 0, null, null, null, null, fname, NULL " +
+                                        "   FROM ref_modules WHERE id = 44 " +
                                         " ORDER BY mnu.id_parent ";
                 command.Parameters.Add("users", SqlDbType.Int).Value = UsersInfo.UserId;
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = 1;

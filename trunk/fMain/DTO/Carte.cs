@@ -14,6 +14,12 @@ namespace com.sbs.dll
             public string name { get; set; }
             public int branch { get; set; }
             public int refStatus { get; set; }
+            public List<int> unit { get; set; }
+
+            public Carte()
+            {
+                unit = new List<int>();
+            }
         }
 
         public class CarteDishesGroup
