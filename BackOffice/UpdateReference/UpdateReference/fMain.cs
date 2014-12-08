@@ -25,12 +25,14 @@ namespace com.sbs.gui.updatereference
 
             toolStripButton_add.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
             toolStripButton_remove.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+            tSButton_script.Image = com.sbs.dll.utilites.Properties.Resources.order_26;
 
             getData();
         }
 
         private void getData()
         {
+            checkedListBox_type.Items.Clear();
             
             try
             {
@@ -239,7 +241,7 @@ namespace com.sbs.gui.updatereference
             fScript.oCategory = oCategory;
             if (fScript.ShowDialog() != DialogResult.OK) return;
 
-
+            getData();
         }
     }
 }
