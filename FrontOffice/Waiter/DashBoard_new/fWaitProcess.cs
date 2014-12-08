@@ -187,6 +187,8 @@ namespace com.sbs.gui.dashboard
 
         private void rawPrintBill(DataTable dtOrder)
         {
+            int dwError = 0;
+
             string eCentre = string.Empty + (char)27 + (char)97 + "1";
             string eLeft = string.Empty + (char)27 + (char)97 + "0";
             string eRight = string.Empty + (char)27 + (char)97 + "2";
@@ -229,7 +231,7 @@ namespace com.sbs.gui.dashboard
             sText = Encoding.GetEncoding(1251).GetString(bText);
 
             //RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
-            rawHelper.SendStringToPrinter(printerAddress, sText);
+            rawHelper.SendStringToPrinter(printerAddress, sText, out dwError);
         }
 
         private void printDish()
@@ -240,6 +242,8 @@ namespace com.sbs.gui.dashboard
 
         private void rawPrint(DataSet pDSResult)
         {
+            int dwError = 0;
+
             string eCentre = string.Empty + (char)27 + (char)97 + '1';
             string eLeft = string.Empty + (char)27 + (char)97 + '0';
             string eRight = string.Empty + (char)27 + (char)97 + '2';
@@ -294,15 +298,17 @@ namespace com.sbs.gui.dashboard
                 bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
                 sText = Encoding.GetEncoding(1251).GetString(bText);
 
-                PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
-                PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
-                while (pq.IsBusy)
-                {
-                    Thread.Sleep(700);
-                    pq.Refresh();
-                }
+                //PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
+                //PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
+                //while (pq.IsBusy)
+                //{
+                //    Thread.Sleep(700);
+                //    pq.Refresh();
+                //}
 
-                rawHelper.SendStringToPrinter(printerAddress, sText);
+                Suppurt.printServer_addWatingRecords(GValues.branchId, printerAddress, sText, 1, 1);
+
+                //rawHelper.SendStringToPrinter(printerAddress, sText, out dwError);
             }
         }
 
@@ -352,9 +358,9 @@ namespace com.sbs.gui.dashboard
                 printDish();
                 fOk = true;
             }
-            catch (Exception exc) 
+            catch (Exception exc)
             {
-                WriteLog.write(string.Format("Не удалась печать бегунков.{0} \n StackTrace:{1}", exc.Message, exc.StackTrace));
+                WriteLog.write(string.Format("Не удалась печать бегунков.{0}\nStackTrace:{1}", exc.Message, exc.StackTrace));
                 return;
             }
         }
