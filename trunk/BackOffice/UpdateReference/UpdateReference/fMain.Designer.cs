@@ -139,6 +139,7 @@
             // 
             // flowLayoutPanel_branch
             // 
+            this.flowLayoutPanel_branch.AutoScroll = true;
             this.flowLayoutPanel_branch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel_branch.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel_branch.Name = "flowLayoutPanel_branch";
@@ -230,6 +231,7 @@
             // 
             this.tSButton_script.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tSButton_script.Image = ((System.Drawing.Image)(resources.GetObject("tSButton_script.Image")));
+            this.tSButton_script.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_script.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_script.Name = "tSButton_script";
             this.tSButton_script.Size = new System.Drawing.Size(23, 22);

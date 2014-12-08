@@ -30,6 +30,13 @@ namespace com.sbs.gui.updatereference
 
         private void button_save_Click(object sender, EventArgs e)
         {
+            if (richTextBox_script.Text.Trim().Length == 0)
+            {
+                MessageBox.Show("Невозможно сохранить пустой сценарий.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            oCategory.script = richTextBox_script.Text;
             try
             {
                 dbAccess.saveScript(GValues.DBMode, oCategory);
