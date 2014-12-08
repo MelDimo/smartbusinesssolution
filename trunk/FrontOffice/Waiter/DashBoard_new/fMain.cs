@@ -628,7 +628,7 @@ namespace com.sbs.gui.dashboard
                 lctrDishes.Add(oCtrDishes);
             }
 
-            Thread.Sleep(GValues.waitingNodes);
+            //Thread.Sleep(GValues.waitingNodes);
 
             //if (!(bool)Invoke(dCallBackGroup, new Object[] { idGroup })) return;
             //else 
