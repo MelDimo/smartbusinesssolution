@@ -45,6 +45,7 @@
             this.textBox_report.Multiline = true;
             this.textBox_report.Name = "textBox_report";
             this.textBox_report.ReadOnly = true;
+            this.textBox_report.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox_report.Size = new System.Drawing.Size(386, 471);
             this.textBox_report.TabIndex = 0;
             // 
