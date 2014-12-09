@@ -33,11 +33,13 @@ namespace com.sbs.gui.seasonbrowser
 
         private void Print(String printerAddress, String text, String documentName)
         {
+            int Error = 0;
+            RawPrinterHelper rph = new RawPrinterHelper();
 
             byte[] bText = Encoding.GetEncoding(866).GetBytes(text);
             string sText = Encoding.GetEncoding(1251).GetString(bText);
 
-            RawPrinterHelper.SendStringToPrinter(printerAddress, sText);
+            rph.SendStringToPrinter(printerAddress, sText, out Error);
         }
 
         private void tSButton_print_Click(object sender, EventArgs e)
