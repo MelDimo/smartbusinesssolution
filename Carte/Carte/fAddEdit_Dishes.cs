@@ -13,7 +13,7 @@ namespace com.sbs.gui.carte
 {
     public partial class fAddEdit_Dishes : Form
     {
-        DBAccess bdAccess = new DBAccess();
+        DBAccess dbAccess = new DBAccess();
 
         DTO.CarteDishes oCarteDishes;
         public DataTable dtDishes;
@@ -28,9 +28,26 @@ namespace com.sbs.gui.carte
             branchId = pBranchId;
 
             if (oCarteDishes.id == 0) formMode = "ADD";
-            else formMode = "EDIT";
+            else
+            {
+                formMode = "EDIT";
+                getDiscountType();
+                
+            }
 
             InitializeComponent();
+        }
+
+        private void getDiscountType()
+        {
+            try
+            {
+                oCarteDishes.refDiscountType = dbAccess.dishes_discount(GValues.DBMode, oCarteDishes.id);
+            }
+            catch (Exception exc)
+            {
+                uMessage.Show("Неудалось получить данные по дисконтным картам.", exc, SystemIcons.Information);
+            }
         }
 
         private void initRefDishes()
@@ -60,6 +77,16 @@ namespace com.sbs.gui.carte
             if (formMode.Equals("EDIT")) checkBox_AvalHall.Checked = oCarteDishes.avalHall == 1 ? true : false;
             if (formMode.Equals("EDIT")) checkBox_AvalDelivery.Checked = oCarteDishes.avalDelivery == 1 ? true : false;
             if (formMode.Equals("EDIT")) initRefDishes();
+
+            checkedListBox_discount.DataSource = ReferData.dtDiscountType;
+            checkedListBox_discount.DisplayMember = "name";
+            checkedListBox_discount.ValueMember = "id";
+
+            foreach (int discount in oCarteDishes.refDiscountType)
+            {
+                for (int i = 0; i < checkedListBox_discount.Items.Count; i++)
+                    if (((int)((DataRowView)checkedListBox_discount.Items[i])["id"]) == discount) checkedListBox_discount.SetItemChecked(i, true);
+            }
         }
 
         private void button_getDishes_Click(object sender, EventArgs e)
@@ -150,6 +177,13 @@ namespace com.sbs.gui.carte
         {
             string errMsg = "Зполнены не все обязательные поля:";
 
+            oCarteDishes.refDiscountType.Clear();
+            for (int i = 0; i < checkedListBox_discount.Items.Count; i++)
+            {
+                DataRowView view = checkedListBox_discount.Items[i] as DataRowView;
+                if (checkedListBox_discount.GetItemChecked(i)) oCarteDishes.refDiscountType.Add((int)view["id"]);
+            }
+
             if (comboBox_group.SelectedIndex == -1) errMsg += Environment.NewLine + "- Группа;";
             else oCarteDishes.carteDishesGroup = (int)comboBox_group.SelectedValue;
             if (oCarteDishes.name.Length == 0) errMsg += Environment.NewLine + "- Наименование;";
@@ -181,9 +215,9 @@ namespace com.sbs.gui.carte
             try
             {
                 if (formMode.Equals("ADD"))
-                    bdAccess.dishes_add(GValues.DBMode, oCarteDishes, branchId);
+                    dbAccess.dishes_add(GValues.DBMode, oCarteDishes, branchId);
                 else
-                    bdAccess.dishes_edit(GValues.DBMode, oCarteDishes, branchId, checkRefDish);
+                    dbAccess.dishes_edit(GValues.DBMode, oCarteDishes, branchId, checkRefDish);
             }
             catch (Exception exc)
             {
@@ -204,7 +238,6 @@ namespace com.sbs.gui.carte
             fTopping fTopp = new fTopping(oCarteDishes, (DataTable)comboBox_refStatus.DataSource);
             fTopp.ShowDialog();
         }
-
 
     }
 }

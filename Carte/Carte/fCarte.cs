@@ -81,6 +81,7 @@ namespace com.sbs.gui.carte
                 dtPrintersType = oReferences.getRefPrintersType(GValues.DBMode);
                 dtBranch = oReferences.getBranch(GValues.DBMode);
                 dtRefDishes = oReferences.getRefDishes(GValues.DBMode);
+                ReferData.dtDiscountType = oReferences.getRefDiscountType(GValues.DBMode);
 
                 dtFilterCarteRefStatus = dtStatus.Copy();
                 dtFilterCarteDishesGroupRefStatus = dtStatus.Copy();
@@ -438,6 +439,7 @@ namespace com.sbs.gui.carte
             faddedit.comboBox_refStatus.ValueMember = "id";
             faddedit.dtDishes = dtRefDishes;
             faddedit.Text = "Ввод новой позиции";
+
             if (faddedit.ShowDialog() != DialogResult.OK) return;
             updateDishes();
         }

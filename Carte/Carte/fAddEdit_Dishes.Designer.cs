@@ -59,6 +59,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBox_AvalDelivery = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
+            this.checkedListBox_discount = new System.Windows.Forms.CheckedListBox();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_price)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minStep)).BeginInit();
@@ -125,7 +127,7 @@
             this.panel8.Controls.Add(this.button_cancel);
             this.panel8.Controls.Add(this.button_ok);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(0, 368);
+            this.panel8.Location = new System.Drawing.Point(0, 437);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(476, 35);
             this.panel8.TabIndex = 6;
@@ -417,6 +419,8 @@
             this.tableLayoutPanel1.Controls.Add(this.comboBox_refStatus, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.checkBox_AvalDelivery, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.checkedListBox_discount, 1, 11);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 38);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 13;
@@ -431,9 +435,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 324);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 103F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 393);
             this.tableLayoutPanel1.TabIndex = 72;
             // 
             // panel1
@@ -466,16 +470,36 @@
             this.panel2.Size = new System.Drawing.Size(318, 25);
             this.panel2.TabIndex = 73;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Location = new System.Drawing.Point(3, 291);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(146, 103);
+            this.label12.TabIndex = 74;
+            this.label12.Text = "Доступно для оплаты по картам:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // checkedListBox_discount
+            // 
+            this.checkedListBox_discount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox_discount.FormattingEnabled = true;
+            this.checkedListBox_discount.Location = new System.Drawing.Point(155, 294);
+            this.checkedListBox_discount.Name = "checkedListBox_discount";
+            this.checkedListBox_discount.Size = new System.Drawing.Size(318, 97);
+            this.checkedListBox_discount.TabIndex = 75;
+            // 
             // fAddEdit_Dishes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 403);
+            this.ClientSize = new System.Drawing.Size(476, 472);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.textBox_id);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(492, 441);
+            this.MinimumSize = new System.Drawing.Size(492, 510);
             this.Name = "fAddEdit_Dishes";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -528,5 +552,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBox_AvalDelivery;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckedListBox checkedListBox_discount;
     }
 }

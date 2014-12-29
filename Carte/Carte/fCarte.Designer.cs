@@ -554,7 +554,7 @@
             this.toolStripTextBox_branchName.Name = "toolStripTextBox_branchName";
             this.toolStripTextBox_branchName.Padding = new System.Windows.Forms.Padding(3);
             this.toolStripTextBox_branchName.ReadOnly = true;
-            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(346, 29);
+            this.toolStripTextBox_branchName.Size = new System.Drawing.Size(274, 29);
             // 
             // toolStripButton_branch
             // 
@@ -595,7 +595,7 @@
             this.tableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(933, 54);
             this.tableLayoutPanel1.TabIndex = 0;
             // 

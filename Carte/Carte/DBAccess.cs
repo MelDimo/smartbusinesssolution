@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using com.sbs.dll;
+using System.Globalization;
 
 namespace com.sbs.gui.carte
 {
@@ -12,7 +13,7 @@ namespace com.sbs.gui.carte
     {
         internal static DataTable dtUnit;
         internal static DataTable dtCheckedUnit;
-
+        internal static DataTable dtDiscountType;
     }
 
     public class DBAccess
@@ -308,7 +309,7 @@ namespace com.sbs.gui.carte
 
         #region -------------------------------------------------------------- Блюда
 
-        public void dishes_add(string pDbType, DTO.CarteDishes pCarteDishes, int branchId)
+        internal void dishes_add(string pDbType, DTO.CarteDishes pCarteDishes, int branchId)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -334,6 +335,9 @@ namespace com.sbs.gui.carte
                 command.Parameters.Add("ref_status", SqlDbType.Int).Value = pCarteDishes.refStatus;
                 command.Parameters.Add("branch", SqlDbType.Int).Value = branchId;
                 command.Parameters.Add("carte", SqlDbType.Int).Value = pCarteDishes.carte;
+                command.Parameters.Add("discountType", SqlDbType.NVarChar).Value = pCarteDishes.refDiscountType.Count != 0 ?
+                                                            pCarteDishes.refDiscountType.Select(i => i.ToString(CultureInfo.InvariantCulture)).Aggregate((s1, s2) => s1 + "," + s2)
+                                                            : "";
 
                 command.ExecuteNonQuery();
 
@@ -343,7 +347,7 @@ namespace com.sbs.gui.carte
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public void dishes_edit(string pDbType, DTO.CarteDishes pCarteDishes, int branchId, int checkRefDish)
+        internal void dishes_edit(string pDbType, DTO.CarteDishes pCarteDishes, int branchId, int checkRefDish)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -371,6 +375,9 @@ namespace com.sbs.gui.carte
                 command.Parameters.Add("branch", SqlDbType.Int).Value = branchId;
                 command.Parameters.Add("carte", SqlDbType.Int).Value = pCarteDishes.carte;
                 command.Parameters.Add("checkRefDish", SqlDbType.Int).Value = checkRefDish;
+                command.Parameters.Add("discountType", SqlDbType.NVarChar).Value = pCarteDishes.refDiscountType.Count != 0 ?
+                                                            pCarteDishes.refDiscountType.Select(i => i.ToString(CultureInfo.InvariantCulture)).Aggregate((s1, s2) => s1 + "," + s2)
+                                                            : "";
                 
                 command.ExecuteNonQuery();
 
@@ -380,7 +387,7 @@ namespace com.sbs.gui.carte
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        public void dishes_delete(string pDbType, int pDishesId)
+        internal void dishes_delete(string pDbType, int pDishesId)
         {
             con = new DBCon().getConnection(pDbType);
             command = null;
@@ -399,6 +406,45 @@ namespace com.sbs.gui.carte
             }
             catch (Exception exc) { throw exc; }
             finally { if (con.State == ConnectionState.Open) con.Close(); }
+        }
+
+        internal List<int> dishes_discount(string pDbType, int pDishesId)
+        {
+            List<int> lResult = new List<int>();
+
+            dtResult = new DataTable();
+
+            con = new DBCon().getConnection(pDbType);
+            command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandType = CommandType.Text;
+
+                command.CommandText = "SELECT ref_discount_type FROM carte_dishes_discount WHERE carte_dishes = @carte_dishes";
+
+                command.Parameters.Add("carte_dishes", SqlDbType.Int).Value = pDishesId;
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+
+                foreach (DataRow dr in dtResult.Rows)
+                {
+                    lResult.Add((int)dr["ref_discount_type"]);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return lResult;
         }
 
         #endregion
