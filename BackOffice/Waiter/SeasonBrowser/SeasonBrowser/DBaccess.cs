@@ -446,7 +446,7 @@ namespace com.sbs.gui.seasonbrowser
 
                 command.CommandText = " SELECT isnull(SUM(ba.sum), 0) AS delivery_sum" +
                                         " FROM bills_info_delivery_all biad " +
-                                        " INNER JOIN bills_all ba ON ba.bills_id = biad.bills " +
+                                        " INNER JOIN bills_all ba ON ba.bills_id = biad.bills AND ba.branch = biad.branch " +
                                         " WHERE ba.season = @pSeasonId AND ba.branch = @pBranch;";
 
                 using (SqlDataReader dr = command.ExecuteReader())
