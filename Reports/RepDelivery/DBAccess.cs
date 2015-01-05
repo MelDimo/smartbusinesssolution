@@ -50,9 +50,10 @@ namespace com.sbs.gui.report.repdelivery
 
                 command.CommandText = " SELECT b.name, DATEADD(dd, 0, DATEDIFF(dd, 0, ba.date_open)) AS date_open, " +
                                                       " DATEADD(dd, 0, DATEDIFF(dd, 0, ba.date_close)) AS date_close, " +
-                                                      " ba.ref_payment_type, ba.ref_status, ba.sum AS xSumm, ba.discount " +
+                                                      " ba.ref_payment_type, ba.ref_status, ba.sum AS xSumm, ba.discount, rdt.xprice AS tariff " +
                                         " FROM bills_all ba " +
                                         " INNER JOIN bills_info_delivery_all bida ON bida.bills = ba.bills_id AND bida.branch = ba.branch AND bida.season = ba.season " +
+                                        " INNER JOIN ref_delivery_tariff rdt ON rdt.id = bida.ref_delivery_tariff " +
                                         " INNER JOIN branch b ON b.id = ba.branch " +
                                         " WHERE ba.ref_status = 21 AND ref_payment_type != 9 AND  ba.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
                                             " AND ba.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) "

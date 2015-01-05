@@ -12,7 +12,7 @@
   <xs:element name="dsReports" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReports" msprop:Generator_UserDSName="dsReports">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="table" msprop:Generator_TableClassName="tableDataTable" msprop:Generator_TableVarName="tabletable" msprop:Generator_TablePropName="table" msprop:Generator_RowDeletingName="tableRowDeleting" msprop:Generator_UserTableName="table" msprop:Generator_RowChangingName="tableRowChanging" msprop:Generator_RowEvHandlerName="tableRowChangeEventHandler" msprop:Generator_RowDeletedName="tableRowDeleted" msprop:Generator_RowEvArgName="tableRowChangeEvent" msprop:Generator_RowChangedName="tableRowChanged" msprop:Generator_RowClassName="tableRow">
+        <xs:element name="table" msprop:Generator_TableClassName="tableDataTable" msprop:Generator_TableVarName="tabletable" msprop:Generator_RowChangedName="tableRowChanged" msprop:Generator_TablePropName="table" msprop:Generator_RowDeletingName="tableRowDeleting" msprop:Generator_RowChangingName="tableRowChanging" msprop:Generator_RowEvHandlerName="tableRowChangeEventHandler" msprop:Generator_RowDeletedName="tableRowDeleted" msprop:Generator_RowClassName="tableRow" msprop:Generator_UserTableName="table" msprop:Generator_RowEvArgName="tableRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
@@ -22,6 +22,7 @@
               <xs:element name="ref_status" msprop:Generator_ColumnVarNameInTable="columnref_status" msprop:Generator_ColumnPropNameInRow="ref_status" msprop:Generator_ColumnPropNameInTable="ref_statusColumn" msprop:Generator_UserColumnName="ref_status" type="xs:int" minOccurs="0" />
               <xs:element name="xSumm" msprop:Generator_ColumnVarNameInTable="columnxSumm" msprop:Generator_ColumnPropNameInRow="xSumm" msprop:Generator_ColumnPropNameInTable="xSummColumn" msprop:Generator_UserColumnName="xSumm" type="xs:decimal" minOccurs="0" />
               <xs:element name="discount" msprop:Generator_ColumnVarNameInTable="columndiscount" msprop:Generator_ColumnPropNameInRow="discount" msprop:Generator_ColumnPropNameInTable="discountColumn" msprop:Generator_UserColumnName="discount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="tariff" msprop:Generator_ColumnVarNameInTable="columntariff" msprop:Generator_ColumnPropNameInRow="tariff" msprop:Generator_ColumnPropNameInTable="tariffColumn" msprop:Generator_UserColumnName="tariff" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
