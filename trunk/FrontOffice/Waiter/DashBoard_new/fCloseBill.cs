@@ -90,7 +90,28 @@ namespace com.sbs.gui.dashboard
 
         void closeType_click(object sender, EventArgs e)
         {
+            bool resultCeckDiscount = false;
+
             paymentType = (int)((ToolStripMenuItem)sender).Tag;
+
+            if (oDiscountInfo.id != 0) // Проверяем все ли позиции в счета доступны для скидки
+            {
+                try
+                {
+                    resultCeckDiscount = dbAccess.checkDishForDiscount(lDishs, oDiscountInfo.ref_discount_type);
+                }
+                catch (Exception exc) { uMessage.Show("Неудалось проверить возможность применения скидки.", exc, SystemIcons.Information); return; }
+
+
+                if (!resultCeckDiscount)
+                {
+                    MessageBox.Show("В счете существуют позиции не доступные для оплаты с предоставленной картой.\n" +
+                                    "Пожалуйста приведите в соответсвие счет и повторите попытку.",
+                                        GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
+
             DialogResult = DialogResult.OK;
         }
 
@@ -103,7 +124,7 @@ namespace com.sbs.gui.dashboard
                 return;
             }
 
-            label_discount.Text = string.Format("{0:F0} %", oDiscountInfo.discount);
+            label_discount.Text = string.Format("{0:F2} %", oDiscountInfo.discount);
             sumBillWithDiscount = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
             //sumBill = sumBill - ((sumBill * oDiscountInfo.discount) / 100);
             numericUpDown_curSumm.Value = sumBillWithDiscount;
@@ -178,6 +199,11 @@ namespace com.sbs.gui.dashboard
         private void button1_Click(object sender, EventArgs e)
         {
             cMStrip_closeType.Show(button1, new Point(0, button1.Height));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            fCloseBill_KeyDown(null, new KeyEventArgs(Keys.F4));
         }
     }
 }
