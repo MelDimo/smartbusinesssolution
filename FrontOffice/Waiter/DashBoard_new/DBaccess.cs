@@ -1439,6 +1439,7 @@ namespace com.sbs.gui.dashboard
                 oDiscountInfo.isExpDate = (int)dtResult.Rows[i]["isExpDate"];
                 oDiscountInfo.refStatus = (int)dtResult.Rows[i]["ref_status"];
                 oDiscountInfo.dateStart = (DateTime)dtResult.Rows[i]["date_start"];
+                oDiscountInfo.ref_discount_type = (int)dtResult.Rows[i]["ref_discount_type"];
                 if (oDiscountInfo.isExpDate == 1) oDiscountInfo.dateEnd = (DateTime)dtResult.Rows[i]["date_start"];
                 oDiscountInfo.photo = Image.FromStream(new MemoryStream((byte[])dtResult.Rows[i]["photo"]));
             }
@@ -1450,7 +1451,7 @@ namespace com.sbs.gui.dashboard
         {
             return getRefer.getDeals(pDbType, pCarteId, pRefDishes);
         }
-
+                    
         internal DataTable getDealsDishes(string pDbType, int pDealsId, string pRefDishes)
         {
             return getRefer.getDealsDishes(pDbType, pDealsId, pRefDishes);
@@ -1464,6 +1465,12 @@ namespace com.sbs.gui.dashboard
         internal List<DTO_DBoard.Dish> getBonusDishes(string pDbType, int pDealsId)
         {
             return getRefer.getBonusDishes(pDbType, pDealsId);
+        }
+
+        internal bool checkDishForDiscount(List<DTO_DBoard.Dish> plDishs, int pDiscount)
+        {
+            checkDiscount chkDiscount = new checkDiscount();
+            return chkDiscount.checkDishForDiscount(plDishs, pDiscount);
         }
     }
 

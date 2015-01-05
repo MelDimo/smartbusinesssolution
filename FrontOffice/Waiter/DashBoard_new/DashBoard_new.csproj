@@ -68,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="checkDiscount.cs" />
     <Compile Include="DataForReports.cs">
       <DependentUpon>DataForReports.xsd</DependentUpon>
       <SubType>Component</SubType>

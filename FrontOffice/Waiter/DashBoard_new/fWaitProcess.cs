@@ -298,17 +298,24 @@ namespace com.sbs.gui.dashboard
                 bText = Encoding.GetEncoding(866).GetBytes(sb.ToString());
                 sText = Encoding.GetEncoding(1251).GetString(bText);
 
-                //PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
-                //PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
-                //while (pq.IsBusy)
-                //{
-                //    Thread.Sleep(700);
-                //    pq.Refresh();
-                //}
+                if (!GValues.isUsePrintServer)
+                {
+                    PrintServer myPrintServer = new PrintServer(@"\\" + printerAddress.Split('\\')[2]);
+                    PrintQueue pq = new PrintQueue(myPrintServer, printerAddress.Split('\\')[3]);
+                    while (pq.IsBusy)
+                    {
+                        Thread.Sleep(700);
+                        pq.Refresh();
+                    }
 
-                Suppurt.printServer_addWatingRecords(GValues.branchId, printerAddress, sText, 1, 1);
+                    rawHelper.SendStringToPrinter(printerAddress, sText, out dwError);
+                }
+                else
+                {
+                    Suppurt.printServer_addWatingRecords(GValues.branchId, printerAddress, sText, 1, 1);
+                }
 
-                //rawHelper.SendStringToPrinter(printerAddress, sText, out dwError);
+                
             }
         }
 
