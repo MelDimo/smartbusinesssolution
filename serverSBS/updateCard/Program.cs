@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using com.sbs.dll;
 using System.Threading;
+using com.sbs.serverdll;
+using com.sbs.iserver;
+using System.Diagnostics.Eventing;
 
 namespace com.sbs.server
 {
@@ -21,16 +24,35 @@ namespace com.sbs.server
             workingThread.Start(null);
         }
 
-        static void mainThread(object pObject)
+        private void mainThread(object pObject)
         {
+            WriteLog wtLog = new WriteLog();
+
+            DBAccess_UpdateCard dbAccess = new DBAccess_UpdateCard();
+
+            string retVal = string.Empty;
+
             while (true)
             {
                 try
                 {
-
+                    Console.WriteLine("call dbAccess.updateCardHolders()");
+                    retVal = dbAccess.updateCardHolders();
+                    Console.WriteLine("---- dbAccess.updateCardHolders()");
                 }
                 catch (Exception exc)
-                { }
+                {
+                    wtLog.writeLog(exc.Message);
+                }
+                finally
+                {
+                    if (!string.Empty.Equals(retVal))
+                    {
+                        wtLog.writeLog(retVal);
+                    }
+                }
+
+                Thread.Sleep(2000);
             }
         }
     }
