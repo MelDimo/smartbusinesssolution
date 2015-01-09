@@ -8,30 +8,33 @@ using System.Data;
 
 namespace com.sbs.serverdll
 {
-    class DBAccess_UpdateCard
+    public class DBAccess_UpdateCard
     {
         private SqlConnection conMain = null;
         private SqlCommand commandMain = null;
         private SqlTransaction txMain = null;
         
-        internal void updateCardHolders()
+        internal string updateCardHolders()
         {
-        
+            string errMsg = string.Empty;
+
             try
             {
                 conMain = new SqlConnection(GValues.mainDBConStr);
                 conMain.Open();
                 commandMain = conMain.CreateCommand();
 
-                commandMain.CommandText = "updateCardHolders"; 
+                commandMain.CommandText = "updateCardHolders";
                 commandMain.CommandType = CommandType.StoredProcedure;
 
-                commandMain.ExecuteNonQuery();
+                errMsg = commandMain.ExecuteScalar() as string;
 
                 conMain.Close();
             }
             catch (Exception exc) { throw exc; }
             finally { if (conMain.State == ConnectionState.Open) conMain.Close(); }
+
+            return errMsg;
         }
     }
 }
