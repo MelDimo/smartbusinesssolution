@@ -547,6 +547,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.TopMost = true;
+            this.Shown += new System.EventHandler(this.fDelivery_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fDelivery_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

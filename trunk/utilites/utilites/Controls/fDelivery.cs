@@ -48,7 +48,7 @@ namespace com.sbs.dll.utilites
                 groupBox2.Enabled = false;
             }
 
-            intiData();
+            //intiData();
         }
 
         private void intiData()
@@ -107,15 +107,15 @@ namespace com.sbs.dll.utilites
             textBox_code.Text = oDelivery.deliveryClient.addr_code;
             textBox_floor.Text = oDelivery.deliveryClient.addr_floor;
 
-            if (eFormOpensModes != Suppurt.FormOpenModes.Edit)
-            {
-                textBox_cardNumber.Text = oDelivery.cardNumber;
-                textBox_comment.Text = oDelivery.comment;
+            //if (eFormOpensModes != Suppurt.FormOpenModes.Edit)
+            //{
+            textBox_cardNumber.Text = oDelivery.cardNumber;
+            textBox_comment.Text = oDelivery.comment;
 
-                comboBox_driver.SelectedValue = oDelivery.driverId;
-                comboBox_tariff.SelectedValue = oDelivery.tariff;
-                comboBox_city.SelectedValue = oDelivery.deliveryClient.addr_city;
-            }
+            comboBox_driver.SelectedValue = oDelivery.driverId;
+            comboBox_tariff.SelectedValue = oDelivery.tariff;
+            comboBox_city.SelectedValue = oDelivery.deliveryClient.addr_city;
+            //}
 
             textBox_fio.Focus();
         }
@@ -198,6 +198,8 @@ namespace com.sbs.dll.utilites
             oDelivery.deliveryClient.addr_code = textBox_code.Text.Trim();
             oDelivery.deliveryClient.addr_floor = textBox_floor.Text.Trim();
 
+            oDelivery.comment = textBox_comment.Text.Trim();
+
             oDelivery.driverId = (int)comboBox_driver.SelectedValue;
             oDelivery.tariff = (int)comboBox_tariff.SelectedValue;
 
@@ -216,7 +218,10 @@ namespace com.sbs.dll.utilites
             if (isNewClient)
             {
                 oDelivery.deliveryClient.id = Guid.NewGuid().ToString();
-                try { dbAccess.saveClient(oDelivery.deliveryClient); }
+                try
+                {
+                    dbAccess.saveClient(oDelivery.deliveryClient);
+                }
                 catch (Exception exc)
                 {
                     uMessage.Show("Неудалось сохранить клиента.", exc, SystemIcons.Information);
@@ -330,6 +335,13 @@ namespace com.sbs.dll.utilites
                     setClientInfo();
                     break;
             }
+        }
+
+        private void fDelivery_Shown(object sender, EventArgs e)
+        {
+            intiData();
+
+            textBox_tel.Focus();
         }
     }
 
@@ -476,7 +488,7 @@ namespace com.sbs.dll.utilites
                 command = con.CreateCommand();
 
                 command.CommandType = CommandType.Text;
-                command.CommandText = " UPDATE bills_info_delivery  SET ref_delivery_client = ref_delivery_client, " +
+                command.CommandText = " UPDATE bills_info_delivery  SET ref_delivery_client = @ref_delivery_client, " +
                                       "                                 ref_driver = @driver, " +
                                       "                                 ref_delivery_tariff = @ref_delivery_tariff, " +
                                       "                                  discountNumber = @discountNumber, " +
