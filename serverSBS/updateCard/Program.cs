@@ -34,11 +34,10 @@ namespace com.sbs.server
 
             while (true)
             {
+                Console.WriteLine("updateCardHolders");
                 try
                 {
-                    Console.WriteLine("call dbAccess.updateCardHolders()");
                     retVal = dbAccess.updateCardHolders();
-                    Console.WriteLine("---- dbAccess.updateCardHolders()");
                 }
                 catch (Exception exc)
                 {
@@ -52,7 +51,7 @@ namespace com.sbs.server
                     }
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(3600000); // - 3600000 - 1 час
             }
         }
     }

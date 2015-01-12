@@ -12,7 +12,6 @@ using com.sbs.server;
 using System.Security;
 using com.sbs.iserver;
 using System.Diagnostics;
-using System.Configuration.Install;
 
 namespace com.sbs.server
 {
