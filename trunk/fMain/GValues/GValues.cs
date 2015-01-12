@@ -36,6 +36,8 @@ namespace com.sbs.dll
         public static int authortype;
         public static string billPrinter;
         public static bool dbSynch;
+        public static bool printServer;
+        public static bool isUsePrintServer;
         //public static int timeSynch;
         //public static int waitingNodes;
 
@@ -218,6 +220,8 @@ namespace com.sbs.dll
             XmlNode node_modulesPath;
             XmlNode node_billPrinter;
             XmlNode node_dbSynch;
+            XmlNode node_isUsePrintServer;
+            XmlNode node_printServer;
             //XmlNode node_timeSynch;
             //XmlNode node_waitingNodes;
 
@@ -231,6 +235,8 @@ namespace com.sbs.dll
                 node_waiterConfig = doc.SelectNodes("settings/waiter/authortype").Item(0);
                 node_billPrinter = doc.SelectNodes("settings/waiter/billPrinter")[0];
                 node_dbSynch = doc.GetElementsByTagName("dbsynch")[0];
+                node_printServer = doc.GetElementsByTagName("printServer")[0];
+                node_isUsePrintServer = doc.SelectNodes("settings/waiter/usePrintServer")[0];
                 //node_timeSynch = doc.SelectNodes("settings/waiter/timeSynch")[0];
                 //node_waitingNodes = doc.SelectNodes("settings/waiter/waitingNodes")[0];
 
@@ -253,8 +259,6 @@ namespace com.sbs.dll
                 if (!int.TryParse(node_waiterConfig.InnerText, out xBranchId))
                     msgError += Environment.NewLine + "- Не удалось определить тип авторизации официанта;";
                 else GValues.authortype = xBranchId;
-
-                
 
                 switch (node_billPrinter.InnerText)
                 {
@@ -286,6 +290,22 @@ namespace com.sbs.dll
                         break;
                 }
 
+                switch (node_printServer.InnerText)
+                {
+                    case "true":
+                        GValues.printServer = true;
+                        break;
+
+                    case "false":
+                        GValues.printServer = false;
+                        break;
+
+                    default:
+                        msgError += Environment.NewLine + "- Не удалось определить является ли приложение сервером печати;";
+                        break;
+                }
+                
+
                 //switch (node_isDelivery.InnerText)
                 //{
                 //    case "true":
@@ -299,7 +319,22 @@ namespace com.sbs.dll
                 //    default:
                 //        msgError += Environment.NewLine + "- Не удалось определить является ли рабочее место доставкой;";
                 //        break;
-                //}                
+                //}
+                
+                switch (node_isUsePrintServer.InnerText)
+                {
+                    case "true":
+                        GValues.isUsePrintServer = true;
+                        break;
+
+                    case "false":
+                        GValues.isUsePrintServer = false;
+                        break;
+
+                    default:
+                        msgError += Environment.NewLine + "- Не удалось определить использовать ли сервер печати;";
+                        break;
+                }
 
                 //if (!int.TryParse(node_timeSynch.InnerText, out xBranchId))
                 //    msgError += Environment.NewLine + "- Не удалось определить период синхронизации заведения;";

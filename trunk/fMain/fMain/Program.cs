@@ -144,19 +144,47 @@ namespace com.sbs.gui.main
                 curModule = str;
 #if DEBUG
                 //Assembly.LoadFile(@"D:\VisualStudio2010\Projects\RELEASE\SBS\modules" + Path.DirectorySeparatorChar + str);
-                Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str);
+                //Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str);
 
                 Assembly assembly = Assembly.LoadFile(GValues.modulesPath + Path.DirectorySeparatorChar + str, 
                     new Evidence( Assembly.GetExecutingAssembly().Evidence ));
 
-                if (str == "mailChecker.dll")   // если проверка почты
+                if (str == "mailChecker.dll")   // если проверка почты. Временно закоментировал. Не доточил
                 {
+                    ;
                     /*
                     Type type = assembly.GetType("com.sbs.dll.mailChecker.ChkMailMain");
                     MethodInfo methodInfo = type.GetMethod("run");
                     object classInstance = Activator.CreateInstance(type, null);
                     methodInfo.Invoke(classInstance, null);
-                    */
+                     * */
+                }
+
+                if (str == "printServer.dll" && GValues.isUsePrintServer)
+                {
+                    Type typePrintServer = assembly.GetType("printServer.CMain");
+                    MethodInfo methodPrintServer = typePrintServer.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(typePrintServer, null);
+                    methodPrintServer.Invoke(classInstance, null);
+
+                    GValues.DicDemans.Add("printRunners", typePrintServer);
+                }
+
+                if (str == "synchData.dll" && GValues.dbSynch)              // если модуль синхронизации и установлен признак синхронизации (settings.xml)
+                {
+                    Type typeBill = assembly.GetType("com.sbs.dll.synchdata.SynchData");
+                    MethodInfo methodInfoBill = typeBill.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(typeBill, null);
+                    methodInfoBill.Invoke(classInstance, null);
+
+                    GValues.DicDemans.Add("sendSeasonData", typeBill);
+
+                    Type typeTime = assembly.GetType("com.sbs.dll.synchdata.SynchTimeTracking");
+                    MethodInfo methodInfoTime = typeTime.GetMethod("run");
+                    object classInstanceTime = Activator.CreateInstance(typeTime, null);
+                    methodInfoTime.Invoke(classInstanceTime, null);
+
+                    GValues.DicDemans.Add("sendTimeTrackingData", typeTime);
                 }
 
 #else
@@ -176,7 +204,17 @@ namespace com.sbs.gui.main
                      * */
                 }
 
-                if (str == "synchData.dll" && GValues.dbSynch)   // если модуль синхронизации и установлен признак синхронизации (settings.xml)
+                if (str == "printServer.dll" && GValues.printServer)
+                {
+                    Type typePrintServer = assembly.GetType("printServer.CMain");
+                    MethodInfo methodPrintServer = typePrintServer.GetMethod("run");
+                    object classInstance = Activator.CreateInstance(typePrintServer, null);
+                    methodPrintServer.Invoke(classInstance, null);
+
+                    GValues.DicDemans.Add("printRunners", typePrintServer);
+                }
+
+                if (str == "synchData.dll" && GValues.dbSynch)              // если модуль синхронизации и установлен признак синхронизации (settings.xml)
                 {
                     Type typeBill = assembly.GetType("com.sbs.dll.synchdata.SynchData");
                     MethodInfo methodInfoBill = typeBill.GetMethod("run");
@@ -192,6 +230,9 @@ namespace com.sbs.gui.main
 
                     GValues.DicDemans.Add("sendTimeTrackingData", typeTime);
                 }
+
+
+
                 #endregion
 #endif
             }
