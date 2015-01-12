@@ -34,6 +34,11 @@ namespace com.sbs.dll
 
         public class CarteDishes
         {
+            public CarteDishes()
+            {
+                refDiscountType = new List<int>();
+            }
+
             public int id { get; set; }
             public int carteDishesGroup { get; set; }
             public int carte { get; set; }
@@ -46,6 +51,8 @@ namespace com.sbs.dll
             public int avalHall { get; set; }
             public int avalDelivery { get; set; }
             public int refPrintersType { get; set; }
+            public List<int> refDiscountType { get; set; }
+
         }
 
         public class Dishes

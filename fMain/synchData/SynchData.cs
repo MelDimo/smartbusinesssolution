@@ -324,6 +324,8 @@ namespace com.sbs.dll.synchdata
             }
             catch (Exception exc) 
             {
+                txLocal.Rollback();
+                txMain.Rollback();
                 WriteLog.write(exc.Message + Environment.NewLine + exc.StackTrace);
             }
 
@@ -331,12 +333,10 @@ namespace com.sbs.dll.synchdata
             {
                 if (conLocal.State == ConnectionState.Open)
                 {
-                    txLocal.Rollback();
                     conLocal.Close();
                 }
                 if (conMain.State == ConnectionState.Open)
                 {
-                    txMain.Rollback();
                     conMain.Close();
                 }
             }
