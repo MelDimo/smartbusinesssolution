@@ -469,6 +469,7 @@ namespace com.sbs.gui.dashboard
                 oBill.oDelivery.comment = dtResult.Rows[i]["bid_xcomment"].ToString();
                 oBill.oDelivery.driverId = (int)dtResult.Rows[i]["bid_driver"];
                 oBill.oDelivery.tariff = (int)dtResult.Rows[i]["bid_tariff"];
+                oBill.oDelivery.deliveryClient.id = dtResult.Rows[i]["bid_client"].ToString();
                 oBill.oDelivery.deliveryClient.telNumb = dtResult.Rows[i]["rdc_phone"].ToString();
                 oBill.oDelivery.deliveryClient.fio = dtResult.Rows[i]["rdc_fio"].ToString();
                 oBill.oDelivery.deliveryClient.addr_city = (int)dtResult.Rows[i]["rdc_refCity"];
@@ -479,7 +480,6 @@ namespace com.sbs.gui.dashboard
                 oBill.oDelivery.deliveryClient.addr_porch = dtResult.Rows[i]["rdc_porch"].ToString();
                 oBill.oDelivery.deliveryClient.addr_code = dtResult.Rows[i]["rdc_code"].ToString();
                 oBill.oDelivery.deliveryClient.addr_floor = dtResult.Rows[i]["rdc_floor"].ToString();
-
 
                 oBillList.Add(oBill);
             }
@@ -1124,6 +1124,7 @@ namespace com.sbs.gui.dashboard
                                                 " CASE WHEN rdc.[floor] = '' THEN '' ELSE ' эт.' + rdc.[floor] END AS xaddr, " +
                                                 " b.[sum] billSum, " +
                                                 " rdt.xprice xtariff, " +
+                                                " bid.xcomment, " +
                                                 " rp.name AS printerName, " +
 		                                        " 'reports\\deliveryOrder.rpt' AS reportPath " +
                                         " FROM bills b " +

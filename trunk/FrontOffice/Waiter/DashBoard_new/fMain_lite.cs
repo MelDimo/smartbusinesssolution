@@ -163,7 +163,7 @@ namespace com.sbs.gui.dashboard
                         if (curBill.oDelivery.bills == 0) return; // У выбранного счета нет доставки
 
                         fDelivery fDeliv = new fDelivery(curBill.oDelivery, Suppurt.FormOpenModes.Edit);
-                        fDeliv.ShowDialog();
+                        if (fDeliv.ShowDialog() == DialogResult.OK){} curBill.oDelivery = fDeliv.oDelivery;
                         break;
                 }
             }
