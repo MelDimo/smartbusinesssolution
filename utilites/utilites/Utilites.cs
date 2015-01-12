@@ -767,6 +767,34 @@ namespace com.sbs.dll.utilites
             return dtResult;
         }
 
+        public DataTable getRefDiscountType(string pDbType)
+        {
+            DataTable dtResult = new DataTable();
+
+            SqlConnection con = new DBCon().getConnection(pDbType);
+            SqlCommand command = null;
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+
+                command.CommandText = " SELECT [id], [name], [ref_status], [notes], [discount], [stepDiscount], [maxDiscount] " +
+                                        " FROM [ref_discount_type]";
+
+                using (SqlDataReader dr = command.ExecuteReader())
+                {
+                    dtResult.Load(dr);
+                }
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            return dtResult;
+        }
+
         public DataTable getCarteDishes_Carte(string pDbType, int pCarte)
         {
             DataTable dtResult = new DataTable();
@@ -1793,6 +1821,34 @@ namespace com.sbs.dll.utilites
 
             return false;
         }
+
+        public static void printServer_addWatingRecords(int pBranch, string pPrinterName, string pSourceText, int pSourceType, int pXcount)
+        {
+            SqlConnection con = new DBCon().getConnection(GValues.DBMode);
+            SqlCommand command;
+            DataTable dtResult = new DataTable();
+
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = " INSERT INTO printerTurn(branch, printerName, sourceText, sourceType, xcount, ref_status, retMessage) " +
+                                        " VALUES(@branch, @printerName, @sourceText, @sourceType, @xcount,  @ref_status, @retMessage)";
+                command.Parameters.Add("branch", SqlDbType.Int).Value = pBranch;
+                command.Parameters.Add("printerName", SqlDbType.NVarChar).Value = pPrinterName;
+                command.Parameters.Add("sourceText", SqlDbType.NVarChar).Value = pSourceText;
+                command.Parameters.Add("sourceType", SqlDbType.Int).Value = pSourceType;
+                command.Parameters.Add("xcount", SqlDbType.Int).Value = pXcount;
+                command.Parameters.Add("ref_status", SqlDbType.Int).Value = 35;
+                command.Parameters.Add("retMessage", SqlDbType.NVarChar).Value = string.Empty;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { throw exc; }
+            finally { if (con.State == ConnectionState.Open) { con.Close(); } }
+        }
     }
 
     public class UserAuthorize
@@ -1929,9 +1985,10 @@ namespace com.sbs.dll.utilites
         // When the function is given a printer name and an unmanaged array
         // of bytes, the function sends those bytes to the print queue.
         // Returns true on success, false on failure.
-        public bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+        public bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount, out Int32 dwError)
         {
-            Int32 dwError = 0, dwWritten = 0;
+            dwError = 0;
+            Int32 dwWritten = 0;
             IntPtr hPrinter = new IntPtr(0);
             DOCINFOA di = new DOCINFOA();
             bool bSuccess = false; // Assume failure unless you specifically succeed.
@@ -1965,45 +2022,47 @@ namespace com.sbs.dll.utilites
             return bSuccess;
         }
 
-        public bool SendFileToPrinter(string szPrinterName, string szFileName)
-        {
-            // Open the file.
-            FileStream fs = new FileStream(szFileName, FileMode.Open);
-            // Create a BinaryReader on the file.
-            BinaryReader br = new BinaryReader(fs);
-            // Dim an array of bytes big enough to hold the file's contents.
-            Byte[] bytes = new Byte[fs.Length];
-            bool bSuccess = false;
-            // Your unmanaged pointer.
-            IntPtr pUnmanagedBytes = new IntPtr(0);
-            int nLength;
+        //public bool SendFileToPrinter(string szPrinterName, string szFileName)
+        //{
+        //    // Open the file.
+        //    FileStream fs = new FileStream(szFileName, FileMode.Open);
+        //    // Create a BinaryReader on the file.
+        //    BinaryReader br = new BinaryReader(fs);
+        //    // Dim an array of bytes big enough to hold the file's contents.
+        //    Byte[] bytes = new Byte[fs.Length];
+        //    bool bSuccess = false;
+        //    // Your unmanaged pointer.
+        //    IntPtr pUnmanagedBytes = new IntPtr(0);
+        //    int nLength;
 
-            nLength = Convert.ToInt32(fs.Length);
-            // Read the contents of the file into the array.
-            bytes = br.ReadBytes(nLength);
-            // Allocate some unmanaged memory for those bytes.
-            pUnmanagedBytes = Marshal.AllocCoTaskMem(nLength);
-            // Copy the managed byte array into the unmanaged array.
-            Marshal.Copy(bytes, 0, pUnmanagedBytes, nLength);
-            // Send the unmanaged bytes to the printer.
-            bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
-            // Free the unmanaged memory that you allocated earlier.
-            Marshal.FreeCoTaskMem(pUnmanagedBytes);
-            return bSuccess;
-        }
-        public bool SendStringToPrinter(string szPrinterName, string szString)
+        //    nLength = Convert.ToInt32(fs.Length);
+        //    // Read the contents of the file into the array.
+        //    bytes = br.ReadBytes(nLength);
+        //    // Allocate some unmanaged memory for those bytes.
+        //    pUnmanagedBytes = Marshal.AllocCoTaskMem(nLength);
+        //    // Copy the managed byte array into the unmanaged array.
+        //    Marshal.Copy(bytes, 0, pUnmanagedBytes, nLength);
+        //    // Send the unmanaged bytes to the printer.
+        //    bSuccess = SendBytesToPrinter(szPrinterName, pUnmanagedBytes, nLength);
+        //    // Free the unmanaged memory that you allocated earlier.
+        //    Marshal.FreeCoTaskMem(pUnmanagedBytes);
+        //    return bSuccess;
+        //}
+
+        public bool SendStringToPrinter(string szPrinterName, string szString, out int dwError)
         {
             IntPtr pBytes;
             Int32 dwCount;
+            bool bSuccess = false;
             // How many characters are in the string?
             dwCount = szString.Length;
             // Assume that the printer is expecting ANSI text, and then convert
             // the string to ANSI text.
             pBytes = Marshal.StringToCoTaskMemAnsi(szString);
             // Send the converted ANSI string to the printer.
-            SendBytesToPrinter(szPrinterName, pBytes, dwCount);
+            bSuccess = SendBytesToPrinter(szPrinterName, pBytes, dwCount, out dwError);
             Marshal.FreeCoTaskMem(pBytes);
-            return true;
+            return bSuccess;
         }
     }
 
