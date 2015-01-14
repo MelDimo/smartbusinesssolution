@@ -19,6 +19,7 @@ public class DBAccess
         Config conf = new Config();
         if (!conf.loadConfig()) return;
         if (!conf.loadConString()) return;
+        conf.initAdditionData(GValues.DBMode);
 
         GValues.DBMode = "online";
     }

@@ -56,6 +56,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBAccess.cs" />
     <Compile Include="sReports.asmx.cs">
       <DependentUpon>sReports.asmx</DependentUpon>
       <SubType>Component</SubType>
