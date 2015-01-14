@@ -506,7 +506,6 @@ namespace com.sbs.gui.seasonbrowser
                                             " NULL as D_DISCOUNT_SUMM, " +
                                             " NULL as D_DISCOUNT_NDSSUMM, " +
                                             " season as SMENID, " +
-
                                             " NULL as CASSID, " +
                                             " NULL as CLIENDID " +
                                         " FROM bills_all " +
