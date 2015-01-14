@@ -39,7 +39,14 @@ namespace com.sbs.dll.synchdata
 
             while (GValues.isAlive)
             {
-                sendTimeTrackingData();
+                try
+                {
+                    sendTimeTrackingData();
+                }
+                catch (Exception exc)
+                {
+                    WriteLog.write(exc.Message + Environment.NewLine + exc.StackTrace);
+                }
                 Thread.Sleep(300000);
             }
         }
