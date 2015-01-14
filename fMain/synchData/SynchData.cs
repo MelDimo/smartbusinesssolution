@@ -44,7 +44,14 @@ namespace com.sbs.dll.synchdata
 
             while (GValues.isAlive)
             {
-                sendSeasonData();
+                try
+                {
+                    sendSeasonData();
+                }
+                catch (Exception exc)
+                {
+                    WriteLog.write(exc.Message + Environment.NewLine + exc.StackTrace);
+                }
                 Thread.Sleep(300000);
             }
         }
