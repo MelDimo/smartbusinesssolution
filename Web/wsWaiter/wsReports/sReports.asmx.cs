@@ -9,7 +9,7 @@ namespace wsReports
     /// <summary>
     /// Summary description for Service1
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://sbsreports.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -17,7 +17,7 @@ namespace wsReports
     public class Service1 : System.Web.Services.WebService
     {
 
-        [WebMethod]
+        [WebMethod(EnableSession = true)]
         public string HelloWorld()
         {
             return "Hello World";
