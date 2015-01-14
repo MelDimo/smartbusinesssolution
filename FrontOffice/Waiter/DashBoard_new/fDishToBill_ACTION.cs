@@ -122,7 +122,11 @@ namespace com.sbs.gui.dashboard
 
         private void refuseDish(decimal pNewCount)  
         {
-            dbAccess.dishRefuse(GValues.DBMode, oBill, oDish, pNewCount);
+            try
+            {
+                dbAccess.dishRefuse(GValues.DBMode, oBill, oDish, pNewCount);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
         }
 
         #endregion

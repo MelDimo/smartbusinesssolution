@@ -56,7 +56,11 @@ namespace com.sbs.gui.dashboard
 
             if (oBill == null) { return; }
 
-            dsResult = dbAccess.billClose(GValues.DBMode, oBill);
+            try
+            {
+                dsResult = dbAccess.billClose(GValues.DBMode, oBill);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
 
             if (dsResult.Tables["order"].Rows.Count > 0)
             {
@@ -334,7 +338,11 @@ namespace com.sbs.gui.dashboard
                 case "PRINTDISH":
                     label_actionName.Text = "Печать бегунка, подождите...";
 
-                    dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
+                    try
+                    {
+                        dsResult = dbAccess.commitDish(GValues.DBMode, oBill);
+                    }
+                    catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
 
                     worThread.DoWork += new DoWorkEventHandler(printDish_DoWork);
                     break;
@@ -355,6 +363,7 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc) {
                 uMessage.Show(string.Format("Не удалась печать счета.{0}", oError.msg), exc, SystemIcons.Information); DialogResult = DialogResult.Cancel;
+                return;
             }
         }
 
