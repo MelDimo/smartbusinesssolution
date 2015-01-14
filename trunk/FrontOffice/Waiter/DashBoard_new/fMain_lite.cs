@@ -313,7 +313,11 @@ namespace com.sbs.gui.dashboard
                 {
                     if (GValues.printRunners == 0)  // Если не надо печатать бегунки просто комичу их
                     {
-                        dbAccess.commitDish(GValues.DBMode, curBill);
+                        try
+                        {
+                            dbAccess.commitDish(GValues.DBMode, curBill);
+                        }
+                        catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
                         break;
                     }
                     else
@@ -418,7 +422,7 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc)
             {
-                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return;
             }
 
             dataGridView_bills.DataSource = lBills;
@@ -472,7 +476,7 @@ namespace com.sbs.gui.dashboard
             }
             catch (Exception exc)
             {
-                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return;
             }
 
             dataGridView_billInfo.Columns["billsinfo_id"].DataPropertyName = "id";
@@ -569,8 +573,12 @@ namespace com.sbs.gui.dashboard
 
             foreach (DataRow dr in dtDeals.Rows)
             {
-                dtDealsDishes = dbAccess.getDealsDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
-                dtBonusDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
+                try
+                {
+                    dtDealsDishes = dbAccess.getDealsDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
+                    dtBonusDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"], refDishes.TrimEnd(','));
+                }
+                catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
 
                 xDealsDishes = selectDealsDishes(dtDealsDishes, refDishes, refDishesCount);
                 xBonusDishes = selectBonusDishes(dtBonusDishes, refDishes, refDishesCount);
@@ -584,7 +592,13 @@ namespace com.sbs.gui.dashboard
 
                 if (xBonusDishes != 0)
                 {
-                    List<DTO_DBoard.Dish> olDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"]);
+                    List<DTO_DBoard.Dish> olDishes;
+
+                    try
+                    {
+                        olDishes = dbAccess.getBonusDishes(GValues.DBMode, (int)dr["id"]);
+                    }
+                    catch (Exception exc) { uMessage.Show("Ошибка", exc, SystemIcons.Information); return; }
 
                     fDealsDishes fdeals = new fDealsDishes(olDishes, dr["name"].ToString(), xBonusDishes);
                     if (fdeals.ShowDialog() != DialogResult.OK) return;
