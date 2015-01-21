@@ -16,17 +16,48 @@ public class DBAccess
 
     public DBAccess()
     {
+        GValues.DBMode = "offline";
+
         Config conf = new Config();
         if (!conf.loadConfig()) return;
         if (!conf.loadConString()) return;
         conf.initAdditionData(GValues.DBMode);
-
-        GValues.DBMode = "online";
     }
 
-    public DTO.GValuesEx getGValuesEx()
+    public List<DTO.GValuesEx> getGValuesEx(int pDeviceId)
     {
-        return new DTO.GValuesEx() { branch = GValues.branchId };
+        List<DTO.GValuesEx> lGValuesEx = new List<DTO.GValuesEx>();
+        dtResult = new DataTable();
+
+        try
+        {
+            con = new DBCon().getConnection(GValues.DBMode);
+            con.Open();
+
+            command = new SqlCommand();
+            command.Connection = con;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "mobile_GetGValues";
+
+            command.Parameters.Add("pDeviceId", SqlDbType.Int).Value = pDeviceId;
+
+            using (SqlDataReader dr = command.ExecuteReader()) { dtResult.Load(dr); }
+
+            con.Close();
+        }
+        catch (Exception exc) { throw exc; }
+        finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+        foreach (DataRow dr in dtResult.Rows)
+        { 
+            lGValuesEx.Add(new DTO.GValuesEx() { 
+            branch = GValues.branchId,
+            season = (int)dr["season"],
+            fio = dr["fio"].ToString()
+            });
+        }
+
+        return lGValuesEx;
     }
 
     public List<DTO.Bill> getBills(int pBranchId, int pSeasonId)

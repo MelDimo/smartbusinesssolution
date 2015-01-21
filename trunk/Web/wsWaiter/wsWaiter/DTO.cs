@@ -15,6 +15,8 @@ public class DTO
 
     public class GValuesEx
     {
+        public string fio { get; set; }
         public int branch { get; set; }
+        public int season { get; set; }
     }
 }
