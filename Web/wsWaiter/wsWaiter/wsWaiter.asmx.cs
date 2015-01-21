@@ -18,9 +18,9 @@ namespace com.sbs.ws.waiter
         DBAccess dbAccess = new DBAccess();
 
         [WebMethod(EnableSession = true)]
-        public DTO.GValuesEx getGValuesEx()
+        public List<DTO.GValuesEx> getGValuesEx(int pDeviceId)
         {
-            return dbAccess.getGValuesEx();
+            return dbAccess.getGValuesEx(pDeviceId);
         }
 
         [WebMethod(EnableSession = true)]

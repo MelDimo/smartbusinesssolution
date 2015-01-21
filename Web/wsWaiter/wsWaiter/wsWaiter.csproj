@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GValues">
-      <HintPath>..\..\..\fMain\fMain\GValues\bin\Release\GValues.dll</HintPath>
+    <Reference Include="GValues, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\fMain\fMain\GValues\bin\Debug\GValues.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
