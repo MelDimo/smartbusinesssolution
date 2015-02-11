@@ -52,7 +52,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 105);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(526, 34);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 1;
             // 
             // label1
             // 
@@ -121,25 +121,28 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(526, 105);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // comboBox_season
             // 
             this.comboBox_season.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_season.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_season.FormattingEnabled = true;
             this.comboBox_season.Location = new System.Drawing.Point(94, 53);
             this.comboBox_season.Name = "comboBox_season";
             this.comboBox_season.Size = new System.Drawing.Size(429, 21);
-            this.comboBox_season.TabIndex = 5;
+            this.comboBox_season.TabIndex = 0;
             // 
             // comboBox_waiter
             // 
             this.comboBox_waiter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comboBox_waiter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_waiter.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBox_waiter.FormattingEnabled = true;
             this.comboBox_waiter.Location = new System.Drawing.Point(94, 78);
             this.comboBox_waiter.Name = "comboBox_waiter";
             this.comboBox_waiter.Size = new System.Drawing.Size(429, 21);
-            this.comboBox_waiter.TabIndex = 6;
+            this.comboBox_waiter.TabIndex = 1;
             // 
             // button_save
             // 
@@ -169,6 +172,7 @@
             this.textBox_branch.ReadOnly = true;
             this.textBox_branch.Size = new System.Drawing.Size(429, 20);
             this.textBox_branch.TabIndex = 7;
+            this.textBox_branch.TabStop = false;
             // 
             // textBox_device
             // 
@@ -178,6 +182,7 @@
             this.textBox_device.ReadOnly = true;
             this.textBox_device.Size = new System.Drawing.Size(429, 20);
             this.textBox_device.TabIndex = 8;
+            this.textBox_device.TabStop = false;
             // 
             // fAddEdit
             // 
@@ -186,6 +191,7 @@
             this.ClientSize = new System.Drawing.Size(526, 139);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(542, 177);
@@ -195,6 +201,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "fEdit";
             this.Shown += new System.EventHandler(this.fAddEdit_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fAddEdit_KeyDown);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
