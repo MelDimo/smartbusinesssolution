@@ -35,6 +35,7 @@
             this.dataGridView_main = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.season = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.waiter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).BeginInit();
@@ -68,15 +69,18 @@
             this.tSButton_edit.Name = "tSButton_edit";
             this.tSButton_edit.Size = new System.Drawing.Size(23, 22);
             this.tSButton_edit.ToolTipText = "Редактровать";
+            this.tSButton_edit.Click += new System.EventHandler(this.tSButton_edit_Click);
             // 
             // dataGridView_main
             // 
+            this.dataGridView_main.AllowUserToAddRows = false;
             this.dataGridView_main.AllowUserToDeleteRows = false;
             this.dataGridView_main.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView_main.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_main.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.season,
+            this.uId,
             this.waiter});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_main.Location = new System.Drawing.Point(0, 25);
@@ -102,6 +106,13 @@
             this.season.Name = "season";
             this.season.ReadOnly = true;
             this.season.Width = 65;
+            // 
+            // uId
+            // 
+            this.uId.HeaderText = "uId";
+            this.uId.Name = "uId";
+            this.uId.ReadOnly = true;
+            this.uId.Visible = false;
             // 
             // waiter
             // 
@@ -142,6 +153,7 @@
         private System.Windows.Forms.DataGridView dataGridView_main;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn season;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uId;
         private System.Windows.Forms.DataGridViewTextBoxColumn waiter;
     }
 }
