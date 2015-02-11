@@ -56,7 +56,8 @@
             this.tSButton_edit});
             this.toolStrip_top.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_top.Name = "toolStrip_top";
-            this.toolStrip_top.Size = new System.Drawing.Size(387, 25);
+            this.toolStrip_top.Padding = new System.Windows.Forms.Padding(2);
+            this.toolStrip_top.Size = new System.Drawing.Size(387, 27);
             this.toolStrip_top.TabIndex = 1;
             this.toolStrip_top.Text = "toolStrip1";
             // 
@@ -67,7 +68,7 @@
             this.tSButton_edit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tSButton_edit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSButton_edit.Name = "tSButton_edit";
-            this.tSButton_edit.Size = new System.Drawing.Size(23, 22);
+            this.tSButton_edit.Size = new System.Drawing.Size(23, 20);
             this.tSButton_edit.ToolTipText = "Редактровать";
             this.tSButton_edit.Click += new System.EventHandler(this.tSButton_edit_Click);
             // 
@@ -83,14 +84,15 @@
             this.uId,
             this.waiter});
             this.dataGridView_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_main.Location = new System.Drawing.Point(0, 25);
+            this.dataGridView_main.Location = new System.Drawing.Point(0, 27);
             this.dataGridView_main.MultiSelect = false;
             this.dataGridView_main.Name = "dataGridView_main";
             this.dataGridView_main.ReadOnly = true;
             this.dataGridView_main.RowHeadersVisible = false;
             this.dataGridView_main.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView_main.Size = new System.Drawing.Size(387, 471);
-            this.dataGridView_main.TabIndex = 2;
+            this.dataGridView_main.Size = new System.Drawing.Size(387, 469);
+            this.dataGridView_main.TabIndex = 0;
+            this.dataGridView_main.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView_main_KeyDown);
             // 
             // id
             // 
@@ -137,6 +139,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Мобольные официанты";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.toolStrip_top.ResumeLayout(false);
             this.toolStrip_top.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_main)).EndInit();

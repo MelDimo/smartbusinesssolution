@@ -82,5 +82,26 @@ namespace com.sbs.gui.linkdevice
             if (faddedit.ShowDialog() == DialogResult.Cancel) return;
             updateData();
         }
+
+        private void fMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    Close();
+                    break;
+            }
+        }
+
+        private void dataGridView_main_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    e.SuppressKeyPress = true;
+                    tSButton_edit_Click(null, new EventArgs());
+                    break;
+            }
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace com.sbs.gui.linkdevice
                 command = con.CreateCommand();
 
                 command.CommandType = CommandType.Text;
-                command.CommandText = " SELECT bdmw.ref_dmw, bdmw.season, u.id AS uId, isnull(u.lname + ' ' + u.fname + ' ' + u.sname, '') AS fio " +
+                command.CommandText = " SELECT bdmw.ref_dmw, bdmw.season, isnull(u.id, 0) AS uId, isnull(u.lname + ' ' + u.fname + ' ' + u.sname, '') AS fio " +
                                         " FROM branch_dmw bdmw " +
                                         " LEFT JOIN users u ON u.id = bdmw.users " +
                                         " WHERE bdmw.branch = @branch";

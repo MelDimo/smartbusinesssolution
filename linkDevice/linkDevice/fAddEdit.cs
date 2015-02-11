@@ -37,8 +37,19 @@ namespace com.sbs.gui.linkdevice
 
         private void button_save_Click(object sender, EventArgs e)
         {
-            oDevice.season = (int)comboBox_season.SelectedValue;
-            oDevice.uId = (int)comboBox_waiter.SelectedValue;
+            string errMsg = "Незаполнены следующие обязательные поля: ";
+
+            if (comboBox_season.SelectedValue != null) oDevice.season = (int)comboBox_season.SelectedValue;
+            else errMsg += Environment.NewLine + "- Смена;";
+
+            if (comboBox_waiter.SelectedValue != null) oDevice.uId = (int)comboBox_waiter.SelectedValue;
+            else errMsg += Environment.NewLine + "- Сотрудник;";
+
+            if (!"Незаполнены следующие обязательные поля: ".Equals(errMsg))
+            {
+                MessageBox.Show(errMsg, GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             try
             {
@@ -63,6 +74,16 @@ namespace com.sbs.gui.linkdevice
         {
             textBox_device.Text = oDevice.id;
             textBox_branch.Text = string.Format("{0} ({1})", GValues.branchName, GValues.branchId.ToString());
+        }
+
+        private void fAddEdit_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.Escape:
+                    Close();
+                    break;
+            }
         }
     }
 }
