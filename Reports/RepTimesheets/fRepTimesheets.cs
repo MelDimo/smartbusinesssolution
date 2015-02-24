@@ -205,6 +205,7 @@ namespace com.sbs.gui.report.reptimesheets
             ReportDocument repDoc = new ReportDocument();
             repDoc.Load(pathForReport);
             repDoc.SetDataSource(dt);
+            repDoc.SetParameterValue("pBranchName", textBox_branchsNames.Text);
             repDoc.SetParameterValue("xDateTime_start", oRepParam.xDayStart.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
             repDoc.SetParameterValue("xDateTime_end",oRepParam.xDayEnd.ToString().PadLeft(2, '0') + "." + oRepParam.xMonth.ToString().PadLeft(2, '0') + "." + oRepParam.xYear.ToString());
             repDoc.SetParameterValue("arrSeason", arrSeason);
