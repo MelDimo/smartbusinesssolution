@@ -57,6 +57,7 @@ namespace com.sbs.gui.report.repsumbyitems
                 con = new DBCon().getConnection(pDbType);
                 con.Open();
                 command = con.CreateCommand();
+                command.CommandTimeout = 600;
 
                 command.CommandText = " SELECT rd.code, " +
                                                 " bi.ref_dishes, " +
