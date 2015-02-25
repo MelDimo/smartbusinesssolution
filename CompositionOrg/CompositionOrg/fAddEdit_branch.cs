@@ -112,14 +112,14 @@ namespace com.sbs.gui.compositionorg
                 case "ADD":
                     try
                     {
-                        dbAccess.addBranch("offline", oBranchDTO);
+                        dbAccess.addBranch(GValues.DBMode, oBranchDTO);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); return false; }
                     break;
                 case "EDIT":
                     try
                     {
-                        dbAccess.editBranch("offline", oBranchDTO);
+                        dbAccess.editBranch(GValues.DBMode, oBranchDTO);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); return false; }
                     break;
