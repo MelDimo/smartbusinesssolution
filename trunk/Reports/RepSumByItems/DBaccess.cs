@@ -59,26 +59,53 @@ namespace com.sbs.gui.report.repsumbyitems
                 command = con.CreateCommand();
                 command.CommandTimeout = 600;
 
-                command.CommandText = " SELECT rd.code, " +
-                                                " bi.ref_dishes, " +
-                                                " rdg.name AS dishesGroupName, " +
-                                                " bi.dishes_name AS dishesName, " +
-                                                " br.name AS nameBranch, " +
-                                                " bi.dishes_price AS dishesPrice, " +
-                                                " SUM(bi.xcount) AS dishesCount, " +
-                                                " (bi.dishes_price - (bi.dishes_price * bi.discount / 100))  * sum(bi.xcount) AS dishesSumm " +
-                                        " FROM bills_all b " +
-                                        " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
-                                        " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id AND bi.branch = b.branch" +
-                                        " LEFT JOIN ref_dishes rd ON rd.id = bi.ref_dishes " +
-                                        " LEFT JOIN ref_dishes_group rdg ON rdg.id = rd.ref_dishes_group " +
-                                        " INNER JOIN branch br ON br.id = b.branch " +
-                                        " WHERE b.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
-                                            " AND b.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
-                                            " AND b.branch in (" + sBranch + ") AND b.ref_payment_type in (" + sPaymentType + ") " +
-                                            sItems +
-                                        " GROUP BY bi.ref_dishes, rd.code, rdg.name, bi.dishes_name, br.name, bi.dishes_price, bi.discount " +
-                                        " ORDER BY rdg.name, bi.dishes_name";
+                //command.CommandText = " SELECT rd.code, " +
+                //                                " bi.ref_dishes, " +
+                //                                " rdg.name AS dishesGroupName, " +
+                //                                " bi.dishes_name AS dishesName, " +
+                //                                " br.name AS nameBranch, " +
+                //                                " bi.dishes_price AS dishesPrice, " +
+                //                                " SUM(bi.xcount) AS dishesCount, " +
+                //                                " (bi.dishes_price - (bi.dishes_price * bi.discount / 100))  * sum(bi.xcount) AS dishesSumm " +
+                //                        " FROM bills_all b " +
+                //                        " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch " +
+                //                        " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id AND bi.branch = b.branch" +
+                //                        " LEFT JOIN ref_dishes rd ON rd.id = bi.ref_dishes " +
+                //                        " LEFT JOIN ref_dishes_group rdg ON rdg.id = rd.ref_dishes_group " +
+                //                        " INNER JOIN branch br ON br.id = b.branch " +
+                //                        " WHERE b.date_open >= CONVERT(datetime,'" + sDateStart + "',120) " +
+                //                            " AND b.date_close <= CONVERT(datetime,'" + sDateEnd + "',120) " +
+                //                            " AND b.branch in (" + sBranch + ") AND b.ref_payment_type in (" + sPaymentType + ") " +
+                //                            sItems +
+                //                        " GROUP BY bi.ref_dishes, rd.code, rdg.name, bi.dishes_name, br.name, bi.dishes_price, bi.discount " +
+                //                        " ORDER BY rdg.name, bi.dishes_name";
+
+                command.CommandText = string.Empty;
+                foreach (int i in pFilter.lBranch.ToArray())
+                {
+                    command.CommandText += " SELECT rd.code, " +
+                                            "    bi.ref_dishes,  " +
+                                            "    rdg.name AS dishesGroupName,  " +
+                                            "    bi.dishes_name AS dishesName,  " +
+                                            "    br.name AS nameBranch,  " +
+                                            "    bi.dishes_price AS dishesPrice,  " +
+                                            "    SUM(bi.xcount) AS dishesCount," +
+                                            "    (bi.dishes_price - (bi.dishes_price * bi.discount / 100))  * sum(bi.xcount) AS dishesSumm  " +
+                                            " FROM bills_all b  " +
+                                            " INNER JOIN season_all s ON s.season_id = b.season AND s.branch = b.branch  " +
+                                            " INNER JOIN bills_info_all bi ON bi.bills = b.bills_id AND bi.season = s.season_id AND bi.branch = b.branch " +
+                                            " LEFT JOIN ref_dishes rd ON rd.id = bi.ref_dishes  " +
+                                            " LEFT JOIN ref_dishes_group rdg ON rdg.id = rd.ref_dishes_group  " +
+                                            " INNER JOIN branch br ON br.id = b.branch  " +
+                                            " WHERE b.branch = " + i.ToString() + " AND b.ref_payment_type in (" + sPaymentType + ") AND " +
+                                                " b.date_open BETWEEN CONVERT(datetime,'" + sDateStart + "',120) AND CONVERT(datetime,'" + sDateEnd + "',120) " +
+                                                " GROUP BY bi.ref_dishes, rd.code, rdg.name, bi.dishes_name, br.name, bi.dishes_price, bi.discount " +
+                                            " UNION";
+                                        
+                }
+
+                command.CommandText = command.CommandText.TrimEnd("UNION".ToCharArray());
+                command.CommandText += " ORDER BY rdg.name, bi.dishes_name ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
