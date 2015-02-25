@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.dto;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.compositionorg
 {
@@ -74,14 +75,14 @@ namespace com.sbs.gui.compositionorg
                 case "ADD":
                     try
                     {
-                        dbAccess.addOrganization("offline", oOrgDTO);
+                        dbAccess.addOrganization(GValues.DBMode, oOrgDTO);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); }
                     break;
                 case "EDIT":
                     try
                     {
-                        dbAccess.editOrganization("offline", oOrgDTO);
+                        dbAccess.editOrganization(GValues.DBMode, oOrgDTO);
                     }
                     catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); }
                     break;

@@ -59,14 +59,14 @@ namespace com.sbs.gui.compositionorg
 
             try
             {
-                dtOrg = dbAccess.getOrganization("offline");
-                dtBranch = dbAccess.getBranch("offline");
-                dtUnit = dbAccess.getUnit("offline");
-                dtStatus = oReference.getStatus("offline", 1);
-                dtCity = dbAccess.getCity("offline");
-                dtPrinters = oReference.getRefPrinters("offline");
-                dtPrintersType = oReference.getRefPrintersType("offline");
-                dtPaymentType = oReference.getPaymentType("offline");
+                dtOrg = dbAccess.getOrganization(GValues.DBMode);
+                dtBranch = dbAccess.getBranch(GValues.DBMode);
+                dtUnit = dbAccess.getUnit(GValues.DBMode);
+                dtStatus = oReference.getStatus(GValues.DBMode, 1);
+                dtCity = dbAccess.getCity(GValues.DBMode);
+                dtPrinters = oReference.getRefPrinters(GValues.DBMode);
+                dtPrintersType = oReference.getRefPrintersType(GValues.DBMode);
+                dtPaymentType = oReference.getPaymentType(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Невозможно получить данные!", exc, SystemIcons.Error); Close(); }
 
@@ -151,7 +151,7 @@ namespace com.sbs.gui.compositionorg
             oOrgDTO.Id = (int)dataRow.Cells["id"].Value;
             try
             {
-                dbAccess.delOrganization("offline", oOrgDTO);
+                dbAccess.delOrganization(GValues.DBMode, oOrgDTO);
             }
             catch (Exception exc) { uMessage.Show("Ошибка удаления записи.", exc, SystemIcons.Error); }
 
@@ -230,7 +230,7 @@ namespace com.sbs.gui.compositionorg
 
             try
             {
-                oBranchDTO.paymentType = dbAccess.getBranchPaymentType("offline", oBranchDTO.Id);
+                oBranchDTO.paymentType = dbAccess.getBranchPaymentType(GValues.DBMode, oBranchDTO.Id);
             }
             catch (Exception exc)
             {
@@ -266,7 +266,7 @@ namespace com.sbs.gui.compositionorg
             oBranchDTO.Id = (int)dataRow.Cells["branch_id"].Value;
             try
             {
-                dbAccess.delBranch("offline", oBranchDTO);
+                dbAccess.delBranch(GValues.DBMode, oBranchDTO);
             }
             catch (Exception exc) { uMessage.Show("Ошибка удаления записи.", exc, SystemIcons.Error); }
             
@@ -288,7 +288,15 @@ namespace com.sbs.gui.compositionorg
 
             fAddEdit_unit faddeditunit = new fAddEdit_unit(oUnitDTO, dtBranch, dtStatus, dtPrinters, dtPrintersType);
             faddeditunit.Text = "Новое подразделение";
-            if (faddeditunit.ShowDialog() == DialogResult.OK) initData();
+            if (faddeditunit.ShowDialog() == DialogResult.OK)
+            {
+                initData();
+                foreach (DataGridViewRow dr in dataGridView_branch.Rows)
+                {
+                    if ((int)dr.Cells["branch_id"].Value == oUnitDTO.Branch) dr.Selected = true;
+                }
+                //foreach( )
+            }
 
         }
 
@@ -351,7 +359,7 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.Id = (int)dataRow.Cells["unit_id"].Value;
             try
             {
-                dbAccess.delUnit("offline", oUnitDTO);
+                dbAccess.delUnit(GValues.DBMode, oUnitDTO);
             }
             catch (Exception exc) { uMessage.Show("Ошибка удаления записи.", exc, SystemIcons.Error); }
 

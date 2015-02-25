@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using com.sbs.dll.dto;
 using com.sbs.dll.utilites;
+using com.sbs.dll;
 
 namespace com.sbs.gui.compositionorg
 {
@@ -72,11 +73,13 @@ namespace com.sbs.gui.compositionorg
             oUnitDTO.Branch = comboBox_branch.SelectedValue == null ? 0 : (int)comboBox_branch.SelectedValue;
             oUnitDTO.RefPrintersType = comboBox_refPrintersType.SelectedValue == null ? 0 : (int)comboBox_refPrintersType.SelectedValue;
             oUnitDTO.RefPrinters = comboBox_refPrinters.SelectedValue == null ? 0 : (int)comboBox_refPrinters.SelectedValue;
+            oUnitDTO.Code = textBox_code.Text.Trim();
 
 
             if (oUnitDTO.Name.Length == 0) errMessage += System.Environment.NewLine + "- Наименование;";
             if (oUnitDTO.Branch == 0) errMessage += System.Environment.NewLine + "- Заведение;";
             if (oUnitDTO.RefStatus == 0) errMessage += System.Environment.NewLine + "- Статус;";
+            if (oUnitDTO.Code.Length == 0) errMessage += System.Environment.NewLine + "- Внешний ключ;";
 
             if (!errMessage.Equals("Заполнены не все обязательные поля:"))
             {
@@ -88,16 +91,16 @@ namespace com.sbs.gui.compositionorg
                 case "ADD":
                     try
                     {
-                        dbAccess.addUnit("offline", oUnitDTO);
+                        dbAccess.addUnit(GValues.DBMode, oUnitDTO);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при добавлении записи.", exc, SystemIcons.Error); return false; }
                     break;
                 case "EDIT":
                     try
                     {
-                        dbAccess.editUnit("offline", oUnitDTO);
+                        dbAccess.editUnit(GValues.DBMode, oUnitDTO);
                     }
-                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); }
+                    catch (Exception exc) { uMessage.Show("Ошибка при редактировании записи.", exc, SystemIcons.Error); return false; }
                     break;
             }
 
