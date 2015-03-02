@@ -99,6 +99,7 @@ namespace com.sbs.gui.report.repsumbyitems
                                             " INNER JOIN branch br ON br.id = b.branch  " +
                                             " WHERE b.branch = " + i.ToString() + " AND b.ref_payment_type in (" + sPaymentType + ") AND " +
                                                 " b.date_open BETWEEN CONVERT(datetime,'" + sDateStart + "',120) AND CONVERT(datetime,'" + sDateEnd + "',120) " +
+                                                sItems +
                                                 " GROUP BY bi.ref_dishes, rd.code, rdg.name, bi.dishes_name, br.name, bi.dishes_price, bi.discount " +
                                             " UNION";
                                         
