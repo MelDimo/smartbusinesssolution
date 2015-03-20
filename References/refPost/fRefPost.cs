@@ -32,11 +32,14 @@ namespace com.sbs.gui.references.post
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
             DataGridViewRow dRow = dataGridView_main.SelectedRows[0];
+            int index = dRow.Index;
 
             fAddEdit faddedit = new fAddEdit(dRow.Cells["id"].Value.ToString(),
                 dRow.Cells["name"].Value.ToString(),
                 dRow.Cells["status_id"].Value.ToString());
             if (faddedit.ShowDialog() == DialogResult.OK) updateData();
+
+            dataGridView_main.CurrentCell = dataGridView_main.Rows[index].Cells["name"];
         }
 
         private void tSButton_del_Click(object sender, EventArgs e)

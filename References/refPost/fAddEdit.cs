@@ -166,19 +166,21 @@ namespace com.sbs.gui.references.post
                 switch (formMode)
                 {
                     case "ADD":
-                        command.CommandText = "INSERT INTO ref_post(name, ref_status)" +
-                                                " VALUES (@name, @ref_status)";
+                        command.CommandText = "INSERT INTO ref_post(name, ref_status) VALUES (@name, @ref_status); " +
+                                                " SELECT CAST(scope_identity() AS int)";
 
                         postId = (Int32)command.ExecuteScalar();
                         
                         command.CommandText = "INSERT INTO ref_post_param(ref_post, valueBottom, valueTop, valueFULL)" +
-                                                " VALUES (@postId, @valueBottom, @valueTop, @valueFULL)";
+                                                " VALUES (@ref_post, @valueBottom, @valueTop, @valueFULL)";
 
                         command.Parameters.Clear();
                         command.Parameters.Add("ref_post", SqlDbType.Int).Value = postId;
                         command.Parameters.Add("valueBottom", SqlDbType.Decimal).Value = valueBottom;
                         command.Parameters.Add("valueTop", SqlDbType.Decimal).Value = valueTop;
                         command.Parameters.Add("valueFULL", SqlDbType.Decimal).Value = valueFULL;
+
+                        command.ExecuteNonQuery();
 
                         break;
 
