@@ -63,6 +63,12 @@
     <Compile Include="fAddEdit.Designer.cs">
       <DependentUpon>fAddEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="fAddEditGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fAddEditGroup.Designer.cs">
+      <DependentUpon>fAddEditGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="fRefDishes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="fAddEdit.resx">
       <DependentUpon>fAddEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fAddEditGroup.resx">
+      <DependentUpon>fAddEditGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fRefDishes.resx">
       <DependentUpon>fRefDishes.cs</DependentUpon>

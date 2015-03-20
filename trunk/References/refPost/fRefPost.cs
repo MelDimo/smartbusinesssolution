@@ -56,7 +56,7 @@ namespace com.sbs.gui.references.post
 
             int xId = (int)dataGridView_main.SelectedRows[0].Cells["id"].Value;
 
-            SqlConnection con = new DBCon().getConnection("offline");
+            SqlConnection con = new DBCon().getConnection(GValues.DBMode);
             SqlCommand command = null;
             DataTable dt = new DataTable();
             try
@@ -78,7 +78,7 @@ namespace com.sbs.gui.references.post
 
         private void updateData()
         {
-            SqlConnection con = new DBCon().getConnection("offline");
+            SqlConnection con = new DBCon().getConnection(GValues.DBMode);
             SqlCommand command = null;
             DataTable dt = new DataTable();
             try
