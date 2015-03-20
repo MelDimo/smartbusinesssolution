@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Services;
+using System.Diagnostics;
 
 namespace com.sbs.ws.waiter
 {
@@ -24,30 +25,71 @@ namespace com.sbs.ws.waiter
         }
 
         [WebMethod(EnableSession = true)]
-        public List<DTO.Bill> getBills(int pBranchId, int pSeasonId)
+        public List<DTO.Bill> getBills(int pUserId, int pSeasonId)
         {
             List<DTO.Bill> lBill = new List<DTO.Bill>();
 
-            lBill = dbAccess.getBills(pBranchId, pSeasonId);
+            lBill = dbAccess.getBills(pUserId, pSeasonId);
 
             return lBill;
         }
 
         [WebMethod(EnableSession = true)]
-        public string getCounter()
+        public List<DTO.BillInfo> getBillsInfo(int pSeasonId, int pBillId)
         {
-            if (Session["HitCounter"] == null) Session["HitCounter"] = 1;
-            else Session["HitCounter"] = ((int)Session["HitCounter"]) + 1;
-
-            return Session["HitCounter"].ToString();
+            return dbAccess.getBillsInfo(pSeasonId, pBillId);
         }
 
         [WebMethod(EnableSession = true)]
-        public DTO.Bill createBill(DTO.Bill pBill)
+        public void addDishToBill(int pBranch, int pSeasonId, int pBillsId, int pRefDishes, decimal pDishCount, int pUserId)
         {
-            return dbAccess.createBill(pBill);
+            dbAccess.addDishToBill(pBranch, pSeasonId, pBillsId, pRefDishes, pDishCount, pUserId);
         }
 
+        [WebMethod(EnableSession = true)]
+        public void DishToBill_refuse(int pBranch, int pSeason, int pBillId, int pRefDishes, int pUser, decimal pNewCount)
+        {
+            dbAccess.DishToBill_refuse(pBranch, pSeason, pBillId, pRefDishes, pUser, pNewCount);
+        }
 
+        [WebMethod(EnableSession = true)]
+        public List<int> openBill(int pBranch, int pSeason, int pxTable, int pUserOpen)
+        {
+            return dbAccess.openBill(pBranch, pSeason, pxTable, pUserOpen);
+        }
+
+        [WebMethod(EnableSession = true)]
+        public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pBranch, int pSeason, int pUserId, string pUserName)
+        {
+            return dbAccess.commitBill(pId, pNumb, pTable, pBranch, pSeason, pUserId, pUserName);
+        }
+
+        [WebMethod(EnableSession = true)]
+        public List<DTO.Menu> getMenu(int pBranchId)
+        {
+            return dbAccess.getMenu(pBranchId);
+        }
+
+        [WebMethod(EnableSession = true)]
+        public void setComment(int pBillId, int pBranch, int pSeason, int pRefDishes, int pNotes)
+        {
+            dbAccess.setComment(pBillId, pBranch, pSeason, pRefDishes, pNotes);
+        }
+
+        [WebMethod(EnableSession = true)]
+        public List<DTO.GetReferences> getReferences(int pBranch)
+        {
+            return dbAccess.getReferences(pBranch);
+        }
+
+        private void WriteToEventLog(string strLogEntry, EventLogEntryType eType)
+        {
+            string strSource = "sbsWSWaiter"; //name of the source
+            string strLogType = "Application"; //type of the log
+            string strMachine = "."; //machine name
+
+            EventLog eLog = new EventLog(strLogType, strMachine, strSource);
+            eLog.WriteEntry(strLogEntry, eType, 1000);
+        }
     }
 }
