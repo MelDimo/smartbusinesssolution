@@ -17,8 +17,10 @@ namespace com.sbs.gui.references.refdishes
         DataTable dtItems;
         DataTable dtRefPrintresType;
         DataTable dtRefStatus;
+        DataTable dtGroupTree;
 
         DTO.Dishes oDishes;
+        DishGroup oDishGroup;
 
         fAddEdit faddedit;
         private int intSearch;
@@ -31,10 +33,16 @@ namespace com.sbs.gui.references.refdishes
             tSButton_edit.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
             tSButton_del.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
 
+            tSButton_addTree.Image = com.sbs.dll.utilites.Properties.Resources.add_26;
+            tSButton_editTree.Image = com.sbs.dll.utilites.Properties.Resources.edit_26;
+            tSButton_dublicate.Image = com.sbs.dll.utilites.Properties.Resources.copy_26;
+            tSButton_delTree.Image = com.sbs.dll.utilites.Properties.Resources.delete_26;
+
             dataGridView_main.AutoGenerateColumns = false;
             
             initTables();
 
+            updateGroup();
             updateData();
         }
 
@@ -44,10 +52,48 @@ namespace com.sbs.gui.references.refdishes
 
             try
             {
-                dtRefStatus = oReferences.getStatus("offline", 1);
-                dtRefPrintresType = oReferences.getRefPrintersType("offline");
+                dtRefStatus = oReferences.getStatus(GValues.DBMode, 1);
+                dtRefPrintresType = oReferences.getRefPrintersType(GValues.DBMode);
             }
             catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+        }
+
+        private void updateGroup()
+        {
+            TreeNode nodes;
+            bool inPalce = false;
+
+            getReference oReferences = new getReference();
+
+            treeView_DishesGroups.Nodes.Clear();
+
+            try
+            {
+                dtGroupTree = oReferences.getDishesGroup(GValues.DBMode);
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка получения справочников", exc, SystemIcons.Error); return; }
+
+            foreach (DataRow dr in dtGroupTree.Rows)
+            {
+                inPalce = false;
+                nodes = new TreeNode();
+                nodes.Text = dr["name"].ToString();
+                nodes.Name = dr["id"].ToString();
+                nodes.Tag = dr["id_parent"].ToString();
+
+                foreach (TreeNode tn in treeView_DishesGroups.Nodes.Find(dr["id_parent"].ToString(), true))
+                {
+                    tn.Nodes.Add(nodes);
+                    inPalce = true;
+                }
+
+                if (!inPalce)
+                {
+                    treeView_DishesGroups.Nodes.Add(nodes);
+                }
+            }
+
+            dtGroupTree.Rows.Add(new object[] { 0, 0, "< Корневой элемент >", 1 });
         }
 
         private void updateData()
@@ -59,11 +105,11 @@ namespace com.sbs.gui.references.refdishes
             {
                 con.Open();
                 command = con.CreateCommand();
-                command.CommandText = " SELECT rd.id, rd.code, rd.name, rd.price, rd.minStep," +
+                command.CommandText = " SELECT rd.id, rd.code, rd.ref_dishes_group, rd.name, rd.price, rd.minStep," +
                                             " rd.ref_printers_type," +
-                                            " rd.ref_status, rs.name AS ref_status_name" +
+                                            " rd.ref_status, rs.name AS ref_status_name " +
                                         " FROM ref_dishes rd" +
-                                        " INNER JOIN ref_status rs ON rs.id = rd.ref_status";
+                                        " INNER JOIN ref_status rs ON rs.id = rd.ref_status ORDER BY rd.name";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
@@ -93,17 +139,23 @@ namespace com.sbs.gui.references.refdishes
             faddedit.comboBox_refStatus.DataSource = dtRefStatus;
             faddedit.comboBox_refStatus.DisplayMember = "name";
             faddedit.comboBox_refStatus.ValueMember = "id";
+            
             faddedit.comboBox_refPrintersType.DataSource = dtRefPrintresType;
             faddedit.comboBox_refPrintersType.DisplayMember = "name";
             faddedit.comboBox_refPrintersType.ValueMember = "id";
+
             faddedit.Text = "Новое блюдо";
-            if (faddedit.ShowDialog() == DialogResult.OK) updateData();
+            if (faddedit.ShowDialog() == DialogResult.OK)
+            {
+                updateData();
+                refreshData();
+            }
         }
 
         private void tSButton_edit_Click(object sender, EventArgs e)
         {
             oDishes = new DTO.Dishes();
-            DataRow dishInfo;
+            DataRow dishInfo = null;
 
             int rowIndex = 0;
 
@@ -127,6 +179,58 @@ namespace com.sbs.gui.references.refdishes
             oDishes.price = dishInfo.Field<decimal>("price");
             oDishes.refStatus = dishInfo.Field<int>("ref_status");
             oDishes.refPrintersType = dishInfo.Field<int>("ref_printers_type");
+            oDishes.dishesGroup = dishInfo.Field<int>("ref_dishes_group");
+
+            faddedit = new fAddEdit(oDishes);
+            
+            faddedit.comboBox_refStatus.DataSource = dtRefStatus;
+            faddedit.comboBox_refStatus.DisplayMember = "name";
+            faddedit.comboBox_refStatus.ValueMember = "id";
+            faddedit.comboBox_refStatus.SelectedValue = oDishes.refStatus;
+
+            faddedit.comboBox_refPrintersType.DataSource = dtRefPrintresType;
+            faddedit.comboBox_refPrintersType.DisplayMember = "name";
+            faddedit.comboBox_refPrintersType.ValueMember = "id";
+            faddedit.comboBox_refPrintersType.SelectedValue = oDishes.refPrintersType;
+
+            faddedit.textBox_treeGroup.Text = treeView_DishesGroups.SelectedNode.Text;
+
+            faddedit.Text = "Редактирование блюда '" + oDishes.name + "'";
+            if (faddedit.ShowDialog() == DialogResult.OK)
+            {
+                updateData();
+                dataGridView_main.CurrentCell = dataGridView_main.Rows[rowIndex].Cells[1];
+                refreshData();
+            }
+
+            for (int i = 0; i < dataGridView_main.Rows.Count; i++)
+                if ((int)dataGridView_main.Rows[i].Cells["id"].Value == oDishes.id) dataGridView_main.CurrentCell = dataGridView_main.Rows[i].Cells[1];
+        }
+
+        private void tSButton_dublicate_Click(object sender, EventArgs e)
+        {
+            oDishes = new DTO.Dishes();
+            DataRow dishInfo;
+
+            if (dataGridView_main.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Укажите элемент для редактирования.", GValues.prgNameFull, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            DataGridViewRow dataRow = dataGridView_main.SelectedRows[0];
+
+            
+            dishInfo = (from rec in dtItems.AsEnumerable()
+                        where rec.Field<int>("id") == (int)dataRow.Cells["id"].Value
+                        select rec).First();
+
+            oDishes.id = 0;
+            oDishes.code = dishInfo.Field<int>("code");
+            oDishes.name = dishInfo.Field<string>("name");
+            oDishes.price = dishInfo.Field<decimal>("price");
+            oDishes.refStatus = dishInfo.Field<int>("ref_status");
+            oDishes.refPrintersType = dishInfo.Field<int>("ref_printers_type");
 
             faddedit = new fAddEdit(oDishes);
             faddedit.comboBox_refStatus.DataSource = dtRefStatus;
@@ -137,13 +241,13 @@ namespace com.sbs.gui.references.refdishes
             faddedit.comboBox_refPrintersType.DisplayMember = "name";
             faddedit.comboBox_refPrintersType.ValueMember = "id";
             faddedit.comboBox_refPrintersType.SelectedValue = oDishes.refPrintersType;
-            faddedit.Text = "Редактирование блюда '" + oDishes.name + "'";
+            faddedit.Text = "Новое блюдо";
+
             if (faddedit.ShowDialog() == DialogResult.OK)
             {
                 updateData();
-                dataGridView_main.CurrentCell = dataGridView_main.Rows[rowIndex].Cells[1];
+                refreshData();
             }
-
 
         }
 
@@ -253,5 +357,109 @@ namespace com.sbs.gui.references.refdishes
                     break;
             }
         }
+
+        private void tSButton_addTree_Click(object sender, EventArgs e)
+        {
+            oDishGroup = new DishGroup();
+            oDishGroup.id = 0;
+            oDishGroup.name = treeView_DishesGroups.SelectedNode.Text;
+            oDishGroup.id_parent = int.Parse(treeView_DishesGroups.SelectedNode.Name);
+
+            fAddEditGroup faeg = new fAddEditGroup(oDishGroup, Suppurt.FormOpenModes.New);
+            faeg.Text = "Новый элемент";
+            faeg.comboBox_parentGroup.DataSource = dtGroupTree;
+            faeg.comboBox_parentGroup.DisplayMember = "name";
+            faeg.comboBox_parentGroup.ValueMember = "id";
+            if (faeg.ShowDialog() != DialogResult.OK) return;
+
+            updateGroup();
+        }
+
+        private void tSButton_editTree_Click(object sender, EventArgs e)
+        {
+            if (treeView_DishesGroups.Nodes.Count == 0) return;
+
+            //int index = treeView_DishesGroups.SelectedNode.Index;
+
+            oDishGroup = new DishGroup();
+            oDishGroup.id = int.Parse(treeView_DishesGroups.SelectedNode.Name);
+            oDishGroup.name = treeView_DishesGroups.SelectedNode.Text;
+            oDishGroup.id_parent = int.Parse(treeView_DishesGroups.SelectedNode.Tag.ToString());
+
+            fAddEditGroup faeg = new fAddEditGroup(oDishGroup, Suppurt.FormOpenModes.Edit);
+            faeg.Text = string.Format("Редактирование [{0}]", oDishGroup.name);
+            faeg.comboBox_parentGroup.DataSource = dtGroupTree;
+            faeg.comboBox_parentGroup.DisplayMember = "name";
+            faeg.comboBox_parentGroup.ValueMember = "id";
+            if (faeg.ShowDialog() != DialogResult.OK) return;
+
+            updateGroup();
+
+            //treeView_DishesGroups.SelectedNode = treeView_DishesGroups.Nodes[index];
+        }
+
+        private void tSButton_delTree_Click(object sender, EventArgs e)
+        {
+            if (treeView_DishesGroups.Nodes.Count == 0) return;
+
+            oDishGroup = new DishGroup();
+            oDishGroup.id = int.Parse(treeView_DishesGroups.SelectedNode.Name);
+            oDishGroup.name = treeView_DishesGroups.SelectedNode.Text;
+
+            if (dataGridView_main.Rows.Count > 0)
+            {
+                MessageBox.Show("Данный узел содержит позиции. Сначала переместите позиции.", GValues.prgNameFull,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
+            if (treeView_DishesGroups.SelectedNode.Nodes.Count > 0)
+            {
+                MessageBox.Show("Данный узел содержит дочерниии элементы. Сначала удалите дочернии элементы.", GValues.prgNameFull,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (MessageBox.Show(string.Format("Вы уверены что хотите удалить элемент [{0}]", oDishGroup.name), GValues.prgNameFull,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+            SqlConnection con = new DBCon().getConnection("offline");
+            SqlCommand command = null;
+            DataTable dt = new DataTable();
+            try
+            {
+                con.Open();
+                command = con.CreateCommand();
+                command.CommandText = "DELETE FROM ref_dishes_group WHERE id = @id";
+                command.Parameters.Add("id", SqlDbType.Int).Value = oDishGroup.id;
+
+                command.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception exc) { uMessage.Show("Ошибка обработки данных", exc, SystemIcons.Error); return; }
+            finally { if (con.State == ConnectionState.Open) con.Close(); }
+
+            updateGroup();
+        }
+
+        private void treeView_DishesGroups_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            refreshData();
+        }
+
+        private void refreshData()
+        {
+            dtItems.DefaultView.RowFilter = "ref_dishes_group = " + treeView_DishesGroups.SelectedNode.Name;
+        }
+
+       
+    }
+
+    public class DishGroup
+    {
+        public int id { get; set; }
+        public int id_parent { get; set; }
+        public string name { get; set; }
     }
 }
