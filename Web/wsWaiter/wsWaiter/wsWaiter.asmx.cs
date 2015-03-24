@@ -59,6 +59,12 @@ namespace com.sbs.ws.waiter
         }
 
         [WebMethod(EnableSession = true)]
+        public void closeBill(int pBillId, int pBranch, int pSeason, int pPaymentType, int pUserId)
+        { 
+
+        }
+
+        [WebMethod(EnableSession = true)]
         public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pBranch, int pSeason, int pUserId, string pUserName)
         {
             return dbAccess.commitBill(pId, pNumb, pTable, pBranch, pSeason, pUserId, pUserName);
@@ -81,6 +87,8 @@ namespace com.sbs.ws.waiter
         {
             return dbAccess.getReferences(pBranch);
         }
+
+
 
         private void WriteToEventLog(string strLogEntry, EventLogEntryType eType)
         {
