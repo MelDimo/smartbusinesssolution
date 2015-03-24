@@ -308,6 +308,32 @@ public class DBAccess
         return outParam;
     }
 
+    public void closeBill(int pBillId, int pBranch, int pSeason, int pPaymentType, int pUserId)
+    {
+        try
+        {
+            con = new DBCon().getConnection(GValues.DBMode);
+            con.Open();
+
+            command = new SqlCommand();
+            command.Connection = con;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "mobile_CloseBill";
+
+            command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillId;
+            command.Parameters.Add("pBranch", SqlDbType.Int).Value = pBranch;
+            command.Parameters.Add("pSeason", SqlDbType.Int).Value = pSeason;
+            command.Parameters.Add("pPaymentType", SqlDbType.Int).Value = pPaymentType;
+            command.Parameters.Add("pUserId", SqlDbType.Decimal).Value = pUserId;
+
+            command.ExecuteNonQuery();
+
+            con.Close();
+        }
+        catch (Exception exc) { WriteToEventLog(exc.Message, EventLogEntryType.Error); throw exc; }
+        finally { if (con.State == ConnectionState.Open) con.Close(); }
+    }
+
     public List<DTO.BillInfo> getBillsInfo(int pSeasonId, int pBillId)
     {
         dtResult = new DataTable();
