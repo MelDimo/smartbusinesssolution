@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button_cancel = new System.Windows.Forms.Button();
+            this.button_save = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,8 +38,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.comboBox_season = new System.Windows.Forms.ComboBox();
             this.comboBox_waiter = new System.Windows.Forms.ComboBox();
-            this.button_save = new System.Windows.Forms.Button();
-            this.button_cancel = new System.Windows.Forms.Button();
             this.textBox_branch = new System.Windows.Forms.TextBox();
             this.textBox_device = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
@@ -53,6 +53,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(526, 34);
             this.panel1.TabIndex = 1;
+            // 
+            // button_cancel
+            // 
+            this.button_cancel.Location = new System.Drawing.Point(87, 6);
+            this.button_cancel.Name = "button_cancel";
+            this.button_cancel.Size = new System.Drawing.Size(75, 23);
+            this.button_cancel.TabIndex = 1;
+            this.button_cancel.Text = "Отмена";
+            this.button_cancel.UseVisualStyleBackColor = true;
+            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
+            // 
+            // button_save
+            // 
+            this.button_save.Location = new System.Drawing.Point(6, 6);
+            this.button_save.Name = "button_save";
+            this.button_save.Size = new System.Drawing.Size(75, 23);
+            this.button_save.TabIndex = 0;
+            this.button_save.Text = "Сохранить";
+            this.button_save.UseVisualStyleBackColor = true;
+            this.button_save.Click += new System.EventHandler(this.button_save_Click);
             // 
             // label1
             // 
@@ -143,26 +163,6 @@
             this.comboBox_waiter.Name = "comboBox_waiter";
             this.comboBox_waiter.Size = new System.Drawing.Size(429, 21);
             this.comboBox_waiter.TabIndex = 1;
-            // 
-            // button_save
-            // 
-            this.button_save.Location = new System.Drawing.Point(6, 6);
-            this.button_save.Name = "button_save";
-            this.button_save.Size = new System.Drawing.Size(75, 23);
-            this.button_save.TabIndex = 0;
-            this.button_save.Text = "Сохранить";
-            this.button_save.UseVisualStyleBackColor = true;
-            this.button_save.Click += new System.EventHandler(this.button_save_Click);
-            // 
-            // button_cancel
-            // 
-            this.button_cancel.Location = new System.Drawing.Point(87, 6);
-            this.button_cancel.Name = "button_cancel";
-            this.button_cancel.Size = new System.Drawing.Size(75, 23);
-            this.button_cancel.TabIndex = 1;
-            this.button_cancel.Text = "Отмена";
-            this.button_cancel.UseVisualStyleBackColor = true;
-            this.button_cancel.Click += new System.EventHandler(this.button_cancel_Click);
             // 
             // textBox_branch
             // 

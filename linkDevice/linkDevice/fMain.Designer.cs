@@ -138,6 +138,7 @@
             this.Name = "fMain";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Мобольные официанты";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fMain_KeyDown);
             this.toolStrip_top.ResumeLayout(false);
