@@ -35,15 +35,15 @@ namespace com.sbs.reportForPrintServer
 
                 dsResult = printRunners(command, pBill); // Возвращаем перечень блюд для бегунка
 
-                command.CommandText = "mobile_BillSetTable";
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Clear();
-                command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
-                command.Parameters.Add("pSeason", SqlDbType.Int).Value = season;
-                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
-                command.Parameters.Add("pUserId", SqlDbType.Int).Value = userId;
+                //command.CommandText = "mobile_BillSetTable";
+                //command.CommandType = CommandType.StoredProcedure;
+                //command.Parameters.Clear();
+                //command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
+                //command.Parameters.Add("pSeason", SqlDbType.Int).Value = season;
+                //command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBill.id;
+                //command.Parameters.Add("pUserId", SqlDbType.Int).Value = userId;
 
-                command.ExecuteNonQuery();
+                //command.ExecuteNonQuery();
 
                 command.CommandText = "DishToBill_changeStatus";
                 command.CommandType = CommandType.StoredProcedure;

@@ -258,6 +258,7 @@ public class DBAccess
             oBill.dateBill = dr["dateBill"].ToString();
             oBill.numBill = (int)dr["numbBill"];
             oBill.table = (int)dr["table"];
+            oBill.peopleCount = (int)dr["peopleCount"];
             oBill.sum = (decimal)dr["sum"];
             lBill.Add(oBill);
         }
@@ -265,7 +266,7 @@ public class DBAccess
         return lBill;
     }
 
-    public List<int> openBill(int pBranch, int pSeason, int pxTable, int pUserOpen)
+    public List<int> openBill(int pBranch, int pSeason, int pxTable, int pPeopleCount, int pUserOpen)
     {
         dtResult = new DataTable();
 
@@ -285,6 +286,7 @@ public class DBAccess
             command.Parameters.Add("pBranch", SqlDbType.Int).Value = pBranch;
             command.Parameters.Add("pSeason", SqlDbType.Int).Value = pSeason;
             command.Parameters.Add("pxTable", SqlDbType.Int).Value = pxTable;
+            command.Parameters.Add("pPeopleCount", SqlDbType.Int).Value = pPeopleCount;
             command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = pUserOpen;
 
             command.Parameters.Add("pBillId", SqlDbType.Int);
@@ -306,6 +308,31 @@ public class DBAccess
         finally { if (con.State == ConnectionState.Open) con.Close(); }
 
         return outParam;
+    }
+
+    public void cancelBill(int pBranch, int pSeason, int pUserId, int pBillId)
+    {
+        try
+        {
+            con = new DBCon().getConnection(GValues.DBMode);
+            con.Open();
+
+            command = new SqlCommand();
+            command.Connection = con;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "mobile_cancelBill";
+
+            command.Parameters.Add("pBranch", SqlDbType.Int).Value = pBranch;
+            command.Parameters.Add("pSeason", SqlDbType.Int).Value = pSeason;
+            command.Parameters.Add("pUserId", SqlDbType.Int).Value = pUserId;
+            command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillId;
+
+            command.ExecuteNonQuery();
+
+            con.Close();
+        }
+        catch (Exception exc) { WriteToEventLog(exc.Message, EventLogEntryType.Error); throw exc; }
+        finally { if (con.State == ConnectionState.Open) con.Close(); }
     }
 
     public void closeBill(int pBillId, int pBranch, int pSeason, int pPaymentType, int pUserId)
@@ -434,10 +461,10 @@ public class DBAccess
         finally { if (con.State == ConnectionState.Open) con.Close(); }
     }
 
-    public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pBranch, int pSeason, int pUserId, string pUserName)
+    public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pPeopleCount, int pBranch, int pSeason, int pUserId, string pUserName)
     {
         report4PrintServer ps = new report4PrintServer();
-        ps.commitDish(GValues.DBMode, new DTO_DBoard.Bill() { id = pId, numb = pNumb, table = pTable }, pSeason, pUserId, pUserName);
+        ps.commitDish(GValues.DBMode, new DTO_DBoard.Bill() { id = pId, numb = pNumb, table = pTable, peopleCount = pPeopleCount }, pSeason, pUserId, pUserName);
 
         dtResult = new DataTable();
 
@@ -459,6 +486,7 @@ public class DBAccess
             command.Parameters.Add("pSeason", SqlDbType.Int).Value = pSeason;
             command.Parameters.Add("pBill", SqlDbType.Int).Value = pId;
             command.Parameters.Add("pTable", SqlDbType.Int).Value = pTable;
+            command.Parameters.Add("pPeopleCount", SqlDbType.Int).Value = pPeopleCount;
 
 
             using (SqlDataReader dr = command.ExecuteReader()) { dtResult.Load(dr); }
