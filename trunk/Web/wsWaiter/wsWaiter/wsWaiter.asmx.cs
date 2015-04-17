@@ -53,21 +53,27 @@ namespace com.sbs.ws.waiter
         }
 
         [WebMethod(EnableSession = true)]
-        public List<int> openBill(int pBranch, int pSeason, int pxTable, int pUserOpen)
+        public List<int> openBill(int pBranch, int pSeason, int pxTable, int pPeopleCount, int pUserOpen)
         {
-            return dbAccess.openBill(pBranch, pSeason, pxTable, pUserOpen);
+            return dbAccess.openBill(pBranch, pSeason, pxTable, pPeopleCount, pUserOpen);
+        }
+
+        [WebMethod(EnableSession = true)]
+        public void cancelBill(int pBranch, int pSeason, int pUserId, int pBillId)
+        { 
+            dbAccess.cancelBill(pBranch, pSeason, pUserId, pBillId);
         }
 
         [WebMethod(EnableSession = true)]
         public void closeBill(int pBillId, int pBranch, int pSeason, int pPaymentType, int pUserId)
-        { 
-
+        {
+            dbAccess.closeBill(pBillId, pBranch, pSeason, pPaymentType, pUserId);
         }
 
         [WebMethod(EnableSession = true)]
-        public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pBranch, int pSeason, int pUserId, string pUserName)
+        public List<DTO.MenuDishes> commitBill(int pId, int pNumb, int pTable, int pPeopleCount, int pBranch, int pSeason, int pUserId, string pUserName)
         {
-            return dbAccess.commitBill(pId, pNumb, pTable, pBranch, pSeason, pUserId, pUserName);
+            return dbAccess.commitBill(pId, pNumb, pTable, pPeopleCount, pBranch, pSeason, pUserId, pUserName);
         }
 
         [WebMethod(EnableSession = true)]
@@ -87,8 +93,6 @@ namespace com.sbs.ws.waiter
         {
             return dbAccess.getReferences(pBranch);
         }
-
-
 
         private void WriteToEventLog(string strLogEntry, EventLogEntryType eType)
         {
