@@ -110,9 +110,9 @@ namespace com.sbs.gui.linkdevice
 
                 command.CommandType = CommandType.Text;
                 command.CommandText = "SELECT id, isnull(lname + ' ' + fname + ' ' + sname, '') AS fio " +
-                                        " FROM users WHERE branch = @branch AND ref_status = 12 ORDER BY lname + ' ' + fname + ' ' + sname";
+                                        " FROM users WHERE ref_status = 12 ORDER BY lname + ' ' + fname + ' ' + sname";
 
-                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                //command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
