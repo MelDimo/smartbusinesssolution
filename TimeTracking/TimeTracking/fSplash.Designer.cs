@@ -44,6 +44,7 @@
             this.Tag = "DIALOG";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fSplash_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.fSplash_KeyUp);
             this.ResumeLayout(false);
 
         }

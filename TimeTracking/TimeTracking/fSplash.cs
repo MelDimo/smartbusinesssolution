@@ -11,8 +11,11 @@ using com.sbs.dll.utilites;
 
 namespace com.sbs.gui.timetracking
 {
+
     public partial class fSplash : Form
     {
+        private bool isPress = true;
+
         private static DBaccess DbAccess = new DBaccess();
         static curUser cUser = new curUser();
 
@@ -26,9 +29,13 @@ namespace com.sbs.gui.timetracking
         private void fSplash_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
-            { 
+            {
                 case Keys.Enter:
-                    runProgramm();
+                    if (isPress)
+                    {
+                        isPress = false;
+                        runProgramm();
+                    }
                     break;
 
                 case Keys.Escape:
@@ -42,24 +49,29 @@ namespace com.sbs.gui.timetracking
 
         private void runProgramm()
         {
+            cUser = new curUser();
+
             switch (GValues.authortype)
             {
                 case 1:
-                    if (!mifareAccess()) { return; }
+                    if (!mifareAccess())
+                    {
+                        fMain fmain = new fMain(cUser);
+                        fmain.ShowDialog();
+                    }
                     break;
                 case 2:
-                    if (!logInAccess()) { return; }
+                    if (!logInAccess())
+                    {
+                        fMain fmain = new fMain(cUser);
+                        fmain.ShowDialog();
+                    }
                     break;
             }
-
-            fMain fmain = new fMain(cUser);
-            fmain.ShowDialog();
         }
 
         private bool logInAccess()
         {
-            cUser = new curUser();
-
             fLoginPWD flogin = new fLoginPWD();
             if (flogin.ShowDialog() == DialogResult.OK)
             {
@@ -77,7 +89,7 @@ namespace com.sbs.gui.timetracking
 
         private bool mifareAccess()
         {
-            cUser = new curUser();
+            bool error = false;
 
             fMIFare fMifare = new fMIFare();
             if (fMifare.ShowDialog() == DialogResult.OK)
@@ -86,12 +98,29 @@ namespace com.sbs.gui.timetracking
                 {
                     cUser = DbAccess.getUserByMifire(GValues.DBMode, fMifare.keyId);
                 }
-                catch (Exception exc) { uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information); return false; }
+                catch (Exception exc)
+                {
+                    uMessage.Show("Ошибка получения данных." + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                    error = true;
+                }
             }
             else
-                return false;
+            {
+                error = true;
+            }
 
-            return true;
+            return error;
+            
+        }
+
+        private void fSplash_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    isPress = true;
+                    break;
+            }
         }
     }
 }

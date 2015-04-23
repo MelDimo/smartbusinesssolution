@@ -22,6 +22,7 @@ namespace com.sbs.gui.timetracking
 
         private void fMIFare_Shown(object sender, EventArgs e)
         {
+            bool error = false;
             try
             {
                 Mifire oMifare = new Mifire();
@@ -30,11 +31,12 @@ namespace com.sbs.gui.timetracking
             }
             catch (Exception exc) 
             { 
-                uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information); 
-                DialogResult = DialogResult.Cancel; 
+                uMessage.Show("Ошибка взаимодействия с ридером" + Environment.NewLine + exc.Message, exc, SystemIcons.Information);
+                error = true;
             }
 
-            DialogResult = DialogResult.OK;
+            if (error) DialogResult = DialogResult.Cancel;
+            else DialogResult = DialogResult.OK;
         }
     }
 }
