@@ -14,7 +14,7 @@ namespace com.sbs.gui.timetracking
         private DataTable dtResult = new DataTable();
         private SqlConnection con;
         private SqlCommand command = null;
-        //private SqlTransaction tx = null;
+        private SqlTransaction tx = null;
 
         internal curUser getUserByMifire(string pDbType, string pKeyId)
         {
@@ -24,32 +24,43 @@ namespace com.sbs.gui.timetracking
 
             int xId = 0; // id "рабочей" записи в dtResult
 
-            con = new DBCon().getConnection(pDbType);
-
             try
             {
+                con = new DBCon().getConnection(pDbType);
+
                 con.Open();
                 command = con.CreateCommand();
 
-                command.CommandText = "SELECT u.id, u.tabn, u.lname + ' ' + u.fname + ' ' + u.sname as fio, tt.id as ttId, tt.datetime_in, tt.datetime_out" +
+                tx = con.BeginTransaction();
+
+                command.Connection = con;
+                command.Transaction = tx;
+
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "checkTimeTracking";
+                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
+                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+
+                command.ExecuteNonQuery();
+
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT TOP 1 u.id, u.tabn, u.lname + ' ' + u.fname + ' ' + u.sname as fio, tt.id as ttId, tt.datetime_in, tt.datetime_out" +
                                         " FROM users u " +
                                         " INNER JOIN users_pwd up ON up.users = u.id " +
                                         " LEFT JOIN timeTracking tt ON tt.users = u.id AND tt.branch = @branch " +
                                         " WHERE up.pwd = @pwd " +
-                                        " ORDER BY tt.id ";
-
-                command.Parameters.Add("pwd", SqlDbType.NVarChar).Value = pKeyId;
-                command.Parameters.Add("branch", SqlDbType.Int).Value = GValues.branchId;
+                                        " ORDER BY ttId DESC ";
 
                 using (SqlDataReader dr = command.ExecuteReader())
                 {
                     dtResult.Load(dr);
                 }
 
+                tx.Commit();
                 con.Close();
             }
             catch (Exception exc) { throw exc; }
-            finally { if (con.State == ConnectionState.Open) con.Close(); }
+            finally { if (con.State == ConnectionState.Open) { tx.Rollback(); con.Close(); } }
 
             switch (dtResult.Rows.Count)
             {
@@ -59,17 +70,6 @@ namespace com.sbs.gui.timetracking
                 case 1:
                     break;
 
-                default:
-                    for (int i = 0; i < dtResult.Rows.Count; i++)
-                    {
-                        if (dtResult.Rows[i]["datetime_in"].ToString().Length == 0
-                            || dtResult.Rows[i]["datetime_out"].ToString().Length == 0)
-                        {
-                            xId = i;
-                            break;
-                        }
-                    }
-                    break;
             }
 
             cUser.id = (int)dtResult.Rows[xId]["id"];
@@ -90,21 +90,10 @@ namespace com.sbs.gui.timetracking
                     cUser.ttId = (int)dtResult.Rows[xId]["ttId"];
                 }
                 else
-                    cUser.curState = 2;
-            }
-
-            if (cUser.curState == 2)
-            {
-                if (MessageBox.Show("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[xId]["datetime_out"].ToString()
-                    + Environment.NewLine + Environment.NewLine + "Зарегистрировать новый приход?",
-                    GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     cUser.curState = 0;
                     cUser.ttId = 0;
                 }
-                else
-                    throw new Exception("Сотрудник: " + cUser.fio + Environment.NewLine + "Регистрация ухода: " + dtResult.Rows[xId]["datetime_out"].ToString());
-
             }
 
             return cUser;

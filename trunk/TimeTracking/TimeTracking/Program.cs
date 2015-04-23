@@ -23,10 +23,6 @@ namespace com.sbs.gui.timetracking
             Config conf = new Config();
             if (!conf.loadConfig()) return;
             if (!conf.loadConString()) return;
-            //GValues.DBMode = "offline";
-            //GValues.DBMode = "online";
-            //UsersInfo.Acl = new List<int>();
-            //UsersInfo.Acl.Add(22);
             UserAuthorize uAuthor = new UserAuthorize();
             uAuthor.checkLogin("dimon", "74563");
             GValues.branchName = "LP2";
@@ -34,17 +30,17 @@ namespace com.sbs.gui.timetracking
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            switch (GValues.authortype)
-            { 
-                case 1:
-                    if (!mifareAccess()) { return; }
-                    break;
-                case 2:
-                    if (!logInAccess()) { return; }
-                    break;
-            }
+            //switch (GValues.authortype)
+            //{ 
+            //    case 1:
+            //        if (!mifareAccess()) { return; }
+            //        break;
+            //    case 2:
+            //        if (!logInAccess()) { return; }
+            //        break;
+            //}
 
-            Application.Run(new fMain(cUser));
+            Application.Run(new fSplash());
         }
 
         private static bool logInAccess()
