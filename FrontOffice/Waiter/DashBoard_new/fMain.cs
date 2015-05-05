@@ -1059,9 +1059,11 @@ namespace com.sbs.gui.dashboard
 
         private bool cancelBills()
         {
+            if (curBill == null) return true;
+
             try
             {
-                dbAccess.BillCancel(GValues.DBMode);
+                dbAccess.BillCancel(GValues.DBMode, curBill.id);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return false; }
 
@@ -1074,6 +1076,7 @@ namespace com.sbs.gui.dashboard
             string xErrMessage = string.Empty;
 
             int tableNumb = 0;
+            int peopleCount = 0;
 
             // Пытаемся создать счет
             xPriv = 3; xErrMessage = "У Вас отсутствуют привилегии на открытие счета.";
@@ -1097,13 +1100,14 @@ namespace com.sbs.gui.dashboard
                 }
 
                 tableNumb = ftable.tableNumber;
+                peopleCount = ftable.peopleCount;
 
                 ftable.Dispose();
             }
 
             try
             {
-                curBill = dbAccess.BillOpen(GValues.DBMode, tableNumb);
+                curBill = dbAccess.BillOpen(GValues.DBMode, tableNumb, peopleCount);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
             
@@ -1130,7 +1134,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                curBill = dbAccess.BillOpen(GValues.DBMode, 0);
+                curBill = dbAccess.BillOpen(GValues.DBMode, 0, 0);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
 

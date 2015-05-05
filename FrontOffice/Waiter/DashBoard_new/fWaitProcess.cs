@@ -216,14 +216,16 @@ namespace com.sbs.gui.dashboard
             sb.AppendLine(string.Format("Официант: {0}", uname));
             sb.AppendLine("-".PadRight(rHeight, '-'));
 
+            printerAddress = GValues.billPrinter.Equals("default") ?
+                                            (new System.Drawing.Printing.PrinterSettings()).PrinterName :
+                                            dtOrder.Rows[0]["printerName"].ToString();
+
             foreach (DataRow dr in dtOrder.Rows)
             {
                 sb.AppendLine(((string)dr["name"]).Trim());
                 sb.AppendLine(string.Format("{0} x {1}", dr["xcount"], dr["price"]).PadLeft(rHeight, ' '));
 
                 totalSum += decimal.Parse(dr["xcount"].ToString()) * decimal.Parse(dr["price"].ToString());
-
-                printerAddress = dr["printerName"].ToString();
             }
 
             sb.AppendLine("-".PadRight(rHeight, '-'));
