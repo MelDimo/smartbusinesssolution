@@ -531,7 +531,7 @@ namespace com.sbs.gui.dashboard
             return oBillInfoList;
         }
 
-        internal DTO_DBoard.Bill BillOpen(string pDbType, int pNumbTable)
+        internal DTO_DBoard.Bill BillOpen(string pDbType, int pNumbTable, int pPeopleCount)
         {
             DTO_DBoard.Bill oBill = new DTO_DBoard.Bill();
             dtResult = new DataTable();
@@ -539,6 +539,7 @@ namespace com.sbs.gui.dashboard
             oBill.openDate = DateTime.Now;
             oBill.refStat = 19;
             oBill.table = pNumbTable;
+            oBill.peopleCount = pPeopleCount;
 
             con = new DBCon().getConnection(pDbType);
 
@@ -559,6 +560,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pNumber", SqlDbType.Int);
                 command.Parameters.Add("pxTable", SqlDbType.Int).Value = oBill.table;
+                command.Parameters.Add("pPeopleCount", SqlDbType.Int).Value = oBill.peopleCount;
                 command.Parameters.Add("pDateOpen", SqlDbType.DateTime).Value = DateTime.Now;
                 command.Parameters.Add("pUserOpen", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
 
@@ -759,7 +761,7 @@ namespace com.sbs.gui.dashboard
             finally { if (con.State == ConnectionState.Open) con.Close(); }
         }
 
-        internal void BillCancel(string pDbType)
+        internal void BillCancel(string pDbType, int pBillId)
         {
             con = new DBCon().getConnection(pDbType);
 
@@ -774,6 +776,7 @@ namespace com.sbs.gui.dashboard
                 command.Parameters.Add("pBranch", SqlDbType.Int).Value = GValues.branchId;
                 command.Parameters.Add("pSeason", SqlDbType.Int).Value = DashboardEnvironment.gSeasonBranch.seasonID;
                 command.Parameters.Add("pUserId", SqlDbType.Int).Value = DashboardEnvironment.gUser.id;
+                command.Parameters.Add("pBillId", SqlDbType.Int).Value = pBillId;
 
                 command.ExecuteNonQuery();
 

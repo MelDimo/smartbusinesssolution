@@ -152,6 +152,11 @@ namespace com.sbs.gui.dashboard
                             fDiscount.ShowDialog();
                         }
                         break;
+
+                    case Keys.M:
+                        linkdevice.fMain flinkDev = new linkdevice.fMain();
+                        flinkDev.ShowDialog();
+                        break;
                 }
             }
             else

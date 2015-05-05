@@ -178,6 +178,7 @@ namespace com.sbs.gui.dashboard
                             break;
                         case eCurrentPanel.MenuGroups:
                             if (!checkBillInfo()) return;
+                            cancelBills();
                             currPanel = eCurrentPanel.Bills;
                             dataGridView_bills_SelectionChanged(null, new EventArgs());
                             break;
@@ -292,7 +293,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                curBill = dbAccess.BillOpen(GValues.DBMode, tableNumb);
+                curBill = dbAccess.BillOpen(GValues.DBMode, tableNumb, tableNumb);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
 
@@ -368,7 +369,7 @@ namespace com.sbs.gui.dashboard
 
             try
             {
-                curBill = dbAccess.BillOpen(GValues.DBMode, 0);
+                curBill = dbAccess.BillOpen(GValues.DBMode, 0, 0);
             }
             catch (Exception exc) { uMessage.Show("Не удалось создать заказ.", exc, SystemIcons.Information); return; }
 
@@ -707,9 +708,11 @@ namespace com.sbs.gui.dashboard
 
         private bool cancelBills()
         {
+            if (curBill == null) return true;
+
             try
             {
-                dbAccess.BillCancel(GValues.DBMode);
+                dbAccess.BillCancel(GValues.DBMode, curBill.id);
             }
             catch (Exception exc) { uMessage.Show("Ошибка обработки данных.", exc, SystemIcons.Information); return false; }
 
@@ -734,6 +737,7 @@ namespace com.sbs.gui.dashboard
 
             if (MessageBox.Show(strMsg.ToString(), GValues.prgNameFull, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+
                 try
                 {
                     dbAccess.BillInfoCancel(GValues.DBMode, curBill);
